@@ -70,6 +70,7 @@
     <TypeScriptCompile Include="app-native\snack\navigation.tsx" />
     <TypeScriptCompile Include="app-native\snack\redux-simple.tsx" />
     <TypeScriptCompile Include="app-native\snack\redux\index.tsx" />
+    <TypeScriptCompile Include="app-web\index.tsx" />
     <TypeScriptCompile Include="App.tsx" />
     <TypeScriptCompile Include="app-native\snack\navigation-playground\App.tsx" />
     <TypeScriptCompile Include="app-native\snack\navigation-playground\Banner.tsx" />
@@ -128,7 +129,7 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>True</UseIIS>
+          <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>50913</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>

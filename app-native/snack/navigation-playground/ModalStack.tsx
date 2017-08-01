@@ -10,23 +10,9 @@ import SampleText from './SampleText';
 const MyNavScreen = ({ navigation, banner }) => (
   <ScrollView>
     <SampleText>{banner}</SampleText>
-    <Button
-      onPress={() => navigation.navigate('Profile', { name: 'Jane' })}
-      title="Go to a profile screen"
-    />
-    <Button
-      onPress={() => navigation.navigate('HeaderTest')}
-      title="Go to a header toggle screen"
-    />
-    {navigation.state.routeName === 'HeaderTest' &&
-      <Button
-        title="Toggle Header"
-        onPress={() =>
-          navigation.setParams({
-            headerVisible: !navigation.state.params ||
-              !navigation.state.params.headerVisible,
-          })}
-      />}
+    <Button onPress={() => navigation.navigate('Profile', { name: 'Jane' })} title="Go to a profile screen" />
+    <Button onPress={() => navigation.navigate('HeaderTest')} title="Go to a header toggle screen" />
+    {navigation.state.routeName === 'HeaderTest' && <Button title="Toggle Header" onPress={() => navigation.setParams({ headerVisible: !navigation.state.params || !navigation.state.params.headerVisible, })} />}
     <Button onPress={() => navigation.goBack(null)} title="Go back" />
   </ScrollView>
 );
@@ -34,9 +20,7 @@ const MyNavScreen = ({ navigation, banner }) => (
 const MyHomeScreen = ({ navigation }) => (
   <MyNavScreen banner="Home Screen" navigation={navigation} />
 );
-(MyHomeScreen as any).navigationOptions = {
-  title: 'Welcome',
-};
+(MyHomeScreen as any).navigationOptions = { title: 'Welcome', };
 
 const MyProfileScreen = ({ navigation }) => (
   <MyNavScreen
@@ -44,9 +28,7 @@ const MyProfileScreen = ({ navigation }) => (
     navigation={navigation}
   />
 );
-(MyProfileScreen as any).navigationOptions = ({ navigation }) => ({
-  title: `${navigation.state.params.name}'s Profile!`,
-});
+(MyProfileScreen as any).navigationOptions = ({ navigation }) => ({ title: `${navigation.state.params.name}'s Profile!`, });
 
 const ProfileNavigator = StackNavigator(
   {
@@ -68,9 +50,9 @@ const ProfileNavigator = StackNavigator(
 const MyHeaderTestScreen = ({ navigation }) => (
   <MyNavScreen banner={`Full screen view`} navigation={navigation} />
 );
+
 (MyHeaderTestScreen as any).navigationOptions = ({ navigation }) => {
-  const headerVisible =
-    navigation.state.params && navigation.state.params.headerVisible;
+  const headerVisible = navigation.state.params && navigation.state.params.headerVisible;
   return {
     header: headerVisible ? undefined : null,
     title: 'Now you see me',

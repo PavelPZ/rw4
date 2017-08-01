@@ -32,8 +32,17 @@
     "noImplicitReturns": true
   },
   "exclude": [
+    //*** web
+    "index.tsx",
+    "app-web/",
+
+    //*** native
+    //"app-native",
+    //"App.tsx",
+
     "jspm_packages/",
-    "node_modules/",
-    "index.tsx"
+    "node_modules/"
+
+
   ]
 }

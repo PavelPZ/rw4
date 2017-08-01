@@ -12,23 +12,20 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
+
 import {
   createNavigator,
   createNavigationContainer,
   TabRouter,
   addNavigationHelpers,
 } from 'react-navigation';
+
 import SampleText from './SampleText';
 
 const MyNavScreen = ({ navigation, banner }) => (
   <ScrollView>
     <SampleText>{banner}</SampleText>
-    <Button
-      onPress={() => {
-        navigation.goBack(null);
-      }}
-      title="Go back"
-    />
+    <Button onPress={() => { navigation.goBack(null); }} title="Go back" />
   </ScrollView>
 );
 
