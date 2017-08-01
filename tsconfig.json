@@ -1,0 +1,39 @@
+{
+  "compileOnSave": true,
+  "compilerOptions": {
+    //**** WEB
+    //"target": "es5",
+    //"module": "system",
+    //"inlineSourceMap": true,
+    //"inlineSources": true,
+    //"importHelpers": true,
+    //"baseUrl": ".",
+    //"paths": {
+    //  "react-md": [ "react-md/" ]
+    //},
+
+    //**** REACT NATIVE
+    "target": "es6",
+    "allowSyntheticDefaultImports": true,
+
+    //**** COMMON
+    "strictNullChecks": false,
+    "downlevelIteration": true,
+    "experimentalDecorators": true,
+    "noImplicitAny": false,
+    "jsx": "react",
+    "lib": [
+      "dom",
+      "es2015",
+      "esnext.asynciterable"
+    ],
+    "moduleResolution": "node",
+    "strict": true,
+    "noImplicitReturns": true
+  },
+  "exclude": [
+    "jspm_packages/",
+    "node_modules/",
+    "index.tsx"
+  ]
+}

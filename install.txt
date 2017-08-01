@@ -1,0 +1,1 @@
+﻿jspm install npm:tslib npm:core-js npm:whatwg-fetch npm:react npm:react-dom npm:redux npm:react-redux npm:redux-saga npm:lodash npm:js-cookie
