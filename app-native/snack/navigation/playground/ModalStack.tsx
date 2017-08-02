@@ -7,10 +7,12 @@ import { Button, ScrollView, Text } from 'react-native';
 import { StackNavigator } from 'react-navigation';
 import SampleText from './SampleText';
 
-const MyNavScreen = ({ navigation, banner }) => (
+const NavControl = ({ navigation, pageTitle }) => (
   <ScrollView>
-    <SampleText>{banner}</SampleText>
-    <Button onPress={() => navigation.navigate('Profile', { name: 'Jane' })} title="Go to a profile screen" />
+    <SampleText>{pageTitle}</SampleText>
+    <Button onPress={() => navigation.navigate('ProfileNavigator', { name: 'Jane ' })} title="Go to Jane" />
+    <Button onPress={() => navigation.navigate('Profile', { name: 'Jane INNER' })} title="Go to Jane INNER" />
+    <Button onPress={() => navigation.navigate('Home')} title="HOME" />
     <Button onPress={() => navigation.navigate('HeaderTest')} title="Go to a header toggle screen" />
     {navigation.state.routeName === 'HeaderTest' && <Button title="Toggle Header" onPress={() => navigation.setParams({ headerVisible: !navigation.state.params || !navigation.state.params.headerVisible, })} />}
     <Button onPress={() => navigation.goBack(null)} title="Go back" />
@@ -18,37 +20,34 @@ const MyNavScreen = ({ navigation, banner }) => (
 );
 
 const MyHomeScreen = ({ navigation }) => (
-  <MyNavScreen banner="Home Screen" navigation={navigation} />
+  <NavControl pageTitle="Home Screen" navigation={navigation} />
 );
 (MyHomeScreen as any).navigationOptions = { title: 'Welcome', };
 
 const MyProfileScreen = ({ navigation }) => (
-  <MyNavScreen
-    banner={`${navigation.state.params.name}'s Profile`}
-    navigation={navigation}
-  />
+  <NavControl pageTitle={`${navigation.state.params.name}'s Profile`} navigation={navigation} />
 );
 (MyProfileScreen as any).navigationOptions = ({ navigation }) => ({ title: `${navigation.state.params.name}'s Profile!`, });
 
 const ProfileNavigator = StackNavigator(
   {
-    Home: {
-      screen: MyHomeScreen,
-    },
+    //Home: {
+    //  screen: MyHomeScreen,
+    //},
     Profile: {
-      path: 'people/:name',
+      //path: 'people/:name',
       screen: MyProfileScreen,
     },
   },
   {
     navigationOptions: {
-      header: null,
+      //header: null,
     },
   }
 );
 
 const MyHeaderTestScreen = ({ navigation }) => (
-  <MyNavScreen banner={`Full screen view`} navigation={navigation} />
+  <NavControl pageTitle={`Full screen view`} navigation={navigation} />
 );
 
 (MyHeaderTestScreen as any).navigationOptions = ({ navigation }) => {
@@ -67,7 +66,9 @@ const ModalStack = StackNavigator(
     ProfileNavigator: {
       screen: ProfileNavigator,
     },
-    HeaderTest: { screen: MyHeaderTestScreen },
+    HeaderTest: {
+      screen: MyHeaderTestScreen
+    },
   },
   {
     mode: 'modal',

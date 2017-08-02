@@ -2,19 +2,23 @@
 
 import React from 'react';
 import { Text, Button, View } from 'react-native';
-import { StackNavigator, NavigationStackScreenOptions, NavigationStackRouterConfig } from 'react-navigation';
+import { StackNavigator, NavigationStackScreenOptions, NavigationStackRouterConfig, NavigationScreenProp, NavigationRoute, StackNavigatorConfig, NavigationRouteConfig, NavigationScreenConfig } from 'react-navigation';
 
-const Screen1 = ({ navigation }) => {
-  const params = navigation.state.params;
+type TProps<TParams> = {
+  navigation: NavigationScreenProp<NavigationRoute<TParams>, any>
+}
+type TScreenProps = TProps<{ name?: string, descr?: string }>;
+
+const Screen1 = ({ navigation }: TScreenProps) => {
+  console.log(JSON.stringify(navigation));
+  const { params = { name: 'none' } } = navigation.state;
   return <View>
-    <Text>Name: {params ? params.name : 'none'}</Text>
+    <Text>{`Name: ${params.name}`}</Text>
     <Button onPress={() => navigation.navigate('Screen2', { descr: 'info from screen1' })} title="Open Screen2" />
   </View>
 }
-(Screen1 as any).navigationOptions = props => {
-  const { navigation } = props;
+(Screen1 as any).navigationOptions = ({ navigation }: TScreenProps) => {
   const { state, setParams } = navigation;
-  const { params } = state;
   return {
     title: 'Screen1',
     headerRight: <Button title='Button' onPress={() => setParams({ name: 'headerRight' })} />,
@@ -24,17 +28,17 @@ const Screen1 = ({ navigation }) => {
   } as NavigationStackScreenOptions
 }
 
-const Screen2 = ({ navigation }) => {
-  const params = navigation.state.params;
+const Screen2 = ({ navigation }: TScreenProps) => {
+  const { params = { name: 'none', descr: 'none' } } = navigation.state;
   return <View>
-    <Text>Name: {params ? params.name : 'none'}, descr: {params ? params.descr : 'none'}</Text>
+    <Text>{`Name: ${params.name}, descr: ${params.descr}`}</Text>
     <Button onPress={() => navigation.navigate('Screen1')} title="Open Screen1" />
   </View>
 }
-(Screen2 as any).navigationOptions = props => {
-  const { navigation } = props;
+(Screen2 as any).navigationOptions = ({ navigation }: TScreenProps) => {
   const { state, setParams } = navigation;
-  const { params = {} as any } = state;
+  const { params = { name: 'none name', descr: 'none descr' } } = state;
+  console.log('params: ' + JSON.stringify(params));
   return {
     title: 'Screen2',
     header: <View style={{ marginTop: 30, justifyContent: 'space-between', alignItems: 'center', flexDirection: 'row', backgroundColor: 'yellow' }}>
@@ -49,18 +53,14 @@ const Screen2 = ({ navigation }) => {
 const Stack = StackNavigator({
   Screen1: {
     screen: Screen1,
-
-  },
+  } as NavigationRouteConfig<{ screen }>, //something wrong here in typedef, with 'screen'
   Screen2: {
     screen: Screen2,
   },
 }, {
   initialRouteName: 'Screen2',
-  paths: {
-    Screen1: 's1',
-    Screen2: 's2',
-  }
-} as NavigationStackRouterConfig);
+  //initialRouteParams: { name: 'initialRouteParams'}
+} as StackNavigatorConfig);
 
 
 export default Stack;

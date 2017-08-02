@@ -5,9 +5,10 @@ import React from 'react'
 
 //import App from './app-native/snack/redux-simple';
 //import App from './app-native/snack/navigation';
-//import App from './app-native/snack/navigation-playground/App';
-//import App from './app-native/snack/redux/index';
-import App from './app-native/snack/stack-navigator';
+//import App from './app-native/snack/navigation/playground/App';
+//import App from './app-native/snack/navigation/redux/index';
+//import App from './app-native/snack/navigation/stack';
+import App from './app-native/snack/navigation/top-level-navigator';
 
 export default App;
 
