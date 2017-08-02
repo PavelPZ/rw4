@@ -1,16 +1,16 @@
 import React from 'react';
 import { Text, Button, View, ViewStyle } from 'react-native';
 import { StackNavigator, StackNavigatorConfig, NavigationContainer, NavigationAction, NavigationRoute } from 'react-navigation';
-import { IScreenProps, modifyNavigator } from 'app-common';
+import { IScreenProps, modifyNavigator, modifyScreen, IScreen } from '../../../app-common';
 
-const InnerScreenComp = (props: IScreenProps) => <View style={{ flex: 1 }}>
+const InnerScreenComp: IScreen = props => <View style={{ flex: 1 }}>
   <Text><Text onPress={() => {
     console.log(JSON.stringify(props, null, 2))
     props.navigation.goBack()
   }}>BACK</Text> INNER SCREEN</Text>
-  <Button onPress={() => props.navigation.navigate('InnerScreen')} title="Open InnerScreen" />
+  <Button onPress={() => InnerScreenComp.navigate(props, 'InnerScreen')} title="Open InnerScreen" />
 </View>
-
+modifyScreen(InnerScreenComp);
 
 const InnerStack = StackNavigator({
   InnerScreen: {
@@ -19,29 +19,24 @@ const InnerStack = StackNavigator({
 }, {
   navigationOptions: { header: null }
 } as StackNavigatorConfig)
-
 modifyNavigator(InnerStack);
 
-const defaultInnerGetStateForAction = InnerStack.router.getStateForAction
-InnerStack.router.getStateForAction = (action, state) => {
-  const res = defaultInnerGetStateForAction(action, state)
-  //console.log('getInnerStateForAction: ' + JSON.stringify({ action, state, res }, null, 2))
-  return res
-}
-
-const MainScreenComp = (props: IScreenProps<IMainStackProps, IMainScreenProps>) => {
+const MainScreenComp: IScreen<IMainStackProps, IMainScreenProps> = props => {
   console.log('MainScreenComp: ' + JSON.stringify(props, null, 2))
-  const { siblings } = props.navigation.state
+  const { siblings, params } = props.navigation.state
+  const { testProp } = props.screenProps //IMainStackProps
   return <View style={{ flex: 1 }}>
     <Text>{!siblings || siblings.length <= 1 ? null : <Text onPress={() => {
-      //props.navigation.setParams({ testProp2:2 })
       props.navigation.goBack(siblings[1])
     }}>BACK</Text>} MAIN SCREEN</Text>
-    <Button onPress={() => props.navigation.navigate('MainScreen')} title="Open MainScreen" />
+    <Button onPress={() => MainScreenComp.navigate(props, 'MainScreen', { testProp2: 3 })} title="Open MainScreen" />
+    <Button onPress={() => MainScreenComp.setParams(props, { testProp2: 2 })/*IMainScreenProps*/} title="Set Params" />
+    <Text>{params ? params.testProp2 : ''}</Text>
     <InnerStack screenProps={{ parentNavig: props.navigation }} />
   </View>
 }
 interface IMainScreenProps { testProp2: number }
+modifyScreen(MainScreenComp);
 
 const MainStack = StackNavigator({
   MainScreen: {
@@ -64,3 +59,17 @@ const App = () => <View style={{ flex: 1, marginTop: 30 }}>
 </View>
 
 export default App
+
+const Stack = StackNavigator({
+  MainScreen: {
+    screen: InnerStack,
+  },
+  SubScreen: {
+    screen: InnerStack,
+  }
+
+});
+
+
+const initialState = Stack.router.getStateForAction(Stack.router.getActionForPathAndParams('MainScreen'));
+console.log(JSON.stringify(initialState,null,2))

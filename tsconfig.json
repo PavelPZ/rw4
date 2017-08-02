@@ -13,11 +13,11 @@
     "allowSyntheticDefaultImports": true,
 
     //**** COMMON
-    "baseUrl": ".",
-    "paths": {
-      //  "react-md": [ "react-md/" ]
-      "app-common": [ "app-common/index" ]
-    },
+    //"baseUrl": ".",
+    //"paths": {
+    //  //  "react-md": [ "react-md/" ]
+    //  "app-common": [ "app-common/index" ]
+    //},
 
     "strictNullChecks": false,
     "downlevelIteration": true,

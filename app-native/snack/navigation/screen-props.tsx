@@ -1,1 +1,0 @@
-//TODO: vyzkouset https://reactnavigation.org/docs/navigators/tab#Navigator-Props
