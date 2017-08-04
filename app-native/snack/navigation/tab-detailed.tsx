@@ -1,7 +1,7 @@
 import React from 'react';
 import { Text, Button, View, ViewStyle } from 'react-native';
 import { TabNavigator, TabNavigatorConfig, NavigationContainer, NavigationAction, NavigationRoute } from 'react-navigation';
-import { IScreenProps, modifyNavigator, modifyScreen, IScreen } from '../../../app-common';
+import { modifyNavigator, modifyScreen, IScreen } from '../../../app-common';
 
 const Tab1ScreenComp: IScreen<ITab1NavigatorProps, ITab1ScreenProps> = props => {
   const { siblings, params } = props.navigation.state
@@ -10,13 +10,13 @@ const Tab1ScreenComp: IScreen<ITab1NavigatorProps, ITab1ScreenProps> = props => 
     <Text>{!siblings || siblings.length <= 1 ? null : <Text onPress={() => {
       props.navigation.goBack(siblings[1])
     }}>BACK</Text>} MAIN SCREEN</Text>
-    <Button onPress={() => Tab1ScreenComp.navigate(props, 'Tab2', { testProp2: 3 })} title="Open MainScreen" />
+    <Button onPress={() => Tab1ScreenComp.navigate(props, { testProp2: 3 })} title="Open MainScreen" />
     <Button onPress={() => Tab1ScreenComp.setParams(props, { testProp2: 2 })/*IMainScreenProps*/} title="Set Params" />
     <Text>{params ? params.testProp2 : ''}</Text>
   </View>
 }
 interface ITab1ScreenProps { testProp2: number }
-modifyScreen(Tab1ScreenComp);
+modifyScreen(Tab1ScreenComp, 'TAB1');
 
 const MainStack = TabNavigator({
   Tab1: {

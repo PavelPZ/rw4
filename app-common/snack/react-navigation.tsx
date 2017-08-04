@@ -10,10 +10,11 @@ import addNavigationHelpers from 'react-navigation/lib/addNavigationHelpers'
 //const View = ({ children, style }: { children?, style?}) => <div style={{ fontSize: '18px', ...style }}>{children}</div>
 
 // REACT NATIVE
-import { TabNavigator, StackNavigator } from 'react-navigation'
+import { TabNavigator, StackNavigator, TabNavigatorConfig } from 'react-navigation'
 import { View, Text } from 'react-native'
 
 const MainStack = ({ navigation }) => {
+  console.log('*** MainStack ', JSON.stringify(navigation,null,2));
   return <View style={{ flex: 1 }}>
     <Text>MAIN STACK</Text>
     <Text onPress={() => navigation.navigate('SubStackScreen')}>To Inner</Text>
@@ -38,13 +39,12 @@ const InnerStack = ({ navigation }) => {
 }
 
 const LeftTab = ({ navigation }) => {
-  debugger;
   return <View style={{ flex: 1 }}>
     <Text>LEFT TAB</Text>
     <Text onPress={() => navigation.navigate('RightTabScreen')}>To Right</Text>
     <Text onPress={() => navigation.navigate('LeftTabScreen')}>To Left</Text>
     <Text onPress={() => navigation.goBack()}>Back</Text>
-    <Stack/>
+    <Stack />
   </View>
 }
 
@@ -54,7 +54,7 @@ const RightTab = ({ navigation }) => {
     <Text onPress={() => navigation.navigate('RightTabScreen')}>To Right</Text>
     <Text onPress={() => navigation.navigate('LeftTabScreen')}>To Left</Text>
     <Text onPress={() => navigation.goBack()}>Back</Text>
-    <Stack/>
+    <Stack />
   </View >
 }
 
@@ -68,19 +68,35 @@ const Stack = StackNavigator({
   }
 });
 
-//modifyNavigator(Stack)
+modifyNavigator(Stack)
 
 const Tab = TabNavigator({
   LeftTabScreen: {
-    screen: LeftTab, //Stack,
+    screen: Stack,
+    navigationOptions: {
+      screenProps: {
+        test: 'screenProps'
+      }
+    }
   },
   RightTabScreen: {
     screen: Stack,
   }
-});
-//modifyNavigator(Tab)
+},
+  {
+    navigationOptions: {
+      paths: {
+        x:'x'
+      },
+      screenProps: {
+        test: 'screenProps'
+      }
+    }
+  } as TabNavigatorConfig
+);
+modifyNavigator(Tab)
 
-const Root = () => <View style={{ flex: 1, marginTop: 30 }}><Tab/></View>
+const Root = () => <View style={{ flex: 1, marginTop: 30 }}><Tab /></View>
 
 
 export default Root;
