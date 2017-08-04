@@ -1,16 +1,17 @@
 import React from 'react';
 import { modifyNavigator } from '../react-navigator-lib';
 
-// WEB
 import addNavigationHelpers from 'react-navigation/lib/addNavigationHelpers'
-import { StackNavigator } from '../../app-web/react-navigation/stack-navigator'
-import { TabNavigator } from '../../app-web/react-navigation/tab-navigator'
-const Text = ({ children, onPress }: { children?, onPress?}) => <span style={{ display: 'block' }} onClick={() => { if (!onPress) return; onPress() }}>{children}</span>
-const View = ({ children, style }: { children?, style?}) => <div style={{ fontSize: '18px', ...style }}>{children}</div>
+
+// WEB
+//import { StackNavigator } from '../../app-web/react-navigation/stack-navigator'
+//import { TabNavigator } from '../../app-web/react-navigation/tab-navigator'
+//const Text = ({ children, onPress }: { children?, onPress?}) => <span style={{ display: 'block' }} onClick={() => { if (!onPress) return; onPress() }}>{children}</span>
+//const View = ({ children, style }: { children?, style?}) => <div style={{ fontSize: '18px', ...style }}>{children}</div>
 
 // REACT NATIVE
-//import { TabNavigator } from 'react-navigation'
-//import { View, Text } from 'react-native'
+import { TabNavigator, StackNavigator } from 'react-navigation'
+import { View, Text } from 'react-native'
 
 const MainStack = ({ navigation }) => {
   return <View style={{ flex: 1 }}>
@@ -79,7 +80,7 @@ const Tab = TabNavigator({
 });
 //modifyNavigator(Tab)
 
-const Root = () => <View style={{ flex: 1, marginTop: 30 }}><Tab /></View>
+const Root = () => <View style={{ flex: 1, marginTop: 30 }}><Tab/></View>
 
 
 export default Root;
