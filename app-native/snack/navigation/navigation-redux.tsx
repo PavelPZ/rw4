@@ -37,8 +37,6 @@ const AppNavigator = DrawerNavigator({
   }
 });
 
-
-
 const firstAction = NavigationActions.navigate({ routeName: 'Tab1' })
 const initialState = AppNavigator.router.getStateForAction(firstAction)
 console.log('@@@ initialNavState', JSON.stringify(initialState, null, 2))
@@ -51,27 +49,29 @@ const navReducer = (state, action) => {
   return nextState || state;
 };
 
-const appReducer = combineReducers({
-  nav: navReducer,
-});
 
-class App extends React.Component<{ nav }> {
+class App extends React.Component<{ nav, dispatch }> {
   render() {
-    console.log('App.render', JSON.stringify(this.props, null, 2))
+    //console.log('App.render', JSON.stringify(this.props, null, 2))
     return (
       <AppNavigator navigation={addNavigationHelpers({
-        dispatch: (this.props as any).dispatch,
-        state: (this.props as any).nav,
+        dispatch: this.props.dispatch,
+        state: this.props.nav,
       })} />
     );
   }
 }
 
-const mapStateToProps = (state) => ({
-  nav: state.nav
+const AppWithNavigationState = connect(state => ({ nav: state.nav }))(App);
+
+const appReducer = combineReducers({
+  nav: navReducer,
 });
 
-const AppWithNavigationState = connect(mapStateToProps)(App);
+//const appReducer = (state, action) =>({
+//  nav: navReducer(state, action)
+//});
+
 
 const store = createStore(appReducer);
 

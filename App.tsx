@@ -8,7 +8,8 @@ import React from 'react'
 //import App from './app-native/snack/navigation/playground/App';
 //import App from './app-native/snack/navigation/redux/index';
 //import App from './app-native/snack/navigation/stack';
-import App from './app-native/snack/navigation/navigation-redux';
+//import App from './app-native/snack/navigation/navigation-redux';
+import App from './app-common/snack/react-navigation'; 
 
 export default App;
 

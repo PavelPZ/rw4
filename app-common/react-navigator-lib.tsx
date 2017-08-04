@@ -12,7 +12,7 @@ export const modifyNavigator = (navig: NavigationContainer) => {
     const res = defaultGetStateForAction(action, state)
     const last = res.routes[res.routes.length - 1]
     last.siblings = res.routes.map(r => r.key);
-    console.log('getStateForAction: ' + JSON.stringify({ action, state, res }, null, 2))
+    console.log('getStateForAction: ' + JSON.stringify({ action, res }, null, 2))
     return res
   }
 }

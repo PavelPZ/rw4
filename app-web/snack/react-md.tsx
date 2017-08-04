@@ -1,4 +1,3 @@
-import 'react';
 import React from 'react';
 import ReactDOM from 'react-dom';
 
@@ -42,8 +41,4 @@ const Root = () => <div>
   />
 </div>
 
-export default function init() {
-  ReactDOM.render(<Root />, document.getElementById('content'));
-}
-
-
+export default Root;

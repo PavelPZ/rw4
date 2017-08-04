@@ -71,5 +71,5 @@ const Stack = StackNavigator({
 });
 
 
-const initialState = Stack.router.getStateForAction(Stack.router.getActionForPathAndParams('MainScreen'));
-console.log(JSON.stringify(initialState,null,2))
+//const initialState = Stack.router.getStateForAction(Stack.router.getActionForPathAndParams('MainScreen'));
+//console.log(JSON.stringify(initialState,null,2))

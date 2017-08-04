@@ -2,22 +2,21 @@
   "compileOnSave": true,
   "compilerOptions": {
     //**** WEB
-    //"target": "es5",
-    //"module": "system",
-    //"inlineSourceMap": true,
-    //"inlineSources": true,
-    //"importHelpers": true,
+    "target": "es5",
+    "module": "system",
+    "inlineSourceMap": true,
+    "inlineSources": true,
+    "importHelpers": true,
+    "baseUrl": ".",
+    "paths": {
+      "react-md": [ "react-md/" ]
+    },
 
     //**** REACT NATIVE
-    "target": "es6",
-    "allowSyntheticDefaultImports": true,
+    //"target": "es6",
+    //"allowSyntheticDefaultImports": true,
 
     //**** COMMON
-    //"baseUrl": ".",
-    //"paths": {
-    //  //  "react-md": [ "react-md/" ]
-    //  "app-common": [ "app-common/index" ]
-    //},
 
     "strictNullChecks": false,
     "downlevelIteration": true,
@@ -35,12 +34,12 @@
   },
   "exclude": [
     //*** web
-    "index.tsx",
-    "app-web/",
+    //"index.tsx",
+    //"app-web/",
 
     //*** native
-    //"app-native",
-    //"App.tsx",
+    "app-native",
+    "App.tsx",
 
     "jspm_packages/",
     "node_modules/"

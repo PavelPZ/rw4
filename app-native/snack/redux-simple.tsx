@@ -22,7 +22,6 @@ const gen = numbers();
 
 const reducers = (state: IState, action) => ({
   counter: action.type == 'COUNTER' ? gen.next().value : state.counter,
-
 });
 
 const sagaMiddleware = createSagaMiddleware()

@@ -69,7 +69,6 @@
     <Content Include=".gitignore" />
     <TypeScriptCompile Include="app-common\index.ts" />
     <TypeScriptCompile Include="app-common\react-navigator-lib.tsx" />
-    <TypeScriptCompile Include="app-native\snack\navigation\navigation-redux – kopie.tsx" />
     <TypeScriptCompile Include="app-native\snack\navigation\navigation-redux.tsx" />
     <TypeScriptCompile Include="app-native\snack\navigation\tab-detailed.tsx" />
     <TypeScriptCompile Include="app-native\snack\navigation\stack-detailed.tsx" />
@@ -77,7 +76,11 @@
     <TypeScriptCompile Include="app-native\snack\navigation\navigation.tsx" />
     <TypeScriptCompile Include="app-native\snack\redux-simple.tsx" />
     <TypeScriptCompile Include="app-native\snack\navigation\redux\index.tsx" />
-    <TypeScriptCompile Include="app-web\index.tsx" />
+    <TypeScriptCompile Include="app-web\react-navigation\scene-view.tsx" />
+    <TypeScriptCompile Include="app-web\react-navigation\tab-navigator.tsx" />
+    <TypeScriptCompile Include="app-common\snack\react-navigation.tsx" />
+    <TypeScriptCompile Include="app-web\react-navigation\stack-navigator.tsx" />
+    <TypeScriptCompile Include="app-web\snack\react-md.tsx" />
     <TypeScriptCompile Include="App.tsx" />
     <TypeScriptCompile Include="app-native\snack\navigation\playground\App.tsx" />
     <TypeScriptCompile Include="app-native\snack\navigation\playground\Banner.tsx" />
