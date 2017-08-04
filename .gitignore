@@ -290,3 +290,4 @@ __pycache__/
 *.js
 react-md/
 jspm_packages/
+!jspm.config.js

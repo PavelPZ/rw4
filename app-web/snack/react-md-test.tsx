@@ -9,11 +9,13 @@ import ReactDOM from 'react-dom';
       "resize-observer-polyfill": "npm:resize-observer-polyfill",
 */
 
-import Button from 'react-md/Buttons';
-import Paper from 'react-md/Papers';
-import Drawer from 'react-md/Drawers';
-import { Checkbox, Radio, Switch } from 'react-md/SelectionControls';
-import SelectField from 'react-md/SelectFields';
+import Button from 'react-md/Buttons/Button'; 
+import Paper from 'react-md/Papers/Paper';
+import Drawer from 'react-md/Drawers/Drawer';
+import Checkbox from 'react-md/SelectionControls/Checkbox';
+import Radio from 'react-md/SelectionControls/Radio';
+import Switch from 'react-md/SelectionControls/Switch';
+import SelectField from 'react-md/SelectFields/SelectField';
 
 window['process'] = { env: { NODE_ENV: 'development' } }
 

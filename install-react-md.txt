@@ -1,0 +1,18 @@
+﻿- Stahnout z GitHub do d:\rw\react-md-release-1.1.x\
+- npm start
+- npm run build:umd
+- npm run tsd
+- npm run scripts
+- d:\rw\react-md-release-1.1.x\lib\ do D:\rw\rw4\react-md\lib\ ("react-md/*": [ "react-md/lib/*" ] v .tsconfig.json, )
+- d:\rw\react-md-release-1.1.x\dist\ do D:\rw\rw4\react-md\dist\ 
+- v D:\rw\rw4\react-md\lib\Lists\List.js nahradit '../Subheaders' by '../Subheaders/index'
+
+D:\rw\rw4\jspm.config.js
+SystemJS.config({
+  map: {
+    "react-md": "/react-md/lib/"
+  }
+
+D:\rw\rw4\tsconfig.json
+    "paths": {
+      "react-md/*": [ "react-md/lib/*" ]

@@ -104,6 +104,7 @@
     <Content Include="index.html" />
     <Content Include="install.txt" />
     <Content Include="installNPM.txt" />
+    <Content Include="install-react-md.txt" />
     <Content Include="jspm.config.js" />
     <Content Include="packages.config" />
     <Content Include="app.json" />
