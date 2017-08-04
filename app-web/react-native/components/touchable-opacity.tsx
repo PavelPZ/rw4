@@ -1,10 +1,13 @@
 ﻿import React from 'react';
 import PropTypes from 'prop-types';
-import { renderCSS } from '../../web-fela/index';
-import { ViewStyle, ClickHandler } from './lib';
+import { renderCSS } from 'web-fela';
+import { ViewStyle, ClickHandler } from './lib'
+import ReactNative from 'react-native'
+
+export type IWebTouchableOpacity = ReactNative.TouchableOpacityProperties;
 
 //D:\rw\know-how\react-native-web\src\components\Touchable\TouchableHighlight.js
-export const TouchableOpacity = (props: DReactNative.IWebTouchableOpacity) => {
+export const TouchableOpacity = (props: IWebTouchableOpacity) => {
   const {
     activeOpacity = 0.2,
     onPress,
@@ -25,8 +28,8 @@ export const TouchableOpacity = (props: DReactNative.IWebTouchableOpacity) => {
     },
   };
 
-  if (!otherProps.className) otherProps.className = '';
-  otherProps.className += ' component-touchable-opacity ' + renderCSS(ruleProps);
+  //if (!otherProps.className) otherProps.className = '';
+  //otherProps.className += ' component-touchable-opacity ' + renderCSS(ruleProps);
 
-  return <div {...otherProps} />;
+  return <div {...otherProps as any} />;
 }

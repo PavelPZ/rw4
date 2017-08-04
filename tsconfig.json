@@ -2,19 +2,21 @@
   "compileOnSave": true,
   "compilerOptions": {
     //**** WEB
-    //"target": "es5",
-    //"module": "system",
-    //"inlineSourceMap": true,
-    //"inlineSources": true,
-    //"importHelpers": true,
-    //"baseUrl": ".",
-    //"paths": {
-    //  "react-md/*": [ "react-md/lib/*" ]
-    //},
+    "target": "es5",
+    "module": "system",
+    "inlineSourceMap": true,
+    "inlineSources": true,
+    "importHelpers": true,
+    "baseUrl": ".",
+    "paths": {
+      "react-md/*": [ "app-web/react-md/lib/*" ],
+      "web-fela": [ "app-web/fela/index" ],
+      "web-react-native": [ "app-web/react-native/index" ]
+    },
 
     //**** REACT NATIVE
-    "target": "es6",
-    "allowSyntheticDefaultImports": true,
+    //"target": "es6",
+    //"allowSyntheticDefaultImports": true,
 
     //**** COMMON
 
@@ -34,16 +36,15 @@
   },
   "exclude": [
     //*** web
-    "index.tsx",
-    "app-web/",
+    //"index.tsx",
+    //"app-web/",
 
     //*** native
-    //"app-native",
-    //"App.tsx",
+    "app-native",
+    "App.tsx",
 
     "jspm_packages/",
     "node_modules/"
-
 
   ]
 }

@@ -1,17 +1,26 @@
 import { I18nManager as I18nMan } from 'react-native';
 
+/*
+D:\rw\rw4\app-web\react-native\apis\I18nManager.ts
+export interface I18nManagerStatic {
+    isRTL(): boolean
+    allowRTL: (allowRTL: boolean) => void
+    forceRTL: (forceRTL: boolean) => void
+}
+*/
+
 class II18nManager implements I18nMan {
 
   isPreferredLanguageRTL = false;
   isRTLAllowed = true;
   isRTLForced = false;
 
-  allowRTL(value: boolean):void {
+  allowRTL = (value: boolean) => {
     this.isRTLAllowed = value;
     this.onChange();
   }
 
-  forceRTL(value: boolean) {
+  forceRTL = (value: boolean) => {
     this.isRTLForced = value;
     this.onChange();
   }
@@ -21,7 +30,7 @@ class II18nManager implements I18nMan {
     this.onChange();
   }
 
-  public get isRTL(): boolean {
+  public isRTL(): boolean {
     if (this.isRTLForced) return true;
     return this.isRTLAllowed && this.isPreferredLanguageRTL;
   }

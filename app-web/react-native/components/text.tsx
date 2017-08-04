@@ -1,24 +1,24 @@
 ﻿import React from 'react';
 import PropTypes from 'prop-types';
-import { renderCSS } from '../../web-fela/index';
-import { ClickHandler } from './lib';
-import { palette } from 'common-lib';
+import { renderCSS } from 'web-fela';
+import { MouseHandler } from './lib';
+import ReactNative from 'react-native';
+
+export type IWebText = ReactNative.TextProperties & {children};
 
 //d:\rw\know-how\react-native-web\src\components\Text\index.js
-export const Text = (props: DReactNative.IWebText) => {
+export const Text = (props: IWebText) => {
   const {
     numberOfLines,
     onPress,
     selectable,
     style,
     ...otherPropsTyped
-    } = props;
-  const otherProps = otherPropsTyped;
+  } = props;
+  const otherProps = otherPropsTyped as CSSProperties;
 
   const st = style as any as CSSProperties; //vadi textShadowColor, fontWeight, textAlign, transform
   if (st && st.textDecorationLine) { st.textDecoration = st.textDecorationLine; delete st.textDecorationLine; } 
-
-  ClickHandler(onPress, otherProps);
 
   // allow browsers to automatically infer the language writing direction
   if (otherProps != undefined) otherProps.dir = 'auto';
@@ -31,7 +31,6 @@ export const Text = (props: DReactNative.IWebText) => {
     textDecorationLine: 'none',
     whiteSpace: 'pre-wrap',
     wordWrap: 'break-word',
-    //...(!this.context.isInAParentText ? { whiteSpace: 'pre-wrap' } : null),
     ...(selectable === false ? { userSelect: 'none' } as CSSProperties : null),
     ...(numberOfLines === 1 ? {
       maxWidth: '100%',
@@ -46,6 +45,6 @@ export const Text = (props: DReactNative.IWebText) => {
   if (!otherProps.className) otherProps.className = '';
   otherProps.className += ' component-text ' + renderCSS(ruleProps);
 
-  return <div {...otherProps as any}/>;
+  return <div {...otherProps as any} onClick={MouseHandler(onPress)} />;
 };
 

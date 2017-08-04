@@ -54,5 +54,15 @@ declare namespace DFela {
 }
 
 
-type CSSProperties = DStyles.CSSProperties & DStyles.NestedCSSSelectors & DFela.IExtend;
+type CSSProperties = DStyles.CSSProperties & DStyles.NestedCSSSelectors & DFela.IExtend & { className?: string; dir?: string;};
 type KeyFrames = DStyles.KeyFrames;
+
+//************** REACT NATIVE PROPS
+//interface IWebProps {
+//  onClick?: React.MouseEventHandler<{}>;
+//  onKeyDown?: React.KeyboardEventHandler<{}>;
+//  className?: string;
+//  children?: React.ReactNode;
+//  dir?: string;
+//  tabIndex?: number;
+//}

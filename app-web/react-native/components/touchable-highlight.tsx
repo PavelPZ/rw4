@@ -1,20 +1,23 @@
 ﻿import React from 'react';
 import PropTypes from 'prop-types';
-import { renderCSS } from '../../web-fela/index';
+import { renderCSS } from 'web-fela';
 import { ViewStyle, ClickHandler } from './lib';
+import ReactNative from 'react-native'
+
+export type IWebTouchableHighlight = ReactNative.TouchableHighlightProperties & {children?};
 
 //D:\rw\know-how\react-native-web\src\components\Touchable\TouchableHighlight.js
-export const TouchableHighlight = (props: DReactNative.IWebTouchableHighlight) => {
+export const TouchableHighlight = (props: IWebTouchableHighlight) => {
 
   const {
     activeOpacity = 0.85,
     underlayColor = 'black',
     onPress,
     children,
-    onHideUnderlay, onShowUnderlay, style, //avoid TS Error
+    //onHideUnderlay, onShowUnderlay, style, //avoid TS Error
     ...otherPropsTyped
     } = props;
-  const otherProps = otherPropsTyped;
+  const otherProps = otherPropsTyped as any;
 
   ClickHandler(onPress, otherProps);
 

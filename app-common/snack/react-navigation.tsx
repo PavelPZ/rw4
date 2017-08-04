@@ -9,9 +9,8 @@ import addNavigationHelpers from 'react-navigation/lib/addNavigationHelpers'
 //const Text = ({ children, onPress }: { children?, onPress?}) => <span style={{ display: 'block' }} onClick={() => { if (!onPress) return; onPress() }}>{children}</span>
 //const View = ({ children, style }: { children?, style?}) => <div style={{ fontSize: '18px', ...style }}>{children}</div>
 
-// REACT NATIVE
-import { TabNavigator, StackNavigator, TabNavigatorConfig } from 'react-navigation'
-import { View, Text } from 'react-native'
+import { TabNavigatorConfig } from 'react-navigation'
+import { View, Text, TabNavigator, StackNavigator } from '../polyfill'
 
 const MainStack = ({ navigation }) => {
   console.log('*** MainStack ', JSON.stringify(navigation,null,2));
@@ -97,6 +96,9 @@ const Tab = TabNavigator({
 modifyNavigator(Tab)
 
 const Root = () => <View style={{ flex: 1, marginTop: 30 }}><Tab /></View>
+
+//import { View, Text } from '../polyfill'
+//const Root = () => <View style={{ flex: 1, marginTop: 30 }}><Text>HALLO</Text></View>
 
 
 export default Root;

@@ -47,7 +47,6 @@ export const TabNavigator = (routeConfigs: NavigationRouteConfigMap, config: Tab
     //const childNavigation = this.props.childNavigationProps[route.key]; //spojeno s const TabViewEx = withCachedChildNavigation(TabView) nize
     let childNavigation2 = { dispatch, state: route };
     childNavigation2 = addNavigationHelpers(childNavigation2);
-    debugger;
     return <TabComponent navigation={childNavigation2} />
     //return <TabViewEx {...props} />
   });

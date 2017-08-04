@@ -1,31 +1,26 @@
-﻿import React from 'react';
-import PropTypes from 'prop-types';
-import { renderCSSs } from '../../web-fela/index';
-import { ClickHandler } from './lib';
-import { palette, buttonTheme } from 'common-lib';
+﻿import React from 'react'
+import PropTypes from 'prop-types'
+import { renderCSSs } from 'web-fela'
+import { MouseHandler } from './lib'
+import ReactNative from 'react-native'
+import { Button as MDButton } from '../../react-md/index'
+
+export type IWebButton = ReactNative.ButtonProperties & DReactNative.ButtonEx; // & IWebProps;
 
 //D:\rw\know-how\react-native-web\src\components\Button\index.js
 //https://github.com/facebook/react-native/blob/master/Libraries/Components/Button.js
-export const Button = (props: DReactNative.IWebButton) => {
+export const Button = (props: IWebButton) => {
 
   const {
     title,
     onPress,
     color,
-    disabled,
-    children,
-    tabIndex,
-    flat,
+    primary = true,
+    //children,
+    //tabIndex,
+    //flat,
     ...otherPropsTyped
     } = props;
-  const otherProps: React.HTMLAttributes<HTMLDivElement> = otherPropsTyped as any;
-
-  ClickHandler(onPress, otherProps);
-
-  if (!otherProps.className) otherProps.className = '';
-  otherProps.className += ' component-button ' + (!disabled ? 'ripple ' : '') + renderCSSs(buttonTheme(color, flat, disabled));
-
-  return <div {...otherProps} tabIndex={disabled ? -1 : (tabIndex ? tabIndex : 1)} onClick={() => { if (disabled) return; onPress(); }}>
-    {title ? title.toUpperCase() : props.children}
-  </div>;
+  
+  return <MDButton {...otherPropsTyped} label={title} primary={primary} raised onClick={MouseHandler(onPress)} />
 }
