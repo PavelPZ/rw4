@@ -68,6 +68,8 @@
   <ItemGroup>
     <Content Include=".gitignore" />
     <TypeScriptCompile Include="app-common\index.ts" />
+    <TypeScriptCompile Include="app-native\snack\icons.tsx" />
+    <TypeScriptCompile Include="polyfill\index.tsx" />
     <TypeScriptCompile Include="app-common\react-navigator-lib.tsx" />
     <TypeScriptCompile Include="app-common\typings.d.ts" />
     <TypeScriptCompile Include="app-native\snack\navigation\navigation-redux.tsx" />
@@ -79,6 +81,7 @@
     <TypeScriptCompile Include="app-native\snack\navigation\redux\index.tsx" />
     <TypeScriptCompile Include="app-web\react-md\index.ts" />
     <TypeScriptCompile Include="app-web\react-navigation\index.ts" />
+    <TypeScriptCompile Include="app-web\snack\drawer.tsx" />
     <TypeScriptCompile Include="app-web\typings.d.ts" />
     <TypeScriptCompile Include="app-web\fela\fela.d.ts" />
     <TypeScriptCompile Include="app-web\fela\index.tsx" />
@@ -133,7 +136,7 @@
     <None Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
-    <TypeScriptCompile Include="app-common\polyfill.tsx" />
+    <TypeScriptCompile Include="polyfill\web.tsx" />
     <TypeScriptCompile Include="index.tsx" />
     <TypeScriptCompile Include="app-common\CSStyles.d.ts" />
     <TypeScriptCompile Include="app-native\expo.d.ts" />

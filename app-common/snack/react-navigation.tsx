@@ -10,7 +10,7 @@ import addNavigationHelpers from 'react-navigation/lib/addNavigationHelpers'
 //const View = ({ children, style }: { children?, style?}) => <div style={{ fontSize: '18px', ...style }}>{children}</div>
 
 import { TabNavigatorConfig } from 'react-navigation'
-import { View, Text, TabNavigator, StackNavigator } from '../polyfill'
+import { View, Text, TabNavigator, StackNavigator } from '../../polyfill/index'
 
 const MainStack = ({ navigation }) => {
   console.log('*** MainStack ', JSON.stringify(navigation,null,2));
@@ -25,7 +25,7 @@ const MainStack = ({ navigation }) => {
   </View>
 }
 
-const InnerStack = ({ navigation }) => {
+const InnerStack = ({ navigation }) => { 
   return <View style={{ flex: 1 }}>
     <Text>INNER STACK</Text>
     <Text onPress={() => navigation.navigate('SubStackScreen')}>To Inner</Text>

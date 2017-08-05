@@ -30,7 +30,7 @@ class II18nManager implements I18nMan {
     this.onChange();
   }
 
-  public isRTL(): boolean {
+  get isRTL () {
     if (this.isRTLForced) return true;
     return this.isRTLAllowed && this.isPreferredLanguageRTL;
   }

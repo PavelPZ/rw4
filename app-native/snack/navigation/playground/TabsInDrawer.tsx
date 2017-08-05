@@ -5,7 +5,7 @@
 import React from 'react';
 import { Button, Platform, ScrollView, StyleSheet } from 'react-native';
 import { TabNavigator, DrawerNavigator } from 'react-navigation';
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import { MaterialIcons } from '@expo/vector-icons';
 import SimpleTabs from './SimpleTabs';
 import StacksOverTabs from './StacksOverTabs';
 

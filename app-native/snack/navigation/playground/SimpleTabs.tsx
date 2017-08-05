@@ -5,7 +5,7 @@
 import React from 'react';
 import { Button, Platform, ScrollView, StyleSheet } from 'react-native';
 import { TabNavigator } from 'react-navigation';
-import Ionicons from 'react-native-vector-icons/Ionicons';
+import { Ionicons } from '@expo/vector-icons';
 import SampleText from './SampleText';
 
 const MyNavScreen = ({ navigation, banner }) => (

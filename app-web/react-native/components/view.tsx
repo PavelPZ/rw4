@@ -7,7 +7,7 @@ import ReactNative from 'react-native'
 export type IWebView = ReactNative.ViewProperties;
 
 //D:\rw\know-how\react-native-web\src\components\View\index.js
-export const View = (props: IWebView) =>  {
+export const View = (props: IWebView & React.Props<{}>) => {
 
     const {
       style,

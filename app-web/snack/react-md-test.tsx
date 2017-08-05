@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 
 /*Kvuli react-md nainstalovano:
       "prop-types": "npm:prop-types",
@@ -9,7 +8,10 @@ import ReactDOM from 'react-dom';
       "resize-observer-polyfill": "npm:resize-observer-polyfill",
 */
 
-import { Button, Paper, Drawer, Checkbox, Radio, Switch, SelectField } from '../react-md/index';
+import { Button, Paper, Drawer, Checkbox, Radio, Switch, SelectField, FontIcon } from '../react-md/index';
+import { Text, View } from '../../polyfill/index'
+import { renderCSS } from 'web-fela'
+
 
 window['process'] = { env: { NODE_ENV: 'development' } }
 
@@ -35,6 +37,12 @@ const Root = () => <div>
     helpOnFocus
     helpText="Select some state for me"
   />
+  <View >
+    <FontIcon className={renderCSS({ alignSelf: 'flex-start' })}>home</FontIcon>
+  </View>
+  <Text>
+    <FontIcon iconClassName="fa fa-star-o" />
+  </Text>
 </div>
 
 export default Root;

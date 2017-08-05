@@ -949,20 +949,24 @@ declare module 'expo' {
 }
 
 declare module '@expo/vector-icons' {
+
+  import { TextStyle, ViewStyle } from 'react-native';
+
   export interface IconProps {
     size?: number;
     name: string;
     color?: string;
+    style?: ViewStyle & TextStyle;
   }
 
   export class Entypo extends React.Component<IconProps, void> { }
-  export class EvilIcons extends React.Component<IconProps, void> { }
-  export class FontAwesome extends React.Component<IconProps, void> { }
-  export class Foundation extends React.Component<IconProps, void> { }
-  export class Ionicons extends React.Component<IconProps, void> { }
-  export class MaterialIcons extends React.Component<IconProps, void> { }
-  export class MaterialComunityIcons extends React.Component<IconProps, void> { }
-  export class Octicons extends React.Component<IconProps, void> { }
-  export class Zocial extends React.Component<IconProps, void> { }
-  export class SimpleLineIcons extends React.Component<IconProps, void> { }
+  export class EvilIcons extends React.Component<IconProps> { }
+  export class FontAwesome extends React.Component<IconProps> { }
+  export class Foundation extends React.Component<IconProps> { }
+  export class Ionicons extends React.Component<IconProps> { }
+  export class MaterialIcons extends React.Component<IconProps> { }
+  export class MaterialComunityIcons extends React.Component<IconProps> { }
+  export class Octicons extends React.Component<IconProps> { }
+  export class Zocial extends React.Component<IconProps> { }
+  export class SimpleLineIcons extends React.Component<IconProps> { }
 }

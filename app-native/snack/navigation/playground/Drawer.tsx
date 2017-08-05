@@ -5,8 +5,9 @@
 import React from 'react';
 import { Button, Platform, ScrollView, StyleSheet } from 'react-native';
 import { DrawerNavigator } from 'react-navigation';
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+//import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import SampleText from './SampleText';
+import { MaterialIcons } from '@expo/vector-icons' 
 
 const MyNavScreen = ({ navigation, banner }) => (
   <ScrollView style={styles.container}>
@@ -59,7 +60,7 @@ const DrawerExample = DrawerNavigator(
     contentOptions: {
       activeTintColor: '#e91e63',
     },
-  }
+  } as any
 );
 
 const styles = StyleSheet.create({
