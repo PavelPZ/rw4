@@ -21,6 +21,6 @@ interface IState {
   login?: Login.IState
 }
 
-interface IPlatform {
+interface IPlatforms {
   login: Login.IPlatform
 }

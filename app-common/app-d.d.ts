@@ -1,10 +1,10 @@
 declare namespace App {
   interface IAppProps {
-    platform: IPlatform
+    platform: IPlatforms
   }
 
-  interface Action {
-    type: any;
+  interface Action<T extends string = string> {
+    type: T;
   }
 
   interface Dispatch {
@@ -17,8 +17,18 @@ declare namespace App {
 
   interface IGlobal {
     store: Store
-    platform?: IPlatform
+    platform?: IPlatforms
+    initializers: Promise<any>[]
   }
+
+  type IInitializerItem = Promise<any> | (() => void)
+  interface IInitializers {
+    stage1?: IInitializerItem[];
+    stage2?: IInitializerItem[];
+    stage3?: IInitializerItem[];
+    stage4?: IInitializerItem[];
+  }
+  type IInitializerNames = keyof IInitializers;
 
   interface IReducer<TState = IState> { (state: TState, action: Action): TState }
 
@@ -30,4 +40,4 @@ interface Window {
 
 interface IState { }
 
-interface IPlatform { }
+interface IPlatforms { }

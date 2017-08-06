@@ -5,15 +5,17 @@ import createSagaMiddleware from 'redux-saga/index'
 import { all, call } from 'redux-saga/effects'
 
 import { reducer as routerReducer, Provider as RouterProvider, saga as routerSaga } from './router'
+import { navigate as appRouterNavigate } from './snack/app-router'
 
 const reducers: App.IReducer = (state, action) => ({
-  ...routerReducer(state, action)
+  ...routerReducer(state, action),
 })
 
 const sagaMiddleware = createSagaMiddleware()
 
 window.lmGlobal = {
-  store: createStore<IState>(reducers, {}, applyMiddleware(sagaMiddleware))
+  store: createStore<IState>(reducers, {}, applyMiddleware(sagaMiddleware)),
+  initializers:[]
 }
 
 function* rootSaga() {
@@ -23,6 +25,8 @@ function* rootSaga() {
 }
 
 sagaMiddleware.run(rootSaga)
+
+appRouterNavigate({ title: 'START TITLE' })
 
 const App = (props: App.IAppProps) => {
   window.lmGlobal.platform = props.platform

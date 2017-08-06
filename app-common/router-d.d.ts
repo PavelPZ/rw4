@@ -2,9 +2,11 @@
 
   const enum Consts { SAGA = 'ROUTER_SAGA', ROUTER = 'ROUTER' }
 
-  interface IState {
-    name: string
-    par
+  type IState = IStateLow<string, {}>
+
+  interface IStateLow<TName extends string, TPar extends {}> {
+    routerName: TName
+    par: TPar
   }
 
   interface IAction {
@@ -12,11 +14,13 @@
     payload: IState
   }
 
-  interface IRoute extends React.SFC {
-    name?: string
+  interface IRoute {
+    routerName?: string
     load?: (par) => Promise<() => Promise<any>>
     needsLogin?: boolean;
   }
+
+  type TRoute = React.ComponentType & IRoute
 }
 
 interface IState {

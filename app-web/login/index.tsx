@@ -2,10 +2,8 @@
 import { connect } from 'react-redux'
 import { registerRouter } from '../../app-common/router'
 
-const loginComp: Router.IRoute = () => null
-loginComp.name = Login.Consts.name
+const loginComp = (state: Login.IState) => null
 
-const loginConnector = connect((state: IState) => state.login)
-export const LoginComp = loginConnector(loginComp)
+const loginConnector = connect(state => state.login)
 
-
+export const LoginComp = registerRouter(loginConnector(loginComp), Login.Consts.name)

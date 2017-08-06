@@ -76,6 +76,8 @@
     <TypeScriptCompile Include="app-common\router.tsx" />
     <TypeScriptCompile Include="app-native\snack\icons.tsx" />
     <TypeScriptCompile Include="app-web\login\index.tsx" />
+    <TypeScriptCompile Include="app-common\snack\app-router-d.d.ts" />
+    <TypeScriptCompile Include="app-common\snack\app-router.tsx" />
     <TypeScriptCompile Include="polyfill\index.tsx" />
     <TypeScriptCompile Include="app-common\react-navigator-lib.tsx" />
     <TypeScriptCompile Include="app-common\typings.d.ts" />
