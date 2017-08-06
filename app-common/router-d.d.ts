@@ -11,19 +11,20 @@
 
   interface IAction {
     type: Consts.SAGA | Consts.ROUTER
-    payload: IState
+    newState: IState
   }
 
-  interface IRoute {
+  interface IRoute<T = {}> {
     routerName?: string
-    load?: TLoader
+    load?: TLoader<T>
     needsLogin?: boolean
+    navigate?: (par:T) => void
   }
 
   type TRoute = React.ComponentType & IRoute
 
   type TUnloader = () => void
-  type TLoader = (par) => Promise<TUnloader>
+  type TLoader<T = {}> = (par:T) => Promise<TUnloader>
 }
 
 interface IState {
