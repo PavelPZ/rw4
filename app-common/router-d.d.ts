@@ -6,7 +6,7 @@
 
   interface IStateLow<TName extends string, TPar extends {}> {
     routerName: TName
-    par: TPar
+    par?: TPar
   }
 
   interface IAction {
@@ -16,11 +16,14 @@
 
   interface IRoute {
     routerName?: string
-    load?: (par) => Promise<() => Promise<any>>
-    needsLogin?: boolean;
+    load?: TLoader
+    needsLogin?: boolean
   }
 
   type TRoute = React.ComponentType & IRoute
+
+  type TUnloader = () => void
+  type TLoader = (par) => Promise<TUnloader>
 }
 
 interface IState {

@@ -7,9 +7,10 @@ import { isLogged } from './login'
 const routes: { [name: string]: Router.TRoute } = {}
 
 const providerConnector = connect((state: IState) => state.router)
-const provider = (props: Router.IState) => React.createElement(routes[props.routerName] as React.ComponentClass, props.par)
+const provider = (props: Router.IState) => props && props.routerName ? React.createElement(routes[props.routerName] as React.ComponentClass, props.par) : null
 
 const reduce: App.IReducer<Router.IState> = (state, action: Router.IAction) => {
+  if (!state) state = { routerName:null }
   switch (action.type) {
     case Router.Consts.ROUTER: return action.payload
     default: return state

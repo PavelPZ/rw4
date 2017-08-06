@@ -11,4 +11,6 @@ const appRouterComp = (props: AppRouter.IRoutePar) => <View style={{ flex: 1, ma
 
 export const navigate = (par: AppRouter.IRoutePar) => routerNavigate(AppRouter.Consts.name, par)
 
-export const AppRouterComp = registerRouter(appRouterComp, AppRouter.Consts.name)
+export const AppRouterComp = registerRouter(appRouterComp, AppRouter.Consts.name, {
+  load: par => new Promise<Router.TUnloader>(resolve => setTimeout(() => resolve(), 1000))
+})

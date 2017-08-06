@@ -27,6 +27,7 @@ function* rootSaga() {
 sagaMiddleware.run(rootSaga)
 
 appRouterNavigate({ title: 'START TITLE' })
+//setTimeout(() => appRouterNavigate({ title: 'START TITLE' }),1)
 
 const App = (props: App.IAppProps) => {
   window.lmGlobal.platform = props.platform
