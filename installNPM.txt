@@ -3,5 +3,5 @@ cd rw4
 npm install
 npm start
 
-npm install --save redux react-redux redux-saga lodash react-navigation
+npm install --save redux react-redux redux-saga lodash react-navigation invariant
 npm install --save @types/react @types/react-dom @types/react-redux @types/lodash @types/react-native @types/react-navigation

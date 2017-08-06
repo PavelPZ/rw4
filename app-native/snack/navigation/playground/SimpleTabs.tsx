@@ -3,9 +3,10 @@
  */
 
 import React from 'react';
-import { Button, Platform, ScrollView, StyleSheet } from 'react-native';
-import { TabNavigator } from 'react-navigation';
+import { Button, Platform, ScrollView, StyleSheet, View } from 'react-native';
+import { TabNavigator, NavigationTabScreenOptions, TabViewConfig } from 'react-navigation';
 import { Ionicons } from '@expo/vector-icons';
+//import Ionicons from 'react-native-vector-icons/Ionicons';
 import SampleText from './SampleText';
 
 const MyNavScreen = ({ navigation, banner }) => (
@@ -44,6 +45,7 @@ const MyPeopleScreen = ({ navigation }) => (
 
 (MyPeopleScreen as any).navigationOptions = {
   tabBarLabel: 'People',
+  //tabBarIcon: <Ionicons name='ios-people' size={26} />
   tabBarIcon: ({ tintColor, focused }) => (
     <Ionicons
       name={focused ? 'ios-people' : 'ios-people-outline'}
@@ -51,7 +53,7 @@ const MyPeopleScreen = ({ navigation }) => (
       style={{ color: tintColor }}
     />
   ),
-};
+} as NavigationTabScreenOptions;
 
 const MyChatScreen = ({ navigation }) => (
   <MyNavScreen banner="Chat Tab" navigation={navigation} />
@@ -73,6 +75,7 @@ const MySettingsScreen = ({ navigation }) => (
 );
 
 (MySettingsScreen as any).navigationOptions = {
+  tabBarOptions: {},
   tabBarLabel: 'Settings',
   tabBarIcon: ({ tintColor, focused }) => (
     <Ionicons
@@ -105,9 +108,15 @@ const SimpleTabs = TabNavigator(
   {
     tabBarOptions: {
       activeTintColor: Platform.OS === 'ios' ? '#e91e63' : '#fff',
+      showIcon:true
     },
-  }
+    tabBarPosition: 'bottom'
+  } as TabViewConfig
 );
+
+class App extends React.Component {
+  render() { return <View style={{ flex:1, marginTop: 30 }}><SimpleTabs /></View>; }
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -115,4 +124,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default SimpleTabs;
+export default App;

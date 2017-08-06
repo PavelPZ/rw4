@@ -2,22 +2,22 @@
   "compileOnSave": true,
   "compilerOptions": {
     //**** WEB
-    //"target": "es5",
-    //"module": "system",
-    //"inlineSourceMap": true,
-    //"inlineSources": true,
-    //"importHelpers": true,
-    //"baseUrl": ".",
-    //"paths": {
-    //  "react-md/*": [ "app-web/react-md/lib/*" ],
-    //  "web-fela": [ "app-web/fela/index" ],
-    //  "web-react-native": [ "app-web/react-native/index" ],
-    //  "polyfill/index": [ "polyfill/web" ]
-    //},
+    "target": "es5",
+    "module": "system",
+    "inlineSourceMap": true,
+    "inlineSources": true,
+    "importHelpers": true,
+    "baseUrl": ".",
+    "paths": {
+      "react-md/*": [ "app-web/react-md/lib/*" ],
+      "web-fela": [ "app-web/fela/index" ],
+      "web-react-native": [ "app-web/react-native/index" ],
+      "polyfill/index": [ "polyfill/web" ]
+    },
 
     //**** REACT NATIVE
-    "target": "es6",
-    "allowSyntheticDefaultImports": true,
+    //"target": "es6",
+    //"allowSyntheticDefaultImports": true,
 
     //**** COMMON
 
@@ -37,17 +37,18 @@
   },
   "exclude": [
     //*** web
-    "index.tsx",
-    "app-web/",
-    "polyfill/web.tsx",
+    //"index.tsx",
+    //"app-web/",
+    //"polyfill/web.tsx",
 
     //*** native
-    //"app-native",
-    //"App.tsx",
-    //"polyfill/index.tsx",
+    "app-native",
+    "App.tsx",
+    "polyfill/index.tsx",
 
     "jspm_packages/",
-    "node_modules/"
+    "node_modules/",
+    "node_modules/@types/node/"
 
   ]
 }

@@ -68,6 +68,8 @@
   <ItemGroup>
     <Content Include=".gitignore" />
     <TypeScriptCompile Include="app-common\index.ts" />
+    <TypeScriptCompile Include="app-common\app.tsx" />
+    <TypeScriptCompile Include="app-common\router.tsx" />
     <TypeScriptCompile Include="app-native\snack\icons.tsx" />
     <TypeScriptCompile Include="polyfill\index.tsx" />
     <TypeScriptCompile Include="app-common\react-navigator-lib.tsx" />
