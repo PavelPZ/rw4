@@ -17,10 +17,10 @@
 
     //**** REACT NATIVE
     //"target": "es6",
-    //"allowSyntheticDefaultImports": true,
 
     //**** COMMON
 
+    "allowSyntheticDefaultImports": true,
     "strictNullChecks": false,
     "downlevelIteration": true,
     "experimentalDecorators": true,

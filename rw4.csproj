@@ -67,10 +67,15 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include=".gitignore" />
+    <TypeScriptCompile Include="app-common\app-d.d.ts" />
     <TypeScriptCompile Include="app-common\index.ts" />
     <TypeScriptCompile Include="app-common\app.tsx" />
+    <TypeScriptCompile Include="app-common\login.tsx" />
+    <TypeScriptCompile Include="app-common\login-d.d.ts" />
+    <TypeScriptCompile Include="app-common\router-d.d.ts" />
     <TypeScriptCompile Include="app-common\router.tsx" />
     <TypeScriptCompile Include="app-native\snack\icons.tsx" />
+    <TypeScriptCompile Include="app-web\login\index.tsx" />
     <TypeScriptCompile Include="polyfill\index.tsx" />
     <TypeScriptCompile Include="app-common\react-navigator-lib.tsx" />
     <TypeScriptCompile Include="app-common\typings.d.ts" />
@@ -87,7 +92,7 @@
     <TypeScriptCompile Include="app-web\typings.d.ts" />
     <TypeScriptCompile Include="app-web\fela\fela.d.ts" />
     <TypeScriptCompile Include="app-web\fela\index.tsx" />
-    <TypeScriptCompile Include="app-web\init.tsx" />
+    <TypeScriptCompile Include="app-web\app.tsx" />
     <TypeScriptCompile Include="app-web\react-native\apis\I18nManager.ts" />
     <TypeScriptCompile Include="app-web\react-native\apis\Platform.ts" />
     <TypeScriptCompile Include="app-web\react-native\components\button.tsx" />
