@@ -130,7 +130,7 @@
     <TypeScriptCompile Include="app-native\snack\navigation\redux\src\navigators\AppNavigator.tsx" />
     <TypeScriptCompile Include="app-native\snack\navigation\redux\src\reducers\index.tsx" />
     <Content Include="app-web\react-native\Components.html" />
-    <Content Include="index.html" />
+    <Content Include="web-app.html" />
     <Content Include="install.txt" />
     <Content Include="installNPM.txt" />
     <Content Include="install-react-md.txt" />
@@ -154,6 +154,7 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IndexHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
