@@ -1,0 +1,81 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Google Login</title>
+  <meta name="google-signin-client_id" content="79001294507-haubsvbmtj5lu4a30hp4kb44hl66qhoc.apps.googleusercontent.com">
+  <script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
+  
+  <!--gZzwxGQodnJzK9zRrk6O0VpP-->
+</head>
+<body>
+  <div id="my-signin" class="g-signin2"></div>
+  <br />
+  <div id="profile"></div>
+  <br />
+  <div onclick="signOut()">Sign Out</div>
+  <hr />
+  <div class="fb-login-button" data-max-rows="1" data-size="large" data-button-type="continue_with" data-show-faces="false" data-auto-logout-link="true" data-use-continue-as="false" onlogin="onFBLogin" data-scope="public_profile email" ></div>
+  <div id="FBProfile"></div>
+  <br />
+  <div onclick="FBsignOut()">FB sign Out</div>
+  <br />
+  <script>
+    (function (d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) return;
+      js = d.createElement(s); js.id = id;
+      js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.9&appId=198385910196240";
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+  </script>
+
+  <script>
+    // http://localhost:3434
+    //Google: kubakaca@gmail.com/pkzippkzip, My Project project (https://developers.google.com/identity/sign-in/web/devconsole-project, link Google API console)
+    //https://developers.google.com/identity/sign-in/web/sign-in
+    //FB: kubakaca@gmail.com/pkzippkzip, PZApp aplikace (https://developers.facebook.com, MyApps, select app), AppId 198385910196240, secret 6a2ab7859e9ae26239a2e5c6c4cfdd8f, login button: https://developers.facebook.com/docs/facebook-login/web/login-button
+    //https://developers.facebook.com/docs/facebook-login/web/login-button
+    function onSuccess(googleUser) {
+      var profile = googleUser.getBasicProfile();
+      var text = 'ID: ' + profile.getId() + ', ' + 'Name: ' + profile.getName() + ', ' + 'Image URL: ' + profile.getImageUrl() + ', ' + 'Email: ' + profile.getEmail();
+      document.getElementById('profile').innerHTML = text;
+    }
+    function onFailure(error) {
+      alert(error);
+    }
+    function signOut() {
+      var auth2 = gapi.auth2.getAuthInstance();
+      auth2.signOut().then(function () {
+        //window.location.reload();
+      });
+    }
+    function renderButton() {
+      gapi.signin2.render('my-signin', {
+        'scope': 'profile email',
+        'width': 240,
+        'height': 50,
+        'longtitle': true,
+        'theme': 'dark',
+        'onsuccess': onSuccess,
+        'onfailure': onFailure
+      });
+    }
+    function onFBLogin() {
+      FB.api('/me?fields=name,email', function (response) {
+        var text = 'Name: ' + response.name + ', ' + 'Email: ' + response.email;
+        document.getElementById('FBProfile').innerHTML = text;
+      });
+    }
+    function FBsignOut() {
+      FB.logout(function (response) {
+        //window.location.reload();
+      });
+    }
+    //stranka se neobnovuje!!!! => drzi se lokalni javascript aplikace
+    //var timestamp;
+    //if (!timestamp) timestamp = new Date().getTime().toString();
+    //alert(timestamp);
+  </script>
+</body>
+</html>

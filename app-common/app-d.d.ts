@@ -1,8 +1,4 @@
 declare namespace App {
-  interface IAppProps {
-    platform: IPlatforms
-  }
-
   interface Action<T extends string = string> {
     type: T;
   }
@@ -17,7 +13,7 @@ declare namespace App {
 
   interface IGlobal {
     store: Store
-    platform?: IPlatforms
+    platform: IPlatforms
     initializers: Promise<any>[]
   }
 

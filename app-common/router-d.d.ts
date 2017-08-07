@@ -1,6 +1,6 @@
 ﻿declare namespace Router {
 
-  const enum Consts { SAGA = 'ROUTER_SAGA', ROUTER = 'ROUTER' }
+  const enum Consts { NAVIGATE_START = 'router/NAVIGATE_START', NAVIGATE_END = 'router/NAVIGATE_END' }
 
   type IState = IStateLow<string, {}>
 
@@ -10,14 +10,14 @@
   }
 
   interface IAction {
-    type: Consts.SAGA | Consts.ROUTER
+    type: Consts.NAVIGATE_START | Consts.NAVIGATE_END
     newState: IState
   }
 
   interface IRoute<T = {}> {
     routerName?: string
     load?: TLoader<T>
-    needsLogin?: boolean
+    needsLogin?: (par:T) => boolean
     navigate?: (par:T) => void
   }
 

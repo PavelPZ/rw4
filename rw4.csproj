@@ -75,7 +75,8 @@
     <TypeScriptCompile Include="app-common\router-d.d.ts" />
     <TypeScriptCompile Include="app-common\router.tsx" />
     <TypeScriptCompile Include="app-native\snack\icons.tsx" />
-    <TypeScriptCompile Include="app-web\login\index.tsx" />
+    <TypeScriptCompile Include="app-web\web-login-d.d.ts" />
+    <TypeScriptCompile Include="app-web\web-login.tsx" />
     <TypeScriptCompile Include="app-common\snack\app-router-d.d.ts" />
     <TypeScriptCompile Include="app-common\snack\app-router.tsx" />
     <TypeScriptCompile Include="polyfill\index.tsx" />
@@ -94,7 +95,7 @@
     <TypeScriptCompile Include="app-web\typings.d.ts" />
     <TypeScriptCompile Include="app-web\fela\fela.d.ts" />
     <TypeScriptCompile Include="app-web\fela\index.tsx" />
-    <TypeScriptCompile Include="app-web\app.tsx" />
+    <TypeScriptCompile Include="app-web\app-web.tsx" />
     <TypeScriptCompile Include="app-web\react-native\apis\I18nManager.ts" />
     <TypeScriptCompile Include="app-web\react-native\apis\Platform.ts" />
     <TypeScriptCompile Include="app-web\react-native\components\button.tsx" />
@@ -130,6 +131,7 @@
     <TypeScriptCompile Include="app-native\snack\navigation\redux\src\navigators\AppNavigator.tsx" />
     <TypeScriptCompile Include="app-native\snack\navigation\redux\src\reducers\index.tsx" />
     <Content Include="app-web\react-native\Components.html" />
+    <Content Include="app-web\snack\login.html" />
     <Content Include="web-app.html" />
     <Content Include="install.txt" />
     <Content Include="installNPM.txt" />
@@ -175,11 +177,11 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>False</UseIIS>
+          <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>50913</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:50913/</IISUrl>
+          <IISUrl>http://localhost:3434/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

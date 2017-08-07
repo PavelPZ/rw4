@@ -3,14 +3,21 @@ import { connect, Store } from 'react-redux'
 import { put, take } from 'redux-saga/effects'
 import invariant from 'invariant'
 
+export const loginProcessing = (needsLogin: boolean, returnUrl: Router.IState) => {
+  const { loginPlatform } = window.lmGlobal.platform
+  if (needsLogin && !isLogged() && loginPlatform) { setTimeout(() => loginPlatform.doLogin(returnUrl), 1); return true }
+  return false;
+}
 export const isLogged = () => {
-  const { login: { email } } = window.lmGlobal.store.getState()
-  return !!email
+  const { login: { logged } } = window.lmGlobal.store.getState()
+  return logged
 }
 
-export function* saga() {
-  while (true) {
-    yield take(Login.Consts.LOGIN_START)
-    yield take(Login.Consts.LOGOUT_START)
+export const reducer: App.IReducer<Login.IState> = (state, action: Login.ILoginAction | Login.ILogoutAction) => {
+  switch (action.type) {
+    case Login.Consts.LOGIN: return { logged:true, ...action }
+    case Login.Consts.LOGOUT: return { }
+    default: return state || { }
   }
 }
+

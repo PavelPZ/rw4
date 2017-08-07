@@ -4,7 +4,7 @@
     name = 'app-router',
   }
 
-  type INavigate = Router.IStateLow<Consts.name, { title: string }>
+  type INavigate = Router.IStateLow<Consts.name, IRoutePar>
 
   interface IRoutePar {
     title?: string
