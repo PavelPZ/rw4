@@ -2,28 +2,43 @@
 
   const enum Consts {
     name = 'login',
-    LOGIN = 'login/LOGIN', LOGOUT = 'login/LOGOUT', 
-    facebook = 'facebook', google = 'google'
+    LOGIN = 'login/LOGIN', 
+    facebook = 'facebook', google = 'google',
   }
 
   type TProviders = Consts.google | Consts.facebook
 
-  interface ILoginAction extends App.Action<Consts.LOGIN> {
-    email: string
-    provider: TProviders
-    returnUrl: { routerName: string, par }
-  }
+  interface ILoginAction extends App.Action<Consts.LOGIN>, ILoginInfo { }
 
-  interface ILogoutAction extends App.Action<Consts.LOGOUT> { }
+  const enum TLoginStatus { unsupported, logged, unlogged }
 
-  interface IState {
-    logged?: boolean
+  interface ILoginInfo {
+    logged: TLoginStatus
     email?: string
+    name?: string
+    firstName?: string
+    lastName?: string
+    picture?: string
     provider?: TProviders
   }
 
+
+  interface IState extends ILoginInfo {
+  }
+
   interface IPlatform {
-    doLogin(returnUrl: Router.IState);
+    doLogin(returnUrl: Router.IState)
+    doLogout()
+  }
+
+  type ILoginButtonProps = ILoginButtonMapProps & ILoginButtonDispatchProps
+
+  interface ILoginButtonMapProps {
+    logged: TLoginStatus
+  }
+
+  interface ILoginButtonDispatchProps {
+    doLoginAction: () => void
   }
 
 }

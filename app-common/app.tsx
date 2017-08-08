@@ -8,33 +8,35 @@ import { reducer as routerReducer, Provider as RouterProvider, saga as routerSag
 import { reducer as loginReducer } from './login'
 import { AppRouterComp } from './snack/app-router'
 
-const reducers: App.IReducer = (state, action) => ({
-  router: routerReducer(state.router, action),
-  login: loginReducer(state.login, action),
-})
-
-const sagaMiddleware = createSagaMiddleware()
-
 window.lmGlobal = {
-  store: createStore<IState>(reducers, {}, applyMiddleware(sagaMiddleware)),
   initializers: [],
   platform: {}
 }
 
-function* rootSaga() {
-  const rootRes = yield all({
-    routerSaga: call(routerSaga)
-  });
+export const initApp = () => {
+  const reducers: App.IReducer = (state, action) => ({
+    router: routerReducer(state.router, action),
+    login: loginReducer(state.login, action),
+  })
+
+  const sagaMiddleware = createSagaMiddleware()
+
+  window.lmGlobal.store = createStore<IState>(reducers, {}, applyMiddleware(sagaMiddleware))
+
+  function* rootSaga() {
+    const rootRes = yield all({
+      routerSaga: call(routerSaga)
+    });
+  }
+
+  sagaMiddleware.run(rootSaga)
+
+  AppRouterComp.navigate({ title: 'START TITLE' })
+
 }
 
-sagaMiddleware.run(rootSaga)
-
-AppRouterComp.navigate({ title: 'START TITLE' })
-
-const App = () => {
+export const App = () => {
   return <ReduxProvider store={window.lmGlobal.store as Store<IState>}>
     <RouterProvider />
   </ReduxProvider>
 }
-
-export default App;

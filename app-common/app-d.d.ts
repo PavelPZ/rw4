@@ -12,7 +12,7 @@ declare namespace App {
   }
 
   interface IGlobal {
-    store: Store
+    store?: Store
     platform: IPlatforms
     initializers: Promise<any>[]
   }

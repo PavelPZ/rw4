@@ -11,7 +11,10 @@ const providerConnector = connect((state: IState) => state.router)
 const provider = (props: Router.IState) => props && props.routerName ? React.createElement(routes[props.routerName] as React.ComponentClass, props.par) : null
 
 // ***** EXPORTS
-export const navigate = (routerName: string, par) => {
+export const actRoute = () => window.lmGlobal.store.getState().router
+
+export const navigate = (routerName: string | Router.IState, par?) => {
+  if (typeof (routerName) !== 'string') { par = routerName.par; routerName = routerName.routerName }
   const action: Router.IAction = { type: Router.Consts.NAVIGATE_START, newState: { routerName, par } }
   window.lmGlobal.store.dispatch(action)
 }
