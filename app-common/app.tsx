@@ -6,7 +6,7 @@ import { all, call } from 'redux-saga/effects'
 
 import { reducer as routerReducer, Provider as RouterProvider, saga as routerSaga } from './router'
 import { reducer as loginReducer } from './login'
-import { AppRouterComp } from './snack/app-router'
+
 
 window.lmGlobal = {
   initializers: [],
@@ -30,9 +30,6 @@ export const initApp = () => {
   }
 
   sagaMiddleware.run(rootSaga)
-
-  AppRouterComp.navigate({ title: 'START TITLE' })
-
 }
 
 export const App = () => {

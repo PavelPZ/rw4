@@ -27,8 +27,8 @@ export class Provider extends React.PureComponent {
     return <div>
       <div ref={div => this.loginHTML = div} className={renderCSS({ zIndex: 100, display: 'none', ...styleLib.absoluteScreen, justifyContent: 'space-around', flexDirection: 'row' })}>
         <div className={renderCSS({ flex: 1, maxWidth: 800 })}>
-          <div tabIndex={1} ref={div => { console.log('LOGIN: finish Login rendering'); /*init()*/ this.renderButton(); FB }} id="my-signin" className="g-signin2" />
-          <div tabIndex={2} ref={div => setTimeout(() => FB.XFBML.parse(this.loginHTML),1)} className="fb-login-button" data-max-rows="1" data-size="large" data-button-type="continue_with" data-show-faces="false" data-auto-logout-link="false" data-use-continue-as="false" data-scope="public_profile email" />
+          <div tabIndex={1} ref={async div => { console.log('LOGIN: finish Login rendering'); await init(); this.renderButton() }} id="my-signin" className="g-signin2" />
+          <div tabIndex={2}  className="fb-login-button" data-max-rows="1" data-size="large" data-button-type="continue_with" data-show-faces="false" data-auto-logout-link="false" data-use-continue-as="false" data-scope="public_profile email" />
         </div>
       </div>
       <div ref={div => this.appPage = div} style={{ zIndex: 1, position: 'absolute', left: 0, top: 0, bottom: 0, right: 0 }}>
@@ -37,6 +37,7 @@ export class Provider extends React.PureComponent {
     </div>
   }
   //ref={div => { debugger; FB && FB.XFBML.parse(div) }} 
+  //ref={div => setTimeout(() => FB.XFBML.parse(this.loginHTML),1)}
 
   show(isShow: boolean, returnUrl: Router.IState) {
     this.returnUrl = returnUrl
@@ -115,7 +116,6 @@ const googleInit = (clientId: string) => new Promise(resolve => {
   meta.name = 'google-signin-client_id'
   meta.content = clientId
   head.insertAdjacentElement('afterbegin', meta)
-  //window['googleAsyncInit'] = setTimeout(resolve, 1000)
   window['googleAsyncInit'] = () => {
     if (provider) provider.renderButton()
     console.log('LOGIN: finish googleInit')
