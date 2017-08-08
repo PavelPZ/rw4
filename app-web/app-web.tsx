@@ -1,6 +1,6 @@
 ﻿import React from 'react';
 import { App as CommonApp, initApp } from '../app-common/app'
-import { platform as loginPlatform, Provider as LoginProvider, init as loginInit } from './web-login'
+import { platform as loginPlatform, Provider as LoginProvider } from './web-login'
 import { AppRouterComp } from '../app-common/snack/app-router'
 
 export const init = async () => {
@@ -10,7 +10,6 @@ export const init = async () => {
   initApp()
   AppRouterComp.navigate({ title: 'START TITLE' })
 }
-
 
 const App = () => <LoginProvider><CommonApp /></LoginProvider>
 
