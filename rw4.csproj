@@ -131,6 +131,8 @@
     <TypeScriptCompile Include="app-native\snack\navigation\redux\src\navigators\AppNavigator.tsx" />
     <TypeScriptCompile Include="app-native\snack\navigation\redux\src\reducers\index.tsx" />
     <Content Include="app-web\react-native\Components.html" />
+    <Content Include="app-web\snack\login-msie-fb.html" />
+    <Content Include="app-web\snack\login-msie.html" />
     <Content Include="app-web\snack\login.html" />
     <Content Include="web-app.html" />
     <Content Include="install.txt" />

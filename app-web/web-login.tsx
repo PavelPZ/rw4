@@ -73,7 +73,7 @@ export class Provider extends React.PureComponent {
         const profile = googleUser.getBasicProfile();
         provider.onLogin(Login.Consts.google, profile.getName(), profile.getGivenName(), profile.getFamilyName(), profile.getImageUrl(), profile.getEmail())
       },
-      onfailure: () => alert('onfailure'),
+      onfailure: () => { },
     });
   }
 }
@@ -119,8 +119,8 @@ const googleInit = (clientId: string) => new Promise(resolve => {
   window['googleAsyncInit'] = () => {
     if (provider) provider.renderButton()
     console.log('LOGIN: finish googleInit')
-    setTimeout(resolve, 1000)
-    //resolve()
+    //setTimeout(resolve, 1000)
+    resolve()
   }
   loadScript('google-platform', `https://apis.google.com/js/platform.js?onload=googleAsyncInit`)
 })
@@ -145,8 +145,8 @@ const facebookInit = (appId: string, apiVersion: string) => new Promise(resolve 
         console.log('facebook: User signed out.')
     });
     console.log('LOGIN: finish facebookInit')
-    setTimeout(resolve, 1000)
-    //resolve()
+    //setTimeout(resolve, 1000)
+    resolve()
   }
 
   //loadScript('facebook-jssdk', `//connect.facebook.net/en_US/sdk.js#xfbml=1&version=${apiVersion}`)
