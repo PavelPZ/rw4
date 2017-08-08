@@ -26,9 +26,12 @@
   interface IState extends ILoginInfo {
   }
 
+  interface IPlatformPar { fbAppId: string; fbAPIVersion: string; googleClientId: string }
+
   interface IPlatform {
-    doLogin(returnUrl: Router.IState)
-    doLogout()
+    par: IPlatformPar
+    doLogin: (returnUrl: Router.IState) => void
+    doLogout: () => void
   }
 
   type ILoginButtonProps = ILoginButtonMapProps & ILoginButtonDispatchProps

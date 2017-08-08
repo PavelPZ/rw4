@@ -4,7 +4,7 @@ import { put, take } from 'redux-saga/effects'
 import invariant from 'invariant'
 import { actRoute } from '../app-common/router'
 
-export const createLoginButton = connect<Login.ILoginButtonMapProps, Login.ILoginButtonDispatchProps, {}>(
+export const createLoginButton = connect<Login.ILoginButtonMapProps, Login.ILoginButtonDispatchProps, React.HTMLAttributes<{}>>(
   (state: IState) => ({ logged: state.login.logged }),
   (dispatch) => ({
     doLoginAction: () => {

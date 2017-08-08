@@ -26,6 +26,15 @@ export const renderCSS = (css: CSSProperties) => renderer.renderRule(() => css);
 export const renderKeyFrame = (frame: KeyFrames) => renderer.renderKeyframe(() => frame);
 export const renderStatic = (css: string | CSSProperties) => renderer.renderStatic(css);
 
+export const styleLib = {
+  absoluteScreen: {
+    position: 'absolute', left: 0, top: 0, bottom: 0, right: 0,
+  } as CSSProperties,
+  flexCenterBoth: {
+    display: 'flex', justifyContent: 'center', alignItems: 'center'
+  } as CSSProperties,
+}
+
 
 renderStatic(`
 .component-text .component-text {

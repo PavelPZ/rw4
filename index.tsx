@@ -6,6 +6,11 @@ import ReactDOM from 'react-dom'
 
 //import App from './app-web/snack/react-md-test';
 //import App from './app-common/snack/react-navigation';
-import App from './app-web/app-web'
+//ReactDOM.render(<App />, document.getElementById('content'))
 
-export const init = () => ReactDOM.render(<App />, document.getElementById('content'))
+import App, { init as initWebApp } from './app-web/app-web'
+
+export const init = async () => {
+  await initWebApp()
+  ReactDOM.render(<App />, document.getElementById('content'))
+}
