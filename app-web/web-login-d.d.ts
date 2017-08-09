@@ -7,7 +7,7 @@
     fbLoginEventName = 'onFBLogin'
   }
 
-  type INavigate = Router.IStateLow<Consts.name, {}>
+  //type INavigate = Router.IState<Consts.name, {}>
 
   interface IRoutePar {
     returnUrl: Router.IState

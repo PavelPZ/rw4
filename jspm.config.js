@@ -8,6 +8,19 @@ SystemJS.config({
   packages: {
     "": {
       "defaultExtension": "js"
+    },
+    "npm:query-string@5.0.0": {
+      "map": {
+        "object-assign": "npm:object-assign@4.1.1",
+        "decode-uri-component": "npm:decode-uri-component@0.2.0",
+        "strict-uri-encode": "npm:strict-uri-encode@1.1.0"
+      }
+    },
+    "npm:url-parse@1.1.9": {
+      "map": {
+        "requires-port": "npm:requires-port@1.0.0",
+        "querystringify": "npm:querystringify@1.0.0"
+      }
     }
   },
   map: {
@@ -15,6 +28,8 @@ SystemJS.config({
     "web-fela": "/app-web/fela/index",
     "redux-saga/effects": "npm:redux-saga@0.15.6/lib/effects",
     "redux-saga/index": "npm:redux-saga@0.15.6/lib/index",
+    "url-parse": "npm:url-parse@1.1.9",
+    "query-string": "npm:query-string@5.0.0"
   }
 });
 
@@ -24,6 +39,9 @@ SystemJS.config({
     "npm:*.json"
   ],
   map: {
+    "url-pattern": "npm:url-pattern@1.0.3",
+    "history": "npm:history@4.6.3",
+    "qs": "npm:qs@6.5.0",
     "bcrypt-pbkdf": "npm:bcrypt-pbkdf@1.0.1",
     "console": "npm:jspm-nodelibs-console@0.2.3",
     "dgram": "npm:jspm-nodelibs-dgram@0.2.1",
@@ -2333,7 +2351,7 @@ SystemJS.config({
       "map": {
         "randombytes": "npm:randombytes@2.0.5",
         "miller-rabin": "npm:miller-rabin@4.0.0",
-        "bn.js": "npm:bn.js@4.11.7"
+        "bn.js": "npm:bn.js@4.11.8"
       }
     },
     "npm:public-encrypt@4.0.0": {
@@ -2342,7 +2360,7 @@ SystemJS.config({
         "randombytes": "npm:randombytes@2.0.5",
         "parse-asn1": "npm:parse-asn1@5.1.0",
         "browserify-rsa": "npm:browserify-rsa@4.0.1",
-        "bn.js": "npm:bn.js@4.11.7"
+        "bn.js": "npm:bn.js@4.11.8"
       }
     },
     "npm:create-hmac@1.1.6": {
@@ -2371,7 +2389,7 @@ SystemJS.config({
         "parse-asn1": "npm:parse-asn1@5.1.0",
         "elliptic": "npm:elliptic@6.4.0",
         "browserify-rsa": "npm:browserify-rsa@4.0.1",
-        "bn.js": "npm:bn.js@4.11.7"
+        "bn.js": "npm:bn.js@4.11.8"
       }
     },
     "npm:randombytes@2.0.5": {
@@ -2389,7 +2407,7 @@ SystemJS.config({
     "npm:create-ecdh@4.0.0": {
       "map": {
         "elliptic": "npm:elliptic@6.4.0",
-        "bn.js": "npm:bn.js@4.11.7"
+        "bn.js": "npm:bn.js@4.11.8"
       }
     },
     "npm:string_decoder@1.0.3": {
@@ -2417,7 +2435,7 @@ SystemJS.config({
     },
     "npm:miller-rabin@4.0.0": {
       "map": {
-        "bn.js": "npm:bn.js@4.11.7",
+        "bn.js": "npm:bn.js@4.11.8",
         "brorand": "npm:brorand@1.1.0"
       }
     },
@@ -2447,7 +2465,7 @@ SystemJS.config({
     },
     "npm:browserify-rsa@4.0.1": {
       "map": {
-        "bn.js": "npm:bn.js@4.11.7",
+        "bn.js": "npm:bn.js@4.11.8",
         "randombytes": "npm:randombytes@2.0.5"
       }
     },
@@ -2458,7 +2476,7 @@ SystemJS.config({
     },
     "npm:elliptic@6.4.0": {
       "map": {
-        "bn.js": "npm:bn.js@4.11.7",
+        "bn.js": "npm:bn.js@4.11.8",
         "inherits": "npm:inherits@2.0.3",
         "brorand": "npm:brorand@1.1.0",
         "hash.js": "npm:hash.js@1.1.3",
@@ -2493,7 +2511,7 @@ SystemJS.config({
     },
     "npm:asn1.js@4.9.1": {
       "map": {
-        "bn.js": "npm:bn.js@4.11.7",
+        "bn.js": "npm:bn.js@4.11.8",
         "inherits": "npm:inherits@2.0.3",
         "minimalistic-assert": "npm:minimalistic-assert@1.0.0"
       }
@@ -2736,6 +2754,15 @@ SystemJS.config({
     "npm:react-native-tab-view@0.0.65": {
       "map": {
         "prop-types": "npm:prop-types@15.5.10"
+      }
+    },
+    "npm:history@4.6.3": {
+      "map": {
+        "invariant": "npm:invariant@2.2.2",
+        "loose-envify": "npm:loose-envify@1.3.1",
+        "warning": "npm:warning@3.0.0",
+        "value-equal": "npm:value-equal@0.2.1",
+        "resolve-pathname": "npm:resolve-pathname@2.1.0"
       }
     }
   }

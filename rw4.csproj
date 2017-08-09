@@ -75,6 +75,7 @@
     <TypeScriptCompile Include="app-common\router-d.d.ts" />
     <TypeScriptCompile Include="app-common\router.tsx" />
     <TypeScriptCompile Include="app-native\snack\icons.tsx" />
+    <TypeScriptCompile Include="app-web\web-router.ts" />
     <TypeScriptCompile Include="app-web\web-login-d.d.ts" />
     <TypeScriptCompile Include="app-web\web-login.tsx" />
     <TypeScriptCompile Include="app-common\snack\app-router-d.d.ts" />
@@ -131,6 +132,7 @@
     <TypeScriptCompile Include="app-native\snack\navigation\redux\src\navigators\AppNavigator.tsx" />
     <TypeScriptCompile Include="app-native\snack\navigation\redux\src\reducers\index.tsx" />
     <Content Include="app-web\react-native\Components.html" />
+    <Content Include="app-web\snack\best-npm-components.html" />
     <Content Include="app-web\snack\login-msie-fb.html" />
     <Content Include="app-web\snack\login-msie.html" />
     <Content Include="app-web\snack\login.html" />

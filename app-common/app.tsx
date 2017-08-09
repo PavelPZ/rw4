@@ -4,7 +4,7 @@ import { Provider as ReduxProvider } from 'react-redux'
 import createSagaMiddleware from 'redux-saga/index'
 import { all, call } from 'redux-saga/effects'
 
-import { reducer as routerReducer, Provider as RouterProvider, saga as routerSaga } from './router'
+import { reducer as routerReducer, Provider as RouterProvider, saga as routerSaga, init as routerInit } from './router'
 import { reducer as loginReducer } from './login'
 
 
@@ -13,7 +13,7 @@ window.lmGlobal = {
   platform: {}
 }
 
-export const initApp = () => {
+export const initApp = (startRoute: Router.IState) => {
   const reducers: App.IReducer = (state, action) => ({
     router: routerReducer(state.router, action),
     login: loginReducer(state.login, action),
@@ -30,6 +30,8 @@ export const initApp = () => {
   }
 
   sagaMiddleware.run(rootSaga)
+
+  routerInit(startRoute)
 }
 
 export const App = () => {

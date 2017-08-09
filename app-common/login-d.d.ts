@@ -8,11 +8,11 @@
 
   type TProviders = Consts.google | Consts.facebook
 
-  interface ILoginAction extends App.Action<Consts.LOGIN>, ILoginInfo { }
+  interface ILoginAction extends App.Action<Consts.LOGIN>, ILoginInfo { } //common action for login x logout
 
   const enum TLoginStatus { unsupported, logged, unlogged }
 
-  interface ILoginInfo {
+  interface ILoginInfo { //common for login action and login state
     logged: TLoginStatus
     email?: string
     name?: string
@@ -23,10 +23,9 @@
   }
 
 
-  interface IState extends ILoginInfo {
-  }
+  interface IState extends ILoginInfo { }
 
-  interface IPlatformPar { fbAppId: string; fbAPIVersion: string; googleClientId: string }
+  interface IPlatformPar { fbAppId: string; fbAPIVersion: string; googleClientId: string; loc:string }
 
   interface IPlatform {
     par: IPlatformPar

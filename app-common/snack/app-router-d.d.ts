@@ -2,11 +2,12 @@
 
   const enum Consts {
     name = 'app-router',
+    urlMask = '/:title'
   }
 
-  type INavigate = Router.IStateLow<Consts.name, IRoutePar>
+  type INavigate = Router.IState<Consts.name, IRoutePar>
 
-  interface IRoutePar {
+  interface IRoutePar extends Router.IRoutePar {
     title?: string
   }
 

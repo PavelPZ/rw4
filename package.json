@@ -6,7 +6,9 @@
   "private": true,
   "main": "node_modules/expo/AppEntry.js",
   "dependencies": {
+    "@types/history": "^4.6.0",
     "@types/lodash": "^4.14.71",
+    "@types/qs": "^6.5.0",
     "@types/react": "^16.0.0",
     "@types/react-dom": "^15.5.2",
     "@types/react-native": "^0.47.0",
@@ -22,7 +24,8 @@
     "react-redux": "^5.0.5",
     "redux": "^3.7.2",
     "redux-saga": "^0.15.6",
-    "tslib": "^1.7.1"
+    "tslib": "^1.7.1",
+    "url-pattern": "^1.0.3"
   },
   "jspm": {
     "name": "rewise",
@@ -37,10 +40,12 @@
       "fela-plugin-lvha": "npm:fela-plugin-lvha@^5.0.5",
       "fela-plugin-prefixer": "npm:fela-plugin-prefixer@^5.0.6",
       "fela-plugin-unit": "npm:fela-plugin-unit@^5.0.5",
+      "history": "npm:history@^4.6.3",
       "invariant": "npm:invariant@^2.2.2",
       "js-cookie": "npm:js-cookie@^2.1.4",
       "lodash": "npm:lodash@^4.17.4",
       "prop-types": "npm:prop-types@^15.5.10",
+      "qs": "npm:qs@^6.5.0",
       "react-navigation": "npm:react-navigation@^1.0.0-beta.11",
       "react-prop-types": "npm:react-prop-types@^0.4.0",
       "react-redux": "npm:react-redux@^5.0.5",
@@ -50,6 +55,7 @@
       "redux-saga": "npm:redux-saga@^0.15.6",
       "resize-observer-polyfill": "npm:resize-observer-polyfill@^1.4.2",
       "tslib": "npm:tslib@^1.7.1",
+      "url-pattern": "npm:url-pattern@^1.0.3",
       "whatwg-fetch": "npm:whatwg-fetch@^2.0.3"
     },
     "devDependencies": {},

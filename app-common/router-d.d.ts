@@ -1,10 +1,16 @@
 ﻿declare namespace Router {
 
-  const enum Consts { NAVIGATE_START = 'router/NAVIGATE_START', NAVIGATE_END = 'router/NAVIGATE_END' }
+  const enum Consts {
+    NAVIGATE_START = 'router/NAVIGATE_START', NAVIGATE_END = 'router/NAVIGATE_END',
+  }
 
-  type IState = IStateLow<string, {}>
+  //type IState = IStateLow<string, {}>
 
-  interface IStateLow<TName extends string, TPar extends {}> {
+  interface IRoutePar {
+    query?: {}
+  }
+
+  interface IState<TName extends string = string, TPar extends IRoutePar = IRoutePar> {
     routerName: TName
     par?: TPar
   }
@@ -14,17 +20,32 @@
     newState: IState
   }
 
-  interface IRoute<T = {}> {
+  interface IRoute<TPar extends IRoutePar = IRoutePar> {
     routerName?: string
-    load?: TLoader<T>
-    needsLogin?: (par:T) => boolean
-    navigate?: (par:T) => void
+    load?: TLoader<TPar>
+    needsLogin?: (par: TPar) => boolean
+    navigate?: (par: TPar) => void
+    urlPatern?
+    getRoute?: (par: TPar) => Router.IState<string, TPar>
   }
 
   type TRoute = React.ComponentType & IRoute
 
   type TUnloader = () => void
-  type TLoader<T = {}> = (par:T) => Promise<TUnloader>
+  type TLoader<TPar extends IRoutePar = IRoutePar> = (par: TPar) => Promise<TUnloader>
+
+  //******** history x location
+  interface ILocation {
+    search: string
+    pathname:string
+  }
+  interface IHistory {
+    push(path: string, state?: any): void
+    location: ILocation
+    listen(callback: (location, action: string)=>void)
+  }
+
+
 }
 
 interface IState {

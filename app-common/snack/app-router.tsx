@@ -21,7 +21,7 @@ const appRouterComp = (props: AppRouter.IRoutePar) => {
 
 //*** EXPORTS
 
-export const AppRouterComp: Router.IRoute<AppRouter.IRoutePar> = registerRouter(appRouterComp, AppRouter.Consts.name, {
+export const AppRouterComp: Router.IRoute<AppRouter.IRoutePar> = registerRouter(appRouterComp, AppRouter.Consts.name, AppRouter.Consts.urlMask, {
   load: par => new Promise<Router.TUnloader>(resolve => setTimeout(() => resolve(), 200)),
   needsLogin: par => par.title.length >= 'START TITLE | xxx'.length,
 })

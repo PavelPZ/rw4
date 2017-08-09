@@ -1,5 +1,5 @@
 ﻿BASIC
-jspm install npm:tslib npm:core-js npm:whatwg-fetch npm:react npm:react-dom npm:redux npm:react-redux npm:redux-saga npm:lodash npm:js-cookie npm:invariant npm:react-navigation
+jspm install npm:tslib npm:core-js npm:whatwg-fetch npm:react npm:react-dom npm:redux npm:react-redux npm:redux-saga npm:lodash npm:js-cookie npm:invariant npm:react-navigation npm:query-string
 jspm install npm:fela npm:fela-dom npm:fela-plugin-extend npm:fela-plugin-prefixer npm:fela-plugin-fallback-value npm:fela-plugin-lvha npm:fela-plugin-unit 
 
 REACT-MD

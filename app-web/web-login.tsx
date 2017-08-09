@@ -81,9 +81,9 @@ export class Provider extends React.PureComponent {
 let provider: Provider
 
 const init = () => {
-  const { googleClientId, fbAppId, fbAPIVersion } = window.lmGlobal.platform.loginPlatform.par
+  const { googleClientId, fbAppId, fbAPIVersion, loc } = window.lmGlobal.platform.loginPlatform.par
   return Promise.all([
-    googleInit(googleClientId),
+    googleInit(googleClientId, loc),
     facebookInit(fbAppId, fbAPIVersion)
   ])
 }
@@ -98,7 +98,7 @@ const loadScript = (id: string, url: string) => {
 }
 
 //***** GOOGLE
-const googleInit = (clientId: string) => new Promise(resolve => {
+const googleInit = (clientId: string, loc:string) => new Promise(resolve => {
   const head = document.getElementsByTagName('head')[0]
   const meta = document.createElement('meta') as HTMLMetaElement
   meta.name = 'google-signin-client_id'
@@ -108,7 +108,7 @@ const googleInit = (clientId: string) => new Promise(resolve => {
     renderButton()
     resolve()
   }
-  loadScript('google-platform', `https://apis.google.com/js/platform.js?onload=googleAsyncInit`)
+  loadScript('google-platform', `https://apis.google.com/js/platform.js?hl=${loc}&onload=googleAsyncInit`)
 })
 
 const renderButton = () => {
@@ -116,7 +116,7 @@ const renderButton = () => {
     scope: 'profile email',
     width: 240,
     height: 50,
-    longtitle: true,
+    longtitle: false, //jinak nefunguje prihlaseni
     theme: 'dark',
     onsuccess: googleUser => {
       const profile = googleUser.getBasicProfile();
