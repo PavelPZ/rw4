@@ -25,7 +25,7 @@
     load?: TLoader<TPar>
     needsLogin?: (par: TPar) => boolean
     navigate?: (par: TPar) => void
-    urlPatern?
+    urlPattern?
     getRoute?: (par: TPar) => Router.IState<string, TPar>
   }
 

@@ -3,6 +3,7 @@ import { createStore, Store, applyMiddleware } from 'redux'
 import { Provider as ReduxProvider } from 'react-redux'
 import createSagaMiddleware from 'redux-saga/index'
 import { all, call } from 'redux-saga/effects'
+import createHistory from 'history/createBrowserHistory'
 
 import { reducer as routerReducer, Provider as RouterProvider, saga as routerSaga, init as routerInit } from './router'
 import { reducer as loginReducer } from './login'
@@ -31,7 +32,7 @@ export const initApp = (startRoute: Router.IState) => {
 
   sagaMiddleware.run(rootSaga)
 
-  routerInit(startRoute)
+  routerInit(createHistory() as Router.IHistory, startRoute)
 }
 
 export const App = () => {
