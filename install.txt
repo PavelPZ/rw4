@@ -10,3 +10,13 @@ D:\rw\rw4\jspm.config.js:
     "": {
       "defaultExtension": "js"
     },
+
+do D:\rw\rw4\jspm_packages\npm\url-pattern@1.0.3\lib\url-pattern.js
+    keysAndValuesToObject = function(keys, values) {
+        var i, key, length, object, value;
+        object = {};
+        i = -1;
+        length = keys.length;
+        while (++i < length) {
+          key = keys[i];
+          >>>>>> value = decodeURI(values[i]); !!!!
