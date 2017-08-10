@@ -63,8 +63,9 @@ export function* saga() {
 }
 
 // ***** URL parsing
-export const init = (_history: Router.IHistory, _startRoute: Router.IState) => {
+export const init = (_basicPath: string, _history: Router.IHistory, _startRoute: Router.IState) => {
   startRoute = _startRoute
+  basicPath = _basicPath
   history = _history
   navigate(url2state(history.location))
   const unlisten = history.listen((location, action) => navigate(url2state(history.location)))
@@ -72,13 +73,13 @@ export const init = (_history: Router.IHistory, _startRoute: Router.IState) => {
 
 let startRoute: Router.IState
 let history: Router.IHistory
-const start = '/web-app.html';
+let basicPath: string
 
 const url2state = (loc: Router.ILocation) => {
   let { pathname, search } = loc
   if (!pathname || pathname == '/') return startRoute
-  invariant(pathname.toLowerCase().startsWith(start), '')
-  pathname = pathname.substr(start.length)
+  invariant(pathname.toLowerCase().startsWith(basicPath), '')
+  pathname = pathname.substr(basicPath.length)
   if (!pathname || pathname == '/') return startRoute
   let res: Router.IState
   //parse /<routerName>/<pathname>
@@ -105,6 +106,6 @@ const stringify = (pattern: UrlPattern, state: Router.IState) => {
   invariant(!!state, 'State required')
   if (!state) return null
   const { routerName, par: { query, ...par } } = state
-  const res = start + '/' + routerName + pattern.stringify(par) + (query ? '?' + qs.stringify(query) : '')
+  const res = basicPath + '/' + routerName + pattern.stringify(par) + (query ? '?' + qs.stringify(query) : '')
   return res
 }

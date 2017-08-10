@@ -7,17 +7,19 @@ import createHistory from 'history/createBrowserHistory'
 
 import { reducer as routerReducer, Provider as RouterProvider, saga as routerSaga, init as routerInit } from './router'
 import { reducer as loginReducer } from './login'
-
+import { reducer as mediaReducer } from './media'
 
 window.lmGlobal = {
   initializers: [],
   platform: {}
 }
 
-export const initApp = (startRoute: Router.IState) => {
-  const reducers: App.IReducer = (state, action) => ({
+export const initApp = (basicPath: string, startRoute: Router.IState) => {
+
+  const reducers: App.IReducer = (state, action:any) => ({
     router: routerReducer(state.router, action),
     login: loginReducer(state.login, action),
+    media: mediaReducer(state.media, action),
   })
 
   const sagaMiddleware = createSagaMiddleware()
@@ -32,7 +34,10 @@ export const initApp = (startRoute: Router.IState) => {
 
   sagaMiddleware.run(rootSaga)
 
-  routerInit(createHistory() as Router.IHistory, startRoute)
+  const { mediaPlatform } = window.lmGlobal.platform
+  mediaPlatform && mediaPlatform.init()
+
+  routerInit(basicPath, createHistory() as Router.IHistory, startRoute)
 }
 
 export const App = () => {

@@ -72,9 +72,13 @@
     <TypeScriptCompile Include="app-common\app.tsx" />
     <TypeScriptCompile Include="app-common\login.tsx" />
     <TypeScriptCompile Include="app-common\login-d.d.ts" />
+    <TypeScriptCompile Include="app-common\media.ts" />
+    <TypeScriptCompile Include="app-common\media-d.d.ts" />
+    <TypeScriptCompile Include="app-web\web-media.ts" />
     <TypeScriptCompile Include="app-common\router-d.d.ts" />
     <TypeScriptCompile Include="app-common\router.tsx" />
     <TypeScriptCompile Include="app-native\snack\icons.tsx" />
+    <TypeScriptCompile Include="app-web\overlay.tsx" />
     <TypeScriptCompile Include="app-web\web-login-d.d.ts" />
     <TypeScriptCompile Include="app-web\web-login.tsx" />
     <TypeScriptCompile Include="app-common\snack\app-router-d.d.ts" />
@@ -135,6 +139,7 @@
     <Content Include="app-web\snack\login-msie-fb.html" />
     <Content Include="app-web\snack\login-msie.html" />
     <Content Include="app-web\snack\login.html" />
+    <Content Include="app-web\snack\react-md-pure.html" />
     <Content Include="web-app.html" />
     <Content Include="install.txt" />
     <Content Include="installNPM.txt" />

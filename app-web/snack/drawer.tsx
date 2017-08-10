@@ -1,3 +1,2 @@
-﻿// A '.tsx' file enables JSX support in the TypeScript compiler, 
-// for more information see the following page on the TypeScript wiki:
-// https://github.com/Microsoft/TypeScript/wiki/JSX
+﻿//https://www.w3schools.com/cssref/css3_pr_mediaquery.asp
+
