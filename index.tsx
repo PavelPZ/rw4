@@ -6,11 +6,13 @@ import ReactDOM from 'react-dom'
 
 //import App from './app-web/snack/react-md-test';
 //import App from './app-common/snack/react-navigation';
-//ReactDOM.render(<App />, document.getElementById('content'))
-
-import App, { init as initWebApp } from './app-web/app-web'
-
+import App from './app-web/snack/drawer';
 export const init = async () => {
-  await initWebApp()
   ReactDOM.render(<App />, document.getElementById('content'))
 }
+
+//import App, { init as initWebApp } from './app-web/app-web'
+//export const init = async () => {
+//  await initWebApp()
+//  ReactDOM.render(<App />, document.getElementById('content'))
+//}

@@ -1,4 +1,6 @@
-﻿export const platform: Media.IPlatform = {
+﻿//https://www.w3schools.com/cssref/css3_pr_mediaquery.asp
+
+export const platform: Media.IPlatform = {
   init: () => {
     //************** DEFINE MEDIA CHANGE ACTION
     const countMedia = (m: Media.TMediaBoundaries) => `(min-width: ${m}px)`
@@ -10,7 +12,7 @@
       const idx = i
       const listener = mql => {
         if (!mql.matches && idx > 0) return
-        const actMedia = !mql.matches && idx == 0 ? Media.TMedias.ltTablet : (idx == 0 ? Media.TMedias.tablet : Media.TMedias.gtTablet) 
+        const actMedia = !mql.matches && idx == 0 ? Media.TMedias.mobile : (idx == 0 ? Media.TMedias.tablet : Media.TMedias.desktop)
         const act: Media.IChangeMediaAction = { type: Media.Consts.CHANGE_MEDIA, actMedia }
         window.lmGlobal.store.dispatch(act)
       }
@@ -38,6 +40,14 @@
     //********************** init portrait
     portrait.listener(portrait.mql)
   },
+}
+
+export const fela = {
+  [Media.TMedias.mobile]: `@media (max-width: ${Media.TMediaBoundaries.tablet - 1}px)`,
+  [Media.TMedias.tablet]: `@media (min-width: ${Media.TMediaBoundaries.tablet}px) and (max-width: ${Media.TMediaBoundaries.desktop - 1}px)`,
+  [Media.TMedias.desktop]: `@media (min-width: ${Media.TMediaBoundaries.desktop}px)`,
+  [Media.TMedias.gtMobile]: `@media (min-width: ${Media.TMediaBoundaries.tablet}px)`,
+  [Media.TMedias.ltDesktop]: `@media (max-width: ${Media.TMediaBoundaries.desktop-1}px)`,
 }
 
 

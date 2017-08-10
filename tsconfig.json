@@ -10,7 +10,7 @@
     "baseUrl": ".",
     "paths": {
       "react-md/*": [ "app-web/react-md/lib/*" ],
-      "web-fela": [ "app-web/fela/index" ],
+      "web-fela": [ "app-web/fela" ],
       "web-react-native": [ "app-web/react-native/index" ],
       "polyfill/index": [ "polyfill/web" ]
     },

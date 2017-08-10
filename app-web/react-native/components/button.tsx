@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { renderCSSs } from 'web-fela'
 import { MouseHandler } from './lib'
 import ReactNative from 'react-native'
-import { Button as MDButton } from '../../react-md/index'
+import { Button as MDButton } from '../../react-md'
 
 export type IWebButton = ReactNative.ButtonProperties & DReactNative.ButtonEx; // & IWebProps;
 

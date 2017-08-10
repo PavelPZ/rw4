@@ -93,12 +93,12 @@
     <TypeScriptCompile Include="app-native\snack\navigation\navigation.tsx" />
     <TypeScriptCompile Include="app-native\snack\redux-simple.tsx" />
     <TypeScriptCompile Include="app-native\snack\navigation\redux\index.tsx" />
-    <TypeScriptCompile Include="app-web\react-md\index.ts" />
+    <TypeScriptCompile Include="app-web\react-md.ts" />
     <TypeScriptCompile Include="app-web\react-navigation\index.ts" />
     <TypeScriptCompile Include="app-web\snack\drawer.tsx" />
     <TypeScriptCompile Include="app-web\typings.d.ts" />
-    <TypeScriptCompile Include="app-web\fela\fela.d.ts" />
-    <TypeScriptCompile Include="app-web\fela\index.tsx" />
+    <TypeScriptCompile Include="app-web\fela-d.d.ts" />
+    <TypeScriptCompile Include="app-web\fela.tsx" />
     <TypeScriptCompile Include="app-web\app-web.tsx" />
     <TypeScriptCompile Include="app-web\react-native\apis\I18nManager.ts" />
     <TypeScriptCompile Include="app-web\react-native\apis\Platform.ts" />
@@ -171,6 +171,7 @@
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="app-web\react-md\" />
     <Folder Include="typings\" />
   </ItemGroup>
   <PropertyGroup>
