@@ -20,8 +20,6 @@ const renderer = createRenderer({
 });
 render(renderer);
 
-export const rt = { createElement: (a, b, c) => React.createElement(a, b, c) }
-
 export const renderRules = (...rules: DFela.TRule[]) => renderer.renderRule(combineRules(...rules));
 export const renderRule = (rule: DFela.TRule) => renderer.renderRule(rule);
 export const renderCSSs = (...csss: CSSProperties[]) => renderer.renderRule(combineRules(...csss.map(css => () => css)));

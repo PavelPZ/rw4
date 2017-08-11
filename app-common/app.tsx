@@ -8,6 +8,7 @@ import createHistory from 'history/createBrowserHistory'
 import { reducer as routerReducer, Provider as RouterProvider, saga as routerSaga, init as routerInit } from './router'
 import { reducer as loginReducer } from './login'
 import { reducer as mediaReducer } from './media'
+import { reducer as locReducer, Provider as LocProvider, } from './loc'
 
 window.lmGlobal = {
   initializers: [],
@@ -16,10 +17,11 @@ window.lmGlobal = {
 
 export const initApp = (basicPath: string, startRoute: Router.IState) => {
 
-  const reducers: App.IReducer = (state, action:any) => ({
+  const reducers: App.IReducer = (state, action: any) => ({
     router: routerReducer(state.router, action),
     login: loginReducer(state.login, action),
     media: mediaReducer(state.media, action),
+    loc: locReducer(state.loc, action),
   })
 
   const sagaMiddleware = createSagaMiddleware()
@@ -42,6 +44,8 @@ export const initApp = (basicPath: string, startRoute: Router.IState) => {
 
 export const App = () => {
   return <ReduxProvider store={window.lmGlobal.store as Store<IState>}>
-    <RouterProvider />
+    <LocProvider>
+      <RouterProvider />
+    </LocProvider>
   </ReduxProvider>
 }

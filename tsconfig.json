@@ -26,7 +26,7 @@
     "experimentalDecorators": true,
     "noImplicitAny": false,
     "jsx": "react",
-    "jsxFactory": "rt",
+    //"jsxFactory": "rt",
     "lib": [
       "dom",
       "es2015",

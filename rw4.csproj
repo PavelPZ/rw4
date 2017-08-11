@@ -70,11 +70,13 @@
     <TypeScriptCompile Include="app-common\app-d.d.ts" />
     <TypeScriptCompile Include="app-common\index.ts" />
     <TypeScriptCompile Include="app-common\app.tsx" />
+    <TypeScriptCompile Include="app-common\loc-d.d.ts" />
+    <TypeScriptCompile Include="app-common\loc.tsx" />
     <TypeScriptCompile Include="app-common\login.tsx" />
     <TypeScriptCompile Include="app-common\login-d.d.ts" />
     <TypeScriptCompile Include="app-common\media.ts" />
     <TypeScriptCompile Include="app-common\media-d.d.ts" />
-    <TypeScriptCompile Include="app-common\snack\localize.tsx" />
+    <TypeScriptCompile Include="app-common\snack\loc-test.tsx" />
     <TypeScriptCompile Include="app-web\web-media.ts" />
     <TypeScriptCompile Include="app-common\router-d.d.ts" />
     <TypeScriptCompile Include="app-common\router.tsx" />
