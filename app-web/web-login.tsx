@@ -47,7 +47,7 @@ export class Provider extends React.PureComponent {
           <div onClick={facebookLoginBtnClick}>FACEBOOK</div>
         </div>
       </div>
-      <div ref={div => this.appPage = div} style={{ zIndex: 1, position: 'absolute', left: 0, top: 0, bottom: 0, right: 0 }}>
+      <div ref={div => this.appPage = div} className={renderCSS({ zIndex: 1, ...styleLib.absoluteScreen })}>
         {this.props.children}
       </div>
     </div>

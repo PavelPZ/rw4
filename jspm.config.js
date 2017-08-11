@@ -25,7 +25,7 @@ SystemJS.config({
   },
   map: {
     "react-md": "/react-md/lib/",
-    "web-fela": "/app-web/fela/index",
+    "web-fela": "/app-web/fela",
     "redux-saga/effects": "npm:redux-saga@0.15.6/lib/effects",
     "redux-saga/index": "npm:redux-saga@0.15.6/lib/index",
     "url-parse": "npm:url-parse@1.1.9",

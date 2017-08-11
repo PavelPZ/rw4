@@ -11,8 +11,8 @@
     "paths": {
       "react-md/*": [ "app-web/react-md/lib/*" ],
       "web-fela": [ "app-web/fela" ],
-      "web-react-native": [ "app-web/react-native/index" ],
-      "polyfill/index": [ "polyfill/web" ]
+      "web-react-native": [ "app-web/react-native/index" ]
+      //"polyfill/index": [ "polyfill/web" ]
     },
 
     //**** REACT NATIVE
@@ -26,6 +26,7 @@
     "experimentalDecorators": true,
     "noImplicitAny": false,
     "jsx": "react",
+    "jsxFactory": "rt",
     "lib": [
       "dom",
       "es2015",

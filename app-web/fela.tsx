@@ -1,4 +1,5 @@
-﻿import { createRenderer, combineRules } from 'fela';
+﻿import React from 'react'
+import { createRenderer, combineRules } from 'fela';
 import { render } from 'fela-dom';
 import pluginExtend from "fela-plugin-extend";
 //import pluginMonolithic from "fela-monolithic";
@@ -19,6 +20,8 @@ const renderer = createRenderer({
 });
 render(renderer);
 
+export const rt = { createElement: (a, b, c) => React.createElement(a, b, c) }
+
 export const renderRules = (...rules: DFela.TRule[]) => renderer.renderRule(combineRules(...rules));
 export const renderRule = (rule: DFela.TRule) => renderer.renderRule(rule);
 export const renderCSSs = (...csss: CSSProperties[]) => renderer.renderRule(combineRules(...csss.map(css => () => css)));
@@ -28,7 +31,7 @@ export const renderStatic = (css: string | CSSProperties) => renderer.renderStat
 
 export const styleLib = {
   absoluteScreen: {
-    position: 'absolute', left: 0, top: 0, bottom: 0, right: 0,
+    position: 'fixed', left: 0, top: 0, bottom: 0, right: 0,
   } as CSSProperties,
   flexCenterBoth: {
     display: 'flex', justifyContent: 'center', alignItems: 'center'
