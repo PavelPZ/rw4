@@ -36,9 +36,9 @@
 }
 
 interface IState {
-  media?: Media.IState
+  mediaQuery?: Media.IState
 }
 
 interface IPlatforms {
-  mediaPlatform?: Media.IPlatform
+  mediaQueryPlatform?: Media.IPlatform
 }

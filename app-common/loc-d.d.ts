@@ -7,30 +7,58 @@
 
 
   const enum Consts {
+    MODE_LOC_ASYNC_START = 'loc/MODE_LOC_ASYNC_START', //async start IContextMode.loc mode
+    MODE_LOC_START = 'loc/MODE_LOC_START', //start IContextMode.loc mode
+    SENT_START = 'loc/START_SENT', //zacatek editace vety
+    SENT_OK = 'loc/SENT_OK', //uschovani editovane vety
+    SENT_CANCEL = 'loc/SENT_CANCEL', //
+    MODE_LOC_END = 'loc/MODE_LOC_END', //konec IContextMode.loc mode
+
+    MODE_BATCH_ASYNC_START = 'loc/MODE_BATCH_ASYNC_START', //zacatek async rezimu
+    MODE_BATCH_END = 'loc/MODE_BATCH_END', //konec async rezimu
   }
 
   interface IState {
-    loc: Langs //nativni jazyk uzivatele
-    locMode?: number //>0 => zobraz obrazovku v rezimu lokalizace
+    nativeLang: Langs //nativni jazyk uzivatele
+    mode: IContextMode
+    forceUpdate: number //pro redux - zvetsenim cisla se provede re-render Providel komponenty
     //pro locMode==true: lokalizuje se z anglictiny do toLang, jako pomucka se ukazi jeste helperLangs jazyky
-    toLang?: Langs
+    locLang?: Langs
     helperLangs?: Langs[] //jako pomucka se ukazi dalsi preklady
+  }
+
+  interface IContext extends IState {
+    native?: ISents //gui aplikace pro NONE mod v jazyce IState.nativeLang
+    loc?: ISents //vysledek LOC modu v jazyce IState.locLang
+    helpers?: { [lang: string]: ISents } //pomoca data LOC modu v jazycich IState.helperLangs
+    batchResult?: ISents //vysledek BATCH modu v anglictine
+  }
+
+  interface ISents {
+    locLang: Langs
+    [id:number]: ISent
+  }
+
+  interface ISent {
+    enSource: string //string nebo #0 delimited string array
+    trans: string //string nebo #0 delimited string array
   }
 
   type IGetLocResult = string | string[] //retezec nebo skupina retezcu pro lokalizaci kontextu
 
   const enum IContextMode { none/*normalni beh aplikace*/, loc/*lokalizace aplikace*/, batch/*design time pruchod vsemi strankami pro zjisteni zdrojovych anglickych lokalizacnich dat*/ }
 
-  interface ILocContext {
-    loc: {
-      mode: IContextMode
-      c: (par: React.MouseEventHandler<any>) => React.MouseEventHandler<any>
-      x
-    }
-  }
-
   const enum TFileIds {
     locTest = 'locTest/999',
+  }
+
+  interface ILocSentenceProps {
+    ctx: Loc.IContext
+    file: string
+    sentId: number
+    enSource?: string
+    enSources?: string[]
+    mask?: (pars: string[]) => React.ReactNode[]
   }
 
 }
@@ -39,3 +67,6 @@ interface IState {
   loc?: Loc.IState
 }
 
+interface IContext {
+  loc: Loc.IContext
+}

@@ -1,26 +1,24 @@
 import React from 'react'
 import { createStore, Store, applyMiddleware } from 'redux'
-import { Provider as ReduxProvider } from 'react-redux'
 import createSagaMiddleware from 'redux-saga/index'
 import { all, call } from 'redux-saga/effects'
-import createHistory from 'history/createBrowserHistory'
 
-import { reducer as routerReducer, Provider as RouterProvider, saga as routerSaga, init as routerInit } from './router'
+import { reducer as routerReducer, saga as routerSaga, init as routerInit } from './router'
 import { reducer as loginReducer } from './login'
-import { reducer as mediaReducer } from './media'
-import { reducer as locReducer, Provider as LocProvider, } from './loc'
+import { reducer as mediaQueryReducer } from './media-query'
+import { reducer as locReducer } from './loc'
 
 window.lmGlobal = {
   initializers: [],
   platform: {}
 }
 
-export const initApp = (basicPath: string, startRoute: Router.IState) => {
+export const initApp = () => {
 
-  const reducers: App.IReducer = (state, action: any) => ({
+   const reducers: App.IReducer = (state, action: any) => ({
     router: routerReducer(state.router, action),
     login: loginReducer(state.login, action),
-    media: mediaReducer(state.media, action),
+    mediaQuery: mediaQueryReducer(state.mediaQuery, action),
     loc: locReducer(state.loc, action),
   })
 
@@ -36,16 +34,20 @@ export const initApp = (basicPath: string, startRoute: Router.IState) => {
 
   sagaMiddleware.run(rootSaga)
 
-  const { mediaPlatform } = window.lmGlobal.platform
-  mediaPlatform && mediaPlatform.init()
+  const { mediaQueryPlatform } = window.lmGlobal.platform
+  mediaQueryPlatform && mediaQueryPlatform.init()
 
-  routerInit(basicPath, createHistory() as Router.IHistory, startRoute)
+  //return <ReduxProvider store={window.lmGlobal.store as Store<IState>} >
+  //  <LocProvider>
+  //    <RouterProvider appOrRoute={appOrRoute} />
+  //  </LocProvider>
+  //</ReduxProvider>
 }
 
-export const App = () => {
-  return <ReduxProvider store={window.lmGlobal.store as Store<IState>}>
-    <LocProvider>
-      <RouterProvider />
-    </LocProvider>
-  </ReduxProvider>
-}
+//export const App = () => {
+//  return <ReduxProvider store={window.lmGlobal.store as Store<IState>}>
+//    <LocProvider>
+//      <RouterProvider />
+//    </LocProvider>
+//  </ReduxProvider>
+//}

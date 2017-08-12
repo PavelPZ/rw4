@@ -12,6 +12,10 @@ declare module 'invariant' {
   export default invariant
 }
 
+declare module 'prop-types' {
+  export const any
+}
+
 declare module 'url-parse' {
   interface Query {
     [index: string]: string;

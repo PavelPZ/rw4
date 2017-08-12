@@ -1,15 +1,25 @@
 ﻿import React from 'react'
 import { connect } from 'react-redux'
+import PropTypes from 'prop-types'
+
+export const registerFile = (fileId: Loc.TFileIds, path: string) => { }
 
 class provider extends React.PureComponent<Loc.IState> {
   render() {
     return React.Children.only(this.props.children)
   }
+  getChildContext(): IContext {
+    return {
+      loc: this.props
+    };
+  }
+  static childContextTypes = { loc: PropTypes.any }
 }
 const providerConnector = connect((state: IState) => state.loc)
 export const Provider = providerConnector(provider)
 
 export const reducer: App.IReducer<Loc.IState> = (state, action) => {
+  if (!state) state = { nativeLang: 'en', mode: Loc.IContextMode.loc, forceUpdate:0 }
   return state
   //switch (action.type) {
   //  case Router.Consts.NAVIGATE_END: return action.newState
@@ -17,23 +27,46 @@ export const reducer: App.IReducer<Loc.IState> = (state, action) => {
   //}
 }
 
-export const s = (ctx: Loc.ILocContext, file: string, sendId: number, enSource: string) => enSource
-export const ss = (ctx: Loc.ILocContext, file: string, sendId: number, enSource: string[], mask: (pars: string[]) => React.ReactNode[]) => {
-  switch (ctx.loc.mode) {
-    case Loc.IContextMode.none:
-      /*TODO vezmi preklad z ctx.loc.data*/
-      return mask(enSource)
-    case Loc.IContextMode.loc:
-      /*TODO vezmi preklad z ctx.loc.data*/
-      return <div>{mask(enSource)}</div>
-    default:
-      //TODO: do ctx.loc.data dej enSource
-      return mask(enSource)
+export const loc = (ctx: Loc.IContext, file: Loc.TFileIds) => {
+  return {
+    s: (sentId: number, enSource: string) => s({ ctx, file, sentId, enSource }),
+    ss: (sentId: number, enSources: string[], mask: (pars: string[]) => React.ReactNode[]) => ss({ ctx, file, sentId, enSources, mask }),
+    cl: <T extends any>(event: React.MouseEventHandler<T>) => cl(ctx, event)
   }
 }
 
-export const cl = <T extends any>(ctx: Loc.ILocContext, event: React.MouseEventHandler<T>) => {
-  switch (ctx.loc.mode) {
+export const contextType = (comp: React.ComponentType) => {
+  comp.contextTypes = { loc: PropTypes.any }
+  return comp
+}
+
+export const locWrapper = (props: Loc.ILocSentenceProps, isSS:boolean ) => {
+  const { ctx, file, sentId, enSource, enSources, mask } = props
+  return <span></span>
+}
+
+export const s = (par: Loc.ILocSentenceProps) => {
+  const { ctx, file, sentId, enSource } = par
+  return par.enSource
+}
+export const ss = (par: Loc.ILocSentenceProps) => {
+  const { ctx, file, sentId, enSources, mask } = par
+  switch (ctx.mode) {
+    case Loc.IContextMode.none:
+      /*TODO vezmi preklad z ctx.loc.data*/
+      return mask(enSources)
+    case Loc.IContextMode.loc:
+      /*TODO vezmi preklad z ctx.loc.data*/
+      return <span onClick={() => alert('${file},${sentId}')} style={{ backgroundColor: 'maroon' }}>{mask(enSources) }</span >
+    default:
+      //TODO: do ctx.loc.data dej enSource
+      return mask(enSources)
+  }
+}
+
+export const cl = <T extends any>(ctx: Loc.IContext, event: React.MouseEventHandler<T>) => {
+  switch (ctx.mode) {
+    case Loc.IContextMode.batch: 
     case Loc.IContextMode.loc: return (ev: React.MouseEvent<T>) => { if (ev) ev.preventDefault() }
     default: return event
   }

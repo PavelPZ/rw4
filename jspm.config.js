@@ -2601,7 +2601,7 @@ SystemJS.config({
     "npm:isomorphic-fetch@2.2.1": {
       "map": {
         "whatwg-fetch": "npm:whatwg-fetch@2.0.3",
-        "node-fetch": "npm:node-fetch@1.7.1"
+        "node-fetch": "npm:node-fetch@1.7.2"
       }
     },
     "npm:babel-runtime@6.25.0": {
@@ -2763,6 +2763,12 @@ SystemJS.config({
         "warning": "npm:warning@3.0.0",
         "value-equal": "npm:value-equal@0.2.1",
         "resolve-pathname": "npm:resolve-pathname@2.1.0"
+      }
+    },
+    "npm:node-fetch@1.7.2": {
+      "map": {
+        "encoding": "npm:encoding@0.1.12",
+        "is-stream": "npm:is-stream@1.1.0"
       }
     }
   }

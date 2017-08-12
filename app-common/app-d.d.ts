@@ -37,3 +37,7 @@ interface Window {
 interface IState { }
 
 interface IPlatforms { }
+
+interface IContext {
+}
+
