@@ -2,6 +2,8 @@
 import { View, Text, Button } from '../../polyfill/index'
 import { registerRouter, actRoute } from '../../app-common/router'
 import { isLogged, createLoginButton } from '../../app-common/login'
+import { contextType as appCommonContextType } from '../../app-common/app'
+import { contextType as locContextType } from '../../app-common/loc'
 
 const LoginButton = createLoginButton(props => {
   const { logged, doLoginAction, ...rest } = props
@@ -11,13 +13,14 @@ const LoginButton = createLoginButton(props => {
     onPress={doLoginAction} />
 })
 
-const appRouterComp = (props: AppRouter.IRoutePar) => {
+const appRouterComp: App.SCF<AppRouter.IRoutePar> = (props, ctx) => {
   return <View style={{ flex: 1, marginTop: 30 }}>
     <Text style={{ fontSize: 24 }}>{props.title}</Text>
     <Button tabIndex={1} title='Add to title' onPress={() => AppRouterComp.navigate({ title: props.title + ' | xxx' })} />
     <LoginButton tabIndex={2}/>
   </View>
 }
+appCommonContextType(locContextType(appRouterComp))
 
 //*** EXPORTS
 

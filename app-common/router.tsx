@@ -33,11 +33,6 @@ class provider extends React.PureComponent<Router.IRouterProviderProps & Router.
       return props && props.routerName ? React.createElement(routes[props.routerName] as React.ComponentClass<any>, props.par) : null
     else
       return provider.app
-    //  switch (React.Children.count(props.children)) {
-    //  case 0: return null
-    //  case 1: return React.Children.only(props.children) //no route, just default component
-    //  default: throw ''
-    //}
   }
 }
 
@@ -52,7 +47,6 @@ export const navigate = (routerName: string | Router.IState, par?) => {
 }
 
 export function registerRouter<TPar extends Router.IRoutePar = Router.IRoutePar>(router: React.ComponentType<TPar>, routerName: string, urlMask?: string, extension?: Router.IRoute<TPar>) {
-
   const res = Object.assign(router, extension) as Router.TRoute;
   res.routerName = routerName
   res.getRoute = (par: TPar) => ({ routerName, par })
@@ -91,8 +85,7 @@ export function* saga() {
   }
 }
 
-// ***** URL parsing
-export const init = (initPar: Router.IInitPar) => {
+const init = (initPar: Router.IInitPar) => {
   if (!initPar) return
 
   const { startRoute, rootUrl, history } = initPar

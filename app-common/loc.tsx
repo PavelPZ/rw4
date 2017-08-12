@@ -9,8 +9,9 @@ class provider extends React.PureComponent<Loc.IState> {
     return React.Children.only(this.props.children)
   }
   getChildContext(): IContext {
+    const { children, dispatch, ...rest } = this.props as any //vyhod z props nesmysly
     return {
-      loc: this.props
+      loc: rest
     };
   }
   static childContextTypes = { loc: PropTypes.any }
@@ -36,7 +37,7 @@ export const loc = (ctx: Loc.IContext, file: Loc.TFileIds) => {
 }
 
 export const contextType = (comp: React.ComponentType) => {
-  comp.contextTypes = { loc: PropTypes.any }
+  comp.contextTypes = { ...comp.contextTypes, loc: PropTypes.any }
   return comp
 }
 

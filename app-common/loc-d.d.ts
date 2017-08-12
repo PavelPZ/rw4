@@ -68,5 +68,5 @@ interface IState {
 }
 
 interface IContext {
-  loc: Loc.IContext
+  loc?: Loc.IContext
 }

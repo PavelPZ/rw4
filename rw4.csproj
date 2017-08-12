@@ -68,7 +68,6 @@
   <ItemGroup>
     <Content Include=".gitignore" />
     <TypeScriptCompile Include="app-common\app-d.d.ts" />
-    <TypeScriptCompile Include="app-common\index.ts" />
     <TypeScriptCompile Include="app-common\app.tsx" />
     <TypeScriptCompile Include="app-common\loc-d.d.ts" />
     <TypeScriptCompile Include="app-common\loc.tsx" />
@@ -114,7 +113,7 @@
     <TypeScriptCompile Include="app-web\react-native\index.ts" />
     <TypeScriptCompile Include="app-web\react-navigation\scene-view.tsx" />
     <TypeScriptCompile Include="app-web\react-navigation\tab-navigator.tsx" />
-    <TypeScriptCompile Include="app-common\snack\react-navigation.tsx" />
+    <None Include="app-common\snack\react-navigation.tsx_" />
     <TypeScriptCompile Include="app-web\react-navigation\stack-navigator.tsx" />
     <TypeScriptCompile Include="app-web\snack\react-md-test.tsx" />
     <TypeScriptCompile Include="App.tsx" />

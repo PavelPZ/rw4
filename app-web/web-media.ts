@@ -13,8 +13,7 @@ export const platform: Media.IPlatform = {
       const listener = mql => {
         if (!mql.matches && idx > 0) return
         const actMedia = !mql.matches && idx == 0 ? Media.TMedias.mobile : (idx == 0 ? Media.TMedias.tablet : Media.TMedias.desktop)
-        const act: Media.IChangeMediaAction = { type: Media.Consts.CHANGE_MEDIA, actMedia }
-        window.lmGlobal.store.dispatch(act)
+        window.lmGlobal.store.dispatch<Media.IChangeMediaAction>({ type: Media.Consts.CHANGE_MEDIA, actMedia })
       }
       mql.addListener(listener)
       return { mql, listener }
@@ -22,10 +21,7 @@ export const platform: Media.IPlatform = {
 
     const portrait = (() => {
       var mql = window.matchMedia('(orientation: portrait)');
-      const listener = mql => {
-        const act: Media.IChangePortraitAction = { type: Media.Consts.CHANGE_PORTRAIT, portrait: mql.matches }
-        window.lmGlobal.store.dispatch(act)
-      }
+      const listener = mql => window.lmGlobal.store.dispatch<Media.IChangePortraitAction>({ type: Media.Consts.CHANGE_PORTRAIT, portrait: mql.matches })
       mql.addListener(listener)
       return { mql, listener }
     })()
@@ -47,7 +43,7 @@ export const fela = {
   [Media.TMedias.tablet]: `@media (min-width: ${Media.TMediaBoundaries.tablet}px) and (max-width: ${Media.TMediaBoundaries.desktop - 1}px)`,
   [Media.TMedias.desktop]: `@media (min-width: ${Media.TMediaBoundaries.desktop}px)`,
   [Media.TMedias.gtMobile]: `@media (min-width: ${Media.TMediaBoundaries.tablet}px)`,
-  [Media.TMedias.ltDesktop]: `@media (max-width: ${Media.TMediaBoundaries.desktop-1}px)`,
+  [Media.TMedias.ltDesktop]: `@media (max-width: ${Media.TMediaBoundaries.desktop - 1}px)`,
 }
 
 

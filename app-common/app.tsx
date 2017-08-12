@@ -2,8 +2,9 @@ import React from 'react'
 import { createStore, Store, applyMiddleware } from 'redux'
 import createSagaMiddleware from 'redux-saga/index'
 import { all, call } from 'redux-saga/effects'
+import PropTypes from 'prop-types'
 
-import { reducer as routerReducer, saga as routerSaga, init as routerInit } from './router'
+import { reducer as routerReducer, saga as routerSaga } from './router'
 import { reducer as loginReducer } from './login'
 import { reducer as mediaQueryReducer } from './media-query'
 import { reducer as locReducer } from './loc'
@@ -13,7 +14,12 @@ window.lmGlobal = {
   platform: {}
 }
 
-export const initApp = () => {
+export const contextType = (comp: React.ComponentType) => {
+  comp.contextTypes = { ...comp.contextTypes, store: PropTypes.any }
+  return comp
+}
+
+export const init = () => {
 
    const reducers: App.IReducer = (state, action: any) => ({
     router: routerReducer(state.router, action),
@@ -34,20 +40,6 @@ export const initApp = () => {
 
   sagaMiddleware.run(rootSaga)
 
-  const { mediaQueryPlatform } = window.lmGlobal.platform
-  mediaQueryPlatform && mediaQueryPlatform.init()
+  return window.lmGlobal.store
 
-  //return <ReduxProvider store={window.lmGlobal.store as Store<IState>} >
-  //  <LocProvider>
-  //    <RouterProvider appOrRoute={appOrRoute} />
-  //  </LocProvider>
-  //</ReduxProvider>
 }
-
-//export const App = () => {
-//  return <ReduxProvider store={window.lmGlobal.store as Store<IState>}>
-//    <LocProvider>
-//      <RouterProvider />
-//    </LocProvider>
-//  </ReduxProvider>
-//}

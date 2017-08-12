@@ -37,17 +37,20 @@ export class Provider extends React.PureComponent {
   loginHTML: HTMLDivElement
   appPage: HTMLDivElement
   returnUrl: Router.IState
+  //static rendered = new Promise<void>(resolve => Provider.renderedCompleted = resolve)
+  //static renderedCompleted: () => void
 
   render() {
     console.log('LOGIN: start Login rendering')
+    const fixedScreen = { position: 'fixed', left: 0, top: 0, bottom: 0, right: 0, } as CSSProperties
     return <div>
-      <div ref={div => this.loginHTML = div} className={renderCSS({ zIndex: 100, display: 'none', ...styleLib.absoluteScreen, justifyContent: 'space-around', flexDirection: 'row' })}>
+      <div ref={div => this.loginHTML = div} className={renderCSS({ display: 'none', ...fixedScreen, justifyContent: 'space-around', flexDirection: 'row' })}>
         <div className={renderCSS({ flex: 1, maxWidth: 800 })}>
           <div tabIndex={1} ref={div => { console.log('LOGIN: finish Login rendering'); init() }} id="my-signin" className="g-signin2" />
           <div onClick={facebookLoginBtnClick}>FACEBOOK</div>
         </div>
       </div>
-      <div ref={div => this.appPage = div} className={renderCSS({ zIndex: 1, ...styleLib.absoluteScreen })}>
+      <div ref={div => this.appPage = div} className={renderCSS(fixedScreen)}>
         {this.props.children}
       </div>
     </div>
@@ -60,19 +63,17 @@ export class Provider extends React.PureComponent {
   }
 
   onLogin(provider: Login.TProviders, name: string, firstName: string, lastName: string, picture: string, email: string) {
-    const loginAction: Login.ILoginAction = {
+    window.lmGlobal.store.dispatch<Login.ILoginAction>({
       type: Login.Consts.LOGIN, logged: Login.TLoginStatus.logged, provider: provider,
       name, firstName, lastName, picture, email
-    }
-    window.lmGlobal.store.dispatch(loginAction)
+    })
     if (this.returnUrl) navigate(this.returnUrl)
     this.show(false, null)
     delete this.returnUrl
   }
 
   onLogout() {
-    const loginAction: Login.ILoginAction = { type: Login.Consts.LOGIN, logged: Login.TLoginStatus.unlogged, }
-    window.lmGlobal.store.dispatch(loginAction)
+    window.lmGlobal.store.dispatch<Login.ILoginAction>({ type: Login.Consts.LOGIN, logged: Login.TLoginStatus.unlogged, })
     navigate(actRoute())
   }
 }
@@ -98,7 +99,7 @@ const loadScript = (id: string, url: string) => {
 }
 
 //***** GOOGLE
-const googleInit = (clientId: string, loc:string) => new Promise(resolve => {
+const googleInit = (clientId: string, loc: string) => new Promise(resolve => {
   const head = document.getElementsByTagName('head')[0]
   const meta = document.createElement('meta') as HTMLMetaElement
   meta.name = 'google-signin-client_id'
@@ -132,7 +133,7 @@ const facebookInit = (appId: string, apiVersion: string) => new Promise(resolve 
     FB.init({
       appId: appId,
       cookie: true,
-      xfbml: true,
+      //xfbml: true,
       version: 'v2.10'
     });
     FB.getLoginStatus(response => {

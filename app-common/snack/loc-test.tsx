@@ -5,7 +5,7 @@ import { loc, contextType as locContextType, registerFile } from '../loc'
 const f = Loc.TFileIds.locTest
 registerFile(f, 'app-common/snack/loc-test')
 
-const Test = (props, c: IContext) => {
+const Test: App.SCF = (props, c) => {
   const { s, ss, cl } = loc(c.loc, f)
   return <div>
     {s(1, 'Hallo world')}<br />

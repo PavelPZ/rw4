@@ -7,7 +7,7 @@ declare namespace App {
     <A extends Action>(action: A): A;
   }
   interface Store {
-    dispatch: Dispatch;
+    dispatch: <A extends Action>(action: A) => A;
     getState(): IState;
   }
 
@@ -28,6 +28,14 @@ declare namespace App {
 
   interface IReducer<TState = IState> { (state: TState, action: Action): TState }
 
+  interface SCF<P = {}> {
+    (props: P & { children?: React.ReactNode }, context?: IContext): React.ReactElement<any> | null;
+    propTypes?: React.ValidationMap<P>;
+    contextTypes?: React.ValidationMap<any>;
+    defaultProps?: Partial<P>;
+    displayName?: string;
+  }
+  
 }
 
 interface Window {
@@ -39,5 +47,5 @@ interface IState { }
 interface IPlatforms { }
 
 interface IContext {
+  store?: App.Store
 }
-
