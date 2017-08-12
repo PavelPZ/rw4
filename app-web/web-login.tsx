@@ -10,6 +10,7 @@ import { View, Text, Button } from '../polyfill/index'
 import { registerRouter, navigate, actRoute } from '../app-common/router'
 import { isLogged } from '../app-common/login'
 import { renderCSS, styleLib } from 'web-fela'
+import invariant from 'invariant'
 
 export const platform = (par: Login.IPlatformPar) => ({
   par,
@@ -31,6 +32,7 @@ export class Provider extends React.PureComponent {
 
   constructor() {
     super()
+    invariant(!provider, 'cannot create more web-login.Provider')
     provider = this
   }
 
