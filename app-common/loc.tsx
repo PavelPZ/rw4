@@ -20,7 +20,7 @@ const providerConnector = connect((state: IState) => state.loc)
 export const Provider = providerConnector(provider)
 
 export const reducer: App.IReducer<Loc.IState> = (state, action) => {
-  if (!state) state = { nativeLang: 'en', mode: Loc.IContextMode.loc, forceUpdate:0 }
+  if (!state) state = { nativeLang: 'en', mode: Loc.IContextMode.none, forceUpdate: 0 }
   return state
   //switch (action.type) {
   //  case Router.Consts.NAVIGATE_END: return action.newState
@@ -36,7 +36,7 @@ export const loc = (ctx: Loc.IContext, file: Loc.TFileIds) => {
   }
 }
 
-export const contextType = (comp: React.ComponentType) => {
+export const contextType = <T extends React.ComponentType>(comp: T) => {
   comp.contextTypes = { ...comp.contextTypes, loc: PropTypes.any }
   return comp
 }
@@ -53,14 +53,14 @@ export const s = (par: Loc.ILocSentenceProps) => {
 export const ss = (par: Loc.ILocSentenceProps) => {
   const { ctx, file, sentId, enSources, mask } = par
   switch (ctx.mode) {
-    case Loc.IContextMode.none:
-      /*TODO vezmi preklad z ctx.loc.data*/
+    case Loc.IContextMode.batch:
+      //TODO: do ctx.loc.data dej enSource
       return mask(enSources)
     case Loc.IContextMode.loc:
       /*TODO vezmi preklad z ctx.loc.data*/
       return <span onClick={() => alert('${file},${sentId}')} style={{ backgroundColor: 'maroon' }}>{mask(enSources) }</span >
     default:
-      //TODO: do ctx.loc.data dej enSource
+      /*TODO vezmi preklad z ctx.loc.data*/
       return mask(enSources)
   }
 }

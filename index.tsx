@@ -28,10 +28,10 @@ export const init = () => {
 
   mediaQueryPlatform.init()
 
-  const appOrRoute: Router.IInitPar = { history: createHistory() as Router.IHistory, rootUrl: '/web-app.html', startRoute: AppRouterComp.getRoute({ title: 'START TITLE' }) }
+  //const appOrRoute: Router.IInitPar = { history: createHistory() as Router.IHistory, rootUrl: '/web-app.html', startRoute: AppRouterComp.getRoute({ title: 'START TITLE' }) }
   //const appOrRoute = <ReactMDApp/>
   //const appOrRoute = <DrawerApp/>
-  //const appOrRoute = <LocTestApp />
+  const appOrRoute = <LocTestApp />
 
   const appAll =
     <ReduxProvider store={store} >
@@ -57,10 +57,10 @@ export const init = () => {
     </ReduxProvider>
 
   ReactDOM.render(
-    appAll
+    //appAll
     //appMin
     //appNo
-    //appNoLogin
+    appNoLogin
     , document.getElementById('content'))
 }
 
