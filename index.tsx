@@ -10,6 +10,7 @@ import { init as initAppCommon } from './app-common/app'
 import createHistory from 'history/createBrowserHistory'
 import { platform as loginPlatform, Provider as LoginProvider } from './app-web/web-login'
 import { platform as mediaQueryPlatform } from './app-web/web-media'
+import { Provider as RecordingProvider } from './app-web/web-recording'
 
 //************ aplikace k testovani
 import { AppRouterComp } from './app-common/snack/app-router'
@@ -28,16 +29,18 @@ export const init = () => {
 
   mediaQueryPlatform.init()
 
-  //const appOrRoute: Router.IInitPar = { history: createHistory() as Router.IHistory, rootUrl: '/web-app.html', startRoute: AppRouterComp.getRoute({ title: 'START TITLE' }) }
+  const appOrRoute: Router.IInitPar = { history: createHistory() as Router.IHistory, rootUrl: '/web-app.html', startRoute: AppRouterComp.getRoute({ title: 'START TITLE' }) }
   //const appOrRoute = <ReactMDApp/>
   //const appOrRoute = <DrawerApp/>
-  const appOrRoute = <LocTestApp />
+  //const appOrRoute = <LocTestApp />
 
   const appAll =
     <ReduxProvider store={store} >
       <LocProvider>
         <LoginProvider>
-          <RouterProvider appOrRoute={appOrRoute} />
+          <RecordingProvider>
+            <RouterProvider appOrRoute={appOrRoute} />
+          </RecordingProvider>
         </LoginProvider>
       </LocProvider>
     </ReduxProvider>
@@ -57,10 +60,10 @@ export const init = () => {
     </ReduxProvider>
 
   ReactDOM.render(
-    //appAll
+    appAll
     //appMin
     //appNo
-    appNoLogin
+    //appNoLogin
     , document.getElementById('content'))
 }
 
