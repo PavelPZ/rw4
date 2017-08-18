@@ -2,8 +2,9 @@
 import { connect } from 'react-redux'
 import invariant from 'invariant'
 import { put, take } from 'redux-saga/effects'
+import { delay } from 'redux-saga'
 
-export const middleware: Middleware = (middlAPI: MiddlewareAPI<IState>)  => next => (act) => { //inspirace v D:\rw\rw\rw-redux\async.ts
+export const middleware: Middleware = (middlAPI: MiddlewareAPI<IState>) => next => (act) => { //inspirace v D:\rw\rw\rw-redux\async.ts
 
   next(act)
 
@@ -11,20 +12,21 @@ export const middleware: Middleware = (middlAPI: MiddlewareAPI<IState>)  => next
 
   if (type.endsWith(system)) return act
 
-  const state = middlAPI.getState().recording
-
   if (type.endsWith(asyncStart)) {
+    const state = middlAPI.getState().recording
     invariant(!actAsyncAction, `asyncMiddleware: !${actAsyncAction}`)
     actAsyncAction = type.substr(0, type.length - asyncStart.length)
     record(state, middlAPI.dispatch, act)
     blockGUI(middlAPI.dispatch, true)
   } else if (type.endsWith(asyncEnd)) {
+    const state = middlAPI.getState().recording
     invariant(actAsyncAction === type.substr(0, type.length - asyncEnd.length), `asyncMiddleware: ${actAsyncAction} != ${type}`)
     blockGUI(middlAPI.dispatch, false)
     actAsyncAction = null
     playContinue(state, middlAPI.dispatch)
   } else {
     if (!actAsyncAction) {
+      const state = middlAPI.getState().recording
       record(state, middlAPI.dispatch, act)
       playContinue(state, middlAPI.dispatch)
     }
@@ -58,43 +60,62 @@ export function* saga() {
 
       case Recording.Consts.PLAY_START:
         const recordingId = act.recordingId
-        let state = window.lmGlobal.store.getState().recording
-        const startState = recordingId ? state.startState : state.playLists[0].startState
-        yield put({ type: Recording.Consts.PLAY_INIT_STATE, recordingId: act.recordingId, startState } as Recording.PlayInitStateAction)
+        const setPlayInitState = function* (startState: IState) {
+          yield delay(Recording.Consts.playActionDelay)
+          yield put({ type: Recording.Consts.PLAY_INIT_STATE, recordingId: act.recordingId, startState } as Recording.PlayInitStateAction)
+          yield delay(1)
+          return window.lmGlobal.store.getState().recording
+        }
+        const canceled = () => window.lmGlobal.store.getState().recording.mode != Recording.TModes.playing
+        const playAndGoNext = function* (playAction: App.Action, idx: number, listIdx: number) {
+          yield delay(Recording.Consts.playActionDelay)
+          const canc = canceled()
+          if (!canc) {
+            yield put(playAction)
+            yield put({ type: Recording.Consts.PLAY_NEXT, idx, listIdx } as Recording.PlayNextAction)
+          }
+          return canc
+        }
         while (true) {
-          let playAction: App.Action
-          state = window.lmGlobal.store.getState().recording
+          let state = window.lmGlobal.store.getState().recording
           if (recordingId == Recording.Consts.playLastRecording) {
+            if (!state.idx) state = yield* setPlayInitState(state.startState)
             const rec = state.recording
             if (state.idx >= rec.length) {
               yield put({ type: Recording.Consts.PLAY_END } as Recording.Action)
+              break
             } else {
-              playAction = rec[state.idx]
-              yield put({ type: Recording.Consts.PLAY_NEXT, idx: state.idx + 1, listIdx: 0 } as Recording.PlayNextAction)
+              const canc = yield* playAndGoNext(rec[state.idx], state.idx + 1, 0)
+              if (canc) break
             }
           } else if (recordingId == Recording.Consts.playAllPlaylist) {
             const playList = state.playLists[state.listIdx]
             if (state.idx >= playList.actions.length) {
-              if (state.listIdx >= state.playLists.length) {
+              if (state.listIdx + 1 >= state.playLists.length) {
                 yield put({ type: Recording.Consts.PLAY_END } as Recording.Action)
+                break
               } else {
-                playAction = state.playLists[state.listIdx + 1][0]
-                yield put({ type: Recording.Consts.PLAY_NEXT, idx: 0, listIdx: state.listIdx + 1 } as Recording.PlayNextAction)
+                state = yield* setPlayInitState(state.playLists[state.listIdx + 1].startState) //init pro state.playLists[>0]
+                const canc = yield* playAndGoNext(state.playLists[state.listIdx + 1].actions[0], 1, state.listIdx + 1)
+                if (canc) break
               }
             } else {
-              playAction = state.playLists[state.listIdx][state.idx]
-              yield put({ type: Recording.Consts.PLAY_NEXT, idx: state.idx + 1, listIdx: state.listIdx } as Recording.PlayNextAction)
+              if (state.idx == 0) state = yield* setPlayInitState(state.playLists[state.listIdx].startState) //init pouze pro state.playLists[0]
+              const canc = yield* playAndGoNext(state.playLists[state.listIdx].actions[state.idx], state.idx + 1, state.listIdx)
+              if (canc) break
             }
           } else {
+            if (!state.idx) state = yield* setPlayInitState(state.startState)
             const rec = state.playLists[recordingId].actions
             if (state.idx >= rec.length) {
               yield put({ type: Recording.Consts.PLAY_END } as Recording.Action)
+              break
             } else {
-              playAction = rec[state.idx]
-              yield put({ type: Recording.Consts.PLAY_NEXT, idx: state.idx + 1, listIdx: recordingId } as Recording.PlayNextAction)
+              const canc = yield* playAndGoNext(rec[state.idx], state.idx + 1, recordingId)
+              if (canc) break
             }
           }
-          yield put(playAction)
+          //yield put(playAction)
           const nextAct: Recording.TActions = yield take([Recording.Consts.PLAY_CONTINUE, Recording.Consts.PLAY_CANCEL])
           if (nextAct.type == Recording.Consts.PLAY_CONTINUE) continue
           break
@@ -108,14 +129,15 @@ export const globalReducer: App.IReducer<IState> = (state, action: Recording.Pla
   switch (action.type) {
     case Recording.Consts.PLAY_INIT_STATE:
       const { recording } = state
-      const newRecording = { ...recording, mode: Recording.TModes.playing, idx: 0, listIdx: 0, recordingId: action.recordingId }
+      const newRecording: Recording.IState = { ...recording, mode: Recording.TModes.playing, recordingId: action.recordingId }
       return { ...action.startState as IState, recording: newRecording }
     default: return state
   }
 }
 
 export const reducer: App.IReducer<Recording.IState> = (state, action: Recording.TActions) => {
-  if (!state) return { mode: Recording.TModes.no, guiSize: Recording.TGuiSize.large }
+  const initState = { mode: Recording.TModes.no, idx: 0, listIdx: 0 }
+  if (!state) return { ...initState, guiSize: Recording.TGuiSize.large }
   switch (action.type) {
     case Recording.Consts.INIT:
       return { ...state, playLists: action.playLists }
@@ -125,17 +147,17 @@ export const reducer: App.IReducer<Recording.IState> = (state, action: Recording
     case Recording.Consts.RECORD:
       return { ...state, recording: [...state.recording, action.action] }
     case Recording.Consts.RECORD_END:
-      return { ...state, mode: Recording.TModes.recorded }
+      return { ...state, ...initState }
     case Recording.Consts.RECORD_SAVE:
       const playLists = [...state.playLists, { name: action.name, actions: state.recording, startState: state.startState }]
       savePlayList(playLists)
-      return { ...state, mode: Recording.TModes.no, recording: null, startState: null, playLists }
+      return { ...state, ...initState, recording: null, startState: null, playLists }
     case Recording.Consts.PLAY_NEXT:
       return { ...state, idx: action.idx, listIdx: action.listIdx }
     case Recording.Consts.PLAY_END:
-      return { ...state, mode: Recording.TModes.no }
+      return { ...state, ...initState }
     case Recording.Consts.PLAY_CANCEL:
-      return { ...state, mode: Recording.TModes.no }
+      return { ...state, ...initState }
     case Recording.Consts.CHANGE_SIZE:
       return { ...state, guiSize: state.guiSize == Recording.TGuiSize.large ? Recording.TGuiSize.icon : state.guiSize + 1 }
     default: return state

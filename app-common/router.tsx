@@ -127,9 +127,6 @@ const init = (initPar: Router.IInitPar) => {
 
   historyPushLow = (urlPattern, state) => history.push(stringify(urlPattern, state))
 
-  //startRoute = initPar.startRoute
-  //rootUrl = initPar.rootUrl
-  //history = initPar.history
   navigate(url2state(history.location))
   const unlisten = history.listen((location, action) => navigate(url2state(history.location)))
 }

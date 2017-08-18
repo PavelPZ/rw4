@@ -6,17 +6,20 @@
     PLAY_START = 'rec/PLAY_START_SYSTEM', PLAY_INIT_STATE = 'rec/PLAY_INIT_STATE_SYSTEM', PLAY_CONTINUE = 'rec/PLAY_CONTINUE_SYSTEM', PLAY_NEXT = 'rec/PLAY_NEXT_SYSTEM', PLAY_CANCEL = 'rec/PLAY_CANCEL_SYSTEM', PLAY_END = 'rec/PLAY_END_SYSTEM',
     CHANGE_SIZE = 'rec/CHANGE_SIZE_SYSTEM',
     playLastRecording = -1, playAllPlaylist = -2,
+    playActionDelay = 500
   }
 
   const enum TGuiSize { no, icon, small, large }
+  const enum TModes { no, recording, recorded, playing }
 
   interface IState {
     mode: TModes
     guiSize: TGuiSize
     playLists?: IPlayList[] //all saved playlists
     recording?: App.Action[] //recorded playlist
-    startState?: IState //start status before first recording action
+    startState?: TGlobalState //start status before first recording action
     //for playing
+    recordingId?:number
     playLastRecording?: boolean //<playing action> = playLastRecording ? recording[idx] : playLists[listIdx][idx]
     idx?: number
     listIdx?: number
@@ -24,7 +27,7 @@
 
   interface IPlayList {
     name: string
-    startState: IState
+    startState: TGlobalState
     actions: App.Action[]
   }
 
@@ -66,8 +69,6 @@
 
   type TActions = Action | PlayStartAction | RecordSaveAction | InitAction | RecordAction | PlayNextAction | PlayInitStateAction
 
-  const enum TModes { no, recording, recorded, playing }
-
   //**** GUI
   interface IStateProps extends IState {
   }
@@ -86,3 +87,4 @@
 interface IState {
   recording?: Recording.IState
 }
+type TGlobalState = IState
