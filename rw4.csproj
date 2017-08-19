@@ -75,6 +75,9 @@
     <TypeScriptCompile Include="app-common\login-d.d.ts" />
     <TypeScriptCompile Include="app-common\media-query.ts" />
     <TypeScriptCompile Include="app-common\media-query-d.d.ts" />
+    <TypeScriptCompile Include="app-common\validate-d.d.ts" />
+    <TypeScriptCompile Include="app-common\validate.tsx" />
+    <TypeScriptCompile Include="app-web\snack\validate-test.tsx" />
     <TypeScriptCompile Include="app-web\web-recording.tsx" />
     <TypeScriptCompile Include="app-common\recording-d.d.ts" />
     <TypeScriptCompile Include="app-common\recording.tsx" />

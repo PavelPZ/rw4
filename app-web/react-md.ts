@@ -15,5 +15,10 @@ export { default as Tabs } from 'app-web/react-md/lib/Tabs/Tabs'
 export { default as Tab} from 'app-web/react-md/lib/Tabs/Tab'
 export { default as MenuTab } from 'app-web/react-md/lib/Tabs/MenuTab'
 export { default as TabPanel } from 'app-web/react-md/lib/Tabs/TabPanel'
+export { default as List } from 'app-web/react-md/lib/Lists/List'
+export { default as ListItem } from 'app-web/react-md/lib/Lists/ListItem'
+export { default as ListItemControl } from 'app-web/react-md/lib/Lists/ListItemControl'
+export { default as TextField, TextFieldProps } from 'app-web/react-md/lib/TextFields/TextField'
 
 export { default as FontIcon } from 'app-web/react-md/lib/FontIcons/FontIcon';
+

@@ -1,11 +1,11 @@
 ﻿import React from 'react'
 import { providerConnector } from '../app-common/recording'
 import { renderCSS } from './fela'
-import { Button, FontIcon } from './react-md';
+import { Button, FontIcon, List, ListItemControl, Checkbox } from './react-md';
 
 const provider: React.SFC<Recording.IProps> = props => {
   const childs = React.Children.only(props.children)
-  const btn = <Button onClick={props.changeSize} floating secondary fixed fixedPosition={'bl'}><FontIcon iconClassName="fa fa-circle-o-notch" /></Button>
+  const btn = <Button onClick={props.changeSize} floating secondary fixed fixedPosition={'bl'} className={renderCSS({ marginLeft: -15 })}><FontIcon iconClassName="fa fa-circle-o-notch" /></Button>
   switch (props.guiSize) {
     case Recording.TGuiSize.no: return childs
     case Recording.TGuiSize.icon: return <div>
@@ -15,19 +15,21 @@ const provider: React.SFC<Recording.IProps> = props => {
     case Recording.TGuiSize.small: return <div>
       {btn}
       <ContentSmall {...props} />
+      <Stat {...props} />
       {childs}
     </div>
     case Recording.TGuiSize.large: return <div>
       {btn}
       <ContentLarge {...props} content={childs} />
       <ContentSmall {...props} />
+      <Stat {...props} />
     </div>
     default: throw 'not implemented'
   }
 }
 
 const ContentSmall: React.SFC<Recording.IProps> = props => {
-  return <div className={renderCSS({ position: 'fixed', left: 80, height: 58, bottom: 10 })}>
+  return <div className={renderCSS({ position: 'fixed', left: 60, height: 58, bottom: 10 })}>
     <RecordBtn {...props} />
     <RecordSavedBtn {...props} />
     <PlayRecordingBtn {...props} />
@@ -35,10 +37,38 @@ const ContentSmall: React.SFC<Recording.IProps> = props => {
   </div>
 }
 
+const Stat: React.SFC<Recording.IProps> = props => {
+  let msg = ''
+  switch (props.mode) {
+    case Recording.TModes.recording: msg = `REC: ${props.recording.length}`; break
+    case Recording.TModes.playing:
+      switch (props.recordingId) {
+        case Recording.Consts.playAllPlaylist:
+          msg = `PLAY ALL ${props.listIdx + 1} / ${props.playLists.length}: ${props.idx + 1} / ${props.playLists[props.listIdx].actions.length}`; break
+        case Recording.Consts.playLastRecording: msg = `PLAY REC: ${props.idx + 1} / ${props.recording.length}`; break
+        default: msg = `PLAY ${props.recordingId}: ${props.idx + 1} / ${props.playLists[props.recordingId].actions.length}`; break
+      }
+      break
+  }
+  return !msg ? null : <div className={renderCSS({ position: 'fixed', left: 10, height: 10, bottom: 10, fontSize: 12, color: 'gray' })}>
+    {msg}
+  </div>
+}
+
 const ContentLarge: React.SFC<Recording.IProps & { content: React.ReactElement<any> }> = props => {
   return <div>
-    <div className={renderCSS({ position: 'fixed', width: 200, left: 0, top: 0, bottom: 0, borderWidth: 1, borderStyle: 'solid', borderColor: 'lightgray' })}>
-      XXX
+    <div className={renderCSS({ position: 'fixed', width: 200, left: 0, top: 0, bottom: 80, borderWidth: 1, borderStyle: 'solid', borderColor: 'lightgray' })}>
+      <div className={renderCSS({margin:5})}>
+        <Btn icon='forward' title='PLAY' click={() => { }} />
+        <Btn icon='remove' title='DELETE' click={() => { }} />
+        <Btn icon='exchange' title='INVERT' click={() => { }} />
+      </div>
+      <List className="md-paper--1">
+        {!props.playLists ? null : props.playLists.map((pl, idx) => <ListItemControl primaryAction={
+          <Checkbox id={pl.id} name={pl.id} label={`${pl.name} (${pl.actions.length})`} checked={pl.checked} onChange={(checked, ev) => props.playLists[idx].checked = checked} />
+        }>
+        </ListItemControl>)}
+      </List>
     </div>
     <div className={renderCSS({ marginLeft: 200 })}>
       {props.content}
@@ -47,8 +77,8 @@ const ContentLarge: React.SFC<Recording.IProps & { content: React.ReactElement<a
 }
 
 const Btn: React.SFC<{ icon: string; title: string; click: () => void }> = props => {
-  return <Button primary raised mini className={renderCSS({ height: 40, padding: 5, minWidth: 0, display: 'inline-block' })} onClick={props.click}>
-    <FontIcon iconClassName={'fa fa-' + props.icon} className={renderCSS({ fontSize:18 })} /><br />
+  return <Button mini primary className={renderCSS({ height: 40, padding: 5, minWidth: 0, display: 'inline-block', marginLeft: 5 })} onClick={props.click}>
+    <FontIcon iconClassName={'fa fa-' + props.icon} className={renderCSS({ fontSize: 18 })} /><br />
     <span className={renderCSS({ fontSize: 10 })}>{props.title}</span>
   </Button>
 }

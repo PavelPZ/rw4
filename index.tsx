@@ -17,6 +17,7 @@ import { AppRouterComp } from './app-common/snack/app-router'
 import ReactMDApp from './app-web/snack/react-md-test';
 import DrawerApp from './app-web/snack/drawer';
 import LocTestApp from './app-common/snack/loc-test';
+import ValidateTestApp from './app-web/snack/validate-test';
 
 //*********** spusteni
 export const init = () => {
@@ -29,10 +30,12 @@ export const init = () => {
 
   mediaQueryPlatform.init()
 
-  const appOrRoute: Router.IInitPar = { history: createHistory() as Router.IHistory, rootUrl: '/web-app.html', startRoute: AppRouterComp.getRoute({ title: 'START TITLE' }) }
+  //const appOrRoute: Router.IInitPar = { history: createHistory() as Router.IHistory, rootUrl: '/web-app.html', startRoute: AppRouterComp.getRoute({ title: 'START TITLE' }) }
   //const appOrRoute = <ReactMDApp/>
   //const appOrRoute = <DrawerApp/>
   //const appOrRoute = <LocTestApp />
+  const appOrRoute = <ValidateTestApp />
+  
 
   const appAll =
     <ReduxProvider store={store} >
@@ -60,9 +63,9 @@ export const init = () => {
     </ReduxProvider>
 
   ReactDOM.render(
-    appAll
+    //appAll
     //appMin
-    //appNo
+    appNo
     //appNoLogin
     , document.getElementById('content'))
 }

@@ -45,6 +45,12 @@ const savePlayList = (pl: Recording.IPlayList[]) => { debugPlayList = pl; return
 
 let debugPlayList: Recording.IPlayList[] = []
 
+export function* sagaSave() {
+  while (true) {
+    yield take(Recording.Consts.RECORD_SAVE_START)
+  }
+}
+
 export function* saga() {
   let initialized = false
   while (true) {
@@ -63,13 +69,11 @@ export function* saga() {
         const setPlayInitState = function* (startState: IState) {
           yield delay(Recording.Consts.playActionDelay)
           yield put({ type: Recording.Consts.PLAY_INIT_STATE, recordingId: act.recordingId, startState } as Recording.PlayInitStateAction)
-          yield delay(1)
           return window.lmGlobal.store.getState().recording
         }
-        const canceled = () => window.lmGlobal.store.getState().recording.mode != Recording.TModes.playing
         const playAndGoNext = function* (playAction: App.Action, idx: number, listIdx: number) {
           yield delay(Recording.Consts.playActionDelay)
-          const canc = canceled()
+          const canc = window.lmGlobal.store.getState().recording.mode != Recording.TModes.playing
           if (!canc) {
             yield put(playAction)
             yield put({ type: Recording.Consts.PLAY_NEXT, idx, listIdx } as Recording.PlayNextAction)
@@ -95,15 +99,16 @@ export function* saga() {
                 yield put({ type: Recording.Consts.PLAY_END } as Recording.Action)
                 break
               } else {
-                state = yield* setPlayInitState(state.playLists[state.listIdx + 1].startState) //init pro state.playLists[>0]
-                const canc = yield* playAndGoNext(state.playLists[state.listIdx + 1].actions[0], 1, state.listIdx + 1)
-                if (canc) break
+                yield put({ type: Recording.Consts.PLAY_NEXT, idx: 0, listIdx: state.listIdx + 1 } as Recording.PlayNextAction)
+                state = window.lmGlobal.store.getState().recording
+                //state = yield* setPlayInitState(state.playLists[state.listIdx + 1].startState)
+                //const canc = yield* playAndGoNext(state.playLists[state.listIdx + 1].actions[0], 1, state.listIdx + 1)
+                //if (canc) break
               }
-            } else {
-              if (state.idx == 0) state = yield* setPlayInitState(state.playLists[state.listIdx].startState) //init pouze pro state.playLists[0]
-              const canc = yield* playAndGoNext(state.playLists[state.listIdx].actions[state.idx], state.idx + 1, state.listIdx)
-              if (canc) break
             }
+            if (state.idx == 0) state = yield* setPlayInitState(state.playLists[state.listIdx].startState) //init pouze pro state.playLists[0]
+            const canc = yield* playAndGoNext(state.playLists[state.listIdx].actions[state.idx], state.idx + 1, state.listIdx)
+            if (canc) break
           } else {
             if (!state.idx) state = yield* setPlayInitState(state.startState)
             const rec = state.playLists[recordingId].actions
@@ -115,10 +120,9 @@ export function* saga() {
               if (canc) break
             }
           }
-          //yield put(playAction)
           const nextAct: Recording.TActions = yield take([Recording.Consts.PLAY_CONTINUE, Recording.Consts.PLAY_CANCEL])
-          if (nextAct.type == Recording.Consts.PLAY_CONTINUE) continue
-          break
+          if (nextAct.type == Recording.Consts.PLAY_CONTINUE) continue //Recording.Consts.PLAY_CONTINUE action
+          break //Recording.Consts.PLAY_CANCEL action
         }
     }
 
@@ -148,8 +152,8 @@ export const reducer: App.IReducer<Recording.IState> = (state, action: Recording
       return { ...state, recording: [...state.recording, action.action] }
     case Recording.Consts.RECORD_END:
       return { ...state, ...initState }
-    case Recording.Consts.RECORD_SAVE:
-      const playLists = [...state.playLists, { name: action.name, actions: state.recording, startState: state.startState }]
+    case Recording.Consts.RECORD_SAVE_START:
+      const playLists = [...state.playLists, { name: action.name, actions: state.recording, startState: state.startState, id: new Date().getTime(), checked: false, active:false }]
       savePlayList(playLists)
       return { ...state, ...initState, recording: null, startState: null, playLists }
     case Recording.Consts.PLAY_NEXT:
@@ -169,9 +173,12 @@ export const providerConnector = connect<Recording.IStateProps, Recording.IDispa
   (dispatch) => ({
     recordStart: () => dispatch({ type: Recording.Consts.RECORD_START } as Recording.Action),
     recordEnd: () => dispatch({ type: Recording.Consts.RECORD_END } as Recording.Action),
-    recordSave: () => dispatch({ type: Recording.Consts.RECORD_SAVE, name: new Date().getTime().toString() } as Recording.RecordSaveAction),
+    recordSave: () => dispatch({ type: Recording.Consts.RECORD_SAVE_START, name: new Date().getTime().toString() } as Recording.RecordSaveAction),
     playStart: recordingId => dispatch({ type: Recording.Consts.PLAY_START, recordingId } as Recording.PlayStartAction),
     playCancel: () => dispatch({ type: Recording.Consts.PLAY_CANCEL } as Recording.Action),
     changeSize: () => dispatch({ type: Recording.Consts.CHANGE_SIZE } as Recording.Action),
+    deleteSelected: () => dispatch({ type: Recording.Consts.CHANGE_SIZE } as Recording.Action),
+    invertSelection: () => dispatch({ type: Recording.Consts.INVERT_SELECTION } as Recording.Action),
+    playSelected: () => dispatch({ type: Recording.Consts.CHANGE_SIZE } as Recording.Action),
   } as Recording.IDispatchProps)
 )
