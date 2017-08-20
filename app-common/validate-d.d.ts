@@ -2,7 +2,7 @@
 
   interface IProps<T extends {}> {
     data: T
-    items: { [P in keyof T]: IFieldProp<T[P]> }
+    metaData: { [P in keyof T]: IFieldProp<T[P]> }
     onEdited: (newData: T) => void
   }
 

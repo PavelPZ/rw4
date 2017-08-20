@@ -61,7 +61,7 @@ export function registerRouter<TPar extends Router.IRoutePar = Router.IRoutePar>
 export const reducer: App.IReducer<Router.IState> = (state, action: Router.IAction) => {
   if (!state) state = { routerName: null }
   switch (action.type) {
-    case Router.Consts.NAVIGATE_END: return action.newState
+    case Router.Consts.NAVIGATE_END: return action.newState || state //action.newState==null for LOGIN redirect
     default: return state
   }
 }
@@ -73,13 +73,17 @@ export function* saga() {
   while (true) {
     const { newState } = (yield take(Router.Consts.NAVIGATE_START)) as Router.IAction
     const route = routes[newState.routerName];
-    if (loginProcessing(route.needsLogin && route.needsLogin(newState.par), newState)) { continue; }
+    const renderAction: Router.IAction = { type: Router.Consts.NAVIGATE_END, newState: null };
+    if (loginProcessing(route.needsLogin && route.needsLogin(newState.par), newState)) {
+      yield put(renderAction) //dummy action: every _START action must finish with _END action
+      continue
+    }
     const blockGui = routeUnloader || route.load;
     if (blockGui) { /*TODO block gui start*/ }
     if (routeUnloader) yield routeUnloader()
     routeUnloader = null;
     if (route.load) routeUnloader = yield route.load(newState.par)
-    const renderAction: Router.IAction = { type: Router.Consts.NAVIGATE_END, newState: newState };
+    renderAction.newState = newState
     yield put(renderAction)
     if (blockGui) { /*TODO block gui end*/ }
   }

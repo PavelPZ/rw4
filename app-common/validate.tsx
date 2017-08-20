@@ -5,18 +5,20 @@ export class editor<T> extends React.PureComponent<Validate.IProps<T>, Validate.
     super(props)
     const st = {} as any
     for (const p in this.props.data) {
-      const conv = this.convertors[p] = { ...this.props.items[p].convertors, ...defaultConvertors } as Validate.IConvertors
+      let conv = this.props.metaData[p].convertors
+      if (!conv) conv = defaultConvertors; else if (!conv.fromData) conv.fromData = defaultConvertors.fromData; else if (!conv.toData) conv.toData = defaultConvertors.toData
+      this.convertors[p] = conv
       st[p] = { blured: false, error: null, value: conv.fromData(this.props.data[p]) }
     }
     this.state = st
   }
   convertors: { [prop: string]: Validate.IConvertors } = {}
   validateProp(propId: keyof T): boolean {
-    const validators = this.props.items[propId].validators
-    if (!validators) true
+    const validators = this.props.metaData[propId].validators
+    if (!validators) return true
     const st = this.state[propId]
-    validators.find(v => {
-      st.error = v(st.value)
+    validators.find(validator => {
+      st.error = validator(st.value)
       return !!st.error
     })
     return !st.error
@@ -52,10 +54,11 @@ export const defaultConvertors: Validate.IConvertors<any> = {
   fromData: value => value.toString(),
 }
 
-export const requiredValidator: Validate.IValidatorFactory = () => (value: string) => value ? null : 'Required'
+//TODO: pouzit https://github.com/chriso/validator.js/
+export const requiredValidator: Validate.IValidatorFactory = () => (value: string) => value.trim() ? null : 'Required'
 export const intValidator: Validate.IValidatorFactory = () => (value: string) => parseInt(value).toString() == value.trim() ? null : 'Number required'
 export const rangeValidator: Validate.IValidatorFactory = (min: number, max: number) => (value: string) => {
   const val = parseInt(value)
-  return val > min && val < max ? null : 'Range error'
+  return val >= min && val <= max ? null : 'Range error'
 }
 

@@ -39,8 +39,8 @@ export class Provider extends React.PureComponent {
   loginHTML: HTMLDivElement
   appPage: HTMLDivElement
   returnUrl: Router.IState
-  //static rendered = new Promise<void>(resolve => Provider.renderedCompleted = resolve)
-  //static renderedCompleted: () => void
+  static rendered = new Promise<void>(resolve => Provider.renderedCompleted = resolve)
+  static renderedCompleted: () => void
 
   render() {
     console.log('LOGIN: start Login rendering')
@@ -48,12 +48,12 @@ export class Provider extends React.PureComponent {
     return <div>
       <div ref={div => this.loginHTML = div} className={renderCSS({ display: 'none', ...fixedScreen, justifyContent: 'space-around', flexDirection: 'row' })}>
         <div className={renderCSS({ flex: 1, maxWidth: 800 })}>
-          <div tabIndex={1} ref={div => { console.log('LOGIN: finish Login rendering'); init() }} id="my-signin" className="g-signin2" />
+          <div tabIndex={1} ref={div => { console.log('LOGIN: finish Login rendering'); init().then(Provider.renderedCompleted) }} id="my-signin" className="g-signin2" />
           <div onClick={facebookLoginBtnClick}>FACEBOOK</div>
         </div>
       </div>
       <div ref={div => this.appPage = div} className={renderCSS(fixedScreen)}>
-        {this.props.children}
+        <WaitForRendering waitFor={Provider.rendered} children={this.props.children} waitChildren={waitChildren} />
       </div>
     </div>
   }
@@ -70,8 +70,8 @@ export class Provider extends React.PureComponent {
       name, firstName, lastName, picture, email
     })
     if (this.returnUrl) navigate(this.returnUrl)
-    this.show(false, null)
     delete this.returnUrl
+    this.show(false, null)
   }
 
   onLogout() {
@@ -79,6 +79,19 @@ export class Provider extends React.PureComponent {
     navigate(actRoute())
   }
 }
+
+class WaitForRendering extends React.PureComponent<{ waitFor: Promise<any>, waitChildren: React.ReactNode }> {
+  state = { doRender: false }
+  render() {
+    if (this.state.doRender) return React.Children.only(this.props.children)
+    this.props.waitFor.then(() => this.setState({ doRender: true }))
+    return waitChildren
+  }
+}
+const waitChildren = <div style={{ display: 'flex', flex: 1, justifyContent:'center' }}>
+  <h2>Loading...</h2>
+</div>
+
 
 //*********** PRIVATE
 let provider: Provider

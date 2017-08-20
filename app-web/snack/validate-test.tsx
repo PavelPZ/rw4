@@ -13,14 +13,14 @@ class Editor extends webEditor<IData> {
     return <div>
       <TextField {...this.getFieldProps('id') } /><br />
       <TextField {...this.getFieldProps('name') } />
-      <Button primary raised onClick={() => this.onSubmit()} label='Submit' />
+      <Button primary raised onClick={() => this.onSubmit()} >Submit</Button>
     </div>
   }
 }
 
 const App: React.SFC = () => <Editor
   data={{ id: 10, name: '' }}
-  items={{
+  metaData={{
     id: { convertors: numberConvertors, validators: [intValidator(), rangeValidator(11,15)] },
     name: { validators: [requiredValidator()] }
   }}

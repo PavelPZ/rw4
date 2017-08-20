@@ -22,7 +22,7 @@
 
   interface IAction {
     type: Consts.NAVIGATE_START | Consts.NAVIGATE_END
-    newState: IState
+    newState: IState //null => LOGIN redirect
   }
 
   interface IInitPar {

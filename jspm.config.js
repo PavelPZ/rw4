@@ -39,6 +39,7 @@ SystemJS.config({
     "npm:*.json"
   ],
   map: {
+    "validate.js": "npm:validate.js@0.11.1",
     "url-pattern": "npm:url-pattern@1.0.3",
     "history": "npm:history@4.6.3",
     "qs": "npm:qs@6.5.0",

@@ -22,5 +22,5 @@ export const Button = (props: IWebButton) => {
     ...otherPropsTyped
     } = props;
   
-  return <MDButton {...otherPropsTyped} label={title} primary={primary} raised onClick={MouseHandler(onPress)} />
+  return <MDButton {...otherPropsTyped} primary={primary} raised onClick={MouseHandler(onPress)}>{title}</MDButton>
 }
