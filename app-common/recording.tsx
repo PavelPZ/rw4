@@ -12,23 +12,23 @@ export const middleware: Middleware = (middlAPI: MiddlewareAPI<IState>) => next 
 
   if (type.endsWith(system)) return act
 
-  if (type.endsWith(asyncStart)) {
+  if (type.endsWith(asyncStart)) { //just single asyncSTARE...
     const state = middlAPI.getState().recording
     invariant(!actAsyncAction, `asyncMiddleware: !${actAsyncAction}`)
     actAsyncAction = type.substr(0, type.length - asyncStart.length)
     record(state, middlAPI.dispatch, act)
     blockGUI(middlAPI.dispatch, true)
-  } else if (type.endsWith(asyncEnd)) {
+  } else if (type.endsWith(asyncEnd)) { //...must be finished by just single asyncEND
     const state = middlAPI.getState().recording
     invariant(actAsyncAction === type.substr(0, type.length - asyncEnd.length), `asyncMiddleware: ${actAsyncAction} != ${type}`)
     blockGUI(middlAPI.dispatch, false)
     actAsyncAction = null
-    playContinue(state, middlAPI.dispatch)
+    playContinue(state, middlAPI.dispatch) //async finished => when playing, play next action
   } else {
-    if (!actAsyncAction) {
+    if (!actAsyncAction) { //action is not between asyncSTART - END
       const state = middlAPI.getState().recording
-      record(state, middlAPI.dispatch, act)
-      playContinue(state, middlAPI.dispatch)
+      record(state, middlAPI.dispatch, act) //if recording, record action
+      playContinue(state, middlAPI.dispatch) //if playing, play next action
     }
   }
 
@@ -68,7 +68,7 @@ export function* saga() {
         const playSelected = act.playSelected
         const setPlayInitState = function* (startState: IState) {
           yield delay(Recording.Consts.playActionDelay)
-          yield put({ type: Recording.Consts.PLAY_INIT_STATE, playSelected, startState } as Recording.PlayInitStateAction)
+          yield put({ type: Recording.Consts.PLAY_INIT_STATE, startState } as Recording.PlayInitStateAction)
           return window.lmGlobal.store.getState().recording
         }
         const playAndGoNext = function* (playAction: App.Action, idx: number, listIdx: number, playMsg: string) {
@@ -104,7 +104,7 @@ export function* saga() {
                 playList = state.playLists[playSelected[state.listIdx]]
               }
             }
-            if (state.idx == 0) state = yield* setPlayInitState(playList.startState) //init pouze pro state.playLists[0]
+            if (state.idx == 0) state = yield* setPlayInitState(playList.startState)
             const canc = yield* playAndGoNext(playList.actions[state.idx], state.idx + 1, state.listIdx, `PLAY ALL ${state.listIdx + 1} / ${playSelected.length}: ${state.idx + 1} / ${playList.actions.length}`)
             if (canc) break
           }
@@ -137,7 +137,7 @@ export const reducer: App.IReducer<Recording.IState> = (state, action: Recording
       const { recording, ...startState } = window.lmGlobal.store.getState()
       return { ...state, mode: Recording.TModes.recording, recording: [], startState: JSON.parse(JSON.stringify(startState)) }
     case Recording.Consts.RECORD:
-      return { ...state, recording: [...state.recording, action.action] }
+      return { ...state, recording: [...state.recording, action.action], playMsg: `REC: ${state.recording.length + 1}` }
     case Recording.Consts.RECORD_END:
       return { ...state, ...initState }
     case Recording.Consts.RECORD_SAVE_START:

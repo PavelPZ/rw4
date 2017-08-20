@@ -84,7 +84,7 @@ class WaitForRendering extends React.PureComponent<{ waitFor: Promise<any>, wait
   state = { doRender: false }
   render() {
     if (this.state.doRender) return React.Children.only(this.props.children)
-    this.props.waitFor.then(() => this.setState({ doRender: true }))
+    this.props.waitFor.then(() => setTimeout(() => this.setState({ doRender: true }), 500))
     return waitChildren
   }
 }

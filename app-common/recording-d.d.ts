@@ -43,7 +43,7 @@
     type: Consts.PLAY_START
   }
 
-  interface PlayInitStateAction extends playSelected {
+  interface PlayInitStateAction { //extends playSelected {
     type: Consts.PLAY_INIT_STATE
     startState
   }

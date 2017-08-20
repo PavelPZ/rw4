@@ -2,7 +2,8 @@
 
   const enum Consts {
     name = 'app-router',
-    urlMask = '/:title'
+    urlMask = '/:title',
+    loadDelay = 300,
   }
 
   type INavigate = Router.IState<Consts.name, IRoutePar>

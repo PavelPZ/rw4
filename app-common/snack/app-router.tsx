@@ -25,6 +25,6 @@ appCommonContextType(locContextType(appRouterComp))
 //*** EXPORTS
 
 export const AppRouterComp: Router.IRoute<AppRouter.IRoutePar> = registerRouter(appRouterComp, AppRouter.Consts.name, AppRouter.Consts.urlMask, {
-  load: par => new Promise<Router.TUnloader>(resolve => setTimeout(() => resolve(), 300)),
+  load: par => new Promise<Router.TUnloader>(resolve => setTimeout(() => resolve(), AppRouter.Consts.loadDelay)),
   needsLogin: par => par.title.length >= 'START TITLE | xxx'.length,
 })

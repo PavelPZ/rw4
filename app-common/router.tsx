@@ -23,7 +23,7 @@ class provider extends React.PureComponent<Router.IRouterProviderProps & Router.
     provider.app = provider.isRoute ? null : appOrRoute as JSX.Element
     if (provider.isRoute) init(routeInitPar)
   }
-  static isRoute:boolean
+  static isRoute: boolean
   static initialized: boolean
   static app: JSX.Element
   render() {
@@ -43,7 +43,19 @@ export const actRoute = () => window.lmGlobal.store.getState().router
 export const navigate = (routerName: string | Router.IState, par?) => {
   if (typeof (routerName) !== 'string') { par = routerName.par; routerName = routerName.routerName }
   const action: Router.IAction = { type: Router.Consts.NAVIGATE_START, newState: { routerName, par } }
-  window.lmGlobal.store.dispatch(action)
+  if (navigateStartQueue.length == 0) window.lmGlobal.store.dispatch(action)
+  navigateStartQueue.push(action)
+  //console.log(`navigate: ${navigateStartQueue.length}`)
+}
+
+let navigateStartQueue: Router.IAction[] = [] //queue of not finished navigationSTART actions for quick BACK x FORWARD browser button click
+const unqueueOnNavigationEnd = () => { // run next waiting navigationSTART after last navigationEND
+  navigateStartQueue = navigateStartQueue.slice(1)
+  if (navigateStartQueue.length > 0) {
+    const nextAct = navigateStartQueue[0]
+    //console.log(`unqueueOnNavigationEnd: ${JSON.stringify(nextAct.newState.par)}`)
+    setTimeout(() => window.lmGlobal.store.dispatch(nextAct), 1)
+  }
 }
 
 export function registerRouter<TPar extends Router.IRoutePar = Router.IRoutePar>(router: React.ComponentType<TPar>, routerName: string, urlMask?: string, extension?: Router.IRoute<TPar>) {
@@ -72,10 +84,12 @@ export function* saga() {
   let routeUnloader: () => void
   while (true) {
     const { newState } = (yield take(Router.Consts.NAVIGATE_START)) as Router.IAction
+    //console.log(`saga NAVIGATE_START: ${navigateStartQueue.length}`)
     const route = routes[newState.routerName];
-    const renderAction: Router.IAction = { type: Router.Consts.NAVIGATE_END, newState: null };
+    const navigateEnd: Router.IAction = { type: Router.Consts.NAVIGATE_END, newState: null };
     if (loginProcessing(route.needsLogin && route.needsLogin(newState.par), newState)) {
-      yield put(renderAction) //dummy action: every _START action must finish with _END action
+      yield put(navigateEnd) //dummy action: every _START action must finish with _END action
+      unqueueOnNavigationEnd()
       continue
     }
     const blockGui = routeUnloader || route.load;
@@ -83,8 +97,10 @@ export function* saga() {
     if (routeUnloader) yield routeUnloader()
     routeUnloader = null;
     if (route.load) routeUnloader = yield route.load(newState.par)
-    renderAction.newState = newState
-    yield put(renderAction)
+    navigateEnd.newState = newState
+    yield put(navigateEnd)
+    //console.log(`saga NAVIGATE_END: ${navigateStartQueue.length}`)
+    unqueueOnNavigationEnd()
     if (blockGui) { /*TODO block gui end*/ }
   }
 }
