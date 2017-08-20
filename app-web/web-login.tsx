@@ -150,11 +150,11 @@ const facebookInit = (appId: string, apiVersion: string) => new Promise(resolve 
       cookie: true,
       //xfbml: true,
       version: 'v2.10'
-    });
+    })
     FB.getLoginStatus(response => {
       if (response.status != 'connected') return
       onFBLogged()
-    });
+    })
     console.log('LOGIN: finish facebookInit')
     resolve()
   }

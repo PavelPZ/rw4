@@ -42,11 +42,11 @@ const Stat: React.SFC<Recording.IProps> = props => {
   switch (props.mode) {
     case Recording.TModes.recording: msg = `REC: ${props.recording.length}`; break
     case Recording.TModes.playing:
-      switch (props.recordingId) {
+      switch (props.playSelected) {
         case Recording.Consts.playAllPlaylist:
           msg = `PLAY ALL ${props.listIdx + 1} / ${props.playLists.length}: ${props.idx + 1} / ${props.playLists[props.listIdx].actions.length}`; break
         case Recording.Consts.playLastRecording: msg = `PLAY REC: ${props.idx + 1} / ${props.recording.length}`; break
-        default: msg = `PLAY ${props.recordingId}: ${props.idx + 1} / ${props.playLists[props.recordingId].actions.length}`; break
+        default: msg = `PLAY ${props.playSelected}: ${props.idx + 1} / ${props.playLists[props.playSelected].actions.length}`; break
       }
       break
   }
@@ -85,13 +85,13 @@ const Btn: React.SFC<{ icon: string; title: string; click: () => void }> = props
 
 const PlayAllBtn: React.SFC<Recording.IProps> = props => {
   if (props.playLists && props.playLists.length > 0 && props.mode == Recording.TModes.no) return <Btn icon='forward' title='PLAY ALL' click={() => props.playStart(Recording.Consts.playAllPlaylist)} />
-  if (props.playLists && props.playLists.length > 0 && props.mode == Recording.TModes.playing && props.recordingId == Recording.Consts.playAllPlaylist) return <Btn icon='close' title='CANCEL' click={props.playCancel} />
+  if (props.playLists && props.playLists.length > 0 && props.mode == Recording.TModes.playing && props.playSelected == Recording.Consts.playAllPlaylist) return <Btn icon='close' title='CANCEL' click={props.playCancel} />
   return null
 }
 
 const PlayRecordingBtn: React.SFC<Recording.IProps> = props => {
   if (props.recording && props.recording.length > 0 && props.mode == Recording.TModes.no) return <Btn icon='play' title='PLAY' click={() => props.playStart(Recording.Consts.playLastRecording)} />
-  if (props.recording && props.recording.length > 0 && props.mode == Recording.TModes.playing && props.recordingId == Recording.Consts.playLastRecording) return <Btn icon='close' title='CANCEL' click={props.playCancel} />
+  if (props.recording && props.recording.length > 0 && props.mode == Recording.TModes.playing && props.playSelected == Recording.Consts.playLastRecording) return <Btn icon='close' title='CANCEL' click={props.playCancel} />
   return null
 }
 

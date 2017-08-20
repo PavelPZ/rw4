@@ -20,8 +20,8 @@
     recording?: App.Action[] //recorded playlist
     startState?: TGlobalState //start status before first recording action
     //for playing
-    recordingId?:number
-    playLastRecording?: boolean //<playing action> = playLastRecording ? recording[idx] : playLists[listIdx][idx]
+    playSelected?:number
+    //playLastRecording?: boolean //<playing action> = playLastRecording ? recording[idx] : playLists[listIdx][idx]
     idx?: number
     listIdx?: number
   }
@@ -39,14 +39,14 @@
     type: Consts.RECORD_START | Consts.RECORD_END | Consts.PLAY_CONTINUE | Consts.PLAY_CANCEL | Consts.PLAY_END | Consts.CHANGE_SIZE | Consts.INVERT_SELECTION
   }
 
-  interface PlayStartAction {
+  interface playSelected { playSelected: number } //Consts.playLastRecording: lastRecording, Consts.playAllPlaylist: all playlist, >=0: playlist[idx] 
+  interface PlayStartAction extends playSelected {
     type: Consts.PLAY_START
-    recordingId: number //Consts.playLastRecording: lastRecording, Consts.playAllPlaylist: all playlist, >=0: playlist[idx] 
   }
 
-  interface PlayInitStateAction {
+  interface PlayInitStateAction extends playSelected {
     type: Consts.PLAY_INIT_STATE
-    recordingId: number
+    playSelected: number
     startState
   }
 
