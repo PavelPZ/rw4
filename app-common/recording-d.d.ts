@@ -5,8 +5,8 @@
     RECORD_START = 'rec/RECORD_START_SYSTEM', RECORD = 'rec/RECORD_SYSTEM', RECORD_END = 'rec/RECORD_END_SYSTEM', RECORD_SAVE_START = 'rec/RECORD_SAVE_START_SYSTEM', RECORD_SAVE_END = 'rec/RECORD_SAVE_END_SYSTEM',
     PLAY_START = 'rec/PLAY_START_SYSTEM', PLAY_INIT_STATE = 'rec/PLAY_INIT_STATE_SYSTEM', PLAY_CONTINUE = 'rec/PLAY_CONTINUE_SYSTEM', PLAY_NEXT = 'rec/PLAY_NEXT_SYSTEM', PLAY_CANCEL = 'rec/PLAY_CANCEL_SYSTEM', PLAY_END = 'rec/PLAY_END_SYSTEM',
     CHANGE_SIZE = 'rec/CHANGE_SIZE_SYSTEM',
-    PLAY_SELECTED = 'rec/PLAY_SELECTED_SYSTEM', DELETE_SELECTED = 'rec/DELETE_SELECTED_SYSTEM', INVERT_SELECTION = 'rec/INVERT_SELECTION_SYSTEM',
-    playLastRecording = -1, playAllPlaylist = -2,
+    //PLAY_SELECTED = 'rec/PLAY_SELECTED_SYSTEM', DELETE_SELECTED = 'rec/DELETE_SELECTED_SYSTEM', INVERT_SELECTION = 'rec/INVERT_SELECTION_SYSTEM',
+    LIST_SEL_CHANGE = 'rec/LIST_SEL_CHANGE_SYSTEM', LIST_DELETE = 'rec/LIST_DELETE_SYSTEM', LIST_INVERT = 'rec/LIST_INVERT_SYSTEM',
     playActionDelay = 300
   }
 
@@ -20,10 +20,9 @@
     recording?: App.Action[] //recorded playlist
     startState?: TGlobalState //start status before first recording action
     //for playing
-    playSelected?:number
-    //playLastRecording?: boolean //<playing action> = playLastRecording ? recording[idx] : playLists[listIdx][idx]
     idx?: number
     listIdx?: number
+    playMsg?:string
   }
 
   interface IPlayList {
@@ -36,17 +35,16 @@
   }
 
   interface Action {
-    type: Consts.RECORD_START | Consts.RECORD_END | Consts.PLAY_CONTINUE | Consts.PLAY_CANCEL | Consts.PLAY_END | Consts.CHANGE_SIZE | Consts.INVERT_SELECTION
+    type: Consts.RECORD_START | Consts.RECORD_END | Consts.PLAY_CONTINUE | Consts.PLAY_CANCEL | Consts.PLAY_END | Consts.CHANGE_SIZE | Consts.LIST_DELETE | Consts.LIST_INVERT
   }
 
-  interface playSelected { playSelected: number } //Consts.playLastRecording: lastRecording, Consts.playAllPlaylist: all playlist, >=0: playlist[idx] 
+  interface playSelected { playSelected: number[] } //indexes to IState.playLists  //Consts.playLastRecording: lastRecording, Consts.playAllPlaylist: all playlist, >=0: playlist[idx] 
   interface PlayStartAction extends playSelected {
     type: Consts.PLAY_START
   }
 
   interface PlayInitStateAction extends playSelected {
     type: Consts.PLAY_INIT_STATE
-    playSelected: number
     startState
   }
 
@@ -69,9 +67,17 @@
     type: Consts.PLAY_NEXT
     idx: number
     listIdx: number
+    playMsg: string
   }
 
-  type TActions = Action | PlayStartAction | RecordSaveAction | InitAction | RecordAction | PlayNextAction | PlayInitStateAction
+  interface ListSelChange {
+    type: Consts.LIST_SEL_CHANGE
+    idx: number
+    checked:boolean
+  }
+  
+
+  type TActions = Action | PlayStartAction | RecordSaveAction | InitAction | RecordAction | PlayNextAction | PlayInitStateAction | ListSelChange
 
   //**** GUI
   interface IStateProps extends IState {
@@ -81,10 +87,11 @@
     recordStart: () => void
     recordEnd: () => void
     recordSave: () => void
-    playStart: (recordingId: number) => void
+    playStart: (playSelected: number[]) => void
+    listSelChange: (idx:number, checked:boolean) => void
     playCancel: () => void
-    invertSelection: () => void
-    deleteSelected: () => void
+    listInvert: () => void
+    listDelete: () => void
     playSelected: () => void
   }
   type IProps = IStateProps & IDispatchProps

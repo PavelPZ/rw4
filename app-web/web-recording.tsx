@@ -41,14 +41,14 @@ const Stat: React.SFC<Recording.IProps> = props => {
   let msg = ''
   switch (props.mode) {
     case Recording.TModes.recording: msg = `REC: ${props.recording.length}`; break
-    case Recording.TModes.playing:
-      switch (props.playSelected) {
-        case Recording.Consts.playAllPlaylist:
-          msg = `PLAY ALL ${props.listIdx + 1} / ${props.playLists.length}: ${props.idx + 1} / ${props.playLists[props.listIdx].actions.length}`; break
-        case Recording.Consts.playLastRecording: msg = `PLAY REC: ${props.idx + 1} / ${props.recording.length}`; break
-        default: msg = `PLAY ${props.playSelected}: ${props.idx + 1} / ${props.playLists[props.playSelected].actions.length}`; break
-      }
-      break
+    case Recording.TModes.playing: msg = props.playMsg; break
+      //const { idx, recording, playLists, listIdx } = props
+      //const playSelected = getSelected(props)
+      //if (playSelected.length==0)
+      //  msg = `PLAY REC: ${idx + 1} / ${recording.length}`
+      //else
+      //  msg = `PLAY ALL ${listIdx + 1} / ${playSelected.length}: ${idx + 1} / ${playLists[playSelected[listIdx]].actions.length}`;
+      //break
   }
   return !msg ? null : <div className={renderCSS({ position: 'fixed', left: 10, height: 10, bottom: 10, fontSize: 12, color: 'gray' })}>
     {msg}
@@ -58,14 +58,14 @@ const Stat: React.SFC<Recording.IProps> = props => {
 const ContentLarge: React.SFC<Recording.IProps & { content: React.ReactElement<any> }> = props => {
   return <div>
     <div className={renderCSS({ position: 'fixed', width: 200, left: 0, top: 0, bottom: 80, borderWidth: 1, borderStyle: 'solid', borderColor: 'lightgray' })}>
-      <div className={renderCSS({margin:5})}>
-        <Btn icon='forward' title='PLAY' click={() => { }} />
-        <Btn icon='remove' title='DELETE' click={() => { }} />
-        <Btn icon='exchange' title='INVERT' click={() => { }} />
+      <div className={renderCSS({ margin: 5 })}>
+        {props.playLists && props.playLists.length > 0 ? <Btn icon='exchange' title='INVERT' click={props.listInvert} /> : null}
+        {props.playLists && props.playLists.find(l => l.checked) ? <Btn icon='remove' title='DELETE' click={props.listDelete} /> : null}
+        <PlaySelectedBtn {...props} />
       </div>
       <List className="md-paper--1">
         {!props.playLists ? null : props.playLists.map((pl, idx) => <ListItemControl primaryAction={
-          <Checkbox id={pl.id} name={pl.id} label={`${pl.name} (${pl.actions.length})`} checked={pl.checked} onChange={(checked, ev) => props.playLists[idx].checked = checked} />
+          <Checkbox id={pl.id} name={pl.id} label={`${pl.name} (${pl.actions.length})`} checked={pl.checked} onChange={checked => props.listSelChange(idx, checked)} />
         }>
         </ListItemControl>)}
       </List>
@@ -84,14 +84,22 @@ const Btn: React.SFC<{ icon: string; title: string; click: () => void }> = props
 }
 
 const PlayAllBtn: React.SFC<Recording.IProps> = props => {
-  if (props.playLists && props.playLists.length > 0 && props.mode == Recording.TModes.no) return <Btn icon='forward' title='PLAY ALL' click={() => props.playStart(Recording.Consts.playAllPlaylist)} />
-  if (props.playLists && props.playLists.length > 0 && props.mode == Recording.TModes.playing && props.playSelected == Recording.Consts.playAllPlaylist) return <Btn icon='close' title='CANCEL' click={props.playCancel} />
+  if (props.playLists && props.playLists.length > 0 && props.mode == Recording.TModes.no) return <Btn icon='forward' title='PLAY ALL' click={() => props.playStart(allSelected(props.playLists.length)/*Recording.Consts.playAllPlaylist*/)} />
+  if (props.playLists && props.playLists.length > 0 && props.mode == Recording.TModes.playing && props.playSelected/* == Recording.Consts.playAllPlaylist*/) return <Btn icon='close' title='CANCEL' click={props.playCancel} />
   return null
 }
+const allSelected = (len: number) => { const res = []; for (let i = 0; i < len; i++) res[i] = i; return res }
+
+const PlaySelectedBtn: React.SFC<Recording.IProps> = props => {
+  const selected = props.mode == Recording.TModes.no ? getSelected(props) : []
+  if (selected.length > 0) return <Btn icon='forward' title='PLAY' click={() => props.playStart(selected/*Recording.Consts.playAllPlaylist*/)} />
+  return null
+}
+const getSelected = (props: Recording.IProps) => { const res = []; if (props.playLists) for (let i = 0; i < props.playLists.length; i++) if (props.playLists[i].checked) res.push(i); return res }
 
 const PlayRecordingBtn: React.SFC<Recording.IProps> = props => {
-  if (props.recording && props.recording.length > 0 && props.mode == Recording.TModes.no) return <Btn icon='play' title='PLAY' click={() => props.playStart(Recording.Consts.playLastRecording)} />
-  if (props.recording && props.recording.length > 0 && props.mode == Recording.TModes.playing && props.playSelected == Recording.Consts.playLastRecording) return <Btn icon='close' title='CANCEL' click={props.playCancel} />
+  if (props.recording && props.recording.length > 0 && props.mode == Recording.TModes.no) return <Btn icon='play' title='PLAY' click={() => props.playStart(null/*Recording.Consts.playLastRecording*/)} />
+  if (props.recording && props.recording.length > 0 && props.mode == Recording.TModes.playing && !props.playSelected/* == Recording.Consts.playLastRecording*/) return <Btn icon='close' title='CANCEL' click={props.playCancel} />
   return null
 }
 
