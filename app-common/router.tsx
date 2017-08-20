@@ -88,12 +88,10 @@ export function* saga() {
     const route = routes[newState.routerName];
     const navigateEnd: Router.IAction = { type: Router.Consts.NAVIGATE_END, newState: null };
     if (loginProcessing(route.needsLogin && route.needsLogin(newState.par), newState)) {
-      yield put(navigateEnd) //dummy action: every _START action must finish with _END action
+      yield put(navigateEnd) //dummy navigationEND action: every _START action must finish with _END action
       unqueueOnNavigationEnd()
       continue
     }
-    const blockGui = routeUnloader || route.load;
-    if (blockGui) { /*TODO block gui start*/ }
     if (routeUnloader) yield routeUnloader()
     routeUnloader = null;
     if (route.load) routeUnloader = yield route.load(newState.par)
@@ -101,7 +99,6 @@ export function* saga() {
     yield put(navigateEnd)
     //console.log(`saga NAVIGATE_END: ${navigateStartQueue.length}`)
     unqueueOnNavigationEnd()
-    if (blockGui) { /*TODO block gui end*/ }
   }
 }
 

@@ -13,14 +13,13 @@ const LoginButton = createLoginButton(props => {
     onPress={doLoginAction} />
 })
 
-const appRouterComp: App.SCF<AppRouter.IRoutePar> = (props, ctx) => {
+const appRouterComp = appCommonContextType(locContextType<AppRouter.IRoutePar>((props, ctx) => {
   return <View style={{ flex: 1, marginTop: 30 }}>
     <Text style={{ fontSize: 24 }}>{props.title}</Text>
     <Button tabIndex={1} title='Add to title' onPress={() => AppRouterComp.navigate({ title: props.title + ' | xxx' })} />
     <LoginButton tabIndex={2} />
   </View>
-}
-appCommonContextType(locContextType(appRouterComp))
+}))
 
 //*** EXPORTS
 

@@ -15,7 +15,7 @@ window.lmGlobal = {
   platform: {}
 }
 
-export const contextType = <T extends React.ComponentType>(comp: T) => {
+export const contextType = <T extends {}>(comp: React.ComponentType<T>) => {
   comp.contextTypes = { ...comp.contextTypes, store: PropTypes.any }
   return comp
 }

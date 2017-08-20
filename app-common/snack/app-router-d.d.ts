@@ -6,8 +6,6 @@
     loadDelay = 300,
   }
 
-  type INavigate = Router.IState<Consts.name, IRoutePar>
-
   interface IRoutePar extends Router.IRoutePar {
     title?: string
   }

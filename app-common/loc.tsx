@@ -36,7 +36,7 @@ export const loc = (ctx: Loc.IContext, file: Loc.TFileIds) => {
   }
 }
 
-export const contextType = <T extends React.ComponentType>(comp: T) => {
+export const contextType = <T extends {}>(comp: React.ComponentType<T>) => {
   comp.contextTypes = { ...comp.contextTypes, loc: PropTypes.any }
   return comp
 }
