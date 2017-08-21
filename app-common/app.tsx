@@ -8,7 +8,7 @@ import { reducer as routerReducer, saga as routerSaga } from './router'
 import { reducer as loginReducer } from './login'
 import { reducer as mediaQueryReducer } from './media-query'
 import { reducer as locReducer } from './loc'
-import { reducer as recordingReducer, saga as recordingSaga, middleware as recordingMiddleware, globalReducer as recordingGlobalReducer } from './recording'
+import { reducer as recordingReducer, saga as recordingSaga, middleware as recordingMiddleware, globalReducer as recordingGlobalReducer, blockGuiReducer, blockGuiSaga } from './recording'
 
 window.lmGlobal = {
   //initializers: [],
@@ -30,6 +30,7 @@ export const init = () => {
       mediaQuery: mediaQueryReducer(state.mediaQuery, action),
       loc: locReducer(state.loc, action),
       recording: recordingReducer(state.recording, action),
+      blockGui: blockGuiReducer(state.blockGui, action),
     }
   }
 
@@ -41,6 +42,7 @@ export const init = () => {
     const rootRes = yield all({
       routerSaga: call(routerSaga),
       recordingSaga: call(recordingSaga),
+      blockGuiSaga: call(blockGuiSaga),
     });
   }
 

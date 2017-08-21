@@ -36,6 +36,13 @@ declare namespace App {
     displayName?: string
   }
 
+  interface IPlatform {
+    initBefore?: () => void
+    initAfter?: () => void
+    initBeforeAsync?: () => Promise<any>
+    initAfterAsync?: () => Promise<any>
+  }
+
 }
 
 interface Window {

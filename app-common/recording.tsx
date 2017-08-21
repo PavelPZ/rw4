@@ -1,7 +1,7 @@
 ﻿import { Middleware, MiddlewareAPI, Action, Dispatch } from 'redux'
 import { connect } from 'react-redux'
 import invariant from 'invariant'
-import { put, take } from 'redux-saga/effects'
+import { put, take, race } from 'redux-saga/effects'
 import { delay } from 'redux-saga'
 
 export const middleware: Middleware = (middlAPI: MiddlewareAPI<IState>) => next => (act) => { //inspirace v D:\rw\rw\rw-redux\async.ts
@@ -39,7 +39,6 @@ let actAsyncAction: string
 
 const record = (state: Recording.IState, dispatch: Dispatch<any>, action: Action) => state.mode == Recording.TModes.recording && dispatch({ type: Recording.Consts.RECORD, action } as Recording.RecordAction)
 const playContinue = (state: Recording.IState, dispatch: Dispatch<any>) => state.mode == Recording.TModes.playing && dispatch({ type: Recording.Consts.PLAY_CONTINUE } as Recording.Action)
-const blockGUI = (dispatch: Dispatch<any>, isStart: boolean) => { }
 const loadPlayList = () => Promise.resolve(debugPlayList)
 const savePlayList = (pl: Recording.IPlayList[]) => { debugPlayList = pl; return Promise.resolve() }
 
@@ -58,7 +57,7 @@ export function* saga() {
     if (!initialized) {
       initialized = true
       const playLists: Recording.IPlayList[] = yield loadPlayList()
-      yield put({ type: Recording.Consts.INIT, playLists } as Recording.InitAction)
+      yield put({ type: Recording.Consts.INIT, playLists, guiSize: Recording.TGuiSize.small } as Recording.InitAction)
     }
     switch (act.type) {
       case Recording.Consts.RECORD_START:
@@ -127,9 +126,10 @@ export const globalReducer: App.IReducer<IState> = (state, action: Recording.Pla
   }
 }
 
+const initState: Recording.IState = { mode: Recording.TModes.no, idx: 0, listIdx: 0, playMsg: '' }
+
 export const reducer: App.IReducer<Recording.IState> = (state, action: Recording.TActions) => {
-  const initState = { mode: Recording.TModes.no, idx: 0, listIdx: 0, playMsg: '' }
-  if (!state) return { ...initState, guiSize: Recording.TGuiSize.large }
+  if (!state) return { ...initState, guiSize: Recording.TGuiSize.icon }
   switch (action.type) {
     case Recording.Consts.INIT:
       return { ...state, playLists: action.playLists }
@@ -171,6 +171,7 @@ export const reducer: App.IReducer<Recording.IState> = (state, action: Recording
   }
 }
 
+
 export const providerConnector = connect<Recording.IStateProps, Recording.IDispatchProps, {}>(
   (state: IState) => state.recording as Recording.IStateProps,
   (dispatch) => ({
@@ -186,3 +187,33 @@ export const providerConnector = connect<Recording.IStateProps, Recording.IDispa
     listSelChange: (idx: number, checked: boolean) => dispatch({ type: Recording.Consts.LIST_SEL_CHANGE, idx, checked } as Recording.ListSelChange),
   } as Recording.IDispatchProps)
 )
+
+//******************** BLOCK GUI
+
+export function* blockGuiSaga() {
+  while (true) {
+    const act: BlockGui.Action = yield take([BlockGui.Consts.START])
+    yield put({ type: BlockGui.Consts.SET_STATE, state: BlockGui.State.show } as BlockGui.SetStateAction)
+    const { waitForIcon, end } = yield race({
+      waitForIcon: delay(500),
+      end: take([BlockGui.Consts.END]),
+    })
+    if (waitForIcon) {
+      yield put({ type: BlockGui.Consts.SET_STATE, state: BlockGui.State.showIcon } as BlockGui.SetStateAction)
+      const act: BlockGui.Action = yield take([BlockGui.Consts.END])
+    }
+    yield put({ type: BlockGui.Consts.SET_STATE, state: BlockGui.State.no } as BlockGui.SetStateAction) //or "race.end" or "race.waitForIcon and take([BlockGui.Consts.END])"
+  }
+}
+
+export const blockGuiReducer: App.IReducer<BlockGui.IState> = (state, action: BlockGui.SetStateAction) => {
+  if (!state) return { state: BlockGui.State.no } as BlockGui.IState
+  switch (action.type) {
+    case BlockGui.Consts.SET_STATE: return { state: action.state }
+    default: return state
+  }
+}
+
+export const blockGuiConnector = connect<BlockGui.IState, {}, {}>((state: IState) => state.blockGui)
+
+const blockGUI = (dispatch: App.Dispatch, isBlock: boolean) => dispatch({ type: isBlock ? BlockGui.Consts.START : BlockGui.Consts.END } as BlockGui.Action)

@@ -103,12 +103,11 @@
     <TypeScriptCompile Include="app-native\snack\redux-simple.tsx" />
     <TypeScriptCompile Include="app-native\snack\navigation\redux\index.tsx" />
     <TypeScriptCompile Include="app-web\react-md.ts" />
-    <TypeScriptCompile Include="app-web\react-navigation\index.ts" />
+    <TypeScriptCompile Include="trash\react-navigation\index.ts" />
     <TypeScriptCompile Include="app-web\snack\drawer.tsx" />
     <TypeScriptCompile Include="app-web\typings.d.ts" />
     <TypeScriptCompile Include="app-web\fela-d.d.ts" />
     <TypeScriptCompile Include="app-web\fela.tsx" />
-    <None Include="app-web\app-web.tsx_" />
     <TypeScriptCompile Include="app-web\react-native\apis\I18nManager.ts" />
     <TypeScriptCompile Include="app-web\react-native\apis\Platform.ts" />
     <TypeScriptCompile Include="app-web\react-native\components\button.tsx" />
@@ -118,10 +117,10 @@
     <TypeScriptCompile Include="app-web\react-native\components\touchable-opacity.tsx" />
     <TypeScriptCompile Include="app-web\react-native\components\view.tsx" />
     <TypeScriptCompile Include="app-web\react-native\index.ts" />
-    <TypeScriptCompile Include="app-web\react-navigation\scene-view.tsx" />
-    <TypeScriptCompile Include="app-web\react-navigation\tab-navigator.tsx" />
+    <TypeScriptCompile Include="trash\react-navigation\scene-view.tsx" />
+    <TypeScriptCompile Include="trash\react-navigation\tab-navigator.tsx" />
     <None Include="app-common\snack\react-navigation.tsx_" />
-    <TypeScriptCompile Include="app-web\react-navigation\stack-navigator.tsx" />
+    <TypeScriptCompile Include="trash\react-navigation\stack-navigator.tsx" />
     <TypeScriptCompile Include="app-web\snack\react-md-test.tsx" />
     <TypeScriptCompile Include="App.tsx" />
     <TypeScriptCompile Include="app-native\snack\navigation\playground\App.tsx" />

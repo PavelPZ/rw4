@@ -1,7 +1,7 @@
 ﻿import React from 'react'
-import { providerConnector } from '../app-common/recording'
+import { providerConnector, blockGuiConnector } from '../app-common/recording'
 import { renderCSS } from './fela'
-import { Button, FontIcon, List, ListItemControl, Checkbox } from './react-md';
+import { Button, FontIcon, List, ListItemControl, Checkbox, Portal } from './react-md';
 
 const provider: React.SFC<Recording.IProps> = props => {
   const childs = React.Children.only(props.children)
@@ -99,3 +99,12 @@ const RecordSavedBtn: React.SFC<Recording.IProps> = props => {
 
 export const Provider = providerConnector(provider)
 
+//******************** BLOCK GUI
+
+const blockGui: React.SFC<BlockGui.IState> = props => {
+  return <Portal visible={props.state != BlockGui.State.no} className={renderCSS({ position: 'fixed', bottom: 0, right: 0, top: 0, left: 0, display: 'flex', justifyContent: 'center', alignItems: 'center', zIndex: 999, cursor: 'wait' })} >
+    {props.state == BlockGui.State.showIcon ? <FontIcon iconClassName='fa fa-2x fa-circle-o-notch fa-spin' /> : null}
+  </Portal>
+}
+
+export const BlockGuiComp = blockGuiConnector(blockGui)

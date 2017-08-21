@@ -8,7 +8,7 @@ import addNavigationHelpers from 'react-navigation/lib/addNavigationHelpers'
 import withCachedChildNavigation from 'react-navigation/lib/withCachedChildNavigation'
 
 import { TabNavigatorConfig, NavigationRouteConfigMap, } from 'react-navigation';
-import { TabsContainer, Tab, Tabs } from '../react-md';
+import { TabsContainer, Tab, Tabs } from '../../app-web/react-md';
 
 import { renderCSS } from 'web-fela'
 

@@ -13,6 +13,10 @@
     returnUrl: Router.IState
   }
 
+  interface IProviderProps {
+    overlays?: React.ReactElement<any>[]
+  }
+
 }
 
 declare const gapi

@@ -3,7 +3,7 @@
   const enum Consts {
     name = 'app-router',
     urlMask = '/:title',
-    loadDelay = 300,
+    loadDelay = 1000,
   }
 
   interface IRoutePar extends Router.IRoutePar {

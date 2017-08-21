@@ -10,7 +10,7 @@ import { init as initAppCommon } from './app-common/app'
 import createHistory from 'history/createBrowserHistory'
 import { platform as loginPlatform, Provider as LoginProvider } from './app-web/web-login'
 import { platform as mediaQueryPlatform } from './app-web/web-media'
-import { Provider as RecordingProvider } from './app-web/web-recording'
+import { Provider as RecordingProvider, BlockGuiComp } from './app-web/web-recording'
 
 //************ aplikace k testovani
 import { AppRouterComp } from './app-common/snack/app-router'
@@ -40,7 +40,7 @@ export const init = () => {
   const appAll =
     <ReduxProvider store={store} >
       <LocProvider>
-        <LoginProvider>
+        <LoginProvider overlays={[<BlockGuiComp key={999}/>]}>
           <RecordingProvider>
             <RouterProvider appOrRoute={appOrRoute} />
           </RecordingProvider>

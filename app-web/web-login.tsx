@@ -28,7 +28,7 @@ export const platform = (par: Login.IPlatformPar) => ({
   }
 } as Login.IPlatform)
 
-export class Provider extends React.PureComponent {
+export class Provider extends React.PureComponent<WebLogin.IProviderProps> {
 
   constructor() {
     super()
@@ -55,6 +55,7 @@ export class Provider extends React.PureComponent {
       <div ref={div => this.appPage = div} className={renderCSS(fixedScreen)}>
         <WaitForRendering waitFor={Provider.rendered} children={this.props.children} waitChildren={waitChildren} />
       </div>
+      {this.props.overlays}
     </div>
   }
 

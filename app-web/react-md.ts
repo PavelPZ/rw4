@@ -19,6 +19,7 @@ export { default as List } from 'app-web/react-md/lib/Lists/List'
 export { default as ListItem } from 'app-web/react-md/lib/Lists/ListItem'
 export { default as ListItemControl } from 'app-web/react-md/lib/Lists/ListItemControl'
 export { default as TextField, TextFieldProps } from 'app-web/react-md/lib/TextFields/TextField'
+export { default as Portal } from 'app-web/react-md/lib/Helpers/Portal'
 
 export { default as FontIcon } from 'app-web/react-md/lib/FontIcons/FontIcon';
 
