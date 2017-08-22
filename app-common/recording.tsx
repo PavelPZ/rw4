@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import invariant from 'invariant'
 import { put, take, race } from 'redux-saga/effects'
 import { delay } from 'redux-saga'
+import { restAPI } from '../app-common/rest-api'
 
 export const middleware: Middleware = (middlAPI: MiddlewareAPI<IState>) => next => (act) => { //inspirace v D:\rw\rw\rw-redux\async.ts
 
@@ -17,11 +18,11 @@ export const middleware: Middleware = (middlAPI: MiddlewareAPI<IState>) => next 
     invariant(!actAsyncAction, `asyncMiddleware: !${actAsyncAction}`)
     actAsyncAction = type.substr(0, type.length - asyncStart.length)
     record(state, middlAPI.dispatch, act)
-    blockGUI(middlAPI.dispatch, true)
+    setTimeout(() => blockGUI(middlAPI.dispatch, true),1)
   } else if (type.endsWith(asyncEnd)) { //...must be finished by just single asyncEND
     const state = middlAPI.getState().recording
     invariant(actAsyncAction === type.substr(0, type.length - asyncEnd.length), `asyncMiddleware: ${actAsyncAction} != ${type}`)
-    blockGUI(middlAPI.dispatch, false)
+    setTimeout(() => blockGUI(middlAPI.dispatch, false),1)
     actAsyncAction = null
     playContinue(state, middlAPI.dispatch) //async finished => when playing, play next action
   } else {
@@ -39,8 +40,11 @@ let actAsyncAction: string
 
 const record = (state: Recording.IState, dispatch: Dispatch<any>, action: Action) => state.mode == Recording.TModes.recording && dispatch({ type: Recording.Consts.RECORD, action } as Recording.RecordAction)
 const playContinue = (state: Recording.IState, dispatch: Dispatch<any>) => state.mode == Recording.TModes.playing && dispatch({ type: Recording.Consts.PLAY_CONTINUE } as Recording.Action)
-const loadPlayList = () => Promise.resolve(debugPlayList)
-const savePlayList = (pl: Recording.IPlayList[]) => { debugPlayList = pl; return Promise.resolve() }
+
+const loadPlayList = () => callRestAPI(Recording.RestAPI.Consts.LOAD).then(d => d.data || [])
+const savePlayList = (pl: Recording.IPlayList[]) => callRestAPI(Recording.RestAPI.Consts.SAVE, pl)
+
+const callRestAPI = (action, data = null) => restAPI({ module: Recording.RestAPI.Consts.module, action, par: null, dataType: data ? RestAPI.Types.JSON : RestAPI.Types.NO, data })
 
 let debugPlayList: Recording.IPlayList[] = []
 
@@ -156,6 +160,7 @@ export const reducer: App.IReducer<Recording.IState> = (state, action: Recording
       if (!state.playLists) return state
       const playLists2 = []
       for (let i = 0; i < state.playLists.length; i++) if (!state.playLists[i].checked) playLists2.push(state.playLists[i])
+      savePlayList(playLists2)
       const newSt3 = { ...state, playLists: playLists2 }
       return newSt3
     case Recording.Consts.LIST_INVERT:

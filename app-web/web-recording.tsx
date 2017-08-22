@@ -103,7 +103,7 @@ export const Provider = providerConnector(provider)
 
 const blockGui: React.SFC<BlockGui.IState> = props => {
   return <Portal visible={props.state != BlockGui.State.no} className={renderCSS({ position: 'fixed', bottom: 0, right: 0, top: 0, left: 0, display: 'flex', justifyContent: 'center', alignItems: 'center', zIndex: 999, cursor: 'wait' })} >
-    {props.state == BlockGui.State.showIcon ? <FontIcon iconClassName='fa fa-2x fa-circle-o-notch fa-spin' /> : null}
+    {props.state == BlockGui.State.showIcon ? <FontIcon iconClassName='fa fa-2x fa-circle-o-notch fa-spin' /> : <span/>}
   </Portal>
 }
 

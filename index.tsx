@@ -18,6 +18,7 @@ import ReactMDApp from './app-web/snack/react-md-test';
 import DrawerApp from './app-web/snack/drawer';
 import LocTestApp from './app-common/snack/loc-test';
 import ValidateTestApp from './app-web/snack/validate-test';
+import RestAPI from './app-common/snack/test-restAPI';
 
 //*********** spusteni
 export const init = () => {
@@ -35,6 +36,7 @@ export const init = () => {
   //const appOrRoute = <DrawerApp/>
   //const appOrRoute = <LocTestApp />
   //const appOrRoute = <ValidateTestApp />
+  //const appOrRoute = <RestAPI />
   
 
   const appAll =

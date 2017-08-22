@@ -49,6 +49,9 @@
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.3\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
@@ -69,12 +72,16 @@
     <Content Include=".gitignore" />
     <TypeScriptCompile Include="app-common\app-d.d.ts" />
     <TypeScriptCompile Include="app-common\app.tsx" />
+    <TypeScriptCompile Include="app-common\rest-api-d.d.ts" />
+    <TypeScriptCompile Include="app-common\rest-api.ts" />
     <TypeScriptCompile Include="app-common\loc-d.d.ts" />
     <TypeScriptCompile Include="app-common\loc.tsx" />
     <TypeScriptCompile Include="app-common\login.tsx" />
     <TypeScriptCompile Include="app-common\login-d.d.ts" />
     <TypeScriptCompile Include="app-common\media-query.ts" />
     <TypeScriptCompile Include="app-common\media-query-d.d.ts" />
+    <TypeScriptCompile Include="app-common\snack\test-restAPI.tsx" />
+    <TypeScriptCompile Include="app-common\snack\communication.tsx" />
     <TypeScriptCompile Include="app-common\validate-d.d.ts" />
     <TypeScriptCompile Include="app-common\validate.tsx" />
     <TypeScriptCompile Include="app-web\snack\validate-test.tsx" />
@@ -157,6 +164,7 @@
     <Content Include="app.json" />
     <Content Include="package.json" />
     <Content Include="tsconfig.json" />
+    <Content Include="rest-api.ashx" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -172,14 +180,18 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="app-common\recording.cs" />
+    <Compile Include="app-common\snack\test-restAPI.cs" />
     <Compile Include="IndexHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="app-common\rest-api.cs" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="app-web\react-md\" />
+    <Folder Include="App_Data\" />
     <Folder Include="typings\" />
   </ItemGroup>
   <PropertyGroup>

@@ -27,6 +27,10 @@ interface IState {
 
 declare namespace Recording {
 
+  namespace RestAPI {
+    const enum Consts { module = 'recording',  SAVE = 'rec/SAVE', LOAD = 'rec/LOAD' }
+  }
+
   const enum Consts {
     INIT = 'rec/INIT_SYSTEM',
     RECORD_START = 'rec/RECORD_START_SYSTEM', RECORD = 'rec/RECORD_SYSTEM', RECORD_END = 'rec/RECORD_END_SYSTEM', RECORD_SAVE_START = 'rec/RECORD_SAVE_START_SYSTEM', RECORD_SAVE_END = 'rec/RECORD_SAVE_END_SYSTEM',
