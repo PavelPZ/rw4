@@ -29,7 +29,7 @@ const provider: React.SFC<Recording.IProps> = props => {
 }
 
 const ContentSmall: React.SFC<Recording.IProps> = props => {
-  return <div className={renderCSS({ position: 'fixed', left: 60, height: 58, bottom: 10 })}>
+  return <div className={renderCSS({ position: 'fixed', left: 60, height: 58, bottom: 10})}>
     <RecordBtn {...props} />
     <RecordSavedBtn {...props} />
     <PlayRecordingBtn {...props} />
@@ -102,7 +102,7 @@ export const Provider = providerConnector(provider)
 //******************** BLOCK GUI
 
 const blockGui: React.SFC<BlockGui.IState> = props => {
-  return <Portal visible={props.state != BlockGui.State.no} className={renderCSS({ position: 'fixed', bottom: 0, right: 0, top: 0, left: 0, display: 'flex', justifyContent: 'center', alignItems: 'center', zIndex: 999, cursor: 'wait' })} >
+  return <Portal visible={props.state != BlockGui.State.no} className={renderCSS({ position: 'fixed', bottom: 0, right: 0, top: 0, left: 0, display: 'flex', justifyContent: 'center', alignItems: 'center', zIndex: 99, cursor: 'wait' })} >
     {props.state == BlockGui.State.showIcon ? <FontIcon iconClassName='fa fa-2x fa-circle-o-notch fa-spin' /> : <span/>}
   </Portal>
 }

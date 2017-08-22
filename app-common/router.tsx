@@ -50,8 +50,8 @@ export const navigate = (routerName: string | Router.IState, par?) => {
 
 let navigateStartQueue: Router.IAction[] = [] //queue of not finished navigationSTART actions for quick BACK x FORWARD browser button click
 const unqueueOnNavigationEnd = () => { // run next waiting navigationSTART after last navigationEND
-  navigateStartQueue = navigateStartQueue.slice(1)
-  if (navigateStartQueue.length > 0) {
+  navigateStartQueue = navigateStartQueue.slice(1) //remove just finished route
+  if (navigateStartQueue.length > 0) { //another prepared routes
     const nextAct = navigateStartQueue[0]
     //console.log(`unqueueOnNavigationEnd: ${JSON.stringify(nextAct.newState.par)}`)
     setTimeout(() => window.lmGlobal.store.dispatch(nextAct), 1)
@@ -73,7 +73,9 @@ export function registerRouter<TPar extends Router.IRoutePar = Router.IRoutePar>
 export const reducer: App.IReducer<Router.IState> = (state, action: Router.IAction) => {
   if (!state) state = { routerName: null }
   switch (action.type) {
-    case Router.Consts.NAVIGATE_END: return action.newState || state //action.newState==null for LOGIN redirect
+    case Router.Consts.NAVIGATE_END:
+      unqueueOnNavigationEnd()
+      return action.newState || state //action.newState==null when redirected to LOGIN page
     default: return state
   }
 }
@@ -89,7 +91,6 @@ export function* saga() {
     const navigateEnd: Router.IAction = { type: Router.Consts.NAVIGATE_END, newState: null };
     if (loginProcessing(route.needsLogin && route.needsLogin(newState.par), newState)) {
       yield put(navigateEnd) //dummy navigationEND action: every _START action must finish with _END action
-      unqueueOnNavigationEnd()
       continue
     }
     if (routeUnloader) yield routeUnloader()
@@ -98,7 +99,6 @@ export function* saga() {
     navigateEnd.newState = newState
     yield put(navigateEnd)
     //console.log(`saga NAVIGATE_END: ${navigateStartQueue.length}`)
-    unqueueOnNavigationEnd()
   }
 }
 

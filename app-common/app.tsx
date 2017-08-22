@@ -20,6 +20,9 @@ export const contextType = <T extends {}>(comp: React.ComponentType<T>) => {
   return comp
 }
 
+export const promiseAll = (promises: any[]) => Promise.all(promises.filter(p => isPromise(p)))
+const isPromise = obj => !!obj && (typeof obj === 'object' || typeof obj === 'function') && typeof obj.then === 'function'
+
 export const init = () => {
 
   const reducers: App.IReducer = (st, action: any) => {

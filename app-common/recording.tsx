@@ -5,6 +5,18 @@ import { put, take, race } from 'redux-saga/effects'
 import { delay } from 'redux-saga'
 import { restAPI } from '../app-common/rest-api'
 
+export const init = () => { //async init
+  const rec = window.lmGlobal.platform.recordingPlatform
+  const guiSize = (rec && rec.guiSize) || Recording.TGuiSize.no
+  initState = { guiSize }    
+  return guiSize == Recording.TGuiSize.no ? null : new Promise<void>(async resolve => {
+    initState.playLists = await loadPlayList() as Recording.IPlayList[]
+    resolve()
+  })
+}
+let initState: Recording.IState
+
+
 export const middleware: Middleware = (middlAPI: MiddlewareAPI<IState>) => next => (act) => { //inspirace v D:\rw\rw\rw-redux\async.ts
 
   next(act)
@@ -48,11 +60,11 @@ const callRestAPI = (action, data = null) => restAPI({ module: Recording.RestAPI
 
 let debugPlayList: Recording.IPlayList[] = []
 
-export function* sagaSave() {
-  while (true) {
-    yield take(Recording.Consts.RECORD_SAVE_START)
-  }
-}
+//export function* sagaSave() {
+//  while (true) {
+//    yield take(Recording.Consts.RECORD_SAVE_START)
+//  }
+//}
 
 export function* saga() {
   let initialized = false
@@ -130,10 +142,10 @@ export const globalReducer: App.IReducer<IState> = (state, action: Recording.Pla
   }
 }
 
-const initState: Recording.IState = { mode: Recording.TModes.no, idx: 0, listIdx: 0, playMsg: '' }
+const resetState: Recording.IState = { mode: Recording.TModes.no, idx: 0, listIdx: 0, playMsg: '' }
 
 export const reducer: App.IReducer<Recording.IState> = (state, action: Recording.TActions) => {
-  if (!state) return { ...initState, guiSize: Recording.TGuiSize.icon }
+  if (!state) return { ...resetState, ...initState }
   switch (action.type) {
     case Recording.Consts.INIT:
       return { ...state, playLists: action.playLists }
@@ -143,17 +155,17 @@ export const reducer: App.IReducer<Recording.IState> = (state, action: Recording
     case Recording.Consts.RECORD:
       return { ...state, recording: [...state.recording, action.action], playMsg: `REC: ${state.recording.length + 1}` }
     case Recording.Consts.RECORD_END:
-      return { ...state, ...initState }
+      return { ...state, ...resetState }
     case Recording.Consts.RECORD_SAVE_START:
       const playLists = [...state.playLists, { name: action.name, actions: state.recording, startState: state.startState, id: new Date().getTime(), checked: false, active: false }]
       savePlayList(playLists)
-      return { ...state, ...initState, recording: null, startState: null, playLists }
+      return { ...state, ...resetState, recording: null, startState: null, playLists }
     case Recording.Consts.PLAY_NEXT:
       return { ...state, idx: action.idx, listIdx: action.listIdx, playMsg: action.playMsg }
     case Recording.Consts.PLAY_END:
-      return { ...state, ...initState }
+      return { ...state, ...resetState }
     case Recording.Consts.PLAY_CANCEL:
-      return { ...state, ...initState }
+      return { ...state, ...resetState }
     case Recording.Consts.CHANGE_SIZE:
       return { ...state, guiSize: state.guiSize == Recording.TGuiSize.large ? Recording.TGuiSize.icon : state.guiSize + 1 }
     case Recording.Consts.LIST_DELETE:

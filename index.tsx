@@ -4,7 +4,8 @@ import { Store, Provider as ReduxProvider } from 'react-redux'
 import { Provider as LocProvider, } from './app-common/loc'
 import { Provider as RouterProvider } from './app-common/router'
 
-import { init as initAppCommon } from './app-common/app'
+import { init as initAppCommon, promiseAll } from './app-common/app'
+import { init as initRecording } from './app-common/recording'
 
 //********** WEB specific
 import createHistory from 'history/createBrowserHistory'
@@ -21,15 +22,22 @@ import ValidateTestApp from './app-web/snack/validate-test';
 import RestAPI from './app-common/snack/test-restAPI';
 
 //*********** spusteni
-export const init = () => {
+export const init = async () => {
   window.lmGlobal.platform = {
     loginPlatform: loginPlatform({ fbAppId: '198385910196240', fbAPIVersion: 'v2.10', googleClientId: '79001294507-haubsvbmtj5lu4a30hp4kb44hl66qhoc.apps.googleusercontent.com', loc: 'cs-CZ' }),
     mediaQueryPlatform,
+    recordingPlatform: { guiSize: Recording.TGuiSize.icon }
   }
+
+  await promiseAll([
+    initRecording()
+  ])
 
   const store = initAppCommon() as Store<IState>
 
-  mediaQueryPlatform.init()
+  await promiseAll([
+    mediaQueryPlatform.init()
+  ])
 
   const appOrRoute: Router.IInitPar = { history: createHistory() as Router.IHistory, rootUrl: '/web-app.html', startRoute: AppRouterComp.getRoute({ title: 'START TITLE' }) }
   //const appOrRoute = <ReactMDApp/>
@@ -37,12 +45,12 @@ export const init = () => {
   //const appOrRoute = <LocTestApp />
   //const appOrRoute = <ValidateTestApp />
   //const appOrRoute = <RestAPI />
-  
+
 
   const appAll =
     <ReduxProvider store={store} >
       <LocProvider>
-        <LoginProvider overlays={[<BlockGuiComp key={999}/>]}>
+        <LoginProvider overlays={[<BlockGuiComp key={999} />]}>
           <RecordingProvider>
             <RouterProvider appOrRoute={appOrRoute} />
           </RecordingProvider>

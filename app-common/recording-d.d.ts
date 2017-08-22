@@ -1,31 +1,4 @@
-﻿declare namespace BlockGui {
-  const enum Consts {
-    START = 'bg/START_SYSTEM', END = 'bg/END_SYSTEM', SET_STATE = 'bg/SET_STATE_SYSTEM', 
-  }
-
-  const enum State {no, show, showIcon}
-
-  interface IState {
-    state: State
-  }
-
-  interface Action {
-    type: Consts.START | Consts.END
-  }
-
-  interface SetStateAction {
-    type: Consts.SET_STATE
-    state: State
-  }
-
-}
-
-interface IState {
-  blockGui?: BlockGui.IState
-}
-
-
-declare namespace Recording {
+﻿declare namespace Recording {
 
   namespace RestAPI {
     const enum Consts { module = 'recording',  SAVE = 'rec/SAVE', LOAD = 'rec/LOAD' }
@@ -43,8 +16,12 @@ declare namespace Recording {
   const enum TGuiSize { no, icon, small, large }
   const enum TModes { no, recording, playing }
 
+  interface IConfig {
+    guiSize?: TGuiSize
+  }
+
   interface IState {
-    mode: TModes
+    mode?: TModes
     guiSize?: TGuiSize
     playLists?: IPlayList[] //all saved playlists
     recording?: App.Action[] //recorded playlist
@@ -127,7 +104,39 @@ declare namespace Recording {
   type IProps = IStateProps & IDispatchProps
 }
 
+interface IPlatforms {
+  recordingPlatform?: Recording.IConfig
+}
+
 interface IState {
   recording?: Recording.IState
 }
 type TGlobalState = IState
+
+//************************* BLOCK GUI
+declare namespace BlockGui {
+  const enum Consts {
+    START = 'bg/START_SYSTEM', END = 'bg/END_SYSTEM', SET_STATE = 'bg/SET_STATE_SYSTEM',
+  }
+
+  const enum State { no, show, showIcon }
+
+  interface IState {
+    state: State
+  }
+
+  interface Action {
+    type: Consts.START | Consts.END
+  }
+
+  interface SetStateAction {
+    type: Consts.SET_STATE
+    state: State
+  }
+
+}
+
+interface IState {
+  blockGui?: BlockGui.IState
+}
+
