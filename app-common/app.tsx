@@ -4,7 +4,7 @@ import createSagaMiddleware from 'redux-saga/index'
 import { all, call } from 'redux-saga/effects'
 import PropTypes from 'prop-types'
 
-import { reducer as routerReducer, saga as routerSaga } from './router'
+import { reducer as routerReducer, /*saga as routerSaga*/ } from './router'
 import { reducer as loginReducer } from './login'
 import { reducer as mediaQueryReducer } from './media-query'
 import { reducer as locReducer } from './loc'
@@ -43,7 +43,7 @@ export const init = () => {
 
   function* rootSaga() {
     const rootRes = yield all({
-      routerSaga: call(routerSaga),
+      //routerSaga: call(routerSaga),
       recordingSaga: call(recordingSaga),
       blockGuiSaga: call(blockGuiSaga),
     });

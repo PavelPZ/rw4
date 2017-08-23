@@ -2,6 +2,7 @@
 
   const enum Consts {
     NAVIGATE_START = 'router/NAVIGATE_START', NAVIGATE_END = 'router/NAVIGATE_END',
+    $asyncProcessed = '$asyncProcessed'
   }
 
   //type IState = IStateLow<string, {}>

@@ -25,18 +25,18 @@ export const middleware: Middleware = (middlAPI: MiddlewareAPI<IState>) => next 
 
   if (type.endsWith(system)) return act
 
-  if (type.endsWith(asyncStart)) { //just single asyncSTARE...
+  if (type.endsWith(asyncStart) && !act[Router.Consts.$asyncProcessed]) { 
+    invariant(!actAsyncAction, `asyncMiddleware: !${actAsyncAction}`) //every maxi single asyncSTART...
     const state = middlAPI.getState().recording
-    invariant(!actAsyncAction, `asyncMiddleware: !${actAsyncAction}`)
     actAsyncAction = type.substr(0, type.length - asyncStart.length)
-    record(state, middlAPI.dispatch, act)
+    record(state, middlAPI.dispatch, act) //record start action
     setTimeout(() => blockGUI(middlAPI.dispatch, true),1)
-  } else if (type.endsWith(asyncEnd)) { //...must be finished by just single asyncEND
+  } else if (type.endsWith(asyncEnd)) { 
+    invariant(actAsyncAction === type.substr(0, type.length - asyncEnd.length), `asyncMiddleware: ${actAsyncAction} != ${type}`) //...must be finished by just single asyncEND
     const state = middlAPI.getState().recording
-    invariant(actAsyncAction === type.substr(0, type.length - asyncEnd.length), `asyncMiddleware: ${actAsyncAction} != ${type}`)
     setTimeout(() => blockGUI(middlAPI.dispatch, false),1)
     actAsyncAction = null
-    playContinue(state, middlAPI.dispatch) //async finished => when playing, play next action
+    playContinue(state, middlAPI.dispatch) //async finished => if playing, play next action. Don't record END action
   } else {
     if (!actAsyncAction) { //action is not between asyncSTART - END
       const state = middlAPI.getState().recording
