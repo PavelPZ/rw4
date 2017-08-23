@@ -1,6 +1,7 @@
 ﻿import React from 'react';
 import { connect } from 'react-redux'
 import { put, take } from 'redux-saga/effects'
+import { delay } from 'redux-saga'
 import invariant from 'invariant'
 import { loginProcessing } from './login'
 
@@ -43,29 +44,31 @@ export const actRoute = () => window.lmGlobal.store.getState().router
 export const navigate = (routerName: string | Router.IState, par?) => {
   if (typeof (routerName) !== 'string') { par = routerName.par; routerName = routerName.routerName }
   const action: Router.IAction = { type: Router.Consts.NAVIGATE_START, newState: { routerName, par } }
-  if (navigateStartQueue.length == 0) window.lmGlobal.store.dispatch(action)
-  navigateStartQueue.push(action)
+  window.lmGlobal.store.dispatch(action)
+  //if (navigateStartQueue.length == 0) window.lmGlobal.store.dispatch(action) //navigateStartQueue.push(action) se provede v REDUCERovi
+  //else navigateStartQueue.push(action)
   //console.log(`navigate: ${navigateStartQueue.length}`)
 }
 
-let navigateStartQueue: Router.IAction[] = [] //queue of not finished navigationSTART actions for quick BACK x FORWARD browser button click
-const unqueueOnNavigationEnd = () => { // run next waiting navigationSTART after last navigationEND
-  navigateStartQueue = navigateStartQueue.slice(1) //remove just finished route
-  if (navigateStartQueue.length > 0) { //another prepared routes
-    const nextAct = navigateStartQueue[0]
-    //console.log(`unqueueOnNavigationEnd: ${JSON.stringify(nextAct.newState.par)}`)
-    setTimeout(() => window.lmGlobal.store.dispatch(nextAct), 1)
-  }
-}
+//let navigateStartQueue: Router.IAction[] = [] //queue of not finished navigationSTART actions for quick BACK x FORWARD browser button click
+//const unqueueOnNavigationEnd = () => { // run next waiting navigationSTART after last navigationEND
+//  invariant(navigateStartQueue.length > 0, 'unqueueOnNavigationEnd: navigateStartQueue.length>0')
+//  navigateStartQueue = navigateStartQueue.slice(1) //remove just finished route
+//  if (navigateStartQueue.length > 0) { //another prepared routes
+//    const nextAct = navigateStartQueue[0]
+//    //console.log(`unqueueOnNavigationEnd: ${JSON.stringify(nextAct.newState.par)}`)
+//    setTimeout(() => window.lmGlobal.store.dispatch(nextAct), 1)
+//  }
+//}
 
 export function registerRouter<TPar extends Router.IRoutePar = Router.IRoutePar>(router: React.ComponentType<TPar>, routerName: string, urlMask?: string, extension?: Router.IRoute<TPar>) {
+  invariant(!routes[routerName], 'registerRouter: route %0 already exists', routerName);
   const res = Object.assign(router, extension) as Router.TRoute;
   res.routerName = routerName
-  res.getRoute = (par: TPar) => ({ routerName, par })
+  res.getRoute = (par: TPar) => ({ routerName, par }) 
   const pattern = new UrlPattern(urlMask)
   res.urlPattern = pattern
   res.navigate = (par: TPar) => historyPushLow(pattern, res.getRoute(par))
-  invariant(!routes[res.routerName], 'registerRouter: route %0 already exists', res.name);
   routes[routerName] = res
   return res as Router.IRoute<TPar>
 }
@@ -73,8 +76,11 @@ export function registerRouter<TPar extends Router.IRoutePar = Router.IRoutePar>
 export const reducer: App.IReducer<Router.IState> = (state, action: Router.IAction) => {
   if (!state) state = { routerName: null }
   switch (action.type) {
+    case Router.Consts.NAVIGATE_START:
+      notifyNavigationStart() //notifications for resolving quick BACK x FORWARD
+      return state
     case Router.Consts.NAVIGATE_END:
-      unqueueOnNavigationEnd()
+      notifyNavigationEnd() //notifications for resolving quick BACK x FORWARD
       return action.newState || state //action.newState==null when redirected to LOGIN page
     default: return state
   }
@@ -90,14 +96,17 @@ export function* saga() {
     const route = routes[newState.routerName];
     const navigateEnd: Router.IAction = { type: Router.Consts.NAVIGATE_END, newState: null };
     if (loginProcessing(route.needsLogin && route.needsLogin(newState.par), newState)) {
-      yield put(navigateEnd) //dummy navigationEND action: every _START action must finish with _END action
+      //yield delay(1) //aby se stacilo dokoncit NAVIGATE_START
+      window.lmGlobal.store.dispatch(navigateEnd) 
+      //yield put(navigateEnd) //dummy navigationEND action: every _START action must finish with _END action
       continue
     }
     if (routeUnloader) yield routeUnloader()
     routeUnloader = null;
     if (route.load) routeUnloader = yield route.load(newState.par)
     navigateEnd.newState = newState
-    yield put(navigateEnd)
+    window.lmGlobal.store.dispatch(navigateEnd) 
+    //yield put(navigateEnd)
     //console.log(`saga NAVIGATE_END: ${navigateStartQueue.length}`)
   }
 }
@@ -144,8 +153,28 @@ const init = (initPar: Router.IInitPar) => {
 
   historyPushLow = (urlPattern, state) => history.push(stringify(urlPattern, state))
 
+  //*** resolving quick BACK x FORWARD browser button clicks
+  notifyNavigationEnd = () => {
+    navigationCount--
+    if (navigationCount > 0 || navigateStartQueue.length == 0) return
+    const navigAction = navigateStartQueue[0]
+    navigateStartQueue = navigateStartQueue.slice(1)
+    setTimeout(() => navigate(navigAction),1)
+  }
+  notifyNavigationStart = () => navigationCount++
+  let navigationCount = 0
+  let navigateStartQueue = []
+
   navigate(url2state(history.location))
-  const unlisten = history.listen((location, action) => navigate(url2state(history.location)))
+  const unlisten = history.listen((location, action) => {
+    const navigAction = url2state(history.location)
+    if (navigationCount > 0) navigateStartQueue.push(navigAction) //wait for finishing last navigation
+    else navigate(navigAction)
+  })
 }
 
 let historyPushLow: (urlPattern: UrlPattern, state: Router.IState) => void //vysledek init
+
+//notifications for resolving quick BACK x FORWARD
+let notifyNavigationEnd: () => void
+let notifyNavigationStart: () => void

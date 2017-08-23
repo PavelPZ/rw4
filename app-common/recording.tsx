@@ -67,14 +67,14 @@ let debugPlayList: Recording.IPlayList[] = []
 //}
 
 export function* saga() {
-  let initialized = false
+  //let initialized = false
   while (true) {
     const act: Recording.TActions = yield take([Recording.Consts.RECORD_START, Recording.Consts.PLAY_START])
-    if (!initialized) {
-      initialized = true
-      const playLists: Recording.IPlayList[] = yield loadPlayList()
-      yield put({ type: Recording.Consts.INIT, playLists, guiSize: Recording.TGuiSize.small } as Recording.InitAction)
-    }
+    //if (!initialized) {
+    //  initialized = true
+    //  const playLists: Recording.IPlayList[] = yield loadPlayList()
+    //  yield put({ type: Recording.Consts.INIT, playLists, guiSize: Recording.TGuiSize.small } as Recording.InitAction)
+    //}
     switch (act.type) {
       case Recording.Consts.RECORD_START:
         continue
@@ -147,8 +147,8 @@ const resetState: Recording.IState = { mode: Recording.TModes.no, idx: 0, listId
 export const reducer: App.IReducer<Recording.IState> = (state, action: Recording.TActions) => {
   if (!state) return { ...resetState, ...initState }
   switch (action.type) {
-    case Recording.Consts.INIT:
-      return { ...state, playLists: action.playLists }
+    //case Recording.Consts.INIT:
+    //  return { ...state, playLists: action.playLists }
     case Recording.Consts.RECORD_START:
       const { recording, ...startState } = window.lmGlobal.store.getState()
       return { ...state, mode: Recording.TModes.recording, recording: [], startState: JSON.parse(JSON.stringify(startState)) }

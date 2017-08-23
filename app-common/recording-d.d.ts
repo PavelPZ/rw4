@@ -5,7 +5,7 @@
   }
 
   const enum Consts {
-    INIT = 'rec/INIT_SYSTEM',
+    //INIT = 'rec/INIT_SYSTEM',
     RECORD_START = 'rec/RECORD_START_SYSTEM', RECORD = 'rec/RECORD_SYSTEM', RECORD_END = 'rec/RECORD_END_SYSTEM', RECORD_SAVE_START = 'rec/RECORD_SAVE_START_SYSTEM', RECORD_SAVE_END = 'rec/RECORD_SAVE_END_SYSTEM',
     PLAY_START = 'rec/PLAY_START_SYSTEM', PLAY_INIT_STATE = 'rec/PLAY_INIT_STATE_SYSTEM', PLAY_CONTINUE = 'rec/PLAY_CONTINUE_SYSTEM', PLAY_NEXT = 'rec/PLAY_NEXT_SYSTEM', PLAY_CANCEL = 'rec/PLAY_CANCEL_SYSTEM', PLAY_END = 'rec/PLAY_END_SYSTEM',
     CHANGE_SIZE = 'rec/CHANGE_SIZE_SYSTEM',
@@ -65,10 +65,10 @@
     action: App.Action
   }
 
-  interface InitAction {
-    type: Consts.INIT
-    playLists: IPlayList[]
-  }
+  //interface InitAction {
+  //  type: Consts.INIT
+  //  playLists: IPlayList[]
+  //}
 
   interface PlayNextAction {
     type: Consts.PLAY_NEXT
@@ -84,7 +84,7 @@
   }
 
 
-  type TActions = Action | PlayStartAction | RecordSaveAction | InitAction | RecordAction | PlayNextAction | PlayInitStateAction | ListSelChange
+  type TActions = Action | PlayStartAction | RecordSaveAction | /*InitAction |*/ RecordAction | PlayNextAction | PlayInitStateAction | ListSelChange
 
   //**** GUI
   interface IStateProps extends IState { }

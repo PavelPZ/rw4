@@ -139,7 +139,8 @@ const renderButton = () => {
       const profile = googleUser.getBasicProfile();
       provider.onLogin(Login.Consts.google, profile.getName(), profile.getGivenName(), profile.getFamilyName(), profile.getImageUrl(), profile.getEmail())
     },
-    onfailure: () => { },
+    onfailure: () => {
+    },
   });
 }
 
