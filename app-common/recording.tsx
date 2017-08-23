@@ -60,12 +60,6 @@ const callRestAPI = (action, data = null) => restAPI({ module: Recording.RestAPI
 
 let debugPlayList: Recording.IPlayList[] = []
 
-//export function* sagaSave() {
-//  while (true) {
-//    yield take(Recording.Consts.RECORD_SAVE_START)
-//  }
-//}
-
 export function* saga() {
   //let initialized = false
   while (true) {
@@ -91,6 +85,7 @@ export function* saga() {
           const canc = window.lmGlobal.store.getState().recording.mode != Recording.TModes.playing
           if (!canc) {
             yield put(playAction)
+            const act: Recording.TActions = yield take([Recording.Consts.PLAY_CONTINUE])
             yield put({ type: Recording.Consts.PLAY_NEXT, idx, listIdx, playMsg } as Recording.PlayNextAction)
           }
           return canc
@@ -105,7 +100,7 @@ export function* saga() {
               break
             } else {
               const canc = yield* playAndGoNext(rec[state.idx], state.idx + 1, 0, `PLAY REC: ${state.idx + 1} / ${rec.length}`)
-              if (canc) break
+              if (canc) break; else continue
             }
           } else {
             let playList = state.playLists[playSelected[state.listIdx]]
@@ -121,11 +116,9 @@ export function* saga() {
             }
             if (state.idx == 0) state = yield* setPlayInitState(playList.startState)
             const canc = yield* playAndGoNext(playList.actions[state.idx], state.idx + 1, state.listIdx, `PLAY ALL ${state.listIdx + 1} / ${playSelected.length}: ${state.idx + 1} / ${playList.actions.length}`)
-            if (canc) break
+            if (canc) break; else continue
           }
-          const nextAct: Recording.TActions = yield take([Recording.Consts.PLAY_CONTINUE, Recording.Consts.PLAY_CANCEL])
-          if (nextAct.type == Recording.Consts.PLAY_CONTINUE) continue //Recording.Consts.PLAY_CONTINUE action
-          break //Recording.Consts.PLAY_CANCEL action
+
         }
     }
 

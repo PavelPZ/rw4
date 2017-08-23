@@ -45,21 +45,7 @@ export const navigate = (routerName: string | Router.IState, par?) => {
   if (typeof (routerName) !== 'string') { par = routerName.par; routerName = routerName.routerName }
   const action: Router.IAction = { type: Router.Consts.NAVIGATE_START, newState: { routerName, par } }
   window.lmGlobal.store.dispatch(action)
-  //if (navigateStartQueue.length == 0) window.lmGlobal.store.dispatch(action) //navigateStartQueue.push(action) se provede v REDUCERovi
-  //else navigateStartQueue.push(action)
-  //console.log(`navigate: ${navigateStartQueue.length}`)
 }
-
-//let navigateStartQueue: Router.IAction[] = [] //queue of not finished navigationSTART actions for quick BACK x FORWARD browser button click
-//const unqueueOnNavigationEnd = () => { // run next waiting navigationSTART after last navigationEND
-//  invariant(navigateStartQueue.length > 0, 'unqueueOnNavigationEnd: navigateStartQueue.length>0')
-//  navigateStartQueue = navigateStartQueue.slice(1) //remove just finished route
-//  if (navigateStartQueue.length > 0) { //another prepared routes
-//    const nextAct = navigateStartQueue[0]
-//    //console.log(`unqueueOnNavigationEnd: ${JSON.stringify(nextAct.newState.par)}`)
-//    setTimeout(() => window.lmGlobal.store.dispatch(nextAct), 1)
-//  }
-//}
 
 export function registerRouter<TPar extends Router.IRoutePar = Router.IRoutePar>(router: React.ComponentType<TPar>, routerName: string, urlMask?: string, extension?: Router.IRoute<TPar>) {
   invariant(!routes[routerName], 'registerRouter: route %0 already exists', routerName);
@@ -96,9 +82,8 @@ export function* saga() {
     const route = routes[newState.routerName];
     const navigateEnd: Router.IAction = { type: Router.Consts.NAVIGATE_END, newState: null };
     if (loginProcessing(route.needsLogin && route.needsLogin(newState.par), newState)) {
-      //yield delay(1) //aby se stacilo dokoncit NAVIGATE_START
-      window.lmGlobal.store.dispatch(navigateEnd) 
-      //yield put(navigateEnd) //dummy navigationEND action: every _START action must finish with _END action
+      window.lmGlobal.store.dispatch(navigateEnd)  //dummy navigationEND action: every _START action must finish with _END action
+      //yield put(navigateEnd) 
       continue
     }
     if (routeUnloader) yield routeUnloader()
@@ -106,7 +91,7 @@ export function* saga() {
     if (route.load) routeUnloader = yield route.load(newState.par)
     navigateEnd.newState = newState
     window.lmGlobal.store.dispatch(navigateEnd) 
-    //yield put(navigateEnd)
+    //yield put(navigateEnd) 
     //console.log(`saga NAVIGATE_END: ${navigateStartQueue.length}`)
   }
 }
