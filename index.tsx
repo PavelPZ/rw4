@@ -32,6 +32,9 @@ export const init = async () => {
       mediaQueryPlatform,
       recordingPlatform: { guiSize: Recording.TGuiSize.icon },
       restAPIPlatform: { serviceUrl: 'rest-api.ashx' },
+      routerPlatform: {
+        getInitialState: () => AppRouterComp.getRoute({ title: 'START TITLE' }),
+      }
     }
   }
 

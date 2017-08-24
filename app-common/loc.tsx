@@ -24,7 +24,7 @@ export const reducer: App.IReducer<Loc.IState> = (state, action) => {
   return state
   //switch (action.type) {
   //  case Router.Consts.NAVIGATE_END: return action.newState
-  //  default: return state || { routerName: null }
+  //  default: return state || { routeName: null }
   //}
 }
 

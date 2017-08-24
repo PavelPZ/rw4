@@ -17,7 +17,7 @@ const provider: React.SFC<Router.IRouterProviderProps & Router.IRouterProviderOw
     initialized = true
     const { appOrRoute } = props
     routeInitPar = appOrRoute as Router.IInitPar
-    if (!!routeInitPar.rootUrl && !!routeInitPar.startRoute.routerName) {
+    if (!!routeInitPar.rootUrl && !!routeInitPar.startRoute.routeName) {
       init(routeInitPar)
     } else {
       routeInitPar = null
@@ -29,7 +29,7 @@ const provider: React.SFC<Router.IRouterProviderProps & Router.IRouterProviderOw
   if (notRouterApp)
     return notRouterApp
   else
-    return props && props.routerName ? React.createElement(routes[props.routerName] as React.ComponentClass<any>, props.params) : null
+    return props && props.routeName ? React.createElement(routes[props.routeName] as React.ComponentClass<any>, props.params) : null
 }
 let routeInitPar: Router.IInitPar
 let initialized: boolean
@@ -39,23 +39,23 @@ let notRouterApp: JSX.Element
 export const actRoute = () => window.lmGlobal.store.getState().router
 
 //navigace BEZ history.push. S history.push viz Router.TRoute.navigate
-export const navigate = (routerName?: string | Router.IState, params?) => {
+export const navigate = (routeName?: string | Router.IState, params?) => {
   let newState: Router.IState;
-  if (!routerName) newState = routeInitPar.startRoute
-  else if (typeof (routerName) !== 'string') newState = routerName
-  else newState = { routerName: routerName, params: params }
+  if (!routeName) newState = routeInitPar.startRoute
+  else if (typeof (routeName) !== 'string') newState = routeName
+  else newState = { routeName: routeName, params: params }
   window.lmGlobal.store.dispatch({ type: Router.Consts.NAVIGATE_START, newState })
 }
 
-export function registerRouter<TPar extends Router.IRoutePar = Router.IRoutePar>(router: React.ComponentType<TPar>, routerName: string, urlMask?: string, extension?: Router.IRoute<TPar>) {
-  invariant(!routes[routerName], 'registerRouter: route %0 already exists', routerName);
+export function registerRouter<TPar extends Router.IRoutePar = Router.IRoutePar>(router: React.ComponentType<TPar>, routeName: string, urlMask?: string, extension?: Router.IRoute<TPar>) {
+  invariant(!routes[routeName], 'registerRouter: route %0 already exists', routeName);
   const res = Object.assign(router, extension) as Router.IRouteComponent
-  res.routerName = routerName
-  res.getRoute = (params: TPar) => ({ routerName, params }) 
+  res.routeName = routeName
+  res.getRoute = (params: TPar) => ({ routeName, params }) 
   const pattern = new UrlPattern(urlMask)
   res.urlPattern = pattern
   res.navigate = (par: TPar) => historyPushLow(pattern, res.getRoute(par))
-  routes[routerName] = res
+  routes[routeName] = res
   return res as Router.IRouteComponent<TPar>
 }
 
@@ -69,7 +69,7 @@ export const reducer: App.IReducer<Router.IState> = (state, action: Router.IActi
     case Router.Consts.NAVIGATE_START:
       const newState = action.newState
       let isAsync = false
-      const route = routes[newState.routerName];
+      const route = routes[newState.routeName];
       if (loginProcessing(route.needsLogin && route.needsLogin(newState.params), newState)) {
         action[Router.Consts.$asyncProcessed] = true
         return state
@@ -121,22 +121,22 @@ const init = (initPar: Router.IInitPar) => {
     pathname = pathname.substr(rootUrl.length)
     if (!pathname || pathname == '/') return startRoute
     let res: Router.IState
-    //parse /<routerName>/<pathname>
+    //parse /<routeName>/<pathname>
     const idx = pathname.indexOf('/', 1)
-    const routerName = pathname.substring(1, idx)
+    const routeName = pathname.substring(1, idx)
     const toParse = encodeURI(pathname.substr(idx))
     //get router
-    const route = routes[routerName] as Router.IRoute
-    invariant(!!route, `Route "${routerName}" not found`)
+    const route = routes[routeName] as Router.IRoute
+    invariant(!!route, `Route "${routeName}" not found`)
     //match by router.urlPatttern
-    return { routerName, params: match(route.urlPattern as UrlPattern, toParse, loc.search) } as Router.IState
+    return { routeName, params: match(route.urlPattern as UrlPattern, toParse, loc.search) } as Router.IState
   }
 
   const stringify = (pattern: UrlPattern, state: Router.IState) => {
     invariant(!!state, 'State required')
     if (!state) return null
-    const { routerName, params: { query, ...par } } = state
-    const res = rootUrl + '/' + routerName + pattern.stringify(par) + (query ? '?' + qs.stringify(query) : '')
+    const { routeName, params: { query, ...par } } = state
+    const res = rootUrl + '/' + routeName + pattern.stringify(par) + (query ? '?' + qs.stringify(query) : '')
     return res
   }
 

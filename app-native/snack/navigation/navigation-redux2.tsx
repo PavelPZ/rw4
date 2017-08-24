@@ -2,44 +2,52 @@ import React from 'react';
 import { Text, Button, View, Route } from 'react-native';
 import { addNavigationHelpers, NavigationActions, StackNavigator, TabNavigator, DrawerNavigator } from 'react-navigation';
 import { Provider, connect } from 'react-redux'
+import { registerRouter } from '../../../app-common/router'
 //import { createStore, combineReducers } from 'redux'
 
-const Screen = props => <View style={{ marginTop:20 }}>
-  <Text>SCREEN {props.navigation.state.params.count}</Text>
-  <Button title='Click' onPress={() => {
-    props.navigation.navigate('Main', { count: cnt++ })  
-  }} />
-</View>
+interface IRoutePar extends Router.IRoutePar {
+  count:number
+}
+
+const appRouterComp: React.SFC<IRoutePar> = pr => {
+  const props: IRoutePar = (pr as any).navigation.state.params
+  return <View style={{ flex: 1, marginTop: 30 }}>
+    <Text>SCREEN {props.count}</Text>
+    <Button title='Click' onPress={() => AppRouterComp.navigate({ count: cnt++ })} />
+  </View>
+}
 let cnt = 0;
 
-//const Stack = StackNavigator({
-//  Screen: {
-//    screen: Screen
-//  }
-//});
+export const AppRouterComp: Router.IRoute<IRoutePar> = registerRouter(appRouterComp, 'Main', '/:count')
 
-//const Tab = TabNavigator({
-//  Tab1: {
-//    screen: Stack
-//  },
-//  Tab2: {
-//    screen: Stack
-//  }
+  //const Stack = StackNavigator({
+  //  Screen: {
+  //    screen: Screen
+  //  }
+  //});
 
-//});
+  //const Tab = TabNavigator({
+  //  Tab1: {
+  //    screen: Stack
+  //  },
+  //  Tab2: {
+  //    screen: Stack
+  //  }
 
-export const AppNavigator = DrawerNavigator({
-  Main: {
-    screen: Screen
-  }
-  //SubMain: {
-  //  screen: Tab
-  //}
-});
+  //});
 
-export const initState: Router.IState = { routeName: 'Main', params: { count: 999 } }
+  export const AppNavigator = DrawerNavigator({
+    Main: {
+      screen: AppRouterComp
+    }
+    //SubMain: {
+    //  screen: Tab
+    //}
+  });
 
-const firstAction = NavigationActions.navigate({ routeName: 'Main', params: { count: 999 } })
+export const initState: Router.IState < string, any> = { routeName: 'Main', params: { count: 999 } }
+
+const firstAction = NavigationActions.navigate(initState)
 const initialState = AppNavigator.router.getStateForAction(firstAction)
 console.log('@@@ initialNavState', JSON.stringify(initialState, null, 2))
 
@@ -72,15 +80,15 @@ const App = connect(state => ({ router: state.router }))(app);
 
 //const store = createStore(appReducer);
 
-//class Root extends React.Component {
-//  render() {
-//    return (
-//      <Provider store={store}>
-//        <AppWithNavigationState />
-//      </Provider>
-//    );
-//  }
-//}
+class Root extends React.Component {
+  render() {
+    return (
+      <View>
+        <App />
+      </View>
+    );
+  }
+}
 
-export default App
+export default Root
 

@@ -19,7 +19,7 @@
   type IRouterProps = IRouterProviderProps & IRouterProviderOwnProps
 
   interface IState<TName extends string = string, TParams extends IRoutePar = IRoutePar> {
-    routerName: TName
+    routeName: TName
     params?: TParams
   }
 
@@ -35,7 +35,7 @@
   }
 
   interface IRoute<TParams extends IRoutePar = IRoutePar> {
-    routerName?: string
+    routeName?: string
     load?: TLoader<TParams>
     needsLogin?: (params: TParams) => boolean
     navigate?: (params: TParams) => void //navigace S history.push
