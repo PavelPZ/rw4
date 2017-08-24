@@ -71,7 +71,9 @@
   <ItemGroup>
     <Content Include=".gitignore" />
     <TypeScriptCompile Include="app-common\app-d.d.ts" />
-    <TypeScriptCompile Include="app-common\app.tsx" />
+    <TypeScriptCompile Include="app-native\snack\navigation\navigation-redux2-d.d.ts" />
+    <TypeScriptCompile Include="index-init.tsx" />
+    <TypeScriptCompile Include="app-common\lib.tsx" />
     <TypeScriptCompile Include="app-common\rest-api-d.d.ts" />
     <TypeScriptCompile Include="app-common\rest-api.ts" />
     <TypeScriptCompile Include="app-common\loc-d.d.ts" />

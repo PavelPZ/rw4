@@ -2,26 +2,12 @@ import React from 'react'
 import { createStore, Store, applyMiddleware } from 'redux'
 import createSagaMiddleware from 'redux-saga/index'
 import { all, call } from 'redux-saga/effects'
-import PropTypes from 'prop-types'
 
-import { reducer as routerReducer, /*saga as routerSaga*/ } from './router'
-import { reducer as loginReducer } from './login'
-import { reducer as mediaQueryReducer } from './media-query'
-import { reducer as locReducer } from './loc'
-import { reducer as recordingReducer, saga as recordingSaga, middleware as recordingMiddleware, globalReducer as recordingGlobalReducer, blockGuiReducer, blockGuiSaga } from './recording'
-
-window.lmGlobal = {
-  //initializers: [],
-  platform: {}
-}
-
-export const contextType = <T extends {}>(comp: React.ComponentType<T>) => {
-  comp.contextTypes = { ...comp.contextTypes, store: PropTypes.any }
-  return comp
-}
-
-export const promiseAll = (promises: any[]) => Promise.all(promises.filter(p => isPromise(p)))
-const isPromise = obj => !!obj && (typeof obj === 'object' || typeof obj === 'function') && typeof obj.then === 'function'
+import { reducer as routerReducer, } from './app-common/router'
+import { reducer as loginReducer } from './app-common/login'
+import { reducer as mediaQueryReducer } from './app-common/media-query'
+import { reducer as locReducer } from './app-common/loc'
+import { reducer as recordingReducer, saga as recordingSaga, middleware as recordingMiddleware, globalReducer as recordingGlobalReducer, blockGuiReducer, blockGuiSaga } from './app-common/recording'
 
 export const init = () => {
 
@@ -43,7 +29,6 @@ export const init = () => {
 
   function* rootSaga() {
     const rootRes = yield all({
-      //routerSaga: call(routerSaga),
       recordingSaga: call(recordingSaga),
       blockGuiSaga: call(blockGuiSaga),
     });

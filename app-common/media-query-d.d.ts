@@ -29,7 +29,7 @@
     OS: TOS
   }
 
-  interface IPlatform extends App.IPlatform {
+  interface IPlatform {
     init: () => void
   }
 

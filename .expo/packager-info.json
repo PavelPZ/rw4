@@ -1,8 +1,8 @@
 {
-  "expoServerPort": null,
-  "packagerPort": null,
-  "packagerPid": null,
-  "expoServerNgrokUrl": null,
-  "packagerNgrokUrl": null,
-  "ngrokPid": null
+  "expoServerPort": 19000,
+  "packagerPort": 19001,
+  "packagerPid": 13532,
+  "expoServerNgrokUrl": "https://7b-62u.pzika.rw4.exp.direct",
+  "packagerNgrokUrl": "https://packager.7b-62u.pzika.rw4.exp.direct",
+  "ngrokPid": 10908
 }

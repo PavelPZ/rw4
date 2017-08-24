@@ -9,54 +9,55 @@ import qs from 'qs'
 import UrlPattern from 'url-pattern'
 
 
-const routes: { [name: string]: Router.TRoute } = {}
+const routes: { [name: string]: Router.IRouteComponent } = {}
 
 const providerConnector = connect<Router.IRouterProviderProps, {}, Router.IRouterProviderOwnProps>((state: IState) => state.router)
 
-class provider extends React.PureComponent<Router.IRouterProviderProps & Router.IRouterProviderOwnProps>  {
-  constructor(props) {
-    super(props)
-    if (provider.initialized) return
-    provider.initialized = true
+const provider: React.SFC<Router.IRouterProviderProps & Router.IRouterProviderOwnProps> = props => {
+  if (!initialized) {
+    initialized = true
     const { appOrRoute } = props
-    let routeInitPar = appOrRoute as Router.IInitPar
-    provider.isRoute = !!routeInitPar.rootUrl && !!routeInitPar.startRoute.routerName
-    provider.app = provider.isRoute ? null : appOrRoute as JSX.Element
-    if (provider.isRoute) init(routeInitPar)
+    routeInitPar = appOrRoute as Router.IInitPar
+    if (!!routeInitPar.rootUrl && !!routeInitPar.startRoute.routerName) {
+      init(routeInitPar)
+    } else {
+      routeInitPar = null
+      notRouterApp = appOrRoute as JSX.Element
+      if (!notRouterApp) throw new Error('!notRouterApp')
+    }
   }
-  static isRoute: boolean
-  static initialized: boolean
-  static app: JSX.Element
-  render() {
-    const props = this.props
-
-    if (provider.isRoute)
-      return props && props.routerName ? React.createElement(routes[props.routerName] as React.ComponentClass<any>, props.par) : null
-    else
-      return provider.app
-  }
+  
+  if (notRouterApp)
+    return notRouterApp
+  else
+    return props && props.routerName ? React.createElement(routes[props.routerName] as React.ComponentClass<any>, props.params) : null
 }
+let routeInitPar: Router.IInitPar
+let initialized: boolean
+let notRouterApp: JSX.Element
 
 // ***** EXPORTS
 export const actRoute = () => window.lmGlobal.store.getState().router
 
 //navigace BEZ history.push. S history.push viz Router.TRoute.navigate
-export const navigate = (routerName: string | Router.IState, par?) => {
-  if (typeof (routerName) !== 'string') { par = routerName.par; routerName = routerName.routerName }
-  const action: Router.IAction = { type: Router.Consts.NAVIGATE_START, newState: { routerName, par } }
-  window.lmGlobal.store.dispatch(action)
+export const navigate = (routerName?: string | Router.IState, params?) => {
+  let newState: Router.IState;
+  if (!routerName) newState = routeInitPar.startRoute
+  else if (typeof (routerName) !== 'string') newState = routerName
+  else newState = { routerName: routerName, params: params }
+  window.lmGlobal.store.dispatch({ type: Router.Consts.NAVIGATE_START, newState })
 }
 
 export function registerRouter<TPar extends Router.IRoutePar = Router.IRoutePar>(router: React.ComponentType<TPar>, routerName: string, urlMask?: string, extension?: Router.IRoute<TPar>) {
   invariant(!routes[routerName], 'registerRouter: route %0 already exists', routerName);
-  const res = Object.assign(router, extension) as Router.TRoute;
+  const res = Object.assign(router, extension) as Router.IRouteComponent
   res.routerName = routerName
-  res.getRoute = (par: TPar) => ({ routerName, par }) 
+  res.getRoute = (params: TPar) => ({ routerName, params }) 
   const pattern = new UrlPattern(urlMask)
   res.urlPattern = pattern
   res.navigate = (par: TPar) => historyPushLow(pattern, res.getRoute(par))
   routes[routerName] = res
-  return res as Router.IRoute<TPar>
+  return res as Router.IRouteComponent<TPar>
 }
 
 export const reducer: App.IReducer<Router.IState> = (state, action: Router.IAction) => {
@@ -66,7 +67,7 @@ export const reducer: App.IReducer<Router.IState> = (state, action: Router.IActi
       const newState = action.newState
       let isAsync = false
       const route = routes[newState.routerName];
-      if (loginProcessing(route.needsLogin && route.needsLogin(newState.par), newState)) {
+      if (loginProcessing(route.needsLogin && route.needsLogin(newState.params), newState)) {
         action[Router.Consts.$asyncProcessed] = true
         return state
       }
@@ -76,17 +77,17 @@ export const reducer: App.IReducer<Router.IState> = (state, action: Router.IActi
       }
       const asyncPart = async () => {
         //ASYNC NAVIGATE
-        notifyNavigationStart() //notifications for resolving quick BACK x FORWARD
+        if (!window.lmGlobal.isNative) notifyNavigationStart() //notifications for resolving quick BACK x FORWARD
         if (routeUnloader) await routeUnloader()
         routeUnloader = null;
-        if (route.load) routeUnloader = await route.load(newState.par)
-        const navigateEnd: Router.IAction = { type: Router.Consts.NAVIGATE_END, newState: newState };
+        if (route.load) routeUnloader = await route.load(newState.params)
+        const navigateEnd: Router.IAction = { type: Router.Consts.NAVIGATE_END, newState: newState }
         window.lmGlobal.store.dispatch(navigateEnd)
       }
       asyncPart()
       return state
     case Router.Consts.NAVIGATE_END:
-      notifyNavigationEnd() //notifications for resolving quick BACK x FORWARD
+      if (!window.lmGlobal.isNative) notifyNavigationEnd() //notifications for resolving quick BACK x FORWARD
       return action.newState
     default: return state
   }
@@ -146,13 +147,13 @@ const init = (initPar: Router.IInitPar) => {
     const route = routes[routerName] as Router.IRoute
     invariant(!!route, `Route "${routerName}" not found`)
     //match by router.urlPatttern
-    return { routerName, par: match(route.urlPattern as UrlPattern, toParse, loc.search) }
+    return { routerName, params: match(route.urlPattern as UrlPattern, toParse, loc.search) } as Router.IState
   }
 
   const stringify = (pattern: UrlPattern, state: Router.IState) => {
     invariant(!!state, 'State required')
     if (!state) return null
-    const { routerName, par: { query, ...par } } = state
+    const { routerName, params: { query, ...par } } = state
     const res = rootUrl + '/' + routerName + pattern.stringify(par) + (query ? '?' + qs.stringify(query) : '')
     return res
   }

@@ -4,7 +4,8 @@ import { Store, Provider as ReduxProvider } from 'react-redux'
 import { Provider as LocProvider, } from './app-common/loc'
 import { Provider as RouterProvider } from './app-common/router'
 
-import { init as initAppCommon, promiseAll } from './app-common/app'
+import { promiseAll } from './app-common/lib'
+import { init as initAppCommon } from './index-init'
 import { init as initRecording } from './app-common/recording'
 
 //********** WEB specific
@@ -23,11 +24,15 @@ import RestAPI from './app-common/snack/test-restAPI';
 
 //*********** spusteni
 export const init = async () => {
-  window.lmGlobal.platform = {
-    loginPlatform: loginPlatform({ fbAppId: '198385910196240', fbAPIVersion: 'v2.10', googleClientId: '79001294507-haubsvbmtj5lu4a30hp4kb44hl66qhoc.apps.googleusercontent.com', loc: 'cs-CZ' }),
-    mediaQueryPlatform,
-    recordingPlatform: { guiSize: Recording.TGuiSize.icon },
-    restAPIPlatform: { serviceUrl: 'rest-api.ashx' }
+
+  window.lmGlobal = {
+    isNative: false,
+    platform: {
+      loginPlatform: loginPlatform({ fbAppId: '198385910196240', fbAPIVersion: 'v2.10', googleClientId: '79001294507-haubsvbmtj5lu4a30hp4kb44hl66qhoc.apps.googleusercontent.com', loc: 'cs-CZ' }),
+      mediaQueryPlatform,
+      recordingPlatform: { guiSize: Recording.TGuiSize.icon },
+      restAPIPlatform: { serviceUrl: 'rest-api.ashx' }
+    }
   }
 
   await promiseAll([

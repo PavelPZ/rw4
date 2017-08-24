@@ -1,13 +1,13 @@
 import React from 'react';
-import { Text, Button, View } from 'react-native';
+import { Text, Button, View, Route } from 'react-native';
 import { addNavigationHelpers, NavigationActions, StackNavigator, TabNavigator, DrawerNavigator } from 'react-navigation';
 import { Provider, connect } from 'react-redux'
-import { createStore, combineReducers } from 'redux'
+//import { createStore, combineReducers } from 'redux'
 
-const Screen = (props) => <View>
-  <Text>SCREEN</Text>
+const Screen = props => <View style={{ marginTop:20 }}>
+  <Text>SCREEN {props.navigation.state.params.count}</Text>
   <Button title='Click' onPress={() => {
-    props.navigation.navigate('Screen', {count:cnt++})
+    props.navigation.navigate('Screen', { count: cnt++ })  
   }} />
 </View>
 let cnt = 0;
@@ -30,59 +30,51 @@ const Tab = TabNavigator({
 
 const AppNavigator = DrawerNavigator({
   Main: {
-    screen: Tab
-  },
-  SubMain: {
-    screen: Tab
+    screen: Screen
   }
+  //SubMain: {
+  //  screen: Tab
+  //}
 });
 
-const firstAction = NavigationActions.navigate({ routeName: 'Tab1' })
+const firstAction = NavigationActions.navigate({ routeName: 'Screen', params: { count: 999 } })
 const initialState = AppNavigator.router.getStateForAction(firstAction)
 console.log('@@@ initialNavState', JSON.stringify(initialState, null, 2))
 
-const navReducer = (state, action) => {
-  console.log('navReducer action', JSON.stringify(action, null, 2))
+export const navReducer = (state, action) => {
+  if (!state) return initialState
+  console.log('@@@ navReducer action', JSON.stringify(action, null, 2)) 
   const nextState = AppNavigator.router.getStateForAction(action, state);
-  console.log('navReducer', JSON.stringify(nextState, null, 2))
+  console.log('@@@ navReducer', JSON.stringify(nextState, null, 2))
   // Simply return the original `state` if `nextState` is null or undefined.
   return nextState || state;
 };
 
 
-class App extends React.Component<{ nav, dispatch }> {
-  render() {
-    //console.log('App.render', JSON.stringify(this.props, null, 2))
-    return (
-      <AppNavigator navigation={addNavigationHelpers({
-        dispatch: this.props.dispatch,
-        state: this.props.nav,
-      })} />
-    );
-  }
-}
+const app: React.SFC<{ nav, dispatch }> = ({ nav, dispatch }) => <AppNavigator navigation={addNavigationHelpers({ dispatch: dispatch, state: nav })} />
 
-const AppWithNavigationState = connect(state => ({ nav: state.nav }))(App);
+const App = connect(state => ({ nav: state.nav }))(app);
 
-const appReducer = combineReducers({
-  nav: navReducer,
-});
+//export const appReducer = combineReducers({
+//  nav: navReducer,
+//});
 
 //const appReducer = (state, action) =>({
 //  nav: navReducer(state, action)
 //});
 
 
-const store = createStore(appReducer);
+//const store = createStore(appReducer);
 
-class Root extends React.Component {
-  render() {
-    return (
-      <Provider store={store}>
-        <AppWithNavigationState />
-      </Provider>
-    );
-  }
-}
+//class Root extends React.Component {
+//  render() {
+//    return (
+//      <Provider store={store}>
+//        <AppWithNavigationState />
+//      </Provider>
+//    );
+//  }
+//}
 
-export default Root
+export default App
+

@@ -1,7 +1,7 @@
 ﻿declare namespace Router {
 
   const enum Consts {
-    NAVIGATE_START = 'router/NAVIGATE_START', NAVIGATE_END = 'router/NAVIGATE_END',
+    NAVIGATE_START = 'router/NAVIGATE_START', NAVIGATE_END = 'Navigation/NAVIGATE', //'router/NAVIGATE_END',
     $asyncProcessed = '$asyncProcessed'
   }
 
@@ -18,7 +18,7 @@
 
   interface IState<TName extends string = string, TPar extends IRoutePar = IRoutePar> {
     routerName: TName
-    par?: TPar
+    params?: TPar
   }
 
   interface IAction {
@@ -32,19 +32,19 @@
     history: Router.IHistory
   }
 
-  interface IRoute<TPar extends IRoutePar = IRoutePar> {
+  interface IRoute<TParams extends IRoutePar = IRoutePar> {
     routerName?: string
-    load?: TLoader<TPar>
-    needsLogin?: (par: TPar) => boolean
-    navigate?: (par: TPar) => void //navigace S history.push
+    load?: TLoader<TParams>
+    needsLogin?: (params: TParams) => boolean
+    navigate?: (params: TParams) => void //navigace S history.push
     urlPattern?
-    getRoute?: (par: TPar) => Router.IState<string, TPar>
+    getRoute?: (params: TParams) => Router.IState<string, TParams>
   }
 
-  type TRoute = React.ComponentType & IRoute
+  type IRouteComponent<TPar extends IRoutePar = IRoutePar> = React.ComponentType & IRoute<TPar>
 
   type TUnloader = () => void
-  type TLoader<TPar extends IRoutePar = IRoutePar> = (par: TPar) => Promise<TUnloader>
+  type TLoader<TParams extends IRoutePar = IRoutePar> = (params: TParams) => Promise<TUnloader>
 
   //******** history x location
   interface ILocation {

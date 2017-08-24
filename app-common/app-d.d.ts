@@ -14,17 +14,8 @@ declare namespace App {
   interface IGlobal {
     store?: Store
     platform: IPlatforms
-    //initializers: Promise<any>[]
+    isNative: boolean
   }
-
-  //type IInitializerItem = Promise<any> | (() => void)
-  //interface IInitializers {
-  //  stage1?: IInitializerItem[]
-  //  stage2?: IInitializerItem[]
-  //  stage3?: IInitializerItem[]
-  //  stage4?: IInitializerItem[]
-  //}
-  //type IInitializerNames = keyof IInitializers
 
   interface IReducer<TState = IState> { (state: TState, action: Action): TState }
 
@@ -34,13 +25,6 @@ declare namespace App {
     contextTypes?: React.ValidationMap<any>
     defaultProps?: Partial<P>
     displayName?: string
-  }
-
-  interface IPlatform {
-    initBefore?: () => void
-    initAfter?: () => void
-    initBeforeAsync?: () => Promise<any>
-    initAfterAsync?: () => Promise<any>
   }
 
 }
