@@ -31,7 +31,7 @@ export const init = async () => {
       loginPlatform: loginPlatform({ fbAppId: '198385910196240', fbAPIVersion: 'v2.10', googleClientId: '79001294507-haubsvbmtj5lu4a30hp4kb44hl66qhoc.apps.googleusercontent.com', loc: 'cs-CZ' }),
       mediaQueryPlatform,
       recordingPlatform: { guiSize: Recording.TGuiSize.icon },
-      restAPIPlatform: { serviceUrl: 'rest-api.ashx' }
+      restAPIPlatform: { serviceUrl: 'rest-api.ashx' },
     }
   }
 

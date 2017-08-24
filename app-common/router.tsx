@@ -8,7 +8,6 @@ import { loginProcessing } from './login'
 import qs from 'qs'
 import UrlPattern from 'url-pattern'
 
-
 const routes: { [name: string]: Router.IRouteComponent } = {}
 
 const providerConnector = connect<Router.IRouterProviderProps, {}, Router.IRouterProviderOwnProps>((state: IState) => state.router)
@@ -61,7 +60,11 @@ export function registerRouter<TPar extends Router.IRoutePar = Router.IRoutePar>
 }
 
 export const reducer: App.IReducer<Router.IState> = (state, action: Router.IAction) => {
-  if (!state) state = { routerName: null }
+  if (!state) {
+    const computeState = window.lmGlobal.platform.routerPlatform.computeState
+    const st = window.lmGlobal.platform.routerPlatform.getInitialState()
+    return computeState ? computeState(st, undefined) : st
+  }
   switch (action.type) {
     case Router.Consts.NAVIGATE_START:
       const newState = action.newState
@@ -88,35 +91,14 @@ export const reducer: App.IReducer<Router.IState> = (state, action: Router.IActi
       return state
     case Router.Consts.NAVIGATE_END:
       if (!window.lmGlobal.isNative) notifyNavigationEnd() //notifications for resolving quick BACK x FORWARD
-      return action.newState
+      const computeState = window.lmGlobal.platform.routerPlatform.computeState
+      return computeState ? computeState(action.newState, state) : action.newState
     default: return state
   }
 }
 let routeUnloader: () => void
 
 export const Provider = providerConnector(provider)
-
-//export function* saga() {
-  //let routeUnloader: () => void
-  //while (true) {
-  //  const { newState } = (yield take(Router.Consts.NAVIGATE_START)) as Router.IAction
-  //  //console.log(`saga NAVIGATE_START: ${navigateStartQueue.length}`)
-  //  const route = routes[newState.routerName];
-  //  const navigateEnd: Router.IAction = { type: Router.Consts.NAVIGATE_END, newState: null };
-  //  if (loginProcessing(route.needsLogin && route.needsLogin(newState.par), newState)) {
-  //    window.lmGlobal.store.dispatch(navigateEnd)  //dummy navigationEND action: every _START action must finish with _END action
-  //    //yield put(navigateEnd) 
-  //    continue
-  //  }
-  //  if (routeUnloader) yield routeUnloader()
-  //  routeUnloader = null;
-  //  if (route.load) routeUnloader = yield route.load(newState.par)
-  //  navigateEnd.newState = newState
-  //  window.lmGlobal.store.dispatch(navigateEnd) 
-  //  //yield put(navigateEnd) 
-  //  //console.log(`saga NAVIGATE_END: ${navigateStartQueue.length}`)
-  //}
-//}
 
 const init = (initPar: Router.IInitPar) => {
   if (!initPar) return

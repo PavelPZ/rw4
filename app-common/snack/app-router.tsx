@@ -1,6 +1,6 @@
 ﻿import React from 'react'
 import { View, Text, Button } from '../../polyfill/index'
-import { registerRouter, actRoute } from '../../app-common/router'
+import { registerRouter } from '../../app-common/router'
 import { isLogged, createLoginButton } from '../../app-common/login'
 import { storeContextType } from '../../app-common/lib'
 import { contextType as locContextType } from '../../app-common/loc'

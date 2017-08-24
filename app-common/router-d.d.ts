@@ -16,9 +16,11 @@
     appOrRoute: JSX.Element | Router.IInitPar
   }
 
-  interface IState<TName extends string = string, TPar extends IRoutePar = IRoutePar> {
+  type IRouterProps = IRouterProviderProps & IRouterProviderOwnProps
+
+  interface IState<TName extends string = string, TParams extends IRoutePar = IRoutePar> {
     routerName: TName
-    params?: TPar
+    params?: TParams
   }
 
   interface IAction {
@@ -57,9 +59,18 @@
     listen(callback: (location, action: string) => void)
   }
 
+  interface IPlatform {
+    computeState?: (action: IState, st) => any
+    getInitialState: () => IState
+  }
 
 }
 
 interface IState {
   router?: Router.IState
 }
+
+interface IPlatforms {
+  routerPlatform?: Router.IPlatform
+}
+

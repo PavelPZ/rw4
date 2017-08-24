@@ -7,28 +7,28 @@ import { Provider, connect } from 'react-redux'
 const Screen = props => <View style={{ marginTop:20 }}>
   <Text>SCREEN {props.navigation.state.params.count}</Text>
   <Button title='Click' onPress={() => {
-    props.navigation.navigate('Screen', { count: cnt++ })  
+    props.navigation.navigate('Main', { count: cnt++ })  
   }} />
 </View>
 let cnt = 0;
 
-const Stack = StackNavigator({
-  Screen: {
-    screen: Screen
-  }
-});
+//const Stack = StackNavigator({
+//  Screen: {
+//    screen: Screen
+//  }
+//});
 
-const Tab = TabNavigator({
-  Tab1: {
-    screen: Stack
-  },
-  Tab2: {
-    screen: Stack
-  }
+//const Tab = TabNavigator({
+//  Tab1: {
+//    screen: Stack
+//  },
+//  Tab2: {
+//    screen: Stack
+//  }
 
-});
+//});
 
-const AppNavigator = DrawerNavigator({
+export const AppNavigator = DrawerNavigator({
   Main: {
     screen: Screen
   }
@@ -37,30 +37,36 @@ const AppNavigator = DrawerNavigator({
   //}
 });
 
-const firstAction = NavigationActions.navigate({ routeName: 'Screen', params: { count: 999 } })
+export const initState: Router.IState = { routeName: 'Main', params: { count: 999 } }
+
+const firstAction = NavigationActions.navigate({ routeName: 'Main', params: { count: 999 } })
 const initialState = AppNavigator.router.getStateForAction(firstAction)
 console.log('@@@ initialNavState', JSON.stringify(initialState, null, 2))
 
 export const navReducer = (state, action) => {
   if (!state) return initialState
-  console.log('@@@ navReducer action', JSON.stringify(action, null, 2)) 
-  const nextState = AppNavigator.router.getStateForAction(action, state);
-  console.log('@@@ navReducer', JSON.stringify(nextState, null, 2))
-  // Simply return the original `state` if `nextState` is null or undefined.
-  return nextState || state;
-};
+  switch (action.type) {
+    case Router.Consts.NAVIGATE_END:
+      console.log('@@@ navReducer action', JSON.stringify(action, null, 2))
+      const nextState = AppNavigator.router.getStateForAction(action, state);
+      console.log('@@@ navReducer', JSON.stringify(nextState, null, 2))
+      // Simply return the original `state` if `nextState` is null or undefined.
+      return nextState || state;
+    default: return state
+  }
+}
 
 
-const app: React.SFC<{ nav, dispatch }> = ({ nav, dispatch }) => <AppNavigator navigation={addNavigationHelpers({ dispatch: dispatch, state: nav })} />
+const app: React.SFC<{ router, dispatch }> = ({ router, dispatch }) => <AppNavigator navigation={addNavigationHelpers({ dispatch: dispatch, state: router })} />
 
-const App = connect(state => ({ nav: state.nav }))(app);
+const App = connect(state => ({ router: state.router }))(app);
 
 //export const appReducer = combineReducers({
-//  nav: navReducer,
+//  router: navReducer,
 //});
 
 //const appReducer = (state, action) =>({
-//  nav: navReducer(state, action)
+//  router: navReducer(state, action)
 //});
 
 
