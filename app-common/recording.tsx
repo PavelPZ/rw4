@@ -32,7 +32,7 @@ export const middleware: Middleware = (middlAPI: MiddlewareAPI<IState>) => next 
     record(state, middlAPI.dispatch, act) //record start action
     setTimeout(() => blockGUI(middlAPI.dispatch, true), 1)
   } else if (type == Router.Consts.NAVIGATE_END || type.endsWith(asyncEnd)) { 
-    invariant(actAsyncAction === type.substr(0, type.length - asyncEnd.length), `asyncMiddleware: ${actAsyncAction} != ${type}`) //...must be finished by just single asyncEND
+    invariant(type == Router.Consts.NAVIGATE_END || actAsyncAction === type.substr(0, type.length - asyncEnd.length), `asyncMiddleware: ${actAsyncAction} != ${type}`) //...must be finished by just single asyncEND
     const state = middlAPI.getState().recording
     setTimeout(() => blockGUI(middlAPI.dispatch, false),1)
     actAsyncAction = null
