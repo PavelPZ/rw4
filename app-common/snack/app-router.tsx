@@ -16,7 +16,7 @@ const LoginButton = createLoginButton(props => {
 const appRouterComp = appCommonContextType(locContextType<AppRouter.IRoutePar>((props, ctx) => {
   return <View style={{ flex: 1, marginTop: 30 }}>
     <Text style={{ fontSize: 24 }}>{props.title}</Text>
-    <Button tabIndex={1} title='Add to title' onPress={() => AppRouterComp.navigate({ title: props.title + ' | xxx' })} />
+    <Button /*tabIndex={1}*/ title='Add to title' onPress={() => AppRouterComp.navigate({ title: props.title + ' | xxx' })} />
     <LoginButton tabIndex={2} />
   </View>
 }))
@@ -27,3 +27,4 @@ export const AppRouterComp: Router.IRoute<AppRouter.IRoutePar> = registerRouter(
   load: par => new Promise<Router.TUnloader>(resolve => setTimeout(() => resolve(), AppRouter.Consts.loadDelay)),
   needsLogin: par => par.title.length >= 'START TITLE | xxx'.length,
 })
+

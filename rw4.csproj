@@ -84,6 +84,7 @@
     <TypeScriptCompile Include="app-common\snack\communication.tsx" />
     <TypeScriptCompile Include="app-common\validate-d.d.ts" />
     <TypeScriptCompile Include="app-common\validate.tsx" />
+    <TypeScriptCompile Include="app-native\snack\navigation\navigation-redux2.tsx" />
     <TypeScriptCompile Include="app-web\snack\validate-test.tsx" />
     <TypeScriptCompile Include="app-web\web-validate.tsx" />
     <TypeScriptCompile Include="app-web\web-recording.tsx" />
