@@ -10,7 +10,8 @@ interface IRoutePar extends Router.IRoutePar {
 }
 
 const appRouterComp: React.SFC<IRoutePar> = pr => {
-  const props: IRoutePar = (pr as any).navigation.state.params
+  console.log('@@@ appRouterComp render')
+  const props: IRoutePar = {count:777} //(pr as any).navigation.state.params
   return <View style={{ flex: 1, marginTop: 30 }}>
     <Text>SCREEN {props.count}</Text>
     <Button title='Click' onPress={() => AppRouterComp.navigate({ count: cnt++ })} />
@@ -67,7 +68,7 @@ export const navReducer = (state, action) => {
 
 const app: React.SFC<{ router, dispatch }> = ({ router, dispatch }) => <AppNavigator navigation={addNavigationHelpers({ dispatch: dispatch, state: router })} />
 
-const App = connect(state => ({ router: state.router }))(app);
+const App = connect(state => { console.log('@@@ App.connect'); return state.router })(app);
 
 //export const appReducer = combineReducers({
 //  router: navReducer,
@@ -82,6 +83,7 @@ const App = connect(state => ({ router: state.router }))(app);
 
 class Root extends React.Component {
   render() {
+    console.log('@@@ Root.render')
     return (
       <View>
         <App />

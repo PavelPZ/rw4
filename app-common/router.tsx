@@ -60,6 +60,13 @@ export function registerRouter<TPar extends Router.IRoutePar = Router.IRoutePar>
 }
 
 export const reducer: App.IReducer<Router.IState> = (state, action: Router.IAction) => {
+
+  const compute = (action: Router.IAction, state: Router.IState) => {
+    const computeState = window.lmGlobal.platform.routerPlatform.computeState
+    return computeState ? computeState(action.newState, state) : action.newState
+  }
+
+
   if (!state) {
     const computeState = window.lmGlobal.platform.routerPlatform.computeState
     const st = window.lmGlobal.platform.routerPlatform.getInitialState()
@@ -67,6 +74,7 @@ export const reducer: App.IReducer<Router.IState> = (state, action: Router.IActi
   }
   switch (action.type) {
     case Router.Consts.NAVIGATE_START:
+      console.log('@@@ Router.Consts.NAVIGATE_START', JSON.stringify(action, null, 2))
       const newState = action.newState
       let isAsync = false
       const route = routes[newState.routeName];
@@ -76,7 +84,9 @@ export const reducer: App.IReducer<Router.IState> = (state, action: Router.IActi
       }
       //SYNC NAVIGATE
       if (!routeUnloader && !route.load) {
-        action[Router.Consts.$asyncProcessed] = true; return newState
+        console.log('@@@ reducer ', JSON.stringify(state, null, 2))
+        action[Router.Consts.$asyncProcessed] = true;
+        return compute(action, state)
       }
       const asyncPart = async () => {
         //ASYNC NAVIGATE
@@ -91,8 +101,7 @@ export const reducer: App.IReducer<Router.IState> = (state, action: Router.IActi
       return state
     case Router.Consts.NAVIGATE_END:
       if (!window.lmGlobal.isNative) notifyNavigationEnd() //notifications for resolving quick BACK x FORWARD
-      const computeState = window.lmGlobal.platform.routerPlatform.computeState
-      return computeState ? computeState(action.newState, state) : action.newState
+      return compute(action, state)
     default: return state
   }
 }
