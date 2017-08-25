@@ -12,11 +12,11 @@
   }
 
   type IRouterProviderProps = IState
-  interface IRouterProviderOwnProps {
-    appOrRoute: JSX.Element | Router.IInitPar
-  }
+  //interface IRouterProviderOwnProps {
+  //  appOrRoute: JSX.Element | Router.IInitPar
+  //}
 
-  type IRouterProps = IRouterProviderProps & IRouterProviderOwnProps
+  //type IRouterProps = IRouterProviderProps & IRouterProviderOwnProps
 
   interface IState<TName extends string = string, TParams extends IRoutePar = IRoutePar> {
     routeName: TName
@@ -28,11 +28,11 @@
     newState: IState //null => LOGIN redirect
   }
 
-  interface IInitPar {
-    startRoute: IState
-    rootUrl: string //html stranka s aplikaci
-    history: Router.IHistory
-  }
+  //interface IInitPar {
+  //  startRoute: IState
+  //  rootUrl: string //html stranka s aplikaci
+  //  history: Router.IHistory
+  //}
 
   interface IRoute<TParams extends IRoutePar = IRoutePar> {
     routeName?: string
@@ -61,7 +61,9 @@
 
   interface IPlatform {
     computeState?: (action: IState, st) => any
-    getInitialState: () => IState
+    startRoute: IState
+    rootUrl?: string //html stranka s aplikaci
+    history: Router.IHistory
   }
 
 }

@@ -2,7 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import { Store, Provider as ReduxProvider } from 'react-redux'
 import { Provider as LocProvider, } from './app-common/loc'
-import { Provider as RouterProvider } from './app-common/router'
+import { Provider as RouterProvider, init as routerRouter } from './app-common/router'
 
 import { promiseAll } from './app-common/lib'
 import { init as initAppCommon } from './index-init'
@@ -33,7 +33,9 @@ export const init = async () => {
       recordingPlatform: { guiSize: Recording.TGuiSize.icon },
       restAPIPlatform: { serviceUrl: 'rest-api.ashx' },
       routerPlatform: {
-        getInitialState: () => AppRouterComp.getRoute({ title: 'START TITLE' }),
+        startRoute: AppRouterComp.getRoute({ title: 'START TITLE | xxx' }),
+        history: createHistory() as Router.IHistory,
+        rootUrl: '/web-app.html'
       }
     }
   }
@@ -45,15 +47,17 @@ export const init = async () => {
   const store = initAppCommon() as Store<IState>
 
   await promiseAll([
+    routerRouter(),
     mediaQueryPlatform.init()
   ])
 
-  const appOrRoute: Router.IInitPar = { history: createHistory() as Router.IHistory, rootUrl: '/web-app.html', startRoute: AppRouterComp.getRoute({ title: 'START TITLE' }) }
-  //const appOrRoute = <ReactMDApp/>
-  //const appOrRoute = <DrawerApp/>
-  //const appOrRoute = <LocTestApp />
-  //const appOrRoute = <ValidateTestApp />
-  //const appOrRoute = <RestAPI />
+  let noRouteApp: JSX.Element = null
+
+  //noRouteApp = <ReactMDApp/>
+  //noRouteApp = <DrawerApp/>
+  //noRouteApp = <LocTestApp />
+  //noRouteApp = <ValidateTestApp />
+  //noRouteApp = <RestAPI />
 
 
   const appAll =
@@ -61,7 +65,18 @@ export const init = async () => {
       <LocProvider>
         <LoginProvider overlays={[<BlockGuiComp key={999} />]}>
           <RecordingProvider>
-            <RouterProvider appOrRoute={appOrRoute} />
+            <RouterProvider/>
+          </RecordingProvider>
+        </LoginProvider>
+      </LocProvider>
+    </ReduxProvider>
+
+  const appNoRoute =
+    <ReduxProvider store={store} >
+      <LocProvider>
+        <LoginProvider overlays={[<BlockGuiComp key={999} />]}>
+          <RecordingProvider>
+            {noRouteApp}
           </RecordingProvider>
         </LoginProvider>
       </LocProvider>
@@ -69,20 +84,21 @@ export const init = async () => {
 
   const appMin =
     <ReduxProvider store={store} >
-      <RouterProvider appOrRoute={appOrRoute} />
+      <RouterProvider />
     </ReduxProvider>
 
-  const appNo = appOrRoute
+  const appNo = noRouteApp
 
   const appNoLogin =
     <ReduxProvider store={store} >
       <LocProvider>
-        <RouterProvider appOrRoute={appOrRoute} />
+        <RouterProvider />
       </LocProvider>
     </ReduxProvider>
 
   ReactDOM.render(
     appAll
+    //appNoRoute
     //appMin
     //appNo
     //appNoLogin

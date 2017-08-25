@@ -10,30 +10,30 @@ import UrlPattern from 'url-pattern'
 
 const routes: { [name: string]: Router.IRouteComponent } = {}
 
-const providerConnector = connect<Router.IRouterProviderProps, {}, Router.IRouterProviderOwnProps>((state: IState) => state.router)
+const providerConnector = connect<Router.IRouterProviderProps, {}, {}>((state: IState) => state.router)
 
-const provider: React.SFC<Router.IRouterProviderProps & Router.IRouterProviderOwnProps> = props => {
-  if (!initialized) {
-    initialized = true
-    const { appOrRoute } = props
-    routeInitPar = appOrRoute as Router.IInitPar
-    if (!!routeInitPar.rootUrl && !!routeInitPar.startRoute.routeName) {
-      init(routeInitPar)
-    } else {
-      routeInitPar = null
-      notRouterApp = appOrRoute as JSX.Element
-      if (!notRouterApp) throw new Error('!notRouterApp')
-    }
-  }
-  
-  if (notRouterApp)
-    return notRouterApp
-  else
-    return props && props.routeName ? React.createElement(routes[props.routeName] as React.ComponentClass<any>, props.params) : null
+const provider: React.SFC<Router.IRouterProviderProps> = props => {
+  //if (!initialized) {
+  //  initialized = true
+  //  const { appOrRoute } = props
+  //  routeInitPar = appOrRoute as Router.IInitPar
+  //  if (!!routeInitPar.rootUrl && !!routeInitPar.startRoute.routeName) {
+  //    init(routeInitPar)
+  //  } else {
+  //    routeInitPar = null
+  //    notRouterApp = appOrRoute as JSX.Element
+  //    if (!notRouterApp) throw new Error('!notRouterApp')
+  //  }
+  //}
+
+  //if (notRouterApp)
+  //  return notRouterApp
+  //else
+  return props && props.routeName ? React.createElement(routes[props.routeName] as React.ComponentClass<any>, props.params) : null
 }
-let routeInitPar: Router.IInitPar
-let initialized: boolean
-let notRouterApp: JSX.Element
+//let routeInitPar: Router.IInitPar
+//let initialized: boolean
+//let notRouterApp: JSX.Element
 
 // ***** EXPORTS
 export const actRoute = () => window.lmGlobal.store.getState().router
@@ -41,7 +41,7 @@ export const actRoute = () => window.lmGlobal.store.getState().router
 //navigace BEZ history.push. S history.push viz Router.TRoute.navigate
 export const navigate = (routeName?: string | Router.IState, params?) => {
   let newState: Router.IState;
-  if (!routeName) newState = routeInitPar.startRoute
+  if (!routeName) newState = window.lmGlobal.platform.routerPlatform.startRoute
   else if (typeof (routeName) !== 'string') newState = routeName
   else newState = { routeName: routeName, params: params }
   window.lmGlobal.store.dispatch({ type: Router.Consts.NAVIGATE_START, newState })
@@ -51,7 +51,7 @@ export function registerRouter<TPar extends Router.IRoutePar = Router.IRoutePar>
   invariant(!routes[routeName], 'registerRouter: route %0 already exists', routeName);
   const res = Object.assign(router, extension) as Router.IRouteComponent
   res.routeName = routeName
-  res.getRoute = (params: TPar) => ({ routeName, params }) 
+  res.getRoute = (params: TPar) => ({ routeName, params })
   const pattern = new UrlPattern(urlMask)
   res.urlPattern = pattern
   res.navigate = (par: TPar) => historyPushLow(pattern, res.getRoute(par))
@@ -61,17 +61,12 @@ export function registerRouter<TPar extends Router.IRoutePar = Router.IRoutePar>
 
 export const reducer: App.IReducer<Router.IState> = (state, action: Router.IAction) => {
 
-  const compute = (action: Router.IAction, state: Router.IState) => {
+  const compute = (newState: Router.IState, state?: Router.IState) => {
     const computeState = window.lmGlobal.platform.routerPlatform.computeState
-    return computeState ? computeState(action.newState, state) : action.newState
+    return computeState ? computeState(newState, state) : newState
   }
 
-
-  if (!state) {
-    const computeState = window.lmGlobal.platform.routerPlatform.computeState
-    const st = window.lmGlobal.platform.routerPlatform.getInitialState()
-    return computeState ? computeState(st, undefined) : st
-  }
+  if (!state) return compute(window.lmGlobal.platform.routerPlatform.startRoute)
   switch (action.type) {
     case Router.Consts.NAVIGATE_START:
       console.log('@@@ Router.Consts.NAVIGATE_START', JSON.stringify(action, null, 2))
@@ -86,7 +81,7 @@ export const reducer: App.IReducer<Router.IState> = (state, action: Router.IActi
       if (!routeUnloader && !route.load) {
         console.log('@@@ reducer ', JSON.stringify(state, null, 2))
         action[Router.Consts.$asyncProcessed] = true;
-        return compute(action, state)
+        return compute(action.newState, state)
       }
       const asyncPart = async () => {
         //ASYNC NAVIGATE
@@ -101,7 +96,7 @@ export const reducer: App.IReducer<Router.IState> = (state, action: Router.IActi
       return state
     case Router.Consts.NAVIGATE_END:
       if (!window.lmGlobal.isNative) notifyNavigationEnd() //notifications for resolving quick BACK x FORWARD
-      return compute(action, state)
+      return compute(action.newState, state)
     default: return state
   }
 }
@@ -109,10 +104,8 @@ let routeUnloader: () => void
 
 export const Provider = providerConnector(provider)
 
-const init = (initPar: Router.IInitPar) => {
-  if (!initPar) return
-
-  const { startRoute, rootUrl, history } = initPar
+export const init = () => {
+  const { startRoute, rootUrl, history } = window.lmGlobal.platform.routerPlatform
 
   const match = (pattern: UrlPattern, pathname: string, search: string) => {
     const par = pattern.match(pathname) as Router.IRoutePar
@@ -157,7 +150,7 @@ const init = (initPar: Router.IInitPar) => {
     if (navigationCount > 0 || navigateStartQueue.length == 0) return
     const navigAction = navigateStartQueue[0]
     navigateStartQueue = navigateStartQueue.slice(1)
-    setTimeout(() => navigate(navigAction),1)
+    setTimeout(() => navigate(navigAction), 1)
   }
   notifyNavigationStart = () => navigationCount++
   let navigationCount = 0
