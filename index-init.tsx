@@ -8,6 +8,7 @@ import { reducer as loginReducer } from './app-common/login'
 import { reducer as mediaQueryReducer } from './app-common/media-query'
 import { reducer as locReducer } from './app-common/loc'
 import { reducer as recordingReducer, saga as recordingSaga, middleware as recordingMiddleware, globalReducer as recordingGlobalReducer, blockGuiReducer, blockGuiSaga } from './app-common/recording'
+import { reducer as drawerReducer } from './app-web/web-drawer'
 
 export const init = () => {
 
@@ -20,6 +21,7 @@ export const init = () => {
       loc: locReducer(state.loc, action),
       recording: recordingReducer(state.recording, action),
       blockGui: blockGuiReducer(state.blockGui, action),
+      drawer: drawerReducer(state.drawer, action),
     }
   }
 

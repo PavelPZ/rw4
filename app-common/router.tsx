@@ -78,7 +78,7 @@ export const reducer: App.IReducer<Router.IState> = (state, action: Router.IActi
         return state
       }
       //SYNC NAVIGATE
-      if (!routeUnloader && !route.load) {
+      if (!routeUnloader && !route.beforeLoad) {
         console.log('@@@ reducer ', JSON.stringify(state, null, 2))
         action[Router.Consts.$asyncProcessed] = true;
         return compute(action.newState, state)
@@ -88,7 +88,7 @@ export const reducer: App.IReducer<Router.IState> = (state, action: Router.IActi
         if (!window.lmGlobal.isNative) notifyNavigationStart() //notifications for resolving quick BACK x FORWARD
         if (routeUnloader) await routeUnloader()
         routeUnloader = null;
-        if (route.load) routeUnloader = await route.load(newState.params)
+        if (route.beforeLoad) routeUnloader = await route.beforeLoad(newState.params)
         const navigateEnd: Router.IAction = { type: Router.Consts.NAVIGATE_END, newState: newState }
         window.lmGlobal.store.dispatch(navigateEnd)
       }

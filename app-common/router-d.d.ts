@@ -36,7 +36,7 @@
 
   interface IRoute<TParams extends IRoutePar = IRoutePar> {
     routeName?: string
-    load?: TLoader<TParams>
+    beforeLoad?: TLoader<TParams>
     needsLogin?: (params: TParams) => boolean
     navigate?: (params: TParams) => void //navigace S history.push
     urlPattern?
@@ -60,7 +60,7 @@
   }
 
   interface IPlatform {
-    computeState?: (action: IState, st) => any
+    computeState?: (action: IState, st) => any //pro Native: dej RN
     startRoute: IState
     rootUrl?: string //html stranka s aplikaci
     history: Router.IHistory
