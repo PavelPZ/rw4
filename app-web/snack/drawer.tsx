@@ -39,16 +39,22 @@ const App: React.SFC<{}> = props => <div>
     footer={<h4 style={{ textAlign: 'center' }}>FOOTER</h4>}
   >*/}
   <NavigationDrawer
-    toolbarTitle='toolbarTitle'
-    //toolbarChildren={<h2>toolbarChildren toolbarChildren toolbarChildren toolbarChildren </h2>}
-    drawerChildren={<h4>drawerChildren</h4>} //drawer content
+    toolbarTitle={[<i>italic</i>, ' toolbarTitle']}
+    toolbarActions={[<Button style={{ padding: 10 }}>BTN2</Button>, <Button icon>search</Button>, <Button style={{ padding: 10 }}>BTN3</Button>]}
+    //toolbarChildren={<h2 className='md-title--toolbar'>toolbarChildren toolbarChildren toolbarChildren toolbarChildren </h2>}
+    drawerChildren={[<i>italic{' '}</i>, <b>drawerChildren</b>]} //drawer content
     //drawerTitle='drawerTitle' //keep back button
     //drawerHeader='drawerHeader' //replace header and BACK button
-    drawerHeaderChildren={<h4>drawerHeaderChildren</h4>} //keep back button
+    drawerHeaderChildren={[<i>italic </i>, <b>drawerHeaderChildren</b>]} //keep back button
   >
-    <h3>CONTENT</h3>
+    <Content/> 
   </NavigationDrawer>
 </div>
+
+const Content: React.SFC<any> = props => {
+  //debugger
+  return <h3>CONTENT</h3>
+}
 
 //visible = { this.state.visible } onVisibilityChange= {() => this.setState({ visible: this.state.visible })}
 export default App

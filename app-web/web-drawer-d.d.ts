@@ -11,6 +11,10 @@
 
   interface IState {
     visible: boolean
+    toolbarTitle: React.ReactNode
+    toolbarActions?: React.ReactElement<any> | React.ReactElement<any>[]
+    drawerChildren?: React.ReactNode
+    drawerHeaderChildren?: React.ReactNode
   }
 
   interface IPlatform {

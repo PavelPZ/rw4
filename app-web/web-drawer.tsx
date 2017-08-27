@@ -13,7 +13,7 @@ const provider: React.SFC<Drawer.IStateProps & Drawer.IDispatchProps> = props =>
 </div>
 
 export const reducer: App.IReducer<Drawer.IState> = (state, action: Drawer.Action) => {
-  if (!state) return { visible: false }
+  if (!state) return { visible: false, toolbarTitle:'' }
   switch (action.type) {
     case Drawer.Consts.SHOW: return state
     default: return state
@@ -23,4 +23,3 @@ export const reducer: App.IReducer<Drawer.IState> = (state, action: Drawer.Actio
 export const Provider = providerConnector(provider)
 
 export const render: React.SFC<Drawer.IRenderProps> = props => <div></div>
-
