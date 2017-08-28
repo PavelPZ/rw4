@@ -10,6 +10,7 @@ const providerConnector = connect<Drawer.IStateProps, Drawer.IDispatchProps, {}>
 )
 
 const provider: React.SFC<Drawer.IStateProps & Drawer.IDispatchProps> = props => <div>
+  {React.Children.only(props.children)}
 </div>
 
 export const reducer: App.IReducer<Drawer.IState> = (state, action: Drawer.Action) => {
@@ -22,4 +23,4 @@ export const reducer: App.IReducer<Drawer.IState> = (state, action: Drawer.Actio
 
 export const Provider = providerConnector(provider)
 
-export const render: React.SFC<Drawer.IRenderProps> = props => <div></div>
+const st: Drawer.IToolbarActions = { routeName: '', appRouter:'' }

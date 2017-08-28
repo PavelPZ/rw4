@@ -3,7 +3,7 @@ import { createStore, Store, applyMiddleware } from 'redux'
 import createSagaMiddleware from 'redux-saga/index'
 import { all, call } from 'redux-saga/effects'
 
-import { reducer as routerReducer, } from './app-common/router'
+import { reducer as routerReducer, middleware as routerMiddleware} from './app-common/router'
 import { reducer as loginReducer } from './app-common/login'
 import { reducer as mediaQueryReducer } from './app-common/media-query'
 import { reducer as locReducer } from './app-common/loc'
@@ -27,7 +27,7 @@ export const init = () => {
 
   const sagaMiddleware = createSagaMiddleware()
 
-  window.lmGlobal.store = createStore<IState>(reducers, {}, applyMiddleware(sagaMiddleware, recordingMiddleware))
+  window.lmGlobal.store = createStore<IState>(reducers, {}, applyMiddleware(sagaMiddleware, routerMiddleware, recordingMiddleware))
 
   function* rootSaga() {
     const rootRes = yield all({

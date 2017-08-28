@@ -116,7 +116,7 @@ type TGlobalState = IState
 //************************* BLOCK GUI
 declare namespace BlockGui {
   const enum Consts {
-    START = 'bg/START_SYSTEM', END = 'bg/END_SYSTEM', SET_STATE = 'bg/SET_STATE_SYSTEM',
+    START = 'blockgui/START_SYSTEM', END = 'blockgui/END_SYSTEM', SET_STATE = 'blockgui/SET_STATE_SYSTEM',
   }
 
   const enum State { no, show, showIcon }

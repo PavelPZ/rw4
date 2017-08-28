@@ -13,7 +13,7 @@ import createHistory from 'history/createBrowserHistory'
 import { platform as loginPlatform, Provider as LoginProvider } from './app-web/web-login'
 import { platform as mediaQueryPlatform } from './app-web/web-media'
 import { Provider as RecordingProvider, BlockGuiComp } from './app-web/web-recording'
-import { Provider as DrawerProvider, render as DrawerRender } from './app-web/web-drawer'
+import { Provider as DrawerProvider } from './app-web/web-drawer'
 
 //************ aplikace k testovani
 import { AppRouterComp } from './app-common/snack/app-router'
@@ -55,7 +55,7 @@ export const init = async () => {
   let noRouteApp: JSX.Element = null
 
   //noRouteApp = <ReactMDApp/>
-  noRouteApp = <DrawerApp/>
+  //noRouteApp = <DrawerApp/>
   //noRouteApp = <LocTestApp />
   //noRouteApp = <ValidateTestApp />
   //noRouteApp = <RestAPI />
@@ -66,9 +66,9 @@ export const init = async () => {
       <LocProvider>
         <LoginProvider overlays={[<BlockGuiComp key={999} />]}>
           <RecordingProvider>
-            <DrawerRender drawer={<DrawerProvider/>}>
+            <DrawerProvider>
               <RouterProvider />
-            </DrawerRender>
+            </DrawerProvider>
           </RecordingProvider>
         </LoginProvider>
       </LocProvider>
@@ -100,10 +100,10 @@ export const init = async () => {
     </ReduxProvider>
 
   ReactDOM.render(
-    //appAll
+    appAll
     //appNoRoute
     //appMin
-    appNo
+    //appNo
     //appNoLogin
     , document.getElementById('content'))
 }

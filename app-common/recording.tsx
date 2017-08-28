@@ -17,7 +17,7 @@ export const init = () => { //async init
 let initState: Recording.IState
 
 
-export const middleware: Middleware = (middlAPI: MiddlewareAPI<IState>) => next => (act) => { //inspirace v D:\rw\rw\rw-redux\async.ts
+export const middleware: Middleware = (middlAPI: MiddlewareAPI<IState>) => next => act => { //inspirace v D:\rw\rw\rw-redux\async.ts
 
   next(act)
 
@@ -25,16 +25,16 @@ export const middleware: Middleware = (middlAPI: MiddlewareAPI<IState>) => next 
 
   if (type.endsWith(system)) return act
 
-  if (type.endsWith(asyncStart) && !act[Router.Consts.$asyncProcessed]) { 
-    invariant(!actAsyncAction, `asyncMiddleware: !${actAsyncAction}`) //every maxi single asyncSTART...
+  if (type.endsWith(asyncStart)) { 
+    invariant(!actAsyncAction, `asyncMiddleware: !${actAsyncAction}`) //max single asyncSTART...
     const state = middlAPI.getState().recording
     actAsyncAction = type.substr(0, type.length - asyncStart.length)
     record(state, middlAPI.dispatch, act) //record start action
-    setTimeout(() => blockGUI(middlAPI.dispatch, true), 1)
-  } else if (type == Router.Consts.NAVIGATE_END || type.endsWith(asyncEnd)) { 
-    invariant(type == Router.Consts.NAVIGATE_END || actAsyncAction === type.substr(0, type.length - asyncEnd.length), `asyncMiddleware: ${actAsyncAction} != ${type}`) //...must be finished by just single asyncEND
+    blockGuiTimer = setTimeout(() => { blockGUI(middlAPI.dispatch, true); blockGuiTimer = 0 }, 1)
+  } else if (type.endsWith(asyncEnd)) { 
+    invariant(actAsyncAction === type.substr(0, type.length - asyncEnd.length), `asyncMiddleware: ${actAsyncAction} != ${type}`) //...must be finished by just single asyncEND
     const state = middlAPI.getState().recording
-    setTimeout(() => blockGUI(middlAPI.dispatch, false),1)
+    if (blockGuiTimer) { clearTimeout(blockGuiTimer); blockGuiTimer = 0 } else blockGUI(middlAPI.dispatch, false)
     actAsyncAction = null
     playContinue(state, middlAPI.dispatch) //async finished => if playing, play next action. Don't record END action
   } else {
@@ -49,6 +49,7 @@ export const middleware: Middleware = (middlAPI: MiddlewareAPI<IState>) => next 
 }
 
 let actAsyncAction: string
+let blockGuiTimer = 0
 
 const record = (state: Recording.IState, dispatch: Dispatch<any>, action: Action) => state.mode == Recording.TModes.recording && dispatch({ type: Recording.Consts.RECORD, action } as Recording.RecordAction)
 const playContinue = (state: Recording.IState, dispatch: Dispatch<any>) => state.mode == Recording.TModes.playing && dispatch({ type: Recording.Consts.PLAY_CONTINUE } as Recording.Action)
@@ -61,18 +62,11 @@ const callRestAPI = (action, data = null) => restAPI({ module: Recording.RestAPI
 let debugPlayList: Recording.IPlayList[] = []
 
 export function* saga() {
-  //let initialized = false
   while (true) {
     const act: Recording.TActions = yield take([Recording.Consts.RECORD_START, Recording.Consts.PLAY_START])
-    //if (!initialized) {
-    //  initialized = true
-    //  const playLists: Recording.IPlayList[] = yield loadPlayList()
-    //  yield put({ type: Recording.Consts.INIT, playLists, guiSize: Recording.TGuiSize.small } as Recording.InitAction)
-    //}
     switch (act.type) {
       case Recording.Consts.RECORD_START:
         continue
-
       case Recording.Consts.PLAY_START:
         const playSelected = act.playSelected
         const setPlayInitState = function* (startState: IState) {
@@ -140,8 +134,6 @@ const resetState: Recording.IState = { mode: Recording.TModes.no, idx: 0, listId
 export const reducer: App.IReducer<Recording.IState> = (state, action: Recording.TActions) => {
   if (!state) return { ...resetState, ...initState }
   switch (action.type) {
-    //case Recording.Consts.INIT:
-    //  return { ...state, playLists: action.playLists }
     case Recording.Consts.RECORD_START:
       const { recording, ...startState } = window.lmGlobal.store.getState()
       return { ...state, mode: Recording.TModes.recording, recording: [], startState: JSON.parse(JSON.stringify(startState)) }

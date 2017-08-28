@@ -1,8 +1,7 @@
 ﻿declare namespace Router {
 
   const enum Consts {
-    NAVIGATE_START = 'router/NAVIGATE_START', NAVIGATE_END = 'Navigation/NAVIGATE', //'router/NAVIGATE_END',
-    $asyncProcessed = '$asyncProcessed'
+    NAVIGATE_START = 'router/NAVIGATE_START', NAVIGATE_END = 'router/NAVIGATE_END', //'router/NAVIGATE_END',
   }
 
   //type IState = IStateLow<string, {}>
@@ -12,11 +11,13 @@
   }
 
   type IRouterProviderProps = IState
-  //interface IRouterProviderOwnProps {
-  //  appOrRoute: JSX.Element | Router.IInitPar
-  //}
 
-  //type IRouterProps = IRouterProviderProps & IRouterProviderOwnProps
+  interface IGlobalState {
+    nav: IState
+    toolbar
+    drawerHeader
+    drawerContent
+  }
 
   interface IState<TName extends string = string, TParams extends IRoutePar = IRoutePar> {
     routeName: TName

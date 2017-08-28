@@ -1,4 +1,5 @@
 ﻿import React from 'react';
+import { Middleware, MiddlewareAPI, Action, Dispatch } from 'redux'
 import { connect } from 'react-redux'
 import { put, take } from 'redux-saga/effects'
 import { delay } from 'redux-saga'
@@ -13,27 +14,8 @@ const routes: { [name: string]: Router.IRouteComponent } = {}
 const providerConnector = connect<Router.IRouterProviderProps, {}, {}>((state: IState) => state.router)
 
 const provider: React.SFC<Router.IRouterProviderProps> = props => {
-  //if (!initialized) {
-  //  initialized = true
-  //  const { appOrRoute } = props
-  //  routeInitPar = appOrRoute as Router.IInitPar
-  //  if (!!routeInitPar.rootUrl && !!routeInitPar.startRoute.routeName) {
-  //    init(routeInitPar)
-  //  } else {
-  //    routeInitPar = null
-  //    notRouterApp = appOrRoute as JSX.Element
-  //    if (!notRouterApp) throw new Error('!notRouterApp')
-  //  }
-  //}
-
-  //if (notRouterApp)
-  //  return notRouterApp
-  //else
   return props && props.routeName ? React.createElement(routes[props.routeName] as React.ComponentClass<any>, props.params) : null
 }
-//let routeInitPar: Router.IInitPar
-//let initialized: boolean
-//let notRouterApp: JSX.Element
 
 // ***** EXPORTS
 export const actRoute = () => window.lmGlobal.store.getState().router
@@ -59,48 +41,59 @@ export function registerRouter<TPar extends Router.IRoutePar = Router.IRoutePar>
   return res as Router.IRouteComponent<TPar>
 }
 
-export const reducer: App.IReducer<Router.IState> = (state, action: Router.IAction) => {
-
-  const compute = (newState: Router.IState, state?: Router.IState) => {
-    const computeState = window.lmGlobal.platform.routerPlatform.computeState
-    return computeState ? computeState(newState, state) : newState
-  }
-
-  if (!state) return compute(window.lmGlobal.platform.routerPlatform.startRoute)
+export const globalReducer: App.IReducer = (state, action: Router.IAction) => {
   switch (action.type) {
-    case Router.Consts.NAVIGATE_START:
-      console.log('@@@ Router.Consts.NAVIGATE_START', JSON.stringify(action, null, 2))
-      const newState = action.newState
-      let isAsync = false
-      const route = routes[newState.routeName];
-      if (loginProcessing(route.needsLogin && route.needsLogin(newState.params), newState)) {
-        action[Router.Consts.$asyncProcessed] = true
-        return state
-      }
-      //SYNC NAVIGATE
-      if (!routeUnloader && !route.beforeLoad) {
-        console.log('@@@ reducer ', JSON.stringify(state, null, 2))
-        action[Router.Consts.$asyncProcessed] = true;
-        return compute(action.newState, state)
-      }
-      const asyncPart = async () => {
-        //ASYNC NAVIGATE
-        if (!window.lmGlobal.isNative) notifyNavigationStart() //notifications for resolving quick BACK x FORWARD
-        if (routeUnloader) await routeUnloader()
-        routeUnloader = null;
-        if (route.beforeLoad) routeUnloader = await route.beforeLoad(newState.params)
-        const navigateEnd: Router.IAction = { type: Router.Consts.NAVIGATE_END, newState: newState }
-        window.lmGlobal.store.dispatch(navigateEnd)
-      }
-      asyncPart()
-      return state
-    case Router.Consts.NAVIGATE_END:
-      if (!window.lmGlobal.isNative) notifyNavigationEnd() //notifications for resolving quick BACK x FORWARD
-      return compute(action.newState, state)
+    case Router.Consts.NAVIGATE_END: return state
     default: return state
   }
 }
-let routeUnloader: () => void
+
+export const middleware: Middleware = (middlAPI: MiddlewareAPI<IState>) => next => a => {
+  const action: Router.IAction = a as any
+  if (action.type != Router.Consts.NAVIGATE_START) { next(a); return a }
+  const newState = action.newState
+  let isAsync = false
+  const route = routes[newState.routeName];
+  // login needed => ignore NAVIGATE_START
+  if (loginProcessing(route.needsLogin && route.needsLogin(newState.params), newState)) return a
+  //send NAVIGATE_START
+  next(a)
+  //SYNC NAVIGATE_END
+  const navigateEnd: Router.IAction = { type: Router.Consts.NAVIGATE_END, newState: newState }
+  if (!beforeUnload && !route.beforeLoad) {
+    next(navigateEnd)
+    return a
+  }
+  //ASYNC NAVIGATE_END
+  const asyncRoute = async () => {
+    if (beforeUnload) await beforeUnload()
+    beforeUnload = null;
+    if (route.beforeLoad) beforeUnload = await route.beforeLoad(newState.params)
+    middlAPI.dispatch(navigateEnd)
+  }
+  asyncRoute()
+  return a
+}
+
+const computeReactNavigation = (newState: Router.IState, state?: Router.IState) => {
+  const computeState = window.lmGlobal.platform.routerPlatform.computeState
+  return computeState ? computeState(newState, state) : newState
+}
+
+
+export const reducer: App.IReducer<Router.IState> = (state, action: Router.IAction) => {
+  if (!state) return computeReactNavigation(window.lmGlobal.platform.routerPlatform.startRoute)
+  switch (action.type) {
+    case Router.Consts.NAVIGATE_START:
+      if (!window.lmGlobal.isNative) notifyNavigationStart() //notifications for resolving quick BACK x FORWARD
+      return state
+    case Router.Consts.NAVIGATE_END:
+      if (!window.lmGlobal.isNative) notifyNavigationEnd() //notifications for resolving quick BACK x FORWARD
+      return computeReactNavigation(action.newState, state)
+    default: return state
+  }
+}
+let beforeUnload: () => void
 
 export const Provider = providerConnector(provider)
 

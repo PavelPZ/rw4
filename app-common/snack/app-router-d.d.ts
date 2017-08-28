@@ -10,5 +10,15 @@
     title?: string
   }
 
+  interface IState { }
+
 }
+
+declare namespace Drawer {
+
+  interface IToolbarActions {
+    appRouter?: string
+  }
+}
+
 

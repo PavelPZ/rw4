@@ -11,10 +11,6 @@
 
   interface IState {
     visible: boolean
-    toolbarTitle: React.ReactNode
-    toolbarActions?: React.ReactElement<any> | React.ReactElement<any>[]
-    drawerChildren?: React.ReactNode
-    drawerHeaderChildren?: React.ReactNode
   }
 
   interface IPlatform {
@@ -28,14 +24,32 @@
   }
   type IProps = IStateProps & IDispatchProps
 
-  interface IRenderProps {
-    drawer: JSX.Element
+  interface IDrawerPartsState {
+    routeName: string
+  }
+
+  interface IToolbarTitle extends IDrawerPartsState {
+    title?: string
+  }
+
+  interface IToolbarActions extends IDrawerPartsState {
+  }
+
+  interface IDrawerChildren extends IDrawerPartsState {
+  }
+
+  interface IDrawerHeaderChildren extends IDrawerPartsState {
+    title?: string
   }
 
 }
 
 interface IState {
   drawer?: Drawer.IState
+  toolbarTitle?: Drawer.IToolbarTitle
+  toolbarActions?: Drawer.IToolbarActions
+  drawerChildren?: Drawer.IDrawerChildren
+  drawerHeaderChildren?: Drawer.IDrawerHeaderChildren
 }
 
 interface IPlatforms {
