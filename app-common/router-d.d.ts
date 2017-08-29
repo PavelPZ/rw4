@@ -19,7 +19,7 @@
     drawerContent
   }
 
-  interface IState<TName extends string = string, TParams extends IRoutePar = IRoutePar> {
+  interface IState<TName extends string = string, TParams extends IRoutePar = any> {
     routeName: TName
     params?: TParams
   }
@@ -42,6 +42,7 @@
     navigate?: (params: TParams) => void //navigace S history.push
     urlPattern?
     getRoute?: (params: TParams) => Router.IState<string, TParams>
+    nativeScreenDef?: () => { [name: string]: { screen: IRouteComponent<TParams>}}
   }
 
   type IRouteComponent<TPar extends IRoutePar = IRoutePar> = React.ComponentType & IRoute<TPar>

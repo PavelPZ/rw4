@@ -2,7 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import { Store, Provider as ReduxProvider } from 'react-redux'
 import { Provider as LocProvider, } from './app-common/loc'
-import { Provider as RouterProvider, init as routerRouter } from './app-common/router'
+import { Provider as RouterProvider, init as initRouter } from './app-common/router'
 
 import { promiseAll } from './app-common/lib'
 import { init as initAppCommon } from './index-init'
@@ -13,7 +13,7 @@ import createHistory from 'history/createBrowserHistory'
 import { platform as loginPlatform, Provider as LoginProvider } from './app-web/web-login'
 import { platform as mediaQueryPlatform } from './app-web/web-media'
 import { Provider as RecordingProvider, BlockGuiComp } from './app-web/web-recording'
-import { Provider as DrawerProvider } from './app-web/web-drawer'
+import { Provider as DrawerProvider } from './app-common/drawer'
 
 //************ aplikace k testovani
 import { AppRouterComp } from './app-common/snack/app-router'
@@ -48,7 +48,7 @@ export const init = async () => {
   const store = initAppCommon() as Store<IState>
 
   await promiseAll([
-    routerRouter(),
+    initRouter(),
     mediaQueryPlatform.init()
   ])
 

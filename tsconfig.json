@@ -38,6 +38,7 @@
   "exclude": [
     //*** web
     //"index.tsx",
+    //"index-init.tsx",
     //"app-web/",
     //"polyfill/web.tsx",
 

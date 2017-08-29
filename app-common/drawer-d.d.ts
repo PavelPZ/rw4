@@ -55,4 +55,3 @@ interface IState {
 interface IPlatforms {
   drawerPlatform?: Drawer.IPlatform
 }
-

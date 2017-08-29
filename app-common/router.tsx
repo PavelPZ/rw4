@@ -37,16 +37,18 @@ export function registerRouter<TPar extends Router.IRoutePar = Router.IRoutePar>
   const pattern = new UrlPattern(urlMask)
   res.urlPattern = pattern
   res.navigate = (par: TPar) => historyPushLow(pattern, res.getRoute(par))
+  res.nativeScreenDef = () => ({ [routeName]: { screen: res } })
   routes[routeName] = res
   return res as Router.IRouteComponent<TPar>
 }
 
-export const globalReducer: App.IReducer = (state, action: Router.IAction) => {
-  switch (action.type) {
-    case Router.Consts.NAVIGATE_END: return state
-    default: return state
-  }
-}
+//export const globalReducer: App.IReducer = (state, action: Router.IAction) => {
+//  switch (action.type) {
+//    case Router.Consts.NAVIGATE_END:
+//      if (state.router.params == action.newState.routeName) return state
+//    default: return state
+//  }
+//}
 
 export const middleware: Middleware = (middlAPI: MiddlewareAPI<IState>) => next => a => {
   const action: Router.IAction = a as any

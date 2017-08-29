@@ -13,33 +13,31 @@ const LoginButton = createLoginButton(props => {
     onPress={doLoginAction} />
 })
 
-const appRouterComp = storeContextType(locContextType<AppRouter.IRoutePar>((props, ctx) => <View style={{ flex: 1, marginTop: 30 }}>
+const appRouterComp: React.SFC<AppRouter.IRoutePar> = props => <View style={{ flex: 1, marginTop: 30 }}>
   <Text style={{ fontSize: 24 }}>{props.title}</Text>
   <Button /*tabIndex={1}*/ title='Add to title' onPress={() => AppRouterComp.navigate({ title: props.title + ' | xxx' })} />
   {window.lmGlobal.isNative ? null : <LoginButton tabIndex={2} />}
 </View>
-))
 
 //*** EXPORTS
-
 export const AppRouterComp: Router.IRouteComponent<AppRouter.IRoutePar> = registerRouter(appRouterComp, AppRouter.Consts.name, AppRouter.Consts.urlMask, {
   beforeLoad: params => new Promise<Router.TUnloader>(resolve => setTimeout(() => resolve(), AppRouter.Consts.loadDelay)),
-  needsLogin: params => params.title.length >= 'START TITLE | xxx'.length,
+  needsLogin: params => !window.lmGlobal.isNative && params.title.length >= 'START TITLE | xxx'.length,
 })
 
 
 export const reducer: App.IReducer = (state, action: Router.IAction) => {
-  if (!state) return {} as IState
+  if (!state) return {}
   switch (action.type) {
-    case Router.Consts.NAVIGATE_END:
-      let drawerStates: IState
-      if (action.newState.routeName != AppRouter.Consts.name) drawerStates = {
-        drawerChildren: { routeName: AppRouter.Consts.name as string },
-        drawerHeaderChildren: { routeName: AppRouter.Consts.name as string },
-        toolbarTitle: { routeName: AppRouter.Consts.name as string, title: 'App Router' },
-        toolbarActions: { routeName: AppRouter.Consts.name as string },
-      }
-      return { state, ...drawerStates }
+    //case Router.Consts.NAVIGATE_END:
+      //let drawerStates: IState
+      //if (action.newState.routeName != AppRouter.Consts.name) drawerStates = {
+      //  drawerChildren: { routeName: AppRouter.Consts.name as string },
+      //  drawerHeaderChildren: { routeName: AppRouter.Consts.name as string },
+      //  toolbarTitle: { routeName: AppRouter.Consts.name as string, title: 'App Router' },
+      //  toolbarActions: { routeName: AppRouter.Consts.name as string },
+      //}
+      //return { state, ...drawerStates }
     default: return state
   }
 }

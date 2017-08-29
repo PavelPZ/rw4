@@ -8,7 +8,7 @@ import { reducer as loginReducer } from './app-common/login'
 import { reducer as mediaQueryReducer } from './app-common/media-query'
 import { reducer as locReducer } from './app-common/loc'
 import { reducer as recordingReducer, saga as recordingSaga, middleware as recordingMiddleware, globalReducer as recordingGlobalReducer, blockGuiReducer, blockGuiSaga } from './app-common/recording'
-import { reducer as drawerReducer } from './app-web/web-drawer'
+import { reducer as drawerReducer } from './app-common/drawer'
 
 export const init = () => {
 
