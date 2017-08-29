@@ -1,19 +1,27 @@
+//********** LIBRARIES
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { Store, Provider as ReduxProvider } from 'react-redux'
-import { Provider as LocProvider, } from './app-common/loc'
-import { Provider as RouterProvider, init as initRouter } from './app-common/router'
+import { createStore, Store, applyMiddleware } from 'redux'
+import { Provider as ReduxProvider } from 'react-redux'
+import createSagaMiddleware from 'redux-saga/index'
+import { all, call } from 'redux-saga/effects'
 
+
+//********** COMMON
+import { Provider as LocProvider, } from './app-common/loc'
+import { Provider as RouterProvider, init as initRouter, reducer as routerReducer, middleware as routerMiddleware } from './app-common/router'
 import { promiseAll } from './app-common/lib'
-import { init as initAppCommon } from './index-init'
-import { init as initRecording } from './app-common/recording'
+import { init as initRecording, reducer as recordingReducer, saga as recordingSaga, middleware as recordingMiddleware, globalReducer as recordingGlobalReducer, blockGuiReducer, blockGuiSaga } from './app-common/recording'
+import { Provider as DrawerProvider, reducer as drawerReducer } from './app-common/drawer'
+import { reducer as loginReducer } from './app-common/login'
+import { reducer as mediaQueryReducer } from './app-common/media-query'
+import { reducer as locReducer } from './app-common/loc'
 
 //********** WEB specific
 import createHistory from 'history/createBrowserHistory'
 import { platform as loginPlatform, Provider as LoginProvider } from './app-web/web-login'
 import { platform as mediaQueryPlatform } from './app-web/web-media'
 import { Provider as RecordingProvider, BlockGuiComp } from './app-web/web-recording'
-import { Provider as DrawerProvider } from './app-common/drawer'
 
 //************ aplikace k testovani
 import { AppRouterComp } from './app-common/snack/app-router'
@@ -45,7 +53,32 @@ export const init = async () => {
     initRecording()
   ])
 
-  const store = initAppCommon() as Store<IState>
+
+  const reducers: App.IReducer = (st, action: any) => {
+    const state = recordingGlobalReducer(st, action)
+    return {
+      router: routerReducer(state.router, action),
+      login: loginReducer(state.login, action),
+      mediaQuery: mediaQueryReducer(state.mediaQuery, action),
+      loc: locReducer(state.loc, action),
+      recording: recordingReducer(state.recording, action),
+      blockGui: blockGuiReducer(state.blockGui, action),
+      drawer: drawerReducer(state.drawer, action),
+    }
+  }
+
+  const sagaMiddleware = createSagaMiddleware()
+
+  const store = window.lmGlobal.store = createStore<IState>(reducers, {}, applyMiddleware(sagaMiddleware, routerMiddleware, recordingMiddleware))
+
+  function* rootSaga() {
+    const rootRes = yield all({
+      recordingSaga: call(recordingSaga),
+      blockGuiSaga: call(blockGuiSaga),
+    });
+  }
+
+  sagaMiddleware.run(rootSaga)
 
   await promiseAll([
     initRouter(),

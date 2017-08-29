@@ -1,17 +1,22 @@
+//********** LIBRARIES
 import React from 'react'
 import { Provider as ReduxProvider, connect } from 'react-redux'
 import { createStore, Store, applyMiddleware } from 'redux'
 import createSagaMiddleware from 'redux-saga/index'
 import { all, call } from 'redux-saga/effects'
-import { WaitForRendering } from './app-common/lib'
 import { View, Text } from 'react-native'
 import { addNavigationHelpers, NavigationActions, DrawerNavigator } from 'react-navigation';
-import createHistory from 'history/createMemoryHistory'
+
+//********** COMMON
+import { WaitForRendering } from './app-common/lib'
 import { reducer as routerReducer, middleware as routerMiddleware, init as initRouter } from './app-common/router'
 import { reducer as recordingReducer, middleware as recordingMiddleware, globalReducer as recordingGlobalReducer, } from './app-common/recording'
 import { promiseAll } from './app-common/lib'
 
+//********** NATIVE specific
+import createHistory from 'history/createMemoryHistory'
 
+//************ aplikace k testovani
 //import { Text } from 'react-native'
 //class App extends React.Component { render() { return <Text>Hallo world</Text>} }
 
