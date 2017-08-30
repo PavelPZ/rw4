@@ -8,20 +8,20 @@ import { all, call } from 'redux-saga/effects'
 
 
 //********** COMMON
-import { Provider as LocProvider, } from './app-common/loc'
-import { Provider as RouterProvider, init as initRouter, reducer as routerReducer, middleware as routerMiddleware } from './app-common/router'
-import { promiseAll } from './app-common/lib'
-import { init as initRecording, reducer as recordingReducer, saga as recordingSaga, middleware as recordingMiddleware, globalReducer as recordingGlobalReducer, blockGuiReducer, blockGuiSaga } from './app-common/recording'
-import { Provider as DrawerProvider, reducer as drawerReducer } from './app-common/drawer'
-import { reducer as loginReducer } from './app-common/login'
-import { reducer as mediaQueryReducer } from './app-common/media-query'
-import { reducer as locReducer } from './app-common/loc'
+import { Provider as LocProvider, } from './app-common/lib/loc'
+import { Provider as RouterProvider, init as initRouter, reducer as routerReducer, middleware as routerMiddleware } from './app-common/lib/router'
+import { promiseAll } from './app-common/lib/lib'
+import { init as initRecording, reducer as recordingReducer, saga as recordingSaga, middleware as recordingMiddleware, globalReducer as recordingGlobalReducer, blockGuiReducer, blockGuiSaga } from './app-common/lib/recording'
+import { Provider as DrawerProvider, reducer as drawerReducer } from './app-common/lib/drawer'
+import { reducer as loginReducer } from './app-common/lib/login'
+import { reducer as mediaQueryReducer } from './app-common/lib/media-query'
+import { reducer as locReducer } from './app-common/lib/loc'
 
 //********** WEB specific
 import createHistory from 'history/createBrowserHistory'
-import { platform as loginPlatform, Provider as LoginProvider } from './app-web/web-login'
-import { platform as mediaQueryPlatform } from './app-web/web-media'
-import { Provider as RecordingProvider, BlockGuiComp } from './app-web/web-recording'
+import { platform as loginPlatform, Provider as LoginProvider } from './app-web/lib/web-login'
+import { init as initMediaQuery } from './app-web/lib/web-media'
+import { Provider as RecordingProvider, BlockGuiComp } from './app-web/lib/web-recording'
 
 //************ aplikace k testovani
 import { AppRouterComp } from './app-common/snack/app-router'
@@ -38,7 +38,6 @@ export const init = async () => {
     isNative: false,
     platform: {
       loginPlatform: loginPlatform({ fbAppId: '198385910196240', fbAPIVersion: 'v2.10', googleClientId: '79001294507-haubsvbmtj5lu4a30hp4kb44hl66qhoc.apps.googleusercontent.com', loc: 'cs-CZ' }),
-      mediaQueryPlatform,
       recordingPlatform: { guiSize: Recording.TGuiSize.icon },
       restAPIPlatform: { serviceUrl: 'rest-api.ashx' },
       routerPlatform: {
@@ -77,12 +76,11 @@ export const init = async () => {
       blockGuiSaga: call(blockGuiSaga),
     });
   }
-
   sagaMiddleware.run(rootSaga)
 
   await promiseAll([
     initRouter(),
-    mediaQueryPlatform.init()
+    initMediaQuery()
   ])
 
   let noRouteApp: JSX.Element = null

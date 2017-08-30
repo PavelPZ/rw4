@@ -29,16 +29,8 @@
     OS: TOS
   }
 
-  interface IPlatform {
-    init: () => void
-  }
-
 }
 
 interface IState {
   mediaQuery?: Media.IState
-}
-
-interface IPlatforms {
-  mediaQueryPlatform?: Media.IPlatform
 }

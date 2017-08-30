@@ -8,10 +8,9 @@ import { View, Text } from 'react-native'
 import { addNavigationHelpers, NavigationActions, DrawerNavigator } from 'react-navigation';
 
 //********** COMMON
-import { WaitForRendering } from './app-common/lib'
-import { reducer as routerReducer, middleware as routerMiddleware, init as initRouter } from './app-common/router'
-import { reducer as recordingReducer, middleware as recordingMiddleware, globalReducer as recordingGlobalReducer, } from './app-common/recording'
-import { promiseAll } from './app-common/lib'
+import { WaitForRendering, promiseAll } from './app-common/lib/lib'
+import { reducer as routerReducer, middleware as routerMiddleware, init as initRouter } from './app-common/lib/router'
+import { reducer as recordingReducer, middleware as recordingMiddleware, globalReducer as recordingGlobalReducer, } from './app-common/lib/recording'
 
 //********** NATIVE specific
 import createHistory from 'history/createMemoryHistory'
@@ -44,7 +43,6 @@ export const init = async () => {
     isNative: true,
     platform: {
       loginPlatform: null,
-      mediaQueryPlatform: null,
       recordingPlatform: null,
       restAPIPlatform: { serviceUrl: 'rest-api.ashx' },
       routerPlatform: {

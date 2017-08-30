@@ -70,42 +70,42 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include=".gitignore" />
-    <TypeScriptCompile Include="app-common\app-d.d.ts" />
+    <TypeScriptCompile Include="app-common\lib\app-d.d.ts" />
     <TypeScriptCompile Include="app-native\snack\navigation\app-navigation-d.d.ts" />
-    <TypeScriptCompile Include="app-common\drawer-d.d.ts" />
-    <TypeScriptCompile Include="app-common\drawer.tsx" />
-    <TypeScriptCompile Include="app-common\lib.tsx" />
-    <TypeScriptCompile Include="app-common\rest-api-d.d.ts" />
-    <TypeScriptCompile Include="app-common\rest-api.ts" />
-    <TypeScriptCompile Include="app-common\loc-d.d.ts" />
-    <TypeScriptCompile Include="app-common\loc.tsx" />
-    <TypeScriptCompile Include="app-common\login.tsx" />
-    <TypeScriptCompile Include="app-common\login-d.d.ts" />
-    <TypeScriptCompile Include="app-common\media-query.ts" />
-    <TypeScriptCompile Include="app-common\media-query-d.d.ts" />
+    <TypeScriptCompile Include="app-common\lib\drawer-d.d.ts" />
+    <TypeScriptCompile Include="app-common\lib\drawer.tsx" />
+    <TypeScriptCompile Include="app-common\lib\lib.tsx" />
+    <TypeScriptCompile Include="app-common\lib\rest-api-d.d.ts" />
+    <TypeScriptCompile Include="app-common\lib\rest-api.ts" />
+    <TypeScriptCompile Include="app-common\lib\loc-d.d.ts" />
+    <TypeScriptCompile Include="app-common\lib\loc.tsx" />
+    <TypeScriptCompile Include="app-common\lib\login.tsx" />
+    <TypeScriptCompile Include="app-common\lib\login-d.d.ts" />
+    <TypeScriptCompile Include="app-common\lib\media-query.ts" />
+    <TypeScriptCompile Include="app-common\lib\media-query-d.d.ts" />
     <TypeScriptCompile Include="app-common\snack\test-restAPI.tsx" />
     <TypeScriptCompile Include="app-common\snack\communication.tsx" />
-    <TypeScriptCompile Include="app-common\validate-d.d.ts" />
-    <TypeScriptCompile Include="app-common\validate.tsx" />
+    <TypeScriptCompile Include="app-common\lib\validate-d.d.ts" />
+    <TypeScriptCompile Include="app-common\lib\validate.tsx" />
     <TypeScriptCompile Include="app-native\snack\navigation\app-navigation.tsx" />
     <TypeScriptCompile Include="app-web\snack\validate-test.tsx" />
-    <TypeScriptCompile Include="app-web\web-validate.tsx" />
-    <TypeScriptCompile Include="app-web\web-recording.tsx" />
-    <TypeScriptCompile Include="app-common\recording-d.d.ts" />
-    <TypeScriptCompile Include="app-common\recording.tsx" />
+    <TypeScriptCompile Include="app-web\lib\web-validate.tsx" />
+    <TypeScriptCompile Include="app-web\lib\web-recording.tsx" />
+    <TypeScriptCompile Include="app-common\lib\recording-d.d.ts" />
+    <TypeScriptCompile Include="app-common\lib\recording.tsx" />
     <TypeScriptCompile Include="app-common\snack\loc-test.tsx" />
-    <TypeScriptCompile Include="app-web\web-media.ts" />
-    <TypeScriptCompile Include="app-common\router-d.d.ts" />
-    <TypeScriptCompile Include="app-common\router.tsx" />
+    <TypeScriptCompile Include="app-web\lib\web-media.ts" />
+    <TypeScriptCompile Include="app-common\lib\router-d.d.ts" />
+    <TypeScriptCompile Include="app-common\lib\router.tsx" />
     <TypeScriptCompile Include="app-native\snack\icons.tsx" />
-    <TypeScriptCompile Include="app-web\overlay.tsx" />
-    <TypeScriptCompile Include="app-web\web-login-d.d.ts" />
-    <TypeScriptCompile Include="app-web\web-login.tsx" />
+    <TypeScriptCompile Include="app-web\lib\overlay.tsx" />
+    <TypeScriptCompile Include="app-web\lib\web-login-d.d.ts" />
+    <TypeScriptCompile Include="app-web\lib\web-login.tsx" />
     <TypeScriptCompile Include="app-common\snack\app-router-d.d.ts" />
     <TypeScriptCompile Include="app-common\snack\app-router.tsx" />
     <TypeScriptCompile Include="polyfill\index.tsx" />
-    <TypeScriptCompile Include="app-common\react-navigator-lib.tsx" />
-    <TypeScriptCompile Include="app-common\typings.d.ts" />
+    <None Include="app-common\lib\react-navigator-lib.tsx_" />
+    <TypeScriptCompile Include="app-common\lib\typings.d.ts" />
     <TypeScriptCompile Include="app-native\snack\navigation\navigation-redux.tsx" />
     <TypeScriptCompile Include="app-native\snack\navigation\tab-detailed.tsx" />
     <TypeScriptCompile Include="app-native\snack\navigation\stack-detailed.tsx" />
@@ -113,21 +113,21 @@
     <TypeScriptCompile Include="app-native\snack\navigation\navigation.tsx" />
     <TypeScriptCompile Include="app-native\snack\redux-simple.tsx" />
     <TypeScriptCompile Include="app-native\snack\navigation\redux\index.tsx" />
-    <TypeScriptCompile Include="app-web\react-md.ts" />
+    <TypeScriptCompile Include="app-web\lib\react-md.ts" />
     <TypeScriptCompile Include="trash\react-navigation\index.ts" />
     <TypeScriptCompile Include="app-web\snack\drawer.tsx" />
-    <TypeScriptCompile Include="app-web\typings.d.ts" />
-    <TypeScriptCompile Include="app-web\fela-d.d.ts" />
-    <TypeScriptCompile Include="app-web\fela.tsx" />
-    <TypeScriptCompile Include="app-web\react-native\apis\I18nManager.ts" />
-    <TypeScriptCompile Include="app-web\react-native\apis\Platform.ts" />
-    <TypeScriptCompile Include="app-web\react-native\components\button.tsx" />
-    <TypeScriptCompile Include="app-web\react-native\components\lib.tsx" />
-    <TypeScriptCompile Include="app-web\react-native\components\text.tsx" />
-    <TypeScriptCompile Include="app-web\react-native\components\touchable-highlight.tsx" />
-    <TypeScriptCompile Include="app-web\react-native\components\touchable-opacity.tsx" />
-    <TypeScriptCompile Include="app-web\react-native\components\view.tsx" />
-    <TypeScriptCompile Include="app-web\react-native\index.ts" />
+    <TypeScriptCompile Include="app-web\lib\typings.d.ts" />
+    <TypeScriptCompile Include="app-web\lib\fela-d.d.ts" />
+    <TypeScriptCompile Include="app-web\lib\fela.tsx" />
+    <TypeScriptCompile Include="app-web\lib\react-native\apis\I18nManager.ts" />
+    <TypeScriptCompile Include="app-web\lib\react-native\apis\Platform.ts" />
+    <TypeScriptCompile Include="app-web\lib\react-native\components\button.tsx" />
+    <TypeScriptCompile Include="app-web\lib\react-native\components\lib.tsx" />
+    <TypeScriptCompile Include="app-web\lib\react-native\components\text.tsx" />
+    <TypeScriptCompile Include="app-web\lib\react-native\components\touchable-highlight.tsx" />
+    <TypeScriptCompile Include="app-web\lib\react-native\components\touchable-opacity.tsx" />
+    <TypeScriptCompile Include="app-web\lib\react-native\components\view.tsx" />
+    <TypeScriptCompile Include="app-web\lib\react-native\index.ts" />
     <TypeScriptCompile Include="trash\react-navigation\scene-view.tsx" />
     <TypeScriptCompile Include="trash\react-navigation\tab-navigator.tsx" />
     <None Include="app-common\snack\react-navigation.tsx_" />
@@ -153,7 +153,7 @@
     <TypeScriptCompile Include="app-native\snack\navigation\redux\src\components\ProfileScreen.tsx" />
     <TypeScriptCompile Include="app-native\snack\navigation\redux\src\navigators\AppNavigator.tsx" />
     <TypeScriptCompile Include="app-native\snack\navigation\redux\src\reducers\index.tsx" />
-    <Content Include="app-web\react-native\Components.html" />
+    <Content Include="app-web\lib\react-native\Components.html" />
     <Content Include="app-web\snack\best-npm-components.html" />
     <Content Include="app-web\snack\login-msie-fb.html" />
     <Content Include="app-web\snack\login-msie.html" />
@@ -176,24 +176,24 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
     <TypeScriptCompile Include="index.tsx" />
-    <TypeScriptCompile Include="app-common\CSStyles.d.ts" />
-    <TypeScriptCompile Include="app-native\expo.d.ts" />
+    <TypeScriptCompile Include="app-common\lib\CSStyles.d.ts" />
+    <TypeScriptCompile Include="app-native\lib\expo.d.ts" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="app-common\recording.cs" />
+    <Compile Include="app-common\lib\recording.cs" />
     <Compile Include="app-common\snack\test-restAPI.cs" />
     <Compile Include="IndexHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="app-common\rest-api.cs" />
+    <Compile Include="app-common\lib\rest-api.cs" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="app-web\react-md\" />
+    <Folder Include="app-web\lib\react-md\" />
     <Folder Include="App_Data\" />
     <Folder Include="typings\" />
   </ItemGroup>

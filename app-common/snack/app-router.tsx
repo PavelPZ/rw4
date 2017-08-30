@@ -1,9 +1,9 @@
 ﻿import React from 'react'
 import { View, Text, Button } from '../../polyfill/index'
-import { registerRouter } from '../../app-common/router'
-import { isLogged, createLoginButton } from '../../app-common/login'
-import { storeContextType } from '../../app-common/lib'
-import { contextType as locContextType } from '../../app-common/loc'
+import { registerRouter } from '../lib/router'
+import { isLogged, createLoginButton } from '../lib/login'
+import { storeContextType } from '../lib/lib'
+import { contextType as locContextType } from '../lib/loc'
 
 const LoginButton = createLoginButton(props => {
   const { logged, doLoginAction, ...rest } = props

@@ -1,4 +1,4 @@
-﻿import { Platform } from '../polyfill/index'
+﻿import { Platform } from '../../polyfill/index'
 
 export const reducer = (state, action: Media.IChangeMediaAction | Media.IChangePortraitAction) => {
   if (!state) return { actMedia: Media.TMedias.mobile, portrait: false, OS: Platform.OS } as Media.IState

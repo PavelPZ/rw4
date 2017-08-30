@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import invariant from 'invariant'
 import { put, take, race } from 'redux-saga/effects'
 import { delay } from 'redux-saga'
-import { restAPI } from '../app-common/rest-api'
+import { restAPI } from './rest-api'
 
 export const init = () => { //async init
   const rec = window.lmGlobal.platform.recordingPlatform

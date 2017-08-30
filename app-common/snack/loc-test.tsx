@@ -1,6 +1,6 @@
 ﻿import React from 'react'
 
-import { loc, contextType as locContextType, registerFile } from '../loc'
+import { loc, contextType as locContextType, registerFile } from '../lib/loc'
 
 const f = Loc.TFileIds.locTest
 registerFile(f, __moduleName)

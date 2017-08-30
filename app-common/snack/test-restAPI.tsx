@@ -1,6 +1,6 @@
 ﻿import React from 'react'
 
-import { restAPI } from '../rest-api'
+import { restAPI } from '../lib/rest-api'
 
 interface IPostData {
   id: number

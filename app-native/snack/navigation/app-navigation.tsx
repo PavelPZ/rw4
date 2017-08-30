@@ -2,7 +2,7 @@ import React from 'react';
 import { Text, Button, View, Route } from 'react-native';
 import { addNavigationHelpers, NavigationActions, StackNavigator, TabNavigator, DrawerNavigator } from 'react-navigation';
 import { Provider, connect } from 'react-redux'
-import { registerRouter } from '../../../app-common/router'
+import { registerRouter } from '../../../app-common/lib/router'
 //import { createStore, combineReducers } from 'redux'
 
 interface IRoutePar extends Router.IRoutePar {

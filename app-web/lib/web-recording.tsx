@@ -1,5 +1,5 @@
 ﻿import React from 'react'
-import { providerConnector, blockGuiConnector } from '../app-common/recording'
+import { providerConnector, blockGuiConnector } from '../../app-common/lib/recording'
 import { renderCSS } from './fela'
 import { Button, FontIcon, List, ListItemControl, Checkbox, Portal } from './react-md';
 
