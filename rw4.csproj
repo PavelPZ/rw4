@@ -88,6 +88,7 @@
     <TypeScriptCompile Include="app-common\lib\validate-d.d.ts" />
     <TypeScriptCompile Include="app-common\lib\validate.tsx" />
     <TypeScriptCompile Include="app-native\snack\navigation\app-navigation.tsx" />
+    <TypeScriptCompile Include="app-web\lib\web-drawer.tsx" />
     <TypeScriptCompile Include="app-web\snack\validate-test.tsx" />
     <TypeScriptCompile Include="app-web\lib\web-validate.tsx" />
     <TypeScriptCompile Include="app-web\lib\web-recording.tsx" />
@@ -193,7 +194,6 @@
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="app-web\lib\react-md\" />
     <Folder Include="App_Data\" />
     <Folder Include="typings\" />
   </ItemGroup>

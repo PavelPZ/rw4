@@ -5,7 +5,7 @@ import { Button, FontIcon, List, ListItemControl, Checkbox, Portal } from './rea
 
 const provider: React.SFC<Recording.IProps> = props => {
   const childs = React.Children.only(props.children)
-  const btn = <Button onClick={props.changeSize} floating secondary fixed fixedPosition={'bl'} className={renderCSS({ marginLeft: -15 })}><FontIcon iconClassName="fa fa-circle-o-notch" /></Button>
+  const btn = <Button onClick={props.changeSize} floating secondary fixed fixedPosition={'bl'} className={renderCSS({ marginLeft: -15, zIndex: 21 })}><FontIcon iconClassName="fa fa-circle-o-notch" /></Button>
   switch (props.guiSize) {
     case Recording.TGuiSize.no: return childs
     case Recording.TGuiSize.icon: return <div>
@@ -29,7 +29,7 @@ const provider: React.SFC<Recording.IProps> = props => {
 }
 
 const ContentSmall: React.SFC<Recording.IProps> = props => {
-  return <div className={renderCSS({ position: 'fixed', left: 60, height: 58, bottom: 10})}>
+  return <div className={renderCSS({ position: 'fixed', left: 60, height: 58, bottom: 10, zIndex: 21 })}>
     <RecordBtn {...props} />
     <RecordSavedBtn {...props} />
     <PlayRecordingBtn {...props} />
@@ -40,15 +40,15 @@ const ContentSmall: React.SFC<Recording.IProps> = props => {
 const Stat: React.SFC<Recording.IProps> = props => !props.playMsg ? null : <div className={renderCSS({ position: 'fixed', left: 10, height: 10, bottom: 10, fontSize: 12, color: 'gray' })}>{props.playMsg}</div>
 
 const ContentLarge: React.SFC<Recording.IProps & { content: React.ReactElement<any> }> = props => {
-  return <div>
-    <div className={renderCSS({ position: 'fixed', width: 200, left: 0, top: 0, bottom: 80, borderWidth: 1, borderStyle: 'solid', borderColor: 'lightgray' })}>
+  return <div className={renderCSS({ position: 'relative',  })}>
+    <div className={renderCSS({ position: 'absolute', width: 200, left: 0, top: 0, bottom: 0, borderWidth: 1, borderStyle: 'solid', borderColor: 'lightgray'})}>
       <div className={renderCSS({ margin: 5 })}>
         {props.playLists && props.playLists.length > 0 ? <Btn icon='exchange' title='INVERT' click={props.listInvert} /> : null}
         {props.playLists && props.playLists.find(l => l.checked) ? <Btn icon='remove' title='DELETE' click={props.listDelete} /> : null}
         <PlaySelectedBtn {...props} />
       </div>
       <List className="md-paper--1">
-        {!props.playLists ? null : props.playLists.map((pl, idx) => <ListItemControl primaryAction={
+        {!props.playLists ? null : props.playLists.map((pl, idx) => <ListItemControl key={idx} primaryAction={
           <Checkbox id={pl.id} name={pl.id} label={`${pl.name} (${pl.actions.length})`} checked={pl.checked} onChange={checked => props.listSelChange(idx, checked)} />
         }>
         </ListItemControl>)}
@@ -103,7 +103,7 @@ export const Provider = providerConnector(provider)
 
 const blockGui: React.SFC<BlockGui.IState> = props => {
   return <Portal visible={props.state != BlockGui.State.no} className={renderCSS({ position: 'fixed', bottom: 0, right: 0, top: 0, left: 0, display: 'flex', justifyContent: 'center', alignItems: 'center', zIndex: 99, cursor: 'wait' })} >
-    {props.state == BlockGui.State.showIcon ? <FontIcon iconClassName='fa fa-2x fa-circle-o-notch fa-spin' /> : <span/>}
+    {props.state == BlockGui.State.showIcon ? <FontIcon iconClassName='fa fa-2x fa-circle-o-notch fa-spin' /> : <span />}
   </Portal>
 }
 

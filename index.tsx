@@ -12,16 +12,17 @@ import { Provider as LocProvider, } from './app-common/lib/loc'
 import { Provider as RouterProvider, init as initRouter, reducer as routerReducer, middleware as routerMiddleware } from './app-common/lib/router'
 import { promiseAll } from './app-common/lib/lib'
 import { init as initRecording, reducer as recordingReducer, saga as recordingSaga, middleware as recordingMiddleware, globalReducer as recordingGlobalReducer, blockGuiReducer, blockGuiSaga } from './app-common/lib/recording'
-import { Provider as DrawerProvider, reducer as drawerReducer } from './app-common/lib/drawer'
 import { reducer as loginReducer } from './app-common/lib/login'
 import { reducer as mediaQueryReducer } from './app-common/lib/media-query'
 import { reducer as locReducer } from './app-common/lib/loc'
+import { reducer as drawerReducer } from './app-common/lib/drawer'
 
 //********** WEB specific
 import createHistory from 'history/createBrowserHistory'
 import { platform as loginPlatform, Provider as LoginProvider } from './app-web/lib/web-login'
 import { init as initMediaQuery } from './app-web/lib/web-media'
 import { Provider as RecordingProvider, BlockGuiComp } from './app-web/lib/web-recording'
+import { Provider as DrawerProvider } from './app-web/lib/web-drawer'
 
 //************ aplikace k testovani
 import { AppRouterComp } from './app-common/snack/app-router'
@@ -96,11 +97,11 @@ export const init = async () => {
     <ReduxProvider store={store} >
       <LocProvider>
         <LoginProvider overlays={[<BlockGuiComp key={999} />]}>
-          <RecordingProvider>
-            <DrawerProvider>
+          <DrawerProvider>
+            <RecordingProvider>
               <RouterProvider />
-            </DrawerProvider>
-          </RecordingProvider>
+            </RecordingProvider>
+          </DrawerProvider>
         </LoginProvider>
       </LocProvider>
     </ReduxProvider>
