@@ -10,6 +10,10 @@
     query?: {}
   }
 
+  interface INativeRoutePar {
+    navigation: { state: {params: IRoutePar} }
+  }
+
   type IRouterProviderProps = IState
 
   interface IGlobalState {

@@ -17,6 +17,7 @@
   const enum TModes { no, recording, playing }
 
   interface IConfig {
+    ignore?: boolean
     guiSize?: TGuiSize
   }
 

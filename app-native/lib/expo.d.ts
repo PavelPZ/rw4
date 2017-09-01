@@ -4,6 +4,8 @@ declare module 'expo' {
   import { Component } from 'react';
   import { ViewStyle, ViewProperties, ColorPropType } from 'react-native';
 
+  export const AppLoading
+
   /**
    * Expo Accelerometer
    */
@@ -256,6 +258,7 @@ declare module 'expo' {
     public downloadAsync(): void;
 
     static fromModule(moduleId: number): Asset;
+    static loadAsync
   }
 
   /**
@@ -657,7 +660,8 @@ declare module 'expo' {
    * Expo Font
    */
   export namespace Font {
-    export function loadAsync(nameOrMap: string | object, uriOrModuleOrAsset: any): void;  // TODO: better defs because the doc is not updated I think ...
+    //LM export function loadAsync(nameOrMap: string | object, uriOrModuleOrAsset: any): void;  // TODO: better defs because the doc is not updated I think ...
+    export const loadAsync
   }
 
   /**

@@ -96,7 +96,7 @@ const CustomTabRouter = TabRouter(
 );
 
 const CustomTabs = createNavigationContainer(
-  createNavigator(CustomTabRouter)(CustomTabView)
+  createNavigator(CustomTabRouter)(CustomTabView as any)
 );
 
 const styles = StyleSheet.create({

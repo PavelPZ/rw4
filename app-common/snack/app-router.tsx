@@ -4,6 +4,7 @@ import { registerRouter } from '../lib/router'
 import { isLogged, createLoginButton } from '../lib/login'
 import { storeContextType } from '../lib/lib'
 import { contextType as locContextType } from '../lib/loc'
+import { adjustRouterProps } from '../lib/router'
 
 const LoginButton = createLoginButton(props => {
   const { logged, doLoginAction, ...rest } = props
@@ -13,11 +14,14 @@ const LoginButton = createLoginButton(props => {
     onPress={doLoginAction} />
 })
 
-const appRouterComp: React.SFC<AppRouter.IRoutePar> = props => <View style={{ flex: 1, marginTop: 30 }}>
-  <Text style={{ fontSize: 24 }}>{props.title}</Text>
-  <Button /*tabIndex={1}*/ title='Add to title' onPress={() => AppRouterComp.navigate({ title: props.title + ' | xxx' })} />
-  {window.lmGlobal.isNative ? null : <LoginButton tabIndex={2} />}
-</View>
+const appRouterComp: React.SFC<AppRouter.IRoutePar> = p => {
+  const props = adjustRouterProps(p);
+  return <View style={{ flex: 1, marginTop: 30 }}>
+    <Text style={{ fontSize: 24 }}>{props.title}</Text>
+    <Button /*tabIndex={1}*/ title='Add to title' onPress={() => AppRouterComp.navigate({ title: props.title + ' | xxx' }) } />
+    {window.lmGlobal.isNative ? null : <LoginButton tabIndex={2} />}
+  </View>
+}
 
 //*** EXPORTS
 export const AppRouterComp: Router.IRouteComponent<AppRouter.IRoutePar> = registerRouter(appRouterComp, AppRouter.Consts.name, AppRouter.Consts.urlMask, {

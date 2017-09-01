@@ -8,13 +8,12 @@ import { all, call } from 'redux-saga/effects'
 
 
 //********** COMMON
-import { Provider as LocProvider, } from './app-common/lib/loc'
+import { Provider as LocProvider, reducer as locReducer } from './app-common/lib/loc'
 import { Provider as RouterProvider, init as initRouter, reducer as routerReducer, middleware as routerMiddleware } from './app-common/lib/router'
 import { promiseAll } from './app-common/lib/lib'
 import { init as initRecording, reducer as recordingReducer, saga as recordingSaga, middleware as recordingMiddleware, globalReducer as recordingGlobalReducer, blockGuiReducer, blockGuiSaga } from './app-common/lib/recording'
 import { reducer as loginReducer } from './app-common/lib/login'
 import { reducer as mediaQueryReducer } from './app-common/lib/media-query'
-import { reducer as locReducer } from './app-common/lib/loc'
 import { reducer as drawerReducer } from './app-common/lib/drawer'
 
 //********** WEB specific

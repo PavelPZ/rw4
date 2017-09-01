@@ -14,8 +14,7 @@ export const init = () => { //async init
     resolve()
   })
 }
-let initState: Recording.IState
-
+let initState: Recording.IState = {}
 
 export const middleware: Middleware = (middlAPI: MiddlewareAPI<IState>) => next => act => { //inspirace v D:\rw\rw\rw-redux\async.ts
 
@@ -51,8 +50,8 @@ export const middleware: Middleware = (middlAPI: MiddlewareAPI<IState>) => next 
 let actAsyncAction: string
 let blockGuiTimer = 0
 
-const record = (state: Recording.IState, dispatch: Dispatch<any>, action: Action) => state.mode == Recording.TModes.recording && dispatch({ type: Recording.Consts.RECORD, action } as Recording.RecordAction)
-const playContinue = (state: Recording.IState, dispatch: Dispatch<any>) => state.mode == Recording.TModes.playing && dispatch({ type: Recording.Consts.PLAY_CONTINUE } as Recording.Action)
+const record = (state: Recording.IState, dispatch: Dispatch<any>, action: Action) => state && state.mode == Recording.TModes.recording && dispatch({ type: Recording.Consts.RECORD, action } as Recording.RecordAction)
+const playContinue = (state: Recording.IState, dispatch: Dispatch<any>) => state && state.mode == Recording.TModes.playing && dispatch({ type: Recording.Consts.PLAY_CONTINUE } as Recording.Action)
 
 const loadPlayList = () => callRestAPI(Recording.RestAPI.Consts.LOAD).then(d => d.data || [])
 const savePlayList = (pl: Recording.IPlayList[]) => callRestAPI(Recording.RestAPI.Consts.SAVE, pl)

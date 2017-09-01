@@ -29,6 +29,14 @@ export const navigate = (routeName?: string | Router.IState, params?) => {
   window.lmGlobal.store.dispatch({ type: Router.Consts.NAVIGATE_START, newState })
 }
 
+export const adjustRouterProps = <T extends Router.IRoutePar>(props: T) => {
+  if (window.lmGlobal.isNative) {
+    const p = props as any as Router.INativeRoutePar
+    return p.navigation.state.params as T
+  } else
+    return props
+}
+
 export function registerRouter<TPar extends Router.IRoutePar = Router.IRoutePar>(router: React.ComponentType<TPar>, routeName: string, urlMask?: string, extension?: Router.IRoute<TPar>) {
   invariant(!routes[routeName], 'registerRouter: route %0 already exists', routeName);
   const res = Object.assign(router, extension) as Router.IRouteComponent
@@ -87,9 +95,11 @@ export const reducer: App.IReducer<Router.IState> = (state, action: Router.IActi
   if (!state) return computeReactNavigation(window.lmGlobal.platform.routerPlatform.startRoute)
   switch (action.type) {
     case Router.Consts.NAVIGATE_START:
+      console.log('Router.Consts.NAVIGATE_START')
       if (!window.lmGlobal.isNative) notifyNavigationStart() //notifications for resolving quick BACK x FORWARD
       return state
     case Router.Consts.NAVIGATE_END:
+      console.log('Router.Consts.NAVIGATE_END')
       if (!window.lmGlobal.isNative) notifyNavigationEnd() //notifications for resolving quick BACK x FORWARD
       return computeReactNavigation(action.newState, state)
     default: return state
@@ -104,6 +114,7 @@ export const init = () => {
 
   const match = (pattern: UrlPattern, pathname: string, search: string) => {
     const par = pattern.match(pathname) as Router.IRoutePar
+    console.log('match: ', pathname, '\r\n', JSON.stringify(par, null, 2))
     invariant(!!par, `Wrong route url "${pathname}"`)
     if (!search) return par
     const q = qs.parse(search.substr(1)) as {}
