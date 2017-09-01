@@ -176,7 +176,7 @@
     <Content Include="rest-api.ashx" />
     <Content Include="tsconfig.json" />
     <Content Include="App_Data\recording.json" />
-    <Content Include="App_Data\recording.js" />
+    <TypeScriptCompile Include="App_Data\recording.ts" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

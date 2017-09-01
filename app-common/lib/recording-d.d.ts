@@ -53,7 +53,7 @@
 
   interface PlayInitStateAction { //extends playSelected {
     type: Consts.PLAY_INIT_STATE
-    startState
+    startState: App.IGlobalState
   }
 
   interface RecordSaveAction {

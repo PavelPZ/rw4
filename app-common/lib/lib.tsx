@@ -12,13 +12,10 @@ export const storeContextType = <T extends {}>(comp: React.ComponentType<T>) => 
 export class WaitForRendering extends React.PureComponent<{ finalContent: Promise<JSX.Element>, waitContent: JSX.Element }> {
   state = { finalContent: null }
   render() {
-    console.log('1')
     if (this.state.finalContent) {
-      console.log('2')
       return this.state.finalContent
     }
     this.props.finalContent.then(cont => this.setState({ finalContent: cont}))
-    console.log('3')
     return this.props.waitContent
   }
 }

@@ -47,7 +47,7 @@ export const init = async () => {
     isNative: true,
     platform: {
       loginPlatform: null,
-      recordingPlatform: { guiSize: Recording.TGuiSize.no },
+      recordingPlatform: { guiSize: Recording.TGuiSize.icon },
       restAPIPlatform: { serviceUrl: 'http://localhost:3434/rest-api.ashx' }, //NEFUNGUJE
       routerPlatform: {
         startRoute: AppRouterComp.getRoute({ title: 'START TITLE | xxx' }),
