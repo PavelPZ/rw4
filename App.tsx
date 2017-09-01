@@ -2,8 +2,6 @@
 import React from 'react'
 import { View, Text } from 'react-native'
 
-class AppComp extends React.Component { render() { return <Text>Hallo world</Text> } }
-
 import { Provider as ReduxProvider, connect } from 'react-redux'
 import { createStore, Store, applyMiddleware } from 'redux'
 import createSagaMiddleware from 'redux-saga/index'
@@ -23,7 +21,7 @@ import { Provider as RecordingProvider } from './app-native/lib/nat-recording'
 //************ aplikace k testovani
 
 import { AppRouterComp } from './app-common/snack/app-router'
-//class AppComp extends React.Component { render() { return <Text>Hallo world</Text> } }
+class AppComp extends React.Component { render() { return <Text>Hallo world</Text> } }
 //import AppComp from './app-native/snack/redux-simple';
 //import AppComp from './app-native/snack/navigation';
 //import AppComp from './app-native/snack/navigation/navigation-redux';
@@ -103,5 +101,5 @@ export const init = async () => {
 
 const Root: React.SFC = () => <WaitForRendering finalContent={init()} waitContent={<View style={{ marginTop: 20 }}><Text style={{ fontSize: 24 }}>Waiting...</Text></View>} />
 
-//export default Root;
-export default AppComp;
+export default Root;
+//export default AppComp;
