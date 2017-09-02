@@ -70,7 +70,7 @@ export const init = async () => {
 
   const store = window.lmGlobal.store = createStore<IState>(reducers, {}, applyMiddleware(sagaMiddleware, routerMiddleware, recordingMiddleware))
 
-  function* rootSaga() {
+  const rootSaga = function* rootSaga() {
     const rootRes = yield all({
       recordingSaga: call(recordingSaga),
       blockGuiSaga: call(blockGuiSaga),

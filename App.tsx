@@ -21,7 +21,8 @@ import { Provider as RecordingProvider } from './app-native/lib/nat-recording'
 //************ aplikace k testovani
 
 import { AppRouterComp } from './app-common/snack/app-router'
-class AppComp extends React.Component { render() { return <Text>Hallo world</Text> } }
+//class AppComp extends React.Component { render() { return <Text>Hallo world</Text> } }
+import AppComp from './app-native/snack/native-base/index'
 //import AppComp from './app-native/snack/redux-simple';
 //import AppComp from './app-native/snack/navigation';
 //import AppComp from './app-native/snack/navigation/navigation-redux';
@@ -79,7 +80,7 @@ export const init = async () => {
     initRouter(),
   ])
 
-  function* rootSaga() {
+  const rootSaga = function* rootSaga() {
     const rootRes = yield all({
       recordingSaga: call(recordingSaga),
       blockGuiSaga: call(blockGuiSaga),
@@ -101,5 +102,5 @@ export const init = async () => {
 
 const Root: React.SFC = () => <WaitForRendering finalContent={init()} waitContent={<View style={{ marginTop: 20 }}><Text style={{ fontSize: 24 }}>Waiting...</Text></View>} />
 
-export default Root;
-//export default AppComp;
+//export default Root;
+export default AppComp;
