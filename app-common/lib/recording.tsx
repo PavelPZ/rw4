@@ -64,7 +64,7 @@ const callRestAPI = (action, data = null) => restAPI({ module: Recording.RestAPI
 
 let debugPlayList: Recording.IPlayList[] = []
 
-export const saga = function* saga() {
+export const saga = function* () {
   while (true) {
     const act: Recording.TActions = yield take([Recording.Consts.RECORD_START, Recording.Consts.PLAY_START])
     switch (act.type) {
@@ -199,7 +199,7 @@ export const providerConnector = connect<Recording.IStateProps, Recording.IDispa
 
 //******************** BLOCK GUI
 
-export const blockGuiSaga = function* blockGuiSaga() {
+export const blockGuiSaga = function* () {
   while (true) {
     const act: BlockGui.Action = yield take([BlockGui.Consts.START])
     yield put({ type: BlockGui.Consts.SET_STATE, state: BlockGui.State.show } as BlockGui.SetStateAction)

@@ -80,7 +80,7 @@ export const init = async () => {
     initRouter(),
   ])
 
-  const rootSaga = function* rootSaga() {
+  const rootSaga = function* () {
     const rootRes = yield all({
       recordingSaga: call(recordingSaga),
       blockGuiSaga: call(blockGuiSaga),
