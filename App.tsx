@@ -6,7 +6,7 @@ import { Provider as ReduxProvider, connect } from 'react-redux'
 import { createStore, Store, applyMiddleware } from 'redux'
 import createSagaMiddleware from 'redux-saga/index'
 import { all, call } from 'redux-saga/effects'
-import { addNavigationHelpers, NavigationActions, DrawerNavigator } from 'react-navigation';
+import { addNavigationHelpers, DrawerNavigator, NavigationNavigateAction } from 'react-navigation';
 
 //********** COMMON
 import { WaitForRendering, promiseAll } from './app-common/lib/lib'
@@ -17,6 +17,7 @@ import { Provider as LocProvider, reducer as locReducer} from './app-common/lib/
 //********** NATIVE specific
 import createHistory from 'history/createMemoryHistory'
 import { Provider as RecordingProvider } from './app-native/lib/nat-recording'
+import { Provider as DrawerProvider, AppNavigator as Navigator } from './app-native/lib/nav-drawer'
 
 //************ aplikace k testovani
 
@@ -35,13 +36,13 @@ import AppComp from './app-native/snack/native-base/index'
 //import AppComp from './app-common/snack/react-navigation';  
 //import AppComp from './app-native/snack/icons';
 
-const AppNavigator = DrawerNavigator({
-  ...AppRouterComp.nativeScreenDef()
-})
+//const AppNavigator = DrawerNavigator({
+//  ...AppRouterComp.nativeScreenDef()
+//})
 
-const routerProvider: React.SFC<{ navProp, dispatch }> = ({ navProp, dispatch }) => <AppNavigator navigation={addNavigationHelpers({ dispatch: dispatch, state: navProp })} />
+//const routerProvider: React.SFC<{ navProp, dispatch }> = ({ navProp, dispatch }) => <AppNavigator navigation={addNavigationHelpers({ dispatch: dispatch, state: navProp })} />
 
-const RouterProvider = connect(state => ({ navProp: state.router }))(routerProvider);
+//const RouterProvider = connect(state => ({ navProp: state.router }))(routerProvider);
 
 export const init = async () => {
   window.lmGlobal = {
@@ -53,7 +54,8 @@ export const init = async () => {
       routerPlatform: {
         startRoute: AppRouterComp.getRoute({ title: 'START TITLE | xxx' }),
         history: createHistory() as Router.IHistory,
-        computeState: (act, st) => AppNavigator.router.getStateForAction({ ...act, type: 'Navigation/NAVIGATE' }, st),
+        //computeState: (act, st) => AppNavigator.router.getStateForAction({ ...act, type: 'Navigation/NAVIGATE' }, st),
+        computeState: (act, st) => Navigator.router.getStateForAction({ type: 'Navigation/NAVIGATE', routeName: act.params && act.params.query && act.params.query.isModal ? 'Modal' : 'Root', params: act } as NavigationNavigateAction, st),
         rootUrl: '/web-app.html'
       }
     }
@@ -92,7 +94,7 @@ export const init = async () => {
   const appAll = <ReduxProvider store={store}>
     <LocProvider>
       <RecordingProvider>
-        <RouterProvider />
+        <DrawerProvider />
       </RecordingProvider>
     </LocProvider>
   </ReduxProvider>
@@ -102,5 +104,5 @@ export const init = async () => {
 
 const Root: React.SFC = () => <WaitForRendering finalContent={init()} waitContent={<View style={{ marginTop: 20 }}><Text style={{ fontSize: 24 }}>Waiting...</Text></View>} />
 
-//export default Root;
-export default AppComp;
+export default Root;
+//export default AppComp;

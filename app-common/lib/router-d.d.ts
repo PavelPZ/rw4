@@ -2,12 +2,13 @@
 
   const enum Consts {
     NAVIGATE_START = 'router/NAVIGATE_START', NAVIGATE_END = 'router/NAVIGATE_END', //'router/NAVIGATE_END',
+    modal = 'modal-'
   }
 
   //type IState = IStateLow<string, {}>
 
   interface IRoutePar {
-    query?: {}
+    query?: { isModal?: boolean }
   }
 
   interface INativeRoutePar {
@@ -44,8 +45,9 @@
     beforeLoad?: TLoader<TParams>
     needsLogin?: (params: TParams) => boolean
     navigate?: (params: TParams) => void //navigace S history.push
+    navigateModal?: (params: TParams) => void
     urlPattern?
-    getRoute?: (params: TParams) => Router.IState<string, TParams>
+    getRoute?: (params: TParams, isModal?:boolean) => Router.IState<string, TParams>
     nativeScreenDef?: () => { [name: string]: { screen: IRouteComponent<TParams>}}
   }
 
