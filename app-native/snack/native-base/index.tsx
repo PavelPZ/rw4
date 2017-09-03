@@ -1,5 +1,6 @@
 ﻿import React, { Component } from 'react'
-import { Root, Container, Header, Title, Content, Footer, FooterTab, Button, Left, Right, Body, Icon, Text, H1, H2 } from 'native-base'
+import { Container, Header, Title, Content, Footer, FooterTab, Button, Left, Right, Body, Icon, Text, H1, H2 } from 'native-base'
+import { Root } from 'native-base/src/basic/Root'
 import { Font, Asset } from 'expo'
 
 export default class ButtonTransparentExample extends Component {

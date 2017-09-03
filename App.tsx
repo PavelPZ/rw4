@@ -12,12 +12,11 @@ import { addNavigationHelpers, DrawerNavigator, NavigationNavigateAction } from 
 import { WaitForRendering, promiseAll } from './app-common/lib/lib'
 import { reducer as routerReducer, middleware as routerMiddleware, init as initRouter } from './app-common/lib/router'
 import { init as initRecording, reducer as recordingReducer, saga as recordingSaga, middleware as recordingMiddleware, globalReducer as recordingGlobalReducer, blockGuiReducer, blockGuiSaga } from './app-common/lib/recording'
-import { Provider as LocProvider, reducer as locReducer} from './app-common/lib/loc'
+import { Provider as LocProvider, reducer as locReducer } from './app-common/lib/loc'
 
 //********** NATIVE specific
 import createHistory from 'history/createMemoryHistory'
-import { Provider as RecordingProvider } from './app-native/lib/nat-recording'
-import { Provider as DrawerProvider, AppNavigator as Navigator } from './app-native/lib/nav-drawer'
+import { Provider as RootProvider, AppNavigator as Navigator } from './app-native/lib/nav-root-layers'
 
 //************ aplikace k testovani
 
@@ -66,6 +65,7 @@ export const init = async () => {
     return {
       router: routerReducer(state.router, action),
       recording: recordingReducer(state.recording, action),
+      blockGui: blockGuiReducer(state.blockGui, action),
       loc: locReducer(state.loc, action),
     }
   }
@@ -93,9 +93,7 @@ export const init = async () => {
 
   const appAll = <ReduxProvider store={store}>
     <LocProvider>
-      <RecordingProvider>
-        <DrawerProvider />
-      </RecordingProvider>
+      <RootProvider />
     </LocProvider>
   </ReduxProvider>
 

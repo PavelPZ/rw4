@@ -72,8 +72,8 @@
   <ItemGroup>
     <Content Include=".gitignore" />
     <TypeScriptCompile Include="app-common\lib\app-d.d.ts" />
-    <TypeScriptCompile Include="app-native\lib\nat-recording.tsx" />
-    <TypeScriptCompile Include="app-native\lib\nav-drawer.tsx" />
+    <TypeScriptCompile Include="app-native\lib\native-base.d.ts" />
+    <TypeScriptCompile Include="app-native\lib\nav-root-layers.tsx" />
     <TypeScriptCompile Include="app-native\lib\template.tsx" />
     <TypeScriptCompile Include="app-native\snack\assets.tsx" />
     <TypeScriptCompile Include="app-native\snack\native-base\index.tsx" />

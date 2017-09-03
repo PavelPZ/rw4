@@ -40,8 +40,8 @@ const ContentSmall: React.SFC<Recording.IProps> = props => {
 const Stat: React.SFC<Recording.IProps> = props => !props.playMsg ? null : <div className={renderCSS({ position: 'fixed', left: 10, height: 10, bottom: 10, fontSize: 12, color: 'gray' })}>{props.playMsg}</div>
 
 const ContentLarge: React.SFC<Recording.IProps & { content: React.ReactElement<any> }> = props => {
-  return <div className={renderCSS({ position: 'relative',  })}>
-    <div className={renderCSS({ position: 'absolute', width: 200, left: 0, top: 0, bottom: 0, borderWidth: 1, borderStyle: 'solid', borderColor: 'lightgray'})}>
+  return <div className={renderCSS({ position: 'relative', })}>
+    <div className={renderCSS({ position: 'absolute', width: 200, left: 0, top: 0, bottom: 0, borderWidth: 1, borderStyle: 'solid', borderColor: 'lightgray' })}>
       <div className={renderCSS({ margin: 5 })}>
         {props.playLists && props.playLists.length > 0 ? <Btn icon='exchange' title='INVERT' click={props.listInvert} /> : null}
         {props.playLists && props.playLists.find(l => l.checked) ? <Btn icon='remove' title='DELETE' click={props.listDelete} /> : null}
@@ -101,10 +101,8 @@ export const Provider = providerConnector(provider)
 
 //******************** BLOCK GUI
 
-const blockGui: React.SFC<BlockGui.IState> = props => {
-  return <Portal visible={props.state != BlockGui.State.no} className={renderCSS({ position: 'fixed', bottom: 0, right: 0, top: 0, left: 0, display: 'flex', justifyContent: 'center', alignItems: 'center', zIndex: 99, cursor: 'wait' })} >
-    {props.state == BlockGui.State.showIcon ? <FontIcon iconClassName='fa fa-2x fa-circle-o-notch fa-spin' /> : <span />}
-  </Portal>
-}
+const blockGui: React.SFC<BlockGui.IState> = props => props.state == BlockGui.State.no ? null : <Portal visible={props.state != BlockGui.State.no} className={renderCSS({ position: 'fixed', bottom: 0, right: 0, top: 0, left: 0, display: 'flex', justifyContent: 'center', alignItems: 'center', zIndex: 99, cursor: 'wait' })} >
+  {props.state == BlockGui.State.showIcon ? <FontIcon iconClassName='fa fa-2x fa-circle-o-notch fa-spin' /> : <span />}
+</Portal>
 
 export const BlockGuiComp = blockGuiConnector(blockGui)
