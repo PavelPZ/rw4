@@ -13,10 +13,6 @@ export const init = async () => { //async init
   if (guiSize == Recording.TGuiSize.no) return null
   if (window.lmGlobal.isNative) { initState.playLists = recordingJSON; return null }
   initState.playLists = await loadPlayList()
-  //return guiSize == Recording.TGuiSize.no ? null : new Promise<void>(async resolve => {
-  //  initState.playLists = await loadPlayList() as Recording.IPlayList[]
-  //  resolve()
-  //})
 }
 let initState: Recording.IState = {}
 

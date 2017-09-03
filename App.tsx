@@ -16,7 +16,7 @@ import { Provider as LocProvider, reducer as locReducer } from './app-common/lib
 
 //********** NATIVE specific
 import createHistory from 'history/createMemoryHistory'
-import { Provider as RootProvider, AppNavigator as Navigator } from './app-native/lib/nav-root-layers'
+import { Provider as RootProvider, AppNavigator as Navigator, init as initRoot } from './app-native/lib/nav-root-layers'
 
 //************ aplikace k testovani
 
@@ -73,7 +73,8 @@ export const init = async () => {
   const sagaMiddleware = createSagaMiddleware()
 
   await promiseAll([
-    initRecording()
+    initRecording(),
+    initRoot()
   ])
 
   const store = window.lmGlobal.store = createStore<IState>(reducers, {}, applyMiddleware(sagaMiddleware, routerMiddleware, recordingMiddleware))
