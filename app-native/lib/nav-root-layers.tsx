@@ -1,16 +1,25 @@
 ﻿import React from 'react'
 import { addNavigationHelpers, DrawerNavigator, StackNavigator } from 'react-navigation'
 import { connect } from 'react-redux'
-import { View, ViewProperties } from "react-native";
+import { Text, View, ViewProperties, BackHandler, Platform  } from "react-native";
 import { connectStyle } from 'native-base-shoutem-theme'
 import mapPropsToStyleNames from 'native-base/src/Utils/mapPropsToStyleNames'
 import { ToastContainer as Toast } from 'native-base/src/basic/ToastContainer'
 import { ActionSheetContainer as ActionSheet } from 'native-base/src/basic/Actionsheet'
-import { Font, Asset } from 'expo'
+import { Font, Asset, Constants } from 'expo'
 import { Fab, Icon } from 'native-base';
+
+//COMMON
+import { goBack, canGoBack } from '../../app-common/lib/router'
 
 //INIT NATIVE-BASE
 export const init = async () => {
+  //https://facebook.github.io/react-native/docs/backhandler.html
+  if (Platform.OS == 'android') BackHandler.addEventListener('hardwareBackPress', () => {
+    if (!canGoBack()) return false
+    goBack()
+    return true
+  })
   await Font.loadAsync({
     'Roboto': require('native-base/Fonts/Roboto.ttf'),
     'Roboto_medium': require('native-base/Fonts/Roboto_medium.ttf'),
@@ -28,7 +37,7 @@ const BlockGuiComp = blockGuiConnector(blockGuiComp)
 
 //*** RECORDER
 const Btn: React.SFC<{ play?: boolean; click: () => void }> = props =>
-  <Fab active onPress={props.click} position="bottomLeft" style={{ backgroundColor: '#5067FF' }} direction="up" containerStyle={{ zIndex: 100, elevation:100 }}>
+  <Fab active onPress={props.click} position="bottomLeft" style={{ backgroundColor: '#5067FF' }} direction="up" containerStyle={{ zIndex: 100, elevation: 100 }}>
     <Icon name={props.play ? 'play' : 'md-pause'} />
   </Fab>
 
@@ -54,7 +63,7 @@ class provider extends React.Component<ViewProperties> {
   _root
   render() {
     return (
-      <View ref={c => (this._root = c)} {...this.props} style={{ flex: 1 }}>
+      <View ref={c => (this._root = c)} {...this.props} style={{ flex: 1, marginTop: Constants.statusBarHeight }}>
         <NavigProvider />
         <BlockGuiComp />
         <RecorderButton />
@@ -72,14 +81,24 @@ export const AppNavigator = DrawerNavigator({
   Drawer: {
     screen: StackNavigator({
       Modal: {
-        screen: RouterProvider
+        screen: RouterProvider,
+        navigationOptions: ({ navigation }) => {
+          const route = navigation.state.params as Router.IState
+          return {
+            headerTitle: `${route.params['title'].substr(10)}`,
+            headerRight: <Text>RIGHT</Text>,
+            headerLeft: <Text onPress={goBack}>LEFT</Text>
+          }
+        }
       }
     })
   },
   Root: {
     screen: RouterProvider
-  }
-})
+  },
+}, {
+    contentComponent: props => <Text>DRAWER</Text>
+  })
 
 const navigProvider: React.SFC<{ navProp, dispatch }> = ({ navProp, dispatch }) => <AppNavigator navigation={addNavigationHelpers({ dispatch: dispatch, state: navProp })} />
 

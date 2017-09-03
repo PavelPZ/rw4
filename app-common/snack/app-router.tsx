@@ -15,7 +15,7 @@ const LoginButton = createLoginButton(props => {
 
 const appRouterComp: React.SFC<AppRouter.IRoutePar> = props => {
   const { children, ...par} = props
-  return <View style={{ flex: 1, marginTop: 30 }}>
+  return <View style={{ flex: 1 }}>
     <Text style={{ fontSize: 24 }}>{props.title}</Text>
     <Button /*tabIndex={1}*/ key={1} title='Add to title' onPress={() => AppRouterComp.navigate({ ...par, title: props.title + ' | xxx' })} />
     <Button /*tabIndex={1}*/ key={2} title='Show Modal' onPress={() => AppRouterComp.navigateModal({ ...par, title: props.title + ' | mmm' })} />

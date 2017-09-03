@@ -21,6 +21,11 @@ const provider: React.SFC<Router.IRouterProviderProps> = p => {
 export const Provider = providerConnector(provider)
 
 // ***** EXPORTS
+
+export const goBack = () => window.lmGlobal.platform.routerPlatform.history.goBack()
+
+export const canGoBack = () => window.lmGlobal.isNative ? window.lmGlobal.platform.routerPlatform.history.canGo(-1) : true
+
 export const actRoute = () => window.lmGlobal.store.getState().router
 
 //navigace BEZ history.push. S history.push viz Router.TRoute.navigate

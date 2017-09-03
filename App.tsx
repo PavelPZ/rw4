@@ -17,6 +17,7 @@ import { Provider as LocProvider, reducer as locReducer } from './app-common/lib
 //********** NATIVE specific
 import createHistory from 'history/createMemoryHistory'
 import { Provider as RootProvider, AppNavigator as Navigator, init as initRoot } from './app-native/lib/nav-root-layers'
+import { AppLoading } from 'expo'
 
 //************ aplikace k testovani
 
@@ -60,6 +61,13 @@ export const init = async () => {
     }
   }
 
+  //const rootRouteName = () => {
+  //  rootRouteNameFlag = !rootRouteNameFlag
+  //  console.log(rootRouteNameFlag)
+  //  return rootRouteNameFlag ? 'Root' : 'Root2'
+  //}
+  //let rootRouteNameFlag = false
+
   const reducers: App.IReducer = (st, action: any) => {
     const state = recordingGlobalReducer(st, action)
     return {
@@ -101,7 +109,7 @@ export const init = async () => {
   return new Promise<JSX.Element>(resolve => resolve(appAll))
 }
 
-const Root: React.SFC = () => <WaitForRendering finalContent={init()} waitContent={<View style={{ marginTop: 20 }}><Text style={{ fontSize: 24 }}>Waiting...</Text></View>} />
+const Root: React.SFC = () => <WaitForRendering finalContent={init()} waitContent={<AppLoading/>} />
 
 export default Root;
 //export default AppComp;

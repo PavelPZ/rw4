@@ -48,7 +48,7 @@
     navigateModal?: (params: TParams) => void
     urlPattern?
     getRoute?: (params: TParams, isModal?:boolean) => Router.IState<string, TParams>
-    nativeScreenDef?: () => { [name: string]: { screen: IRouteComponent<TParams>}}
+    nativeScreenDef?: () => { [name: string]: { screen: IRouteComponent<TParams> } }
   }
 
   type IRouteComponent<TPar extends IRoutePar = IRoutePar> = React.ComponentType & IRoute<TPar>
@@ -65,6 +65,8 @@
     push(path: string, state?: any): void
     location: ILocation
     listen(callback: (location, action: string) => void)
+    goBack()
+    canGo(n: number): boolean
   }
 
   interface IPlatform {
@@ -72,6 +74,7 @@
     startRoute: IState
     rootUrl?: string //html stranka s aplikaci
     history: Router.IHistory
+    backHandler?: () => boolean
   }
 
 }
