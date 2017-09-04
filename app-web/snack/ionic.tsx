@@ -4,24 +4,26 @@ import { Icon } from '../lib/ionic'
 const App = () => <div>
 
   <table>
-    {allNames.map(idName => {
+    <tbody>
+    {allNames.map((idName, idx) => {
       const id = idName[0]
       const name: Ionic.Names = idName[1] as any
-      return <tr>
-        <td>{id}</td>
-        <td><Icon name={name} active style={{ fontSize: 24, color: 'maroon', paddingLeft: 30 }} /></td>
-        <td><Icon name={name} style={{ fontSize: 24, color: 'maroon', paddingLeft: 30 }} /></td>
-        <td><Icon name={name} OS='android' style={{ fontSize: 24, color: 'maroon', paddingLeft: 30 }} /></td>
+      return <tr key={idx}>
+        <td key={1}>{id}</td>
+        <td key={2}><Icon name={name} active style={{ fontSize: 24, color: 'maroon', paddingLeft: 30 }} /></td>
+        <td key={3}><Icon name={name} style={{ fontSize: 24, color: 'maroon', paddingLeft: 30 }} /></td>
+        <td key={4}><Icon name={name} OS='android' style={{ fontSize: 24, color: 'maroon', paddingLeft: 30 }} /></td>
       </tr>
     })}
+    </tbody>
   </table>
 
   <div>
-    {notNamesIds.map(idName => {
+    {notNamesIds.map((idName, idx) => {
       const id = idName[0]
       const ids: Ionic.Logos = idName[1] as any
-      return <div style={{ width: 250, display: 'inline-block' }}>
-        <Icon logoId={ids} style={{ fontSize: 24, color: 'maroon'}} /><b style={{ paddingLeft: 10 }}>{id}</b>
+      return <div key={idx} style={{ width: 250, display: 'inline-block' }}>
+        <Icon logoId={ids} style={{ fontSize: 24, color: 'maroon'}} /><span style={{ paddingLeft: 10 }}>{id}</span>
       </div>
     })}
   </div>

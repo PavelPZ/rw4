@@ -14,7 +14,7 @@ import invariant from 'invariant'
 
 export const platform = (par: Login.IPlatformPar) => ({
   par,
-  doLogin: (returnUrl: Router.IState) => isLogged() == Login.TLoginStatus.unlogged && provider.show(true, returnUrl),
+  doLogin: (returnUrl: Router.IState) => isLogged() == Login.TLoginStatus.unlogged && provider && provider.show(true, returnUrl),
   doLogout: () => {
     if (isLogged() != Login.TLoginStatus.logged) return
     if (window.lmGlobal.store.getState().login.provider == Login.Consts.facebook) {

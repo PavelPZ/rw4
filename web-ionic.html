@@ -1,0 +1,26 @@
+﻿<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>RE-WISE</title>
+  <script type="text/javascript">
+    document.write('<base href="' + window.location.href.split('web-app')[0] + '" />')
+  </script>
+
+  <script src="jspm_packages/npm/core-js@2.5.0/client/shim.min.js"></script> <!--musi byt kvuli MSIE-->
+  <script src="jspm_packages/npm/whatwg-fetch@2.0.3/fetch.js"></script> <!--musi byt kvuli MSIE-->
+  <script src="jspm_packages/system.src.js"></script>
+  <script src="jspm.config.js"></script>
+
+  <link rel="stylesheet" href="react-md/dist/react-md.blue_grey-deep_purple.min.css" />
+  <link rel="stylesheet" href="app-web/assets/ionic/css/ionicons.css" />
+
+  <script>
+    System.import('web-ionic.js');
+  </script>
+</head>
+<body>
+  <div id="content" />
+</body>
+
+</html>
