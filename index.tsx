@@ -25,11 +25,13 @@ import { Provider as DrawerProvider } from './app-web/lib/web-drawer'
 
 //************ aplikace k testovani
 import { AppRouterComp } from './app-common/snack/app-router'
-import ReactMDApp from './app-web/snack/react-md-test';
-import DrawerApp from './app-web/snack/drawer';
-import LocTestApp from './app-common/snack/loc-test';
-import ValidateTestApp from './app-web/snack/validate-test';
-import RestAPI from './app-common/snack/test-restAPI';
+import ReactMDApp from './app-web/snack/react-md-test'
+import DrawerApp from './app-web/snack/drawer'
+import LocTestApp from './app-common/snack/loc-test'
+import ValidateTestApp from './app-web/snack/validate-test'
+import RestAPI from './app-common/snack/test-restAPI'
+import IonicDesigntime from './app-web/lib/ionic-designtime'
+import IonicTest from './app-web/snack/ionic'
 
 //*********** spusteni
 export const init = async () => {
@@ -90,7 +92,8 @@ export const init = async () => {
   //noRouteApp = <LocTestApp />
   //noRouteApp = <ValidateTestApp />
   //noRouteApp = <RestAPI />
-
+  //noRouteApp = <IonicDesigntime />
+  noRouteApp = <IonicTest />
 
   const appAll =
     <ReduxProvider store={store} >
@@ -131,10 +134,10 @@ export const init = async () => {
     </ReduxProvider>
 
   ReactDOM.render(
-    appAll
+    //appAll
     //appNoRoute
     //appMin
-    //appNo
+    appNo
     //appNoLogin
     , document.getElementById('content'))
 }

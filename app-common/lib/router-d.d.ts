@@ -66,7 +66,7 @@
     location: ILocation
     listen(callback: (location, action: string) => void)
     goBack()
-    canGo(n: number): boolean
+    canGo?: (n: number) => boolean
   }
 
   interface IPlatform {

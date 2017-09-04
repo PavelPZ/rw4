@@ -4,14 +4,13 @@ import invariant from 'invariant'
 import { put, take, race } from 'redux-saga/effects'
 import { delay } from 'redux-saga'
 import { restAPI } from './rest-api'
-import { recordingJSON } from '../../App_Data/recording'
 
 export const init = async () => { //async init
   const rec = window.lmGlobal.platform.recordingPlatform
   const guiSize = (rec && rec.guiSize) || Recording.TGuiSize.no
   initState = { guiSize } 
   if (guiSize == Recording.TGuiSize.no) return null
-  if (window.lmGlobal.isNative) { initState.playLists = recordingJSON; return null }
+  if (rec.recordingJSON) { initState.playLists = rec.recordingJSON; return null }
   initState.playLists = await loadPlayList()
 }
 let initState: Recording.IState = {}

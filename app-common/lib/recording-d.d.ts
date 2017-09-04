@@ -19,6 +19,7 @@
   interface IConfig {
     ignore?: boolean
     guiSize?: TGuiSize
+    recordingJSON?: Recording.IPlayList[]
   }
 
   interface IState {

@@ -36,6 +36,8 @@ export default class ButtonTransparentExample extends Component {
             </Right>
           </Header>
           <Content>
+            <Icon name='home' /><br/>
+            <Icon ios='ios-menu' android="md-menu" style={{ fontSize: 20, color: 'red' }} /><br />
             <Text style={{ padding: 10 }}>
               asd f asd fsa dfsad {' '}
               <H1>

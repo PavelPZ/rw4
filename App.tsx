@@ -18,6 +18,8 @@ import { Provider as LocProvider, reducer as locReducer } from './app-common/lib
 import createHistory from 'history/createMemoryHistory'
 import { Provider as RootProvider, AppNavigator as Navigator, init as initRoot } from './app-native/lib/nav-root-layers'
 import { AppLoading } from 'expo'
+import { recordingJSON } from './App_Data/recording'
+
 
 //************ aplikace k testovani
 
@@ -49,7 +51,10 @@ export const init = async () => {
     isNative: true,
     platform: {
       loginPlatform: null,
-      recordingPlatform: { guiSize: Recording.TGuiSize.icon },
+      recordingPlatform: {
+        guiSize: Recording.TGuiSize.icon,
+        recordingJSON
+      },
       restAPIPlatform: { serviceUrl: 'http://localhost:3434/rest-api.ashx' }, //NEFUNGUJE
       routerPlatform: {
         startRoute: AppRouterComp.getRoute({ title: 'START TITLE | xxx' }),
