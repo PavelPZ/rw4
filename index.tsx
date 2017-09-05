@@ -22,6 +22,7 @@ import { platform as loginPlatform, Provider as LoginProvider } from './app-web/
 import { init as initMediaQuery } from './app-web/lib/web-media'
 import { Provider as RecordingProvider, BlockGuiComp } from './app-web/lib/web-recording'
 import { Provider as DrawerProvider } from './app-web/lib/web-drawer'
+import { renderCSS } from 'web-fela'
 
 //************ aplikace k testovani
 import { AppRouterComp } from './app-common/snack/app-router'
@@ -46,7 +47,10 @@ export const init = async () => {
         startRoute: AppRouterComp.getRoute({ title: 'START TITLE | xxx' }),
         history: createHistory() as Router.IHistory,
         rootUrl: '/web-app.html'
-      }
+      },
+      ionicPlatform: {
+        render: (icon, style) => <i className={renderCSS(style) + ' icon ion-' + icon}></i>
+      },
     }
   }
 

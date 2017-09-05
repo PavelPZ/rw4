@@ -1,5 +1,5 @@
 ﻿import React from 'react'
-import { Icon } from '../lib/ionic'
+import { Icon } from '../../app-common/lib/ionic'
 
 const App = () => <div>
 

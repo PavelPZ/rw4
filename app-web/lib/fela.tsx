@@ -17,15 +17,15 @@ const renderer = createRenderer({
     pluginLvha(),
     //pluginMonolithic({ prettySelectors: true }),
   ]
-});
-render(renderer);
+})
+render(renderer)
 
-export const renderRules = (...rules: DFela.TRule[]) => renderer.renderRule(combineRules(...rules));
-export const renderRule = (rule: DFela.TRule) => renderer.renderRule(rule);
-export const renderCSSs = (...csss: CSSProperties[]) => renderer.renderRule(combineRules(...csss.map(css => () => css)));
-export const renderCSS = (css: CSSProperties) => renderer.renderRule(() => css);
-export const renderKeyFrame = (frame: KeyFrames) => renderer.renderKeyframe(() => frame);
-export const renderStatic = (css: string | CSSProperties) => renderer.renderStatic(css);
+export const renderRules = (...rules: DFela.TRule[]) => renderer.renderRule(combineRules(...rules))
+export const renderRule = (rule: DFela.TRule) => renderer.renderRule(rule)
+export const renderCSSs = (...csss: CSSProperties[]) => renderer.renderRule(combineRules(...csss.map(css => () => css)))
+export const renderCSS = (css: CSSProperties) => css ? renderer.renderRule(() => css) : ''
+export const renderKeyFrame = (frame: KeyFrames) => renderer.renderKeyframe(() => frame)
+export const renderStatic = (css: string | CSSProperties) => renderer.renderStatic(css)
 
 export const styleLib = {
   fixedScreen: {

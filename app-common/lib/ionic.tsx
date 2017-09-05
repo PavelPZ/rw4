@@ -4,19 +4,22 @@ import { Platform } from '../../polyfill/index'
 //https://github.com/ionic-team/ionicons
 export const Icon: React.SFC<Ionic.IIconProps> = p => {
   //https://raw.githubusercontent.com/GeekyAnts/NativeBase/master/src/basic/Icon/index.js
-  const { active, name, logoId, OS, ...props } = p
+  const { active, name, logoId, OS, style, children, ...props } = p
+
+  let icon:string
 
   if (logoId)
-    return <i {...props} className={'icon ion-' + logoId}></i>
+    icon = logoId
   else if (name) {
     const icn = iconsMeta[name]
     if (!icn) throw new Error('!icn')
     const act = active ? 'active' : 'default'
     const actOS = OS ? OS : (Platform.OS == 'web' ? webLikeOS : Platform.OS)
-    const icon = iconsMeta[name][actOS][act]
-    return <i {...props} className={'icon ion-' + icon}></i>
+    icon = iconsMeta[name][actOS][act]
   } else
-    throw new Error(JSON.stringify(props))
+    throw new Error(JSON.stringify(p))
+
+  return window.lmGlobal.platform.ionicPlatform.render(icon, style)
 }
 
 const webLikeOS = 'ios'

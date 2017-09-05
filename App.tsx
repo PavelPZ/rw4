@@ -19,6 +19,7 @@ import createHistory from 'history/createMemoryHistory'
 import { Provider as RootProvider, AppNavigator as Navigator, init as initRoot } from './app-native/lib/nav-root-layers'
 import { AppLoading } from 'expo'
 import { recordingJSON } from './App_Data/recording'
+import Ionicons from  'react-native-vector-icons/Ionicons'
 
 
 //************ aplikace k testovani
@@ -62,7 +63,10 @@ export const init = async () => {
         //computeState: (act, st) => AppNavigator.router.getStateForAction({ ...act, type: 'Navigation/NAVIGATE' }, st),
         computeState: (act, st) => Navigator.router.getStateForAction({ type: 'Navigation/NAVIGATE', routeName: act.params && act.params.query && act.params.query.isModal ? 'Modal' : 'Root', params: act } as NavigationNavigateAction, st),
         rootUrl: '/web-app.html'
-      }
+      },
+      ionicPlatform: {
+        render: (icon, style) => <Ionicons name={icon} style={style}/>
+      },
     }
   }
 

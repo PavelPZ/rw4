@@ -97,9 +97,9 @@
     <TypeScriptCompile Include="app-common\lib\validate-d.d.ts" />
     <TypeScriptCompile Include="app-common\lib\validate.tsx" />
     <TypeScriptCompile Include="app-native\snack\navigation\app-navigation.tsx" />
-    <TypeScriptCompile Include="app-web\lib\ionic-d.d.ts" />
+    <TypeScriptCompile Include="app-common\lib\ionic-d.d.ts" />
     <TypeScriptCompile Include="app-web\lib\ionic-designtime.tsx" />
-    <TypeScriptCompile Include="app-web\lib\ionic.tsx" />
+    <TypeScriptCompile Include="app-common\lib\ionic.tsx" />
     <TypeScriptCompile Include="app-web\lib\web-drawer.tsx" />
     <TypeScriptCompile Include="app-web\snack\ionic.tsx" />
     <TypeScriptCompile Include="app-web\snack\validate-test.tsx" />

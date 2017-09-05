@@ -8,6 +8,9 @@
     OS?: 'ios' | 'android'
   }
 
+  interface IPlatform {
+    render: (icon: string, style: CSSProperties) => React.ReactElement<any>
+  }
 
   export const enum Names {
     closedCaptioning = 'closedCaptioning',
@@ -356,3 +359,8 @@
     logoYoutube = 'logo-youtube',
   }
 }
+
+interface IPlatforms {
+  ionicPlatform?: Ionic.IPlatform
+}
+
