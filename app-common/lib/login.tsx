@@ -24,8 +24,9 @@ export const loginProcessing = (needsLogin: boolean, returnUrl: Router.IState) =
   return false;
 }
 export const isLogged = () => {
-  const { login: { logged } } = window.lmGlobal.store.getState()
-  return logged
+  if (!window.lmGlobal.platform.loginPlatform) return true
+  const login = window.lmGlobal.store.getState().login
+  return login && login.logged
 }
 
 export const reducer: App.IReducer<Login.IState> = (state, action: Login.ILoginAction) => {

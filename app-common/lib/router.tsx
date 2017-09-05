@@ -13,11 +13,19 @@ const routes: { [name: string]: Router.IRouteComponent } = {}
 
 const providerConnector = connect<Router.IRouterProviderProps, {}, {}>((state: IState) => state.router)
 
-const provider: React.SFC<Router.IRouterProviderProps> = props => {
+const provider: React.SFC<Router.IRouterProviderProps> = p => {
+  const props = adjustRouterProps(p);
   return props && props.routeName ? React.createElement(routes[props.routeName] as React.ComponentClass<any>, props.params) : null
 }
 
+export const Provider = providerConnector(provider)
+
 // ***** EXPORTS
+
+export const goBack = () => window.lmGlobal.platform.routerPlatform.history.goBack()
+
+export const canGoBack = () => window.lmGlobal.isNative ? window.lmGlobal.platform.routerPlatform.history.canGo(-1) : true
+
 export const actRoute = () => window.lmGlobal.store.getState().router
 
 //navigace BEZ history.push. S history.push viz Router.TRoute.navigate
@@ -29,26 +37,37 @@ export const navigate = (routeName?: string | Router.IState, params?) => {
   window.lmGlobal.store.dispatch({ type: Router.Consts.NAVIGATE_START, newState })
 }
 
+export const navigateHome = () => historyPushLow(null, null)
+
+
+const adjustRouterProps = <T extends Router.IRoutePar>(props: T) => {
+  if (window.lmGlobal.isNative) {
+    const p = props as any as Router.INativeRoutePar
+    return p.navigation.state.params as T
+  } else
+    return props
+}
+
 export function registerRouter<TPar extends Router.IRoutePar = Router.IRoutePar>(router: React.ComponentType<TPar>, routeName: string, urlMask?: string, extension?: Router.IRoute<TPar>) {
   invariant(!routes[routeName], 'registerRouter: route %0 already exists', routeName);
   const res = Object.assign(router, extension) as Router.IRouteComponent
   res.routeName = routeName
-  res.getRoute = (params: TPar) => ({ routeName, params })
+  res.getRoute = (params: TPar, isModal?: boolean) => {
+    if (isModal) {
+      if (!params) params = {} as TPar
+      if (!params.query) params.query = {}
+      params.query.isModal = true
+    }
+    return { routeName, params }
+  }
   const pattern = new UrlPattern(urlMask)
   res.urlPattern = pattern
   res.navigate = (par: TPar) => historyPushLow(pattern, res.getRoute(par))
+  res.navigateModal = (par: TPar) => historyPushLow(pattern, res.getRoute(par, true))
   res.nativeScreenDef = () => ({ [routeName]: { screen: res } })
   routes[routeName] = res
   return res as Router.IRouteComponent<TPar>
 }
-
-//export const globalReducer: App.IReducer = (state, action: Router.IAction) => {
-//  switch (action.type) {
-//    case Router.Consts.NAVIGATE_END:
-//      if (state.router.params == action.newState.routeName) return state
-//    default: return state
-//  }
-//}
 
 export const middleware: Middleware = (middlAPI: MiddlewareAPI<IState>) => next => a => {
   const action: Router.IAction = a as any
@@ -79,6 +98,7 @@ export const middleware: Middleware = (middlAPI: MiddlewareAPI<IState>) => next 
 
 const computeReactNavigation = (newState: Router.IState, state?: Router.IState) => {
   const computeState = window.lmGlobal.platform.routerPlatform.computeState
+  //console.log('computeReactNavigation: ', newState)
   return computeState ? computeState(newState, state) : newState
 }
 
@@ -87,9 +107,11 @@ export const reducer: App.IReducer<Router.IState> = (state, action: Router.IActi
   if (!state) return computeReactNavigation(window.lmGlobal.platform.routerPlatform.startRoute)
   switch (action.type) {
     case Router.Consts.NAVIGATE_START:
+      //console.log('Router.Consts.NAVIGATE_START')
       if (!window.lmGlobal.isNative) notifyNavigationStart() //notifications for resolving quick BACK x FORWARD
       return state
     case Router.Consts.NAVIGATE_END:
+      //console.log('Router.Consts.NAVIGATE_END')
       if (!window.lmGlobal.isNative) notifyNavigationEnd() //notifications for resolving quick BACK x FORWARD
       return computeReactNavigation(action.newState, state)
     default: return state
@@ -97,17 +119,17 @@ export const reducer: App.IReducer<Router.IState> = (state, action: Router.IActi
 }
 let beforeUnload: () => void
 
-export const Provider = providerConnector(provider)
-
 export const init = () => {
   const { startRoute, rootUrl, history } = window.lmGlobal.platform.routerPlatform
 
   const match = (pattern: UrlPattern, pathname: string, search: string) => {
     const par = pattern.match(pathname) as Router.IRoutePar
+    //console.log('match: ', pathname, '\r\n', JSON.stringify(par, null, 2))
     invariant(!!par, `Wrong route url "${pathname}"`)
     if (!search) return par
     const q = qs.parse(search.substr(1)) as {}
     par.query = q
+    //console.log('match: ', JSON.stringify(par,null,2))
     return par
   }
 
@@ -130,8 +152,7 @@ export const init = () => {
   }
 
   const stringify = (pattern: UrlPattern, state: Router.IState) => {
-    invariant(!!state, 'State required')
-    if (!state) return null
+    if (!state || !pattern) return rootUrl
     const { routeName, params: { query, ...par } } = state
     const res = rootUrl + '/' + routeName + pattern.stringify(par) + (query ? '?' + qs.stringify(query) : '')
     return res
@@ -153,6 +174,7 @@ export const init = () => {
 
   navigate(url2state(history.location))
   const unlisten = history.listen((location, action) => {
+    //console.log(JSON.stringify(location,null,2))
     const navigAction = url2state(history.location)
     if (navigationCount > 0) navigateStartQueue.push(navigAction) //wait for finishing last navigation
     else navigate(navigAction)

@@ -5,17 +5,15 @@ import { put, take, race } from 'redux-saga/effects'
 import { delay } from 'redux-saga'
 import { restAPI } from './rest-api'
 
-export const init = () => { //async init
+export const init = async () => { //async init
   const rec = window.lmGlobal.platform.recordingPlatform
   const guiSize = (rec && rec.guiSize) || Recording.TGuiSize.no
-  initState = { guiSize }    
-  return guiSize == Recording.TGuiSize.no ? null : new Promise<void>(async resolve => {
-    initState.playLists = await loadPlayList() as Recording.IPlayList[]
-    resolve()
-  })
+  initState = { guiSize } 
+  if (guiSize == Recording.TGuiSize.no) return null
+  if (rec.recordingJSON) { initState.playLists = rec.recordingJSON; return null }
+  initState.playLists = await loadPlayList()
 }
-let initState: Recording.IState
-
+let initState: Recording.IState = {}
 
 export const middleware: Middleware = (middlAPI: MiddlewareAPI<IState>) => next => act => { //inspirace v D:\rw\rw\rw-redux\async.ts
 
@@ -51,23 +49,24 @@ export const middleware: Middleware = (middlAPI: MiddlewareAPI<IState>) => next 
 let actAsyncAction: string
 let blockGuiTimer = 0
 
-const record = (state: Recording.IState, dispatch: Dispatch<any>, action: Action) => state.mode == Recording.TModes.recording && dispatch({ type: Recording.Consts.RECORD, action } as Recording.RecordAction)
-const playContinue = (state: Recording.IState, dispatch: Dispatch<any>) => state.mode == Recording.TModes.playing && dispatch({ type: Recording.Consts.PLAY_CONTINUE } as Recording.Action)
+const record = (state: Recording.IState, dispatch: Dispatch<any>, action: Action) => state && state.mode == Recording.TModes.recording && dispatch({ type: Recording.Consts.RECORD, action } as Recording.RecordAction)
+const playContinue = (state: Recording.IState, dispatch: Dispatch<any>) => state && state.mode == Recording.TModes.playing && dispatch({ type: Recording.Consts.PLAY_CONTINUE } as Recording.Action)
 
-const loadPlayList = () => callRestAPI(Recording.RestAPI.Consts.LOAD).then(d => d.data || [])
+const loadPlayList = () => callRestAPI(Recording.RestAPI.Consts.LOAD).then(d => d.data as Recording.IPlayList[] || [])
 const savePlayList = (pl: Recording.IPlayList[]) => callRestAPI(Recording.RestAPI.Consts.SAVE, pl)
 
 const callRestAPI = (action, data = null) => restAPI({ module: Recording.RestAPI.Consts.module, action, par: null, dataType: data ? RestAPI.Types.JSON : RestAPI.Types.NO, data })
 
 let debugPlayList: Recording.IPlayList[] = []
 
-export function* saga() {
+export const saga = function* () {
   while (true) {
     const act: Recording.TActions = yield take([Recording.Consts.RECORD_START, Recording.Consts.PLAY_START])
     switch (act.type) {
       case Recording.Consts.RECORD_START:
         continue
       case Recording.Consts.PLAY_START:
+        //console.log('PLAY_START')
         const playSelected = act.playSelected
         const setPlayInitState = function* (startState: IState) {
           yield delay(Recording.Consts.playActionDelay)
@@ -98,6 +97,7 @@ export function* saga() {
             }
           } else {
             let playList = state.playLists[playSelected[state.listIdx]]
+            //console.log('playList: ', JSON.stringify(playList, null, 2))
             if (state.idx >= playList.actions.length) {
               if (state.listIdx + 1 >= playSelected.length) {
                 yield put({ type: Recording.Consts.PLAY_END } as Recording.Action)
@@ -124,7 +124,9 @@ export const globalReducer: App.IReducer<IState> = (state, action: Recording.Pla
     case Recording.Consts.PLAY_INIT_STATE:
       const { recording } = state
       const newRecording: Recording.IState = { ...recording, mode: Recording.TModes.playing }
-      return { ...action.startState as IState, recording: newRecording }
+      if (window.lmGlobal.isNative) //expand WEB routes to native routes
+        action.startState = { ...action.startState, router: window.lmGlobal.platform.routerPlatform.computeState(action.startState.router, undefined)}
+      return { ...action.startState, recording: newRecording }
     default: return state
   }
 }
@@ -192,7 +194,7 @@ export const providerConnector = connect<Recording.IStateProps, Recording.IDispa
 
 //******************** BLOCK GUI
 
-export function* blockGuiSaga() {
+export const blockGuiSaga = function* () {
   while (true) {
     const act: BlockGui.Action = yield take([BlockGui.Consts.START])
     yield put({ type: BlockGui.Consts.SET_STATE, state: BlockGui.State.show } as BlockGui.SetStateAction)

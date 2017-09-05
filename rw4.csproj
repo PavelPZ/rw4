@@ -16,6 +16,7 @@
     <RootNamespace>rw4</RootNamespace>
     <AssemblyName>rw4</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <TypeScriptToolsVersion>Latest</TypeScriptToolsVersion>
     <UseIISExpress>true</UseIISExpress>
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication />
@@ -25,6 +26,7 @@
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
     <TargetFrameworkProfile />
+    <Use64BitIISExpress />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -71,6 +73,13 @@
   <ItemGroup>
     <Content Include=".gitignore" />
     <TypeScriptCompile Include="app-common\lib\app-d.d.ts" />
+    <TypeScriptCompile Include="app-common\utils\cammel-case.ts" />
+    <TypeScriptCompile Include="app-native\lib\animated.d.ts" />
+    <TypeScriptCompile Include="app-native\lib\native-base.d.ts" />
+    <TypeScriptCompile Include="app-native\lib\nav-root-layers.tsx" />
+    <TypeScriptCompile Include="app-native\lib\template.tsx" />
+    <TypeScriptCompile Include="app-native\snack\assets.tsx" />
+    <TypeScriptCompile Include="app-native\snack\native-base\index.tsx" />
     <TypeScriptCompile Include="app-native\snack\navigation\app-navigation-d.d.ts" />
     <TypeScriptCompile Include="app-common\lib\drawer-d.d.ts" />
     <TypeScriptCompile Include="app-common\lib\drawer.tsx" />
@@ -88,7 +97,11 @@
     <TypeScriptCompile Include="app-common\lib\validate-d.d.ts" />
     <TypeScriptCompile Include="app-common\lib\validate.tsx" />
     <TypeScriptCompile Include="app-native\snack\navigation\app-navigation.tsx" />
+    <TypeScriptCompile Include="app-web\lib\ionic-d.d.ts" />
+    <TypeScriptCompile Include="app-web\lib\ionic-designtime.tsx" />
+    <TypeScriptCompile Include="app-web\lib\ionic.tsx" />
     <TypeScriptCompile Include="app-web\lib\web-drawer.tsx" />
+    <TypeScriptCompile Include="app-web\snack\ionic.tsx" />
     <TypeScriptCompile Include="app-web\snack\validate-test.tsx" />
     <TypeScriptCompile Include="app-web\lib\web-validate.tsx" />
     <TypeScriptCompile Include="app-web\lib\web-recording.tsx" />
@@ -104,6 +117,7 @@
     <TypeScriptCompile Include="app-web\lib\web-login.tsx" />
     <TypeScriptCompile Include="app-common\snack\app-router-d.d.ts" />
     <TypeScriptCompile Include="app-common\snack\app-router.tsx" />
+    <TypeScriptCompile Include="web-ionic.tsx" />
     <TypeScriptCompile Include="polyfill\index.tsx" />
     <None Include="app-common\lib\react-navigator-lib.tsx_" />
     <TypeScriptCompile Include="app-common\lib\typings.d.ts" />
@@ -115,7 +129,6 @@
     <TypeScriptCompile Include="app-native\snack\redux-simple.tsx" />
     <TypeScriptCompile Include="app-native\snack\navigation\redux\index.tsx" />
     <TypeScriptCompile Include="app-web\lib\react-md.ts" />
-    <TypeScriptCompile Include="trash\react-navigation\index.ts" />
     <TypeScriptCompile Include="app-web\snack\drawer.tsx" />
     <TypeScriptCompile Include="app-web\lib\typings.d.ts" />
     <TypeScriptCompile Include="app-web\lib\fela-d.d.ts" />
@@ -129,10 +142,7 @@
     <TypeScriptCompile Include="app-web\lib\react-native\components\touchable-opacity.tsx" />
     <TypeScriptCompile Include="app-web\lib\react-native\components\view.tsx" />
     <TypeScriptCompile Include="app-web\lib\react-native\index.ts" />
-    <TypeScriptCompile Include="trash\react-navigation\scene-view.tsx" />
-    <TypeScriptCompile Include="trash\react-navigation\tab-navigator.tsx" />
     <None Include="app-common\snack\react-navigation.tsx_" />
-    <TypeScriptCompile Include="trash\react-navigation\stack-navigator.tsx" />
     <TypeScriptCompile Include="app-web\snack\react-md-test.tsx" />
     <TypeScriptCompile Include="App.tsx" />
     <TypeScriptCompile Include="app-native\snack\navigation\playground\App.tsx" />
@@ -154,12 +164,19 @@
     <TypeScriptCompile Include="app-native\snack\navigation\redux\src\components\ProfileScreen.tsx" />
     <TypeScriptCompile Include="app-native\snack\navigation\redux\src\navigators\AppNavigator.tsx" />
     <TypeScriptCompile Include="app-native\snack\navigation\redux\src\reducers\index.tsx" />
+    <Content Include="app-web\assets\ionic\css\ionicons-core.css" />
+    <Content Include="app-web\assets\ionic\css\ionicons-core.min.css" />
+    <Content Include="app-web\assets\ionic\css\ionicons.min.css" />
+    <Content Include="app-web\assets\ionic\css\ionicons.css" />
+    <Content Include="app-web\assets\ionic\fonts\ionicons.svg" />
     <Content Include="app-web\lib\react-native\Components.html" />
     <Content Include="app-web\snack\best-npm-components.html" />
     <Content Include="app-web\snack\login-msie-fb.html" />
     <Content Include="app-web\snack\login-msie.html" />
     <Content Include="app-web\snack\login.html" />
     <Content Include="app-web\snack\react-md-pure.html" />
+    <Content Include="TextFile1.txt" />
+    <Content Include="web-ionic.html" />
     <Content Include="web-app.html" />
     <Content Include="install.txt" />
     <Content Include="installNPM.txt" />
@@ -170,6 +187,12 @@
     <Content Include="package.json" />
     <Content Include="rest-api.ashx" />
     <Content Include="tsconfig.json" />
+    <Content Include="App_Data\recording.json" />
+    <TypeScriptCompile Include="App_Data\recording.ts" />
+    <Content Include="app-web\assets\ionic\fonts\ionicons.eot" />
+    <Content Include="app-web\assets\ionic\fonts\ionicons.ttf" />
+    <Content Include="app-web\assets\ionic\fonts\ionicons.woff" />
+    <Content Include="app-web\assets\ionic\fonts\ionicons.woff2" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -193,10 +216,7 @@
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="App_Data\" />
-    <Folder Include="typings\" />
-  </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

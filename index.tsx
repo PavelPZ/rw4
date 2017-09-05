@@ -8,13 +8,12 @@ import { all, call } from 'redux-saga/effects'
 
 
 //********** COMMON
-import { Provider as LocProvider, } from './app-common/lib/loc'
+import { Provider as LocProvider, reducer as locReducer } from './app-common/lib/loc'
 import { Provider as RouterProvider, init as initRouter, reducer as routerReducer, middleware as routerMiddleware } from './app-common/lib/router'
 import { promiseAll } from './app-common/lib/lib'
 import { init as initRecording, reducer as recordingReducer, saga as recordingSaga, middleware as recordingMiddleware, globalReducer as recordingGlobalReducer, blockGuiReducer, blockGuiSaga } from './app-common/lib/recording'
 import { reducer as loginReducer } from './app-common/lib/login'
 import { reducer as mediaQueryReducer } from './app-common/lib/media-query'
-import { reducer as locReducer } from './app-common/lib/loc'
 import { reducer as drawerReducer } from './app-common/lib/drawer'
 
 //********** WEB specific
@@ -26,11 +25,13 @@ import { Provider as DrawerProvider } from './app-web/lib/web-drawer'
 
 //************ aplikace k testovani
 import { AppRouterComp } from './app-common/snack/app-router'
-import ReactMDApp from './app-web/snack/react-md-test';
-import DrawerApp from './app-web/snack/drawer';
-import LocTestApp from './app-common/snack/loc-test';
-import ValidateTestApp from './app-web/snack/validate-test';
-import RestAPI from './app-common/snack/test-restAPI';
+import ReactMDApp from './app-web/snack/react-md-test'
+import DrawerApp from './app-web/snack/drawer'
+import LocTestApp from './app-common/snack/loc-test'
+import ValidateTestApp from './app-web/snack/validate-test'
+import RestAPI from './app-common/snack/test-restAPI'
+import IonicDesigntime from './app-web/lib/ionic-designtime'
+import IonicTest from './app-web/snack/ionic'
 
 //*********** spusteni
 export const init = async () => {
@@ -71,7 +72,7 @@ export const init = async () => {
 
   const store = window.lmGlobal.store = createStore<IState>(reducers, {}, applyMiddleware(sagaMiddleware, routerMiddleware, recordingMiddleware))
 
-  function* rootSaga() {
+  const rootSaga = function* () {
     const rootRes = yield all({
       recordingSaga: call(recordingSaga),
       blockGuiSaga: call(blockGuiSaga),
@@ -91,7 +92,8 @@ export const init = async () => {
   //noRouteApp = <LocTestApp />
   //noRouteApp = <ValidateTestApp />
   //noRouteApp = <RestAPI />
-
+  //noRouteApp = <IonicDesigntime />
+  noRouteApp = <IonicTest />
 
   const appAll =
     <ReduxProvider store={store} >
@@ -132,10 +134,10 @@ export const init = async () => {
     </ReduxProvider>
 
   ReactDOM.render(
-    appAll
+    //appAll
     //appNoRoute
     //appMin
-    //appNo
+    appNo
     //appNoLogin
     , document.getElementById('content'))
 }

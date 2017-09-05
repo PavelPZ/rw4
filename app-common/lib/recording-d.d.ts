@@ -17,7 +17,9 @@
   const enum TModes { no, recording, playing }
 
   interface IConfig {
+    ignore?: boolean
     guiSize?: TGuiSize
+    recordingJSON?: Recording.IPlayList[]
   }
 
   interface IState {
@@ -52,7 +54,7 @@
 
   interface PlayInitStateAction { //extends playSelected {
     type: Consts.PLAY_INIT_STATE
-    startState
+    startState: App.IGlobalState
   }
 
   interface RecordSaveAction {

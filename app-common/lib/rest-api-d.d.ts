@@ -19,7 +19,7 @@
   }
 
   interface IConfig {
-    serviceUrl:string
+    serviceUrl: string
   }
 
 }

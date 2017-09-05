@@ -12,24 +12,15 @@
   <script src="jspm_packages/system.src.js"></script>
   <script src="jspm.config.js"></script>
 
-
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link rel="stylesheet" href="react-md/dist/react-md.blue_grey-deep_purple.min.css" />
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
-  <link rel="stylesheet" href="app-web/assets/ionic/css/ionicons.css"/>
+  <link rel="stylesheet" href="app-web/assets/ionic/css/ionicons.css" />
 
   <script>
-    window['__DEV__'] = true;
-    System.import('index.js').then(function (m) { m.init(); }).catch(function (err) { debugger; });
+    System.import('web-ionic.js');
   </script>
 </head>
 <body>
-  <div id="content">
-    <div style="display:flex; flex:1; justify-content:center; ">
-      <h2>Loading...</h2>
-    </div>
-  </div>
-  
+  <div id="content" />
 </body>
 
 </html>

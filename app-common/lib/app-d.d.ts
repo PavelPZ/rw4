@@ -27,6 +27,8 @@ declare namespace App {
     displayName?: string
   }
 
+  type IGlobalState = IState
+
 }
 
 interface Window {

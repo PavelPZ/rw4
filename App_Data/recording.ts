@@ -1,4 +1,4 @@
-[
+export const recordingJSON: any = [
   {
     "name": "1503683817417",
     "actions": [

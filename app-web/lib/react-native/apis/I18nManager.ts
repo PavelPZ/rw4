@@ -15,12 +15,12 @@ class II18nManager implements I18nMan {
   isRTLAllowed = true;
   isRTLForced = false;
 
-  allowRTL = (value: boolean) => {
+  allowRTL (value: boolean) {
     this.isRTLAllowed = value;
     this.onChange();
   }
 
-  forceRTL = (value: boolean) => {
+  forceRTL (value: boolean) {
     this.isRTLForced = value;
     this.onChange();
   }
@@ -30,7 +30,7 @@ class II18nManager implements I18nMan {
     this.onChange();
   }
 
-  get isRTL () {
+  isRTL ():boolean {
     if (this.isRTLForced) return true;
     return this.isRTLAllowed && this.isPreferredLanguageRTL;
   }
