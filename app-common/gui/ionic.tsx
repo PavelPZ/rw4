@@ -2,27 +2,29 @@
 import { Platform } from '../../polyfill/index'
 
 //https://github.com/ionic-team/ionicons
-export const Icon: React.SFC<Ionic.IIconProps> = p => {
-  //https://raw.githubusercontent.com/GeekyAnts/NativeBase/master/src/basic/Icon/index.js
-  const { active, name, logoId, OS, style, children, ...props } = p
+//https://raw.githubusercontent.com/GeekyAnts/NativeBase/master/src/basic/Icon/index.js
 
-  let icon:string
-
-  if (logoId)
-    icon = logoId
-  else if (name) {
+export const getIcon = (name: string, logoId: string, OS: string, active: boolean) => {
+  if (logoId) return logoId
+  if (name) {
     const icn = iconsMeta[name]
     if (!icn) throw new Error('!icn')
     const act = active ? 'active' : 'default'
     const actOS = OS ? OS : (Platform.OS == 'web' ? webLikeOS : Platform.OS)
-    icon = iconsMeta[name][actOS][act]
-  } else
-    throw new Error(JSON.stringify(p))
-
-  return window.lmGlobal.platform.ionicPlatform.render(icon, style)
+    return iconsMeta[name][actOS][act]
+  }
 }
 
-const webLikeOS = 'ios'
+//export const Icon: React.SFC<GUI.IIconProps> = p => {
+//  const { active, name, logoId, OS, style, children, ...props } = p
+
+//  const icon = getIcon(name, logoId, OS, active)
+//  if (!icon) throw new Error(JSON.stringify(p))
+
+//  return window.lmGlobal.platform.ionicPlatform.render(icon, style)
+//}
+
+const webLikeOS = 'android'
 
 //https://github.com/GeekyAnts/NativeBase/blob/master/src/basic/Icon/NBIcons.json
 export const iconsMeta = {

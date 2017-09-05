@@ -1,6 +1,6 @@
 ﻿import React from 'react'
 import camelCase from 'lodash/camelCase';
-import { iconsMeta } from '../../app-common/lib/ionic'
+import { iconsMeta } from '../../app-common/gui/ionic'
 
 const App: React.SFC<any> = props => {
   const arr = []

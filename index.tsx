@@ -19,10 +19,12 @@ import { reducer as drawerReducer } from './app-common/lib/drawer'
 //********** WEB specific
 import createHistory from 'history/createBrowserHistory'
 import { platform as loginPlatform, Provider as LoginProvider } from './app-web/lib/web-login'
-import { init as initMediaQuery } from './app-web/lib/web-media'
+import { init as initMediaQuery } from './app-web/lib/web-media-query'
 import { Provider as RecordingProvider, BlockGuiComp } from './app-web/lib/web-recording'
 import { Provider as DrawerProvider } from './app-web/lib/web-drawer'
-import { renderCSS } from 'web-fela'
+import { Button } from './app-web/gui/button'
+import { Icon } from './app-web/gui/icon'
+import { H1, H2 } from './app-web/gui/lib'
 
 //************ aplikace k testovani
 import { AppRouterComp } from './app-common/snack/app-router'
@@ -31,12 +33,12 @@ import DrawerApp from './app-web/snack/drawer'
 import LocTestApp from './app-common/snack/loc-test'
 import ValidateTestApp from './app-web/snack/validate-test'
 import RestAPI from './app-common/snack/test-restAPI'
-import IonicDesigntime from './app-web/lib/ionic-designtime'
-import IonicTest from './app-web/snack/ionic'
+import IonicDesigntime from './app-web/design/ionic-designtime'
+import IonicTest from './app-common/snack/gui/icon'
+import ButtonTest from './app-common/snack/gui/button'
 
 //*********** spusteni
 export const init = async () => {
-
   window.lmGlobal = {
     isNative: false,
     platform: {
@@ -48,16 +50,18 @@ export const init = async () => {
         history: createHistory() as Router.IHistory,
         rootUrl: '/web-app.html'
       },
-      ionicPlatform: {
-        render: (icon, style) => <i className={renderCSS(style) + ' icon ion-' + icon}></i>
-      },
+      guiPlatform: {
+        Button: Button,
+        Icon: Icon,
+        H1: H1,
+        H2: H2,
+      }
     }
   }
 
   await promiseAll([
     initRecording()
   ])
-
 
   const reducers: App.IReducer = (st, action: any) => {
     const state = recordingGlobalReducer(st, action)
@@ -86,7 +90,7 @@ export const init = async () => {
 
   await promiseAll([
     initRouter(),
-    initMediaQuery()
+    initMediaQuery(),
   ])
 
   let noRouteApp: JSX.Element = null
@@ -97,7 +101,8 @@ export const init = async () => {
   //noRouteApp = <ValidateTestApp />
   //noRouteApp = <RestAPI />
   //noRouteApp = <IonicDesigntime />
-  noRouteApp = <IonicTest />
+  //noRouteApp = <IonicTest />
+  noRouteApp = <ButtonTest />
 
   const appAll =
     <ReduxProvider store={store} >

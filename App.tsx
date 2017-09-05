@@ -19,7 +19,7 @@ import createHistory from 'history/createMemoryHistory'
 import { Provider as RootProvider, AppNavigator as Navigator, init as initRoot } from './app-native/lib/nav-root-layers'
 import { AppLoading } from 'expo'
 import { recordingJSON } from './App_Data/recording'
-import Ionicons from  'react-native-vector-icons/Ionicons'
+import Ionicons from 'react-native-vector-icons/Ionicons'
 
 
 //************ aplikace k testovani

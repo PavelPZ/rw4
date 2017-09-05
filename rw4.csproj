@@ -72,7 +72,11 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include=".gitignore" />
+    <TypeScriptCompile Include="app-common\gui\colors.ts" />
+    <TypeScriptCompile Include="app-common\gui\gui-d.d.ts" />
+    <TypeScriptCompile Include="app-common\gui\gui.tsx" />
     <TypeScriptCompile Include="app-common\lib\app-d.d.ts" />
+    <TypeScriptCompile Include="app-common\snack\gui\button.tsx" />
     <TypeScriptCompile Include="app-common\utils\cammel-case.ts" />
     <TypeScriptCompile Include="app-native\lib\animated.d.ts" />
     <TypeScriptCompile Include="app-native\lib\native-base.d.ts" />
@@ -97,18 +101,21 @@
     <TypeScriptCompile Include="app-common\lib\validate-d.d.ts" />
     <TypeScriptCompile Include="app-common\lib\validate.tsx" />
     <TypeScriptCompile Include="app-native\snack\navigation\app-navigation.tsx" />
-    <TypeScriptCompile Include="app-common\lib\ionic-d.d.ts" />
-    <TypeScriptCompile Include="app-web\lib\ionic-designtime.tsx" />
-    <TypeScriptCompile Include="app-common\lib\ionic.tsx" />
+    <TypeScriptCompile Include="app-common\gui\ionic-d.d.ts" />
+    <TypeScriptCompile Include="app-web\design\ionic-designtime.tsx" />
+    <TypeScriptCompile Include="app-common\gui\ionic.tsx" />
+    <TypeScriptCompile Include="app-web\gui\icon.tsx" />
+    <TypeScriptCompile Include="app-web\gui\button.tsx" />
+    <TypeScriptCompile Include="app-web\gui\lib.tsx" />
     <TypeScriptCompile Include="app-web\lib\web-drawer.tsx" />
-    <TypeScriptCompile Include="app-web\snack\ionic.tsx" />
+    <TypeScriptCompile Include="app-common\snack\gui\icon.tsx" />
     <TypeScriptCompile Include="app-web\snack\validate-test.tsx" />
     <TypeScriptCompile Include="app-web\lib\web-validate.tsx" />
     <TypeScriptCompile Include="app-web\lib\web-recording.tsx" />
     <TypeScriptCompile Include="app-common\lib\recording-d.d.ts" />
     <TypeScriptCompile Include="app-common\lib\recording.tsx" />
     <TypeScriptCompile Include="app-common\snack\loc-test.tsx" />
-    <TypeScriptCompile Include="app-web\lib\web-media.ts" />
+    <TypeScriptCompile Include="app-web\lib\web-media-query.ts" />
     <TypeScriptCompile Include="app-common\lib\router-d.d.ts" />
     <TypeScriptCompile Include="app-common\lib\router.tsx" />
     <TypeScriptCompile Include="app-native\snack\icons.tsx" />
@@ -119,7 +126,6 @@
     <TypeScriptCompile Include="app-common\snack\app-router.tsx" />
     <TypeScriptCompile Include="web-ionic.tsx" />
     <TypeScriptCompile Include="polyfill\index.tsx" />
-    <None Include="app-common\lib\react-navigator-lib.tsx_" />
     <TypeScriptCompile Include="app-common\lib\typings.d.ts" />
     <TypeScriptCompile Include="app-native\snack\navigation\navigation-redux.tsx" />
     <TypeScriptCompile Include="app-native\snack\navigation\tab-detailed.tsx" />

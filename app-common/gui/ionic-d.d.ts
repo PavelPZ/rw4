@@ -1,18 +1,14 @@
-﻿declare namespace Ionic {
+﻿declare namespace GUI {
 
   interface IIconProps {
-    name?: Names
-    logoId?: Logos
+    name?: IonicNames
+    logoId?: IonicLogos
     active?: boolean
     style?: CSSProperties
     OS?: 'ios' | 'android'
   }
 
-  interface IPlatform {
-    render: (icon: string, style: CSSProperties) => React.ReactElement<any>
-  }
-
-  export const enum Names {
+  export const enum IonicNames {
     closedCaptioning = 'closedCaptioning',
     refreshCircle = 'refreshCircle',
     shareAlt = 'shareAlt',
@@ -308,7 +304,7 @@
     woman = 'woman',
   }
 
-  export const enum Logos {
+  export const enum IonicLogos {
     logoAndroid = 'logo-android',
     logoAngular = 'logo-angular',
     logoApple = 'logo-apple',
@@ -359,8 +355,3 @@
     logoYoutube = 'logo-youtube',
   }
 }
-
-interface IPlatforms {
-  ionicPlatform?: Ionic.IPlatform
-}
-
