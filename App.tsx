@@ -19,13 +19,14 @@ import createHistory from 'history/createMemoryHistory'
 import { Provider as RootProvider, AppNavigator as Navigator, init as initRoot } from './app-native/lib/nav-root-layers'
 import { AppLoading } from 'expo'
 import { recordingJSON } from './App_Data/recording'
-import Ionicons from 'react-native-vector-icons/Ionicons'
+import { Icon } from './app-native/gui/icon'
+
 
 
 //************ aplikace k testovani
 
 import { AppRouterComp } from './app-common/snack/app-router'
-class AppComp extends React.Component { render() { return <Text>Hallo world</Text> } }
+//class AppComp extends React.Component { render() { return <Text>Hallo world</Text> } }
 //import AppComp from './app-native/snack/native-base/index'
 //import AppComp from './app-native/snack/redux-simple';
 //import AppComp from './app-native/snack/navigation';
@@ -37,7 +38,7 @@ class AppComp extends React.Component { render() { return <Text>Hallo world</Tex
 //import AppComp from './app-native/snack/navigation/stack-detailed';
 //import { AppRouterComp } from './app-native/snack/navigation/app-navigation';
 //import AppComp from './app-common/snack/react-navigation';  
-//import AppComp from './app-native/snack/icons';
+import AppComp from './app-common/snack/gui/icon';
 
 export const init = async () => {
   window.lmGlobal = {
@@ -55,8 +56,16 @@ export const init = async () => {
         computeState: (act, st) => Navigator.router.getStateForAction({ type: 'Navigation/NAVIGATE', routeName: act.params && act.params.query && act.params.query.isModal ? 'Modal' : 'Root', params: act } as NavigationNavigateAction, st),
         rootUrl: '/web-app.html'
       },
+      guiPlatform: {
+          Icon: Icon,
+          Button: null,
+          H1: null,
+          H2: null,
+      },
     }
   }
+
+  return new Promise<JSX.Element>(resolve => resolve(<AppComp />))
 
   const reducers: App.IReducer = (st, action: any) => {
     const state = recordingGlobalReducer(st, action)

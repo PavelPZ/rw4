@@ -1,33 +1,44 @@
 ﻿import React from 'react'
 import { Icon } from '../../gui/gui'
 
-const App = () => <div>
+const App = () => {
 
-  <table>
-    <tbody>
-    {allNames.map((idName, idx) => {
-      const id = idName[0]
-      const name: GUI.IonicNames = idName[1] as any
-      return <tr key={idx}>
-        <td key={1}>{id}</td>
-        <td key={2}><Icon name={name} active style={{ color: 'maroon', paddingLeft: 30 }} /></td>
-        <td key={3}><Icon name={name} style={{ color: 'maroon', paddingLeft: 30 }} /></td>
-        <td key={4}><Icon name={name} OS='android' style={{ color: 'maroon', paddingLeft: 30 }} /></td>
-      </tr>
-    })}
-    </tbody>
-  </table>
+  console.log('*** APP')
 
-  <div>
-    {notNamesIds.map((idName, idx) => {
-      const id = idName[0]
-      const ids: GUI.IonicLogos = idName[1] as any
-      return <div key={idx} style={{ width: 250, display: 'inline-block' }}>
-        <Icon logoId={ids} style={{ color: 'maroon'}} /><span style={{ paddingLeft: 10 }}>{id}</span>
+  try {
+    return <Icon name={GUI.IonicNames.apps} active style={{ color: 'maroon', paddingLeft: 30, marginTop: 30 }} />
+    {/*
+      <div>
+      <table>
+        <tbody>
+          {allNames.map((idName, idx) => {
+            const id = idName[0]
+            const name: GUI.IonicNames = idName[1] as any
+            return <tr key={idx}>
+              <td key={1}>{id}</td>
+              <td key={2}><Icon name={name} active style={{ color: 'maroon', paddingLeft: 30 }} /></td>
+              <td key={3}><Icon name={name} style={{ color: 'maroon', paddingLeft: 30 }} /></td>
+              <td key={4}><Icon name={name} OS='android' style={{ color: 'maroon', paddingLeft: 30 }} /></td>
+            </tr>
+          })}
+        </tbody>
+      </table>
+
+      <div>
+        {notNamesIds.map((idName, idx) => {
+          const id = idName[0]
+          const ids: GUI.IonicLogos = idName[1] as any
+          return <div key={idx} style={{ width: 250, display: 'inline-block' }}>
+            <Icon logoId={ids} style={{ color: 'maroon' }} /><span style={{ paddingLeft: 10 }}>{id}</span>
+          </div>
+        })}
       </div>
-    })}
-  </div>
-</div>
+    </div>*/}
+  } catch (msg) {
+    console.log('*** ERROR: ', msg)
+    return null
+  }
+}
 
 export default App
 
