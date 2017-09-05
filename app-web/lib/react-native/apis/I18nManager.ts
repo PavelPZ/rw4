@@ -15,7 +15,7 @@ class II18nManager implements I18nMan {
   isRTLAllowed = true;
   isRTLForced = false;
 
-  allowRTL(value: boolean) {
+  allowRTL (value: boolean) {
     this.isRTLAllowed = value;
     this.onChange();
   }

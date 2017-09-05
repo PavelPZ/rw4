@@ -44,3 +44,4 @@ interface IContext {
 }
 
 declare const __moduleName: string
+type CSSProperties = DStyles.CSSProperties & DStyles.NestedCSSSelectors // & DFela.IExtend & { className?: string; dir?: string; }

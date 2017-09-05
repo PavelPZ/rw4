@@ -25,8 +25,8 @@ import Ionicons from 'react-native-vector-icons/Ionicons'
 //************ aplikace k testovani
 
 import { AppRouterComp } from './app-common/snack/app-router'
-//class AppComp extends React.Component { render() { return <Text>Hallo world</Text> } }
-import AppComp from './app-native/snack/native-base/index'
+class AppComp extends React.Component { render() { return <Text>Hallo world</Text> } }
+//import AppComp from './app-native/snack/native-base/index'
 //import AppComp from './app-native/snack/redux-simple';
 //import AppComp from './app-native/snack/navigation';
 //import AppComp from './app-native/snack/navigation/navigation-redux';
@@ -38,14 +38,6 @@ import AppComp from './app-native/snack/native-base/index'
 //import { AppRouterComp } from './app-native/snack/navigation/app-navigation';
 //import AppComp from './app-common/snack/react-navigation';  
 //import AppComp from './app-native/snack/icons';
-
-//const AppNavigator = DrawerNavigator({
-//  ...AppRouterComp.nativeScreenDef()
-//})
-
-//const routerProvider: React.SFC<{ navProp, dispatch }> = ({ navProp, dispatch }) => <AppNavigator navigation={addNavigationHelpers({ dispatch: dispatch, state: navProp })} />
-
-//const RouterProvider = connect(state => ({ navProp: state.router }))(routerProvider);
 
 export const init = async () => {
   window.lmGlobal = {
@@ -60,22 +52,11 @@ export const init = async () => {
       routerPlatform: {
         startRoute: AppRouterComp.getRoute({ title: 'START TITLE | xxx' }),
         history: createHistory() as Router.IHistory,
-        //computeState: (act, st) => AppNavigator.router.getStateForAction({ ...act, type: 'Navigation/NAVIGATE' }, st),
         computeState: (act, st) => Navigator.router.getStateForAction({ type: 'Navigation/NAVIGATE', routeName: act.params && act.params.query && act.params.query.isModal ? 'Modal' : 'Root', params: act } as NavigationNavigateAction, st),
         rootUrl: '/web-app.html'
       },
-      ionicPlatform: {
-        render: (icon, style) => <Ionicons name={icon} style={style}/>
-      },
     }
   }
-
-  //const rootRouteName = () => {
-  //  rootRouteNameFlag = !rootRouteNameFlag
-  //  console.log(rootRouteNameFlag)
-  //  return rootRouteNameFlag ? 'Root' : 'Root2'
-  //}
-  //let rootRouteNameFlag = false
 
   const reducers: App.IReducer = (st, action: any) => {
     const state = recordingGlobalReducer(st, action)

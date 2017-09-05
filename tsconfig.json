@@ -2,20 +2,20 @@
   "compileOnSave": true,
   "compilerOptions": {
     //**** WEB
-    "target": "es5",
-    "module": "system",
-    "inlineSourceMap": true,
-    "inlineSources": true,
-    "importHelpers": true,
-    "baseUrl": ".",
-    "paths": {
-      "react-md/*": [ "react-md/*" ],
-      "web-fela": [ "app-web/lib/fela" ],
-      "web-react-native": [ "app-web/lib/react-native/index" ]
-    },
+    //"target": "es5",
+    //"module": "system",
+    //"inlineSourceMap": true,
+    //"inlineSources": true,
+    //"importHelpers": true,
+    //"baseUrl": ".",
+    //"paths": {
+    //  "react-md/*": [ "react-md/*" ],
+    //  "web-fela": [ "app-web/lib/fela" ],
+    //  "web-react-native": [ "app-web/lib/react-native/index" ]
+    //},
 
     //**** REACT NATIVE
-    //"target": "es6",
+    "target": "es6",
 
     //**** COMMON
 
@@ -37,15 +37,15 @@
   },
   "exclude": [
     //*** web
-    //"index.tsx",
-    //"index-init.tsx",
-    //"app-web/",
-    //"polyfill/web.tsx",
+    "index.tsx",
+    "index-init.tsx",
+    "app-web/",
+    "polyfill/web.tsx",
 
     //*** native
-    "app-native",
-    "App.tsx",
-    "polyfill/index.tsx",
+    //"app-native",
+    //"App.tsx",
+    //"polyfill/index.tsx",
 
     "jspm_packages/",
     "node_modules/",
