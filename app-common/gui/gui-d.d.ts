@@ -3,8 +3,8 @@
   interface IPlatform {
     Button: React.SFC<GUI.IButtonProps>
     Icon: React.SFC<IIconProps>
-    H1: React.SFC<{}>
-    H2: React.SFC<{}>
+    H1: React.ComponentType<NativeBase.H1>
+    H2: React.ComponentType<NativeBase.H2> 
   }
 
   const enum Colors {

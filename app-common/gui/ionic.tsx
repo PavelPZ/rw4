@@ -15,15 +15,6 @@ export const getIcon = (name: string, logoId: string, OS: string, active: boolea
   }
 }
 
-//export const Icon: React.SFC<GUI.IIconProps> = p => {
-//  const { active, name, logoId, OS, style, children, ...props } = p
-
-//  const icon = getIcon(name, logoId, OS, active)
-//  if (!icon) throw new Error(JSON.stringify(p))
-
-//  return window.lmGlobal.platform.ionicPlatform.render(icon, style)
-//}
-
 const webLikeOS = 'android'
 
 //https://github.com/GeekyAnts/NativeBase/blob/master/src/basic/Icon/NBIcons.json

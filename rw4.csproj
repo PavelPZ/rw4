@@ -75,6 +75,7 @@
     <TypeScriptCompile Include="app-common\gui\colors.ts" />
     <TypeScriptCompile Include="app-common\gui\gui-d.d.ts" />
     <TypeScriptCompile Include="app-common\gui\gui.tsx" />
+    <TypeScriptCompile Include="app-common\gui\native-d.d.ts" />
     <TypeScriptCompile Include="app-common\lib\app-d.d.ts" />
     <TypeScriptCompile Include="app-common\snack\gui\button.tsx" />
     <TypeScriptCompile Include="app-common\utils\cammel-case.ts" />
@@ -110,6 +111,7 @@
     <TypeScriptCompile Include="app-web\gui\lib.tsx" />
     <TypeScriptCompile Include="app-web\lib\web-drawer.tsx" />
     <TypeScriptCompile Include="app-common\snack\gui\icon.tsx" />
+    <TypeScriptCompile Include="app-web\snack\icon.tsx" />
     <TypeScriptCompile Include="app-web\snack\validate-test.tsx" />
     <TypeScriptCompile Include="app-web\lib\web-validate.tsx" />
     <TypeScriptCompile Include="app-web\lib\web-recording.tsx" />

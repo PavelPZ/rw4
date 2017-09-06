@@ -20,6 +20,7 @@ import { Provider as RootProvider, AppNavigator as Navigator, init as initRoot }
 import { AppLoading } from 'expo'
 import { recordingJSON } from './App_Data/recording'
 import { Icon } from './app-native/gui/icon'
+import { H1, H2 } from 'native-base'
 
 
 
@@ -57,15 +58,16 @@ export const init = async () => {
         rootUrl: '/web-app.html'
       },
       guiPlatform: {
-          Icon: Icon,
-          Button: null,
-          H1: null,
-          H2: null,
+        Icon: Icon,
+        Button: null,
+        H1: H1,
+        H2: H2,
       },
     }
   }
 
   return new Promise<JSX.Element>(resolve => resolve(<AppComp />))
+  /*
 
   const reducers: App.IReducer = (st, action: any) => {
     const state = recordingGlobalReducer(st, action)
@@ -106,9 +108,10 @@ export const init = async () => {
   </ReduxProvider>
 
   return new Promise<JSX.Element>(resolve => resolve(appAll))
+  */
 }
 
-const Root: React.SFC = () => <WaitForRendering finalContent={init()} waitContent={<AppLoading/>} />
+const Root: React.SFC = () => <WaitForRendering finalContent={init()} waitContent={<AppLoading />} />
 
 export default Root;
 //export default AppComp;
