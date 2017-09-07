@@ -1,9 +1,9 @@
 ﻿import React from 'react'
 import { Text, Button as NBButton, Fab as NBFab, Icon } from 'native-base'
-import { View, Platform, Dimensions, PixelRatio } from 'react-native'
+import { View, Platform, Dimensions, PixelRatio, ViewStyle } from 'react-native'
 
 import { getIcon } from '../../app-common/gui/ionic'
-import { getColor, getTextColor } from '../../app-common/gui/colors'
+import { getColors } from '../../app-common/gui/colors'
 import { getBtnTheme } from './theme'
 
 const fixPositions = {
@@ -23,6 +23,19 @@ export const Button: React.SFC<GUI.IButtonProps> = props => {
   const bordered = mode == GUI.ButtonMode.bordered 
   const iconLeft = !iconRight && true
 
+  if (fixPosition) {
+    const colors = getColors(color, shadow)
+    //asi neumi styles
+    //console.log(colors)
+    //return <NBFab position={fixPositions[fixPosition] as any} style={{ backgroundColor: colors.color }} active >
+    //  <Icon name={getIcon(iconName, iconLogo, iconOS, iconActive)} style={{ color: colors.text }} />
+    //</NBFab>
+    return <NBFab position={fixPositions[fixPosition] as any} active >
+      <Icon name={getIcon(iconName, iconLogo, iconOS, iconActive)} />
+    </NBFab>
+  }
+
+
   //colors
   const btnProps: NativeBase.Button = {
     transparent,
@@ -30,8 +43,7 @@ export const Button: React.SFC<GUI.IButtonProps> = props => {
     bordered,
     ...!rounded ? {iconLeft, iconRight} : null
   }
-  //const btnStyle = {} as any
-  //const colorStyle = {} as any
+
   if (color == GUI.Colors.primary) btnProps.primary = true
   else if (color == GUI.Colors.secondary) btnProps.danger = true
   else if (color == GUI.Colors.default) btnProps.light = true
@@ -49,15 +61,9 @@ export const Button: React.SFC<GUI.IButtonProps> = props => {
   const IC = hasIcon && <Icon key={1} name={getIcon(iconName, iconLogo, iconOS, iconActive)} active={iconActive} />
   const TXT = !!label && <Text key={2} >{label}</Text>
 
-  if (fixPosition) {
-    return <NBFab position={fixPositions[fixPosition] as any} >
-      {IC}
-    </NBFab>
-  }
-
   let comps = rounded ? [IC] : (iconRight ? [TXT, IC] : [IC, TXT])
 
-  console.log('btnProps: ', JSON.stringify(btnProps, null, 2))
+  //console.log('btnProps: ', JSON.stringify(btnProps, null, 2))
 
   return <NBButton {...btnProps} >
     {comps}

@@ -3,28 +3,34 @@ import { Button } from '../../gui/gui'
 import { Button as NBButton, Container, Header, Text, Icon, Content } from 'native-base'
 import { View } from '../../../polyfill/index'
 
-const app = () => <Container>
+const app = () => <Container> 
   <Header />
-  <Content contentContainerStyle={{ flex: 1, flexWrap: 'wrap', flexDirection: 'row', alignContent: 'space-around', justifyContent: 'space-around' }}>
-    <Button key={1} iconName={GUI.IonicNames.alert} label='LABEL' />
-    <Button key={11} iconName={GUI.IonicNames.alert} label='LABEL' iconRight color={GUI.Colors.default} />
-    <Button key={7} iconName={GUI.IonicNames.alert} mode={GUI.ButtonMode.bordered} label='LABEL' color={GUI.Colors.dark} />
-    <Button key={8} iconName={GUI.IonicNames.alert} mode={GUI.ButtonMode.flat} color={GUI.Colors.secondary} />
-    <Button key={81} iconName={GUI.IonicNames.alert} mode={GUI.ButtonMode.flat} label='LABEL' />
+  <Content contentContainerStyle={{ flex: 1}}>
+    <Button key={71} mode={GUI.ButtonMode.fixedBL} color={GUI.Colors.DeepOrange} iconName={GUI.IonicNames.alert} />
+    <Button key={72} mode={GUI.ButtonMode.fixedBR} color={GUI.Colors.Blue} iconName={GUI.IonicNames.americanFootball} />
+    <Button key={73} mode={GUI.ButtonMode.fixedTL} color={GUI.Colors.Cyan} iconLogo={GUI.IonicLogos.logoFacebook} />
+    <Button key={74} mode={GUI.ButtonMode.fixedTR} color={GUI.Colors.DeepPurple} iconName={GUI.IonicNames.analytics} iconActive />
+    <View style={{ flex: 1, flexWrap: 'wrap', flexDirection: 'row', alignContent: 'space-around', justifyContent: 'space-around', paddingTop: 70, paddingBottom: 70 }}>
+      <Button key={1} iconName={GUI.IonicNames.alert} label='LABEL' />
+      <Button key={11} iconName={GUI.IonicNames.alert} label='LABEL' iconRight color={GUI.Colors.default} />
+      <Button key={7} iconName={GUI.IonicNames.alert} mode={GUI.ButtonMode.bordered} label='LABEL' color={GUI.Colors.dark} />
+      <Button key={8} iconName={GUI.IonicNames.alert} mode={GUI.ButtonMode.flat} color={GUI.Colors.secondary} />
+      <Button key={81} iconName={GUI.IonicNames.alert} mode={GUI.ButtonMode.flat} label='LABEL' />
 
-    <Button key={9} iconName={GUI.IonicNames.alert} mode={GUI.ButtonMode.rounded} color={GUI.Colors.DeepOrange} shadow={GUI.Shadows.S100} />
-    <Button key={91} iconName={GUI.IonicNames.alert} mode={GUI.ButtonMode.bordered} label='LABEL' iconRight color={GUI.Colors.DeepOrange} shadow={GUI.Shadows.S100} />
+      <Button key={9} iconName={GUI.IonicNames.alert} mode={GUI.ButtonMode.rounded} color={GUI.Colors.DeepOrange} shadow={GUI.Shadows.S100} />
+      <Button key={91} iconName={GUI.IonicNames.alert} mode={GUI.ButtonMode.bordered} label='LABEL' iconRight color={GUI.Colors.DeepOrange} shadow={GUI.Shadows.S100} />
 
-    <Button key={21} color={GUI.Colors.DeepOrange} label='LABEL' />
-    <Button key={221} color={GUI.Colors.DeepOrange} iconName={GUI.IonicNames.alert} label='LABEL' iconRight />
-    <Button key={211} color={GUI.Colors.DeepOrange} iconName={GUI.IonicNames.alert} label='LABEL' />
-    <Button key={22} color={GUI.Colors.DeepOrange} mode={GUI.ButtonMode.flat} iconName={GUI.IonicNames.alert} label='LABEL' />
-    <Button key={222} color={GUI.Colors.DeepOrange} mode={GUI.ButtonMode.flat} iconName={GUI.IonicNames.alert} label='LABEL' iconRight />
-    <Button key={23} color={GUI.Colors.DeepOrange} mode={GUI.ButtonMode.flat} label='LABEL' />
-    <Button key={24} color={GUI.Colors.DeepOrange} mode={GUI.ButtonMode.flat} iconName={GUI.IonicNames.alert} />
-    <Button key={25} color={GUI.Colors.DeepOrange} mode={GUI.ButtonMode.rounded} iconName={GUI.IonicNames.alert} />
-  </Content> 
-</Container>
+      <Button key={21} color={GUI.Colors.DeepOrange} label='LABEL' />
+      <Button key={221} color={GUI.Colors.DeepOrange} iconName={GUI.IonicNames.alert} label='LABEL' iconRight />
+      <Button key={211} color={GUI.Colors.DeepOrange} iconName={GUI.IonicNames.alert} label='LABEL' />
+      <Button key={22} color={GUI.Colors.DeepOrange} mode={GUI.ButtonMode.flat} iconName={GUI.IonicNames.alert} label='LABEL' />
+      <Button key={222} color={GUI.Colors.DeepOrange} mode={GUI.ButtonMode.flat} iconName={GUI.IonicNames.alert} label='LABEL' iconRight />
+      <Button key={23} color={GUI.Colors.DeepOrange} mode={GUI.ButtonMode.flat} label='LABEL' />
+      <Button key={24} color={GUI.Colors.DeepOrange} mode={GUI.ButtonMode.flat} iconName={GUI.IonicNames.alert} />
+      <Button key={25} color={GUI.Colors.DeepOrange} mode={GUI.ButtonMode.rounded} iconName={GUI.IonicNames.alert} />
+    </View>
+  </Content>
+</Container >
 
 
 
