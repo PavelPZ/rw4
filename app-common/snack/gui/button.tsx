@@ -5,17 +5,17 @@ import { View } from '../../../polyfill/index'
 
 const app = () => <Container>
   <Header />
-  <Content contentContainerStyle={{ flex: 1, flexWrap: 'wrap', flexDirection:'row', alignContent: 'space-around', justifyContent: 'space-around' }}>
+  <Content contentContainerStyle={{ flex: 1, flexWrap: 'wrap', flexDirection: 'row', alignContent: 'space-around', justifyContent: 'space-around' }}>
     <Button key={1} iconName={GUI.IonicNames.alert} label='LABEL' />
     <Button key={11} iconName={GUI.IonicNames.alert} label='LABEL' iconRight color={GUI.Colors.default} />
     <Button key={7} iconName={GUI.IonicNames.alert} mode={GUI.ButtonMode.bordered} label='LABEL' color={GUI.Colors.dark} />
-    <Button key={8} iconName={GUI.IonicNames.alert} mode={GUI.ButtonMode.flat} color={GUI.Colors.secondary}/>
+    <Button key={8} iconName={GUI.IonicNames.alert} mode={GUI.ButtonMode.flat} color={GUI.Colors.secondary} />
     <Button key={81} iconName={GUI.IonicNames.alert} mode={GUI.ButtonMode.flat} label='LABEL' />
 
     <Button key={9} iconName={GUI.IonicNames.alert} mode={GUI.ButtonMode.rounded} color={GUI.Colors.DeepOrange} shadow={GUI.Shadows.S100} />
     <Button key={91} iconName={GUI.IonicNames.alert} mode={GUI.ButtonMode.bordered} label='LABEL' iconRight color={GUI.Colors.DeepOrange} shadow={GUI.Shadows.S100} />
 
-    <Button key={21} color={GUI.Colors.DeepOrange} label='LABEL'/>
+    <Button key={21} color={GUI.Colors.DeepOrange} label='LABEL' />
     <Button key={221} color={GUI.Colors.DeepOrange} iconName={GUI.IonicNames.alert} label='LABEL' iconRight />
     <Button key={211} color={GUI.Colors.DeepOrange} iconName={GUI.IonicNames.alert} label='LABEL' />
     <Button key={22} color={GUI.Colors.DeepOrange} mode={GUI.ButtonMode.flat} iconName={GUI.IonicNames.alert} label='LABEL' />
@@ -26,14 +26,7 @@ const app = () => <Container>
   </Content> 
 </Container>
 
-//<Button key={2} iconName={GUI.IonicNames.alert} label='LABEL' color={GUI.Colors.default} />
-//<Button key={3} iconName={GUI.IonicNames.alert} label='LABEL' color={GUI.Colors.dark} />
-//<Button key={4} iconName={GUI.IonicNames.alert} label='LABEL' color={GUI.Colors.secondary} />
-//<Button key={5} iconName={GUI.IonicNames.alert} label='LABEL' color={GUI.Colors.Orange} />
-//<Button key={6} iconName={GUI.IonicNames.alert} label='LABEL' color={GUI.Colors.Orange} shadow={GUI.Shadows.S900} />
-//<Button key={7} iconName={GUI.IonicNames.alert} mode={GUI.ButtonMode.bordered} />
-//<Button key={8} iconName={GUI.IonicNames.alert} mode={GUI.ButtonMode.flat} />
-//<Button key={9} iconName={GUI.IonicNames.alert} mode={GUI.ButtonMode.rounded} />
+
 
 
 //<NBButton iconRight transparent primary>

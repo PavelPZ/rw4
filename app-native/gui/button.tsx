@@ -20,7 +20,7 @@ export const Button: React.SFC<GUI.IButtonProps> = props => {
   const transparent = mode == GUI.ButtonMode.flat || mode == GUI.ButtonMode.icon
   const hasIcon = iconName || iconLogo
   const rounded = mode == GUI.ButtonMode.rounded
-  const bordered = mode == GUI.ButtonMode.bordered
+  const bordered = mode == GUI.ButtonMode.bordered 
   const iconLeft = !iconRight && true
 
   //colors
@@ -38,11 +38,11 @@ export const Button: React.SFC<GUI.IButtonProps> = props => {
   else if (color == GUI.Colors.dark) btnProps.dark = true
   else {
     const classes = getBtnTheme(color, shadow)
-    if (transparent) {
+    if (transparent) 
       btnProps[classes[Theme.Classes.btnTransparent]] = true
-    } else if (bordered) {
+    else if (bordered)
       btnProps[classes[Theme.Classes.btnBordered]] = true
-    } else 
+    else 
       btnProps[classes[Theme.Classes.btn]] = true
   }
 

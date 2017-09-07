@@ -36,26 +36,40 @@ const xx = {
   },
 }
 
+const btnTheme = {
+  theme: {
+    'NativeBase.Button': {
+      "NativeBase.Text": {
+        "color": "white"
+      },
+      "NativeBase.Icon": {
+        "color": "white"
+      },
+      "backgroundColor": "green"
+    }
+  }
+} as any
+
 theme['NativeBase.Button'] = {
-  ...theme['NativeBase.Button'],
+  ...theme['NativeBase.Button'], 
   ...xx,
-  "NativeBase.Text": {
-    color: "white"
-  },
-  "NativeBase.Icon": {
-    color: "white"
-  },
-  backgroundColor: 'red',
+  //"NativeBase.Text": {
+  //  color: "white"
+  //},
+  //"NativeBase.Icon": {
+  //  color: "white"
+  //},
+  //backgroundColor: 'brown',
 }
 
 console.log('adjustBtnTheme: ', JSON.stringify(theme['NativeBase.Button'], null, 2))
 
 const app = () => <Container>
   <Header />
-  <Content>
-    <Button {...{ 'btn_Deep_Orange_500': true } as any} iconLeft>
+  <Content {...btnTheme}>
+    <Button iconLeft >
       <Icon name='alert' />
-      <Text>LABEL 1</Text>
+      <Text>LABEL 11</Text>
     </Button>
     <Button transparent {...{ 'btn_transparent_Deep_Orange_500': true } as any} iconRight>
       <Text>LABEL 2</Text>

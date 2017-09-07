@@ -44,7 +44,7 @@ import { AppRouterComp } from './app-common/snack/app-router'
 import AppComp from './app-common/snack/gui/button';
 //import AppComp from './app-native/snack/native-base-button'
 
-export const init = async () => {
+export const init = async () => { 
   window.lmGlobal = {
     isNative: true,
     platform: {

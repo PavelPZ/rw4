@@ -25,6 +25,14 @@ export const initThemes = () => {
 
 export const getBtnTheme = (color: GUI.Colors, shadow = GUI.Shadows.S500) => classes[`btn-${color}-${shadow}`]
 
+//export const addBtnTheme = (props: NativeBase.Button, cls: Theme.Classes, color: GUI.Colors, shadow = GUI.Shadows.S500) => {
+//  const colors = getColors(color, shadow)
+//  const name = getThemeName(cls as Theme.Classes, color, shadow)
+//  props['theme'] = {
+//    'NativeBase.Button': btnThemes[cls](colors)
+//  }
+//}
+
 const adjustBtnTheme = (color: GUI.Colors, shadow = GUI.Shadows.S500) => {
   try {
     const classId = `btn-${color}-${shadow}`
