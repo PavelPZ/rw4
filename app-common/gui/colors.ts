@@ -9,11 +9,17 @@ export const getTextColor = (color: GUI.Colors, shade?: GUI.Shadows, textShade?:
 export const getColors = (color: GUI.Colors, shade?: GUI.Shadows) => ({
   color: getColor(color, shade),
   text: getTextColor(color, shade),
-} as Theme.IColors)
+} as GUI.IColors)
 
-//export const primaryColor: GUI.IColor = { color: GUI.Colors.BlueGrey }
-//export const secondaryColor: GUI.IColor = { color: GUI.Colors.DeepPurple, shadow: GUI.Shadows.A200 }
-//export const defaultColor: GUI.IColor = { color: GUI.Colors.White }
+export const fillColorToStyle = (color: GUI.Colors | string, style: { color?: string }, shadow?: GUI.Shadows) => {
+  let c: string
+  if (!color) c = GUI.Colors.primary
+  c = window.lmGlobal.platform.guiPlatform.colorToStyle[color as GUI.Colors]
+  if (!c) c = getColor(color as GUI.Colors, shadow)
+  if (!c) c = color as string
+  style.color = c
+  return true
+}
 
 const palette = {
   'Red': {

@@ -7,7 +7,13 @@
     H2: React.ComponentType<NativeBase.H2>
     H3: React.ComponentType<NativeBase.H3>
     View: React.ComponentType<NativeBase.View>
-    Text: React.ComponentType<NativeBase.Text> 
+    Text: React.ComponentType<NativeBase.Text>
+    colorToStyle: { [color: string]: string }
+  }
+
+  export interface IColors {
+    color: string
+    text: string
   }
 
   const enum Colors {
@@ -66,7 +72,7 @@
     text = 'text',
     Primary = 'Primary',
     Secondary = 'Secondary',
-    Icons ='Icons',
+    Icons = 'Icons',
     Disabled = 'Disabled',
     Hint = 'Hint',
     Dividers = 'Dividers',
@@ -104,7 +110,7 @@
     iconLogo?: GUI.IonicLogos
     iconRight?: boolean
     iconOS?: string //ignoruje se pro RN
-    iconActive?:boolean
+    iconActive?: boolean
     label?: string //label=='' || !label && icon => icon in button else standalone icon
     secondary?: boolean
     color?: Colors //https://react-md.mlaursen.com/components/buttons: flat and icon buttons will theme the text color in the button while raised and floating will theme the background of the button.

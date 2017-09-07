@@ -21,7 +21,7 @@ import { recordingJSON } from './App_Data/recording'
 import { Icon } from './app-native/gui/icon'
 import { Button } from './app-native/gui/button'
 import { Container, Text, StyleProvider, H1, H2, H3, View } from 'native-base'
-import { Theme } from './app-native/gui/theme'
+import { Theme, colorToStyle } from './app-native/gui/theme'
 
 //************ aplikace k testovani
 
@@ -59,7 +59,7 @@ export const init = async () => {
         computeState: (act, st) => Navigator.router.getStateForAction({ type: 'Navigation/NAVIGATE', routeName: act.params && act.params.query && act.params.query.isModal ? 'Modal' : 'Root', params: act } as NavigationNavigateAction, st),
         rootUrl: '/web-app.html'
       },
-      guiPlatform: { Icon, Button, H1, H2, H3, View, Text, },
+      guiPlatform: { colorToStyle, Icon, Button, H1, H2, H3, View, Text, },
     }
   }
 
@@ -108,7 +108,6 @@ export const init = async () => {
 
   return new Promise<JSX.Element>(resolve => resolve(appAll))
 }
-//<StyleProvider style={theme}></StyleProvider>
 
 const Root: React.SFC = () => <WaitForRendering finalContent={init()} waitContent={<AppLoading />} />
 

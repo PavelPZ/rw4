@@ -81,7 +81,6 @@
     <TypeScriptCompile Include="app-common\utils\cammel-case.ts" />
     <TypeScriptCompile Include="app-native\gui\button.tsx" />
     <TypeScriptCompile Include="app-native\gui\icon.tsx" />
-    <TypeScriptCompile Include="app-native\gui\theme-d.d.ts" />
     <TypeScriptCompile Include="app-native\gui\theme.tsx" />
     <TypeScriptCompile Include="app-native\lib\animated.d.ts" />
     <TypeScriptCompile Include="app-native\lib\native-base.d.ts" />

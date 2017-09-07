@@ -17,18 +17,7 @@ export const colorToBsStyle = (color: GUI.Colors, bsStyle: NativeBase.BsStyle) =
   return bsStyle.success || bsStyle.primary || bsStyle.danger || bsStyle.warning || bsStyle.info
 } 
 
-export const colorToStyle = (color: GUI.Colors | string, style: { color?: string }, shadow?: GUI.Shadows) => {
-  let c: string
-  if (!color) c = material.brandPrimary
-  else {
-    c = _colorToStyle[color as GUI.Colors]
-    if (!c) c = getColor(color as GUI.Colors, shadow)
-    if (!c) c = color as string
-  }
-  style.color = c
-  return true
-}
-const _colorToStyle = {
+export const colorToStyle = {
   [GUI.Colors.success]: material.brandSuccess,
   [GUI.Colors.primary]: material.brandPrimary,
   [GUI.Colors.danger]: material.brandDanger,
