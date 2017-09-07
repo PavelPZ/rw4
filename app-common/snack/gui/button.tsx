@@ -18,6 +18,7 @@ const app = () => <Container>
       <Button key={81} iconName={GUI.IonicNames.alert} mode={GUI.ButtonMode.flat} label='LABEL' />
 
       <Button key={9} iconName={GUI.IonicNames.alert} mode={GUI.ButtonMode.rounded} color={GUI.Colors.DeepOrange} shadow={GUI.Shadows.S100} />
+      <Button key={92} iconName={GUI.IonicNames.alert} mode={GUI.ButtonMode.roundedMini} color={GUI.Colors.DeepOrange} shadow={GUI.Shadows.S100} />
       <Button key={91} iconName={GUI.IonicNames.alert} mode={GUI.ButtonMode.bordered} label='LABEL' iconRight color={GUI.Colors.DeepOrange} shadow={GUI.Shadows.S100} />
 
       <Button key={21} color={GUI.Colors.DeepOrange} label='LABEL' />

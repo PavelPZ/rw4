@@ -1,7 +1,9 @@
 ﻿import React from 'react'
 import { Container, Header, Content, Button, Text, Icon, StyleProvider, getTheme } from 'native-base'
 import { View } from 'react-native'
-import { theme } from '../gui/theme'
+//import { theme } from '../gui/theme'
+
+const theme = getTheme()
 
 const xx = {
   ".btn_Deep_Orange_500": {

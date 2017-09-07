@@ -4,7 +4,7 @@ import { View, Platform, Dimensions, PixelRatio, ViewStyle } from 'react-native'
 
 import { getIcon } from '../../app-common/gui/ionic'
 import { getColors } from '../../app-common/gui/colors'
-import { getBtnTheme } from './theme'
+//import { getBtnTheme } from './theme'
 
 const fixPositions = {
   'tr': 'topRight',
@@ -19,13 +19,14 @@ export const Button: React.SFC<GUI.IButtonProps> = props => {
   const fixPosition = mode.startsWith(fixed) ? mode.substr(fixed.length).toLowerCase() : null
   const transparent = mode == GUI.ButtonMode.flat || mode == GUI.ButtonMode.icon
   const hasIcon = iconName || iconLogo
-  const rounded = mode == GUI.ButtonMode.rounded
-  const bordered = mode == GUI.ButtonMode.bordered 
+  const rounded = mode == GUI.ButtonMode.rounded || mode == GUI.ButtonMode.roundedMini
+  const small = mode == GUI.ButtonMode.roundedMini
+  const bordered = mode == GUI.ButtonMode.bordered
   const iconLeft = !iconRight && true
 
   if (fixPosition) {
-    const colors = getColors(color, shadow)
-    //asi neumi styles
+    //--- asi neumi styles
+    //const colors = getColors(color, shadow)
     //console.log(colors)
     //return <NBFab position={fixPositions[fixPosition] as any} style={{ backgroundColor: colors.color }} active >
     //  <Icon name={getIcon(iconName, iconLogo, iconOS, iconActive)} style={{ color: colors.text }} />
@@ -41,31 +42,44 @@ export const Button: React.SFC<GUI.IButtonProps> = props => {
     transparent,
     rounded,
     bordered,
-    ...!rounded ? {iconLeft, iconRight} : null
+    small,
+    ...!rounded ? { iconLeft, iconRight } : null
   }
+
+  const textStyle: ReactNative.StyleProp<ReactNative.TextStyle> = {}
+  const style: ReactNative.ViewStyle = {}
 
   if (color == GUI.Colors.primary) btnProps.primary = true
   else if (color == GUI.Colors.secondary) btnProps.danger = true
   else if (color == GUI.Colors.default) btnProps.light = true
   else if (color == GUI.Colors.dark) btnProps.dark = true
   else {
-    const classes = getBtnTheme(color, shadow)
-    if (transparent) 
-      btnProps[classes[Theme.Classes.btnTransparent]] = true
-    else if (bordered)
-      btnProps[classes[Theme.Classes.btnBordered]] = true
-    else 
-      btnProps[classes[Theme.Classes.btn]] = true
+    const colors = getColors(color, shadow)
+    if (transparent)
+      textStyle.color = colors.color
+    else if (bordered) {
+      textStyle.color = colors.color
+      style.borderColor = colors.color
+    } else {
+      textStyle.color = colors.text
+      style.backgroundColor = colors.color
+    }
+
+    //const classes = getBtnTheme(color, shadow)
+    //if (transparent) 
+    //  btnProps[classes[Theme.Classes.btnTransparent]] = true
+    //else if (bordered)
+    //  btnProps[classes[Theme.Classes.btnBordered]] = true 
+    //else 
+    //  btnProps[classes[Theme.Classes.btn]] = true
   }
 
-  const IC = hasIcon && <Icon key={1} name={getIcon(iconName, iconLogo, iconOS, iconActive)} active={iconActive} />
-  const TXT = !!label && <Text key={2} >{label}</Text>
+  const IC = hasIcon && <Icon key={1} name={getIcon(iconName, iconLogo, iconOS, iconActive)} style={textStyle} />
+  const TXT = !!label && <Text key={2} style={textStyle} >{label}</Text>
 
   let comps = rounded ? [IC] : (iconRight ? [TXT, IC] : [IC, TXT])
 
-  //console.log('btnProps: ', JSON.stringify(btnProps, null, 2))
-
-  return <NBButton {...btnProps} >
+  return <NBButton {...btnProps} style={style} >
     {comps}
   </NBButton>
 

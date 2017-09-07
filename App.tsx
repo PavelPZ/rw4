@@ -22,7 +22,7 @@ import { Icon } from './app-native/gui/icon'
 import { Button } from './app-native/gui/button'
 import { Container, Text, StyleProvider, H1, H2 } from 'native-base'
 import { View } from 'react-native'
-import { initThemes, theme } from './app-native/gui/theme'
+import { Theme } from './app-native/gui/theme'
 
 //************ aplikace k testovani
 
@@ -44,7 +44,7 @@ import { AppRouterComp } from './app-common/snack/app-router'
 import AppComp from './app-common/snack/gui/button';
 //import AppComp from './app-native/snack/native-base-button'
 
-export const init = async () => { 
+export const init = async () => {
   window.lmGlobal = {
     isNative: true,
     platform: {
@@ -74,7 +74,6 @@ export const init = async () => {
   await promiseAll([
     initRecording(),
     initRoot(),
-    initThemes(),
   ])
 
   const reducers: App.IReducer = (st, action: any) => {
@@ -91,7 +90,7 @@ export const init = async () => {
 
   const store = window.lmGlobal.store = createStore<IState>(reducers, {}, applyMiddleware(sagaMiddleware, routerMiddleware, recordingMiddleware))
 
-  await promiseAll([
+  await promiseAll([ 
     initRouter(),
   ])
 
@@ -109,14 +108,15 @@ export const init = async () => {
 
   const appAll = <ReduxProvider store={store}>
     <LocProvider>
-      <StyleProvider style={theme}>
-        {<App/>}
-      </StyleProvider>
+      <Theme>
+        {<App />}
+      </Theme>
     </LocProvider>
   </ReduxProvider>
 
   return new Promise<JSX.Element>(resolve => resolve(appAll))
 }
+//<StyleProvider style={theme}></StyleProvider>
 
 const Root: React.SFC = () => <WaitForRendering finalContent={init()} waitContent={<AppLoading />} />
 
