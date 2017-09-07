@@ -1,16 +1,16 @@
 ﻿import React from 'react'
-import { Button as MDButton, ButtonProps, FixedPositions } from '../lib/react-md'
+
 import { getIcon } from '../../app-common/gui/ionic'
 import { getColor, getTextColor } from '../../app-common/gui/colors'
+
 import { renderCSS } from 'web-fela'
+import { Button as MDButton, ButtonProps, FixedPositions } from '../lib/react-md'
 
 export const Button: React.SFC<GUI.IButtonProps> = props => {
   const { mode = GUI.ButtonMode.raised, iconName, iconLogo, color = GUI.Colors.primary, label, iconRight, disabled, iconOS, iconActive } = props
-  let actMode = mode
   const fixed = 'fixed'
-  const isFixed = actMode.startsWith(fixed)
-
-  if ((iconName || iconLogo) && !isFixed && typeof label == 'undefined') actMode = GUI.ButtonMode.icon
+  const isFixed = mode.startsWith(fixed)
+  const actMode = (iconName || iconLogo) && !isFixed && typeof label == 'undefined' ? GUI.ButtonMode.icon : mode
 
   //colors
   const colorProps: ButtonProps = {}

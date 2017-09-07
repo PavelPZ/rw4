@@ -1,6 +1,5 @@
 //********** LIBRARIES
 import React from 'react'
-import { View, Text } from 'react-native'
 
 import { Provider as ReduxProvider, connect } from 'react-redux'
 import { createStore, Store, applyMiddleware } from 'redux'
@@ -20,7 +19,9 @@ import { Provider as RootProvider, AppNavigator as Navigator, init as initRoot }
 import { AppLoading } from 'expo'
 import { recordingJSON } from './App_Data/recording'
 import { Icon } from './app-native/gui/icon'
+import { Button } from './app-native/gui/button'
 import { H1, H2 } from 'native-base'
+import { View, Text} from 'react-native'
 
 
 
@@ -39,7 +40,9 @@ import { AppRouterComp } from './app-common/snack/app-router'
 //import AppComp from './app-native/snack/navigation/stack-detailed';
 //import { AppRouterComp } from './app-native/snack/navigation/app-navigation';
 //import AppComp from './app-common/snack/react-navigation';  
-import AppComp from './app-common/snack/gui/icon';
+//import AppComp from './app-common/snack/gui/icon';
+//import AppComp from './app-common/snack/gui/button';
+import AppComp from './app-native/snack/native-base-button';
 
 export const init = async () => {
   window.lmGlobal = {
@@ -58,16 +61,22 @@ export const init = async () => {
         rootUrl: '/web-app.html'
       },
       guiPlatform: {
-        Icon: Icon,
-        Button: null,
-        H1: H1,
-        H2: H2,
+        Icon,
+        Button,
+        H1,
+        H2,
+        View,
+        Text
       },
     }
   }
 
+  await promiseAll([
+    initRecording(),
+    initRoot()
+  ])
+
   return new Promise<JSX.Element>(resolve => resolve(<AppComp />))
-  /*
 
   const reducers: App.IReducer = (st, action: any) => {
     const state = recordingGlobalReducer(st, action)
@@ -80,11 +89,6 @@ export const init = async () => {
   }
 
   const sagaMiddleware = createSagaMiddleware()
-
-  await promiseAll([
-    initRecording(),
-    initRoot()
-  ])
 
   const store = window.lmGlobal.store = createStore<IState>(reducers, {}, applyMiddleware(sagaMiddleware, routerMiddleware, recordingMiddleware))
 
@@ -108,7 +112,6 @@ export const init = async () => {
   </ReduxProvider>
 
   return new Promise<JSX.Element>(resolve => resolve(appAll))
-  */
 }
 
 const Root: React.SFC = () => <WaitForRendering finalContent={init()} waitContent={<AppLoading />} />

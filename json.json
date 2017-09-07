@@ -1,0 +1,2916 @@
+﻿{
+  "NativeBase.Left": {
+    "flex": 1,
+    "alignSelf": "center",
+    "alignItems": "flex-start"
+  },
+  "NativeBase.Right": {
+    "NativeBase.Button": {
+      "alignSelf": null
+    },
+    "flex": 1,
+    "alignSelf": "center",
+    "alignItems": "flex-end"
+  },
+  "NativeBase.Body": {
+    "flex": 1,
+    "alignItems": "center",
+    "alignSelf": "center"
+  },
+  "NativeBase.Header": {
+    ".span": {
+      "height": 128,
+      "NativeBase.Left": {
+        "alignSelf": "flex-start"
+      },
+      "NativeBase.Body": {
+        "alignSelf": "flex-end",
+        "alignItems": "flex-start",
+        "justifyContent": "center",
+        "paddingBottom": 26
+      },
+      "NativeBase.Right": {
+        "alignSelf": "flex-start"
+      }
+    },
+    ".hasSubtitle": {
+      "NativeBase.Body": {
+        "NativeBase.Title": {
+          "fontSize": 17,
+          "fontFamily": "Roboto_medium",
+          "textAlign": "center"
+        },
+        "NativeBase.Subtitle": {
+          "fontSize": 14,
+          "fontFamily": "Roboto_medium",
+          "color": "#FFF",
+          "textAlign": "center"
+        }
+      }
+    },
+    ".noShadow": {
+      "elevation": 0,
+      "shadowColor": null,
+      "shadowOffset": null,
+      "shadowRadius": null,
+      "shadowOpacity": null
+    },
+    ".hasTabs": {
+      "elevation": 0,
+      "shadowColor": null,
+      "shadowOffset": null,
+      "shadowRadius": null,
+      "shadowOpacity": null,
+      "borderBottomWidth": null
+    },
+    ".hasSegment": {
+      "elevation": 0,
+      "shadowColor": null,
+      "shadowOffset": null,
+      "shadowRadius": null,
+      "shadowOpacity": null,
+      "borderBottomWidth": null
+    },
+    "NativeBase.Button": {
+      "justifyContent": "center",
+      "alignSelf": "center",
+      "alignItems": "center",
+      ".transparent": {
+        "NativeBase.Text": {
+          "color": "#fff",
+          "fontWeight": "600"
+        },
+        "NativeBase.Icon": {
+          "color": "#fff"
+        },
+        "NativeBase.IconNB": {
+          "color": "#fff"
+        },
+        "paddingHorizontal": 6
+      },
+      "paddingHorizontal": 15
+    },
+    ".searchBar": {
+      "NativeBase.Item": {
+        "NativeBase.Icon": {
+          "backgroundColor": "transparent",
+          "color": "#414142",
+          "fontSize": 23,
+          "alignItems": "center",
+          "marginTop": 2,
+          "paddingRight": 10,
+          "paddingLeft": 10
+        },
+        "NativeBase.IconNB": {
+          "backgroundColor": "transparent",
+          "color": null,
+          "alignSelf": "center"
+        },
+        "NativeBase.Input": {
+          "alignSelf": "center",
+          "lineHeight": 24,
+          "height": 40
+        },
+        "alignSelf": "center",
+        "alignItems": "center",
+        "justifyContent": "flex-start",
+        "flex": 1,
+        "height": 40,
+        "borderColor": "transparent",
+        "backgroundColor": "#fff"
+      },
+      "NativeBase.Button": {
+        ".transparent": {
+          "NativeBase.Text": {
+            "fontWeight": "500"
+          },
+          "paddingHorizontal": null,
+          "paddingLeft": null
+        },
+        "paddingHorizontal": null,
+        "width": 0,
+        "height": 0
+      }
+    },
+    ".rounded": {
+      "NativeBase.Item": {
+        "borderRadius": 3
+      }
+    },
+    "NativeBase.Left": {
+      "NativeBase.Button": {
+        ".hasText": {
+          "marginLeft": -10,
+          "height": 30,
+          "NativeBase.Icon": {
+            "color": "#fff",
+            "fontSize": 24,
+            "marginTop": 2,
+            "marginRight": 5,
+            "marginLeft": 2
+          },
+          "NativeBase.Text": {
+            "color": "#fff",
+            "fontSize": 17,
+            "marginLeft": 2,
+            "lineHeight": 21
+          },
+          "NativeBase.IconNB": {
+            "color": "#fff",
+            "fontSize": 24,
+            "marginTop": 2,
+            "marginRight": 5,
+            "marginLeft": 2
+          }
+        },
+        ".transparent": {
+          "marginLeft": -3,
+          "NativeBase.Icon": {
+            "color": "#fff",
+            "fontSize": 24,
+            "marginTop": 2,
+            "marginRight": 2,
+            "marginLeft": 2
+          },
+          "NativeBase.IconNB": {
+            "color": "#fff",
+            "fontSize": 24,
+            "marginTop": 2,
+            "marginRight": 2,
+            "marginLeft": 2
+          },
+          "NativeBase.Text": {
+            "color": "#fff",
+            "fontSize": 17,
+            "top": -1.5
+          },
+          "backgroundColor": "transparent",
+          "borderColor": null,
+          "elevation": 0,
+          "shadowColor": null,
+          "shadowOffset": null,
+          "shadowRadius": null,
+          "shadowOpacity": null
+        },
+        "NativeBase.Icon": {
+          "color": "#fff"
+        },
+        "NativeBase.IconNB": {
+          "color": "#fff"
+        },
+        "alignSelf": null,
+        "paddingHorizontal": 6
+      },
+      "flex": 0.5,
+      "alignSelf": "center",
+      "alignItems": "flex-start"
+    },
+    "NativeBase.Body": {
+      "flex": 1,
+      "alignItems": "flex-start",
+      "alignSelf": "center",
+      "NativeBase.Segment": {
+        "borderWidth": 0,
+        "alignSelf": "flex-end",
+        "marginRight": -55
+      },
+      "NativeBase.Button": {
+        "alignSelf": "center",
+        ".transparent": {
+          "backgroundColor": "transparent"
+        },
+        "NativeBase.Icon": {
+          "color": "#fff"
+        },
+        "NativeBase.IconNB": {
+          "color": "#fff"
+        },
+        "NativeBase.Text": {
+          "color": "#fff",
+          "backgroundColor": "transparent"
+        }
+      }
+    },
+    "NativeBase.Right": {
+      "NativeBase.Button": {
+        ".hasText": {
+          "height": 30,
+          "NativeBase.Icon": {
+            "color": "#fff",
+            "fontSize": 22,
+            "marginTop": 2,
+            "marginRight": 2,
+            "marginLeft": 5
+          },
+          "NativeBase.Text": {
+            "color": "#fff",
+            "fontSize": 17,
+            "lineHeight": 21
+          },
+          "NativeBase.IconNB": {
+            "color": "#fff",
+            "fontSize": 22,
+            "marginTop": 2,
+            "marginRight": 2,
+            "marginLeft": 5
+          }
+        },
+        ".transparent": {
+          "marginRight": -8,
+          "paddingHorizontal": 15,
+          "borderRadius": 50,
+          "NativeBase.Icon": {
+            "color": "#fff",
+            "fontSize": 22,
+            "marginTop": 2,
+            "marginLeft": 2,
+            "marginRight": 2
+          },
+          "NativeBase.IconNB": {
+            "color": "#fff",
+            "fontSize": 22,
+            "marginTop": 2,
+            "marginLeft": 2,
+            "marginRight": 2
+          },
+          "NativeBase.Text": {
+            "color": "#fff",
+            "fontSize": 17,
+            "top": -1.5
+          },
+          "backgroundColor": "transparent",
+          "borderColor": null,
+          "elevation": 0,
+          "shadowColor": null,
+          "shadowOffset": null,
+          "shadowRadius": null,
+          "shadowOpacity": null
+        },
+        "NativeBase.Icon": {
+          "color": "#fff"
+        },
+        "NativeBase.IconNB": {
+          "color": "#fff"
+        },
+        "alignSelf": null,
+        "paddingHorizontal": 6
+      },
+      "flex": 1,
+      "alignSelf": "center",
+      "alignItems": "flex-end",
+      "flexDirection": "row",
+      "justifyContent": "flex-end"
+    },
+    "backgroundColor": "#3F51B5",
+    "flexDirection": "row",
+    "paddingHorizontal": 10,
+    "justifyContent": "center",
+    "paddingTop": 0,
+    "borderBottomWidth": 0,
+    "borderBottomColor": "#3F51B5",
+    "height": 56,
+    "elevation": 3,
+    "top": 0,
+    "left": 0,
+    "right": 0
+  },
+  "NativeBase.Button": {
+    ".disabled": {
+      "backgroundColor": "#b5b5b5",
+      ".bordered": {
+        "backgroundColor": null,
+        "borderColor": "#b5b5b5",
+        "borderWidth": 1,
+        "NativeBase.Text": {
+          "color": "#b5b5b5"
+        }
+      }
+    },
+    ".bordered": {
+      ".dark": {
+        "NativeBase.Text": {
+          "color": "#000"
+        },
+        "NativeBase.Icon": {
+          "color": "#000"
+        },
+        "NativeBase.IconNB": {
+          "color": "#000"
+        },
+        "backgroundColor": "transparent",
+        "borderColor": "#000",
+        "borderWidth": 1
+      },
+      ".light": {
+        "NativeBase.Text": {
+          "color": "#f4f4f4"
+        },
+        "NativeBase.Icon": {
+          "color": "#f4f4f4"
+        },
+        "NativeBase.IconNB": {
+          "color": "#f4f4f4"
+        },
+        "backgroundColor": "transparent",
+        "borderColor": "#f4f4f4",
+        "borderWidth": 1
+      },
+      ".primary": {
+        "NativeBase.Text": {
+          "color": "#3F51B5"
+        },
+        "NativeBase.Icon": {
+          "color": "#3F51B5"
+        },
+        "NativeBase.IconNB": {
+          "color": "#3F51B5"
+        },
+        "backgroundColor": "transparent",
+        "borderColor": "#3F51B5",
+        "borderWidth": 1
+      },
+      ".success": {
+        "NativeBase.Text": {
+          "color": "#5cb85c"
+        },
+        "NativeBase.Icon": {
+          "color": "#5cb85c"
+        },
+        "NativeBase.IconNB": {
+          "color": "#5cb85c"
+        },
+        "backgroundColor": "transparent",
+        "borderColor": "#5cb85c",
+        "borderWidth": 1
+      },
+      ".info": {
+        "NativeBase.Text": {
+          "color": "#62B1F6"
+        },
+        "NativeBase.Icon": {
+          "color": "#62B1F6"
+        },
+        "NativeBase.IconNB": {
+          "color": "#62B1F6"
+        },
+        "backgroundColor": "transparent",
+        "borderColor": "#62B1F6",
+        "borderWidth": 1
+      },
+      ".warning": {
+        "NativeBase.Text": {
+          "color": "#f0ad4e"
+        },
+        "NativeBase.Icon": {
+          "color": "#f0ad4e"
+        },
+        "NativeBase.IconNB": {
+          "color": "#f0ad4e"
+        },
+        "backgroundColor": "transparent",
+        "borderColor": "#f0ad4e",
+        "borderWidth": 1
+      },
+      ".danger": {
+        "NativeBase.Text": {
+          "color": "#d9534f"
+        },
+        "NativeBase.Icon": {
+          "color": "#d9534f"
+        },
+        "NativeBase.IconNB": {
+          "color": "#d9534f"
+        },
+        "backgroundColor": "transparent",
+        "borderColor": "#d9534f",
+        "borderWidth": 1
+      },
+      ".disabled": {
+        "backgroundColor": null,
+        "borderColor": "#b5b5b5",
+        "borderWidth": 1,
+        "NativeBase.Text": {
+          "color": "#b5b5b5"
+        }
+      },
+      "NativeBase.Text": {
+        "color": "#3F51B5"
+      },
+      "NativeBase.Icon": {
+        "color": "#3F51B5"
+      },
+      "NativeBase.IconNB": {
+        "color": "#3F51B5"
+      },
+      "borderWidth": 1,
+      "elevation": null,
+      "shadowColor": null,
+      "shadowOffset": null,
+      "shadowOpacity": null,
+      "shadowRadius": null,
+      "backgroundColor": "transparent"
+    },
+    ".dark": {
+      ".bordered": {
+        "NativeBase.Text": {
+          "color": "#000"
+        },
+        "NativeBase.Icon": {
+          "color": "#000"
+        },
+        "NativeBase.IconNB": {
+          "color": "#000"
+        },
+        "backgroundColor": "transparent",
+        "borderColor": "#000",
+        "borderWidth": 1
+      },
+      "backgroundColor": "#000",
+      ".transparent": {
+        "NativeBase.Text": {
+          "color": "#000"
+        },
+        "NativeBase.IconNB": {
+          "color": "#000"
+        },
+        "NativeBase.Icon": {
+          "color": "#000"
+        },
+        "backgroundColor": null
+      }
+    },
+    ".light": {
+      ".transparent": {
+        "NativeBase.Text": {
+          "color": "#f4f4f4"
+        },
+        "NativeBase.Icon": {
+          "color": "#f4f4f4"
+        },
+        "NativeBase.IconNB": {
+          "color": "#f4f4f4"
+        },
+        "backgroundColor": null
+      },
+      ".bordered": {
+        "NativeBase.Text": {
+          "color": "#f4f4f4"
+        },
+        "NativeBase.Icon": {
+          "color": "#f4f4f4"
+        },
+        "NativeBase.IconNB": {
+          "color": "#f4f4f4"
+        },
+        "backgroundColor": "transparent",
+        "borderColor": "#f4f4f4",
+        "borderWidth": 1
+      },
+      "NativeBase.Text": {
+        "color": "#000"
+      },
+      "NativeBase.Icon": {
+        "color": "#000"
+      },
+      "NativeBase.IconNB": {
+        "color": "#000"
+      },
+      "backgroundColor": "#f4f4f4"
+    },
+    ".primary": {
+      ".bordered": {
+        "NativeBase.Text": {
+          "color": "#3F51B5"
+        },
+        "NativeBase.Icon": {
+          "color": "#3F51B5"
+        },
+        "NativeBase.IconNB": {
+          "color": "#3F51B5"
+        },
+        "backgroundColor": "transparent",
+        "borderColor": "#3F51B5",
+        "borderWidth": 1
+      },
+      "backgroundColor": "red",
+      ".transparent": {
+        "NativeBase.Text": {
+          "color": "#3F51B5"
+        },
+        "NativeBase.IconNB": {
+          "color": "#3F51B5"
+        },
+        "NativeBase.Icon": {
+          "color": "#3F51B5"
+        },
+        "backgroundColor": null
+      }
+    },
+    ".success": {
+      ".bordered": {
+        "NativeBase.Text": {
+          "color": "#5cb85c"
+        },
+        "NativeBase.Icon": {
+          "color": "#5cb85c"
+        },
+        "NativeBase.IconNB": {
+          "color": "#5cb85c"
+        },
+        "backgroundColor": "transparent",
+        "borderColor": "#5cb85c",
+        "borderWidth": 1
+      },
+      "backgroundColor": "#5cb85c",
+      ".transparent": {
+        "NativeBase.Text": {
+          "color": "#5cb85c"
+        },
+        "NativeBase.IconNB": {
+          "color": "#5cb85c"
+        },
+        "NativeBase.Icon": {
+          "color": "#5cb85c"
+        },
+        "backgroundColor": null
+      }
+    },
+    ".info": {
+      ".bordered": {
+        "NativeBase.Text": {
+          "color": "#62B1F6"
+        },
+        "NativeBase.Icon": {
+          "color": "#62B1F6"
+        },
+        "NativeBase.IconNB": {
+          "color": "#62B1F6"
+        },
+        "backgroundColor": "transparent",
+        "borderColor": "#62B1F6",
+        "borderWidth": 1
+      },
+      "backgroundColor": "#62B1F6",
+      ".transparent": {
+        "NativeBase.Text": {
+          "color": "#62B1F6"
+        },
+        "NativeBase.IconNB": {
+          "color": "#62B1F6"
+        },
+        "NativeBase.Icon": {
+          "color": "#62B1F6"
+        },
+        "backgroundColor": null
+      }
+    },
+    ".warning": {
+      ".bordered": {
+        "NativeBase.Text": {
+          "color": "#f0ad4e"
+        },
+        "NativeBase.Icon": {
+          "color": "#f0ad4e"
+        },
+        "NativeBase.IconNB": {
+          "color": "#f0ad4e"
+        },
+        "backgroundColor": "transparent",
+        "borderColor": "#f0ad4e",
+        "borderWidth": 1
+      },
+      "backgroundColor": "#f0ad4e",
+      ".transparent": {
+        "NativeBase.Text": {
+          "color": "#f0ad4e"
+        },
+        "NativeBase.IconNB": {
+          "color": "#f0ad4e"
+        },
+        "NativeBase.Icon": {
+          "color": "#f0ad4e"
+        },
+        "backgroundColor": null
+      }
+    },
+    ".danger": {
+      ".bordered": {
+        "NativeBase.Text": {
+          "color": "#d9534f"
+        },
+        "NativeBase.Icon": {
+          "color": "#d9534f"
+        },
+        "NativeBase.IconNB": {
+          "color": "#d9534f"
+        },
+        "backgroundColor": "transparent",
+        "borderColor": "#d9534f",
+        "borderWidth": 1
+      },
+      "backgroundColor": "#d9534f",
+      ".transparent": {
+        "NativeBase.Text": {
+          "color": "#d9534f"
+        },
+        "NativeBase.IconNB": {
+          "color": "#d9534f"
+        },
+        "NativeBase.Icon": {
+          "color": "#d9534f"
+        },
+        "backgroundColor": null
+      }
+    },
+    ".block": {
+      "justifyContent": "center",
+      "alignSelf": "stretch"
+    },
+    ".full": {
+      "justifyContent": "center",
+      "alignSelf": "stretch",
+      "borderRadius": 0
+    },
+    ".rounded": {
+      "width": 45,
+      "justifyContent": "center",
+      "paddingHorizontal": 0,
+      "borderRadius": 57,
+      ".large": {
+        "width": 60
+      },
+      ".small": {
+        "width": 30
+      }
+    },
+    ".transparent": {
+      "backgroundColor": "transparent",
+      "elevation": 0,
+      "shadowColor": null,
+      "shadowOffset": null,
+      "shadowRadius": null,
+      "shadowOpacity": null,
+      "NativeBase.Text": {
+        "color": "#3F51B5"
+      },
+      "NativeBase.Icon": {
+        "color": "#3F51B5"
+      },
+      "NativeBase.IconNB": {
+        "color": "#3F51B5"
+      },
+      ".dark": {
+        "NativeBase.Text": {
+          "color": "#000"
+        },
+        "NativeBase.IconNB": {
+          "color": "#000"
+        },
+        "NativeBase.Icon": {
+          "color": "#000"
+        },
+        "backgroundColor": null
+      },
+      ".danger": {
+        "NativeBase.Text": {
+          "color": "#d9534f"
+        },
+        "NativeBase.IconNB": {
+          "color": "#d9534f"
+        },
+        "NativeBase.Icon": {
+          "color": "#d9534f"
+        },
+        "backgroundColor": null
+      },
+      ".warning": {
+        "NativeBase.Text": {
+          "color": "#f0ad4e"
+        },
+        "NativeBase.IconNB": {
+          "color": "#f0ad4e"
+        },
+        "NativeBase.Icon": {
+          "color": "#f0ad4e"
+        },
+        "backgroundColor": null
+      },
+      ".info": {
+        "NativeBase.Text": {
+          "color": "#62B1F6"
+        },
+        "NativeBase.IconNB": {
+          "color": "#62B1F6"
+        },
+        "NativeBase.Icon": {
+          "color": "#62B1F6"
+        },
+        "backgroundColor": null
+      },
+      ".primary": {
+        "NativeBase.Text": {
+          "color": "#3F51B5"
+        },
+        "NativeBase.IconNB": {
+          "color": "#3F51B5"
+        },
+        "NativeBase.Icon": {
+          "color": "#3F51B5"
+        },
+        "backgroundColor": null
+      },
+      ".success": {
+        "NativeBase.Text": {
+          "color": "#5cb85c"
+        },
+        "NativeBase.IconNB": {
+          "color": "#5cb85c"
+        },
+        "NativeBase.Icon": {
+          "color": "#5cb85c"
+        },
+        "backgroundColor": null
+      },
+      ".light": {
+        "NativeBase.Text": {
+          "color": "#f4f4f4"
+        },
+        "NativeBase.Icon": {
+          "color": "#f4f4f4"
+        },
+        "NativeBase.IconNB": {
+          "color": "#f4f4f4"
+        },
+        "backgroundColor": null
+      }
+    },
+    ".small": {
+      "height": 30,
+      "NativeBase.Text": {
+        "fontSize": 14
+      },
+      ".rounded": {
+        "width": 30
+      }
+    },
+    ".large": {
+      "height": 60,
+      "NativeBase.Text": {
+        "fontSize": 22,
+        "lineHeight": 32
+      },
+      ".rounded": {
+        "width": 60
+      }
+    },
+    ".capitalize": {},
+    ".vertical": {
+      "flexDirection": "column",
+      "height": null
+    },
+    "NativeBase.Text": {
+      "fontFamily": "Roboto_medium",
+      "marginLeft": 0,
+      "marginRight": 0,
+      "color": "#fff",
+      "fontSize": 14,
+      "lineHeight": 19
+    },
+    "NativeBase.Icon": {
+      "color": "#fff",
+      "fontSize": 24,
+      "marginHorizontal": 5
+    },
+    "NativeBase.IconNB": {
+      "color": "#fff",
+      "fontSize": 24,
+      "marginHorizontal": 5
+    },
+    ".iconLeft": {
+      "NativeBase.Text": {
+        "marginLeft": 6
+      },
+      "NativeBase.IconNB": {
+        "marginRight": 10,
+        "marginLeft": 0
+      },
+      "NativeBase.Icon": {
+        "marginRight": 10,
+        "marginLeft": 0
+      }
+    },
+    ".iconRight": {
+      "NativeBase.Text": {
+        "marginRight": 6
+      },
+      "NativeBase.IconNB": {
+        "marginLeft": 10,
+        "marginRight": 0
+      },
+      "NativeBase.Icon": {
+        "marginLeft": 10,
+        "marginRight": 0
+      }
+    },
+    ".picker": {
+      "NativeBase.Text": {
+        ".note": {
+          "fontSize": 16,
+          "lineHeight": null
+        }
+      }
+    },
+    "paddingVertical": 6,
+    "paddingHorizontal": 16,
+    "backgroundColor": "#3F51B5",
+    "borderRadius": 2,
+    "borderColor": "#3F51B5",
+    "borderWidth": null,
+    "height": 45,
+    "alignSelf": "flex-start",
+    "flexDirection": "row",
+    "elevation": 2,
+    "alignItems": "center",
+    "justifyContent": "space-between"
+  },
+  "NativeBase.Title": {
+    "fontSize": 19,
+    "fontFamily": "Roboto_medium",
+    "color": "#FFF",
+    "textAlign": "center"
+  },
+  "NativeBase.Subtitle": {
+    "fontSize": 14,
+    "fontFamily": "Roboto_medium",
+    "color": "#FFF",
+    "textAlign": "center"
+  },
+  "NativeBase.InputGroup": {
+    "NativeBase.Icon": {
+      "fontSize": 24,
+      "color": "#007aff",
+      "paddingHorizontal": 5
+    },
+    "NativeBase.IconNB": {
+      "fontSize": 24,
+      "color": "#007aff",
+      "paddingHorizontal": 5
+    },
+    "NativeBase.Input": {
+      "height": 50,
+      "color": "#000",
+      "paddingLeft": 5,
+      "paddingRight": 5,
+      "flex": 1,
+      "fontSize": 17,
+      "lineHeight": 24
+    },
+    ".underline": {
+      ".success": {
+        "borderColor": "#2b8339"
+      },
+      ".error": {
+        "borderColor": "#ed2f2f"
+      },
+      "paddingLeft": 5,
+      "borderWidth": 0.5,
+      "borderTopWidth": 0,
+      "borderRightWidth": 0,
+      "borderLeftWidth": 0,
+      "borderColor": "#D9D5DC"
+    },
+    ".regular": {
+      ".success": {
+        "borderColor": "#2b8339"
+      },
+      ".error": {
+        "borderColor": "#ed2f2f"
+      },
+      "paddingLeft": 5,
+      "borderWidth": 0.5,
+      "borderColor": "#D9D5DC"
+    },
+    ".rounded": {
+      ".success": {
+        "borderColor": "#2b8339"
+      },
+      ".error": {
+        "borderColor": "#ed2f2f"
+      },
+      "paddingLeft": 5,
+      "borderWidth": 0.5,
+      "borderRadius": 30,
+      "borderColor": "#D9D5DC"
+    },
+    ".success": {
+      "NativeBase.Icon": {
+        "color": "#2b8339"
+      },
+      "NativeBase.IconNB": {
+        "color": "#2b8339"
+      },
+      ".rounded": {
+        "borderColor": "#2b8339"
+      },
+      ".regular": {
+        "borderColor": "#2b8339"
+      },
+      ".underline": {
+        "borderColor": "#2b8339"
+      },
+      "borderColor": "#2b8339"
+    },
+    ".error": {
+      "NativeBase.Icon": {
+        "color": "#ed2f2f"
+      },
+      "NativeBase.IconNB": {
+        "color": "#ed2f2f"
+      },
+      ".rounded": {
+        "borderColor": "#ed2f2f"
+      },
+      ".regular": {
+        "borderColor": "#ed2f2f"
+      },
+      ".underline": {
+        "borderColor": "#ed2f2f"
+      },
+      "borderColor": "#ed2f2f"
+    },
+    ".disabled": {
+      "NativeBase.Icon": {
+        "color": "#384850"
+      },
+      "NativeBase.IconNB": {
+        "color": "#384850"
+      }
+    },
+    "paddingLeft": 5,
+    "borderWidth": 0.5,
+    "borderTopWidth": 0,
+    "borderRightWidth": 0,
+    "borderLeftWidth": 0,
+    "borderColor": "#D9D5DC",
+    "backgroundColor": "transparent",
+    "flexDirection": "row",
+    "alignItems": "center"
+  },
+  "NativeBase.Input": {
+    ".multiline": {
+      "height": null
+    },
+    "height": 50,
+    "color": "#000",
+    "paddingLeft": 5,
+    "paddingRight": 5,
+    "flex": 1,
+    "fontSize": 17,
+    "lineHeight": 24
+  },
+  "NativeBase.Badge": {
+    ".primary": {
+      "backgroundColor": "#3F51B5"
+    },
+    ".warning": {
+      "backgroundColor": "#f0ad4e"
+    },
+    ".info": {
+      "backgroundColor": "#62B1F6"
+    },
+    ".success": {
+      "backgroundColor": "#5cb85c"
+    },
+    ".danger": {
+      "backgroundColor": "#d9534f"
+    },
+    "NativeBase.Text": {
+      "color": "#fff",
+      "fontSize": 15,
+      "lineHeight": 23,
+      "textAlign": "center",
+      "paddingHorizontal": 3
+    },
+    "backgroundColor": "#ED1727",
+    "padding": 0,
+    "paddingHorizontal": 6,
+    "alignSelf": "flex-start",
+    "borderRadius": 13.5,
+    "height": 27
+  },
+  "NativeBase.CheckBox": {
+    ".checked": {
+      "NativeBase.Icon": {
+        "color": "#fff"
+      },
+      "NativeBase.IconNB": {
+        "color": "#fff"
+      }
+    },
+    "NativeBase.Icon": {
+      "color": "transparent",
+      "lineHeight": 14,
+      "marginTop": 1,
+      "fontSize": 18
+    },
+    "NativeBase.IconNB": {
+      "color": "transparent",
+      "lineHeight": 14,
+      "marginTop": 1,
+      "fontSize": 18
+    },
+    "borderRadius": 0,
+    "overflow": "hidden",
+    "width": 20,
+    "height": 20,
+    "borderWidth": 2,
+    "paddingLeft": 1,
+    "paddingBottom": 5,
+    "left": 10
+  },
+  "NativeBase.Radio": {
+    ".selected": {
+      "NativeBase.IconNB": {
+        "color": "#3F51B5",
+        "lineHeight": 24
+      }
+    },
+    "NativeBase.IconNB": {
+      "lineHeight": 24,
+      "fontSize": 23
+    }
+  },
+  "NativeBase.Card": {
+    ".transparent": {
+      "shadowColor": null,
+      "shadowOffset": null,
+      "shadowOpacity": null,
+      "shadowRadius": null,
+      "elevation": null
+    },
+    "marginVertical": 5,
+    "marginHorizontal": 2,
+    "flex": 1,
+    "borderWidth": 0.5,
+    "borderRadius": 2,
+    "borderColor": "#ccc",
+    "flexWrap": "wrap",
+    "backgroundColor": "#fff",
+    "shadowColor": "#000",
+    "shadowOffset": {
+      "width": 0,
+      "height": 2
+    },
+    "shadowOpacity": 0.1,
+    "shadowRadius": 1.5,
+    "elevation": 3
+  },
+  "NativeBase.CardItem": {
+    "NativeBase.Left": {
+      "NativeBase.Body": {
+        "NativeBase.Text": {
+          ".note": {
+            "color": "#808080",
+            "fontWeight": "400",
+            "marginRight": 20
+          }
+        },
+        "flex": 1,
+        "marginLeft": 10,
+        "alignItems": null
+      },
+      "NativeBase.Icon": {
+        "fontSize": 28
+      },
+      "NativeBase.IconNB": {
+        "fontSize": 28
+      },
+      "NativeBase.Text": {
+        "marginLeft": 10,
+        "alignSelf": "center"
+      },
+      "NativeBase.Button": {
+        ".transparent": {
+          "NativeBase.Text": {
+            "fontSize": 13,
+            "color": "#007aff"
+          },
+          "NativeBase.Icon": {
+            "fontSize": 18,
+            "color": "#007aff",
+            "marginHorizontal": null
+          },
+          "NativeBase.IconNB": {
+            "fontSize": 18,
+            "color": "#007aff"
+          },
+          "paddingVertical": null,
+          "paddingHorizontal": null,
+          "paddingRight": 17
+        }
+      },
+      "flex": 1,
+      "flexDirection": "row",
+      "alignItems": "center"
+    },
+    ".content": {
+      "NativeBase.Text": {
+        "color": "#222",
+        "fontSize": 14
+      }
+    },
+    ".cardBody": {
+      "padding": -5,
+      "NativeBase.Text": {
+        "marginTop": 5
+      }
+    },
+    "NativeBase.Body": {
+      "NativeBase.Text": {
+        ".note": {
+          "color": "#808080",
+          "fontWeight": "200",
+          "marginRight": 20
+        }
+      },
+      "NativeBase.Button": {
+        ".transparent": {
+          "NativeBase.Text": {
+            "fontSize": 13,
+            "color": "#007aff"
+          },
+          "NativeBase.Icon": {
+            "fontSize": 18,
+            "color": "#007aff",
+            "marginHorizontal": null
+          },
+          "NativeBase.IconNB": {
+            "fontSize": 18,
+            "color": "#007aff"
+          },
+          "paddingVertical": null,
+          "paddingHorizontal": null,
+          "paddingRight": 17,
+          "alignSelf": "stretch"
+        }
+      },
+      "flex": 1,
+      "alignSelf": "stretch",
+      "alignItems": "flex-start"
+    },
+    "NativeBase.Right": {
+      "NativeBase.Badge": {
+        "alignSelf": null
+      },
+      "NativeBase.Button": {
+        ".transparent": {
+          "NativeBase.Text": {
+            "fontSize": 13,
+            "color": "#007aff"
+          },
+          "NativeBase.Icon": {
+            "fontSize": 18,
+            "color": "#007aff",
+            "marginHorizontal": null
+          },
+          "NativeBase.IconNB": {
+            "fontSize": 18,
+            "color": "#007aff"
+          },
+          "paddingVertical": null,
+          "paddingHorizontal": null
+        },
+        "alignSelf": null
+      },
+      "NativeBase.Icon": {
+        "alignSelf": null,
+        "fontSize": 20,
+        "color": "#ccc"
+      },
+      "NativeBase.IconNB": {
+        "alignSelf": null,
+        "fontSize": 20,
+        "color": "#ccc"
+      },
+      "NativeBase.Text": {
+        "fontSize": 15,
+        "alignSelf": null
+      },
+      "NativeBase.Thumbnail": {
+        "alignSelf": null
+      },
+      "NativeBase.Image": {
+        "alignSelf": null
+      },
+      "NativeBase.Radio": {
+        "alignSelf": null
+      },
+      "NativeBase.Checkbox": {
+        "alignSelf": null
+      },
+      "NativeBase.Switch": {
+        "alignSelf": null
+      },
+      "flex": 0.8
+    },
+    ".header": {
+      "NativeBase.Text": {
+        "fontSize": 16
+      },
+      ".bordered": {
+        "NativeBase.Text": {
+          "color": "#007aff"
+        },
+        "borderBottomWidth": null
+      },
+      "borderBottomWidth": null,
+      "paddingVertical": 17
+    },
+    ".footer": {
+      "NativeBase.Text": {
+        "fontSize": 16
+      },
+      ".bordered": {
+        "NativeBase.Text": {
+          "color": "#fff",
+          "fontWeight": "500"
+        },
+        "borderTopWidth": null
+      },
+      "borderBottomWidth": null
+    },
+    "NativeBase.Text": {
+      ".note": {
+        "color": "#808080",
+        "fontWeight": "200"
+      }
+    },
+    "NativeBase.Icon": {
+      "width": 33,
+      "fontSize": 26
+    },
+    "NativeBase.IconNB": {
+      "width": 33,
+      "fontSize": 26
+    },
+    ".bordered": {
+      "borderBottomWidth": 0.5,
+      "borderColor": "#ccc",
+      ".header": {
+        "NativeBase.Text": {
+          "color": "#007aff"
+        },
+        "borderBottomWidth": null
+      },
+      ".footer": {
+        "NativeBase.Text": {
+          "color": "#fff",
+          "fontWeight": "500"
+        },
+        "borderTopWidth": null
+      }
+    },
+    "flexDirection": "row",
+    "alignItems": "center",
+    "borderRadius": 2,
+    "padding": 17,
+    "paddingVertical": 12,
+    "backgroundColor": "#fff"
+  },
+  "NativeBase.Toast": {
+    ".danger": {
+      "backgroundColor": "#d9534f"
+    },
+    ".warning": {
+      "backgroundColor": "#f0ad4e"
+    },
+    ".success": {
+      "backgroundColor": "#5cb85c"
+    },
+    "backgroundColor": "rgba(0,0,0,0.8)",
+    "borderRadius": 0,
+    "flexDirection": "row",
+    "justifyContent": "space-between",
+    "alignItems": "center",
+    "padding": 10,
+    "minHeight": 50,
+    "NativeBase.Text": {
+      "color": "#fff",
+      "flex": 1
+    },
+    "NativeBase.Button": {
+      "backgroundColor": "transparent",
+      "height": 30,
+      "elevation": 0,
+      "NativeBase.Text": {
+        "fontSize": 14
+      }
+    }
+  },
+  "NativeBase.H1": {
+    "color": "#000",
+    "fontSize": 27,
+    "lineHeight": 32
+  },
+  "NativeBase.H2": {
+    "color": "#000",
+    "fontSize": 24,
+    "lineHeight": 27
+  },
+  "NativeBase.H3": {
+    "color": "#000",
+    "fontSize": 21,
+    "lineHeight": 22
+  },
+  "NativeBase.Form": {
+    "NativeBase.Item": {
+      ".fixedLabel": {
+        "NativeBase.Label": {
+          "paddingLeft": null
+        },
+        "marginLeft": 15
+      },
+      ".inlineLabel": {
+        "NativeBase.Label": {
+          "paddingLeft": null
+        },
+        "marginLeft": 15
+      },
+      ".placeholderLabel": {
+        "NativeBase.Input": {}
+      },
+      ".stackedLabel": {
+        "NativeBase.Label": {
+          "top": 5,
+          "paddingLeft": null
+        },
+        "NativeBase.Input": {
+          "paddingLeft": null,
+          "marginLeft": -5
+        },
+        "NativeBase.Icon": {
+          "marginTop": 36
+        },
+        "marginLeft": 15
+      },
+      ".floatingLabel": {
+        "NativeBase.Input": {
+          "paddingLeft": null,
+          "top": 10,
+          "marginLeft": -5
+        },
+        "NativeBase.Label": {
+          "left": 0,
+          "top": 8
+        },
+        "NativeBase.Icon": {
+          "top": 6
+        },
+        "marginTop": 15,
+        "marginLeft": 15
+      },
+      ".regular": {
+        "NativeBase.Label": {
+          "left": 0
+        },
+        "marginLeft": 0
+      },
+      ".rounded": {
+        "NativeBase.Label": {
+          "left": 0
+        },
+        "marginLeft": 0
+      },
+      ".underline": {
+        "NativeBase.Label": {
+          "left": 0,
+          "top": 0,
+          "position": "relative"
+        },
+        "NativeBase.Input": {
+          "left": -15
+        },
+        "marginLeft": 15
+      },
+      ".last": {
+        "marginLeft": 0,
+        "paddingLeft": 15
+      },
+      "NativeBase.Label": {
+        "paddingRight": 5
+      },
+      "marginLeft": 15
+    }
+  },
+  "NativeBase.Container": {
+    "flex": 1,
+    "height": 572
+  },
+  "NativeBase.Content": {
+    ".padder": {
+      "padding": 10
+    },
+    "flex": 1,
+    "backgroundColor": "transparent",
+    "NativeBase.Segment": {
+      "borderWidth": 0,
+      "backgroundColor": "transparent"
+    }
+  },
+  "NativeBase.Footer": {
+    "NativeBase.Left": {
+      "NativeBase.Button": {
+        ".transparent": {
+          "backgroundColor": "transparent",
+          "borderColor": null,
+          "elevation": 0,
+          "shadowColor": null,
+          "shadowOffset": null,
+          "shadowRadius": null,
+          "shadowOpacity": null
+        },
+        "NativeBase.Icon": {
+          "color": "#fff"
+        },
+        "NativeBase.IconNB": {
+          "color": "#fff"
+        },
+        "alignSelf": null
+      },
+      "flex": 1,
+      "alignSelf": "center",
+      "alignItems": "flex-start"
+    },
+    "NativeBase.Body": {
+      "flex": 1,
+      "alignItems": "center",
+      "alignSelf": "center",
+      "flexDirection": "row",
+      "NativeBase.Button": {
+        "alignSelf": "center",
+        ".transparent": {
+          "backgroundColor": "transparent",
+          "borderColor": null,
+          "elevation": 0,
+          "shadowColor": null,
+          "shadowOffset": null,
+          "shadowRadius": null,
+          "shadowOpacity": null
+        },
+        ".full": {
+          "height": 55,
+          "flex": 1
+        },
+        "NativeBase.Icon": {
+          "color": "#fff"
+        },
+        "NativeBase.IconNB": {
+          "color": "#fff"
+        }
+      }
+    },
+    "NativeBase.Right": {
+      "NativeBase.Button": {
+        ".transparent": {
+          "backgroundColor": "transparent",
+          "borderColor": null,
+          "elevation": 0,
+          "shadowColor": null,
+          "shadowOffset": null,
+          "shadowRadius": null,
+          "shadowOpacity": null
+        },
+        "NativeBase.Icon": {
+          "color": "#fff"
+        },
+        "NativeBase.IconNB": {
+          "color": "#fff"
+        },
+        "alignSelf": null
+      },
+      "flex": 1,
+      "alignSelf": "center",
+      "alignItems": "flex-end"
+    },
+    "backgroundColor": "#4179F7",
+    "flexDirection": "row",
+    "justifyContent": "center",
+    "height": 55,
+    "elevation": 3,
+    "left": 0,
+    "right": 0
+  },
+  "NativeBase.Tabs": {
+    "flex": 1
+  },
+  "NativeBase.FooterTab": {
+    "NativeBase.Button": {
+      ".active": {
+        "NativeBase.Text": {
+          "color": "#fff",
+          "fontSize": 11,
+          "lineHeight": 16
+        },
+        "NativeBase.Icon": {
+          "color": "#fff"
+        },
+        "NativeBase.IconNB": {
+          "color": "#fff"
+        },
+        "backgroundColor": "#3F51B5"
+      },
+      "flexDirection": null,
+      "backgroundColor": "transparent",
+      "borderColor": null,
+      "elevation": 0,
+      "shadowColor": null,
+      "shadowOffset": null,
+      "shadowRadius": null,
+      "shadowOpacity": null,
+      "alignSelf": "center",
+      "flex": 1,
+      "height": 55,
+      "justifyContent": "center",
+      ".badge": {
+        "NativeBase.Badge": {
+          "NativeBase.Text": {
+            "fontSize": 11,
+            "lineHeight": 14
+          },
+          "top": -3,
+          "alignSelf": "center",
+          "left": 10,
+          "zIndex": 99,
+          "height": 18,
+          "padding": 1.7,
+          "paddingHorizontal": 3
+        },
+        "NativeBase.Icon": {
+          "marginTop": -18
+        }
+      },
+      "NativeBase.Icon": {
+        "color": "#b3c7f9"
+      },
+      "NativeBase.IconNB": {
+        "color": "#b3c7f9"
+      },
+      "NativeBase.Text": {
+        "color": "#b3c7f9",
+        "fontSize": 11,
+        "lineHeight": 16
+      }
+    },
+    "backgroundColor": "#3F51B5",
+    "flexDirection": "row",
+    "justifyContent": "space-between",
+    "flex": 1,
+    "alignSelf": "stretch"
+  },
+  "NativeBase.ListItem": {
+    "NativeBase.InputGroup": {
+      "NativeBase.Icon": {
+        "paddingRight": 5
+      },
+      "NativeBase.IconNB": {
+        "paddingRight": 5
+      },
+      "NativeBase.Input": {
+        "paddingHorizontal": 5
+      },
+      "flex": 1,
+      "borderWidth": null,
+      "margin": -10,
+      "borderBottomColor": "transparent"
+    },
+    ".searchBar": {
+      "NativeBase.Item": {
+        "NativeBase.Icon": {
+          "backgroundColor": "transparent",
+          "color": "#414142",
+          "fontSize": 23,
+          "alignItems": "center",
+          "marginTop": 2,
+          "paddingRight": 8
+        },
+        "NativeBase.IconNB": {
+          "backgroundColor": "transparent",
+          "color": null,
+          "alignSelf": "center"
+        },
+        "NativeBase.Input": {
+          "alignSelf": "center"
+        },
+        "alignSelf": "center",
+        "alignItems": "center",
+        "justifyContent": "flex-start",
+        "flex": 1,
+        "height": 40,
+        "borderColor": "transparent",
+        "backgroundColor": "#fff",
+        "borderRadius": 5
+      },
+      "NativeBase.Button": {
+        ".transparent": {
+          "NativeBase.Text": {
+            "fontWeight": "500"
+          },
+          "paddingHorizontal": null,
+          "paddingLeft": null
+        },
+        "paddingHorizontal": null,
+        "width": 0,
+        "height": 0
+      },
+      "backgroundColor": "#fff",
+      "padding": 10,
+      "marginLeft": null
+    },
+    "NativeBase.CheckBox": {
+      "marginLeft": -10,
+      "marginRight": 10
+    },
+    ".first": {
+      ".itemHeader": {
+        "paddingTop": 15
+      }
+    },
+    ".itemHeader": {
+      ".first": {
+        "paddingTop": 15
+      },
+      "borderBottomWidth": null,
+      "marginLeft": null,
+      "padding": 12,
+      "paddingLeft": 17,
+      "paddingBottom": 32,
+      "flexDirection": "row",
+      "borderColor": "#c9c9c9",
+      "NativeBase.Text": {
+        "fontSize": 14,
+        "color": "#808080"
+      }
+    },
+    ".itemDivider": {
+      "borderBottomWidth": null,
+      "marginLeft": null,
+      "padding": 12,
+      "paddingLeft": 17,
+      "backgroundColor": "#f4f4f4",
+      "flexDirection": "row",
+      "borderColor": "#c9c9c9"
+    },
+    ".selected": {
+      "NativeBase.Left": {
+        "NativeBase.Text": {
+          "color": "#3F51B5"
+        }
+      },
+      "NativeBase.Text": {
+        "color": "#3F51B5"
+      }
+    },
+    "NativeBase.Left": {
+      "NativeBase.Body": {
+        "NativeBase.Text": {
+          ".note": {
+            "color": "#808080",
+            "fontWeight": "200"
+          },
+          "fontWeight": "600"
+        },
+        "marginLeft": 10,
+        "alignItems": null,
+        "alignSelf": null
+      },
+      "NativeBase.Icon": {
+        "width": 18,
+        "fontSize": 18
+      },
+      "NativeBase.IconNB": {
+        "width": 18,
+        "fontSize": 18
+      },
+      "NativeBase.Text": {
+        "marginLeft": 10,
+        "alignSelf": "center"
+      },
+      "flexDirection": "row"
+    },
+    "NativeBase.Body": {
+      "NativeBase.Text": {
+        "marginHorizontal": 12,
+        ".note": {
+          "color": "#808080",
+          "fontWeight": "200"
+        }
+      },
+      "alignSelf": null,
+      "alignItems": null
+    },
+    "NativeBase.Right": {
+      "NativeBase.Badge": {
+        "alignSelf": null
+      },
+      "NativeBase.PickerNB": {
+        "NativeBase.Button": {
+          "marginRight": -15,
+          "NativeBase.Text": {
+            "color": "#fff"
+          }
+        }
+      },
+      "NativeBase.Button": {
+        "alignSelf": null,
+        ".transparent": {
+          "NativeBase.Text": {
+            "color": "#fff"
+          }
+        }
+      },
+      "NativeBase.Icon": {
+        "alignSelf": null,
+        "fontSize": 20,
+        "color": "#c9c8cd"
+      },
+      "NativeBase.IconNB": {
+        "alignSelf": null,
+        "fontSize": 20,
+        "color": "#c9c8cd"
+      },
+      "NativeBase.Text": {
+        ".note": {
+          "color": "#808080",
+          "fontWeight": "200"
+        },
+        "alignSelf": null
+      },
+      "NativeBase.Thumbnail": {
+        "alignSelf": null
+      },
+      "NativeBase.Image": {
+        "alignSelf": null
+      },
+      "NativeBase.Radio": {
+        "alignSelf": null
+      },
+      "NativeBase.Checkbox": {
+        "alignSelf": null
+      },
+      "NativeBase.Switch": {
+        "alignSelf": null
+      },
+      "padding": null,
+      "flex": 0.28
+    },
+    "NativeBase.Text": {
+      ".note": {
+        "color": "#808080",
+        "fontWeight": "200"
+      },
+      "alignSelf": "center"
+    },
+    ".last": {
+      "marginLeft": -17,
+      "paddingLeft": 34,
+      "top": 1,
+      ".icon": {
+        "NativeBase.Body": {
+          "borderBottomWidth": null
+        },
+        "NativeBase.Right": {
+          "borderBottomWidth": null
+        },
+        "borderBottomWidth": 0.5,
+        "borderColor": "#c9c9c9"
+      }
+    },
+    ".avatar": {
+      "NativeBase.Left": {
+        "flex": 0
+      },
+      "NativeBase.Body": {
+        "NativeBase.Text": {
+          "marginLeft": null
+        },
+        "flex": 1,
+        "paddingVertical": 12,
+        "borderBottomWidth": 0.5,
+        "borderColor": "#c9c9c9",
+        "marginLeft": 17
+      },
+      "NativeBase.Right": {
+        "NativeBase.Text": {
+          ".note": {
+            "fontSize": 12
+          }
+        },
+        "flex": 0,
+        "paddingRight": 17,
+        "alignSelf": "stretch",
+        "paddingVertical": 12,
+        "borderBottomWidth": 0.5,
+        "borderColor": "#c9c9c9"
+      },
+      "borderBottomWidth": null,
+      "paddingVertical": null,
+      "paddingRight": null
+    },
+    ".thumbnail": {
+      "NativeBase.Left": {
+        "flex": 0
+      },
+      "NativeBase.Body": {
+        "NativeBase.Text": {
+          "marginLeft": null
+        },
+        "flex": 1,
+        "paddingVertical": 17,
+        "borderBottomWidth": 0.5,
+        "borderColor": "#c9c9c9",
+        "marginLeft": 17
+      },
+      "NativeBase.Right": {
+        "NativeBase.Button": {
+          ".transparent": {
+            "NativeBase.Text": {
+              "fontSize": 13,
+              "color": "#007aff"
+            }
+          },
+          "height": null
+        },
+        "flex": 0,
+        "justifyContent": "center",
+        "alignSelf": "stretch",
+        "paddingRight": 17,
+        "paddingVertical": 17,
+        "borderBottomWidth": 0.5,
+        "borderColor": "#c9c9c9"
+      },
+      "borderBottomWidth": null,
+      "paddingVertical": null,
+      "paddingRight": null
+    },
+    ".icon": {
+      ".last": {
+        "NativeBase.Body": {
+          "borderBottomWidth": null
+        },
+        "NativeBase.Right": {
+          "borderBottomWidth": null
+        },
+        "borderBottomWidth": 0.5,
+        "borderColor": "#c9c9c9"
+      },
+      "NativeBase.Left": {
+        "NativeBase.Button": {
+          "NativeBase.IconNB": {
+            "marginHorizontal": null,
+            "fontSize": 23
+          },
+          "NativeBase.Icon": {
+            "marginHorizontal": null,
+            "fontSize": 20
+          },
+          "alignSelf": "center",
+          "height": 29,
+          "width": 29,
+          "borderRadius": 6,
+          "paddingVertical": null,
+          "paddingHorizontal": null,
+          "alignItems": "center",
+          "justifyContent": "center"
+        },
+        "NativeBase.Icon": {
+          "width": 23,
+          "fontSize": 26
+        },
+        "NativeBase.IconNB": {
+          "width": 23,
+          "fontSize": 26
+        },
+        "paddingRight": 17,
+        "flex": 0,
+        "height": 44,
+        "justifyContent": "center",
+        "alignItems": "center"
+      },
+      "NativeBase.Body": {
+        "NativeBase.Text": {
+          "marginLeft": null,
+          "fontSize": 17
+        },
+        "flex": 1,
+        "height": 44,
+        "justifyContent": "center",
+        "borderBottomWidth": 0.5,
+        "borderColor": "#c9c9c9"
+      },
+      "NativeBase.Right": {
+        "NativeBase.Text": {
+          "textAlign": "center",
+          "color": "#8F8E95",
+          "fontSize": 17
+        },
+        "NativeBase.IconNB": {
+          "color": "#C8C7CC",
+          "fontSize": 18,
+          "alignSelf": "center",
+          "paddingLeft": 10,
+          "paddingTop": 3
+        },
+        "NativeBase.Icon": {
+          "color": "#C8C7CC",
+          "fontSize": 18,
+          "alignSelf": "center",
+          "paddingLeft": 10,
+          "paddingTop": 3
+        },
+        "NativeBase.Switch": {
+          "marginRight": -5,
+          "alignSelf": null
+        },
+        "NativeBase.PickerNB": {
+          ".note": {
+            "color": "#8F8E95"
+          },
+          "width": 90,
+          "marginRight": -4
+        },
+        "flexDirection": "row",
+        "alignItems": "center",
+        "flex": 0,
+        "alignSelf": "stretch",
+        "height": 44,
+        "justifyContent": "flex-end",
+        "borderBottomWidth": 0.5,
+        "borderColor": "#c9c9c9",
+        "paddingRight": 17
+      },
+      "borderBottomWidth": null,
+      "paddingVertical": null,
+      "paddingRight": null,
+      "height": 44,
+      "justifyContent": "center"
+    },
+    ".noBorder": {
+      "borderBottomWidth": null
+    },
+    "alignItems": "center",
+    "flexDirection": "row",
+    "paddingRight": 17,
+    "paddingVertical": 15,
+    "marginLeft": 17,
+    "borderBottomWidth": 0.5,
+    "borderColor": "#c9c9c9"
+  },
+  "NativeBase.ListItem1": {
+    "NativeBase.InputGroup": {
+      "NativeBase.Icon": {
+        "paddingRight": 5
+      },
+      "NativeBase.IconNB": {
+        "paddingRight": 5
+      },
+      "NativeBase.Input": {
+        "paddingHorizontal": 5
+      },
+      "flex": 1,
+      "borderWidth": null,
+      "margin": -10,
+      "borderBottomColor": "transparent"
+    },
+    ".searchBar": {
+      "NativeBase.Item": {
+        "NativeBase.Icon": {
+          "backgroundColor": "transparent",
+          "color": "#414142",
+          "fontSize": 23,
+          "alignItems": "center",
+          "marginTop": 2,
+          "paddingRight": 8
+        },
+        "NativeBase.IconNB": {
+          "backgroundColor": "transparent",
+          "color": null,
+          "alignSelf": "center"
+        },
+        "NativeBase.Input": {
+          "alignSelf": "center"
+        },
+        "alignSelf": "center",
+        "alignItems": "center",
+        "justifyContent": "flex-start",
+        "flex": 1,
+        "height": 40,
+        "borderColor": "transparent",
+        "backgroundColor": "#fff",
+        "borderRadius": 5
+      },
+      "NativeBase.Button": {
+        ".transparent": {
+          "NativeBase.Text": {
+            "fontWeight": "500"
+          },
+          "paddingHorizontal": null,
+          "paddingLeft": null
+        },
+        "paddingHorizontal": null,
+        "width": 0,
+        "height": 0
+      },
+      "backgroundColor": "#fff",
+      "padding": 10,
+      "marginLeft": null
+    },
+    "NativeBase.CheckBox": {
+      "marginLeft": -10,
+      "marginRight": 10
+    },
+    ".first": {
+      ".itemHeader": {
+        "paddingTop": 15
+      }
+    },
+    ".itemHeader": {
+      ".first": {
+        "paddingTop": 15
+      },
+      "borderBottomWidth": null,
+      "marginLeft": null,
+      "padding": 12,
+      "paddingLeft": 17,
+      "paddingBottom": 32,
+      "flexDirection": "row",
+      "borderColor": "#c9c9c9",
+      "NativeBase.Text": {
+        "fontSize": 14,
+        "color": "#808080"
+      }
+    },
+    ".itemDivider": {
+      "borderBottomWidth": null,
+      "marginLeft": null,
+      "padding": 12,
+      "paddingLeft": 17,
+      "backgroundColor": "#f4f4f4",
+      "flexDirection": "row",
+      "borderColor": "#c9c9c9"
+    },
+    ".selected": {
+      "NativeBase.Left": {
+        "NativeBase.Text": {
+          "color": "#3F51B5"
+        }
+      },
+      "NativeBase.Text": {
+        "color": "#3F51B5"
+      }
+    },
+    "NativeBase.Left": {
+      "NativeBase.Body": {
+        "NativeBase.Text": {
+          ".note": {
+            "color": "#808080",
+            "fontWeight": "200"
+          },
+          "fontWeight": "600"
+        },
+        "marginLeft": 10,
+        "alignItems": null,
+        "alignSelf": null
+      },
+      "NativeBase.Icon": {
+        "width": 18,
+        "fontSize": 18
+      },
+      "NativeBase.IconNB": {
+        "width": 18,
+        "fontSize": 18
+      },
+      "NativeBase.Text": {
+        "marginLeft": 10,
+        "alignSelf": "center"
+      },
+      "flexDirection": "row"
+    },
+    "NativeBase.Body": {
+      "NativeBase.Text": {
+        "marginHorizontal": 12,
+        ".note": {
+          "color": "#808080",
+          "fontWeight": "200"
+        }
+      },
+      "alignSelf": null,
+      "alignItems": null
+    },
+    "NativeBase.Right": {
+      "NativeBase.Badge": {
+        "alignSelf": null
+      },
+      "NativeBase.PickerNB": {
+        "NativeBase.Button": {
+          "marginRight": -15,
+          "NativeBase.Text": {
+            "color": "#fff"
+          }
+        }
+      },
+      "NativeBase.Button": {
+        "alignSelf": null,
+        ".transparent": {
+          "NativeBase.Text": {
+            "color": "#fff"
+          }
+        }
+      },
+      "NativeBase.Icon": {
+        "alignSelf": null,
+        "fontSize": 20,
+        "color": "#c9c8cd"
+      },
+      "NativeBase.IconNB": {
+        "alignSelf": null,
+        "fontSize": 20,
+        "color": "#c9c8cd"
+      },
+      "NativeBase.Text": {
+        ".note": {
+          "color": "#808080",
+          "fontWeight": "200"
+        },
+        "alignSelf": null
+      },
+      "NativeBase.Thumbnail": {
+        "alignSelf": null
+      },
+      "NativeBase.Image": {
+        "alignSelf": null
+      },
+      "NativeBase.Radio": {
+        "alignSelf": null
+      },
+      "NativeBase.Checkbox": {
+        "alignSelf": null
+      },
+      "NativeBase.Switch": {
+        "alignSelf": null
+      },
+      "padding": null,
+      "flex": 0.28
+    },
+    "NativeBase.Text": {
+      ".note": {
+        "color": "#808080",
+        "fontWeight": "200"
+      },
+      "alignSelf": "center"
+    },
+    ".last": {
+      "marginLeft": -17,
+      "paddingLeft": 34,
+      "top": 1,
+      ".icon": {
+        "NativeBase.Body": {
+          "borderBottomWidth": null
+        },
+        "NativeBase.Right": {
+          "borderBottomWidth": null
+        },
+        "borderBottomWidth": 0.5,
+        "borderColor": "#c9c9c9"
+      }
+    },
+    ".avatar": {
+      "NativeBase.Left": {
+        "flex": 0
+      },
+      "NativeBase.Body": {
+        "NativeBase.Text": {
+          "marginLeft": null
+        },
+        "flex": 1,
+        "paddingVertical": 12,
+        "borderBottomWidth": 0.5,
+        "borderColor": "#c9c9c9",
+        "marginLeft": 17
+      },
+      "NativeBase.Right": {
+        "NativeBase.Text": {
+          ".note": {
+            "fontSize": 12
+          }
+        },
+        "flex": 0,
+        "paddingRight": 17,
+        "alignSelf": "stretch",
+        "paddingVertical": 12,
+        "borderBottomWidth": 0.5,
+        "borderColor": "#c9c9c9"
+      },
+      "borderBottomWidth": null,
+      "paddingVertical": null,
+      "paddingRight": null
+    },
+    ".thumbnail": {
+      "NativeBase.Left": {
+        "flex": 0
+      },
+      "NativeBase.Body": {
+        "NativeBase.Text": {
+          "marginLeft": null
+        },
+        "flex": 1,
+        "paddingVertical": 17,
+        "borderBottomWidth": 0.5,
+        "borderColor": "#c9c9c9",
+        "marginLeft": 17
+      },
+      "NativeBase.Right": {
+        "NativeBase.Button": {
+          ".transparent": {
+            "NativeBase.Text": {
+              "fontSize": 13,
+              "color": "#007aff"
+            }
+          },
+          "height": null
+        },
+        "flex": 0,
+        "justifyContent": "center",
+        "alignSelf": "stretch",
+        "paddingRight": 17,
+        "paddingVertical": 17,
+        "borderBottomWidth": 0.5,
+        "borderColor": "#c9c9c9"
+      },
+      "borderBottomWidth": null,
+      "paddingVertical": null,
+      "paddingRight": null
+    },
+    ".icon": {
+      ".last": {
+        "NativeBase.Body": {
+          "borderBottomWidth": null
+        },
+        "NativeBase.Right": {
+          "borderBottomWidth": null
+        },
+        "borderBottomWidth": 0.5,
+        "borderColor": "#c9c9c9"
+      },
+      "NativeBase.Left": {
+        "NativeBase.Button": {
+          "NativeBase.IconNB": {
+            "marginHorizontal": null,
+            "fontSize": 23
+          },
+          "NativeBase.Icon": {
+            "marginHorizontal": null,
+            "fontSize": 20
+          },
+          "alignSelf": "center",
+          "height": 29,
+          "width": 29,
+          "borderRadius": 6,
+          "paddingVertical": null,
+          "paddingHorizontal": null,
+          "alignItems": "center",
+          "justifyContent": "center"
+        },
+        "NativeBase.Icon": {
+          "width": 23,
+          "fontSize": 26
+        },
+        "NativeBase.IconNB": {
+          "width": 23,
+          "fontSize": 26
+        },
+        "paddingRight": 17,
+        "flex": 0,
+        "height": 44,
+        "justifyContent": "center",
+        "alignItems": "center"
+      },
+      "NativeBase.Body": {
+        "NativeBase.Text": {
+          "marginLeft": null,
+          "fontSize": 17
+        },
+        "flex": 1,
+        "height": 44,
+        "justifyContent": "center",
+        "borderBottomWidth": 0.5,
+        "borderColor": "#c9c9c9"
+      },
+      "NativeBase.Right": {
+        "NativeBase.Text": {
+          "textAlign": "center",
+          "color": "#8F8E95",
+          "fontSize": 17
+        },
+        "NativeBase.IconNB": {
+          "color": "#C8C7CC",
+          "fontSize": 18,
+          "alignSelf": "center",
+          "paddingLeft": 10,
+          "paddingTop": 3
+        },
+        "NativeBase.Icon": {
+          "color": "#C8C7CC",
+          "fontSize": 18,
+          "alignSelf": "center",
+          "paddingLeft": 10,
+          "paddingTop": 3
+        },
+        "NativeBase.Switch": {
+          "marginRight": -5,
+          "alignSelf": null
+        },
+        "NativeBase.PickerNB": {
+          ".note": {
+            "color": "#8F8E95"
+          },
+          "width": 90,
+          "marginRight": -4
+        },
+        "flexDirection": "row",
+        "alignItems": "center",
+        "flex": 0,
+        "alignSelf": "stretch",
+        "height": 44,
+        "justifyContent": "flex-end",
+        "borderBottomWidth": 0.5,
+        "borderColor": "#c9c9c9",
+        "paddingRight": 17
+      },
+      "borderBottomWidth": null,
+      "paddingVertical": null,
+      "paddingRight": null,
+      "height": 44,
+      "justifyContent": "center"
+    },
+    ".noBorder": {
+      "borderBottomWidth": null
+    },
+    "alignItems": "center",
+    "flexDirection": "row",
+    "paddingRight": 17,
+    "paddingVertical": 15,
+    "marginLeft": 17,
+    "borderBottomWidth": 0.5,
+    "borderColor": "#c9c9c9"
+  },
+  "NativeBase.Icon": {
+    "fontSize": 28,
+    "color": "#000"
+  },
+  "NativeBase.IconNB": {
+    "fontSize": 28,
+    "color": "#000"
+  },
+  "NativeBase.Text": {
+    "fontSize": 16,
+    "fontFamily": "Roboto",
+    "color": "#000",
+    ".note": {
+      "color": "#a7a7a7",
+      "fontSize": 14
+    }
+  },
+  "NativeBase.Spinner": {
+    "height": 80
+  },
+  "NativeBase.Fab": {
+    "NativeBase.Button": {
+      "alignItems": "center",
+      "padding": null,
+      "justifyContent": "center",
+      "NativeBase.Icon": {
+        "alignSelf": "center"
+      },
+      "NativeBase.IconNB": {
+        "alignSelf": "center",
+        "fontSize": 20
+      }
+    }
+  },
+  "NativeBase.Item": {
+    ".floatingLabel": {
+      "NativeBase.Input": {
+        "height": 60,
+        "top": 8
+      },
+      "NativeBase.Label": {
+        "top": 8
+      },
+      "NativeBase.Icon": {
+        "top": 6
+      }
+    },
+    ".fixedLabel": {
+      "NativeBase.Label": {
+        "position": null,
+        "top": null,
+        "left": null,
+        "right": null,
+        "flex": 1,
+        "height": null,
+        "width": null,
+        "fontSize": 17
+      },
+      "NativeBase.Input": {
+        "flex": 2,
+        "fontSize": 17
+      }
+    },
+    ".stackedLabel": {
+      "NativeBase.Label": {
+        "position": null,
+        "top": null,
+        "left": null,
+        "right": null,
+        "paddingTop": 5,
+        "alignSelf": "flex-start",
+        "fontSize": 15
+      },
+      "NativeBase.Icon": {
+        "marginTop": 36
+      },
+      "NativeBase.Input": {
+        "alignSelf": "flex-start",
+        "flex": 1,
+        "width": 359,
+        "fontSize": 17
+      },
+      "flexDirection": null
+    },
+    ".inlineLabel": {
+      "NativeBase.Label": {
+        "position": null,
+        "top": null,
+        "left": null,
+        "right": null,
+        "paddingRight": 20,
+        "height": null,
+        "width": null,
+        "fontSize": 17
+      },
+      "NativeBase.Input": {
+        "paddingLeft": 5,
+        "fontSize": 17
+      },
+      "flexDirection": "row"
+    },
+    "NativeBase.Label": {
+      "fontSize": 17,
+      "color": "#575757",
+      "paddingRight": 5
+    },
+    "NativeBase.Icon": {
+      "fontSize": 24,
+      "paddingRight": 8
+    },
+    "NativeBase.IconNB": {
+      "fontSize": 24,
+      "paddingRight": 8
+    },
+    "NativeBase.Input": {
+      ".multiline": {
+        "height": null
+      },
+      "height": 50,
+      "color": "#000",
+      "flex": 1,
+      "fontSize": 17,
+      "lineHeight": 24
+    },
+    ".underline": {
+      "NativeBase.Input": {
+        "paddingLeft": 15
+      },
+      ".success": {
+        "borderColor": "#2b8339"
+      },
+      ".error": {
+        "borderColor": "#ed2f2f"
+      },
+      "borderWidth": 1,
+      "borderTopWidth": 0,
+      "borderRightWidth": 0,
+      "borderLeftWidth": 0,
+      "borderColor": "#D9D5DC"
+    },
+    ".regular": {
+      "NativeBase.Input": {
+        "paddingLeft": 8
+      },
+      "NativeBase.Icon": {
+        "paddingLeft": 10
+      },
+      ".success": {
+        "borderColor": "#2b8339"
+      },
+      ".error": {
+        "borderColor": "#ed2f2f"
+      },
+      "borderWidth": 1,
+      "borderColor": "#D9D5DC"
+    },
+    ".rounded": {
+      "NativeBase.Input": {
+        "paddingLeft": 8
+      },
+      "NativeBase.Icon": {
+        "paddingLeft": 10
+      },
+      ".success": {
+        "borderColor": "#2b8339"
+      },
+      ".error": {
+        "borderColor": "#ed2f2f"
+      },
+      "borderWidth": 1,
+      "borderRadius": 30,
+      "borderColor": "#D9D5DC"
+    },
+    ".success": {
+      "NativeBase.Icon": {
+        "color": "#2b8339"
+      },
+      "NativeBase.IconNB": {
+        "color": "#2b8339"
+      },
+      ".rounded": {
+        "borderColor": "#2b8339"
+      },
+      ".regular": {
+        "borderColor": "#2b8339"
+      },
+      ".underline": {
+        "borderColor": "#2b8339"
+      },
+      "borderColor": "#2b8339"
+    },
+    ".error": {
+      "NativeBase.Icon": {
+        "color": "#ed2f2f"
+      },
+      "NativeBase.IconNB": {
+        "color": "#ed2f2f"
+      },
+      ".rounded": {
+        "borderColor": "#ed2f2f"
+      },
+      ".regular": {
+        "borderColor": "#ed2f2f"
+      },
+      ".underline": {
+        "borderColor": "#ed2f2f"
+      },
+      "borderColor": "#ed2f2f"
+    },
+    ".disabled": {
+      "NativeBase.Icon": {
+        "color": "#384850"
+      },
+      "NativeBase.IconNB": {
+        "color": "#384850"
+      }
+    },
+    "borderWidth": 1,
+    "borderTopWidth": 0,
+    "borderRightWidth": 0,
+    "borderLeftWidth": 0,
+    "borderColor": "#D9D5DC",
+    "backgroundColor": "transparent",
+    "flexDirection": "row",
+    "alignItems": "center",
+    "marginLeft": 2
+  },
+  "NativeBase.Label": {
+    ".focused": {
+      "width": 0
+    },
+    "fontSize": 17
+  },
+  "NativeBase.Textarea": {
+    ".underline": {
+      "borderBottomWidth": 0.5,
+      "marginTop": 5,
+      "borderColor": "#D9D5DC"
+    },
+    ".bordered": {
+      "borderWidth": 1,
+      "marginTop": 5,
+      "borderColor": "#D9D5DC"
+    },
+    "color": "#000",
+    "paddingLeft": 10,
+    "paddingRight": 5,
+    "fontSize": 15,
+    "textAlignVertical": "top"
+  },
+  "NativeBase.PickerNB": {
+    "NativeBase.Button": {
+      "NativeBase.Text": {}
+    }
+  },
+  "NativeBase.Tab": {
+    "flex": 1,
+    "backgroundColor": "#FFF"
+  },
+  "NativeBase.Segment": {
+    "height": 45,
+    "borderColor": "#3F51B5",
+    "flexDirection": "row",
+    "justifyContent": "center",
+    "backgroundColor": "#3F51B5",
+    "NativeBase.Button": {
+      "alignSelf": "center",
+      "borderRadius": 0,
+      "paddingHorizontal": 20,
+      "height": 30,
+      "backgroundColor": "transparent",
+      "borderWidth": 1,
+      "borderColor": "#fff",
+      "elevation": 0,
+      ".active": {
+        "backgroundColor": "#fff",
+        "NativeBase.Text": {
+          "color": "#3F51B5"
+        }
+      },
+      ".first": {
+        "borderRightWidth": 0
+      },
+      ".last": {
+        "borderLeftWidth": 0
+      },
+      "NativeBase.Text": {
+        "color": "#fff",
+        "fontSize": 14
+      }
+    }
+  },
+  "NativeBase.TabBar": {
+    ".tabIcon": {},
+    ".vertical": {
+      "height": 60
+    },
+    "NativeBase.Button": {
+      ".transparent": {
+        "NativeBase.Text": {
+          "fontSize": 15,
+          "color": "#007aff",
+          "fontWeight": "400"
+        },
+        "NativeBase.IconNB": {
+          "color": "#007aff"
+        }
+      },
+      "NativeBase.IconNB": {
+        "color": "#007aff"
+      },
+      "NativeBase.Text": {
+        "fontSize": 15,
+        "color": "#007aff",
+        "fontWeight": "400"
+      },
+      ".isTabActive": {
+        "NativeBase.Text": {
+          "fontWeight": "900"
+        }
+      },
+      "flex": 1,
+      "alignSelf": "stretch",
+      "alignItems": "center",
+      "justifyContent": "center",
+      "borderRadius": null,
+      "borderBottomColor": "transparent",
+      "backgroundColor": "#F8F8F8"
+    },
+    "height": 45,
+    "flexDirection": "row",
+    "justifyContent": "space-around",
+    "borderWidth": 1,
+    "borderTopWidth": 0,
+    "borderLeftWidth": 0,
+    "borderRightWidth": 0,
+    "borderBottomColor": "#ccc",
+    "backgroundColor": "#F8F8F8"
+  },
+  "NativeBase.ViewNB": {
+    ".padder": {
+      "padding": 10
+    }
+  },
+  "NativeBase.TabHeading": {
+    "flexDirection": "row",
+    "backgroundColor": "#3F51B5",
+    "flex": 1,
+    "alignItems": "center",
+    "justifyContent": "center",
+    ".scrollable": {
+      "paddingHorizontal": 20,
+      "flex": 0
+    },
+    "NativeBase.Text": {
+      "color": "#b3c7f9",
+      "marginHorizontal": 7
+    },
+    "NativeBase.Icon": {
+      "color": "#b3c7f9"
+    },
+    ".active": {
+      "NativeBase.Text": {
+        "color": "#fff",
+        "fontWeight": "600"
+      },
+      "NativeBase.Icon": {
+        "color": "#fff"
+      }
+    }
+  },
+  "NativeBase.TabContainer": {
+    "elevation": 3,
+    "height": 50,
+    "flexDirection": "row",
+    "justifyContent": "space-around",
+    "borderBottomWidth": 0,
+    "borderColor": "#fff"
+  },
+  "NativeBase.Switch": {
+    "marginVertical": -5
+  },
+  "NativeBase.Separator": {
+    ".group": {
+      "height": 50,
+      "paddingVertical": 4,
+      "paddingTop": 24,
+      ".bordered": {
+        "height": 50,
+        "paddingVertical": 4,
+        "paddingTop": 24
+      }
+    },
+    ".bordered": {
+      ".noTopBorder": {
+        "borderTopWidth": 0
+      },
+      ".noBottomBorder": {
+        "borderBottomWidth": 0
+      },
+      "height": 35,
+      "paddingTop": 14,
+      "paddingBottom": 12,
+      "borderBottomWidth": 0.5,
+      "borderTopWidth": 0.5,
+      "borderColor": "#c9c9c9",
+      ".group": {
+        "height": 50,
+        "paddingVertical": 4,
+        "paddingTop": 24
+      }
+    },
+    "NativeBase.Text": {
+      "fontSize": 9,
+      "color": "#777"
+    },
+    ".noTopBorder": {
+      "borderTopWidth": 0,
+      ".bordered": {
+        "borderTopWidth": 0
+      }
+    },
+    ".noBottomBorder": {
+      "borderBottomWidth": 0,
+      ".bordered": {
+        "borderBottomWidth": 0
+      }
+    },
+    "height": 38,
+    "backgroundColor": "#F0EFF5",
+    "flex": 1,
+    "justifyContent": "center",
+    "paddingLeft": 17
+  },
+  "NativeBase.SwipeRow": {
+    "NativeBase.ListItem": {
+      "backgroundColor": "#FFF",
+      "marginLeft": 0
+    },
+    "NativeBase.Left": {
+      "flex": 0,
+      "alignSelf": null,
+      "alignItems": null,
+      "NativeBase.Button": {
+        "flex": 1,
+        "alignItems": "center",
+        "justifyContent": "center",
+        "alignSelf": "stretch",
+        "borderRadius": 0
+      }
+    },
+    "NativeBase.Right": {
+      "flex": 0,
+      "alignSelf": null,
+      "alignItems": null,
+      "NativeBase.Button": {
+        "flex": 1,
+        "alignItems": "center",
+        "justifyContent": "center",
+        "alignSelf": "stretch",
+        "borderRadius": 0
+      }
+    },
+    "NativeBase.Button": {
+      "flex": 1,
+      "height": null,
+      "alignItems": "center",
+      "justifyContent": "center",
+      "alignSelf": "stretch",
+      "borderRadius": 0
+    }
+  },
+  "NativeBase.Thumbnail": {
+    ".square": {
+      "borderRadius": 0,
+      ".small": {
+        "width": 36,
+        "height": 36,
+        "borderRadius": 0
+      },
+      ".large": {
+        "width": 80,
+        "height": 80,
+        "borderRadius": 0
+      }
+    },
+    ".small": {
+      "width": 36,
+      "height": 36,
+      "borderRadius": 18,
+      ".square": {
+        "width": 36,
+        "height": 36,
+        "borderRadius": 0
+      }
+    },
+    ".large": {
+      "width": 80,
+      "height": 80,
+      "borderRadius": 40,
+      ".square": {
+        "width": 80,
+        "height": 80,
+        "borderRadius": 0
+      }
+    },
+    "width": 56,
+    "height": 56,
+    "borderRadius": 28
+  }
+}

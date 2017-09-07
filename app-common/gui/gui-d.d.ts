@@ -4,7 +4,9 @@
     Button: React.SFC<GUI.IButtonProps>
     Icon: React.SFC<IIconProps>
     H1: React.ComponentType<NativeBase.H1>
-    H2: React.ComponentType<NativeBase.H2> 
+    H2: React.ComponentType<NativeBase.H2>
+    View: React.ComponentType<ReactNative.ViewProperties>
+    Text: React.ComponentType<ReactNative.TextProperties> 
   }
 
   const enum Colors {
@@ -99,6 +101,7 @@
     label?: string //label=='' || !label && icon => icon in button else standalone icon
     secondary?: boolean
     color?: Colors //https://react-md.mlaursen.com/components/buttons: flat and icon buttons will theme the text color in the button while raised and floating will theme the background of the button.
+    shadow?: Shadows
     disabled?: boolean
   }
 }
