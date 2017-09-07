@@ -1,133 +1,74 @@
 ﻿import React from 'react'
 import { Container, Header, Content, Button, Text, Icon, StyleProvider, getTheme } from 'native-base'
 import { View } from 'react-native'
+import { theme } from '../gui/theme'
 
-//import getTheme from '../../native-base-theme/components/index'
-//import material from '../../native-base-theme/variables/platform'
+const xx = {
+  ".btn_Deep_Orange_500": {
+    "NativeBase.Text": {
+      "color": "#ffffff"
+    },
+    "NativeBase.Icon": {
+      "color": "#ffffff"
+    },
+    "backgroundColor": "#FF5722"
+  },
+  ".btn_bordered_Deep_Orange_500": {
+    "NativeBase.Text": {
+      "color": "#FF5722"
+    },
+    "NativeBase.Icon": {
+      "color": "#FF5722"
+    },
+    "backgroundColor": null,
+    "borderColor": "#FF5722"
+  },
+  ".btn_transparent_Deep_Orange_500": {
+    ".transparent": {
+      "NativeBase.Text": {
+        "color": "#FF5722"
+      },
+      "NativeBase.Icon": {
+        "color": "#FF5722"
+      },
+      "backgroundColor": null
+    }
+  },
+}
 
-//let theme = getTheme(material)
+theme['NativeBase.Button'] = {
+  ...theme['NativeBase.Button'],
+  ...xx,
+  "NativeBase.Text": {
+    color: "white"
+  },
+  "NativeBase.Icon": {
+    color: "white"
+  },
+  backgroundColor: 'red',
+}
 
-//console.log('theme:', JSON.stringify(theme, null, 2)) 
+console.log('adjustBtnTheme: ', JSON.stringify(theme['NativeBase.Button'], null, 2))
 
-//theme = {
-//  ...theme,
-//  'NativeBase.Button': {
-//    '.xxx': {
-//      "NativeBase.Text": {
-//        color: "pink"
-//      },
-//      "NativeBase.Icon": {
-//        color: "pink"
-//      },
-//      "NativeBase.IconNB": {
-//        color: "pink"
-//      },
-//      backgroundColor: 'red'
-//    },
-//    '.yyy': {
-//      "NativeBase.Text": {
-//        color: "blue"
-//      },
-//      "NativeBase.Icon": {
-//        color: "blue"
-//      },
-//      "NativeBase.IconNB": {
-//        color: "blue"
-//      },
-//      backgroundColor: 'yellow'
-//    },
-//    '.zzz': {
-//      "NativeBase.Text": {
-//        color: "maroon"
-//      },
-//      "NativeBase.Icon": {
-//        color: "maroon"
-//      },
-//      "NativeBase.IconNB": {
-//        color: "maroon"
-//      },
-//      backgroundColor: 'gray'
-//    },
-//    ...theme['NativeBase.Button']
-//  },
-//}
-
-//theme['NativeBase.Button']['.xxx'] = {
-//  "NativeBase.Text": {
-//    color: "pink"
-//  },
-//  "NativeBase.Icon": {
-//    color: "pink"
-//  },
-//  "NativeBase.IconNB": {
-//    color: "pink"
-//  },
-//  backgroundColor: 'red'
-//}
-
-//theme['NativeBase.Button']['.yyy'] = {
-//  "NativeBase.Text": {
-//    color: "blue"
-//  },
-//  "NativeBase.Icon": {
-//    color: "blue"
-//  },
-//  "NativeBase.IconNB": {
-//    color: "blue"
-//  },
-//  backgroundColor: 'yellow'
-//}
-
-//theme['NativeBase.Button']['.zzz'] = {
-//  "NativeBase.Text": {
-//    color: "maroon"
-//  },
-//  "NativeBase.Icon": {
-//    color: "maroon"
-//  },
-//  "NativeBase.IconNB": {
-//    color: "maroon"
-//  },
-//  backgroundColor: 'gray'
-//}
-
-const app = () => <StyleProvider style={getTheme()}><Container>
+const app = () => <Container>
   <Header />
   <Content>
-    <Button>
+    <Button {...{ 'btn_Deep_Orange_500': true } as any} iconLeft>
       <Icon name='alert' />
-      <Text>LABEL</Text>
+      <Text>LABEL 1</Text>
     </Button>
-    <Button transparent>
-      <Icon name='alert' />
+    <Button transparent {...{ 'btn_transparent_Deep_Orange_500': true } as any} iconRight>
       <Text>LABEL 2</Text>
+      <Icon name='alert' />
     </Button>
-    <Button bordered>
+    <Button bordered {...{ 'btn_bordered_Deep_Orange_500': true } as any} iconLeft>
       <Icon name='alert' />
       <Text>LABEL 3</Text>
     </Button>
-    <Button rounded primary>
+    <Button rounded {...{ 'btn_Deep_Orange_500': true } as any}>
       <Icon name='alert' />
     </Button>
   </Content>
-</Container ></StyleProvider>
-//<StyleProvider style={getTheme()}></StyleProvider>
-
+</Container>
 
 export default app
-
-    //<Button {...{ xxx: true } as any}>
-    //  <Icon name='alert' />
-    //  <Text>LABEL 1</Text>
-    //</Button>
-    //<Button transparent {...{ xxx: true } as any}>
-    //  <Icon name='alert' />
-    //  <Text>LABEL 2</Text>
-    //</Button>
-    //<Button bordered {...{ xxx: true } as any}>
-    //  <Icon name='alert' />
-    //  <Text>LABEL 3</Text>
-    //</Button>
-    //<Button rounded {...{ xxx: true } as any}>
-    //  <Icon name='alert' />
-    //</Button>

@@ -1,10 +1,15 @@
-﻿export const getColor = (color: GUI.Colors, shade?: GUI.Shadows) => palette[color][shade || GUI.Shadows.S500]
+﻿export const getColor = (color: GUI.Colors, shade?: GUI.Shadows) => palette[color][shade || GUI.Shadows.S500] as string
 
-export const getTextColor = (color: GUI.Colors, shade?: GUI.Shadows, textShade?: GUI.TextShadows) => palette[paletteText[color][shade || GUI.Shadows.S500]][textShade || GUI.TextShadows.Primary]
+export const getTextColor = (color: GUI.Colors, shade?: GUI.Shadows, textShade?: GUI.TextShadows) => palette[paletteText[color][shade || GUI.Shadows.S500]][textShade || GUI.TextShadows.Primary] as string
 
-export const primaryColor: GUI.IColor = { color: GUI.Colors.BlueGrey }
-export const secondaryColor: GUI.IColor = { color: GUI.Colors.DeepPurple, shadow: GUI.Shadows.A200 }
-export const defaultColor: GUI.IColor = { color: GUI.Colors.White }
+export const getColors = (color: GUI.Colors, shade?: GUI.Shadows) => ({
+  color: getColor(color, shade),
+  text: getTextColor(color, shade),
+} as Theme.IColors)
+
+//export const primaryColor: GUI.IColor = { color: GUI.Colors.BlueGrey }
+//export const secondaryColor: GUI.IColor = { color: GUI.Colors.DeepPurple, shadow: GUI.Shadows.A200 }
+//export const defaultColor: GUI.IColor = { color: GUI.Colors.White }
 
 const palette = {
   'Red': {

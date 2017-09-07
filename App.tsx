@@ -20,14 +20,14 @@ import { AppLoading } from 'expo'
 import { recordingJSON } from './App_Data/recording'
 import { Icon } from './app-native/gui/icon'
 import { Button } from './app-native/gui/button'
-import { H1, H2 } from 'native-base'
-import { View, Text} from 'react-native'
-
-
+import { Container, Text, StyleProvider, H1, H2 } from 'native-base'
+import { View } from 'react-native'
+import { initThemes, theme } from './app-native/gui/theme'
 
 //************ aplikace k testovani
 
 import { AppRouterComp } from './app-common/snack/app-router'
+
 //class AppComp extends React.Component { render() { return <Text>Hallo world</Text> } }
 //import AppComp from './app-native/snack/native-base/index'
 //import AppComp from './app-native/snack/redux-simple';
@@ -41,8 +41,8 @@ import { AppRouterComp } from './app-common/snack/app-router'
 //import { AppRouterComp } from './app-native/snack/navigation/app-navigation';
 //import AppComp from './app-common/snack/react-navigation';  
 //import AppComp from './app-common/snack/gui/icon';
-//import AppComp from './app-common/snack/gui/button';
-import AppComp from './app-native/snack/native-base-button';
+import AppComp from './app-common/snack/gui/button';
+//import AppComp from './app-native/snack/native-base-button'
 
 export const init = async () => {
   window.lmGlobal = {
@@ -73,10 +73,9 @@ export const init = async () => {
 
   await promiseAll([
     initRecording(),
-    initRoot()
+    initRoot(),
+    initThemes(),
   ])
-
-  return new Promise<JSX.Element>(resolve => resolve(<AppComp />))
 
   const reducers: App.IReducer = (st, action: any) => {
     const state = recordingGlobalReducer(st, action)
@@ -105,9 +104,14 @@ export const init = async () => {
 
   sagaMiddleware.run(rootSaga)
 
+  //const App = <RootProvider />
+  const App = AppComp
+
   const appAll = <ReduxProvider store={store}>
     <LocProvider>
-      <RootProvider />
+      <StyleProvider style={theme}>
+        {<App/>}
+      </StyleProvider>
     </LocProvider>
   </ReduxProvider>
 
@@ -118,3 +122,4 @@ const Root: React.SFC = () => <WaitForRendering finalContent={init()} waitConten
 
 export default Root;
 //export default AppComp;
+

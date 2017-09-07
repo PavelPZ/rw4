@@ -13,6 +13,7 @@
     primary = 'primary',
     secondary = 'secondary',
     default = 'default',
+    dark = 'dark',
     //---
     Red = 'Red',
     Pink = 'Pink',
@@ -35,8 +36,8 @@
     Grey = 'Grey',
     BlueGrey = 'Blue Grey',
     //---
-    White = 'White',
-    Black = 'Black', 
+    //White = 'White',
+    //Black = 'Black', 
   }
   const enum Shadows {
     S50 = '50',
@@ -86,7 +87,8 @@
     fixedBL = 'fixedBL',
     rounded = 'rounded',
     roundedMini = 'roundedMini',
-    icon = 'icon'
+    icon = 'icon',
+    bordered = 'bordered', //for Nativebase only
   }
 
   interface IButtonProps { //default raised, primary
