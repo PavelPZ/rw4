@@ -4,7 +4,7 @@ import { View, Platform, Dimensions, PixelRatio, ViewStyle } from 'react-native'
 
 import { getIcon } from '../../app-common/gui/ionic'
 import { getColors } from '../../app-common/gui/colors'
-//import { getBtnTheme } from './theme'
+import { colorToBsStyle } from './theme'
 
 const fixPositions = {
   'tr': 'topRight',
@@ -22,7 +22,7 @@ export const Button: React.SFC<GUI.IButtonProps> = props => {
   const rounded = mode == GUI.ButtonMode.rounded || mode == GUI.ButtonMode.roundedMini
   const small = mode == GUI.ButtonMode.roundedMini
   const bordered = mode == GUI.ButtonMode.bordered
-  const iconLeft = !iconRight && true
+  const iconLeft = iconRight && undefined
 
   if (fixPosition) {
     //--- asi neumi styles
@@ -49,20 +49,20 @@ export const Button: React.SFC<GUI.IButtonProps> = props => {
   const textStyle: ReactNative.StyleProp<ReactNative.TextStyle> = {}
   const style: ReactNative.ViewStyle = {}
 
-  if (color == GUI.Colors.primary) btnProps.primary = true
-  else if (color == GUI.Colors.secondary) btnProps.danger = true
-  else if (color == GUI.Colors.default) btnProps.light = true
-  else if (color == GUI.Colors.dark) btnProps.dark = true
-  else {
-    const colors = getColors(color, shadow)
-    if (transparent)
-      textStyle.color = colors.color
-    else if (bordered) {
-      textStyle.color = colors.color
-      style.borderColor = colors.color
-    } else {
-      textStyle.color = colors.text
-      style.backgroundColor = colors.color
+  if (!colorToBsStyle(color, btnProps)) {
+    if (color == GUI.Colors.default) btnProps.light = true
+    else if (color == GUI.Colors.dark) btnProps.dark = true
+    else {
+      const colors = getColors(color, shadow)
+      if (transparent)
+        textStyle.color = colors.color
+      else if (bordered) {
+        textStyle.color = colors.color
+        style.borderColor = colors.color
+      } else {
+        textStyle.color = colors.text
+        style.backgroundColor = colors.color
+      }
     }
 
     //const classes = getBtnTheme(color, shadow)
@@ -78,6 +78,8 @@ export const Button: React.SFC<GUI.IButtonProps> = props => {
   const TXT = !!label && <Text key={2} style={textStyle} >{label}</Text>
 
   let comps = rounded ? [IC] : (iconRight ? [TXT, IC] : [IC, TXT])
+
+  console.log(btnProps, '\r\n', style)
 
   return <NBButton {...btnProps} style={style} >
     {comps}

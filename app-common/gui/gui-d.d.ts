@@ -13,6 +13,10 @@
     primary = 'primary',
     secondary = 'secondary',
     default = 'default',
+    info = 'info',
+    danger = 'danger',
+    warning = 'warning',
+    success = 'success',
     dark = 'dark',
     //---
     Red = 'Red',

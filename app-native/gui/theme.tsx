@@ -2,11 +2,20 @@
 import { StyleProvider } from 'native-base'
 import { getColors } from '../../app-common/gui/colors'
 import getTheme from '../../native-base-theme/components/index'
-import material from '../../native-base-theme/variables/material'
+import material from '../../native-base-theme/variables/commonColor'
 
 export const Theme: React.SFC<{}> = props => <StyleProvider style={theme}>
   {React.Children.only(props.children)}
 </StyleProvider>
+
+export const colorToBsStyle = (color: GUI.Colors, bsStyle: NativeBase.BsStyle) => {
+  bsStyle.success = color == GUI.Colors.success
+  bsStyle.primary = color == GUI.Colors.primary
+  bsStyle.danger = color == GUI.Colors.danger || color == GUI.Colors.secondary
+  bsStyle.warning = color == GUI.Colors.warning
+  bsStyle.info = color == GUI.Colors.info
+  return bsStyle.success || bsStyle.primary || bsStyle.danger || bsStyle.warning || bsStyle.info
+} 
 
 const theme = getTheme(material)
 theme['NativeBase.Button']['.rounded'] = {

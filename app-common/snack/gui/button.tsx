@@ -1,19 +1,25 @@
 ﻿import React from 'react'
 import { Button } from '../../gui/gui'
-import { Button as NBButton, Container, Header, Text, Icon, Content } from 'native-base'
+import { Container, Button as NbButton, Text, Header, Content } from 'native-base'
 import { View } from '../../../polyfill/index'
 
-const app = () => <Container> 
+const app = () => <Container style={{ marginTop: 30 }}>
   <Header />
-  <Content contentContainerStyle={{ flex: 1}}>
+  <Content contentContainerStyle={{ flex: 1 }}>
     <Button key={71} mode={GUI.ButtonMode.fixedBL} color={GUI.Colors.DeepOrange} iconName={GUI.IonicNames.alert} />
     <Button key={72} mode={GUI.ButtonMode.fixedBR} color={GUI.Colors.Blue} iconName={GUI.IonicNames.americanFootball} />
     <Button key={73} mode={GUI.ButtonMode.fixedTL} color={GUI.Colors.Cyan} iconLogo={GUI.IonicLogos.logoFacebook} />
     <Button key={74} mode={GUI.ButtonMode.fixedTR} color={GUI.Colors.DeepPurple} iconName={GUI.IonicNames.analytics} iconActive />
     <View style={{ flex: 1, flexWrap: 'wrap', flexDirection: 'row', alignContent: 'space-around', justifyContent: 'space-around', paddingTop: 70, paddingBottom: 70 }}>
-      <Button key={1} iconName={GUI.IonicNames.alert} label='LABEL' />
-      <Button key={11} iconName={GUI.IonicNames.alert} label='LABEL' iconRight color={GUI.Colors.default} />
-      <Button key={7} iconName={GUI.IonicNames.alert} mode={GUI.ButtonMode.bordered} label='LABEL' color={GUI.Colors.dark} />
+      <NbButton dark><Text>DARK</Text></NbButton>
+      <Button key={1} iconName={GUI.IonicNames.alert} label='primary' />
+      <Button key={16} color={GUI.Colors.info} label='info' />
+      <Button key={15} color={GUI.Colors.success} label='success' />
+      <Button key={17} color={GUI.Colors.warning} label='warning' />
+      <Button key={18} color={GUI.Colors.danger} label='danger' />
+      <Button key={19} color={GUI.Colors.dark} label='dark' />
+      <Button key={11} iconName={GUI.IonicNames.alert} label='default' iconRight color={GUI.Colors.default} />
+      <Button key={7} iconName={GUI.IonicNames.alert} mode={GUI.ButtonMode.bordered} label='bordered' color={GUI.Colors.dark} />
       <Button key={8} iconName={GUI.IonicNames.alert} mode={GUI.ButtonMode.flat} color={GUI.Colors.secondary} />
       <Button key={81} iconName={GUI.IonicNames.alert} mode={GUI.ButtonMode.flat} label='LABEL' />
 
