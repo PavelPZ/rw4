@@ -169,6 +169,7 @@
     <TypeScriptCompile Include="app-native\snack\navigation\playground\StacksInTabs.tsx" />
     <TypeScriptCompile Include="app-native\snack\navigation\playground\StacksOverTabs.tsx" />
     <TypeScriptCompile Include="app-native\snack\navigation\playground\TabsInDrawer.tsx" />
+    <Content Include="app-native\gui\buttons.png" />
     <Content Include="app-native\snack\navigation\playground\assets\NavLogo.png" />
     <TypeScriptCompile Include="app-native\snack\navigation\redux\src\components\AuthButton.tsx" />
     <TypeScriptCompile Include="app-native\snack\navigation\redux\src\components\LoginScreen.tsx" />

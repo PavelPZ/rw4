@@ -1,4 +1,8 @@
-﻿export const getColor = (color: GUI.Colors, shade?: GUI.Shadows) => palette[color][shade || GUI.Shadows.S500] as string
+﻿export const getColor = (color: GUI.Colors, shade?: GUI.Shadows) => {
+  const p = palette[color]
+  if (!p) return null
+  return p[shade || GUI.Shadows.S500] as string
+}
 
 export const getTextColor = (color: GUI.Colors, shade?: GUI.Shadows, textShade?: GUI.TextShadows) => palette[paletteText[color][shade || GUI.Shadows.S500]][textShade || GUI.TextShadows.Primary] as string
 

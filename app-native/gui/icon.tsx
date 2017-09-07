@@ -1,10 +1,12 @@
 ﻿import React from 'react'
 import { getIcon } from '../../app-common/gui/ionic'
-import Ionicons from 'react-native-vector-icons/Ionicons'
+import { Icon as NbIcon } from 'native-base'
+import { getColor } from '../../app-common/gui/colors'
+import { colorToStyle } from '../../app-native/gui/theme'
 
 export const Icon: React.SFC<GUI.IIconProps> = props => {
-  const { name, logoId, OS, ...other } = props
-  console.log(JSON.stringify(other,null,2))
-  //console.log(getIcon(name, logoId, OS, props.active))
-  return <Ionicons name={getIcon(name, logoId, OS, props.active)} {...other}  />
+  const { name, logoId, OS, color, shadow, style, ...other } = props
+  const st: any = { ...style}
+  colorToStyle(color, st, shadow)
+  return <NbIcon name={getIcon(name, logoId, OS, props.active)} {...other} style={st}/>
 }

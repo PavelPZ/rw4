@@ -1,7 +1,8 @@
 ﻿import React from 'react'
 import { Button } from '../../gui/gui'
-import { Container, Button as NbButton, Text, Header, Content } from 'native-base'
+import { Container, Header, Content } from 'native-base'
 import { View } from '../../../polyfill/index'
+
 
 const app = () => <Container style={{ marginTop: 30 }}>
   <Header />
@@ -11,7 +12,6 @@ const app = () => <Container style={{ marginTop: 30 }}>
     <Button key={73} mode={GUI.ButtonMode.fixedTL} color={GUI.Colors.Cyan} iconLogo={GUI.IonicLogos.logoFacebook} />
     <Button key={74} mode={GUI.ButtonMode.fixedTR} color={GUI.Colors.DeepPurple} iconName={GUI.IonicNames.analytics} iconActive />
     <View style={{ flex: 1, flexWrap: 'wrap', flexDirection: 'row', alignContent: 'space-around', justifyContent: 'space-around', paddingTop: 70, paddingBottom: 70 }}>
-      <NbButton dark><Text>DARK</Text></NbButton>
       <Button key={1} iconName={GUI.IonicNames.alert} label='primary' />
       <Button key={16} color={GUI.Colors.info} label='info' />
       <Button key={15} color={GUI.Colors.success} label='success' />

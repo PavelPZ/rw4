@@ -20,8 +20,7 @@ import { AppLoading } from 'expo'
 import { recordingJSON } from './App_Data/recording'
 import { Icon } from './app-native/gui/icon'
 import { Button } from './app-native/gui/button'
-import { Container, Text, StyleProvider, H1, H2 } from 'native-base'
-import { View } from 'react-native'
+import { Container, Text, StyleProvider, H1, H2, H3, View } from 'native-base'
 import { Theme } from './app-native/gui/theme'
 
 //************ aplikace k testovani
@@ -40,8 +39,8 @@ import { AppRouterComp } from './app-common/snack/app-router'
 //import AppComp from './app-native/snack/navigation/stack-detailed';
 //import { AppRouterComp } from './app-native/snack/navigation/app-navigation';
 //import AppComp from './app-common/snack/react-navigation';  
-//import AppComp from './app-common/snack/gui/icon';
-import AppComp from './app-common/snack/gui/button';
+import AppComp from './app-common/snack/gui/icon';
+//import AppComp from './app-common/snack/gui/button';
 //import AppComp from './app-native/snack/native-base-button'
 
 export const init = async () => {
@@ -60,14 +59,7 @@ export const init = async () => {
         computeState: (act, st) => Navigator.router.getStateForAction({ type: 'Navigation/NAVIGATE', routeName: act.params && act.params.query && act.params.query.isModal ? 'Modal' : 'Root', params: act } as NavigationNavigateAction, st),
         rootUrl: '/web-app.html'
       },
-      guiPlatform: {
-        Icon,
-        Button,
-        H1,
-        H2,
-        View,
-        Text
-      },
+      guiPlatform: { Icon, Button, H1, H2, H3, View, Text, },
     }
   }
 

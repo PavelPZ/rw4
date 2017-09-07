@@ -4,6 +4,8 @@
     name?: IonicNames
     logoId?: IonicLogos
     active?: boolean
+    color?: GUI.Colors | string
+    shadow?: GUI.Shadows 
     style?: CSSProperties
     OS?: 'ios' | 'android'
   }

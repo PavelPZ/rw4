@@ -1,15 +1,21 @@
 ﻿import React from 'react'
-import { Icon, View, getColor } from '../../gui/gui'
+import { Icon } from '../../gui/gui'
+import { Container, Header, Content, Text } from 'native-base'
 
-const App = () => <View style={{ marginTop: 30, flexWrap: 'wrap', flexDirection: 'row' }}>
-  <Icon name={GUI.IonicNames.apps} style={{ color: 'maroon', paddingLeft: 30 }} />
-  <Icon name={GUI.IonicNames.apps} active style={{ color: 'maroon', paddingLeft: 30 }} />
-  <Icon logoId={GUI.IonicLogos.logoChrome} style={{ color: getColor(GUI.Colors.DeepPurple), paddingLeft: 30 }} />
-  <Icon logoId={GUI.IonicLogos.logoChrome} style={{ color: getColor(GUI.Colors.DeepPurple, GUI.Shadows.S200), paddingLeft: 30 }} />
-  <Icon logoId={GUI.IonicLogos.logoChrome} style={{ color: getColor(GUI.Colors.DeepPurple, GUI.Shadows.S700), paddingLeft: 30 }} />
-  <Icon name={GUI.IonicNames.apps} OS='ios' style={{ color: 'maroon', paddingLeft: 30 }} />
-  <Icon name={GUI.IonicNames.apps} OS='ios' active style={{ color: 'maroon', paddingLeft: 30 }} />
-</View>
+const App = () => {
+  return <Container style={{ marginTop: 100 }}>
+    <Header />
+    <Content contentContainerStyle={{ flex: 1 }}>
+      <Icon key={1} name={GUI.IonicNames.apps} color={GUI.Colors.BlueGrey} style={{ paddingLeft: 30, fontSize: 24 }} />
+      <Icon key={2} name={GUI.IonicNames.apps} color={GUI.Colors.Cyan} shadow={GUI.Shadows.S100} active style={{ paddingLeft: 30, fontSize: 24 }} />
+      <Icon key={3} logoId={GUI.IonicLogos.logoChrome} color='red' style={{ paddingLeft: 30, fontSize: 24 }} />
+      <Icon key={4} logoId={GUI.IonicLogos.logoChrome} color={GUI.Colors.dark} style={{ paddingLeft: 30, fontSize: 24 }} />
+      <Icon key={5} logoId={GUI.IonicLogos.logoChrome} color={GUI.Colors.danger} style={{ paddingLeft: 30, fontSize: 24 }} />
+      <Icon key={6} name={GUI.IonicNames.apps} OS='ios' color={GUI.Colors.secondary} style={{ paddingLeft: 30, fontSize: 24 }} />
+      <Icon key={7} name={GUI.IonicNames.apps} OS='ios' color={GUI.Colors.success} active style={{ paddingLeft: 30, fontSize: 24 }} />
+    </Content>
+  </Container>
+}
 
 export default App
 

@@ -1,6 +1,6 @@
 ﻿import React from 'react'
 import { StyleProvider } from 'native-base'
-import { getColors } from '../../app-common/gui/colors'
+import { getColors, getColor } from '../../app-common/gui/colors'
 import getTheme from '../../native-base-theme/components/index'
 import material from '../../native-base-theme/variables/commonColor'
 
@@ -16,6 +16,28 @@ export const colorToBsStyle = (color: GUI.Colors, bsStyle: NativeBase.BsStyle) =
   bsStyle.info = color == GUI.Colors.info
   return bsStyle.success || bsStyle.primary || bsStyle.danger || bsStyle.warning || bsStyle.info
 } 
+
+export const colorToStyle = (color: GUI.Colors | string, style: { color?: string }, shadow?: GUI.Shadows) => {
+  let c: string
+  if (!color) c = material.brandPrimary
+  else {
+    c = _colorToStyle[color as GUI.Colors]
+    if (!c) c = getColor(color as GUI.Colors, shadow)
+    if (!c) c = color as string
+  }
+  style.color = c
+  return true
+}
+const _colorToStyle = {
+  [GUI.Colors.success]: material.brandSuccess,
+  [GUI.Colors.primary]: material.brandPrimary,
+  [GUI.Colors.danger]: material.brandDanger,
+  [GUI.Colors.secondary]: material.brandDanger,
+  [GUI.Colors.warning]: material.brandWarning,
+  [GUI.Colors.info]: material.brandInfo,
+  [GUI.Colors.default]: material.inverseTextColor,
+  [GUI.Colors.dark]: material.textColor,
+}
 
 const theme = getTheme(material)
 theme['NativeBase.Button']['.rounded'] = {

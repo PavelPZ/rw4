@@ -5,8 +5,9 @@
     Icon: React.SFC<IIconProps>
     H1: React.ComponentType<NativeBase.H1>
     H2: React.ComponentType<NativeBase.H2>
-    View: React.ComponentType<ReactNative.ViewProperties>
-    Text: React.ComponentType<ReactNative.TextProperties> 
+    H3: React.ComponentType<NativeBase.H3>
+    View: React.ComponentType<NativeBase.View>
+    Text: React.ComponentType<NativeBase.Text> 
   }
 
   const enum Colors {
