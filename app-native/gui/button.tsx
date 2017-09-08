@@ -2,6 +2,7 @@
 import { Text, Button as NBButton, Fab as NBFab, Icon } from 'native-base'
 import { View, Platform, Dimensions, PixelRatio, ViewStyle } from 'react-native'
 
+import { navigateUrl } from '../../app-common/lib/router'
 import { getIcon } from '../../app-common/gui/ionic'
 import { getColors } from '../../app-common/gui/colors'
 import { colorToBsStyle } from './theme'
@@ -14,7 +15,8 @@ const fixPositions = {
 }
 
 export const Button: React.SFC<GUI.IButtonProps> = props => {
-  const { mode = GUI.ButtonMode.raised, iconName, iconLogo, color = GUI.Colors.primary, shadow, label, iconRight, disabled, iconOS, iconActive } = props
+  const { mode = GUI.ButtonMode.raised, iconName, iconLogo, color = GUI.Colors.primary,
+    shadow, label, iconRight, disabled, iconOS, iconActive, href, children, onPress, ...rest } = props
   const fixed = 'fixed'
   const fixPosition = mode.startsWith(fixed) ? mode.substr(fixed.length).toLowerCase() : null
   const transparent = mode == GUI.ButtonMode.flat || mode == GUI.ButtonMode.icon
@@ -23,6 +25,7 @@ export const Button: React.SFC<GUI.IButtonProps> = props => {
   const small = mode == GUI.ButtonMode.roundedMini
   const bordered = mode == GUI.ButtonMode.bordered
   const iconLeft = iconRight && undefined
+  const press = onPress || (typeof href != 'undefined' ? () => navigateUrl(href) : undefined)
 
   if (fixPosition) {
     //--- asi neumi styles
@@ -39,10 +42,12 @@ export const Button: React.SFC<GUI.IButtonProps> = props => {
 
   //colors
   const btnProps: NativeBase.Button = {
+    ...rest,
     transparent,
     rounded,
     bordered,
     small,
+    onPress: press,
     ...!rounded ? { iconLeft, iconRight } : null
   }
 
@@ -79,7 +84,7 @@ export const Button: React.SFC<GUI.IButtonProps> = props => {
 
   let comps = rounded ? [IC] : (iconRight ? [TXT, IC] : [IC, TXT])
 
-  console.log(btnProps, '\r\n', style)
+  //console.log(btnProps, '\r\n', style)
 
   return <NBButton {...btnProps} style={style} >
     {comps}

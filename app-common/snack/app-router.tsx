@@ -19,9 +19,10 @@ const appRouterComp: React.SFC<AppRouter.IRoutePar> = props => {
     <Header />
     <Content>
       <Text style={{ fontSize: 24 }}>{props.title}</Text>
-      <Button /*tabIndex={1}*/ key={1} label='Add to title' onPress={() => AppRouterComp.navigate({ ...par, title: props.title + ' | xxx' })} />
-      <Button /*tabIndex={1}*/ key={2} label='Show Modal' onPress={() => AppRouterComp.navigateModal({ ...par, title: props.title + ' | mmm' })} />
-      <Button /*tabIndex={1}*/ key={3} label='Goto HOME' onPress={navigateHome} />
+      <Button /*tabIndex={1}*/ key={1} label='Add to title' href={AppRouterComp.getRoute({ ...par, title: props.title + ' | xxx' })} />
+      <Button /*tabIndex={1}*/ key={2} label='Show Modal' href={AppRouterComp.getRoute({ ...par, title: props.title + ' | mmm' }, true)} />
+      <Button /*tabIndex={1}*/ key={3} label='Goto HOME' href={null/*home*/} />
+      <Button /*tabIndex={1}*/ key={4} label='DUMMY' />
       {window.lmGlobal.isNative ? null : <LoginButton tabIndex={2} />}
     </Content>
   </Container>

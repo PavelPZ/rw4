@@ -28,7 +28,7 @@ export const canGoBack = () => window.lmGlobal.isNative ? window.lmGlobal.platfo
 
 export const actRoute = () => window.lmGlobal.store.getState().router
 
-//navigace BEZ history.push. S history.push viz Router.TRoute.navigate
+//navigace BEZ history.push. S history.push viz navigateUrl
 export const navigate = (routeName?: string | Router.IState, params?) => {
   let newState: Router.IState;
   if (!routeName) newState = window.lmGlobal.platform.routerPlatform.startRoute
@@ -37,8 +37,16 @@ export const navigate = (routeName?: string | Router.IState, params?) => {
   window.lmGlobal.store.dispatch({ type: Router.Consts.NAVIGATE_START, newState })
 }
 
-export const navigateHome = () => historyPushLow(null, null)
+export const navigateHome = () => navigateUrl(null)
 
+export const navigateUrl = (route: Router.IState, isModal?: boolean) => {
+  if (!route) {
+    historyPushLow(null, null)
+    return
+  }
+  const router = routes[route.routeName]
+  historyPushLow(router.urlPattern, route)
+}
 
 const adjustRouterProps = <T extends Router.IRoutePar>(props: T) => {
   if (window.lmGlobal.isNative) {
@@ -107,7 +115,7 @@ export const reducer: App.IReducer<Router.IState> = (state, action: Router.IActi
   if (!state) return computeReactNavigation(window.lmGlobal.platform.routerPlatform.startRoute)
   switch (action.type) {
     case Router.Consts.NAVIGATE_START:
-      //console.log('Router.Consts.NAVIGATE_START')
+      console.log('Router.Consts.NAVIGATE_START: ', action)
       if (!window.lmGlobal.isNative) notifyNavigationStart() //notifications for resolving quick BACK x FORWARD
       return state
     case Router.Consts.NAVIGATE_END:
