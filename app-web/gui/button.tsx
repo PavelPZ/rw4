@@ -6,11 +6,15 @@ import { getColor, getTextColor } from '../../app-common/gui/colors'
 import { renderCSS } from 'web-fela'
 import { Button as MDButton, ButtonProps, FixedPositions } from '../lib/react-md'
 
+import { navigateUrl } from '../../app-common/lib/router'
+
 export const Button: React.SFC<GUI.IButtonProps> = props => {
-  const { mode = GUI.ButtonMode.raised, iconName, iconLogo, color = GUI.Colors.primary, label, iconRight, disabled, iconOS, iconActive } = props
+  const { mode = GUI.ButtonMode.raised, iconName, iconLogo, color = GUI.Colors.primary,
+    shadow, label, iconRight, disabled, iconOS, iconActive, href, children, onPress, ...rest } = props
   const fixed = 'fixed'
   const isFixed = mode.startsWith(fixed)
   const actMode = (iconName || iconLogo) && !isFixed && typeof label == 'undefined' ? GUI.ButtonMode.icon : mode
+  const press = onPress || (typeof href != 'undefined' ? () => navigateUrl(href) : undefined)
 
   //colors
   const colorProps: ButtonProps = {}
@@ -50,7 +54,7 @@ export const Button: React.SFC<GUI.IButtonProps> = props => {
     {...colorProps}
     className={renderCSS(colorStyle)}
     iconClassName={iconClassName} 
-    onClick={ev => { ev.stopPropagation() }}
+    onClick={ev => { ev.stopPropagation(); if (press) press() }}
   />
 }
 

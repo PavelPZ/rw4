@@ -34,7 +34,7 @@ export const Button: React.SFC<GUI.IButtonProps> = props => {
     //return <NBFab position={fixPositions[fixPosition] as any} style={{ backgroundColor: colors.color }} active >
     //  <Icon name={getIcon(iconName, iconLogo, iconOS, iconActive)} style={{ color: colors.text }} />
     //</NBFab>
-    return <NBFab position={fixPositions[fixPosition] as any} active >
+    return <NBFab position={fixPositions[fixPosition] as any} active onPress={press}>
       <Icon name={getIcon(iconName, iconLogo, iconOS, iconActive)} />
     </NBFab>
   }
