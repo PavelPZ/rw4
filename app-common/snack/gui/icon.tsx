@@ -1,11 +1,10 @@
 ﻿import React from 'react'
-import { Icon } from '../../gui/gui'
-import { Container, Header, Content, Text } from 'native-base'
+import { Container, Header, Content, Text, Icon } from '../../gui/gui'
 
 const App = () => {
   return <Container style={{ marginTop: 100 }}>
     <Header />
-    <Content contentContainerStyle={{ flex: 1 }}>
+    <Content style={{ flex: 1 }}>
       <Icon key={1} name={GUI.IonicNames.apps} color={GUI.Colors.BlueGrey} style={{ paddingLeft: 30, fontSize: 24 }} />
       <Icon key={2} name={GUI.IonicNames.apps} color={GUI.Colors.Cyan} shadow={GUI.Shadows.S100} active style={{ paddingLeft: 30, fontSize: 24 }} />
       <Icon key={3} logoId={GUI.IonicLogos.logoChrome} color='red' style={{ paddingLeft: 30, fontSize: 24 }} />

@@ -1,12 +1,10 @@
 ﻿import React from 'react'
-import { Button } from '../../gui/gui'
-import { Container, Header, Content } from 'native-base'
-import { View } from '../../../polyfill/index'
+import { View, Button, Container, Header, Content, Footer } from '../../gui/gui'
 
 
 const app = () => <Container style={{ marginTop: 30 }}>
   <Header />
-  <Content contentContainerStyle={{ flex: 1 }}>
+  <Content style={{ flex: 1 }}>
     <Button key={71} mode={GUI.ButtonMode.fixedBL} color={GUI.Colors.DeepOrange} iconName={GUI.IonicNames.alert} />
     <Button key={72} mode={GUI.ButtonMode.fixedBR} color={GUI.Colors.Blue} iconName={GUI.IonicNames.americanFootball} />
     <Button key={73} mode={GUI.ButtonMode.fixedTL} color={GUI.Colors.Cyan} iconLogo={GUI.IonicLogos.logoFacebook} />

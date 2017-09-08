@@ -8,5 +8,12 @@ export const H1: React.SFC<NativeBase.H1> = props => { const C = pl().H1; return
 export const H2: React.SFC<NativeBase.H2> = props => { const C = pl().H2; return <C {...props} /> }
 export const View: React.SFC<ReactNative.ViewProperties> = props => { const C = pl().View; return <C {...props} /> }
 export const Text: React.SFC<ReactNative.TextProperties> = props => { const C = pl().Text; return <C {...props} /> }
+export const Platform = () => pl().Platform
+
+export const Container: React.SFC<ReactNative.ViewProperties> = props => { const C = pl().Container; return <C {...props} /> }
+export const Content: React.SFC<ReactNative.ViewProperties> = props => { const C = pl().Content; return <C {...props} /> }
+export const Header: React.SFC<ReactNative.ViewProperties> = props => { const C = pl().Header; return <C {...props} /> }
+export const Footer: React.SFC<ReactNative.ViewProperties> = props => { const C = pl().Footer; return <C {...props} /> }
+
 
 export * from './colors'

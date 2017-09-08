@@ -6,6 +6,7 @@ import { createStore, Store, applyMiddleware } from 'redux'
 import createSagaMiddleware from 'redux-saga/index'
 import { all, call } from 'redux-saga/effects'
 import { addNavigationHelpers, DrawerNavigator, NavigationNavigateAction } from 'react-navigation';
+import { Platform } from 'react-native';
 
 //********** COMMON
 import { WaitForRendering, promiseAll } from './app-common/lib/lib'
@@ -20,7 +21,8 @@ import { AppLoading } from 'expo'
 import { recordingJSON } from './App_Data/recording'
 import { Icon } from './app-native/gui/icon'
 import { Button } from './app-native/gui/button'
-import { Container, Text, StyleProvider, H1, H2, H3, View } from 'native-base'
+import { Content } from './app-native/gui/content'
+import { Container, Header, Footer, Text, StyleProvider, H1, H2, H3, View } from 'native-base'
 import { Theme, colorToStyle } from './app-native/gui/theme'
 
 //************ aplikace k testovani
@@ -39,8 +41,8 @@ import { AppRouterComp } from './app-common/snack/app-router'
 //import AppComp from './app-native/snack/navigation/stack-detailed';
 //import { AppRouterComp } from './app-native/snack/navigation/app-navigation';
 //import AppComp from './app-common/snack/react-navigation';  
-import AppComp from './app-common/snack/gui/icon';
-//import AppComp from './app-common/snack/gui/button';
+//import AppComp from './app-common/snack/gui/icon'
+import AppComp from './app-common/snack/gui/button'
 //import AppComp from './app-native/snack/native-base-button'
 
 export const init = async () => {
@@ -59,7 +61,7 @@ export const init = async () => {
         computeState: (act, st) => Navigator.router.getStateForAction({ type: 'Navigation/NAVIGATE', routeName: act.params && act.params.query && act.params.query.isModal ? 'Modal' : 'Root', params: act } as NavigationNavigateAction, st),
         rootUrl: '/web-app.html'
       },
-      guiPlatform: { colorToStyle, Icon, Button, H1, H2, H3, View, Text, },
+      guiPlatform: { colorToStyle, Platform, Icon, Button, H1, H2, H3, View, Text, Content, Container, Header, Footer },
     }
   }
 
@@ -95,8 +97,8 @@ export const init = async () => {
 
   sagaMiddleware.run(rootSaga)
 
-  //const App = <RootProvider />
-  const App = AppComp
+  const App = RootProvider
+  //const App = AppComp
 
   const appAll = <ReduxProvider store={store}>
     <LocProvider>

@@ -8,7 +8,12 @@
     H3: React.ComponentType<NativeBase.H3>
     View: React.ComponentType<NativeBase.View>
     Text: React.ComponentType<NativeBase.Text>
+    Container: React.ComponentType<NativeBase.View>
+    Header: React.ComponentType<NativeBase.View>
+    Footer: React.ComponentType<NativeBase.View>
+    Content: React.ComponentType<NativeBase.View>
     colorToStyle: { [color: string]: string }
+    Platform: ReactNative.PlatformStatic
   }
 
   export interface IColors {
