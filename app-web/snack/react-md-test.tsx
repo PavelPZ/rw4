@@ -9,7 +9,7 @@ import React from 'react';
 */
 
 import { Button, Paper, Drawer, Checkbox, Radio, Switch, SelectField, FontIcon } from '../lib/react-md';
-import { Text, View } from '../../polyfill/index'
+//import { Text, View } from '../../polyfill/index'
 import { renderCSS } from 'web-fela'
 
 
@@ -37,12 +37,12 @@ const Root = () => <div>
     helpOnFocus
     helpText="Select some state for me"
   />
-  <View >
+  <div >
     <FontIcon className={renderCSS({ alignSelf: 'flex-start' })}>home</FontIcon>
-  </View>
-  <Text>
+  </div>
+  <span>
     <FontIcon iconClassName="fa fa-star-o" />
-  </Text>
+  </span>
 </div>
 
 export default Root;

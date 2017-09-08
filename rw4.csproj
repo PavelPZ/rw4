@@ -113,6 +113,8 @@
     <TypeScriptCompile Include="app-web\gui\icon.tsx" />
     <TypeScriptCompile Include="app-web\gui\button.tsx" />
     <TypeScriptCompile Include="app-web\gui\lib.tsx" />
+    <TypeScriptCompile Include="app-web\gui\text.tsx" />
+    <TypeScriptCompile Include="app-web\gui\view.tsx" />
     <TypeScriptCompile Include="app-web\lib\web-drawer.tsx" />
     <TypeScriptCompile Include="app-common\snack\gui\icon.tsx" />
     <TypeScriptCompile Include="app-web\snack\icon.tsx" />
@@ -146,15 +148,6 @@
     <TypeScriptCompile Include="app-web\lib\typings.d.ts" />
     <TypeScriptCompile Include="app-web\lib\fela-d.d.ts" />
     <TypeScriptCompile Include="app-web\lib\fela.tsx" />
-    <TypeScriptCompile Include="app-web\lib\react-native\apis\I18nManager.ts" />
-    <TypeScriptCompile Include="app-web\lib\react-native\apis\Platform.ts" />
-    <TypeScriptCompile Include="app-web\lib\react-native\components\button.tsx" />
-    <TypeScriptCompile Include="app-web\lib\react-native\components\lib.tsx" />
-    <TypeScriptCompile Include="app-web\lib\react-native\components\text.tsx" />
-    <TypeScriptCompile Include="app-web\lib\react-native\components\touchable-highlight.tsx" />
-    <TypeScriptCompile Include="app-web\lib\react-native\components\touchable-opacity.tsx" />
-    <TypeScriptCompile Include="app-web\lib\react-native\components\view.tsx" />
-    <TypeScriptCompile Include="app-web\lib\react-native\index.ts" />
     <None Include="app-common\snack\react-navigation.tsx_" />
     <TypeScriptCompile Include="app-web\snack\react-md-test.tsx" />
     <TypeScriptCompile Include="App.tsx" />
@@ -183,7 +176,7 @@
     <Content Include="app-web\assets\ionic\css\ionicons.min.css" />
     <Content Include="app-web\assets\ionic\css\ionicons.css" />
     <Content Include="app-web\assets\ionic\fonts\ionicons.svg" />
-    <Content Include="app-web\lib\react-native\Components.html" />
+    <Content Include="app-web\gui\Components.html" />
     <Content Include="app-web\snack\best-npm-components.html" />
     <Content Include="app-web\snack\login-msie-fb.html" />
     <Content Include="app-web\snack\login-msie.html" />

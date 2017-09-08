@@ -2,12 +2,12 @@
 import PropTypes from 'prop-types';
 import { renderCSS } from 'web-fela';
 import { MouseHandler } from './lib';
-import ReactNative from 'react-native';
+import { TextProperties } from 'react-native';
 
-export type IWebText = ReactNative.TextProperties & {children};
+//export type IWebText = ReactNative.TextProperties
 
 //d:\rw\know-how\react-native-web\src\components\Text\index.js
-export const Text = (props: IWebText) => {
+export const Text: React.SFC<TextProperties> = props => {
   const {
     numberOfLines,
     onPress,
@@ -15,13 +15,13 @@ export const Text = (props: IWebText) => {
     style,
     ...otherPropsTyped
   } = props;
-  const otherProps = otherPropsTyped as CSSProperties;
+  const otherProps = otherPropsTyped as CSSProperties & { className };
 
   const st = style as any as CSSProperties; //vadi textShadowColor, fontWeight, textAlign, transform
   if (st && st.textDecorationLine) { st.textDecoration = st.textDecorationLine; delete st.textDecorationLine; } 
 
   // allow browsers to automatically infer the language writing direction
-  if (otherProps != undefined) otherProps.dir = 'auto';
+  //if (otherProps != undefined) otherProps.dir = 'auto';
 
   const ruleProps: CSSProperties = {
     borderWidth: 0,

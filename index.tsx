@@ -24,7 +24,9 @@ import { Provider as RecordingProvider, BlockGuiComp } from './app-web/lib/web-r
 import { Provider as DrawerProvider } from './app-web/lib/web-drawer'
 import { Button } from './app-web/gui/button'
 import { Icon } from './app-web/gui/icon'
-import { H1, H2 } from './app-web/gui/lib'
+import { View, Container, Header, Footer, Content } from './app-web/gui/view'
+import { Text } from './app-web/gui/text'
+import { H1, H2, H3, Platform, colorToStyle } from './app-web/gui/lib'
 
 //************ aplikace k testovani
 import { AppRouterComp } from './app-common/snack/app-router'
@@ -50,12 +52,7 @@ export const init = async () => {
         history: createHistory() as Router.IHistory,
         rootUrl: '/web-app.html'
       },
-      guiPlatform: {
-        Button: Button,
-        Icon: Icon,
-        H1: H1,
-        H2: H2,
-      }
+      guiPlatform: { Platform, colorToStyle, Button, Icon, H1, H2, H3, View, Container, Header, Footer, Content, Text }
     }
   }
 

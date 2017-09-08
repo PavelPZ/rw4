@@ -6,7 +6,7 @@
 
 import React from 'react'
 import { connect } from 'react-redux'
-import { View, Text, Button } from '../../polyfill/index'
+//import { View, Text, Button } from '../../polyfill/index'
 import { navigate, actRoute } from '../../app-common/lib/router'
 import { isLogged } from '../../app-common/lib/login'
 import { renderCSS, styleLib } from 'web-fela'
