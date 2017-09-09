@@ -1,4 +1,5 @@
 declare namespace App {
+
   interface Action<T = string> {
     type: T
   }
@@ -29,6 +30,17 @@ declare namespace App {
 
   type IGlobalState = IState
 
+  //Application instance
+  interface InstancePars<T> {
+    localhost?: T
+    test?: T
+  }
+
+  type InstanceKeys = keyof InstancePars<any>
+
+  interface IPlatform {
+    instanceId: InstanceKeys
+  }
 }
 
 interface Window {
@@ -43,5 +55,8 @@ interface IContext {
   store?: App.Store
 }
 
+interface IPlatforms {
+  appPlatform?: App.IPlatform
+}
 declare const __moduleName: string
 type CSSProperties = DStyles.CSSProperties & DStyles.NestedCSSSelectors // & DFela.IExtend & { className?: string; dir?: string; }

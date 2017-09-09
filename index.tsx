@@ -10,7 +10,7 @@ import { all, call } from 'redux-saga/effects'
 //********** COMMON
 import { Provider as LocProvider, reducer as locReducer } from './app-common/lib/loc'
 import { Provider as RouterProvider, init as initRouter, reducer as routerReducer, middleware as routerMiddleware } from './app-common/lib/router'
-import { promiseAll } from './app-common/lib/lib'
+import { promiseAll, getAppId } from './app-common/lib/lib'
 import { init as initRecording, reducer as recordingReducer, saga as recordingSaga, middleware as recordingMiddleware, globalReducer as recordingGlobalReducer, blockGuiReducer, blockGuiSaga } from './app-common/lib/recording'
 import { reducer as loginReducer } from './app-common/lib/login'
 import { reducer as mediaQueryReducer } from './app-common/lib/media-query'
@@ -44,7 +44,19 @@ export const init = async () => {
   window.lmGlobal = {
     isNative: false,
     platform: {
-      loginPlatform: loginPlatform({ fbAppId: '198385910196240', fbAPIVersion: 'v2.10', googleClientId: '79001294507-haubsvbmtj5lu4a30hp4kb44hl66qhoc.apps.googleusercontent.com', loc: 'cs-CZ' }),
+      appPlatform: {
+        instanceId: getAppId({
+          localhost: 'localhost',
+          test: 'zvahov.langmaster.cz:6080'
+        }),
+      },
+      loginPlatform: loginPlatform({
+        facebook: {
+          localhost: { fbAppId: '198385910196240', fbAPIVersion: 'v2.10' },
+          test: { fbAppId: '341123529665594', fbAPIVersion: 'v2.10' }
+        },
+        googleClientId: '79001294507-haubsvbmtj5lu4a30hp4kb44hl66qhoc.apps.googleusercontent.com', loc: 'en-GB'
+      }),
       recordingPlatform: { guiSize: Recording.TGuiSize.icon },
       restAPIPlatform: { serviceUrl: 'rest-api.ashx' },
       routerPlatform: {

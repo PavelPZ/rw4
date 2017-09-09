@@ -49,6 +49,7 @@ export class Provider extends React.PureComponent<WebLogin.IProviderProps> {
       <div ref={div => this.loginHTML = div} className={renderCSS({ display: 'none', ...fixedScreen, justifyContent: 'space-around', flexDirection: 'row' })}>
         <div className={renderCSS({ flex: 1, maxWidth: 800 })}>
           <div tabIndex={1} ref={div => { console.log('LOGIN: finish Login rendering'); init().then(Provider.renderedCompleted) }} id="my-signin" className="g-signin2" />
+          <br /><br />
           <div onClick={facebookLoginBtnClick}>FACEBOOK</div>
         </div>
       </div>
@@ -98,7 +99,8 @@ const waitChildren = <div style={{ display: 'flex', flex: 1, justifyContent:'cen
 let provider: Provider
 
 const init = () => {
-  const { googleClientId, fbAppId, fbAPIVersion, loc } = window.lmGlobal.platform.loginPlatform.par
+  const { googleClientId, facebook, loc } = window.lmGlobal.platform.loginPlatform.par
+  const { fbAppId, fbAPIVersion } = facebook[window.lmGlobal.platform.appPlatform.instanceId]
   return Promise.all([
     googleInit(googleClientId, loc),
     facebookInit(fbAppId, fbAPIVersion)

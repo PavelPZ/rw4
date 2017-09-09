@@ -25,7 +25,13 @@
 
   interface IState extends ILoginInfo { }
 
-  interface IPlatformPar { fbAppId: string; fbAPIVersion: string; googleClientId: string; loc:string }
+  interface IPlatformPar { facebook: App.InstancePars<IFacebookPar>; googleClientId: string; loc: string }
+
+  interface IFacebookPar {
+    fbAppId: string
+    fbAPIVersion: string
+  }
+
 
   interface IPlatform {
     par: IPlatformPar
