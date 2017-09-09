@@ -152,8 +152,8 @@ export const init = async () => {
     </ReduxProvider>
 
   ReactDOM.render(
-    //appAll
-    appNoRoute
+    appAll
+    //appNoRoute
     //appMin
     //appNo
     //appNoLogin

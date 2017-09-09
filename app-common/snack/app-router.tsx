@@ -1,6 +1,6 @@
 ﻿import React from 'react'
 import { Container, Header, Content, Text, Button } from '../gui/gui'
-import { registerRouter, navigateHome } from '../lib/router'
+import { registerRouter, navigatePushHome } from '../lib/router'
 import { isLogged, createLoginButton } from '../lib/login'
 import { storeContextType } from '../lib/lib'
 import { contextType as locContextType } from '../lib/loc'
@@ -21,7 +21,7 @@ const appRouterComp: React.SFC<AppRouter.IRoutePar> = props => {
       <Text style={{ fontSize: 24 }}>{props.title}</Text>
       <Button /*tabIndex={1}*/ key={1} label='Add to title' href={AppRouterComp.getRoute({ ...par, title: props.title + ' | xxx' })} />
       <Button /*tabIndex={1}*/ key={2} label='Show Modal' href={AppRouterComp.getRoute({ ...par, title: props.title + ' | mmm' }, true)} />
-      <Button /*tabIndex={1}*/ key={3} label='Goto HOME' href={null/*home*/} />
+      <Button /*tabIndex={1}*/ key={3} label='Goto HOME' href={{ routeName:null }/*home*/} />
       <Button /*tabIndex={1}*/ key={4} label='DUMMY' />
       {window.lmGlobal.isNative ? null : <LoginButton tabIndex={2} />}
     </Content>

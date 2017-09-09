@@ -37,16 +37,23 @@ export const navigate = (routeName?: string | Router.IState, params?) => {
   window.lmGlobal.store.dispatch({ type: Router.Consts.NAVIGATE_START, newState })
 }
 
-export const navigateHome = () => navigateUrl(null)
+export const navigatePushHome = () => navigatePush(null)
 
-export const navigateUrl = (route: Router.IState, isModal?: boolean) => {
-  if (!route) {
-    historyPushLow(null, null)
+export const navigatePush = (route: Router.IState) => {
+  if (!route || !route.routeName) {
+    historyPush(null, null)
     return
   }
   const router = routes[route.routeName]
-  historyPushLow(router.urlPattern, route)
+  historyPush(router.urlPattern, route)
 }
+
+export const navigateUrl = (route: Router.IState) => {
+  if (!route || !route.routeName) return historyUrl(null, null)
+  const router = routes[route.routeName]
+  return historyUrl(router.urlPattern, route)
+}
+
 
 const adjustRouterProps = <T extends Router.IRoutePar>(props: T) => {
   if (window.lmGlobal.isNative) {
@@ -70,8 +77,8 @@ export function registerRouter<TPar extends Router.IRoutePar = Router.IRoutePar>
   }
   const pattern = new UrlPattern(urlMask)
   res.urlPattern = pattern
-  res.navigate = (par: TPar) => historyPushLow(pattern, res.getRoute(par))
-  res.navigateModal = (par: TPar) => historyPushLow(pattern, res.getRoute(par, true))
+  res.navigate = (par: TPar) => historyPush(pattern, res.getRoute(par))
+  res.navigateModal = (par: TPar) => historyPush(pattern, res.getRoute(par, true))
   res.nativeScreenDef = () => ({ [routeName]: { screen: res } })
   routes[routeName] = res
   return res as Router.IRouteComponent<TPar>
@@ -166,7 +173,8 @@ export const init = () => {
     return res
   }
 
-  historyPushLow = (urlPattern, state) => history.push(stringify(urlPattern, state))
+  historyPush = (urlPattern, state) => history.push(stringify(urlPattern, state))
+  historyUrl = (urlPattern, state) => stringify(urlPattern, state)
 
   //*** resolving quick BACK x FORWARD browser button clicks
   notifyNavigationEnd = () => {
@@ -189,7 +197,8 @@ export const init = () => {
   })
 }
 
-let historyPushLow: (urlPattern: UrlPattern, state: Router.IState) => void //vysledek init
+let historyPush: (urlPattern: UrlPattern, state: Router.IState) => void
+let historyUrl: (urlPattern: UrlPattern, state: Router.IState) => string
 
 //notifications for resolving quick BACK x FORWARD
 let notifyNavigationEnd: () => void

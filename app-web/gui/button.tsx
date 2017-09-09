@@ -2,7 +2,7 @@
 
 import { getIcon } from '../../app-common/gui/ionic'
 import { getColors, getTextColor } from '../../app-common/gui/colors'
-import { navigateUrl } from '../../app-common/lib/router'
+import { navigateUrl, navigatePush } from '../../app-common/lib/router'
 
 import { renderCSS } from 'web-fela'
 import { colorToStyle } from './lib'
@@ -17,11 +17,11 @@ export const Button: React.SFC<GUI.IButtonProps> = props => {
   const fixPosition = actMode.startsWith(fixed) ? actMode.substr(fixed.length).toLowerCase() as FixedPositions : null
   actMode = (iconName || iconLogo) && !fixPosition && typeof label == 'undefined' ? GUI.ButtonMode.icon : actMode
   const rounded = actMode == GUI.ButtonMode.rounded || actMode == GUI.ButtonMode.roundedMini || actMode == GUI.ButtonMode.icon
-  const press = onPress || (typeof href != 'undefined' ? () => navigateUrl(href) : undefined)
+  const press = onPress || (typeof href != 'undefined' ? () => navigatePush(href) : () => { })
 
   //colors
   const colorProps: ButtonProps = {}
-  const colorStyle: CSSProperties = {}
+  const colorStyle: CSSProperties = { textAlign: 'center' } //error for RnButton when HREF is not null
   if (color == GUI.Colors.primary) colorProps.primary = true
   else if (color == GUI.Colors.secondary) colorProps.secondary = true
   else {
@@ -38,11 +38,11 @@ export const Button: React.SFC<GUI.IButtonProps> = props => {
 
   //icon
   let iconClassName = getIcon(iconName, iconLogo, iconOS, iconActive)
-  if (iconClassName) iconClassName = renderCSS({ fontSize: 24, lineHeight:1 }) + ' icon ion-' + iconClassName
+  if (iconClassName) iconClassName = renderCSS({ fontSize: 24, lineHeight: 1 }) + ' icon ion-' + iconClassName
   //fixed
   if (fixPosition)
     return <MDButton floating fixed fixedPosition={fixPosition} {...colorProps} className={renderCSS(colorStyle)} iconClassName={iconClassName} />
-  
+
   //other
   const mdProps: ButtonProps = {
     flat: actMode == GUI.ButtonMode.flat,
@@ -60,8 +60,9 @@ export const Button: React.SFC<GUI.IButtonProps> = props => {
     {...mdProps}
     {...colorProps}
     className={renderCSS(colorStyle)}
-    iconClassName={iconClassName} 
-    onClick={ev => { ev.stopPropagation(); if (press) press() }}
+    iconClassName={iconClassName}
+    href={!href ? undefined : navigateUrl(href)}
+    onClick={ev => { ev.preventDefault(); ev.stopPropagation(); press() }}
   />
 }
 
