@@ -17,13 +17,14 @@ const fixPositions = {
 export const Button: React.SFC<GUI.IButtonProps> = props => {
   const { mode = GUI.ButtonMode.raised, iconName, iconLogo, color = GUI.Colors.primary,
     shadow, label, iconRight, disabled, iconOS, iconActive, href, children, onPress, ...rest } = props
+  const actMode = mode
   const fixed = 'fixed'
-  const fixPosition = mode.startsWith(fixed) ? mode.substr(fixed.length).toLowerCase() : null
-  const transparent = mode == GUI.ButtonMode.flat || mode == GUI.ButtonMode.icon
+  const fixPosition = actMode.startsWith(fixed) ? fixPositions[actMode.substr(fixed.length).toLowerCase()] : null
+  const transparent = actMode == GUI.ButtonMode.flat
   const hasIcon = iconName || iconLogo
-  const rounded = mode == GUI.ButtonMode.rounded || mode == GUI.ButtonMode.roundedMini
-  const small = mode == GUI.ButtonMode.roundedMini
-  const bordered = mode == GUI.ButtonMode.bordered
+  const rounded = actMode == GUI.ButtonMode.rounded || actMode == GUI.ButtonMode.roundedMini
+  const small = actMode == GUI.ButtonMode.roundedMini
+  const bordered = actMode == GUI.ButtonMode.bordered
   const iconLeft = iconRight && undefined
   const press = onPress || (typeof href != 'undefined' ? () => navigateUrl(href) : undefined)
 
@@ -34,7 +35,7 @@ export const Button: React.SFC<GUI.IButtonProps> = props => {
     //return <NBFab position={fixPositions[fixPosition] as any} style={{ backgroundColor: colors.color }} active >
     //  <Icon name={getIcon(iconName, iconLogo, iconOS, iconActive)} style={{ color: colors.text }} />
     //</NBFab>
-    return <NBFab position={fixPositions[fixPosition] as any} active onPress={press}>
+    return <NBFab position={fixPosition} active onPress={press}>
       <Icon name={getIcon(iconName, iconLogo, iconOS, iconActive)} />
     </NBFab>
   }
@@ -47,6 +48,7 @@ export const Button: React.SFC<GUI.IButtonProps> = props => {
     rounded,
     bordered,
     small,
+    disabled,
     onPress: press,
     ...!rounded ? { iconLeft, iconRight } : null
   }
@@ -69,14 +71,6 @@ export const Button: React.SFC<GUI.IButtonProps> = props => {
         style.backgroundColor = colors.color
       }
     }
-
-    //const classes = getBtnTheme(color, shadow)
-    //if (transparent) 
-    //  btnProps[classes[Theme.Classes.btnTransparent]] = true
-    //else if (bordered)
-    //  btnProps[classes[Theme.Classes.btnBordered]] = true 
-    //else 
-    //  btnProps[classes[Theme.Classes.btn]] = true
   }
 
   const IC = hasIcon && <Icon key={1} name={getIcon(iconName, iconLogo, iconOS, iconActive)} style={textStyle} />
