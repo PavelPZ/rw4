@@ -73,6 +73,7 @@
   <ItemGroup>
     <Content Include=".gitignore" />
     <TypeScriptCompile Include="app-common\gui\colors.ts" />
+    <TypeScriptCompile Include="app-common\gui\tab.ts" />
     <TypeScriptCompile Include="app-common\gui\gui-d.d.ts" />
     <TypeScriptCompile Include="app-common\gui\gui.tsx" />
     <TypeScriptCompile Include="app-common\gui\native-d.d.ts" />

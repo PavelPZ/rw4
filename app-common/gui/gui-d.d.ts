@@ -16,6 +16,8 @@
     Platform: ReactNative.PlatformStatic
   }
 
+  //**** COLORS
+
   export interface IColors {
     color: string
     text: string
@@ -94,6 +96,8 @@
     textShadow?: TextShadows
   }
 
+  //**** BUTTON
+
   const enum ButtonMode {
     raised = 'raised',
     flat = 'flat',
@@ -121,6 +125,45 @@
     color?: Colors //https://react-md.mlaursen.com/components/buttons: flat and icon buttons will theme the text color in the button while raised and floating will theme the background of the button.
     shadow?: Shadows
     disabled?: boolean
+  }
+
+  //*** FOOTER
+
+  interface ITabState {
+    index: number
+  }
+  interface ITabOwnProps {
+    buttons: ITabButton[]
+    //for user action:
+    userAction?: ITabUserAction //
+    //for reducer:
+    statePath?: string[] //cesta ke state
+    initIndex?: number //selected index
+  }
+  interface ITabDispatch {
+    changeIndex: (idx: number) => void
+  }
+  type ITabProps = ITabState & ITabOwnProps
+  interface ITabButton {
+    icon: IonicNames
+    iconLogo: IonicLogos
+    title: string
+    idx?: number
+    data?
+  }
+  const enum TabConsts {
+    SET_INDEX = 'tab/SET_INDEX'
+  }
+  interface ITabAction extends ITabState {
+    type: TabConsts.SET_INDEX
+    statePath: string[]
+  }
+  interface ITabUserAction extends App.Action {
+    idx?: number
+    data?
+  }
+  interface ITabNavigateAction<TName extends string = string, TParams extends Router.IRoutePar = any> extends ITabUserAction {
+    data?: Router.IState<TName, TParams>
   }
 }
 
