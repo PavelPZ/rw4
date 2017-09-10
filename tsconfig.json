@@ -9,7 +9,7 @@
     "importHelpers": true,
     "baseUrl": ".",
     "paths": {
-      "react-md/*": [ "react-md/*" ],
+      //"react-md/*": [ "react-md/*" ],
       "web-fela": [ "app-web/lib/fela" ],
       "web-react-native": [ "app-web/lib/react-native/index" ]
     },
