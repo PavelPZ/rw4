@@ -2,54 +2,50 @@
   "compileOnSave": true,
   "compilerOptions": {
     //**** WEB
-    "target": "es5",
-    "module": "system",
-    "inlineSourceMap": true,
-    "inlineSources": true,
-    "importHelpers": true,
-    "baseUrl": ".",
-    "paths": {
-      //"react-md/*": [ "react-md/*" ],
-      //"web-fela": [ "app-web/lib/fela" ],
-      "web-react-native": [ "app-web/lib/react-native/index" ]
-    },
+    //"target": "es5",
+    //"module": "system",
+    //"inlineSourceMap": true,
+    //"inlineSources": true,
+    //"importHelpers": true,
 
     //**** REACT NATIVE
-    //"target": "es6",
+    "target": "es6",
 
     //**** COMMON
 
     "allowSyntheticDefaultImports": true,
     "strictNullChecks": false,
     "downlevelIteration": true,
-    "experimentalDecorators": true,
+    "moduleResolution": "node",
+    "strict": true,
+    "noImplicitReturns": true,
+    //"experimentalDecorators": true,
     "noImplicitAny": false,
     "jsx": "react",
-    //"jsxFactory": "rt",
     "lib": [
       "dom",
       "es2015",
       "esnext.asynciterable"
-    ],
-    "moduleResolution": "node",
-    "strict": true,
-    "noImplicitReturns": true
+    ]
   },
   "exclude": [
     //*** web
-    //"index.tsx",
-    //"app-web/",
-    //"polyfill/web.tsx",
+    "index.tsx",
+    "app-web/",
+    "polyfill/web.tsx",
 
     //*** native
-    "app-native",
-    "App.tsx",
-    "polyfill/index.tsx",
-    "native-base-theme",
+    //"app-native",
+    //"App.tsx",
+    //"polyfill/index.tsx",
+    //"native-base-theme",
 
     "jspm_packages/",
-    "node_modules/",
-    "node_modules/@types/node/"
+    "node_modules/"
 
   ]
 }
+
+    //"baseUrl": ".",
+    //"paths": {
+    //},

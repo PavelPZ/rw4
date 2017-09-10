@@ -107,7 +107,7 @@ export const init = async () => {
       </Theme>
     </LocProvider>
   </ReduxProvider>
-
+   
   return new Promise<JSX.Element>(resolve => resolve(appAll))
 }
 

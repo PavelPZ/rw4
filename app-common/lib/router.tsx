@@ -122,7 +122,7 @@ export const reducer: App.IReducer<Router.IState> = (state, action: Router.IActi
   if (!state) return computeReactNavigation(window.lmGlobal.platform.routerPlatform.startRoute)
   switch (action.type) {
     case Router.Consts.NAVIGATE_START:
-      console.log('Router.Consts.NAVIGATE_START: ', action)
+      //console.log('Router.Consts.NAVIGATE_START: ', action)
       if (!window.lmGlobal.isNative) notifyNavigationStart() //notifications for resolving quick BACK x FORWARD
       return state
     case Router.Consts.NAVIGATE_END:

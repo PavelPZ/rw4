@@ -29,7 +29,8 @@
     "redux": "^3.7.2",
     "redux-saga": "^0.15.6",
     "tslib": "^1.7.1",
-    "url-pattern": "^1.0.3"
+    "url-pattern": "^1.0.3",
+    "react-md": "^1.1.0"
   },
   "jspm": {
     "name": "rewise",

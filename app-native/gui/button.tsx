@@ -2,7 +2,7 @@
 import { Text, Button as NBButton, Fab as NBFab, Icon } from 'native-base'
 import { View, Platform, Dimensions, PixelRatio, ViewStyle } from 'react-native'
 
-import { navigateUrl } from '../../app-common/lib/router'
+import { navigateUrl, navigatePush } from '../../app-common/lib/router'
 import { getIcon } from '../../app-common/gui/ionic'
 import { getColors } from '../../app-common/gui/colors'
 import { colorToBsStyle } from './theme'
@@ -26,7 +26,7 @@ export const Button: React.SFC<GUI.IButtonProps> = props => {
   const small = actMode == GUI.ButtonMode.roundedMini
   const bordered = actMode == GUI.ButtonMode.bordered
   const iconLeft = iconRight && undefined
-  const press = onPress || (typeof href != 'undefined' ? () => navigateUrl(href) : undefined)
+  const press = onPress || (typeof href != 'undefined' ? () => (window.lmGlobal.isNative ? navigatePush : navigateUrl)(href) : undefined)
 
   if (fixPosition) {
     //--- asi neumi styles
@@ -58,7 +58,7 @@ export const Button: React.SFC<GUI.IButtonProps> = props => {
 
   if (!colorToBsStyle(color, btnProps)) {
     if (color == GUI.Colors.default) btnProps.light = true
-    else if (color == GUI.Colors.dark) btnProps.dark = true
+    else if (color == GUI.Colors.dark) btnProps.dark = true 
     else {
       const colors = getColors(color, shadow)
       if (transparent)
