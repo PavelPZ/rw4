@@ -1,6 +1,5 @@
 ﻿import React from 'react';
-import { renderCSS } from 'web-fela';
-//import { ViewStyle } from './lib';
+import { renderCSS } from '../lib/fela'
 import { ViewProperties } from 'react-native'
 
 //export type IWebView = ViewProperties;

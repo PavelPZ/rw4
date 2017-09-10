@@ -9,7 +9,7 @@ import { connect } from 'react-redux'
 //import { View, Text, Button } from '../../polyfill/index'
 import { navigate, actRoute } from '../../app-common/lib/router'
 import { isLogged } from '../../app-common/lib/login'
-import { renderCSS, styleLib } from 'web-fela'
+import { renderCSS, styleLib } from './fela'
 import invariant from 'invariant'
 
 export const platform = (par: Login.IPlatformPar) => ({

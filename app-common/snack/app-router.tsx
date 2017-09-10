@@ -1,5 +1,5 @@
 ﻿import React from 'react'
-import { Container, Header, Content, Text, Button } from '../gui/gui'
+import { Container, Header, Content, Text, Button, H2 } from '../gui/gui'
 import { registerRouter, navigatePushHome } from '../lib/router'
 import { isLogged, createLoginButton } from '../lib/login'
 import { storeContextType } from '../lib/lib'
@@ -18,7 +18,7 @@ const appRouterComp: React.SFC<AppRouter.IRoutePar> = props => {
   return <Container style={{ flex: 1 }}>
     <Header />
     <Content>
-      <Text style={{ fontSize: 24 }}>{props.title}</Text>
+      <H2>{props.title}</H2>
       <Button /*tabIndex={1}*/ key={1} label='Add to title' href={AppRouterComp.getRoute({ ...par, title: props.title + ' | xxx' })} />
       <Button /*tabIndex={1}*/ key={2} label='Show Modal' href={AppRouterComp.getRoute({ ...par, title: props.title + ' | mmm' }, true)} />
       <Button /*tabIndex={1}*/ key={3} label='Goto HOME' href={{ routeName:null }/*home*/} />

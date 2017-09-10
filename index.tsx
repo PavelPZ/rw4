@@ -1,3 +1,5 @@
+import 'whatwg-fetch'
+
 //********** LIBRARIES
 import React from 'react'
 import ReactDOM from 'react-dom'

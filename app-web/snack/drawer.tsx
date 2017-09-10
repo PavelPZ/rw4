@@ -1,12 +1,13 @@
 ﻿import React from 'react'
-import { Button, NavigationDrawer, NavigationDrawerProps, DrawerProps, DrawerPositions, MediaTypes, DrawerTypes, MobileDrawerTypes, DrawerTypesType } from '../lib/react-md'
+//import { Button, NavigationDrawer, NavigationDrawerProps, DrawerProps, DrawerPositions, MediaTypes, DrawerTypes, MobileDrawerTypes, DrawerTypesType } from '../lib/react-md'
+import { Button, NavigationDrawer, NavigationDrawerProps } from '../lib/react-md'
 
-import { renderCSS } from 'web-fela'
+import { renderCSS } from '../lib/fela'
 
-const mobile: DrawerProps = {
+//const mobile: DrawerProps = {
   //overlay: true,
   //type: 'temporary',
-}
+//}
 
 const App: React.SFC<{}> = props => <div>
   {/*}

@@ -4,7 +4,7 @@ import { getIcon } from '../../app-common/gui/ionic'
 import { getColors, getTextColor } from '../../app-common/gui/colors'
 import { navigateUrl, navigatePush } from '../../app-common/lib/router'
 
-import { renderCSS } from 'web-fela'
+import { renderCSS } from '../lib/fela'
 import { colorToStyle } from './lib'
 import { Button as MDButton, ButtonProps, FixedPositions } from '../lib/react-md'
 

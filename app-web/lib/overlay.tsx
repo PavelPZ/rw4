@@ -1,6 +1,6 @@
 ﻿import React from 'react';
 import ReactDOM from 'react-dom';
-import { renderCSS } from 'web-fela';
+import { renderCSS } from './fela';
 
 export const enum ModalType { modal, modalFullScreen, popup, drawer, blockGui }
 export interface IModalPropsLow<T> { $finish?: (res) => void; $doClose?: (res, noAnimation: boolean) => void, $idx?: number; $uniqueId?: number; $component?: React.ComponentType, $type?: ModalType, $popupOwner?: React.ReactInstance, $keepLast?: boolean, $transition?: ITransition }

@@ -2,7 +2,7 @@
 import { NavigationDrawer, Button } from '../lib/react-md'
 
 import { providerConnector } from '../../app-common/lib/drawer'
-import { renderCSS } from 'web-fela'
+import { renderCSS } from './fela'
 
 const provider: React.SFC<Drawer.IStateProps & Drawer.IDispatchProps> = props => <div>
   <NavigationDrawer
