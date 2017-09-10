@@ -26,10 +26,10 @@
   <link rel="stylesheet" href="app-web/assets/ionic/css/ionicons.css"/>
 
   <script>
-    System.import('index.js').then(function (m) { m.init(); }).catch(function (err) { debugger; });
+    //System.import('index.js').then(function (m) { m.init(); }).catch(function (err) { debugger; });
     //jspm build ./index.js./bundle.js--minify
     //delete bundle.map
-    //System.import('bundle.js').then(function (m) { m.init(); }).catch(function (err) { debugger; });
+    System.import('bundle.js').then(function (m) { m.init(); }).catch(function (err) { debugger; });
   </script>
 </head>
 <body>

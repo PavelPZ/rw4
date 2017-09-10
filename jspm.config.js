@@ -11,6 +11,7 @@ SystemJS.config({
     }
   },
   map: {
+    //"web-fela": "/app-web/lib/fela",
     "redux-saga/effects": "npm:redux-saga@0.15.6/lib/effects",
     "redux-saga/index": "npm:redux-saga@0.15.6/lib/index"
   }
@@ -22,7 +23,6 @@ SystemJS.config({
     "npm:*.json"
   ],
   map: {
-    "es6-promise": "npm:es6-promise@4.1.1",
     "child_process": "npm:jspm-nodelibs-child_process@0.2.1",
     "http": "npm:jspm-nodelibs-http@0.2.0",
     "https": "npm:jspm-nodelibs-https@0.2.2",

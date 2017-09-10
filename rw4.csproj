@@ -184,7 +184,6 @@
     <Content Include="app-web\snack\react-md-pure.html" />
     <Content Include="home.html" />
     <Content Include="json.json" />
-    <Content Include="jspm.config - Copy.js" />
     <Content Include="native-base-theme\components\Badge.js" />
     <Content Include="native-base-theme\components\Body.js" />
     <Content Include="native-base-theme\components\Button.js" />
