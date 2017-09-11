@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 
 // **** for user action
 export const changeIndex = (props: GUI.ITabOwnProps, idx: number) => window.lmGlobal.store.dispatch({ ...props.userAction, idx: idx, data: props.buttons[idx].data } as GUI.ITabUserAction)
-export const changeNavigateIndex = <TName extends string = string, TParams extends Router.IRoutePar = any>(props: GUI.ITabOwnProps, idx: number) => changeIndex(props, idx) as GUI.ITabNavigateAction<TName, TParams>
+//export const changeNavigateIndex = <TName extends string = string, TParams extends Router.IRoutePar = any>(props: GUI.ITabOwnProps, idx: number) => changeIndex(props, idx) as GUI.ITabNavigateAction<TName, TParams>
 
 // **** for reducer
 export const providerConnector = connect<GUI.ITabState, GUI.ITabDispatch, GUI.ITabOwnProps>(

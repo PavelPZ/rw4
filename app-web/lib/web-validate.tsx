@@ -1,5 +1,5 @@
 ﻿import React from 'react'
-import { TextFieldProps } from './react-md'
+import { TextFieldProps } from '../gui/react-md'
 import { editor } from '../../app-common/lib/validate'
 
 export class webEditor<T> extends editor<T> {

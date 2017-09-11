@@ -1,5 +1,5 @@
 ﻿import React from 'react'
-import { NavigationDrawer, Button } from '../lib/react-md'
+import { NavigationDrawer, Button } from '../gui/react-md'
 
 import { providerConnector } from '../../app-common/lib/drawer'
 import { renderCSS } from './fela'

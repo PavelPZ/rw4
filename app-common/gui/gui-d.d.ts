@@ -127,7 +127,7 @@
     disabled?: boolean
   }
 
-  //*** FOOTER
+  //*** TABS
 
   interface ITabState {
     index: number
@@ -162,9 +162,9 @@
     idx?: number
     data?
   }
-  interface ITabNavigateAction<TName extends string = string, TParams extends Router.IRoutePar = any> extends ITabUserAction {
-    data?: Router.IState<TName, TParams>
-  }
+  //interface ITabNavigateAction<TName extends string = string, TParams extends Router.IRoutePar = any> extends ITabUserAction {
+  //  data?: Router.IState<TName, TParams>
+  //}
 }
 
 interface IPlatforms {

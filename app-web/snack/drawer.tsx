@@ -1,6 +1,6 @@
 ﻿import React from 'react'
 //import { Button, NavigationDrawer, NavigationDrawerProps, DrawerProps, DrawerPositions, MediaTypes, DrawerTypes, MobileDrawerTypes, DrawerTypesType } from '../lib/react-md'
-import { Button, NavigationDrawer, NavigationDrawerProps } from '../lib/react-md'
+import { Button, NavigationDrawer, NavigationDrawerProps } from '../gui/react-md'
 
 import { renderCSS } from '../lib/fela'
 

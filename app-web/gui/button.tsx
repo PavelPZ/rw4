@@ -6,7 +6,7 @@ import { navigateUrl, navigatePush } from '../../app-common/lib/router'
 
 import { renderCSS } from '../lib/fela'
 import { colorToStyle } from './lib'
-import { Button as MDButton, ButtonProps, FixedPositions } from '../lib/react-md'
+import { Button as MDButton, ButtonProps, FixedPositions } from './react-md'
 
 
 export const Button: React.SFC<GUI.IButtonProps> = props => {

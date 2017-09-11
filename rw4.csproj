@@ -143,7 +143,7 @@
     <TypeScriptCompile Include="app-native\snack\navigation\navigation.tsx" />
     <TypeScriptCompile Include="app-native\snack\redux-simple.tsx" />
     <TypeScriptCompile Include="app-native\snack\navigation\redux\index.tsx" />
-    <TypeScriptCompile Include="app-web\lib\react-md.ts" />
+    <TypeScriptCompile Include="app-web\gui\react-md.ts" />
     <TypeScriptCompile Include="app-web\snack\drawer.tsx" />
     <TypeScriptCompile Include="app-web\lib\typings.d.ts" />
     <TypeScriptCompile Include="app-web\lib\fela-d.d.ts" />

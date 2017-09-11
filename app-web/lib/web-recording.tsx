@@ -1,7 +1,7 @@
 ﻿import React from 'react'
 import { providerConnector, blockGuiConnector } from '../../app-common/lib/recording'
 import { renderCSS } from './fela'
-import { Button, List, ListItemControl, Checkbox, Portal } from './react-md';
+import { Button, List, ListItemControl, Checkbox, Portal } from '../gui/react-md';
 import { Icon } from '../../app-common/gui/gui'
 
 const provider: React.SFC<Recording.IProps> = props => {

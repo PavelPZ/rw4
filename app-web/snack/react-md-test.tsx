@@ -8,7 +8,7 @@ import React from 'react';
       "resize-observer-polyfill": "npm:resize-observer-polyfill",
 */
 
-import { Button, Checkbox, Radio, Switch, SelectField, FontIcon } from '../lib/react-md';
+import { Button, Checkbox, Radio, Switch, SelectField, FontIcon } from '../gui/react-md';
 //import { Text, View } from '../../polyfill/index'
 import { renderCSS } from '../lib/fela'
 

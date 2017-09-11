@@ -1,5 +1,5 @@
 ﻿import React from 'react'
-import { TextField, Button } from '../lib/react-md'
+import { TextField, Button } from '../gui/react-md'
 import { numberConvertors, requiredValidator, intValidator, rangeValidator } from '../../app-common/lib/validate'
 import { webEditor } from '../lib/web-validate'
 
