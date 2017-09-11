@@ -25,14 +25,16 @@
   }
   interface IPageHeader {
     type: string
-    body: React.ReactNode
+    bodyTitle?: string
+    bodySubtitle?: string
   }
   interface IPageHeaderRight extends IPageHeader {
-    right: React.ReactNode
+    right?: React.ReactNode
   }
   //---
   interface IPageHeaderModalOKCancel extends IPageHeader {
     type: PageHeaderType.modalOKCancel
+    okText?:string
   }
   interface IPageHeaderModalOK extends IPageHeaderRight {
     type: PageHeaderType.modalOK
@@ -42,13 +44,13 @@
   }
   interface IPageHeaderOther extends IPageHeaderRight {
     type: PageHeaderType.other
-    left: React.ReactNode
+    left?: React.ReactNode
   }
   type TPageHeader = IPageHeaderModalOKCancel | IPageHeaderModalOK | IPageHeaderDrawer | IPageHeaderOther
   interface IPageTemplateProps<T extends TPageHeader = TPageHeader> {
-    header: T
+    header?: T
     content: React.ReactNode
-    footer: React.ReactNode
+    footer?: React.ReactNode
     //ownProps: {}
   }
   

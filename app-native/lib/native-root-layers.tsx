@@ -12,7 +12,7 @@ import mapPropsToStyleNames from 'native-base/src/Utils/mapPropsToStyleNames'
 import { ToastContainer as Toast } from 'native-base/src/basic/ToastContainer'
 import { ActionSheetContainer as ActionSheet } from 'native-base/src/basic/Actionsheet'
 import { Font, Asset, Constants } from 'expo'
-import { Fab, Container, Content, Header, Footer, Left, Body, Right, Text, Button } from 'native-base';
+import { Fab, Container, Content, Header, Footer, Left, Body, Right, Text, Button, Title, Subtitle } from 'native-base';
 
 //COMMON
 
@@ -105,7 +105,7 @@ const NavigProvider = connect((state: IState) => ({ navProp: state.router }))(na
 
 //*** PAGE TEMPLATE
 
-export const PageHeader: React.SFC<GUI.IPageTemplateProps> = (props) => {
+export const PageTemplate: React.SFC<GUI.IPageTemplateProps> = (props) => {
   const { content, footer, header } = props
   const toText = (nd: React.ReactNode) => typeof nd == 'string' ? <Text>{nd}</Text> : nd
   let left: React.ReactNode = null
@@ -117,6 +117,7 @@ export const PageHeader: React.SFC<GUI.IPageTemplateProps> = (props) => {
       </Button>
       right = <Button success>
         <Icon name={GUI.IonicNames.checkmark} />
+        {toText(header.okText)}
       </Button>
       break
     case GUI.PageHeaderType.modalOK:
@@ -139,7 +140,10 @@ export const PageHeader: React.SFC<GUI.IPageTemplateProps> = (props) => {
   return <Container style={{ flex: 1 }}>
     <Header key={0}>
       <Left key={0}>{left}</Left>
-      <Body key={1}>{toText(header.body)}</Body>
+      <Body key={1}>
+        <Title>{header.bodyTitle}</Title>
+        {header.bodySubtitle && <Subtitle>{header.bodySubtitle}</Subtitle>}
+      </Body>
       <Right key={2}>{right}</Right>
     </Header>
     <Content key={1}>

@@ -5,7 +5,7 @@ import { isLogged, createLoginButton } from '../lib/login'
 import { storeContextType } from '../lib/lib'
 import { contextType as locContextType } from '../lib/loc'
 
-import { PageHeader } from '../../app-native/lib/native-root-layers'
+import { PageTemplate } from '../../app-native/lib/native-root-layers'
 
 const LoginButton = createLoginButton(props => {
   const { logged, doLoginAction, ...rest } = props
@@ -18,11 +18,13 @@ const LoginButton = createLoginButton(props => {
 const appRouterComp: React.SFC<AppRouter.IRoutePar> = props => {
   const { children, ...par } = props
   const isModal = props.query && props.query.isModal
-  const hdr: GUI.IPageTemplateProps<GUI.IPageHeaderDrawer | GUI.IPageHeaderModalOK> = {
+  const hdr: GUI.IPageTemplateProps<GUI.IPageHeaderDrawer | GUI.IPageHeaderModalOKCancel> = {
     header: {
-      type: isModal ? GUI.PageHeaderType.modalOK as any : GUI.PageHeaderType.drawer,
-      body: isModal ? 'MODAL ' + props.title : 'TITLE' + props.title,
-      right: <Button mode={GUI.ButtonMode.flat} label='ACTION'/>
+      type: isModal ? GUI.PageHeaderType.modalOKCancel as any : GUI.PageHeaderType.drawer,
+      bodyTitle: isModal ? 'MODAL' : 'TITLE',
+      bodySubtitle: props.title,
+      okText: isModal && 'Success',
+      right: !isModal && <Button mode={GUI.ButtonMode.flat} label='ACTION' color={GUI.Colors.White} />
     },
     content: [
       <H2 key={0}>{props.title}</H2>,
@@ -35,7 +37,7 @@ const appRouterComp: React.SFC<AppRouter.IRoutePar> = props => {
     footer: isModal ? undefined : 'FOOTER'
   }
   //return <Text>XXXXXXX</Text>
-  return <PageHeader {...hdr}/>
+  return <PageTemplate {...hdr}/>
   //<Container style={{ flex: 1 }}>
   //  <Header>
   //    {props.query.isModal ? <View></View> : <View></View>}
