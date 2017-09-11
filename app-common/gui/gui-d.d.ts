@@ -16,6 +16,42 @@
     Platform: ReactNative.PlatformStatic
   }
 
+  //**** PAGE TEMPLATE
+  const enum PageHeaderType {
+    modalOKCancel = 'modalOKCancel',
+    modalOK = 'modalOK',
+    drawer = 'drawer',
+    other = 'other'
+  }
+  interface IPageHeader {
+    type: string
+    body: React.ReactNode
+  }
+  interface IPageHeaderRight extends IPageHeader {
+    right: React.ReactNode
+  }
+  //---
+  interface IPageHeaderModalOKCancel extends IPageHeader {
+    type: PageHeaderType.modalOKCancel
+  }
+  interface IPageHeaderModalOK extends IPageHeaderRight {
+    type: PageHeaderType.modalOK
+  }
+  interface IPageHeaderDrawer extends IPageHeaderRight {
+    type: PageHeaderType.drawer
+  }
+  interface IPageHeaderOther extends IPageHeaderRight {
+    type: PageHeaderType.other
+    left: React.ReactNode
+  }
+  type TPageHeader = IPageHeaderModalOKCancel | IPageHeaderModalOK | IPageHeaderDrawer | IPageHeaderOther
+  interface IPageTemplateProps<T extends TPageHeader = TPageHeader> {
+    header: T
+    content: React.ReactNode
+    footer: React.ReactNode
+    //ownProps: {}
+  }
+  
   //**** COLORS
 
   export interface IColors {

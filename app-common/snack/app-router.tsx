@@ -1,9 +1,11 @@
 ﻿import React from 'react'
-import { Container, Header, Content, Text, Button, H2 } from '../gui/gui'
+import { Container, Header, Content, Text, Button, H2, View } from '../gui/gui'
 import { registerRouter, navigatePushHome } from '../lib/router'
 import { isLogged, createLoginButton } from '../lib/login'
 import { storeContextType } from '../lib/lib'
 import { contextType as locContextType } from '../lib/loc'
+
+import { PageHeader } from '../../app-native/lib/native-root-layers'
 
 const LoginButton = createLoginButton(props => {
   const { logged, doLoginAction, ...rest } = props
@@ -15,17 +17,38 @@ const LoginButton = createLoginButton(props => {
 
 const appRouterComp: React.SFC<AppRouter.IRoutePar> = props => {
   const { children, ...par } = props
-  return <Container style={{ flex: 1 }}>
-    <Header />
-    <Content>
-      <H2>{props.title}</H2>
-      <Button /*tabIndex={1}*/ key={1} label='Add to title' href={AppRouterComp.getRoute({ ...par, title: props.title + ' | xxx' })} />
-      <Button /*tabIndex={1}*/ key={2} label='Show Modal' href={AppRouterComp.getRoute({ ...par, title: props.title + ' | mmm' }, true)} />
-      <Button /*tabIndex={1}*/ key={3} label='Goto HOME' href={{ routeName:null }/*home*/} />
-      <Button /*tabIndex={1}*/ key={4} label='DUMMY' />
-      {window.lmGlobal.isNative ? null : <LoginButton key={5} tabIndex={2} />}
-    </Content>
-  </Container>
+  const isModal = props.query && props.query.isModal
+  const hdr: GUI.IPageTemplateProps<GUI.IPageHeaderDrawer | GUI.IPageHeaderModalOK> = {
+    header: {
+      type: isModal ? GUI.PageHeaderType.modalOK as any : GUI.PageHeaderType.drawer,
+      body: isModal ? 'MODAL ' + props.title : 'TITLE' + props.title,
+      right: <Button mode={GUI.ButtonMode.flat} label='ACTION'/>
+    },
+    content: [
+      <H2 key={0}>{props.title}</H2>,
+      <Button /*tabIndex={1}*/ key={1} label='Add to title' href={AppRouterComp.getRoute({ ...par, title: props.title + ' | xxx' })} />,
+      <Button /*tabIndex={1}*/ key={2} label='Show Modal' href={AppRouterComp.getRoute({ ...par, title: props.title + ' | mmm' }, true)} />,
+      <Button /*tabIndex={1}*/ key={3} label='Goto HOME' href={{ routeName: null }/*home*/} />,
+      <Button /*tabIndex={1}*/ key={4} label='DUMMY' />,
+      window.lmGlobal.isNative ? undefined : <LoginButton key={5} tabIndex={2} />,
+    ],
+    footer: isModal ? undefined : 'FOOTER'
+  }
+  //return <Text>XXXXXXX</Text>
+  return <PageHeader {...hdr}/>
+  //<Container style={{ flex: 1 }}>
+  //  <Header>
+  //    {props.query.isModal ? <View></View> : <View></View>}
+  //  </Header>
+  //  <Content>
+  //    <H2>{props.title}</H2>
+  //    <Button /*tabIndex={1}*/ key={1} label='Add to title' href={AppRouterComp.getRoute({ ...par, title: props.title + ' | xxx' })} />
+  //    <Button /*tabIndex={1}*/ key={2} label='Show Modal' href={AppRouterComp.getRoute({ ...par, title: props.title + ' | mmm' }, true)} />
+  //    <Button /*tabIndex={1}*/ key={3} label='Goto HOME' href={{ routeName: null }/*home*/} />
+  //    <Button /*tabIndex={1}*/ key={4} label='DUMMY' />
+  //    {window.lmGlobal.isNative ? null : <LoginButton key={5} tabIndex={2} />}
+  //  </Content>
+  //</Container>
 }
 
 //*** EXPORTS

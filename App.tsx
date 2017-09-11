@@ -42,7 +42,8 @@ import { AppRouterComp } from './app-common/snack/app-router'
 //import { AppRouterComp } from './app-native/snack/navigation/app-navigation';
 //import AppComp from './app-common/snack/react-navigation';  
 //import AppComp from './app-common/snack/gui/icon'
-import AppComp from './app-common/snack/gui/button'
+import AppComp from './app-native/snack/native-base/header'
+//import AppComp from './app-common/snack/gui/button'
 //import AppComp from './app-native/snack/native-base-button'
 
 export const init = async () => {

@@ -136,25 +136,11 @@ export const init = async () => {
     </ReduxProvider>
   }
 
-  const appMin =
-    <ReduxProvider store={store} >
-      <RouterProvider />
-    </ReduxProvider>
-
   const appNo = noRouteApp
 
-  const appNoLogin =
-    <ReduxProvider store={store} >
-      <LocProvider>
-        <RouterProvider />
-      </LocProvider>
-    </ReduxProvider>
-
   ReactDOM.render(
-    //<AppAll />
-    //appMin
-    appNo
-    //appNoLogin
+    <AppAll />
+    //appNo
     , document.getElementById('content'))
 }
 
