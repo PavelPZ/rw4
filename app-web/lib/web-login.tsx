@@ -6,12 +6,15 @@
 
 import React from 'react'
 import { connect } from 'react-redux'
-//import { View, Text, Button } from '../../polyfill/index'
+import invariant from 'invariant'
+
 import { navigate, actRoute } from '../../app-common/lib/router'
 import { isLogged } from '../../app-common/lib/login'
+import { getIcon } from '../../app-common/gui/ionic'
+import { Button } from '../../app-common/gui/gui'
+
 import { renderCSS, styleLib } from './fela'
-import invariant from 'invariant'
-import { Portal } from '../gui/react-md';
+import { Portal, Paper } from '../gui/react-md';
 
 export const platform = (par: Login.IPlatformPar) => ({
   par,
@@ -29,6 +32,8 @@ export const platform = (par: Login.IPlatformPar) => ({
   }
 } as Login.IPlatform)
 
+let element
+
 export class Provider extends React.PureComponent<WebLogin.IProviderProps> {
 
   constructor() {
@@ -38,33 +43,24 @@ export class Provider extends React.PureComponent<WebLogin.IProviderProps> {
   }
 
   loginHTML: HTMLDivElement
-  //appPage: HTMLDivElement
   returnUrl: Router.IState
-  //static rendered = new Promise<void>(resolve => Provider.renderedCompleted = resolve)
-  //static renderedCompleted: () => void
 
   render() {
     console.log('LOGIN: start Login rendering')
-    return <Portal ref={div => this.loginHTML = div['_container']} visible className={renderCSS({ display: 'none', backgroundColor:'white', position: 'fixed', left: 0, top: 0, bottom: 0, right: 0, justifyContent: 'space-around', flexDirection: 'row', zIndex: this.props.zIndex })} >
-      <div className={renderCSS({ flex: 1, maxWidth: 800 })}>
-        <div id="my-signin" className="g-signin2" tabIndex={1} ref={div => { console.log('LOGIN: finish Login rendering'); init().then(this.props.loginRendered) }} />
-        <br /><br />
-        <div onClick={facebookLoginBtnClick}>FACEBOOK</div>
-      </div>
+    return <Portal ref={div => this.loginHTML = div['_container']} visible className={renderCSS({ display: 'none', backgroundColor: 'white', position: 'fixed', left: 0, top: 0, bottom: 0, right: 0, alignItems: 'flex-start', justifyContent: 'center', zIndex: this.props.zIndex })} >
+      <Paper className={renderCSS({ display: 'flex', flexDirection: 'column', flex: 1, height: 150, maxWidth: 300, alignItems: 'center', justifyContent: 'space-around', marginTop: 100 })} zDepth={3}>
+        <div ref={div => { element = div; init().then(this.props.loginRendered) }}>
+          <Button iconLogo={GUI.IonicLogos.logoGoogle} label='GOOGLE' color={GUI.Colors.info} />
+        </div>
+        <Button iconLogo={GUI.IonicLogos.logoFacebook} label='FACEBOOK' onPress={facebookLoginBtnClick} color={GUI.Colors.info} />
+      </Paper>
     </Portal>
-    {/*<div>
-      <div ref={div => this.loginHTML = div} className={renderCSS({ display: 'none', ...fixedScreen, justifyContent: 'space-around', flexDirection: 'row' })}>
-      <div ref={div => this.appPage = div} className={renderCSS(fixedScreen)}>
-        <WaitForRendering waitFor={Provider.rendered} children={this.props.children} waitChildren={waitChildren} />
-      </div>
-    </div>
-    */}
   }
+  //        <div id="my-signin" className="g-signin2" tabIndex={1} ref={div => { console.log('LOGIN: finish Login rendering'); init().then(this.props.loginRendered) }} />
 
   show(isShow: boolean, returnUrl: Router.IState) {
     this.returnUrl = returnUrl
     this.loginHTML.style.display = isShow ? 'flex' : 'none'
-    //this.appPage.style.display = !isShow ? 'block' : 'none'
   }
 
   onLogin(provider: Login.TProviders, name: string, firstName: string, lastName: string, picture: string, email: string) {
@@ -106,33 +102,64 @@ const loadScript = (id: string, url: string) => {
 
 //***** GOOGLE
 const googleInit = (clientId: string, loc: string) => new Promise(resolve => {
-  const head = document.getElementsByTagName('head')[0]
-  const meta = document.createElement('meta') as HTMLMetaElement
-  meta.name = 'google-signin-client_id'
-  meta.content = clientId
-  head.insertAdjacentElement('afterbegin', meta)
+
   window['googleAsyncInit'] = () => {
-    renderButton()
-    resolve()
+    gapi.load('auth2', function () {
+      // Retrieve the singleton for the GoogleAuth library and set up the client.
+      const auth2 = gapi.auth2.init({
+        client_id: clientId,
+        cookiepolicy: 'single_host_origin',
+      })
+      auth2.attachClickHandler(element, {},
+        googleUser => {
+          const profile = googleUser.getBasicProfile();
+          provider.onLogin(Login.Consts.google, profile.getName(), profile.getGivenName(), profile.getFamilyName(), profile.getImageUrl(), profile.getEmail())
+        }, error => {
+          //alert(JSON.stringify(error, undefined, 2));
+        });
+      auth2.then(() => {
+        console.log('LOGIN: finish googleInit')
+        resolve()
+      })
+    })
   }
+
+
+  //const head = document.getElementsByTagName('head')[0]
+  //const meta = document.createElement('meta') as HTMLMetaElement
+  //meta.name = 'google-signin-client_id'
+  //meta.content = clientId
+  //head.insertAdjacentElement('afterbegin', meta)
+  //window['googleAsyncInit'] = () => {
+  //  renderButton()
+  //  resolve()
+  //}
   loadScript('google-platform', `https://apis.google.com/js/platform.js?hl=${loc}&onload=googleAsyncInit`)
 })
 
-const renderButton = () => {
-  gapi.signin2.render('my-signin', {
-    scope: 'profile email',
-    width: 240,
-    height: 50,
-    longtitle: false, //jinak nefunguje prihlaseni
-    theme: 'dark',
-    onsuccess: googleUser => {
-      const profile = googleUser.getBasicProfile();
-      provider.onLogin(Login.Consts.google, profile.getName(), profile.getGivenName(), profile.getFamilyName(), profile.getImageUrl(), profile.getEmail())
-    },
-    onfailure: () => {
-    },
-  });
-}
+//const renderButton = () => {
+//  gapi.auth2.attachClickHandler(element, {},
+//    googleUser => {
+//      const profile = googleUser.getBasicProfile();
+//      provider.onLogin(Login.Consts.google, profile.getName(), profile.getGivenName(), profile.getFamilyName(), profile.getImageUrl(), profile.getEmail())
+//    }, error => {
+//      alert(JSON.stringify(error, undefined, 2));
+//    });
+
+//  //gapi.signin2.render('my-signin', {
+//  //  scope: 'profile email',
+//  //  width: 200,
+//  //  height: 40,
+//  //  longtitle: false, //jinak nefunguje prihlaseni
+//  //  theme: 'dark',
+//  //  onsuccess: googleUser => {
+//  //    const profile = googleUser.getBasicProfile();
+//  //    provider.onLogin(Login.Consts.google, profile.getName(), profile.getGivenName(), profile.getFamilyName(), profile.getImageUrl(), profile.getEmail())
+//  //  },
+//  //  onfailure: () => {
+//  //  },
+//  //});
+//}
 
 //***** FACEBOOK
 const facebookInit = (appId: string, apiVersion: string) => new Promise(resolve => {
@@ -162,7 +189,7 @@ const facebookLoginBtnClick = () =>
       onFBLogged()
     else
       console.log('User cancelled login or did not fully authorize.') //user hit cancel button
-  })
+  }, { scope: 'email,public_profile' })
 
 
 const onFBLogged = () => {

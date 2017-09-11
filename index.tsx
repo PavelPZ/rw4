@@ -120,10 +120,10 @@ export const init = async () => {
     let loginRendered: () => void
     const waitForLoginRendered = new Promise<void>(resolve => loginRendered = resolve)
     return <ReduxProvider store={store} >
-      <LocProvider>
-        <LayerProvider childs={[
-          <BlockGuiComp zIndex={99} />,
-          <LoginProvider loginRendered={loginRendered} zIndex={100} />,
+      <LayerProvider childs={[
+        <BlockGuiComp zIndex={99} />,
+        <LoginProvider loginRendered={loginRendered} zIndex={100} />,
+        <LocProvider>
           <WaitForRendering waitFor={waitForLoginRendered} waitChildren={waitChildren}>
             <DrawerProvider>
               <RecordingProvider>
@@ -131,8 +131,8 @@ export const init = async () => {
               </RecordingProvider>
             </DrawerProvider>
           </WaitForRendering>
-        ]} />
-      </LocProvider>
+        </LocProvider>
+      ]} />
     </ReduxProvider>
   }
 
@@ -151,7 +151,7 @@ export const init = async () => {
     </ReduxProvider>
 
   ReactDOM.render(
-    <AppAll/>
+    <AppAll />
     //appMin
     //appNo
     //appNoLogin
