@@ -14,7 +14,9 @@
   }
 
   interface IProviderProps {
-    overlays?: React.ReactElement<any>[]
+    //overlays?: React.ReactElement<any>[]
+    loginRendered: () => void
+    zIndex:number
   }
 
 }

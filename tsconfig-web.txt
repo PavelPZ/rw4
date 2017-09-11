@@ -1,0 +1,51 @@
+﻿{
+  "compileOnSave": true,
+  "compilerOptions": {
+    //**** WEB
+    "target": "es5",
+    "module": "system",
+    "inlineSourceMap": true,
+    "inlineSources": true,
+    "importHelpers": true,
+
+    //**** REACT NATIVE
+    //"target": "es6",
+
+    //**** COMMON
+
+    "allowSyntheticDefaultImports": true,
+    "strictNullChecks": false,
+    "downlevelIteration": true,
+    "moduleResolution": "node",
+    "strict": true,
+    "noImplicitReturns": true,
+    //"experimentalDecorators": true,
+    "noImplicitAny": false,
+    "jsx": "react",
+    "lib": [
+      "dom",
+      "es2015",
+      "esnext.asynciterable"
+    ]
+  },
+  "exclude": [
+    //*** web
+    //"index.tsx",
+    //"app-web/",
+    //"polyfill/web.tsx",
+
+    //*** native
+    "app-native",
+    "App.tsx",
+    "polyfill/index.tsx",
+    "native-base-theme",
+
+    "jspm_packages/",
+    "node_modules/"
+
+  ]
+}
+
+    //"baseUrl": ".",
+    //"paths": {
+    //},

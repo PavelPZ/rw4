@@ -20,7 +20,8 @@ import { reducer as drawerReducer } from './app-common/lib/drawer'
 
 //********** WEB specific
 import createHistory from 'history/createBrowserHistory'
-import { platform as loginPlatform, Provider as LoginProvider } from './app-web/lib/web-login'
+import { Provider as LayerProvider } from './app-web/lib/web-root-layers'
+import { platform as loginPlatform, Provider as LoginProvider, } from './app-web/lib/web-login'
 import { init as initMediaQuery } from './app-web/lib/web-media-query'
 import { Provider as RecordingProvider, BlockGuiComp } from './app-web/lib/web-recording'
 import { Provider as DrawerProvider } from './app-web/lib/web-drawer'
@@ -28,7 +29,7 @@ import { Button } from './app-web/gui/button'
 import { Icon } from './app-web/gui/icon'
 import { View, Container, Header, Footer, Content } from './app-web/gui/view'
 import { Text } from './app-web/gui/text'
-import { H1, H2, H3, Platform, colorToStyle } from './app-web/gui/lib'
+import { H1, H2, H3, Platform, colorToStyle, WaitForRendering, waitChildren } from './app-web/gui/lib'
 
 //************ aplikace k testovani
 import { AppRouterComp } from './app-common/snack/app-router'
@@ -115,29 +116,25 @@ export const init = async () => {
   //noRouteApp = <IonicTest />
   noRouteApp = <ButtonTest />
 
-  const appAll =
-    <ReduxProvider store={store} >
+  const AppAll: React.SFC<{}> = props => {
+    let loginRendered: () => void
+    const waitForLoginRendered = new Promise<void>(resolve => loginRendered = resolve)
+    return <ReduxProvider store={store} >
       <LocProvider>
-        <LoginProvider overlays={[<BlockGuiComp key={999} />]}>
-          <DrawerProvider>
-            <RecordingProvider>
-              <RouterProvider />
-            </RecordingProvider>
-          </DrawerProvider>
-        </LoginProvider>
+        <LayerProvider childs={[
+          <BlockGuiComp zIndex={99} />,
+          <LoginProvider loginRendered={loginRendered} zIndex={100} />,
+          <WaitForRendering waitFor={waitForLoginRendered} waitChildren={waitChildren}>
+            <DrawerProvider>
+              <RecordingProvider>
+                <RouterProvider />
+              </RecordingProvider>
+            </DrawerProvider>
+          </WaitForRendering>
+        ]} />
       </LocProvider>
     </ReduxProvider>
-
-  const appNoRoute =
-    <ReduxProvider store={store} >
-      <LocProvider>
-        <LoginProvider overlays={[<BlockGuiComp key={999} />]}>
-          <RecordingProvider>
-            {noRouteApp}
-          </RecordingProvider>
-        </LoginProvider>
-      </LocProvider>
-    </ReduxProvider>
+  }
 
   const appMin =
     <ReduxProvider store={store} >
@@ -154,8 +151,7 @@ export const init = async () => {
     </ReduxProvider>
 
   ReactDOM.render(
-    appAll
-    //appNoRoute
+    <AppAll/>
     //appMin
     //appNo
     //appNoLogin

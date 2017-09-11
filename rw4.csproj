@@ -86,7 +86,7 @@
     <TypeScriptCompile Include="app-native\gui\theme.tsx" />
     <TypeScriptCompile Include="app-native\lib\animated.d.ts" />
     <TypeScriptCompile Include="app-native\lib\native-base.d.ts" />
-    <TypeScriptCompile Include="app-native\lib\nav-root-layers.tsx" />
+    <TypeScriptCompile Include="app-native\lib\native-root-layers.tsx" />
     <TypeScriptCompile Include="app-native\lib\template.tsx" />
     <TypeScriptCompile Include="app-native\snack\assets.tsx" />
     <TypeScriptCompile Include="app-native\snack\native-base-button.tsx" />
@@ -116,6 +116,7 @@
     <TypeScriptCompile Include="app-web\gui\lib.tsx" />
     <TypeScriptCompile Include="app-web\gui\text.tsx" />
     <TypeScriptCompile Include="app-web\gui\view.tsx" />
+    <TypeScriptCompile Include="app-web\lib\web-root-layers.tsx" />
     <TypeScriptCompile Include="app-web\lib\web-drawer.tsx" />
     <TypeScriptCompile Include="app-common\snack\gui\icon.tsx" />
     <TypeScriptCompile Include="app-web\snack\icon.tsx" />
@@ -232,7 +233,8 @@
     <TypeScriptCompile Include="native-base-theme\variables\commonColor.ts" />
     <TypeScriptCompile Include="native-base-theme\variables\material.ts" />
     <TypeScriptCompile Include="native-base-theme\variables\platform.ts" />
-    <Content Include="TextFile1.txt" />
+    <Content Include="tsconfig-native.txt" />
+    <Content Include="tsconfig-web.txt" />
     <Content Include="web-ionic.html" />
     <Content Include="web-app.html" />
     <Content Include="install.txt" />

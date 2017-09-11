@@ -16,7 +16,7 @@ import { Provider as LocProvider, reducer as locReducer } from './app-common/lib
 
 //********** NATIVE specific
 import createHistory from 'history/createMemoryHistory'
-import { Provider as RootProvider, AppNavigator as Navigator, init as initRoot } from './app-native/lib/nav-root-layers'
+import { Provider as RootProvider, AppNavigator as Navigator, init as initRoot } from './app-native/lib/native-root-layers'
 import { AppLoading } from 'expo'
 import { recordingJSON } from './App_Data/recording'
 import { Icon } from './app-native/gui/icon'

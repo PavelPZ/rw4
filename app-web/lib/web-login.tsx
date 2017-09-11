@@ -38,33 +38,33 @@ export class Provider extends React.PureComponent<WebLogin.IProviderProps> {
   }
 
   loginHTML: HTMLDivElement
-  appPage: HTMLDivElement
+  //appPage: HTMLDivElement
   returnUrl: Router.IState
-  static rendered = new Promise<void>(resolve => Provider.renderedCompleted = resolve)
-  static renderedCompleted: () => void
+  //static rendered = new Promise<void>(resolve => Provider.renderedCompleted = resolve)
+  //static renderedCompleted: () => void
 
   render() {
     console.log('LOGIN: start Login rendering')
-    const fixedScreen = { position: 'fixed', left: 0, top: 0, bottom: 0, right: 0, } as CSSProperties
-    return <div>
-      <div ref={div => this.loginHTML = div} className={renderCSS({ display: 'none', ...fixedScreen, justifyContent: 'space-around', flexDirection: 'row' })}>
-        <div className={renderCSS({ flex: 1, maxWidth: 800 })}>
-          <div tabIndex={1} ref={div => { console.log('LOGIN: finish Login rendering'); init().then(Provider.renderedCompleted) }} id="my-signin" className="g-signin2" />
-          <br /><br />
-          <div onClick={facebookLoginBtnClick}>FACEBOOK</div>
-        </div>
+    return <Portal ref={div => this.loginHTML = div['_container']} visible className={renderCSS({ display: 'none', backgroundColor:'white', position: 'fixed', left: 0, top: 0, bottom: 0, right: 0, justifyContent: 'space-around', flexDirection: 'row', zIndex: this.props.zIndex })} >
+      <div className={renderCSS({ flex: 1, maxWidth: 800 })}>
+        <div id="my-signin" className="g-signin2" tabIndex={1} ref={div => { console.log('LOGIN: finish Login rendering'); init().then(this.props.loginRendered) }} />
+        <br /><br />
+        <div onClick={facebookLoginBtnClick}>FACEBOOK</div>
       </div>
+    </Portal>
+    {/*<div>
+      <div ref={div => this.loginHTML = div} className={renderCSS({ display: 'none', ...fixedScreen, justifyContent: 'space-around', flexDirection: 'row' })}>
       <div ref={div => this.appPage = div} className={renderCSS(fixedScreen)}>
         <WaitForRendering waitFor={Provider.rendered} children={this.props.children} waitChildren={waitChildren} />
       </div>
-      {this.props.overlays}
     </div>
+    */}
   }
 
   show(isShow: boolean, returnUrl: Router.IState) {
     this.returnUrl = returnUrl
     this.loginHTML.style.display = isShow ? 'flex' : 'none'
-    this.appPage.style.display = !isShow ? 'block' : 'none'
+    //this.appPage.style.display = !isShow ? 'block' : 'none'
   }
 
   onLogin(provider: Login.TProviders, name: string, firstName: string, lastName: string, picture: string, email: string) {
@@ -82,19 +82,6 @@ export class Provider extends React.PureComponent<WebLogin.IProviderProps> {
     navigate(actRoute())
   }
 }
-
-class WaitForRendering extends React.PureComponent<{ waitFor: Promise<any>, waitChildren: React.ReactNode }> {
-  state = { doRender: false }
-  render() {
-    if (this.state.doRender) return React.Children.only(this.props.children)
-    this.props.waitFor.then(() => setTimeout(() => this.setState({ doRender: true }), 500))
-    return waitChildren
-  }
-}
-const waitChildren = <div style={{ display: 'flex', flex: 1, justifyContent:'center' }}>
-  <h2>Loading...</h2>
-</div>
-
 
 //*********** PRIVATE
 let provider: Provider
