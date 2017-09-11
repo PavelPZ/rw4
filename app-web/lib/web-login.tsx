@@ -110,15 +110,16 @@ const googleInit = (clientId: string, loc: string) => new Promise(resolve => {
         client_id: clientId,
         cookiepolicy: 'single_host_origin',
       })
-      auth2.attachClickHandler(element, {},
-        googleUser => {
-          const profile = googleUser.getBasicProfile();
-          provider.onLogin(Login.Consts.google, profile.getName(), profile.getGivenName(), profile.getFamilyName(), profile.getImageUrl(), profile.getEmail())
-        }, error => {
-          //alert(JSON.stringify(error, undefined, 2));
-        });
+      const onUser = googleUser => {
+        if (!googleUser) return
+        const profile = googleUser.getBasicProfile()
+        if (!profile) return
+        provider.onLogin(Login.Consts.google, profile.getName(), profile.getGivenName(), profile.getFamilyName(), profile.getImageUrl(), profile.getEmail())
+      }
+      auth2.attachClickHandler(element, {}, onUser, error => {})
       auth2.then(() => {
         console.log('LOGIN: finish googleInit')
+        onUser(auth2.currentUser.get())
         resolve()
       })
     })
@@ -171,11 +172,11 @@ const facebookInit = (appId: string, apiVersion: string) => new Promise(resolve 
       version: 'v2.10'
     })
     FB.getLoginStatus(response => {
+      console.log('LOGIN: finish facebookInit')
+      resolve()
       if (response.status != 'connected') return
       onFBLogged()
     })
-    console.log('LOGIN: finish facebookInit')
-    resolve()
   }
 
   //loadScript('facebook-jssdk', `//connect.facebook.net/en_US/sdk.js#xfbml=1&version=${apiVersion}`)

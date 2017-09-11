@@ -23,7 +23,7 @@ const appRouterComp: React.SFC<AppRouter.IRoutePar> = props => {
       <Button /*tabIndex={1}*/ key={2} label='Show Modal' href={AppRouterComp.getRoute({ ...par, title: props.title + ' | mmm' }, true)} />
       <Button /*tabIndex={1}*/ key={3} label='Goto HOME' href={{ routeName:null }/*home*/} />
       <Button /*tabIndex={1}*/ key={4} label='DUMMY' />
-      {window.lmGlobal.isNative ? null : <LoginButton tabIndex={2} />}
+      {window.lmGlobal.isNative ? null : <LoginButton key={5} tabIndex={2} />}
     </Content>
   </Container>
 }

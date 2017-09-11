@@ -100,7 +100,7 @@ export const init = async () => {
   }
   sagaMiddleware.run(rootSaga)
 
-  await promiseAll([
+  const initAfter = () => promiseAll([
     initRouter(),
     initMediaQuery(),
   ])
@@ -121,9 +121,9 @@ export const init = async () => {
     const waitForLoginRendered = new Promise<void>(resolve => loginRendered = resolve)
     return <ReduxProvider store={store} >
       <LayerProvider childs={[
-        <BlockGuiComp zIndex={99} />,
-        <LoginProvider loginRendered={loginRendered} zIndex={100} />,
-        <LocProvider>
+        <BlockGuiComp key={1} zIndex={99} />,
+        <LoginProvider key={2} loginRendered={async () => { await initAfter(); loginRendered() }} zIndex={100} />,
+        <LocProvider key={3}>
           <WaitForRendering waitFor={waitForLoginRendered} waitChildren={waitChildren}>
             <DrawerProvider>
               <RecordingProvider>

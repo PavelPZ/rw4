@@ -50,7 +50,6 @@ export const Button: React.SFC<GUI.IButtonProps> = props => {
     floating: rounded,
     icon: actMode == GUI.ButtonMode.icon,
     mini: actMode == GUI.ButtonMode.roundedMini,
-    label,
     iconBefore: !iconRight,
     disabled,
     ...colorProps,
@@ -63,6 +62,6 @@ export const Button: React.SFC<GUI.IButtonProps> = props => {
     iconClassName={iconClassName}
     href={!href ? undefined : navigateUrl(href)}
     onClick={ev => { ev.preventDefault(); ev.stopPropagation(); press() }}
-  />
+  >{label}</MDButton>
 }
 
