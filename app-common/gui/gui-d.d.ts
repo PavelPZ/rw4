@@ -54,8 +54,8 @@
     Grey = 'Grey',
     BlueGrey = 'Blue Grey',
     //---
-    //White = 'White',
-    //Black = 'Black', 
+    White = 'White',
+    Black = 'Black', 
   }
   const enum Shadows {
     S50 = '50',
@@ -125,6 +125,7 @@
     color?: Colors //https://react-md.mlaursen.com/components/buttons: flat and icon buttons will theme the text color in the button while raised and floating will theme the background of the button.
     shadow?: Shadows
     disabled?: boolean
+    
   }
 
   //*** TABS

@@ -8,7 +8,7 @@ import { renderCSS } from './fela'
 const provider: React.SFC<Drawer.IStateProps & Drawer.IDispatchProps> = props => <div>
   <NavigationDrawer
     toolbarTitle={[<i key={1}>italic</i>, ' toolbarTitle']}
-    toolbarActions={[<Button key={1} label='BTN1' />, <Button key={2} icon={GUI.IonicNames.search} />, <Button key={3} style={{ padding: 10 }} label='BTN3'/>]}
+    toolbarActions={[<Button key={1} label='BTN1' mode={GUI.ButtonMode.flat} />, <Button key={2} iconName={GUI.IonicNames.search} mode={GUI.ButtonMode.flat} />, <Button key={3} label='BTN3' mode={GUI.ButtonMode.flat}/>]}
     //toolbarChildren={<h2 className='md-title--toolbar'>toolbarChildren toolbarChildren toolbarChildren toolbarChildren </h2>}
     drawerChildren={[<i key={1}>italic{' '}</i>, <b key={2}>drawerChildren</b>]} //drawer content
     //drawerTitle='drawerTitle' //keep back button

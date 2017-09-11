@@ -151,9 +151,9 @@ export const init = async () => {
     </ReduxProvider>
 
   ReactDOM.render(
-    <AppAll />
+    //<AppAll />
     //appMin
-    //appNo
+    appNo
     //appNoLogin
     , document.getElementById('content'))
 }

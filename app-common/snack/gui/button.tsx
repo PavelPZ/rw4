@@ -11,6 +11,7 @@ const app = () => <Container style={{ marginTop: 30 }}>
     <Button key={74} mode={GUI.ButtonMode.fixedTR} color={GUI.Colors.DeepPurple} iconName={GUI.IonicNames.analytics} iconActive />
     <View style={{ flex: 1, flexWrap: 'wrap', flexDirection: 'row', alignContent: 'space-around', justifyContent: 'space-around', paddingTop: 70, paddingBottom: 70 }}>
       <Button key={1} iconName={GUI.IonicNames.alert} label='primary' />
+      <Button key={111} iconName={GUI.IonicNames.alert} />
       <Button key={16} color={GUI.Colors.info} label='info' />
       <Button key={15} color={GUI.Colors.success} label='success' />
       <Button key={17} color={GUI.Colors.warning} label='warning' />
@@ -19,11 +20,11 @@ const app = () => <Container style={{ marginTop: 30 }}>
       <Button key={11} iconName={GUI.IonicNames.alert} label='default' iconRight color={GUI.Colors.default} />
       <Button key={7} iconName={GUI.IonicNames.alert} mode={GUI.ButtonMode.bordered} label='bordered' color={GUI.Colors.dark} />
       <Button key={8} iconName={GUI.IonicNames.alert} mode={GUI.ButtonMode.flat} color={GUI.Colors.secondary} />
-      <Button key={81} iconName={GUI.IonicNames.alert} mode={GUI.ButtonMode.flat} label='LABEL' />
+      <Button key={81} iconName={GUI.IonicNames.alert} mode={GUI.ButtonMode.flat} label='LABEL LABEL LABEL LABEL ' />
 
       <Button key={9} iconName={GUI.IonicNames.alert} mode={GUI.ButtonMode.rounded} color={GUI.Colors.DeepOrange} shadow={GUI.Shadows.S100} />
       <Button key={92} iconName={GUI.IonicNames.alert} mode={GUI.ButtonMode.roundedMini} color={GUI.Colors.DeepOrange} shadow={GUI.Shadows.S100} />
-      <Button key={91} iconName={GUI.IonicNames.alert} mode={GUI.ButtonMode.bordered} label='LABEL' iconRight color={GUI.Colors.DeepOrange} shadow={GUI.Shadows.S100} />
+      <Button key={91} iconName={GUI.IonicNames.alert} mode={GUI.ButtonMode.bordered} label='bordered' iconRight color={GUI.Colors.DeepOrange} shadow={GUI.Shadows.S100} />
 
       <Button key={21} color={GUI.Colors.DeepOrange} label='LABEL' />
       <Button key={221} color={GUI.Colors.DeepOrange} iconName={GUI.IonicNames.alert} label='LABEL' iconRight />

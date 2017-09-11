@@ -15,9 +15,17 @@ export const Button: React.SFC<GUI.IButtonProps> = props => {
   let actMode = mode
   const fixed = 'fixed'
   const fixPosition = actMode.startsWith(fixed) ? actMode.substr(fixed.length).toLowerCase() as FixedPositions : null
-  actMode = (iconName || iconLogo) && !fixPosition && typeof label == 'undefined' ? GUI.ButtonMode.icon : actMode
-  const rounded = actMode == GUI.ButtonMode.rounded || actMode == GUI.ButtonMode.roundedMini || actMode == GUI.ButtonMode.icon
+  //actMode = (iconName || iconLogo) && !fixPosition && typeof label == 'undefined' && React.Children.count(props.children)==0 ? GUI.ButtonMode.icon : actMode
+  const rounded = actMode == GUI.ButtonMode.rounded || actMode == GUI.ButtonMode.roundedMini
   const press = onPress || (typeof href != 'undefined' ? () => navigatePush(href) : () => { })
+
+  let classNames = ''
+  if (typeof label == 'undefined' && React.Children.count(props.children) == 0) {
+    classNames = renderCSS({
+      '& .md-icon-text': { display: 'none', } as CSSProperties, //uschovej SPAN s textem
+      '& .md-icon-separator': { justifyContent: 'center' } as CSSProperties, //vycentruj ICON
+    } as any)
+  }
 
   //colors
   const colorProps: ButtonProps = {}
@@ -58,7 +66,7 @@ export const Button: React.SFC<GUI.IButtonProps> = props => {
   return <MDButton
     {...mdProps}
     {...colorProps}
-    className={renderCSS(colorStyle)}
+    className={renderCSS(colorStyle) + ' ' + classNames}
     iconClassName={iconClassName}
     href={!href ? undefined : navigateUrl(href)}
     onClick={ev => { ev.preventDefault(); ev.stopPropagation(); press() }}

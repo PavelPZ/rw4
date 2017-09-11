@@ -26,8 +26,8 @@ export const colorToStyle = {
   [GUI.Colors.secondary]: GUI.Colors.Pink,
   [GUI.Colors.warning]: GUI.Colors.Orange,
   [GUI.Colors.info]: GUI.Colors.Blue,
-  [GUI.Colors.default]: GUI.Colors.Brown,
-  [GUI.Colors.dark]: GUI.Colors.Brown,
+  [GUI.Colors.default]: GUI.Colors.White,
+  [GUI.Colors.dark]: GUI.Colors.Black,
 }
 
 export class WaitForRendering extends React.PureComponent<{ waitFor: Promise<any>, waitChildren: React.ReactNode }> {
