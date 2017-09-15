@@ -18,23 +18,26 @@ const LoginButton = createLoginButton(props => {
 const appRouterComp: React.SFC<AppRouter.IRoutePar> = props => {
   const { children, ...par } = props
   const isModal = props.query && props.query.isModal
-  const hdr: GUI.IPageTemplateProps<GUI.IPageHeaderDrawer | GUI.IPageHeaderModalOKCancel> = {
-    header: {
+  const hdr: GUI.IPageTemplateProps<GUI.IPageHeaderDrawer & GUI.IPageHeaderModalOKCancel> = {
+    headerProps: {
       type: isModal ? GUI.PageHeaderType.modalOKCancel as any : GUI.PageHeaderType.drawer,
-      bodyTitle: isModal ? 'MODAL' : 'TITLE',
-      bodySubtitle: props.title,
+      bodyTitle: (isModal ? 'MODAL ' : 'TITLE ') + counter,
+      //bodySubtitle: props.title,
       okText: isModal && 'Success',
-      right: !isModal && <Button mode={GUI.ButtonMode.flat} label='ACTION' color={GUI.Colors.White} />
+      right: !isModal && <Button mode={GUI.ButtonMode.flat} label='ACTION' color={GUI.Colors.White} />,
+      onDrawer: () => alert('onDrawer'),
+      onOK: () => alert('onOK'),
+      onCancel: () => alert('onCancel')
     },
     content: [
-      <H2 key={0}>{props.title}</H2>,
+      <H2 key={0} style={{ marginTop: counter++ % 2 ? 0 : 20 }}>{props.title}</H2>,
       <Button /*tabIndex={1}*/ key={1} label='Add to title' href={AppRouterComp.getRoute({ ...par, title: props.title + ' | xxx' })} />,
       <Button /*tabIndex={1}*/ key={2} label='Show Modal' href={AppRouterComp.getRoute({ ...par, title: props.title + ' | mmm' }, true)} />,
       <Button /*tabIndex={1}*/ key={3} label='Goto HOME' href={{ routeName: null }/*home*/} />,
       <Button /*tabIndex={1}*/ key={4} label='DUMMY' />,
       window.lmGlobal.isNative ? undefined : <LoginButton key={5} tabIndex={2} />,
     ],
-    footer: isModal ? undefined : 'FOOTER'
+    footerNode: isModal ? undefined : 'FOOTER'
   }
   //return <Text>XXXXXXX</Text>
   return <PageTemplate {...hdr}/>
@@ -52,6 +55,7 @@ const appRouterComp: React.SFC<AppRouter.IRoutePar> = props => {
   //  </Content>
   //</Container>
 }
+let counter = 0
 
 //*** EXPORTS
 export const AppRouterComp: Router.IRouteComponent<AppRouter.IRoutePar> = registerRouter(appRouterComp, AppRouter.Consts.name, AppRouter.Consts.urlMask, {

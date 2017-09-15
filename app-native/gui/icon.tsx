@@ -1,4 +1,7 @@
 ﻿import React from 'react'
+
+//import Ionicons from 'react-native-vector-icons/Ionicons' 
+
 import { getIcon } from '../../app-common/gui/ionic'
 import { Icon as NbIcon } from 'native-base'
 import { fillColorToStyle } from '../../app-common/gui/colors'
@@ -8,4 +11,5 @@ export const Icon: React.SFC<GUI.IIconProps> = props => {
   const st: any = { ...style}
   fillColorToStyle(color, st, shadow)
   return <NbIcon name={getIcon(name, logoId, OS, props.active)} {...other} style={st}/>
+  //return <Ionicons name={getIcon(name, logoId, OS, props.active)} {...other} style={st} />
 }

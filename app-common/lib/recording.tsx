@@ -24,13 +24,13 @@ export const middleware: Middleware = (middlAPI: MiddlewareAPI<IState>) => next 
   if (type.endsWith(system)) return act
 
   if (type.endsWith(asyncStart)) { 
-    invariant(!actAsyncAction, `asyncMiddleware: !${actAsyncAction}`) //max single asyncSTART...
+    //invariant(!actAsyncAction, `asyncMiddleware: !${actAsyncAction}`) //max single asyncSTART...
     const state = middlAPI.getState().recording
     actAsyncAction = type.substr(0, type.length - asyncStart.length)
     record(state, middlAPI.dispatch, act) //record start action
     blockGuiTimer = setTimeout(() => { blockGUI(middlAPI.dispatch, true); blockGuiTimer = 0 }, 1)
   } else if (type.endsWith(asyncEnd)) { 
-    invariant(actAsyncAction === type.substr(0, type.length - asyncEnd.length), `asyncMiddleware: ${actAsyncAction} != ${type}`) //...must be finished by just single asyncEND
+    //invariant(actAsyncAction === type.substr(0, type.length - asyncEnd.length), `asyncMiddleware: ${actAsyncAction} != ${type}`) //...must be finished by just single asyncEND
     const state = middlAPI.getState().recording
     if (blockGuiTimer) { clearTimeout(blockGuiTimer); blockGuiTimer = 0 } else blockGUI(middlAPI.dispatch, false)
     actAsyncAction = null
@@ -124,7 +124,7 @@ export const globalReducer: App.IReducer<IState> = (state, action: Recording.Pla
     case Recording.Consts.PLAY_INIT_STATE:
       const { recording } = state
       const newRecording: Recording.IState = { ...recording, mode: Recording.TModes.playing }
-      if (window.lmGlobal.isNative) //expand WEB routes to native routes
+      if (window.lmGlobal.platform.routerPlatform.computeState) //expand WEB routes to native routes
         action.startState = { ...action.startState, router: window.lmGlobal.platform.routerPlatform.computeState(action.startState.router, undefined)}
       return { ...action.startState, recording: newRecording }
     default: return state

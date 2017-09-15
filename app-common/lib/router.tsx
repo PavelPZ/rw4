@@ -14,11 +14,27 @@ const routes: { [name: string]: Router.IRouteComponent } = {}
 const providerConnector = connect<Router.IRouterProviderProps, {}, {}>((state: IState) => state.router)
 
 const provider: React.SFC<Router.IRouterProviderProps> = p => {
-  const props = adjustRouterProps(p);
-  return props && props.routeName ? React.createElement(routes[props.routeName] as React.ComponentClass<any>, props.params) : null
+  const props = adjustRouterProps(p)
+  //console.log(props)
+  return props && props.routeName ? React.createElement(routes[props.routeName] as React.ComponentClass<any>, { ...props.params, key: counter++ /*kvuli react native LayoutAnimation, aby se uplatnilo Create*/}) : null
 }
+let counter = 0
+
+//class provider extends React.PureComponent<Router.IRouterProviderProps> {
+//  componentWillReceiveProps(nextProps) {
+//    console.log(nextProps)
+//    LayoutAnimation.configureNext(LayoutAnimation.Presets.spring)
+//  }
+//  render() {
+//    const props = adjustRouterProps(this.props);
+//    return props && props.routeName ? React.createElement(routes[props.routeName] as React.ComponentClass<any>, props.params) : null
+//  }
+//}
+
+
 
 export const Provider = providerConnector(provider)
+
 
 // ***** EXPORTS
 
@@ -56,10 +72,10 @@ export const navigateUrl = (route: Router.IState) => {
 
 
 const adjustRouterProps = <T extends Router.IRoutePar>(props: T) => {
-  if (window.lmGlobal.isNative) {
-    const p = props as any as Router.INativeRoutePar
-    return p.navigation.state.params as T
-  } else
+  //if (window.lmGlobal.isNative) {
+  //  const p = props as any as Router.INativeRoutePar
+  //  return p.navigation.state.params as T
+  //} else
     return props
 }
 
@@ -93,23 +109,30 @@ export const middleware: Middleware = (middlAPI: MiddlewareAPI<IState>) => next 
   // login needed => ignore NAVIGATE_START
   if (loginProcessing(route.needsLogin && route.needsLogin(newState.params), newState)) return a
   //send NAVIGATE_START
-  next(a)
+  action.navigActionId = navigActionId++
+  next(action)
   //SYNC NAVIGATE_END
-  const navigateEnd: Router.IAction = { type: Router.Consts.NAVIGATE_END, newState: newState }
+  const navigateEnd: Router.IAction = { type: Router.Consts.NAVIGATE_END, newState: newState, navigActionId: action.navigActionId }
   if (!beforeUnload && !route.beforeLoad) {
+    if (navigateEnd.navigActionId != navigActionId - 1) return a
     next(navigateEnd)
     return a
   }
   //ASYNC NAVIGATE_END
   const asyncRoute = async () => {
+    if (navigateEnd.navigActionId != navigActionId - 1) return
     if (beforeUnload) await beforeUnload()
+    if (navigateEnd.navigActionId != navigActionId - 1) return
     beforeUnload = null;
     if (route.beforeLoad) beforeUnload = await route.beforeLoad(newState.params)
+    if (navigateEnd.navigActionId != navigActionId - 1) return
     middlAPI.dispatch(navigateEnd)
   }
   asyncRoute()
   return a
 }
+let navigActionId = 0
+let beforeUnload: () => void
 
 const computeReactNavigation = (newState: Router.IState, state?: Router.IState) => {
   const computeState = window.lmGlobal.platform.routerPlatform.computeState
@@ -121,18 +144,17 @@ const computeReactNavigation = (newState: Router.IState, state?: Router.IState) 
 export const reducer: App.IReducer<Router.IState> = (state, action: Router.IAction) => {
   if (!state) return computeReactNavigation(window.lmGlobal.platform.routerPlatform.startRoute)
   switch (action.type) {
-    case Router.Consts.NAVIGATE_START:
-      //console.log('Router.Consts.NAVIGATE_START: ', action)
-      if (!window.lmGlobal.isNative) notifyNavigationStart() //notifications for resolving quick BACK x FORWARD
-      return state
+    //case Router.Consts.NAVIGATE_START:
+    //  //console.log('Router.Consts.NAVIGATE_START: ', action)
+    //  if (!window.lmGlobal.isNative) notifyNavigationStart() //notifications for resolving quick BACK x FORWARD
+    //  return state
     case Router.Consts.NAVIGATE_END:
       //console.log('Router.Consts.NAVIGATE_END')
-      if (!window.lmGlobal.isNative) notifyNavigationEnd() //notifications for resolving quick BACK x FORWARD
+      //if (!window.lmGlobal.isNative) notifyNavigationEnd() //notifications for resolving quick BACK x FORWARD
       return computeReactNavigation(action.newState, state)
     default: return state
   }
 }
-let beforeUnload: () => void
 
 export const init = () => {
   const { startRoute, rootUrl, history } = window.lmGlobal.platform.routerPlatform
@@ -177,23 +199,24 @@ export const init = () => {
   historyUrl = (urlPattern, state) => stringify(urlPattern, state)
 
   //*** resolving quick BACK x FORWARD browser button clicks
-  notifyNavigationEnd = () => {
-    navigationCount--
-    if (navigationCount > 0 || navigateStartQueue.length == 0) return
-    const navigAction = navigateStartQueue[0]
-    navigateStartQueue = navigateStartQueue.slice(1)
-    setTimeout(() => navigate(navigAction), 1)
-  }
-  notifyNavigationStart = () => navigationCount++
-  let navigationCount = 0
-  let navigateStartQueue = []
+  //notifyNavigationEnd = () => {
+  //  navigationCount--
+  //  if (navigationCount > 0 || navigateStartQueue.length == 0) return
+  //  const navigAction = navigateStartQueue[0]
+  //  navigateStartQueue = navigateStartQueue.slice(1)
+  //  setTimeout(() => navigate(navigAction), 1)
+  //}
+  //notifyNavigationStart = () => navigationCount++
+  //let navigationCount = 0
+  //let navigateStartQueue = []
 
   navigate(url2state(history.location))
   const unlisten = history.listen((location, action) => {
     //console.log(JSON.stringify(location,null,2))
     const navigAction = url2state(history.location)
-    if (navigationCount > 0) navigateStartQueue.push(navigAction) //wait for finishing last navigation
-    else navigate(navigAction)
+    //if (navigationCount > 0) navigateStartQueue.push(navigAction) //wait for finishing last navigation
+    //else
+    navigate(navigAction)
   })
 }
 
@@ -201,5 +224,5 @@ let historyPush: (urlPattern: UrlPattern, state: Router.IState) => void
 let historyUrl: (urlPattern: UrlPattern, state: Router.IState) => string
 
 //notifications for resolving quick BACK x FORWARD
-let notifyNavigationEnd: () => void
-let notifyNavigationStart: () => void
+//let notifyNavigationEnd: () => void
+//let notifyNavigationStart: () => void

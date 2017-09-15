@@ -42,7 +42,10 @@ import { AppRouterComp } from './app-common/snack/app-router'
 //import { AppRouterComp } from './app-native/snack/navigation/app-navigation';
 //import AppComp from './app-common/snack/react-navigation';  
 //import AppComp from './app-common/snack/gui/icon'
-import AppComp from './app-native/snack/native-base/header'
+//import AppComp from './app-native/snack/native-base/header'
+//import AppComp from './app-native/snack/native-base/drawer'
+//import AppComp from './app-native/snack/animation'
+import AppComp from './app-native/snack/animation2'
 //import AppComp from './app-common/snack/gui/button'
 //import AppComp from './app-native/snack/native-base-button'
 
@@ -59,7 +62,7 @@ export const init = async () => {
       routerPlatform: {
         startRoute: AppRouterComp.getRoute({ title: 'START TITLE | xxx' }),
         history: createHistory() as Router.IHistory,
-        computeState: (act, st) => Navigator.router.getStateForAction({ type: 'Navigation/NAVIGATE', routeName: act.params && act.params.query && act.params.query.isModal ? 'Modal' : 'Root', params: act } as NavigationNavigateAction, st),
+        //computeState: (act, st) => Navigator.router.getStateForAction({ type: 'Navigation/NAVIGATE', routeName: act.params && act.params.query && act.params.query.isModal ? 'Modal' : 'Root', params: act } as NavigationNavigateAction, st),
         rootUrl: '/web-app.html'
       },
       guiPlatform: { colorToStyle, Platform, Icon, Button, H1, H2, H3, View, Text, Content, Container, Header, Footer },

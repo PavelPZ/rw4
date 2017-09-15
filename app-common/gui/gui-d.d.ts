@@ -17,11 +17,22 @@
   }
 
   //**** PAGE TEMPLATE
+
+  interface IPageTemplateProps<T extends TPageHeader = TPageHeader> {
+    headerProps?: T
+    headerNode?: React.ReactNode | T
+    content: React.ReactNode
+    footerNode?: React.ReactNode
+    footerProps?: IPageFooter
+    //ownProps: {}
+  }
+
+  //HEADER
   const enum PageHeaderType {
     modalOKCancel = 'modalOKCancel',
     modalOK = 'modalOK',
     drawer = 'drawer',
-    other = 'other'
+    other = 'other',
   }
   interface IPageHeader {
     type: string
@@ -34,24 +45,38 @@
   //---
   interface IPageHeaderModalOKCancel extends IPageHeader {
     type: PageHeaderType.modalOKCancel
-    okText?:string
+    okText?: string
+    onOK: () => void
+    onCancel: () => void
   }
   interface IPageHeaderModalOK extends IPageHeaderRight {
     type: PageHeaderType.modalOK
+    onOK: () => void
   }
   interface IPageHeaderDrawer extends IPageHeaderRight {
     type: PageHeaderType.drawer
+    onDrawer: () => void
   }
   interface IPageHeaderOther extends IPageHeaderRight {
     type: PageHeaderType.other
     left?: React.ReactNode
   }
   type TPageHeader = IPageHeaderModalOKCancel | IPageHeaderModalOK | IPageHeaderDrawer | IPageHeaderOther
-  interface IPageTemplateProps<T extends TPageHeader = TPageHeader> {
-    header?: T
-    content: React.ReactNode
-    footer?: React.ReactNode
-    //ownProps: {}
+  
+  //FOOTER
+
+  interface IPageFooterAction {
+    icon: GUI.IonicNames
+    title?: string
+    onPress: () => void
+  }
+  interface IPageFooterMenuItem {
+    title: string
+    onPress: () => void
+  }
+  interface IPageFooter {
+    actions: IPageFooterAction[]
+    menu: IPageFooterMenuItem[]
   }
   
   //**** COLORS

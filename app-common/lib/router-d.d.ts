@@ -32,6 +32,7 @@
   interface IAction {
     type: Consts.NAVIGATE_START | Consts.NAVIGATE_END
     newState: IState //null => LOGIN redirect
+    navigActionId?:number
   }
 
   //interface IInitPar {

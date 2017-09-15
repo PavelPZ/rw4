@@ -26,7 +26,7 @@ export const Button: React.SFC<GUI.IButtonProps> = props => {
   const small = actMode == GUI.ButtonMode.roundedMini
   const bordered = actMode == GUI.ButtonMode.bordered
   const iconLeft = iconRight && undefined
-  const press = onPress || (typeof href != 'undefined' ? () => (window.lmGlobal.isNative ? navigatePush : navigateUrl)(href) : undefined)
+  const press = onPress || (typeof href != 'undefined' ? () => navigatePush(href) : undefined)
 
   if (fixPosition) {
     //--- asi neumi styles
