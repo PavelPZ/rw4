@@ -89,6 +89,7 @@
     <TypeScriptCompile Include="app-native\lib\native-base.d.ts" />
     <TypeScriptCompile Include="app-native\lib\native-root-layers.tsx" />
     <TypeScriptCompile Include="app-native\lib\template.tsx" />
+    <TypeScriptCompile Include="app-native\snack\animation3.tsx" />
     <TypeScriptCompile Include="app-native\snack\animation2.tsx" />
     <TypeScriptCompile Include="app-native\snack\animation.tsx" />
     <TypeScriptCompile Include="app-native\snack\assets.tsx" />

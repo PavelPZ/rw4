@@ -124,8 +124,8 @@ export const globalReducer: App.IReducer<IState> = (state, action: Recording.Pla
     case Recording.Consts.PLAY_INIT_STATE:
       const { recording } = state
       const newRecording: Recording.IState = { ...recording, mode: Recording.TModes.playing }
-      if (window.lmGlobal.platform.routerPlatform.computeState) //expand WEB routes to native routes
-        action.startState = { ...action.startState, router: window.lmGlobal.platform.routerPlatform.computeState(action.startState.router, undefined)}
+      //if (window.lmGlobal.platform.routerPlatform.computeState) //expand WEB routes to native routes
+      //  action.startState = { ...action.startState, router: window.lmGlobal.platform.routerPlatform.computeState(action.startState.router, undefined)}
       return { ...action.startState, recording: newRecording }
     default: return state
   }

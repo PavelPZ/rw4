@@ -1,4 +1,5 @@
 ﻿import React from 'react'
+import { connect } from 'react-redux'
 
 const pl = () => window.lmGlobal.platform.guiPlatform
 
@@ -15,5 +16,6 @@ export const Content: React.SFC<ReactNative.ViewProperties> = props => { const C
 export const Header: React.SFC<ReactNative.ViewProperties> = props => { const C = pl().Header; return <C {...props} /> }
 export const Footer: React.SFC<ReactNative.ViewProperties> = props => { const C = pl().Footer; return <C {...props} /> }
 
-
 export * from './colors'
+
+export const footerConnector = connect<GUI.IPageFooterState, {}, GUI.IPageFooterOwnProps>((state: IState) => state.gui.footer)

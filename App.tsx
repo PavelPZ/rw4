@@ -5,7 +5,7 @@ import { Provider as ReduxProvider, connect } from 'react-redux'
 import { createStore, Store, applyMiddleware } from 'redux'
 import createSagaMiddleware from 'redux-saga/index'
 import { all, call } from 'redux-saga/effects'
-import { addNavigationHelpers, DrawerNavigator, NavigationNavigateAction } from 'react-navigation';
+//import { addNavigationHelpers, DrawerNavigator, NavigationNavigateAction } from 'react-navigation';
 import { Platform } from 'react-native';
 
 //********** COMMON
@@ -16,7 +16,7 @@ import { Provider as LocProvider, reducer as locReducer } from './app-common/lib
 
 //********** NATIVE specific
 import createHistory from 'history/createMemoryHistory'
-import { Provider as RootProvider, AppNavigator as Navigator, init as initRoot } from './app-native/lib/native-root-layers'
+import { Provider as RootProvider, init as initRoot } from './app-native/lib/native-root-layers'
 import { AppLoading } from 'expo'
 import { recordingJSON } from './App_Data/recording'
 import { Icon } from './app-native/gui/icon'
@@ -45,7 +45,8 @@ import { AppRouterComp } from './app-common/snack/app-router'
 //import AppComp from './app-native/snack/native-base/header'
 //import AppComp from './app-native/snack/native-base/drawer'
 //import AppComp from './app-native/snack/animation'
-import AppComp from './app-native/snack/animation2'
+//import AppComp from './app-native/snack/animation2'
+import AppComp from './app-native/snack/animation3'
 //import AppComp from './app-common/snack/gui/button'
 //import AppComp from './app-native/snack/native-base-button'
 
@@ -101,8 +102,8 @@ export const init = async () => {
 
   sagaMiddleware.run(rootSaga)
 
-  const App = RootProvider
-  //const App = AppComp
+  //const App = RootProvider
+  const App = AppComp
 
   const appAll = <ReduxProvider store={store}>
     <LocProvider>

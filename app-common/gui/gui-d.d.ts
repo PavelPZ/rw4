@@ -23,7 +23,7 @@
     headerNode?: React.ReactNode | T
     content: React.ReactNode
     footerNode?: React.ReactNode
-    footerProps?: IPageFooter
+    footerProps?: IPageFooterOwnProps
     //ownProps: {}
   }
 
@@ -74,10 +74,16 @@
     title: string
     onPress: () => void
   }
-  interface IPageFooter {
+  interface IPageFooterOwnProps {
     actions: IPageFooterAction[]
-    menu: IPageFooterMenuItem[]
+    menu?: IPageFooterMenuItem[]
   }
+
+  interface IPageFooterState {
+    expanded:boolean
+  }
+
+  type IPageFooterProps = IPageFooterState & IPageFooterOwnProps
   
   //**** COLORS
 
@@ -229,8 +235,17 @@
   //interface ITabNavigateAction<TName extends string = string, TParams extends Router.IRoutePar = any> extends ITabUserAction {
   //  data?: Router.IState<TName, TParams>
   //}
+
+  //*** STATE
+  interface IState {
+    footer: IPageFooterState
+  }
 }
 
 interface IPlatforms {
   guiPlatform?: GUI.IPlatform
+}
+
+interface IState {
+  gui?: GUI.IState
 }

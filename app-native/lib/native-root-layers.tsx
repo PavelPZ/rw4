@@ -1,20 +1,25 @@
-﻿import React from 'react'
+﻿//https://blog.bam.tech/developper-news/5-tips-to-make-a-great-component-to-page-animation-in-react-native
+//https://github.com/oblador/react-native-animatable
+//https://github.com/leecade/react-native-swiper
+//https://blog.callstack.io/react-native-animations-revisited-part-i-783143d4884
+//http://browniefed.com/blog/react-native-press-and-hold-button-actions/
+
+
+import React from 'react'
 import { connect } from 'react-redux'
 
 import { Provider as RouterProvider, goBack, canGoBack } from '../../app-common/lib/router'
-import { Icon } from '../../app-common/gui/gui'
+import { footerConnector } from '../../app-common/gui/gui'
 import { providerConnector as recordingProviderConnector, blockGuiConnector } from '../../app-common/lib/recording'
 
-import { addNavigationHelpers, DrawerNavigator, StackNavigator } from 'react-navigation'
-import { BackHandler, Platform } from "react-native";
+//import { addNavigationHelpers, DrawerNavigator, StackNavigator } from 'react-navigation'
+import { LayoutAnimation, NativeModules, BackHandler, Platform } from "react-native";
 import { connectStyle } from 'native-base-shoutem-theme'
 import mapPropsToStyleNames from 'native-base/src/Utils/mapPropsToStyleNames'
 import { ToastContainer as Toast } from 'native-base/src/basic/ToastContainer'
 import { ActionSheetContainer as ActionSheet } from 'native-base/src/basic/Actionsheet'
 import { Font, Asset, Constants } from 'expo'
-import { View, Fab, Container, Content, Header, Footer, Left, Body, Right, Text, Button, Title, Subtitle, Icon as IconNB } from 'native-base';
-import { LayoutAnimation, NativeModules } from 'react-native'
-
+import { View, Fab, Container, Content, Header, Footer, Left, Body, Right, Text, Button, Title, Subtitle, Icon } from 'native-base';
 
 //COMMON
 
@@ -42,7 +47,7 @@ const BlockGuiComp = blockGuiConnector(blockGuiComp)
 //*** RECORDER
 const Btn: React.SFC<{ play?: boolean; click: () => void }> = props =>
   <Fab active onPress={props.click} position="bottomLeft" style={{ backgroundColor: '#5067FF' }} direction="up" containerStyle={{ zIndex: blockGuiZindex + 1, elevation: 100 }}>
-    <IconNB name={props.play ? GUI.IonicNames.play : GUI.IonicNames.pause} />
+    <Icon name={props.play ? GUI.IonicNames.play : GUI.IonicNames.pause} />
   </Fab>
 
 
@@ -88,7 +93,7 @@ export const Provider: React.SFC<{}> = props => <View style={{ flex: 1, marginTo
 </View>
 
 //https://github.com/facebook/react-native/blob/master/Libraries/LayoutAnimation/LayoutAnimation.js
-const animConfig = { duration: 150, create: { type: LayoutAnimation.Types.easeInEaseOut, property: LayoutAnimation.Properties.opacity, } }
+const animConfig = { duration: 200, create: { type: LayoutAnimation.Types.easeOut, property: LayoutAnimation.Properties.opacity, } }
 
 //export const Provider = connectStyle("NativeBase.Root", {}, mapPropsToStyleNames)(provider);
 
@@ -135,22 +140,22 @@ export const PageTemplate: React.SFC<GUI.IPageTemplateProps> = (props) => {
     switch (headerProps.type) {
       case GUI.PageHeaderType.modalOKCancel:
         left = <Button transparent onPress={toPress(headerProps.onOK)}>
-          <IconNB name={GUI.IonicNames.close} />
+          <Icon name={GUI.IonicNames.close} />
         </Button>
         right = <Button success onPress={toPress(headerProps.onCancel)}>
-          <IconNB name={GUI.IonicNames.checkmark} />
+          <Icon name={GUI.IonicNames.checkmark} />
           {toText(headerProps.okText)}
         </Button>
         break
       case GUI.PageHeaderType.modalOK:
         left = <Button transparent onPress={toPress(headerProps.onOK)}>
-          <IconNB name={GUI.IonicNames.arrowBack} />
+          <Icon name={GUI.IonicNames.arrowBack} />
         </Button>
         right = toText(headerProps.right)
         break
       case GUI.PageHeaderType.drawer:
         left = <Button transparent onPress={toPress(headerProps.onDrawer)}>
-          <IconNB name={GUI.IonicNames.menu} />
+          <Icon name={GUI.IonicNames.menu} />
         </Button>
         right = toText(headerProps.right)
         break
@@ -173,13 +178,21 @@ export const PageTemplate: React.SFC<GUI.IPageTemplateProps> = (props) => {
     <Content key={1} >
       {content}
     </Content>
-    {footerProps && <Footer key={2}>
-    </Footer>}
+    {footerProps && <FooterProvider {...footerProps}/>}
     {footerNode && !footerProps && <Footer key={2}>{toText(footerNode)}</Footer>}
   </Container>
 }
 
+const footerProvider: React.SFC<GUI.IPageFooterProps> = props => <Footer style={{ justifyContent: 'flex-end', alignContent: 'center', flexDirection: 'row' }}>
+  {props.actions.map((act, idx) => <Button key={idx} transparent onPress={act.onPress}>
+    <Icon name={act.icon} style={{ color: 'white' }} />
+  </Button>)}
+  <Button key={999} transparent onPress={() => { }}>
+    <Icon name={GUI.IonicNames.more} style={{ color: 'white' }} />
+  </Button>
+</Footer>
 
+const FooterProvider = footerConnector(footerProvider)
 //console.log(getTheme()['NativeBase.Header'])
 
 //const styles = {

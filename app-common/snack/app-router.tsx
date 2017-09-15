@@ -37,7 +37,13 @@ const appRouterComp: React.SFC<AppRouter.IRoutePar> = props => {
       <Button /*tabIndex={1}*/ key={4} label='DUMMY' />,
       window.lmGlobal.isNative ? undefined : <LoginButton key={5} tabIndex={2} />,
     ],
-    footerNode: isModal ? undefined : 'FOOTER'
+    //footerNode: isModal ? undefined : 'FOOTER'
+    footerProps: {
+      actions: [
+        { icon: GUI.IonicNames.alarm, onPress: () => { } },
+        { icon: GUI.IonicNames.close, onPress: () => { } },
+      ]
+    }
   }
   //return <Text>XXXXXXX</Text>
   return <PageTemplate {...hdr}/>

@@ -71,7 +71,7 @@
   }
 
   interface IPlatform {
-    computeState?: (action: IState, st) => any //pro Native: dej RN
+    //computeState?: (action: IState, st) => any //pro Native: dej RN
     startRoute: IState
     rootUrl?: string //html stranka s aplikaci
     history: Router.IHistory

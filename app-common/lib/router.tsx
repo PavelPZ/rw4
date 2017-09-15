@@ -13,28 +13,10 @@ const routes: { [name: string]: Router.IRouteComponent } = {}
 
 const providerConnector = connect<Router.IRouterProviderProps, {}, {}>((state: IState) => state.router)
 
-const provider: React.SFC<Router.IRouterProviderProps> = p => {
-  const props = adjustRouterProps(p)
-  //console.log(props)
-  return props && props.routeName ? React.createElement(routes[props.routeName] as React.ComponentClass<any>, { ...props.params, key: counter++ /*kvuli react native LayoutAnimation, aby se uplatnilo Create*/}) : null
-}
+const provider: React.SFC<Router.IRouterProviderProps> = props => props && props.routeName ? React.createElement(routes[props.routeName] as React.ComponentClass<any>, { ...props.params, key: counter++  /*kvuli react native LayoutAnimation, aby se uplatnilo Create*/}) : null
 let counter = 0
 
-//class provider extends React.PureComponent<Router.IRouterProviderProps> {
-//  componentWillReceiveProps(nextProps) {
-//    console.log(nextProps)
-//    LayoutAnimation.configureNext(LayoutAnimation.Presets.spring)
-//  }
-//  render() {
-//    const props = adjustRouterProps(this.props);
-//    return props && props.routeName ? React.createElement(routes[props.routeName] as React.ComponentClass<any>, props.params) : null
-//  }
-//}
-
-
-
 export const Provider = providerConnector(provider)
-
 
 // ***** EXPORTS
 
@@ -70,14 +52,13 @@ export const navigateUrl = (route: Router.IState) => {
   return historyUrl(router.urlPattern, route)
 }
 
-
-const adjustRouterProps = <T extends Router.IRoutePar>(props: T) => {
-  //if (window.lmGlobal.isNative) {
-  //  const p = props as any as Router.INativeRoutePar
-  //  return p.navigation.state.params as T
-  //} else
-    return props
-}
+//const adjustRouterProps = <T extends Router.IRoutePar>(props: T) => {
+//  //if (window.lmGlobal.isNative) {
+//  //  const p = props as any as Router.INativeRoutePar
+//  //  return p.navigation.state.params as T
+//  //} else
+//    return props
+//}
 
 export function registerRouter<TPar extends Router.IRoutePar = Router.IRoutePar>(router: React.ComponentType<TPar>, routeName: string, urlMask?: string, extension?: Router.IRoute<TPar>) {
   invariant(!routes[routeName], 'registerRouter: route %0 already exists', routeName);
@@ -134,27 +115,36 @@ export const middleware: Middleware = (middlAPI: MiddlewareAPI<IState>) => next 
 let navigActionId = 0
 let beforeUnload: () => void
 
-const computeReactNavigation = (newState: Router.IState, state?: Router.IState) => {
-  const computeState = window.lmGlobal.platform.routerPlatform.computeState
-  //console.log('computeReactNavigation: ', newState)
-  return computeState ? computeState(newState, state) : newState
-}
-
+//const computeReactNavigation = (newState: Router.IState, state?: Router.IState) => {
+//  const computeState = window.lmGlobal.platform.routerPlatform.computeState
+//  //console.log('computeReactNavigation: ', newState)
+//  return computeState ? computeState(newState, state) : newState
+//}
 
 export const reducer: App.IReducer<Router.IState> = (state, action: Router.IAction) => {
-  if (!state) return computeReactNavigation(window.lmGlobal.platform.routerPlatform.startRoute)
+  if (!state) return window.lmGlobal.platform.routerPlatform.startRoute
   switch (action.type) {
-    //case Router.Consts.NAVIGATE_START:
-    //  //console.log('Router.Consts.NAVIGATE_START: ', action)
-    //  if (!window.lmGlobal.isNative) notifyNavigationStart() //notifications for resolving quick BACK x FORWARD
-    //  return state
-    case Router.Consts.NAVIGATE_END:
-      //console.log('Router.Consts.NAVIGATE_END')
-      //if (!window.lmGlobal.isNative) notifyNavigationEnd() //notifications for resolving quick BACK x FORWARD
-      return computeReactNavigation(action.newState, state)
+    case Router.Consts.NAVIGATE_END: return action.newState
     default: return state
   }
 }
+
+//export const reducer: App.IReducer<Router.IState> = (state, action: Router.IAction) => {
+//  //if (!state) return computeReactNavigation(window.lmGlobal.platform.routerPlatform.startRoute)
+//  if (!state) return window.lmGlobal.platform.routerPlatform.startRoute
+//  switch (action.type) {
+//    //case Router.Consts.NAVIGATE_START:
+//    //  //console.log('Router.Consts.NAVIGATE_START: ', action)
+//    //  if (!window.lmGlobal.isNative) notifyNavigationStart() //notifications for resolving quick BACK x FORWARD
+//    //  return state
+//    case Router.Consts.NAVIGATE_END:
+//      //console.log('Router.Consts.NAVIGATE_END')
+//      //if (!window.lmGlobal.isNative) notifyNavigationEnd() //notifications for resolving quick BACK x FORWARD
+//      //return computeReactNavigation(action.newState, state)
+//      return action.newState
+//    default: return state
+//  }
+//}
 
 export const init = () => {
   const { startRoute, rootUrl, history } = window.lmGlobal.platform.routerPlatform

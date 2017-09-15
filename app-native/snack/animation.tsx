@@ -13,10 +13,6 @@ const { UIManager } = NativeModules;
 UIManager.setLayoutAnimationEnabledExperimental &&
   UIManager.setLayoutAnimationEnabledExperimental(true);
 
-//https://blog.bam.tech/developper-news/5-tips-to-make-a-great-component-to-page-animation-in-react-native
-//https://github.com/oblador/react-native-animatable
-//https://github.com/leecade/react-native-swiper
-//https://blog.callstack.io/react-native-animations-revisited-part-i-783143d4884
 export default class App extends React.Component {
   state = {
     showFirst: 0
