@@ -12,7 +12,7 @@ let dump: { [name: string]: IColorUse }
 const scanLevel = (ios:boolean, path: string, obj: {}) => {
   for (const p in obj) {
     const color = obj[p]
-    const newPath = path + '/' + p
+    const newPath = path + (path ? '/' : '') + p
     if (typeof color == 'string') {
       const name = palette[color]
       if (!name && color.startsWith('#')) console.log(color)
@@ -29,8 +29,8 @@ const app: React.SFC<any> = props => {
   dump = {}
   const { variables:var1, ...theme:theme1 } = getTheme(getPlatformVariables('ios'))
   const { variables:var2, ...theme:theme2 } = getTheme(getPlatformVariables('android'))
-  console.log('IOS VARIABLES\n', JSON.stringify(var1, null, 2))
-  console.log('ANDROID VARIABLES\n', JSON.stringify(var2, null, 2))
+  //console.log('IOS VARIABLES\n', JSON.stringify(var1, null, 2))
+  //console.log('ANDROID VARIABLES\n', JSON.stringify(var2, null, 2))
   scanLevel(true, '', theme1)
   scanLevel(false, '', theme2)
   console.log('DUMP\n', JSON.stringify(dump, null, 2))
@@ -50,7 +50,7 @@ const app: React.SFC<any> = props => {
     {list.map((it, idx) => { 
       const textColor = it.color == Palette.gray_16 || it.color == Palette.gray_17 || it.color == Palette.gray_black ? 'white' : 'black'
       return <Card key={idx} style={{ backgroundColor: it.color, marginBottom: 5 }}>
-        <H3 style={{ color: textColor }}>{it.name}</H3>
+        <H3 style={{ color: textColor }}>{it.name}: {it.color}</H3>
         {getPaths(it.paths).map((p, idx2) => <Text key={idx2} style={{ fontSize: 8, color: textColor }}>{p}</Text>)}
       </Card>
     })}
@@ -59,6 +59,7 @@ const app: React.SFC<any> = props => {
 
 export default app
 
+//copy palette, without CONST
 enum Palette {
 
   //Brands

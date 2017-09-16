@@ -83,7 +83,7 @@
     <TypeScriptCompile Include="app-native\gui\content.tsx" />
     <TypeScriptCompile Include="app-native\gui\button.tsx" />
     <TypeScriptCompile Include="app-native\gui\icon.tsx" />
-    <TypeScriptCompile Include="app-native\gui\react-native-side-menu.d.ts" />
+    <TypeScriptCompile Include="app-native\gui\react-native-side-menu.tsx" />
     <TypeScriptCompile Include="app-native\gui\react-native-tab-view.d.ts" />
     <TypeScriptCompile Include="app-native\gui\theme.tsx" />
     <TypeScriptCompile Include="app-native\gui\theme\components\Badge.ts" />
@@ -142,7 +142,7 @@
     <TypeScriptCompile Include="app-native\snack\tab-view.tsx" />
     <TypeScriptCompile Include="app-native\snack\assets.tsx" />
     <TypeScriptCompile Include="app-native\snack\native-base-button.tsx" />
-    <TypeScriptCompile Include="app-native\snack\native-base\drawer.tsx" />
+    <TypeScriptCompile Include="app-native\snack\drawer.tsx" />
     <TypeScriptCompile Include="app-native\snack\native-base\header.tsx" />
     <TypeScriptCompile Include="app-native\snack\native-base\index.tsx" />
     <TypeScriptCompile Include="app-native\snack\navigation\app-navigation-d.d.ts" />
