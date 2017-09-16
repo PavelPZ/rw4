@@ -3,6 +3,8 @@
 //https://github.com/leecade/react-native-swiper
 //https://blog.callstack.io/react-native-animations-revisited-part-i-783143d4884
 //http://browniefed.com/blog/react-native-press-and-hold-button-actions/
+//https://github.com/react-native-community/react-native-tab-view
+//https://github.com/skv-headless/react-native-scrollable-tab-view
 
 
 import React from 'react'

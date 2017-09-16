@@ -1,10 +1,9 @@
 ﻿import React from 'react'
 import { StyleProvider } from 'native-base'
-import { getColors, getColor } from '../../app-common/gui/colors'
-import getTheme from '../../native-base-theme/components/index'
-import material from '../../native-base-theme/variables/commonColor'
+import getTheme from './theme/components/index'
+import variables from './theme/platform'
 
-export const Theme: React.SFC<{}> = props => <StyleProvider style={theme}>
+export const Theme: React.SFC<{}> = props => <StyleProvider style={getTheme(variables)}>
   {React.Children.only(props.children)}
 </StyleProvider>
 
@@ -18,30 +17,15 @@ export const colorToBsStyle = (color: GUI.Colors, bsStyle: NativeBase.BsStyle) =
 } 
 
 export const colorToStyle = {
-  [GUI.Colors.success]: material.brandSuccess,
-  [GUI.Colors.primary]: material.brandPrimary,
-  [GUI.Colors.danger]: material.brandDanger,
-  [GUI.Colors.secondary]: material.brandDanger,
-  [GUI.Colors.warning]: material.brandWarning,
-  [GUI.Colors.info]: material.brandInfo,
-  [GUI.Colors.default]: material.inverseTextColor,
-  [GUI.Colors.dark]: material.textColor,
+  [GUI.Colors.success]: variables.brandSuccess,
+  [GUI.Colors.primary]: variables.brandPrimary,
+  [GUI.Colors.danger]: variables.brandDanger,
+  [GUI.Colors.secondary]: variables.brandDanger,
+  [GUI.Colors.warning]: variables.brandWarning,
+  [GUI.Colors.info]: variables.brandInfo,
+  [GUI.Colors.default]: variables.inverseTextColor,
+  [GUI.Colors.dark]: variables.textColor,
 }
-
-const theme = getTheme(material)
-theme['NativeBase.Button']['.rounded'] = {
-  width: 45,
-  justifyContent: 'center',
-  paddingHorizontal: 0,
-  borderRadius: material.borderRadiusLarge,
-  '.large': {
-    width: 60,
-  },
-  '.small': { 
-    width: 30,
-  }
-}
-
 
 //export const theme = getTheme()
 ////const getThemeName = (cls: Theme.Classes, color: GUI.Colors, shadow = GUI.Shadows.S500) => `${cls}-${color}-${shadow}`
