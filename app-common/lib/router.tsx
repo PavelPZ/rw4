@@ -11,10 +11,25 @@ import UrlPattern from 'url-pattern'
 
 const routes: { [name: string]: Router.IRouteComponent } = {}
 
-const providerConnector = connect<Router.IRouterProviderProps, {}, {}>((state: IState) => state.router.router)
+/*
+LM
+D:\rw\rw4\node_modules\@types\react-redux\index.d.ts
+https://github.com/reactjs/react-redux/blob/master/docs/api.md
+areStatesEqual ?: (olsState, newState) => boolean
+*/
+const providerConnector = connect<Router.IRouterProviderProps, {}, {}>(
+  (state: IState) => state.router.router,
+  undefined,
+  //undefined,
+  //{
+  //  areStatesEqual: (o: IState, n: IState) => {
+  //    return true
+  //  }
+  //}
+)
 
 const provider: React.SFC<Router.IRouterProviderProps> = props => {
-  return props && props.routeName ? React.createElement(routes[props.routeName] as React.ComponentClass<any>, { ...props.params, key: counter++  /*kvuli react native LayoutAnimation, aby se uplatnilo Create*/ }) : null
+  return props && props.routeName ? React.createElement(routes[props.routeName] as React.ComponentClass<any>, { ...props.params, key: props.routeName  /*kvuli react native LayoutAnimation a web */ }) : null
 }
 let counter = 0
 

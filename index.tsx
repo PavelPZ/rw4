@@ -41,6 +41,9 @@ import RestAPI from './app-common/snack/test-restAPI'
 import IonicDesigntime from './app-web/design/ionic-designtime'
 import IonicTest from './app-common/snack/gui/icon'
 import ButtonTest from './app-common/snack/gui/button'
+import { ConnectTest, reducer as connectTestReducer } from './app-web/snack/connect-test'
+import Animated from './app-web/snack/animated-transition'
+
 
 //*********** spusteni
 export const init = async () => {
@@ -87,6 +90,7 @@ export const init = async () => {
       recording: recordingReducer(state.recording, action),
       blockGui: blockGuiReducer(state.blockGui, action),
       drawer: drawerReducer(state.drawer, action),
+      connectTest: connectTestReducer((state as any).connectTest, action)
     }
   }
 
@@ -116,7 +120,8 @@ export const init = async () => {
   //noRouteApp = <RestAPI />
   //noRouteApp = <IonicDesigntime />
   //noRouteApp = <IonicTest />
-  noRouteApp = <ButtonTest />
+  //noRouteApp = <ReduxProvider store={store} ><ConnectTest /></ReduxProvider>
+  noRouteApp = <Animated/>
 
   const AppAll: React.SFC<{}> = props => {
     let loginRendered: () => void
@@ -141,8 +146,8 @@ export const init = async () => {
   const appNo = noRouteApp
 
   ReactDOM.render(
-    <AppAll />
-    //appNo
+    //<AppAll />
+    appNo
     , document.getElementById('content'))
 }
 

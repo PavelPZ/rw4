@@ -107,8 +107,8 @@ export const init = async () => {
 
   sagaMiddleware.run(rootSaga)
 
-  const App = RootProvider
-  //const App = AppComp
+  //const App = RootProvider
+  const App = AppComp
 
   const appAll = <ReduxProvider store={store}>
     <LocProvider>

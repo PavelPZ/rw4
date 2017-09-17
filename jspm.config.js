@@ -11,7 +11,6 @@ SystemJS.config({
     }
   },
   map: {
-    //"web-fela": "/app-web/lib/fela",
     "redux-saga/effects": "npm:redux-saga@0.15.6/lib/effects",
     "redux-saga/index": "npm:redux-saga@0.15.6/lib/index"
   }
@@ -23,6 +22,7 @@ SystemJS.config({
     "npm:*.json"
   ],
   map: {
+    "react-transition-group": "npm:react-transition-group@2.2.0",
     "child_process": "npm:jspm-nodelibs-child_process@0.2.1",
     "http": "npm:jspm-nodelibs-http@0.2.0",
     "https": "npm:jspm-nodelibs-https@0.2.2",
@@ -414,7 +414,7 @@ SystemJS.config({
     "npm:buffer@5.0.7": {
       "map": {
         "ieee754": "npm:ieee754@1.1.8",
-        "base64-js": "npm:base64-js@1.1.2"
+        "base64-js": "npm:base64-js@1.2.1"
       }
     },
     "npm:fela-plugin-prefixer@5.0.8": {
@@ -615,6 +615,16 @@ SystemJS.config({
         "dom-helpers": "npm:dom-helpers@3.2.1",
         "chain-function": "npm:chain-function@1.0.0",
         "warning": "npm:warning@3.0.0"
+      }
+    },
+    "npm:react-transition-group@2.2.0": {
+      "map": {
+        "loose-envify": "npm:loose-envify@1.3.1",
+        "chain-function": "npm:chain-function@1.0.0",
+        "classnames": "npm:classnames@2.2.5",
+        "dom-helpers": "npm:dom-helpers@3.2.1",
+        "warning": "npm:warning@3.0.0",
+        "prop-types": "npm:prop-types@15.5.10"
       }
     }
   }
