@@ -15,7 +15,6 @@ const enum TTransitionState {
 interface IFadeProps {
   duration: number
   in?: boolean,
-  //childs: React.ReactNode
 }
 
 const FadeTransition: React.SFC<IFadeProps> = ({ duration, in: inProp, children }) => <Transition in={inProp} timeout={{ enter: 0, exit: duration }}>
