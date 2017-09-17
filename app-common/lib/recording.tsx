@@ -15,7 +15,7 @@ export const init = async () => { //async init
 }
 let initState: Recording.IState = {}
 
-export const middleware: Middleware = (middlAPI: MiddlewareAPI<IState>) => next => act => { //inspirace v D:\rw\rw\rw-redux\async.ts
+export const middleware: Middleware<IState> = middlAPI => next => act => { //inspirace v D:\rw\rw\rw-redux\async.ts
 
   next(act)
 

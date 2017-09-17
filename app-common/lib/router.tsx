@@ -11,9 +11,11 @@ import UrlPattern from 'url-pattern'
 
 const routes: { [name: string]: Router.IRouteComponent } = {}
 
-const providerConnector = connect<Router.IRouterProviderProps, {}, {}>((state: IState) => state.router)
+const providerConnector = connect<Router.IRouterProviderProps, {}, {}>((state: IState) => state.router.router)
 
-const provider: React.SFC<Router.IRouterProviderProps> = props => props && props.routeName ? React.createElement(routes[props.routeName] as React.ComponentClass<any>, { ...props.params, key: counter++  /*kvuli react native LayoutAnimation, aby se uplatnilo Create*/}) : null
+const provider: React.SFC<Router.IRouterProviderProps> = props => {
+  return props && props.routeName ? React.createElement(routes[props.routeName] as React.ComponentClass<any>, { ...props.params, key: counter++  /*kvuli react native LayoutAnimation, aby se uplatnilo Create*/ }) : null
+}
 let counter = 0
 
 export const Provider = providerConnector(provider)
@@ -24,7 +26,7 @@ export const goBack = () => window.lmGlobal.platform.routerPlatform.history.goBa
 
 export const canGoBack = () => window.lmGlobal.isNative ? window.lmGlobal.platform.routerPlatform.history.canGo(-1) : true
 
-export const actRoute = () => window.lmGlobal.store.getState().router
+export const actRoute = () => window.lmGlobal.store.getState().router.router
 
 //navigace BEZ history.push. S history.push viz navigateUrl
 export const navigate = (routeName?: string | Router.IState, params?) => {
@@ -81,20 +83,26 @@ export function registerRouter<TPar extends Router.IRoutePar = Router.IRoutePar>
   return res as Router.IRouteComponent<TPar>
 }
 
-export const middleware: Middleware = (middlAPI: MiddlewareAPI<IState>) => next => a => {
+/*
+LM: D:\rw\rw4\node_modules\redux\index.d.ts
+export interface Middleware<S> {
+  (api: MiddlewareAPI<S>): (next: Dispatch<S>) => Dispatch<S>;
+}
+*/
+export const middleware: Middleware<IState> = middlAPI => next => a => {
   const action: Router.IAction = a as any
   if (action.type != Router.Consts.NAVIGATE_START) { next(a); return a }
   const newState = action.newState
   let isAsync = false
-  const route = routes[newState.routeName];
+  const router = routes[newState.routeName];
   // login needed => ignore NAVIGATE_START
-  if (loginProcessing(route.needsLogin && route.needsLogin(newState.params), newState)) return a
+  if (loginProcessing(router.needsLogin && router.needsLogin(newState.params), newState)) return a
   //send NAVIGATE_START
   action.navigActionId = navigActionId++
   next(action)
   //SYNC NAVIGATE_END
   const navigateEnd: Router.IAction = { type: Router.Consts.NAVIGATE_END, newState: newState, navigActionId: action.navigActionId }
-  if (!beforeUnload && !route.beforeLoad) {
+  if (!beforeUnload && !router.beforeLoad) {
     if (navigateEnd.navigActionId != navigActionId - 1) return a
     next(navigateEnd)
     return a
@@ -105,7 +113,7 @@ export const middleware: Middleware = (middlAPI: MiddlewareAPI<IState>) => next 
     if (beforeUnload) await beforeUnload()
     if (navigateEnd.navigActionId != navigActionId - 1) return
     beforeUnload = null;
-    if (route.beforeLoad) beforeUnload = await route.beforeLoad(newState.params)
+    if (router.beforeLoad) beforeUnload = await router.beforeLoad(newState.params)
     if (navigateEnd.navigActionId != navigActionId - 1) return
     middlAPI.dispatch(navigateEnd)
   }

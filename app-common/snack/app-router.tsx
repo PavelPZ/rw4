@@ -5,7 +5,7 @@ import { isLogged, createLoginButton } from '../lib/login'
 import { storeContextType } from '../lib/lib'
 import { contextType as locContextType } from '../lib/loc'
 
-import { PageTemplate } from '../../app-native/lib/native-root-layers'
+//import { PageTemplate } from '../../app-native/lib/native-root-layers'
 
 const LoginButton = createLoginButton(props => {
   const { logged, doLoginAction, ...rest } = props
@@ -18,48 +18,48 @@ const LoginButton = createLoginButton(props => {
 const appRouterComp: React.SFC<AppRouter.IRoutePar> = props => {
   const { children, ...par } = props
   const isModal = props.query && props.query.isModal
-  const hdr: GUI.IPageTemplateProps<GUI.IPageHeaderDrawer & GUI.IPageHeaderModalOKCancel> = {
-    headerProps: {
-      type: isModal ? GUI.PageHeaderType.modalOKCancel as any : GUI.PageHeaderType.drawer,
-      bodyTitle: (isModal ? 'MODAL ' : 'TITLE ') + counter,
-      //bodySubtitle: props.title,
-      okText: isModal && 'Success',
-      right: !isModal && <Button mode={GUI.ButtonMode.flat} label='ACTION' color={GUI.Colors.White} />,
-      onDrawer: () => alert('onDrawer'),
-      onOK: () => alert('onOK'),
-      onCancel: () => alert('onCancel')
-    },
-    content: [
-      <H2 key={0} style={{ marginTop: counter++ % 2 ? 0 : 20 }}>{props.title}</H2>,
-      <Button /*tabIndex={1}*/ key={1} label='Add to title' href={AppRouterComp.getRoute({ ...par, title: props.title + ' | xxx' })} />,
-      <Button /*tabIndex={1}*/ key={2} label='Show Modal' href={AppRouterComp.getRoute({ ...par, title: props.title + ' | mmm' }, true)} />,
-      <Button /*tabIndex={1}*/ key={3} label='Goto HOME' href={{ routeName: null }/*home*/} />,
-      <Button /*tabIndex={1}*/ key={4} label='DUMMY' />,
-      window.lmGlobal.isNative ? undefined : <LoginButton key={5} tabIndex={2} />,
-    ],
-    //footerNode: isModal ? undefined : 'FOOTER'
-    footerProps: {
-      actions: [
-        { icon: GUI.IonicNames.alarm, onPress: () => { } },
-        { icon: GUI.IonicNames.close, onPress: () => { } },
-      ]
-    }
-  }
-  //return <Text>XXXXXXX</Text>
-  return <PageTemplate {...hdr}/>
-  //<Container style={{ flex: 1 }}>
-  //  <Header>
-  //    {props.query.isModal ? <View></View> : <View></View>}
-  //  </Header>
-  //  <Content>
-  //    <H2>{props.title}</H2>
-  //    <Button /*tabIndex={1}*/ key={1} label='Add to title' href={AppRouterComp.getRoute({ ...par, title: props.title + ' | xxx' })} />
-  //    <Button /*tabIndex={1}*/ key={2} label='Show Modal' href={AppRouterComp.getRoute({ ...par, title: props.title + ' | mmm' }, true)} />
-  //    <Button /*tabIndex={1}*/ key={3} label='Goto HOME' href={{ routeName: null }/*home*/} />
-  //    <Button /*tabIndex={1}*/ key={4} label='DUMMY' />
-  //    {window.lmGlobal.isNative ? null : <LoginButton key={5} tabIndex={2} />}
-  //  </Content>
-  //</Container>
+  //const hdr: GUI.IPageTemplateProps<GUI.IPageHeaderDrawer & GUI.IPageHeaderModalOKCancel> = {
+  //  headerProps: {
+  //    type: isModal ? GUI.PageHeaderType.modalOKCancel as any : GUI.PageHeaderType.drawer,
+  //    bodyTitle: (isModal ? 'MODAL ' : 'TITLE ') + counter,
+  //    //bodySubtitle: props.title,
+  //    okText: isModal && 'Success',
+  //    right: !isModal && <Button mode={GUI.ButtonMode.flat} label='ACTION' color={GUI.Colors.White} />,
+  //    onDrawer: () => alert('onDrawer'),
+  //    onOK: () => alert('onOK'),
+  //    onCancel: () => alert('onCancel')
+  //  },
+  //  content: [
+  //    <H2 key={0} style={{ marginTop: counter++ % 2 ? 0 : 20 }}>{props.title}</H2>,
+  //    <Button /*tabIndex={1}*/ key={1} label='Add to title' href={AppRouterComp.getRoute({ ...par, title: props.title + ' | xxx' })} />,
+  //    <Button /*tabIndex={1}*/ key={2} label='Show Modal' href={AppRouterComp.getRoute({ ...par, title: props.title + ' | mmm' }, true)} />,
+  //    <Button /*tabIndex={1}*/ key={3} label='Goto HOME' href={{ routeName: null }/*home*/} />,
+  //    <Button /*tabIndex={1}*/ key={4} label='DUMMY' />,
+  //    window.lmGlobal.isNative ? undefined : <LoginButton key={5} tabIndex={2} />,
+  //  ],
+  //  //footerNode: isModal ? undefined : 'FOOTER'
+  //  footerProps: {
+  //    actions: [
+  //      { icon: GUI.IonicNames.alarm, onPress: () => { } },
+  //      { icon: GUI.IonicNames.close, onPress: () => { } },
+  //    ]
+  //  }
+  //}
+  ////return <Text>XXXXXXX</Text>
+  //return <PageTemplate {...hdr}/>
+  return <Container style={{ flex: 1 }}>
+    <Header>
+      {isModal ? <View></View> : <View></View>}
+    </Header>
+    <Content>
+      <H2>{props.title}</H2>
+      <Button /*tabIndex={1}*/ key={1} label='Add to title' href={AppRouterComp.getRoute({ ...par, title: props.title + ' | xxx' })} />
+      <Button /*tabIndex={1}*/ key={2} label='Show Modal' href={AppRouterComp.getRoute({ ...par, title: props.title + ' | mmm' }, true)} />
+      <Button /*tabIndex={1}*/ key={3} label='Goto HOME' href={{ routeName: null }/*home*/} />
+      <Button /*tabIndex={1}*/ key={4} label='DUMMY' />
+      {window.lmGlobal.isNative ? null : <LoginButton key={5} tabIndex={2} />}
+    </Content>
+  </Container>
 }
 let counter = 0
 
@@ -70,18 +70,18 @@ export const AppRouterComp: Router.IRouteComponent<AppRouter.IRoutePar> = regist
 })
 
 
-export const reducer: App.IReducer = (state, action: Router.IAction) => {
-  if (!state) return {}
-  switch (action.type) {
-    //case Router.Consts.NAVIGATE_END:
-    //let drawerStates: IState
-    //if (action.newState.routeName != AppRouter.Consts.name) drawerStates = {
-    //  drawerChildren: { routeName: AppRouter.Consts.name as string },
-    //  drawerHeaderChildren: { routeName: AppRouter.Consts.name as string },
-    //  toolbarTitle: { routeName: AppRouter.Consts.name as string, title: 'App Router' },
-    //  toolbarActions: { routeName: AppRouter.Consts.name as string },
-    //}
-    //return { state, ...drawerStates }
-    default: return state
-  }
-}
+//export const reducer: App.IReducer = (state, action: Router.IAction) => {
+//  if (!state) return {}
+//  switch (action.type) {
+//    //case Router.Consts.NAVIGATE_END:
+//    //let drawerStates: IState
+//    //if (action.newState.routeName != AppRouter.Consts.name) drawerStates = {
+//    //  drawerChildren: { routeName: AppRouter.Consts.name as string },
+//    //  drawerHeaderChildren: { routeName: AppRouter.Consts.name as string },
+//    //  toolbarTitle: { routeName: AppRouter.Consts.name as string, title: 'App Router' },
+//    //  toolbarActions: { routeName: AppRouter.Consts.name as string },
+//    //}
+//    //return { state, ...drawerStates }
+//    default: return state
+//  }
+//}

@@ -78,7 +78,9 @@ export const init = async () => {
   const reducers: App.IReducer = (st, action: any) => {
     const state = recordingGlobalReducer(st, action)
     return {
-      router: routerReducer(state.router, action),
+      router: {
+        router: routerReducer(state.router.router, action)
+      },
       login: loginReducer(state.login, action),
       mediaQuery: mediaQueryReducer(state.mediaQuery, action),
       loc: locReducer(state.loc, action),
@@ -90,7 +92,7 @@ export const init = async () => {
 
   const sagaMiddleware = createSagaMiddleware()
 
-  const store = window.lmGlobal.store = createStore<IState>(reducers, {}, applyMiddleware(sagaMiddleware, routerMiddleware, recordingMiddleware))
+  const store = window.lmGlobal.store = createStore<IState>(reducers, { router: {}}, applyMiddleware(sagaMiddleware, routerMiddleware, recordingMiddleware))
 
   const rootSaga = function* () {
     const rootRes = yield all({

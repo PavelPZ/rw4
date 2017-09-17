@@ -81,7 +81,9 @@ export const init = async () => {
   const reducers: App.IReducer = (st, action: any) => {
     const state = recordingGlobalReducer(st, action)
     return {
-      router: routerReducer(state.router, action),
+      router: {
+        router: routerReducer(state.router.router, action)
+      },
       recording: recordingReducer(state.recording, action),
       blockGui: blockGuiReducer(state.blockGui, action),
       loc: locReducer(state.loc, action),
@@ -90,7 +92,7 @@ export const init = async () => {
 
   const sagaMiddleware = createSagaMiddleware()
 
-  const store = window.lmGlobal.store = createStore<IState>(reducers, {}, applyMiddleware(sagaMiddleware, routerMiddleware, recordingMiddleware))
+  const store = window.lmGlobal.store = createStore<IState>(reducers, { router: {} }, applyMiddleware(sagaMiddleware, routerMiddleware, recordingMiddleware))
 
   await promiseAll([ 
     initRouter(),
@@ -105,8 +107,8 @@ export const init = async () => {
 
   sagaMiddleware.run(rootSaga)
 
-  //const App = RootProvider
-  const App = AppComp
+  const App = RootProvider
+  //const App = AppComp
 
   const appAll = <ReduxProvider store={store}>
     <LocProvider>

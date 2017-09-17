@@ -11,10 +11,6 @@
     query?: { isModal?: boolean }
   }
 
-  interface INativeRoutePar {
-    navigation: { state: {params: IRoutePar} }
-  }
-
   type IRouterProviderProps = IState
 
   interface IGlobalState {
@@ -81,7 +77,9 @@
 }
 
 interface IState {
-  router?: Router.IState
+  router: {
+    router?: Router.IState
+  }
 }
 
 interface IPlatforms {
