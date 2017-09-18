@@ -22,20 +22,30 @@ class Router extends React.PureComponent<{ initPar: { par: number } }> {
   state: { actKey: number; contents: any[] } = Router.reduceStart({ actKey: 0, contents: [] }, this.props.initPar)
 
   roots = []
+  animate: Animate
 
   render() {
+    if (this.animate) {
+      this.animate.cancel()
+      this.animate = null
+    }
     const { actKey, contents } = this.state
-    const newPar = contents[actKey % 2]; const oldPar = contents[(actKey - 1) % 2]
-    if (!oldPar) return <div><Content state={newPar} key={actKey} onRef={root => this.roots[actKey % 2] = root} /></div> //init or after anim render
+    const actIdx = actKey % 2; const oldIdx = (actKey - 1) % 2;
+    const newPar = contents[actIdx]; const oldPar = contents[oldIdx]
+    if (!oldPar) return <div><Content state={newPar} stateIdx={actIdx} key={actKey} onRef={root => this.roots[actIdx] = root} /></div> //init or after anim render
     let newEl: JSX.Element
-    const newWaiter = new Promise<HTMLElement>(resolve => newEl = <Content state={newPar} key={actKey} onRef={root => resolve(root)} />)
-    newWaiter.then(root => {
-      this.roots[actKey % 2] = root
-      //animate, after finist call:
-      this.setState(Router.reduceEnd(this.state))
+    const newWaiter = new Promise<HTMLElement>(resolve => newEl = <Content state={newPar} stateIdx={actIdx} key={actKey} onRef={root => resolve(root)} />)
+    newWaiter.then(async root => {
+      this.roots[actIdx] = root
+      this.animate = new Animate(root, this.roots[oldIdx])
+      await this.animate.animate()
+      //animace dobehla => uklid
+      this.animate = null
+      this.roots[oldIdx] = null
+      this.setState(Router.reduceEnd(this.state)) //DISPATCH ACTION
     })
     return <div>
-      <Content state={oldPar} key={actKey - 1} />
+      <Content state={oldPar} stateIdx={oldIdx} key={actKey - 1} />
       {newEl}
     </div>
   }
@@ -46,7 +56,10 @@ class Router extends React.PureComponent<{ initPar: { par: number } }> {
 
   static reduceStart(oldState, par) {
     const { actKey: oldKey, contents } = oldState
-    contents[(oldKey + 1) % 2] = par
+    const newIdx = (oldKey + 1) % 2
+    const bothAreFull = !!contents[newIdx] //existuji obe stranky => jeste nedobehla animace
+    if (bothAreFull) contents[oldKey % 2] = null //zrus starou stranku
+    contents[newIdx] = par //na misto nove dej novou
     return { actKey: oldKey + 1, contents: [...contents] }
   }
 
@@ -78,10 +91,14 @@ class Router extends React.PureComponent<{ initPar: { par: number } }> {
   //}
 }
 
-class Content extends React.PureComponent<{ state: { par: number }, onRef?: (root: HTMLDivElement) => void }> {
-  constructor(props) {
-    super(props)
+class Animate {
+  constructor(private oldEl: HTMLElement, private newEl: HTMLElement) {
   }
+  animate():Promise<void> { }
+  cancel() { }
+}
+
+class Content extends React.PureComponent<{ stateIdx: number, state: { par: number }, onRef?: (root: HTMLDivElement) => void }> {
   shouldComponentUpdate(nextProps, nextState, nextContext): boolean {
     return nextProps.state !== this.props.state
   }
