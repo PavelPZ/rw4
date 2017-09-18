@@ -81,6 +81,7 @@
     <TypeScriptCompile Include="app-common\lib\app-d.d.ts" />
     <TypeScriptCompile Include="app-common\snack\gui\button.tsx" />
     <TypeScriptCompile Include="app-web\gui\gsap.d.ts" />
+    <TypeScriptCompile Include="app-web\snack\animated-gsap-new.tsx" />
     <TypeScriptCompile Include="app-web\snack\animated-gsap.tsx" />
     <TypeScriptCompile Include="app-web\snack\animated-transition.tsx" />
     <TypeScriptCompile Include="app-web\snack\connect-test.tsx" />

@@ -48,7 +48,7 @@ import ButtonTest from './app-common/snack/gui/button'
 import { ConnectTest, reducer as connectTestReducer } from './app-web/snack/connect-test'
 import Animated from './app-web/snack/animated-transition'
 import AnimatedGsap from './app-web/snack/animated-gsap'
-
+import AnimatedGsapNew from './app-web/snack/animated-gsap-new'
 
 //*********** spusteni
 export const init = async () => {
@@ -127,7 +127,8 @@ export const init = async () => {
   //noRouteApp = <IonicTest />
   //noRouteApp = <ReduxProvider store={store} ><ConnectTest /></ReduxProvider>
   //noRouteApp = <Animated />
-  noRouteApp = <AnimatedGsap />
+  //noRouteApp = <AnimatedGsap />
+  noRouteApp = <AnimatedGsapNew />
 
   const AppAll: React.SFC<{}> = props => {
     let loginRendered: () => void
