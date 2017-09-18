@@ -1,4 +1,8 @@
 import 'whatwg-fetch' //kvuli MSIE
+//gsap
+import 'gsap/src/minified/TweenLite.min' 
+import 'gsap/src/minified/plugins/CSSPlugin.min' 
+import 'gsap/src/minified/easing/EasePack.min' 
 
 //********** LIBRARIES
 import React from 'react'

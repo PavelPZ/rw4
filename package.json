@@ -50,6 +50,7 @@
       "fela-plugin-lvha": "npm:fela-plugin-lvha@^5.0.5",
       "fela-plugin-prefixer": "npm:fela-plugin-prefixer@^5.0.6",
       "fela-plugin-unit": "npm:fela-plugin-unit@^5.0.5",
+      "gsap": "npm:gsap@^1.20.2",
       "history": "npm:history@^4.6.3",
       "invariant": "npm:invariant@^2.2.2",
       "js-cookie": "npm:js-cookie@^2.1.4",
@@ -64,6 +65,7 @@
       "url-pattern": "npm:url-pattern@^1.0.3",
       "whatwg-fetch": "npm:whatwg-fetch@^2.0.3"
     },
+    "devDependencies": {},
     "peerDependencies": {
       "assert": "npm:jspm-nodelibs-assert@^0.2.0",
       "buffer": "npm:jspm-nodelibs-buffer@^0.2.0",

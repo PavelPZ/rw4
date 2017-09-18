@@ -26,7 +26,7 @@ declare const Strong: typeof gsap.Quint
 
 declare namespace GUI {
   type ITweenCancel = { cancel?: () => void }
-  type ITweenParsEx = { cancel?: ITweenCancel, tweenProc?: Function, [prop: string]: any }
+  type ITweenParsEx = { cancel?: ITweenCancel, tweenProc?: Function, ease?, [prop: string]: any }
 }
 
 

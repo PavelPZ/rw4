@@ -18,7 +18,8 @@ const Root: React.SFC<any> = props => {
     return { content, waitFor } as IGetContent
   }
   let count = 1
-  return <div style={{ display: 'flex', flex: 1, flexDirection: 'column', height: '100vh' }}>
+  //https://web-design-weekly.com/2014/11/18/viewport-units-vw-vh-vmin-vmax/
+  return <div style={{ height: '100vh', overflow: 'auto' }}>
     <div style={{ alignSelf: 'flex-start' }}>
       <button onClick={() => router.setContent(getContent())}>CLICK</button>
     </div>
@@ -30,35 +31,48 @@ type IGetContent = { content: JSX.Element; waitFor: Promise<HTMLElement> }
 
 class Router extends React.PureComponent<{ initContent: IGetContent }> {
 
-  static tweenTime = 0.125
-  //static animProps = { opacity: 0.0, yPercent: '10%', xPercent: '10%', width: '80%', height: '80%' }
-  static animProps = { opacity: 0.0, ease: Expo.easeOut }
+  static tweenTime = 0.15
+  static animProps = { opacity: 0.05 }
+  //static animProps = { opacity: 0.5, marginTop: '0%' }
+  //static animPropsNew = { opacity: 0.5, marginTop:'-100%' }
 
-  state: IGetContent = this.props.initContent
-  cancel: GUI.ITweenCancel = { }
+  state: { content: IGetContent; newContent?: IGetContent } = { content: this.props.initContent }
+  cancel: { content: GUI.ITweenCancel, newContent: GUI.ITweenCancel } = { content: {}, newContent: {} }
 
-  render() { return <div style={{ display: 'flex', flex: 1, flexDirection: 'column' }}>{this.state.content}</div> }
+  render() {
+    return <div >
+      {[this.state.content.content, this.state.newContent && this.state.newContent.content]}
+    </div>
+  }
 
   async setContent(content: IGetContent) {
-    if (this.cancel.cancel) {
-      this.cancel.cancel()
-      this.setState(content)
+    const { content: { cancel }, content: { cancel: newCancel } } = this.cancel
+    if (cancel || newCancel) {
+      if (cancel) cancel()
+      if (newCancel) newCancel()
+      this.setState({ content, newContent: null })
       return
     }
-    let root = await this.state.waitFor
-    await doTween(root, Router.tweenTime, { ...Router.animProps, cancel: this.cancel })
-    this.setState(content)
-    root = await this.state.waitFor
-    await doTween(root, Router.tweenTime, { ...Router.animProps, cancel: this.cancel, tweenProc: TweenLite.from})
+    //render both pages and wait for HTML Elements
+    this.setState({ content: this.state.content, newContent: content })
+    const divNew = await this.state.newContent.waitFor
+    const oldDisplay = divNew.style.display
+    divNew.style.display = 'none'
+    const divContent = await this.state.content.waitFor
+    //hide old and show new
+    await doTween(divContent, Router.tweenTime, { ...Router.animProps, ease: Power0.easeIn, cancel: this.cancel.content, })
+    this.setState({ content: content, newContent: null })
+    divNew.style.display = oldDisplay
+    await doTween(divNew, Router.tweenTime, { ...Router.animProps, ease: Power0.easeOut, cancel: this.cancel.newContent, tweenProc: TweenLite.from })
   }
 }
-
 
 class Content extends React.PureComponent<{ count: number, onRef: (root: HTMLDivElement) => void }> {
   render() {
     const count = this.props.count
+    //style={{ position: 'absolute', top: 0, bottom: 0, left: 0, right: 0 } as CSSProperties}
     //return <div key={count} ref={root => root && this.props.onRef(root)} style={{ ...pageStyle, paddingTop: (count % 3) * 100, backgroundColor: count % 2 ? 'red' : 'blue' } as CSSProperties}><h3>TITLE {count}: {renders++}</h3></div>
-    return <div key={count} ref={root => root && this.props.onRef(root)} style={{ ...pageStyle, margin:30 } as CSSProperties}>
+    return <div key={count} ref={root => root && this.props.onRef(root)} >
       <h3>TITLE {count}: {renders++}</h3>
       {contentText(count)}
     </div>
@@ -66,7 +80,7 @@ class Content extends React.PureComponent<{ count: number, onRef: (root: HTMLDiv
 }
 let renders = 1
 const contentText = (count) => {
-  const txt = []; for (let i = 0; i < 80; i++) {
+  const txt = []; for (let i = 0; i < 20; i++) {
     if (count % 2) {
       txt.push(' asd f sad fsa df sad f sad fsad f asd f asdf as df asd f asd fas df sad fsad f'); txt.push(txt[txt.length - 1]); txt.push(txt[txt.length - 1]);
     } else {

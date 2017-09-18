@@ -22,6 +22,7 @@ SystemJS.config({
     "npm:*.json"
   ],
   map: {
+    "gsap": "npm:gsap@1.20.2",
     "react-transition-group": "npm:react-transition-group@2.2.0",
     "child_process": "npm:jspm-nodelibs-child_process@0.2.1",
     "http": "npm:jspm-nodelibs-http@0.2.0",
