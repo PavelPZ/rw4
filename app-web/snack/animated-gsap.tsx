@@ -11,11 +11,15 @@ const app1: React.SFC<any> = props => <div style={{ position: 'relative' }}>
 
 const Root: React.SFC<any> = props => {
   let router: Router
-  const getNextContent = (router: Router) => <Content onRef={root => router.rootExist(root)} count={count} key={count++} />
+  const getNextContent = () => {
+    let content: JSX.Element
+    const waitFor = new Promise<HTMLElement>(resolve => content = <Content onRef={root => resolve(root)} count={count} key={count++} />)
+    return { content, waitFor } as IGetContent
+  }
   let count = 1
   return <div style={{ display: 'flex', flex: 1, flexDirection: 'column', height: '100vh' }}>
     <div style={{ alignSelf: 'flex-start' }}>
-      <button onClick={() => router.setContent(getNextContent(router))}>CLICK</button>
+      <button onClick={() => router.setContent(getNextContent())}>CLICK</button>
     </div>
     <Router ref={r => router = r} getInitContent={getNextContent} />
   </div>
@@ -23,51 +27,37 @@ const Root: React.SFC<any> = props => {
 
 type IProps = { title: string; margin: number }
 
+type IGetContent = { content: JSX.Element; waitFor: Promise<HTMLElement> }
+type ITweenCancel = { cancel?: () => void }
+
 class Router extends React.PureComponent<{ getInitContent }> {
-  state = { content: this.props.getInitContent(this) }
-  root: HTMLDivElement
-  firstTween: gsap.TweenLite
-  secondTween: gsap.TweenLite
-  onRootExist: () => void
-  rootExist(root: HTMLDivElement) {
-    this.root = root
-    if (this.onRootExist) this.onRootExist()
-  }
-  cancel = { cancel: null }
-  render() {
-    return <div style={{ display: 'flex', flex: 1, flexDirection: 'column' }}>
-      {this.state.content}
-    </div>
-  }
-  async setContent(content: JSX.Element) {
-    this.onRootExist = null
-    if (this.firstTween) {
-      this.firstTween.progress(1, true); this.firstTween = null
-      this.setState({ content: content })
-      return
-    } else if (this.secondTween) {
-      this.secondTween.progress(1, true); this.secondTween = null
-      this.setState({ content: content })
+  state: IGetContent = this.props.getInitContent()
+  cancel: ITweenCancel = { }
+
+  render() { return <div style={{ display: 'flex', flex: 1, flexDirection: 'column' }}>{this.state.content}</div> }
+
+  async setContent(cont: IGetContent) {
+    if (this.cancel.cancel) {
+      this.cancel.cancel()
+      this.setState(cont)
       return
     }
-    this.firstTween = TweenLite.to(this.root, tweenTime, {
-      opacity: 0.5, onComplete: () => {
-        this.firstTween = null
-        this.onRootExist = () => this.secondTween = TweenLite.from(this.root, tweenTime, { opacity: 0.5, onComplete: () => this.secondTween = null })
-        this.setState({ content: content })
-      }
-    })
+    let root = await this.state.waitFor
+    await doTween(root, tweenTime, { opacity: 0.5 }, this.cancel)
+    this.setState(cont)
+    root = await this.state.waitFor
+    await doTween(root, tweenTime, { opacity: 0.5 }, this.cancel, TweenLite.from)
   }
 }
 const tweenTime = 1
 
-const doTween = (el: HTMLElement, secs: number, pars: {}, cancel: { cancel }, fnc?) => {
-  const res = new Promise<void>(resolve => {
-    let tween = (fnc || TweenLite.to)(el, secs, { ...pars, completed: () => { delete cancel.cancel; resolve() } })
+const doTween = (el: HTMLElement, secs: number, pars: {}, cancel: ITweenCancel, fnc?) => {
+  return new Promise<void>((resolve, reject) => {
+    let tween = (fnc || TweenLite.to)(el, secs, { ...pars, onComplete: () => { delete cancel.cancel; resolve() } })
     cancel.cancel = () => {
       tween.progress(1, true)
       delete cancel.cancel
-      return true
+      reject()
     }
   })
 }
