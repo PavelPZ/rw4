@@ -42,3 +42,16 @@ export const waitChildren = <div style={{ display: 'flex', flex: 1, justifyConte
   <h2>Loading...</h2>
 </div>
 
+export const doTween = (el: HTMLElement, secs: number, pars: GUI.ITweenParsEx) => {
+  return new Promise<void>((resolve, reject) => {
+    const { cancel, tweenProc, ...rest } = pars
+    let tween = (tweenProc || TweenLite.to)(el, secs, { ...rest, onComplete: () => { if (cancel) delete cancel.cancel; resolve() } })
+    if (cancel) cancel.cancel = () => {
+      tween.progress(1, true)
+      delete cancel.cancel
+      reject()
+    }
+  })
+}
+
+
