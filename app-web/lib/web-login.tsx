@@ -49,7 +49,7 @@ export class Provider extends React.PureComponent<WebLogin.IProviderProps> {
     console.log('LOGIN: start Login rendering')
     return <Portal ref={div => this.loginHTML = div['_container']} visible className={renderCSS({ display: 'none', backgroundColor: 'white', position: 'fixed', left: 0, top: 0, bottom: 0, right: 0, alignItems: 'flex-start', justifyContent: 'center', zIndex: this.props.zIndex })} >
       <Paper className={renderCSS({ display: 'flex', flexDirection: 'column', flex: 1, height: 150, maxWidth: 300, alignItems: 'center', justifyContent: 'space-around', marginTop: 100 })} zDepth={3}>
-        <div ref={div => { element = div; init().then(this.props.loginRendered) }}>
+        <div ref={div => { element = div; init().then(() => { this.props.loginRendered(); window.lmGlobal.platform.loginPlatform.providerExist = true }) }}>
           <Button iconLogo={GUI.IonicLogos.logoGoogle} label='GOOGLE' color={GUI.Colors.info} />
         </div>
         <Button iconLogo={GUI.IonicLogos.logoFacebook} label='FACEBOOK' onPress={facebookLoginBtnClick} color={GUI.Colors.info} />

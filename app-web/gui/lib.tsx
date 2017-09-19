@@ -1,5 +1,6 @@
 ﻿import React from 'react'
 import { PlatformStatic } from 'react-native';
+import { renderCSS } from '../lib/fela';
 
 export const H1: React.SFC<{}> = props => <h1 {...props} />
 export const H2: React.SFC<{}> = props => <h2 {...props} />
@@ -34,11 +35,12 @@ export class WaitForRendering extends React.PureComponent<{ waitFor: Promise<any
   state = { doRender: false }
   render() {
     if (this.state.doRender) return React.Children.only(this.props.children)
-    this.props.waitFor.then(() => setTimeout(() => this.setState({ doRender: true }), 500))
+    //this.props.waitFor.then(() => setTimeout(() => this.setState({ doRender: true }), 500))
+    this.props.waitFor.then(() => setTimeout(() => this.setState({ doRender: true }), 1))
     return waitChildren
   }
 }
-export const waitChildren = <div style={{ display: 'flex', flex: 1, justifyContent: 'center' }}>
+export const waitChildren = <div className={renderCSS({display:'flex', flex:1, justifyContent:'center', alignItems: 'center', height:'100v'})}>
   <h2>Loading...</h2>
 </div>
 

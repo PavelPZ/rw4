@@ -37,6 +37,7 @@
     par: IPlatformPar
     doLogin: (returnUrl: Router.IState) => void
     doLogout: () => void
+    providerExist?:boolean
   }
 
   type ILoginButtonProps = ILoginButtonMapProps & ILoginButtonDispatchProps

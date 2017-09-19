@@ -15,7 +15,30 @@ const LoginButton = createLoginButton(props => {
     onPress={doLoginAction} />
 })
 
-const appRouterComp: React.SFC<AppRouter.IRoutePar> = props => {
+class appRouterComp extends React.PureComponent<AppRouter.IRoutePar> {
+  render() {
+    const props = this.props
+    const { children, onRef, ...par } = props
+    const isModal = props.query && props.query.isModal
+    return <div ref={root => root && onRef && onRef(root)}>
+      <Container testID='xxxxx' style={{ flex: 1 }}>
+        <Header>
+          {isModal ? <View></View> : <View></View>}
+        </Header>
+        <Content>
+          <H2>{props.title}</H2>
+          <Button /*tabIndex={1}*/ key={1} label='Add to title' href={AppRouterComp.getRoute({ ...par, title: props.title + ' | xxx' })} />
+          <Button /*tabIndex={1}*/ key={2} label='Show Modal' href={AppRouterComp.getRoute({ ...par, title: props.title + ' | mmm' }, true)} />
+          <Button /*tabIndex={1}*/ key={3} label='Goto HOME' href={{ routeName: null }/*home*/} />
+          <Button /*tabIndex={1}*/ key={4} label='DUMMY' />
+          {window.lmGlobal.isNative ? null : <LoginButton key={5} tabIndex={2} />}
+        </Content>
+      </Container>
+    </div>
+  }
+}
+
+const appRouterComp_: React.SFC<AppRouter.IRoutePar> = props => {
   const { children, ...par } = props
   const isModal = props.query && props.query.isModal
   //const hdr: GUI.IPageTemplateProps<GUI.IPageHeaderDrawer & GUI.IPageHeaderModalOKCancel> = {
@@ -47,7 +70,7 @@ const appRouterComp: React.SFC<AppRouter.IRoutePar> = props => {
   //}
   ////return <Text>XXXXXXX</Text>
   //return <PageTemplate {...hdr}/>
-  return <Container style={{ flex: 1 }}>
+  return <Container testID='xxxxx' style={{ flex: 1 }}>
     <Header>
       {isModal ? <View></View> : <View></View>}
     </Header>

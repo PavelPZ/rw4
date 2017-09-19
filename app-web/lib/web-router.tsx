@@ -36,24 +36,16 @@ export class Animate_ implements Router.IRouterAnimate {
 }
 
 export class Animate implements Router.IRouterAnimate {
-  constructor(private oldEl: HTMLElement, private newEl: HTMLElement) {
-  }
+  constructor(private oldEl: HTMLElement, private newEl: HTMLElement) {  }
   async animate() {
-    const tweenTime = 0.15
+    const tweenTime = 0.3 //0.15
     const animProps = { opacity: 0.05 }
+
     const { oldEl, newEl } = this
-    //this.timer = setTimeout(resolve, 1000)
-    const newDispl = newEl.style.display
-    newEl.style.display = 'none'
-    //hide old and show new
-    if (!doTween(oldEl, tweenTime, { ...animProps, ease: Power0.easeIn, cancel: this.cancels.oldCanc, })) {
-      newEl.style.display = newDispl
-      return
-    }
-    oldEl.style.display = 'none'
-    newEl.style.display = newDispl
-    if (!await doTween(newEl, tweenTime, { ...animProps, ease: Power0.easeOut, cancel: this.cancels.newCanc, tweenProc: TweenLite.from })) {
-    }
+
+    if (oldEl) await doTween(oldEl, tweenTime, { ...animProps, ease: Power0.easeIn, cancel: this.cancels.oldCanc, })
+
+    if (newEl) await doTween(newEl, tweenTime, { ...animProps, ease: Power0.easeOut, cancel: this.cancels.newCanc, tweenProc: TweenLite.from })
   }
   cancel() {
     const { oldCanc: { cancel: oldCanc }, newCanc: { cancel: newCanc } } = this.cancels

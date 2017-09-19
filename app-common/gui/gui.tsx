@@ -11,7 +11,7 @@ export const View: React.SFC<ReactNative.ViewProperties> = props => { const C = 
 export const Text: React.SFC<ReactNative.TextProperties> = props => { const C = pl().Text; return <C {...props} /> }
 export const Platform = () => pl().Platform
 
-export const Container: React.SFC<ReactNative.ViewProperties> = props => { const C = pl().Container; return <C {...props} /> }
+export const Container: React.SFC<ReactNative.ViewProperties & {ref?}> = props => { const C = pl().Container; return <C {...props} /> }
 export const Content: React.SFC<ReactNative.ViewProperties> = props => { const C = pl().Content; return <C {...props} /> }
 export const Header: React.SFC<ReactNative.ViewProperties> = props => { const C = pl().Header; return <C {...props} /> }
 export const Footer: React.SFC<ReactNative.ViewProperties> = props => { const C = pl().Footer; return <C {...props} /> }

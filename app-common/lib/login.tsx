@@ -24,7 +24,7 @@ export const loginProcessing = (needsLogin: boolean, returnUrl: Router.IState) =
   return false;
 }
 export const isLogged = () => {
-  if (!window.lmGlobal.platform.loginPlatform) return true
+  if (!window.lmGlobal.platform.loginPlatform || !window.lmGlobal.platform.loginPlatform.providerExist) return true
   const login = window.lmGlobal.store.getState().login
   return login && login.logged
 }

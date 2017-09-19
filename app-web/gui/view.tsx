@@ -5,8 +5,9 @@ import { ViewProperties } from 'react-native'
 //export type IWebView = ViewProperties;
 
 //D:\rw\know-how\react-native-web\src\components\View\index.js
-export const View: React.SFC<ViewProperties> = props => {
-
+export class View extends React.PureComponent<ViewProperties> {
+  render() {
+    const props = this.props
     const {
       style,
       //onTouchCancel, onTouchEnd, onTouchEndCapture, onTouchMove, onTouchStart, //avoid TS Error
@@ -24,8 +25,13 @@ export const View: React.SFC<ViewProperties> = props => {
     };
 
     return <div {...otherProps as any} className={renderCSS(ruleProps)} />;
+  }
 }
 
+//export const Container = props => {
+//  debugger
+//  return <View {...props} />
+//}
 export const Container = View
 export const Header = View
 export const Footer = View

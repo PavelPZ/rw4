@@ -29,7 +29,7 @@ import { platform as loginPlatform, Provider as LoginProvider, } from './app-web
 import { init as initMediaQuery } from './app-web/lib/web-media-query'
 import { Provider as RecordingProvider, BlockGuiComp } from './app-web/lib/web-recording'
 import { Provider as DrawerProvider } from './app-web/lib/web-drawer'
-import { Animate as RouterAnimate} from './app-web/lib/web-router'
+import { Animate as RouterAnimate } from './app-web/lib/web-router'
 import { Button } from './app-web/gui/button'
 import { Icon } from './app-web/gui/icon'
 import { View, Container, Header, Footer, Content } from './app-web/gui/view'
@@ -73,8 +73,8 @@ export const init = async () => {
       recordingPlatform: { guiSize: Recording.TGuiSize.icon },
       restAPIPlatform: { serviceUrl: 'rest-api.ashx' },
       routerPlatform: {
-        //startRoute: AppRouterComp.getRoute({ title: 'START TITLE | xxx' }),
-        startRoute: App1.getRoute({ title: 'from Index' }),
+        startRoute: AppRouterComp.getRoute({ title: 'START TITLE | xxx' }),
+        //startRoute: App1.getRoute({ title: 'from Index' }),
         history: createHistory() as Router.IHistory,
         rootUrl: '/web-app.html',
         animator: RouterAnimate
@@ -84,6 +84,7 @@ export const init = async () => {
   }
 
   await promiseAll([
+    initRouter(),
     initRecording()
   ])
 
@@ -116,7 +117,6 @@ export const init = async () => {
   sagaMiddleware.run(rootSaga)
 
   const initAfter = () => promiseAll([
-    initRouter(),
     initMediaQuery(),
   ])
 
@@ -156,9 +156,12 @@ export const init = async () => {
   }
 
   const AppRouter: React.SFC<{}> = props => <ReduxProvider store={store} >
-    <WaitForRendering waitFor={initAfter()} waitChildren={waitChildren}>
-      <RouterProvider />
-    </WaitForRendering>
+    <LayerProvider childs={[
+      <BlockGuiComp key={1} zIndex={99} />,
+      <WaitForRendering waitFor={initAfter()} waitChildren={waitChildren}>
+        <RouterProvider />
+      </WaitForRendering>
+    ]}/>
   </ReduxProvider>
 
   const appNo = noRouteApp

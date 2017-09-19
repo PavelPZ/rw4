@@ -37,19 +37,21 @@ class provider extends React.PureComponent<Router.IRouterProviderProps> {
     if (!props || !props.routeName) return null
 
     if (animateOut) { animateOut.cancel(); animateOut = null }
-    if (animateIn) animateIn.cancel()
+    if (animateIn) { animateIn.cancel(); animateIn = null }
     
     const { params } = props
     const Route = routes[props.routeName] as React.ComponentClass<Router.IRoutePar>
     const TAnimClass = window.lmGlobal.platform.routerPlatform.animator
-    return <Route key={props.routeName} {...params} onRef={div => {
+
+    return <Route key={count++} {...params} onRef={async div => {
       if (!div) return
       animateOut = new TAnimClass(div, null)
       animateIn = new TAnimClass(null, div)
-      animateIn.animate()
+      await animateIn.animate()
     }} />
   }
 }
+let count = 0
 let animateOut: Router.IRouterAnimate
 let animateIn: Router.IRouterAnimate
 
@@ -212,11 +214,11 @@ export const middleware: Middleware<IState> = middlAPI => next => a => {
   next(action)
   //SYNC NAVIGATE_END
   const navigateEnd: Router.IAction = { type: Router.Consts.NAVIGATE_END, newState: newState, navigActionId: action.navigActionId }
-  if (!beforeUnload && !router.beforeLoad) {
-    if (navigateEnd.navigActionId != navigActionId - 1) return a
-    next(navigateEnd)
-    return a
-  }
+  //if (false && !beforeUnload && !router.beforeLoad) {
+  //  if (navigateEnd.navigActionId != navigActionId - 1) return a
+  //  next(navigateEnd)
+  //  return a
+  //}
   //ASYNC NAVIGATE_END
   const asyncRoute = async () => {
     if (navigateEnd.navigActionId != navigActionId - 1) return
@@ -225,6 +227,7 @@ export const middleware: Middleware<IState> = middlAPI => next => a => {
     beforeUnload = null;
     if (router.beforeLoad) beforeUnload = await router.beforeLoad(newState.params)
     if (navigateEnd.navigActionId != navigActionId - 1) return
+    if (animateOut) await animateOut.animate()
     middlAPI.dispatch(navigateEnd)
   }
   asyncRoute()
@@ -240,7 +243,7 @@ let beforeUnload: () => void
 //}
 
 export const reducer: App.IReducer<Router.IState> = (state, action: Router.IAction) => {
-  if (!state) return window.lmGlobal.platform.routerPlatform.startRoute
+  if (!state) return getLocationState() // window.lmGlobal.platform.routerPlatform.startRoute
   switch (action.type) {
     case Router.Consts.NAVIGATE_END: return action.newState
     default: return state
@@ -311,7 +314,7 @@ export const init = () => {
 
   historyPush = (urlPattern, state) => history.push(stringify(urlPattern, state))
   historyUrl = (urlPattern, state) => stringify(urlPattern, state)
-
+  getLocationState = () => url2state(history.location)
   //*** resolving quick BACK x FORWARD browser button clicks
   //notifyNavigationEnd = () => {
   //  navigationCount--
@@ -324,7 +327,7 @@ export const init = () => {
   //let navigationCount = 0
   //let navigateStartQueue = []
 
-  navigate(url2state(history.location))
+  //navigate(url2state(history.location))
   const unlisten = history.listen((location, action) => {
     //console.log(JSON.stringify(location,null,2))
     const navigAction = url2state(history.location)
@@ -336,6 +339,7 @@ export const init = () => {
 
 let historyPush: (urlPattern: UrlPattern, state: Router.IState) => void
 let historyUrl: (urlPattern: UrlPattern, state: Router.IState) => string
+let getLocationState: () => Router.IState
 
 //notifications for resolving quick BACK x FORWARD
 //let notifyNavigationEnd: () => void
