@@ -37,10 +37,10 @@ class provider extends React.PureComponent<Router.IRouterProviderProps> {
   state: { lastRouterState?: Router.IRouterProviderProps, actDiv?: HTMLElement } = {  }
   animate: Router.IRouterAnimate
   render() {
-    const renderRoute = (props: Router.IRouterProviderProps, resolve: () => void) => {
+    const renderRoute = (props: Router.IRouterProviderProps, resolve: (div?: HTMLElement) => void) => {
       const { params } = props
       const Route = routes[props.routeName] as React.ComponentClass<Router.IRoutePar>
-      return <Route key={props.routeName} {...params} onRef={root => { this.state.actDiv = root; if (resolve) resolve()}} />
+      return <Route key={props.routeName} {...params} onRef={div => { if (!div) return; if (resolve) resolve(div); else this.state.actDiv= div}} />
     }
     const TAnimClass = window.lmGlobal.platform.routerPlatform.animator
 
@@ -61,18 +61,18 @@ class provider extends React.PureComponent<Router.IRouterProviderProps> {
       case TRenderState.first:
         return TAnimClass.renderRouter([renderRoute(props, null)])
       case TRenderState.animCancel:
-        animate.cancel(); delete this.animate
+        animate.cancel()
+        delete this.animate
         return TAnimClass.renderRouter([renderRoute(props, null)])
       case TRenderState.animStart:
-        let route: JSX.Element
-        const waiter = new Promise<HTMLElement>(resolve => route = renderRoute(props, resolve))
-        waiter.then(async newDiv => {
+        const route = renderRoute(props, async newDiv => {
           this.animate = new TAnimClass(actDiv, newDiv)
+          state.actDiv = newDiv
           await this.animate.animate()
           delete this.animate
           this.forceUpdate()
         })
-        return TAnimClass.renderRouter([route,renderRoute(lastRouterState, null)])
+        return TAnimClass.renderRouter([route, renderRoute(lastRouterState, div => { })])
       case TRenderState.animEnd:
         return TAnimClass.renderRouter([renderRoute(props, null)])
       default:

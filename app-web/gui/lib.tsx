@@ -1,7 +1,7 @@
 ﻿import React from 'react'
 import { PlatformStatic } from 'react-native';
 
-export const H1: React.SFC<{}> = props => <h1 {...props}/>
+export const H1: React.SFC<{}> = props => <h1 {...props} />
 export const H2: React.SFC<{}> = props => <h2 {...props} />
 export const H3: React.SFC<{}> = props => <h3 {...props} />
 
@@ -43,13 +43,13 @@ export const waitChildren = <div style={{ display: 'flex', flex: 1, justifyConte
 </div>
 
 export const doTween = (el: HTMLElement, secs: number, pars: GUI.ITweenParsEx) => {
-  return new Promise<void>((resolve, reject) => {
+  return new Promise<boolean>(resolve => {
     const { cancel, tweenProc, ...rest } = pars
-    let tween = (tweenProc || TweenLite.to)(el, secs, { ...rest, onComplete: () => { if (cancel) delete cancel.cancel; resolve() } })
+    let tween = (tweenProc || TweenLite.to)(el, secs, { ...rest, onComplete: () => { if (cancel) delete cancel.cancel; resolve(true) } })
     if (cancel) cancel.cancel = () => {
       tween.progress(1, true)
       delete cancel.cancel
-      reject()
+      resolve(false)
     }
   })
 }
