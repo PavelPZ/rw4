@@ -24,15 +24,14 @@ const providerConnector = connect<Router.IRouterProviderProps, {}, {}>(
   (state: IState) => state.router.router,
 )
 
-export const areStateWithoutOnRefEqual = (st1, st2) => {
-  const {onRef: ign1, ...st1: st1OK} = st1
-  const {onRef: ign2, ...st2: st2OK} = st2
-  return shallowEqual(st1OK, st2OK)
-}
+//export const areStateWithoutOnRefEqual = (st1, st2) => {
+//  const {onRef: ign1, ...st1: st1OK} = st1
+//  const {onRef: ign2, ...st2: st2OK} = st2
+//  return shallowEqual(st1OK, st2OK)
+//}
 
 class provider extends React.PureComponent<Router.IRouterProviderProps> {
   render() {
-
     const props = this.props
     if (!props || !props.routeName) return null
 
@@ -43,79 +42,85 @@ class provider extends React.PureComponent<Router.IRouterProviderProps> {
     const Route = routes[props.routeName] as React.ComponentClass<Router.IRoutePar>
     const TAnimClass = window.lmGlobal.platform.routerPlatform.animator
 
-    return <Route key={count++} {...params} onRef={async div => {
+    return <Route key={routeCount++} {...params} onRef={async div => {
       if (!div) return
-      animateOut = new TAnimClass(div, null)
-      animateIn = new TAnimClass(null, div)
+      animateOut = new TAnimClass(div, false)
+      animateIn = new TAnimClass(div, true)
       await animateIn.animate()
     }} />
   }
 }
-let count = 0
+let routeCount = 0
 let animateOut: Router.IRouterAnimate
 let animateIn: Router.IRouterAnimate
 
-const provider__: React.SFC<Router.IRouterProviderProps> = props => {
-  return props && props.routeName ? React.createElement(routes[props.routeName] as React.ComponentClass<any>, { ...props.params, key: props.routeName }) : null
-}
+//export class route<T extends Router.IRoutePar = Router.IRoutePar> extends React.PureComponent<T> {
+//  shouldComponentUpdate(nextProps, nextState, nextContext): boolean {
+//    return !areStateWithoutOnRefEqual(nextProps, this.props)
+//  }
+//}
 
-class provider_ extends React.PureComponent<Router.IRouterProviderProps> {
-  state: { lastRouterState?: Router.IRouterProviderProps, actDiv?: HTMLElement } = {  }
-  animate: Router.IRouterAnimate
-  render() {
-    const renderRoute = (props: Router.IRouterProviderProps, resolve: (div?: HTMLElement) => void) => {
-      const { params } = props
-      const Route = routes[props.routeName] as React.ComponentClass<Router.IRoutePar>
-      return <Route key={props.routeName} {...params} onRef={div => { if (!div) return; if (resolve) resolve(div); else this.state.actDiv= div}} />
-    }
-    const TAnimClass = window.lmGlobal.platform.routerPlatform.animator
+//const provider__: React.SFC<Router.IRouterProviderProps> = props => {
+//  return props && props.routeName ? React.createElement(routes[props.routeName] as React.ComponentClass<any>, { ...props.params, key: props.routeName }) : null
+//}
 
-    const {state, animate, props } = this
-    const {lastRouterState, actDiv} = state
+//class provider_ extends React.PureComponent<Router.IRouterProviderProps> {
+//  state: { lastRouterState?: Router.IRouterProviderProps, actDiv?: HTMLElement } = {  }
+//  animate: Router.IRouterAnimate
+//  render() {
+//    const renderRoute = (props: Router.IRouterProviderProps, resolve: (div?: HTMLElement) => void) => {
+//      const { params } = props
+//      const Route = routes[props.routeName] as React.ComponentClass<Router.IRoutePar>
+//      return <Route key={props.routeName} {...params} onRef={div => { if (!div) return; if (resolve) resolve(div); else this.state.actDiv= div}} />
+//    }
+//    const TAnimClass = window.lmGlobal.platform.routerPlatform.animator
 
-    let animState:TRenderState
-    if (!lastRouterState) animState = TRenderState.first
-    else if (lastRouterState !== props) {
-      animState = animate ? TRenderState.animCancel : TRenderState.animStart
-    } else {
-      invariant(!animate, '!animate')
-      animState = TRenderState.animEnd
-    }
-    state.lastRouterState = props
+//    const {state, animate, props } = this
+//    const {lastRouterState, actDiv} = state
+
+//    let animState:TRenderState
+//    if (!lastRouterState) animState = TRenderState.first
+//    else if (lastRouterState !== props) {
+//      animState = animate ? TRenderState.animCancel : TRenderState.animStart
+//    } else {
+//      invariant(!animate, '!animate')
+//      animState = TRenderState.animEnd
+//    }
+//    state.lastRouterState = props
     
-    switch (animState) {
-      case TRenderState.first:
-        return TAnimClass.renderRouter([renderRoute(props, null)])
-      case TRenderState.animCancel:
-        animate.cancel()
-        delete this.animate
-        return TAnimClass.renderRouter([renderRoute(props, null)])
-      case TRenderState.animStart:
-        const route = renderRoute(props, async newDiv => {
-          this.animate = new TAnimClass(actDiv, newDiv)
-          state.actDiv = newDiv
-          await this.animate.animate()
-          delete this.animate
-          this.forceUpdate()
-        })
-        return TAnimClass.renderRouter([route, renderRoute(lastRouterState, div => { })])
-      case TRenderState.animEnd:
-        return TAnimClass.renderRouter([renderRoute(props, null)])
-      default:
-        throw('default')
-    }
-    //return <div>
-    //  {props && props.routeName && route}
-    //  <div onClick={() => this.forceUpdate()}>CLICK</div>
-    //</div>
-  }
-}
-const enum TRenderState {
-  first, //render prvniho obsahu
-  animCancel, //animaci prerusil dalsi navigace
-  animStart, //navigace na novou route (=> zmena Router store state), zacni anomovat
-  animEnd, //normalni zakonceni animace
-}
+//    switch (animState) {
+//      case TRenderState.first:
+//        return TAnimClass.renderRouter([renderRoute(props, null)])
+//      case TRenderState.animCancel:
+//        animate.cancel()
+//        delete this.animate
+//        return TAnimClass.renderRouter([renderRoute(props, null)])
+//      case TRenderState.animStart:
+//        const route = renderRoute(props, async newDiv => {
+//          this.animate = new TAnimClass(actDiv, newDiv)
+//          state.actDiv = newDiv
+//          await this.animate.animate()
+//          delete this.animate
+//          this.forceUpdate()
+//        })
+//        return TAnimClass.renderRouter([route, renderRoute(lastRouterState, div => { })])
+//      case TRenderState.animEnd:
+//        return TAnimClass.renderRouter([renderRoute(props, null)])
+//      default:
+//        throw('default')
+//    }
+//    //return <div>
+//    //  {props && props.routeName && route}
+//    //  <div onClick={() => this.forceUpdate()}>CLICK</div>
+//    //</div>
+//  }
+//}
+//const enum TRenderState {
+//  first, //render prvniho obsahu
+//  animCancel, //animaci prerusil dalsi navigace
+//  animStart, //navigace na novou route (=> zmena Router store state), zacni anomovat
+//  animEnd, //normalni zakonceni animace
+//}
 
 //class Animate implements Router.IRouterAnimate {
 //  constructor(private oldEl: HTMLElement, private newEl: HTMLElement) {

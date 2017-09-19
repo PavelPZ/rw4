@@ -81,8 +81,7 @@
     cancel()
   }
   interface IRouterAnimateClass {
-    new(oldEl: HTMLElement, newEl: HTMLElement)
-    renderRouter(nodes: JSX.Element[]): JSX.Element
+    new(div: HTMLElement, display:boolean)
   }
 
 

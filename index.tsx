@@ -73,8 +73,8 @@ export const init = async () => {
       recordingPlatform: { guiSize: Recording.TGuiSize.icon },
       restAPIPlatform: { serviceUrl: 'rest-api.ashx' },
       routerPlatform: {
-        startRoute: AppRouterComp.getRoute({ title: 'START TITLE | xxx' }),
-        //startRoute: App1.getRoute({ title: 'from Index' }),
+        //startRoute: AppRouterComp.getRoute({ title: 'START TITLE | xxx' }),
+        startRoute: App1.getRoute({ title: 'from Index' }),
         history: createHistory() as Router.IHistory,
         rootUrl: '/web-app.html',
         animator: RouterAnimate

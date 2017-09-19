@@ -1,9 +1,10 @@
 ﻿import React from 'react'
 import { Container, Header, Content, Text, Button, H2, View } from '../gui/gui'
-import { registerRouter, navigatePushHome } from '../lib/router'
+import { registerRouter } from '../lib/router'
 import { isLogged, createLoginButton } from '../lib/login'
 import { storeContextType } from '../lib/lib'
 import { contextType as locContextType } from '../lib/loc'
+
 
 //import { PageTemplate } from '../../app-native/lib/native-root-layers'
 
@@ -20,7 +21,7 @@ class appRouterComp extends React.PureComponent<AppRouter.IRoutePar> {
     const props = this.props
     const { children, onRef, ...par } = props
     const isModal = props.query && props.query.isModal
-    return <div ref={root => root && onRef && onRef(root)}>
+    return <div ref={root => onRef && onRef(root)}>
       <Container testID='xxxxx' style={{ flex: 1 }}>
         <Header>
           {isModal ? <View></View> : <View></View>}
@@ -36,6 +37,7 @@ class appRouterComp extends React.PureComponent<AppRouter.IRoutePar> {
       </Container>
     </div>
   }
+
 }
 
 const appRouterComp_: React.SFC<AppRouter.IRoutePar> = props => {

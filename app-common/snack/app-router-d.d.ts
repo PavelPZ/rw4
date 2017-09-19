@@ -10,8 +10,6 @@
     title?: string
   }
 
-  interface IState { }
-
 }
 
 declare namespace Drawer {

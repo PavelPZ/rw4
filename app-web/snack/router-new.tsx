@@ -1,6 +1,6 @@
 ﻿import React from 'react'
 import { connect } from 'react-redux'
-import { registerRouter, areStateWithoutOnRefEqual } from '../../app-common/lib/router'
+import { registerRouter,  } from '../../app-common/lib/router'
 //import { shallowEqual } from '../../app-common/lib/lib'
 
 interface IRoutePar extends AppRouter.IRoutePar {
@@ -25,10 +25,10 @@ class app2 extends React.Component<IRoutePar> {
       <div onClick={() => App3.navigate({ title: 'from app2'})}>GOTO APP 3</div>
     </div>
   }
-  shouldComponentUpdate(nextProps, nextState, nextContext): boolean {
-    return !areStateWithoutOnRefEqual(nextProps, this.props) 
-    //return !shallowEqual(nextProps, this.props) //default does no work, re-render due to changed onRef prop value
-  }
+  //shouldComponentUpdate(nextProps, nextState, nextContext): boolean {
+  //  return !areStateWithoutOnRefEqual(nextProps, this.props) 
+  //  //return !shallowEqual(nextProps, this.props) //default does no work, re-render due to changed onRef prop value
+  //}
 }
 export const App2: Router.IRouteComponent<IRoutePar> = registerRouter(app2, 'router-new-app2', '/:title')
 let renderCounter2 = 0
@@ -51,13 +51,13 @@ const app3 = connect<{}, { click }, IRoutePar>(
       dispatch({ type: 'app3/click', text: ' t' })
     }
   }),
-  undefined,
-  { 
-    areOwnPropsEqual: (p1,p2) => {
-      return areStateWithoutOnRefEqual(p1,p2) 
-      //return shallowEqual(p1,p2) //default does no work, re-render due to changed onRef prop value
-    }
-  }
+  //undefined,
+  //{ 
+  //  areOwnPropsEqual: (p1,p2) => {
+  //    return areStateWithoutOnRefEqual(p1,p2) 
+  //    //return shallowEqual(p1,p2) //default does no work, re-render due to changed onRef prop value
+  //  }
+  //}
 )(_app3)
 export const app3Reducer: App.IReducer<IState> = (state, action:any) => {
   //if (!state) return {}
