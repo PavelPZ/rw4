@@ -9,9 +9,10 @@
 
   interface IRoutePar {
     query?: { isModal?: boolean }
+    onRef?: (root: HTMLDivElement) => void //for ROUTER animation - callback when animated HTML element is ready
   }
 
-  type IRouterProviderProps = IState
+  type IRouterProviderProps = IState 
 
   interface IGlobalState {
     nav: IState
@@ -28,7 +29,7 @@
   interface IAction {
     type: Consts.NAVIGATE_START | Consts.NAVIGATE_END
     newState: IState //null => LOGIN redirect
-    navigActionId?:number
+    navigActionId?: number //pro sparovani Consts.NAVIGATE_START a Consts.NAVIGATE_END a hlidani rychlych BACK kliku v browseru nebo androidu
   }
 
   //interface IInitPar {
@@ -72,7 +73,18 @@
     rootUrl?: string //html stranka s aplikaci
     history: Router.IHistory
     backHandler?: () => boolean
+    animator: IRouterAnimateClass
   }
+
+  interface IRouterAnimate {
+    animate(): Promise<void>
+    cancel()
+  }
+  interface IRouterAnimateClass {
+    new(oldEl: HTMLElement, newEl: HTMLElement)
+    renderRouter(nodes: JSX.Element[]): JSX.Element
+  }
+
 
 }
 

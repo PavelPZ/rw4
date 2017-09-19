@@ -79,11 +79,14 @@
     <TypeScriptCompile Include="app-common\gui\gui.tsx" />
     <TypeScriptCompile Include="app-common\gui\react-native-d.d.ts" />
     <TypeScriptCompile Include="app-common\lib\app-d.d.ts" />
+    <TypeScriptCompile Include="app-common\lib\router.tsx" />
     <TypeScriptCompile Include="app-common\snack\gui\button.tsx" />
     <TypeScriptCompile Include="app-web\gui\gsap.d.ts" />
+    <TypeScriptCompile Include="app-web\lib\web-router.tsx" />
     <TypeScriptCompile Include="app-web\snack\animated-gsap-new.tsx" />
     <TypeScriptCompile Include="app-web\snack\animated-gsap.tsx" />
     <TypeScriptCompile Include="app-web\snack\animated-transition.tsx" />
+    <TypeScriptCompile Include="app-web\snack\router-new.tsx" />
     <TypeScriptCompile Include="app-web\snack\connect-test.tsx" />
     <TypeScriptCompile Include="app-common\utils\cammel-case.ts" />
     <TypeScriptCompile Include="app-native\gui\content.tsx" />
@@ -188,7 +191,7 @@
     <TypeScriptCompile Include="app-common\snack\loc-test.tsx" />
     <TypeScriptCompile Include="app-web\lib\web-media-query.ts" />
     <TypeScriptCompile Include="app-common\lib\router-d.d.ts" />
-    <TypeScriptCompile Include="app-common\lib\router.tsx" />
+    <TypeScriptCompile Include="app-common\lib\router-old.tsx" />
     <TypeScriptCompile Include="app-native\snack\icons.tsx" />
     <TypeScriptCompile Include="app-web\lib\overlay.tsx" />
     <TypeScriptCompile Include="app-web\lib\web-login-d.d.ts" />

@@ -5,7 +5,6 @@ import { put, take } from 'redux-saga/effects'
 import { delay } from 'redux-saga'
 import invariant from 'invariant'
 import { loginProcessing } from './login'
-import { shallowEqual } from './lib'
 
 import qs from 'qs'
 import UrlPattern from 'url-pattern'
@@ -16,93 +15,23 @@ const routes: { [name: string]: Router.IRouteComponent } = {}
 LM
 D:\rw\rw4\node_modules\@types\react-redux\index.d.ts
 https://github.com/reactjs/react-redux/blob/master/docs/api.md
-    areStatesEqual?: (olsState, newState) => boolean
-    areStatePropsEqual?: (olsState, newState) => boolean
-    areOwnPropsEqual?: (olsState, newState) => boolean
+areStatesEqual ?: (olsState, newState) => boolean
 */
 const providerConnector = connect<Router.IRouterProviderProps, {}, {}>(
   (state: IState) => state.router.router,
+  undefined,
+  //undefined,
+  //{
+  //  areStatesEqual: (o: IState, n: IState) => {
+  //    return true
+  //  }
+  //}
 )
 
-export const areStateWithoutOnRefEqual = (st1, st2) => {
-  const {onRef: ign1, ...st1: st1OK} = st1
-  const {onRef: ign2, ...st2: st2OK} = st2
-  return shallowEqual(st1OK, st2OK)
+const provider: React.SFC<Router.IRouterProviderProps> = props => {
+  return props && props.routeName ? React.createElement(routes[props.routeName] as React.ComponentClass<any>, { ...props.params, key: props.routeName  /*kvuli react native LayoutAnimation a web */ }) : null
 }
-
-class provider extends React.PureComponent<Router.IRouterProviderProps> {
-  constructor(p, c) {
-    super(p, c)
-  }
-  state: { lastRouterState?: Router.IRouterProviderProps, actDiv?: HTMLElement } = {  }
-  animate: Router.IRouterAnimate
-  render() {
-    const renderRoute = (props: Router.IRouterProviderProps, resolve: () => void) => {
-      const { params } = props
-      const Route = routes[props.routeName] as React.ComponentClass<Router.IRoutePar>
-      return <Route key={props.routeName} {...params} onRef={root => { this.state.actDiv = root; if (resolve) resolve()}} />
-    }
-    const TAnimClass = window.lmGlobal.platform.routerPlatform.animator
-
-    const {state, animate, props } = this
-    const {lastRouterState, actDiv} = state
-
-    let animState:TRenderState
-    if (!lastRouterState) animState = TRenderState.first
-    else if (lastRouterState !== props) {
-      animState = animate ? TRenderState.animCancel : TRenderState.animStart
-    } else {
-      invariant(!animate, '!animate')
-      animState = TRenderState.animEnd
-    }
-    state.lastRouterState = props
-    
-    switch (animState) {
-      case TRenderState.first:
-        return TAnimClass.renderRouter([renderRoute(props, null)])
-      case TRenderState.animCancel:
-        animate.cancel(); delete this.animate
-        return TAnimClass.renderRouter([renderRoute(props, null)])
-      case TRenderState.animStart:
-        let route: JSX.Element
-        const waiter = new Promise<HTMLElement>(resolve => route = renderRoute(props, resolve))
-        waiter.then(async newDiv => {
-          this.animate = new TAnimClass(actDiv, newDiv)
-          await this.animate.animate()
-          delete this.animate
-          this.forceUpdate()
-        })
-        return TAnimClass.renderRouter([route,renderRoute(lastRouterState, null)])
-      case TRenderState.animEnd:
-        return TAnimClass.renderRouter([renderRoute(props, null)])
-      default:
-        throw('default')
-    }
-    //return <div>
-    //  {props && props.routeName && route}
-    //  <div onClick={() => this.forceUpdate()}>CLICK</div>
-    //</div>
-  }
-}
-const enum TRenderState {
-  first, //render prvniho obsahu
-  animCancel, //animaci prerusil dalsi navigace
-  animStart, //navigace na novou route (=> zmena Router store state), zacni anomovat
-  animEnd, //normalni zakonceni animace
-}
-
-//class Animate implements Router.IRouterAnimate {
-//  constructor(private oldEl: HTMLElement, private newEl: HTMLElement) {
-//  }
-//  animate():Promise<void> { return new Promise<void>(resolve => this.timer = setTimeout(resolve, 1000)) }
-//  cancel() { clearTimeout(this.timer) }
-//  timer
-//  static renderRouter(nodes:JSX.Element[]): JSX.Element {
-//    return <div>{nodes}</div>
-//  }
-//}
-//const TAnimClass: Router.IRouterAnimateClass = Animate
-
+let counter = 0
 
 export const Provider = providerConnector(provider)
 
@@ -160,7 +89,7 @@ export function registerRouter<TPar extends Router.IRoutePar = Router.IRoutePar>
     }
     return { routeName, params }
   }
-  const pattern = !urlMask ? null : new UrlPattern(urlMask)
+  const pattern = new UrlPattern(urlMask)
   res.urlPattern = pattern
   res.navigate = (par: TPar) => historyPush(pattern, res.getRoute(par))
   res.navigateModal = (par: TPar) => historyPush(pattern, res.getRoute(par, true))
@@ -184,29 +113,29 @@ export const middleware: Middleware<IState> = middlAPI => next => a => {
   // login needed => ignore NAVIGATE_START
   if (loginProcessing(router.needsLogin && router.needsLogin(newState.params), newState)) return a
   //send NAVIGATE_START
-  action.navigActionId = navigActionId++
+  action.navigActionId = navigActionIdCounter++
   next(action)
   //SYNC NAVIGATE_END
   const navigateEnd: Router.IAction = { type: Router.Consts.NAVIGATE_END, newState: newState, navigActionId: action.navigActionId }
   if (!beforeUnload && !router.beforeLoad) {
-    if (navigateEnd.navigActionId != navigActionId - 1) return a
+    if (navigateEnd.navigActionId != navigActionIdCounter - 1) return a
     next(navigateEnd)
     return a
   }
   //ASYNC NAVIGATE_END
   const asyncRoute = async () => {
-    if (navigateEnd.navigActionId != navigActionId - 1) return
+    if (navigateEnd.navigActionId != navigActionIdCounter - 1) return
     if (beforeUnload) await beforeUnload()
-    if (navigateEnd.navigActionId != navigActionId - 1) return
+    if (navigateEnd.navigActionId != navigActionIdCounter - 1) return
     beforeUnload = null;
     if (router.beforeLoad) beforeUnload = await router.beforeLoad(newState.params)
-    if (navigateEnd.navigActionId != navigActionId - 1) return
+    if (navigateEnd.navigActionId != navigActionIdCounter - 1) return
     middlAPI.dispatch(navigateEnd)
   }
   asyncRoute()
   return a
 }
-let navigActionId = 0
+let navigActionIdCounter = 0
 let beforeUnload: () => void
 
 //const computeReactNavigation = (newState: Router.IState, state?: Router.IState) => {
@@ -244,7 +173,7 @@ export const init = () => {
   const { startRoute, rootUrl, history } = window.lmGlobal.platform.routerPlatform
 
   const match = (pattern: UrlPattern, pathname: string, search: string) => {
-    const par = !pattern ? {} : pattern.match(pathname) as Router.IRoutePar
+    const par = pattern.match(pathname) as Router.IRoutePar
     //console.log('match: ', pathname, '\r\n', JSON.stringify(par, null, 2))
     invariant(!!par, `Wrong route url "${pathname}"`)
     if (!search) return par
@@ -263,25 +192,19 @@ export const init = () => {
     let res: Router.IState
     //parse /<routeName>/<pathname>
     const idx = pathname.indexOf('/', 1)
-    let toParse = ''
-    let routeName: string
-    if (idx < 0)
-      routeName = pathname.substring(1)
-    else {
-      routeName = pathname.substring(1, idx)
-      toParse = encodeURI(pathname.substr(idx))
-    }
+    const routeName = pathname.substring(1, idx)
+    const toParse = encodeURI(pathname.substr(idx))
     //get router
     const route = routes[routeName] as Router.IRoute
     invariant(!!route, `Route "${routeName}" not found`)
     //match by router.urlPatttern
-    return { routeName, params: !toParse ? {} : match(route.urlPattern as UrlPattern, toParse, loc.search) } as Router.IState
+    return { routeName, params: match(route.urlPattern as UrlPattern, toParse, loc.search) } as Router.IState
   }
 
   const stringify = (pattern: UrlPattern, state: Router.IState) => {
-    if (!state) return rootUrl
+    if (!state || !pattern) return rootUrl
     const { routeName, params: { query, ...par } } = state
-    const res = rootUrl + '/' + routeName + (!pattern ? '' : pattern.stringify(par)) + (query ? '?' + qs.stringify(query) : '')
+    const res = rootUrl + '/' + routeName + pattern.stringify(par) + (query ? '?' + qs.stringify(query) : '')
     return res
   }
 

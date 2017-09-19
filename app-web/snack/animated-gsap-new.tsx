@@ -94,7 +94,7 @@ class Router extends React.PureComponent<{ initPar: { par: number } }> {
 class Animate {
   constructor(private oldEl: HTMLElement, private newEl: HTMLElement) {
   }
-  animate():Promise<void> { }
+  animate():Promise<void> { return null }
   cancel() { }
 }
 

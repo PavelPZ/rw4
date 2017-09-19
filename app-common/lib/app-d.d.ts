@@ -41,6 +41,7 @@ declare namespace App {
   interface IPlatform {
     instanceId: InstanceKeys
   }
+
 }
 
 interface Window {

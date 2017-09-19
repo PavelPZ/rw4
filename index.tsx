@@ -1,8 +1,8 @@
 import 'whatwg-fetch' //kvuli MSIE
 //gsap
-import 'gsap/src/minified/TweenLite.min' 
-import 'gsap/src/minified/plugins/CSSPlugin.min' 
-import 'gsap/src/minified/easing/EasePack.min' 
+import 'gsap/src/minified/TweenLite.min'
+import 'gsap/src/minified/plugins/CSSPlugin.min'
+import 'gsap/src/minified/easing/EasePack.min'
 
 //********** LIBRARIES
 import React from 'react'
@@ -29,6 +29,7 @@ import { platform as loginPlatform, Provider as LoginProvider, } from './app-web
 import { init as initMediaQuery } from './app-web/lib/web-media-query'
 import { Provider as RecordingProvider, BlockGuiComp } from './app-web/lib/web-recording'
 import { Provider as DrawerProvider } from './app-web/lib/web-drawer'
+import { Animate as RouterAnimate} from './app-web/lib/web-router'
 import { Button } from './app-web/gui/button'
 import { Icon } from './app-web/gui/icon'
 import { View, Container, Header, Footer, Content } from './app-web/gui/view'
@@ -49,6 +50,7 @@ import { ConnectTest, reducer as connectTestReducer } from './app-web/snack/conn
 import Animated from './app-web/snack/animated-transition'
 import AnimatedGsap from './app-web/snack/animated-gsap'
 import AnimatedGsapNew from './app-web/snack/animated-gsap-new'
+import { App1, app3Reducer } from './app-web/snack/router-new'
 
 //*********** spusteni
 export const init = async () => {
@@ -71,9 +73,11 @@ export const init = async () => {
       recordingPlatform: { guiSize: Recording.TGuiSize.icon },
       restAPIPlatform: { serviceUrl: 'rest-api.ashx' },
       routerPlatform: {
-        startRoute: AppRouterComp.getRoute({ title: 'START TITLE | xxx' }),
+        //startRoute: AppRouterComp.getRoute({ title: 'START TITLE | xxx' }),
+        startRoute: App1.getRoute({ title: 'from Index' }),
         history: createHistory() as Router.IHistory,
-        rootUrl: '/web-app.html'
+        rootUrl: '/web-app.html',
+        animator: RouterAnimate
       },
       guiPlatform: { Platform, colorToStyle, Button, Icon, H1, H2, H3, View, Container, Header, Footer, Content, Text }
     }
@@ -84,7 +88,7 @@ export const init = async () => {
   ])
 
   const reducers: App.IReducer = (st, action: any) => {
-    const state = recordingGlobalReducer(st, action)
+    const state = app3Reducer(recordingGlobalReducer(st, action), action)
     return {
       router: {
         router: routerReducer(state.router.router, action)
@@ -101,7 +105,7 @@ export const init = async () => {
 
   const sagaMiddleware = createSagaMiddleware()
 
-  const store = window.lmGlobal.store = createStore<IState>(reducers, { router: {}}, applyMiddleware(sagaMiddleware, routerMiddleware, recordingMiddleware))
+  const store = window.lmGlobal.store = createStore<IState>(reducers, { router: {} }, applyMiddleware(sagaMiddleware, routerMiddleware, recordingMiddleware))
 
   const rootSaga = function* () {
     const rootRes = yield all({
@@ -130,6 +134,7 @@ export const init = async () => {
   //noRouteApp = <AnimatedGsap />
   noRouteApp = <AnimatedGsapNew />
 
+
   const AppAll: React.SFC<{}> = props => {
     let loginRendered: () => void
     const waitForLoginRendered = new Promise<void>(resolve => loginRendered = resolve)
@@ -150,11 +155,18 @@ export const init = async () => {
     </ReduxProvider>
   }
 
+  const AppRouter: React.SFC<{}> = props => <ReduxProvider store={store} >
+    <WaitForRendering waitFor={initAfter()} waitChildren={waitChildren}>
+      <RouterProvider />
+    </WaitForRendering>
+  </ReduxProvider>
+
   const appNo = noRouteApp
 
   ReactDOM.render(
+    <AppRouter />
     //<AppAll />
-    appNo
+    //appNo
     , document.getElementById('content'))
 }
 
