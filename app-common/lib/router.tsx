@@ -31,9 +31,33 @@ export const areStateWithoutOnRefEqual = (st1, st2) => {
 }
 
 class provider extends React.PureComponent<Router.IRouterProviderProps> {
-  constructor(p, c) {
-    super(p, c)
+  render() {
+
+    const props = this.props
+    if (!props || !props.routeName) return null
+
+    if (animateOut) { animateOut.cancel(); animateOut = null }
+    if (animateIn) animateIn.cancel()
+    
+    const { params } = props
+    const Route = routes[props.routeName] as React.ComponentClass<Router.IRoutePar>
+    const TAnimClass = window.lmGlobal.platform.routerPlatform.animator
+    return <Route key={props.routeName} {...params} onRef={div => {
+      if (!div) return
+      animateOut = new TAnimClass(div, null)
+      animateIn = new TAnimClass(null, div)
+      animateIn.animate()
+    }} />
   }
+}
+let animateOut: Router.IRouterAnimate
+let animateIn: Router.IRouterAnimate
+
+const provider__: React.SFC<Router.IRouterProviderProps> = props => {
+  return props && props.routeName ? React.createElement(routes[props.routeName] as React.ComponentClass<any>, { ...props.params, key: props.routeName }) : null
+}
+
+class provider_ extends React.PureComponent<Router.IRouterProviderProps> {
   state: { lastRouterState?: Router.IRouterProviderProps, actDiv?: HTMLElement } = {  }
   animate: Router.IRouterAnimate
   render() {
