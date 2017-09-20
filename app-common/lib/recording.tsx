@@ -5,12 +5,13 @@ import { put, take, race } from 'redux-saga/effects'
 import { delay } from 'redux-saga'
 import { restAPI } from './rest-api'
 
-export const init = async () => { //async init
+export const init = async (playLists?: Recording.IPlayList[]) => { //async init
   const rec = window.lmGlobal.platform.recordingPlatform
   const guiSize = (rec && rec.guiSize) || Recording.TGuiSize.no
   initState = { guiSize } 
   if (guiSize == Recording.TGuiSize.no) return null
-  if (rec.recordingJSON) { initState.playLists = rec.recordingJSON; return null }
+  //if (rec.recordingJSON) { initState.playLists = rec.recordingJSON; return null }
+  if (playLists) { initState.playLists = playLists; return null }
   initState.playLists = await loadPlayList()
 }
 let initState: Recording.IState = {}

@@ -21,7 +21,7 @@ https://github.com/reactjs/react-redux/blob/master/docs/api.md
     areOwnPropsEqual?: (olsState, newState) => boolean
 */
 const providerConnector = connect<Router.IRouterProviderProps, {}, {}>(
-  (state: IState) => state.router.router,
+  (state: IState) => state.router,
 )
 
 //export const areStateWithoutOnRefEqual = (st1, st2) => {
@@ -42,7 +42,7 @@ class provider extends React.PureComponent<Router.IRouterProviderProps> {
     const Route = routes[props.routeName] as React.ComponentClass<Router.IRoutePar>
     const TAnimClass = window.lmGlobal.platform.routerPlatform.animator
 
-    return <Route key={routeCount++} {...params} onRef={async div => {
+    return <Route key={routeCount++} {...params} refForAnimation={async div => {
       if (!div) return
       animateOut = new TAnimClass(div, false)
       animateIn = new TAnimClass(div, true)
@@ -122,17 +122,14 @@ let animateIn: Router.IRouterAnimate
 //  animEnd, //normalni zakonceni animace
 //}
 
-//class Animate implements Router.IRouterAnimate {
-//  constructor(private oldEl: HTMLElement, private newEl: HTMLElement) {
-//  }
-//  animate():Promise<void> { return new Promise<void>(resolve => this.timer = setTimeout(resolve, 1000)) }
-//  cancel() { clearTimeout(this.timer) }
-//  timer
-//  static renderRouter(nodes:JSX.Element[]): JSX.Element {
-//    return <div>{nodes}</div>
-//  }
-//}
-//const TAnimClass: Router.IRouterAnimateClass = Animate
+class Animate implements Router.IRouterAnimate {
+  constructor(private div: HTMLElement, private display: boolean) {
+  }
+  animate():Promise<void> { return new Promise<void>(resolve => this.timer = setTimeout(resolve, 100)) }
+  cancel() { clearTimeout(this.timer) }
+  timer
+}
+export const TAnimClass: Router.IRouterAnimateClass = Animate
 
 
 export const Provider = providerConnector(provider)
@@ -143,7 +140,7 @@ export const goBack = () => window.lmGlobal.platform.routerPlatform.history.goBa
 
 export const canGoBack = () => window.lmGlobal.isNative ? window.lmGlobal.platform.routerPlatform.history.canGo(-1) : true
 
-export const actRoute = () => window.lmGlobal.store.getState().router.router
+export const actRoute = () => window.lmGlobal.store.getState().router
 
 //navigace BEZ history.push. S history.push viz navigateUrl
 export const navigate = (routeName?: string | Router.IState, params?) => {

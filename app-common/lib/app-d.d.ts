@@ -61,3 +61,27 @@ interface IPlatforms {
 }
 declare const __moduleName: string
 type CSSProperties = DStyles.CSSProperties & DStyles.NestedCSSSelectors // & DFela.IExtend & { className?: string; dir?: string; }
+
+
+declare const enum PromiseResults {
+  timeout = 'pr/timeout',
+  abort = 'pr/abort',
+}
+
+declare const enum PromiseStates {
+  resolved = 'pr/resolved',
+  aborted = 'pr/aborted',
+  rejected = 'pr/rejected',
+  timeouted = 'pr/timeouted',
+}
+
+interface Promise<T> {
+  timeout(msec:number, handler?:() => void): this
+  onAbort(handler: () => void): this
+  abort(message?:string): this
+  state: PromiseStates
+}
+
+interface PromiseConstructorEx {
+  new <T>(executor: (resolve: (value?: T | PromiseLike<T>) => void, reject: (reason?: any) => void) => void): Promise<T | PromiseResults>;
+}

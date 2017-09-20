@@ -347,7 +347,9 @@
     <Content Include="package.json" />
     <Content Include="rest-api.ashx" />
     <Content Include="tsconfig.json" />
-    <Content Include="App_Data\recording.json" />
+    <Content Include="App_Data\recording.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <TypeScriptCompile Include="App_Data\recording.ts" />
     <Content Include="app-web\assets\ionic\fonts\ionicons.eot" />
     <Content Include="app-web\assets\ionic\fonts\ionicons.ttf" />

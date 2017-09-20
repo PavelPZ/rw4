@@ -18,7 +18,7 @@ https://github.com/reactjs/react-redux/blob/master/docs/api.md
 areStatesEqual ?: (olsState, newState) => boolean
 */
 const providerConnector = connect<Router.IRouterProviderProps, {}, {}>(
-  (state: IState) => state.router.router,
+  (state: IState) => state.router,
   undefined,
   //undefined,
   //{
@@ -41,7 +41,7 @@ export const goBack = () => window.lmGlobal.platform.routerPlatform.history.goBa
 
 export const canGoBack = () => window.lmGlobal.isNative ? window.lmGlobal.platform.routerPlatform.history.canGo(-1) : true
 
-export const actRoute = () => window.lmGlobal.store.getState().router.router
+export const actRoute = () => window.lmGlobal.store.getState().router
 
 //navigace BEZ history.push. S history.push viz navigateUrl
 export const navigate = (routeName?: string | Router.IState, params?) => {

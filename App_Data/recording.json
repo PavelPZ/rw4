@@ -1,33 +1,44 @@
 [
   {
-    "name": "1503683817417",
+    "name": "1505851388266",
     "actions": [
       {
         "type": "router/NAVIGATE_START",
         "newState": {
           "routeName": "app-router",
-          "params": { "title": "START TITLE | xxx" }
-        }
+          "params": { "title": "START TITLE | xxx | xxx | xxx | xxx" }
+        },
+        "navigActionId": 12
       },
       {
         "type": "router/NAVIGATE_START",
         "newState": {
           "routeName": "app-router",
-          "params": { "title": "START TITLE | xxx | xxx" }
-        }
+          "params": { "title": "START TITLE | xxx | xxx | xxx | xxx | xxx" }
+        },
+        "navigActionId": 13
+      },
+      {
+        "type": "router/NAVIGATE_START",
+        "newState": {
+          "routeName": "app-router",
+          "params": { "title": "START TITLE | xxx | xxx | xxx | xxx" }
+        },
+        "navigActionId": 14
       },
       {
         "type": "router/NAVIGATE_START",
         "newState": {
           "routeName": "app-router",
           "params": { "title": "START TITLE | xxx | xxx | xxx" }
-        }
+        },
+        "navigActionId": 15
       }
     ],
     "startState": {
       "router": {
         "routeName": "app-router",
-        "params": { "title": "START TITLE" }
+        "params": { "title": "START TITLE | xxx | xxx | xxx" }
       },
       "login": {
         "logged": 1,
@@ -48,62 +59,53 @@
         "mode": 0,
         "forceUpdate": 0
       },
-      "blockGui": { "state": 0 }
+      "blockGui": { "state": 0 },
+      "drawer": {
+        "visible": false,
+        "toolbarTitle": ""
+      },
+      "connectTest": {
+        "name": "IN ",
+        "pars": {
+          "fromUrl": "IV ",
+          "state": ""
+        }
+      }
     },
-    "id": 1503683817417,
+    "id": 1505851388266,
     "checked": false,
     "active": false
   },
   {
-    "name": "1503683839909",
+    "name": "1505851428849",
     "actions": [
       {
         "type": "router/NAVIGATE_START",
         "newState": {
           "routeName": "app-router",
-          "params": { "title": "START TITLE | xxx" }
-        }
+          "params": {
+            "title": "START TITLE | xxx | mmm",
+            "query": { "isModal": true }
+          }
+        },
+        "navigActionId": 17
       },
       {
         "type": "router/NAVIGATE_START",
         "newState": {
           "routeName": "app-router",
-          "params": { "title": "START TITLE | xxx | xxx" }
-        }
-      },
-      {
-        "type": "router/NAVIGATE_START",
-        "newState": {
-          "routeName": "app-router",
-          "params": { "title": "START TITLE | xxx | xxx | xxx" }
-        }
-      },
-      {
-        "type": "router/NAVIGATE_START",
-        "newState": {
-          "routeName": "app-router",
-          "params": { "title": "START TITLE | xxx | xxx" }
-        }
-      },
-      {
-        "type": "router/NAVIGATE_START",
-        "newState": {
-          "routeName": "app-router",
-          "params": { "title": "START TITLE | xxx" }
-        }
-      },
-      {
-        "type": "router/NAVIGATE_START",
-        "newState": {
-          "routeName": "app-router",
-          "params": { "title": "START TITLE" }
-        }
+          "params": {
+            "title": "START TITLE | xxx | mmm | xxx",
+            "query": { "isModal": true }
+          }
+        },
+        "navigActionId": 18
       }
     ],
     "startState": {
       "router": {
         "routeName": "app-router",
-        "params": { "title": "START TITLE" }
+        "params": { "title": "START TITLE | xxx" }
       },
       "login": {
         "logged": 1,
@@ -124,9 +126,20 @@
         "mode": 0,
         "forceUpdate": 0
       },
-      "blockGui": { "state": 0 }
+      "blockGui": { "state": 0 },
+      "drawer": {
+        "visible": false,
+        "toolbarTitle": ""
+      },
+      "connectTest": {
+        "name": "IN ",
+        "pars": {
+          "fromUrl": "IV ",
+          "state": ""
+        }
+      }
     },
-    "id": 1503683839909,
+    "id": 1505851428849,
     "checked": false,
     "active": false
   }

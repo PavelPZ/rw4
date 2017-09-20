@@ -50,7 +50,7 @@ import { ConnectTest, reducer as connectTestReducer } from './app-web/snack/conn
 import Animated from './app-web/snack/animated-transition'
 import AnimatedGsap from './app-web/snack/animated-gsap'
 import AnimatedGsapNew from './app-web/snack/animated-gsap-new'
-import { App1, app3Reducer } from './app-web/snack/router-new'
+import { App1, /*app3Reducer*/ } from './app-web/snack/router-new'
 
 //*********** spusteni
 export const init = async () => {
@@ -73,8 +73,8 @@ export const init = async () => {
       recordingPlatform: { guiSize: Recording.TGuiSize.icon },
       restAPIPlatform: { serviceUrl: 'rest-api.ashx' },
       routerPlatform: {
-        //startRoute: AppRouterComp.getRoute({ title: 'START TITLE | xxx' }),
-        startRoute: App1.getRoute({ title: 'from Index' }),
+        startRoute: AppRouterComp.getRoute({ title: 'START TITLE | xxx' }),
+        //startRoute: App1.getRoute({ title: 'from Index' }),
         history: createHistory() as Router.IHistory,
         rootUrl: '/web-app.html',
         animator: RouterAnimate
@@ -89,11 +89,10 @@ export const init = async () => {
   ])
 
   const reducers: App.IReducer = (st, action: any) => {
-    const state = app3Reducer(recordingGlobalReducer(st, action), action)
+    //const state = app3Reducer(recordingGlobalReducer(st, action), action)
+    const state = recordingGlobalReducer(st, action)
     return {
-      router: {
-        router: routerReducer(state.router.router, action)
-      },
+      router: routerReducer(state.router, action),
       login: loginReducer(state.login, action),
       mediaQuery: mediaQueryReducer(state.mediaQuery, action),
       loc: locReducer(state.loc, action),
@@ -106,7 +105,7 @@ export const init = async () => {
 
   const sagaMiddleware = createSagaMiddleware()
 
-  const store = window.lmGlobal.store = createStore<IState>(reducers, { router: {} }, applyMiddleware(sagaMiddleware, routerMiddleware, recordingMiddleware))
+  const store = window.lmGlobal.store = createStore<IState>(reducers, { }, applyMiddleware(sagaMiddleware, routerMiddleware, recordingMiddleware))
 
   const rootSaga = function* () {
     const rootRes = yield all({
@@ -167,8 +166,9 @@ export const init = async () => {
   const appNo = noRouteApp
 
   ReactDOM.render(
-    <AppRouter />
+    //<AppRouter />
     //<AppAll />
+    <div></div>
     //appNo
     , document.getElementById('content'))
 }

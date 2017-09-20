@@ -44,7 +44,7 @@ export const waitChildren = <div className={renderCSS({display:'flex', flex:1, j
   <h2>Loading...</h2>
 </div>
 
-export const doTween = (el: HTMLElement, secs: number, pars: GUI.ITweenParsEx) => {
+export const doTween_ = (el: HTMLElement, secs: number, pars: GUI.ITweenParsEx) => {
   return new Promise<boolean>(resolve => {
     const { cancel, tweenProc, ...rest } = pars
     let tween = (tweenProc || TweenLite.to)(el, secs, { ...rest, onComplete: () => { if (cancel) delete cancel.cancel; resolve(true) } })
@@ -56,4 +56,9 @@ export const doTween = (el: HTMLElement, secs: number, pars: GUI.ITweenParsEx) =
   })
 }
 
-
+export const doTween = (el: HTMLElement, secs: number, pars: GUI.ITweenParsEx) => {
+  return new Promise<boolean>(resolve => {
+    const { tweenProc, ...rest } = pars
+    let tween = (tweenProc || TweenLite.to)(el, secs, { ...rest, onComplete: () => resolve(true) })
+  })
+}

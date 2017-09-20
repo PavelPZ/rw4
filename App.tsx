@@ -10,7 +10,7 @@ import { Platform } from 'react-native';
 
 //********** COMMON
 import { WaitForRendering, promiseAll } from './app-common/lib/lib'
-import { reducer as routerReducer, middleware as routerMiddleware, init as initRouter } from './app-common/lib/router'
+import { reducer as routerReducer, middleware as routerMiddleware, init as initRouter, TAnimClass as RouterAnimate } from './app-common/lib/router'
 import { init as initRecording, reducer as recordingReducer, saga as recordingSaga, middleware as recordingMiddleware, globalReducer as recordingGlobalReducer, blockGuiReducer, blockGuiSaga } from './app-common/lib/recording'
 import { Provider as LocProvider, reducer as locReducer } from './app-common/lib/loc'
 
@@ -18,7 +18,7 @@ import { Provider as LocProvider, reducer as locReducer } from './app-common/lib
 import createHistory from 'history/createMemoryHistory'
 import { Provider as RootProvider, init as initRoot } from './app-native/lib/native-root-layers'
 import { AppLoading } from 'expo'
-import { recordingJSON } from './App_Data/recording'
+//import { recordingJSON } from './App_Data/recording'
 import { Icon } from './app-native/gui/icon'
 import { Button } from './app-native/gui/button'
 import { Content } from './app-native/gui/content'
@@ -60,30 +60,32 @@ export const init = async () => {
       loginPlatform: null,
       recordingPlatform: {
         guiSize: Recording.TGuiSize.icon,
-        recordingJSON
+        //recordingJSON
       },
       restAPIPlatform: { serviceUrl: 'http://localhost:3434/rest-api.ashx' }, //NEFUNGUJE
       routerPlatform: {
         startRoute: AppRouterComp.getRoute({ title: 'START TITLE | xxx' }),
         history: createHistory() as Router.IHistory,
         //computeState: (act, st) => Navigator.router.getStateForAction({ type: 'Navigation/NAVIGATE', routeName: act.params && act.params.query && act.params.query.isModal ? 'Modal' : 'Root', params: act } as NavigationNavigateAction, st),
-        rootUrl: '/web-app.html'
+        rootUrl: '/web-app.html',
+        animator: RouterAnimate
       },
       guiPlatform: { colorToStyle, Platform, Icon, Button, H1, H2, H3, View, Text, Content, Container, Header, Footer },
     }
   }
 
+  const recordingJSON = await require('./App_Data/recording.json')
+  //console.log('recordingJSON:\n', JSON.stringify(recordingJSON,null,2))
   await promiseAll([
-    initRecording(),
+    initRouter(),
+    initRecording(recordingJSON),
     initRoot(),
   ])
 
   const reducers: App.IReducer = (st, action: any) => {
     const state = recordingGlobalReducer(st, action)
     return {
-      router: {
-        router: routerReducer(state.router.router, action)
-      },
+      router: routerReducer(state.router, action),
       recording: recordingReducer(state.recording, action),
       blockGui: blockGuiReducer(state.blockGui, action),
       loc: locReducer(state.loc, action),
@@ -92,10 +94,9 @@ export const init = async () => {
 
   const sagaMiddleware = createSagaMiddleware()
 
-  const store = window.lmGlobal.store = createStore<IState>(reducers, { router: {} }, applyMiddleware(sagaMiddleware, routerMiddleware, recordingMiddleware))
+  const store = window.lmGlobal.store = createStore<IState>(reducers, {}, applyMiddleware(sagaMiddleware, routerMiddleware, recordingMiddleware))
 
-  await promiseAll([ 
-    initRouter(),
+  await promiseAll([
   ])
 
   const rootSaga = function* () {
@@ -107,8 +108,8 @@ export const init = async () => {
 
   sagaMiddleware.run(rootSaga)
 
-  //const App = RootProvider
-  const App = AppComp
+  const App = RootProvider
+  //const App = AppComp
 
   const appAll = <ReduxProvider store={store}>
     <LocProvider>
@@ -117,7 +118,7 @@ export const init = async () => {
       </Theme>
     </LocProvider>
   </ReduxProvider>
-   
+
   return new Promise<JSX.Element>(resolve => resolve(appAll))
 }
 

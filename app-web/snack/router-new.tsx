@@ -8,7 +8,7 @@ interface IRoutePar extends AppRouter.IRoutePar {
 }
 
 //cannot prevent re-render during ROUTER animation
-const app1: React.SFC<IRoutePar> = props => <div ref={props.onRef}>
+const app1: React.SFC<IRoutePar> = props => <div ref={props.refForAnimation}>
   <h1>APP 1 {props.title}: {renderCounter1++}</h1>
   <div onClick={() => App2.navigate({title:'from app1'})}>GOTO APP 2</div>
   <div onClick={() => App3.navigate({ title: 'from app1'})}>GOTO APP 3</div>
@@ -19,7 +19,7 @@ let renderCounter1 = 0
 //shouldComponentUpdate with shallowEqual prevents re-render during ROUTER animation
 class app2 extends React.Component<IRoutePar> {
   render() {
-    return <div ref={this.props.onRef}>
+    return <div ref={this.props.refForAnimation}>
       <h1>APP 2 {this.props.title}: {renderCounter2++}</h1>
       <div onClick={() => App1.navigate({ title: 'from app2'})}>GOTO APP 1</div>
       <div onClick={() => App3.navigate({ title: 'from app2'})}>GOTO APP 3</div>
@@ -36,7 +36,7 @@ let renderCounter2 = 0
 //clasic REDUX prevents re-render during ROUTER animation
 class _app3 extends React.Component<IRoutePar & { click, fromConnect}> {
   render() {
-    return <div ref={this.props.onRef}>
+    return <div ref={this.props.refForAnimation}>
       <h1>APP 3 {this.props.title + ' ' + this.props.fromConnect}: {renderCounter3++}</h1>
       <div onClick={() => App1.navigate({ title: 'from app3'})}>GOTO APP 1</div>
       <div onClick={() => App2.navigate({ title: 'from app3'})}>GOTO APP 2</div>

@@ -9,7 +9,7 @@
 
   interface IRoutePar {
     query?: { isModal?: boolean }
-    onRef?: (root: HTMLDivElement) => void //for ROUTER animation - callback when animated HTML element is ready
+    refForAnimation?: (root: HTMLDivElement) => void //for ROUTER animation - callback when animated HTML element is ready
   }
 
   type IRouterProviderProps = IState 
@@ -88,9 +88,7 @@
 }
 
 interface IState {
-  router: {
-    router?: Router.IState
-  }
+  router?: Router.IState
 }
 
 interface IPlatforms {
