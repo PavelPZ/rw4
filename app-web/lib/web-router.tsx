@@ -1,26 +1,10 @@
 ﻿import React from 'react'
-import { doTween } from '../gui/lib'
+import { TweensPromise } from '../gui/lib'
 
-export class Animate implements Router.IRouterAnimate {
-  constructor(private div: HTMLElement, private display: boolean) { }
-  async animate() {
-    const tweenTime = 0.15
-    const animProps = { opacity: 0.05 }
-
-    const { div, display } = this
-
-    if (!display) await doTween(div, tweenTime, { ...animProps, ease: Power0.easeIn, cancel: this.onCancel, })
-
-    if (display) await doTween(div, tweenTime, { ...animProps, ease: Power0.easeOut, cancel: this.onCancel, tweenProc: TweenLite.from })
-  }
-  cancel() {
-    const { cancel: doCancel } = this.onCancel
-    if (doCancel) doCancel()
-  }
-
-  onCancel: GUI.ITweenCancel = {}
-
-  static renderRouter(nodes: JSX.Element[]): JSX.Element {
-    return <div>{nodes}</div>
+class PageTransitionTweensPromise extends TweensPromise {
+  pageTransition(div: HTMLElement, display: boolean): TweensPromise {
+    return this.animate(div, 0.15, { opacity: 0.05, ease: display ? Power0.easeIn : Power0.easeOut, tweenProc: display ? TweenLite.to : TweenLite.from })
   }
 }
+
+export const getAnimator = (div: HTMLElement, display: boolean) => new PageTransitionTweensPromise().pageTransition(div, display)

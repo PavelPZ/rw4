@@ -1,6 +1,7 @@
 ﻿import React from 'react'
 import { PlatformStatic } from 'react-native';
 import { renderCSS } from '../lib/fela';
+import { PromiseExtensible } from '../../app-common/lib/lib';
 
 export const H1: React.SFC<{}> = props => <h1 {...props} />
 export const H2: React.SFC<{}> = props => <h2 {...props} />
@@ -44,21 +45,33 @@ export const waitChildren = <div className={renderCSS({display:'flex', flex:1, j
   <h2>Loading...</h2>
 </div>
 
-export const doTween_ = (el: HTMLElement, secs: number, pars: GUI.ITweenParsEx) => {
-  return new Promise<boolean>(resolve => {
-    const { cancel, tweenProc, ...rest } = pars
-    let tween = (tweenProc || TweenLite.to)(el, secs, { ...rest, onComplete: () => { if (cancel) delete cancel.cancel; resolve(true) } })
-    if (cancel) cancel.cancel = () => {
-      tween.progress(1, true)
-      delete cancel.cancel
-      resolve(false)
-    }
-  })
+export class TweensPromise extends PromiseExtensible<void> {
+
+  animate(el: HTMLElement, secs: number, pars: GUI.ITweenParsEx): TweensPromise {
+    if (this.state) return this
+    const { tweenProc, ...rest } = pars
+    this.tw = (tweenProc || TweenLite.to)(el, secs, { ...rest, onComplete: () => { delete this.tw; if (this.state) return; this.resolve() } })
+    return this
+  }
+
+  abort(msg?) {
+    if (this.tw) this.tw.progress(1, true)
+    delete this.tw
+    if (this.state) return this
+    return this.abort(msg)
+  }
+  tw: gsap.TweenLite
 }
 
-export const doTween = (el: HTMLElement, secs: number, pars: GUI.ITweenParsEx) => {
-  return new Promise<boolean>(resolve => {
-    const { tweenProc, ...rest } = pars
-    let tween = (tweenProc || TweenLite.to)(el, secs, { ...rest, onComplete: () => resolve(true) })
-  })
-}
+//export const doTween = (el: HTMLElement, secs: number, pars: GUI.ITweenParsEx) => {
+//  return new Promise<boolean>(resolve => {
+//    const { cancel, tweenProc, ...rest } = pars
+//    let tween = (tweenProc || TweenLite.to)(el, secs, { ...rest, onComplete: () => { if (cancel) delete cancel.cancel; resolve(true) } })
+//    if (cancel) cancel.cancel = () => {
+//      tween.progress(1, true)
+//      delete cancel.cancel
+//      resolve(false)
+//    }
+//  })
+//}
+

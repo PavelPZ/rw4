@@ -75,13 +75,28 @@ declare const enum PromiseStates {
   timeouted = 'pr/timeouted',
 }
 
-interface Promise<T> {
-  timeout(msec:number, handler?:() => void): this
-  onAbort(handler: () => void): this
-  abort(message?:string): this
-  state: PromiseStates
+interface IPromiseExtensibleConstructor {
+  new <T = void>(executor: (resolve: (value?: T | PromiseLike<T>) => void, reject: (reason?: any) => void) => void): Promise<T>
 }
 
-interface PromiseConstructorEx {
-  new <T>(executor: (resolve: (value?: T | PromiseLike<T>) => void, reject: (reason?: any) => void) => void): Promise<T | PromiseResults>;
+interface IPromiseExtensible<T = void> {
+  then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T | PromiseResults) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): IPromiseExtensible<TResult1 | TResult2 | PromiseResults>
+  catch(msg)
+  onAbort(handler: () => void): IPromiseExtensible<T | PromiseResults>
+  abort(msg?): IPromiseExtensible<T | PromiseResults> 
+  timeout(time: number, func?: () => void): IPromiseExtensible<T | PromiseResults>
 }
+
+
+//interface Promise<T> {
+//  timeout(msec:number, handler?:() => void): this
+//  onAbort(handler: () => void): this
+//  abort(message?:string): this
+//  state: PromiseStates
+//}
+
+//interface PromiseConstructorEx {
+//  new <T>(executor: (resolve: (value?: T | PromiseLike<T>) => void, reject: (reason?: any) => void) => void): Promise<T | PromiseResults>;
+//}
+
+//type PromiseDesignTime = Promise<any> & { resolve: (res) => void; reject: (msg) => void; __proto__; abortHandler: () => void; _timer: number }

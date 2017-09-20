@@ -35,24 +35,26 @@ class provider extends React.PureComponent<Router.IRouterProviderProps> {
     const props = this.props
     if (!props || !props.routeName) return null
 
-    if (animateOut) { animateOut.cancel(); animateOut = null }
-    if (animateIn) { animateIn.cancel(); animateIn = null }
-    
+    if (animateOut) animateOut.abort() 
+    if (animateIn) animateIn.abort() 
+    animateOut = null; animateIn = null; startAnimateOut = null
+
     const { params } = props
     const Route = routes[props.routeName] as React.ComponentClass<Router.IRoutePar>
-    const TAnimClass = window.lmGlobal.platform.routerPlatform.animator
+    const { getAnimator } = window.lmGlobal.platform.routerPlatform
 
     return <Route key={routeCount++} {...params} refForAnimation={async div => {
       if (!div) return
-      animateOut = new TAnimClass(div, false)
-      animateIn = new TAnimClass(div, true)
-      await animateIn.animate()
+      startAnimateOut = () => animateOut = getAnimator(div, true)
+      animateIn = getAnimator(div, false)
+      await animateIn
     }} />
   }
 }
 let routeCount = 0
-let animateOut: Router.IRouterAnimate
-let animateIn: Router.IRouterAnimate
+let startAnimateOut: () => IPromiseExtensible
+let animateOut: IPromiseExtensible
+let animateIn: IPromiseExtensible
 
 //export class route<T extends Router.IRoutePar = Router.IRoutePar> extends React.PureComponent<T> {
 //  shouldComponentUpdate(nextProps, nextState, nextContext): boolean {
@@ -87,7 +89,7 @@ let animateIn: Router.IRouterAnimate
 //      animState = TRenderState.animEnd
 //    }
 //    state.lastRouterState = props
-    
+
 //    switch (animState) {
 //      case TRenderState.first:
 //        return TAnimClass.renderRouter([renderRoute(props, null)])
@@ -122,14 +124,14 @@ let animateIn: Router.IRouterAnimate
 //  animEnd, //normalni zakonceni animace
 //}
 
-class Animate implements Router.IRouterAnimate {
-  constructor(private div: HTMLElement, private display: boolean) {
-  }
-  animate():Promise<void> { return new Promise<void>(resolve => this.timer = setTimeout(resolve, 100)) }
-  cancel() { clearTimeout(this.timer) }
-  timer
-}
-export const TAnimClass: Router.IRouterAnimateClass = Animate
+//class Animate implements Router.IRouterAnimate {
+//  constructor(private div: HTMLElement, private display: boolean) {
+//  }
+//  animate(): Promise<void> { return new Promise<void>(resolve => this.timer = setTimeout(resolve, 100)) }
+//  cancel() { clearTimeout(this.timer) }
+//  timer
+//}
+//export const TAnimClass: Router.IRouterAnimator = Animate
 
 
 export const Provider = providerConnector(provider)
@@ -229,7 +231,7 @@ export const middleware: Middleware<IState> = middlAPI => next => a => {
     beforeUnload = null;
     if (router.beforeLoad) beforeUnload = await router.beforeLoad(newState.params)
     if (navigateEnd.navigActionId != navigActionId - 1) return
-    if (animateOut) await animateOut.animate()
+    if (startAnimateOut) await startAnimateOut()
     middlAPI.dispatch(navigateEnd)
   }
   asyncRoute()

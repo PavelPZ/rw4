@@ -73,14 +73,10 @@
     rootUrl?: string //html stranka s aplikaci
     history: Router.IHistory
     backHandler?: () => boolean
-    animator: IRouterAnimateClass
+    getAnimator?: (div: HTMLElement, display: boolean) => IPromiseExtensible<void>
   }
 
-  interface IRouterAnimate {
-    animate(): Promise<void>
-    cancel()
-  }
-  interface IRouterAnimateClass {
+  interface IRouterAnimator {
     new(div: HTMLElement, display:boolean)
   }
 

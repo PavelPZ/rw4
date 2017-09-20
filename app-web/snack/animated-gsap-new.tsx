@@ -1,6 +1,6 @@
 ﻿//BEST: demo krivek, donwload apod.  https://greensock.com/get-started-js a common lightweight choice is TweenLite, CSSPlugin, and EasePack
 import React from 'react'
-import { doTween } from '../gui/lib'
+//import { doTween } from '../gui/lib'
 
 const Root: React.SFC<any> = props => {
   let router: Router

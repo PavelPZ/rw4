@@ -61,61 +61,54 @@ export const shallowEqual = (objA, objB) => {
   return true
 }
 
-//********* PROMISE EX
-//https://gist.github.com/domenic/8ed6048b187ee8f2ec75
-//https://github.com/promises-aplus/cancellation-spec/issues/6
-
-function promiseEx(executor: (resolve, reject) => Promise<any>) { //constructor: save and modify resolve x reject
-  let resolve, reject
-  let selfPlace: { self?: promiseEx } = { }
-  const self = selfPlace.self = new Promise((res, rej) => {
-    resolve = r => { selfPlace.self.state = PromiseStates.resolved; return res(r) }
-    reject = r => { selfPlace.self.state = PromiseStates.rejected; return rej(r) }
-    return executor(resolve, reject)
-  }) as any
-  self.__proto__ = promiseEx.prototype
-  self.resolve = resolve
-  self.reject = reject
-  return self
+export class PromiseExtensible<T = void> implements IPromiseExtensible<T> {
+  constructor(executor?: (resolve: (value?: T | PromiseLike<T> | PromiseResults) => void, reject: (reason?: any) => void) => void) {
+    //window == null && super(executor)
+    this.promise = new Promise<T | PromiseResults>((resolve, reject) => {
+      this.resolve = r => { if (this.state) return; this.state = PromiseStates.resolved; resolve(r) }
+      this.reject = r => { if (this.state) return; this.state = PromiseStates.rejected; reject(r) }
+      if (executor) return executor(this.resolve, this.reject)
+    })
+  }
+  then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T | PromiseResults) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): PromiseExtensible<TResult1 | TResult2 | PromiseResults> {
+    this.promise.then(onfulfilled, onrejected)
+    return this as any
+  }
+  catch(msg) { this.promise.catch(msg); return this }
+  promise: Promise<any>
+  state: PromiseStates
+  resolve: (res?: T | PromiseLike<T> | PromiseResults) => void
+  reject: (reason?: any) => void
+  abortHandler: () => void
+  onAbort(handler: () => void): PromiseExtensible<T | PromiseResults> {
+    this.abortHandler = handler
+    return this
+  }
+  abort(msg?): PromiseExtensible<T | PromiseResults> {
+    if (this.state) return this
+    this.state = PromiseStates.aborted
+    if (this.abortHandler) this.abortHandler()
+    this.resolve(msg as any || PromiseResults.abort)
+    return this
+  }
+  timeout(time: number, func?: () => void): PromiseExtensible<T | PromiseResults> {
+    if (this.state) return this
+    this._timer = setTimeout(() => {
+      if (this.state) return
+      this.state = PromiseStates.timeouted
+      if (func) func()
+      this.resolve(PromiseResults.timeout)
+    }, time);
+    return this;
+  }
+  _timer:number
 }
-promiseEx.prototype.__proto__ = Promise.prototype
-
-//extension methods
-promiseEx.prototype['abort'] = function (this: promiseEx, msg) {
-  if (this.state) return this
-  this.state = PromiseStates.aborted
-  if (this.abortHandler) this.abortHandler()
-  this.resolve(msg || PromiseResults.abort)
-  return this
-}
-promiseEx.prototype['onAbort'] = function (this: promiseEx, handler) {
-  this.abortHandler = handler
-  return this
-}
-promiseEx.prototype['timeout'] = function (this: promiseEx, time: number, func?: () => void) {
-  if (this.state) return this
-  this._timer = setTimeout(() => {
-    if (this.state) return
-    this.state = PromiseStates.timeouted
-    if (func) func()
-    this.resolve(PromiseResults.timeout)
-  }, time);
-  return this;
-}
-type promiseEx = Promise<any> & { resolve: (res) => void; reject: (msg) => void; __proto__; abortHandler: () => void; _timer: number }
-
-export const PromiseEx: PromiseConstructorEx = promiseEx as any
-
-//TEST dalsiho ancestora
-function promiseExEx(executor: (resolve, reject) => Promise<any>) { const p: any = new PromiseEx(executor); p.__proto__ = promiseExEx.prototype; return p } promiseExEx.prototype.__proto__ = PromiseEx.prototype
-promiseExEx.prototype['abort'] = function (this: promiseEx, msg) { PromiseEx.prototype.abort.call(this, 'promiseExEx abort') }
-export const PromiseExEx: PromiseConstructor = promiseExEx as any
 
 const testPromiseEx = () => {
   const call3 = async () => {
     //promise = new PromiseExEx<string>(resolve => setTimeout(() => resolve('on resolve'), 1000)).onAbort(() => alert('on abort')).timeout(500, () => alert('on timeout'))
-    const promise = new PromiseEx<number>(resolve => setTimeout(() => resolve(999), 1000)).onAbort(() => alert('on abort')).timeout(500, () => alert('on timeout'))
-    setTimeout(() => promise.abort(), 300)
+    const promise: IPromiseExtensible<number> = new PromiseExtensible<number>(resolve => setTimeout(() => resolve(123), 1000)).onAbort(() => alert('on abort')).timeout(5000, () => alert('on timeout'))
+    setTimeout(() => promise.abort(), 3000)
     const res = await promise
     switch (res) {
       case PromiseResults.abort:
@@ -126,7 +119,10 @@ const testPromiseEx = () => {
         alert(res)
         break
     }
+    const PR = new PromiseExtensible<string>(res => setTimeout(() => res('Hallo'), 1000)).then(r => alert(r)).timeout(5000)
+    setTimeout(() => PR.abort(), 2000)
+    const res2 = await PR
   }
   call3()
 }
-testPromiseEx()
+//testPromiseEx()
