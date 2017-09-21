@@ -18,6 +18,7 @@ class appRouterComp extends React.PureComponent<AppRouter.IRoutePar> {
     const props = this.props
     const { children, refForAnimation, ...par } = props
     const isModal = props.query && props.query.isModal
+    //console.log('appRouterComp')
     return <AnimationRoot refForAnimation={refForAnimation}>
       <Container testID='xxxxx' style={{ flex: 1 }}>
         <Header>

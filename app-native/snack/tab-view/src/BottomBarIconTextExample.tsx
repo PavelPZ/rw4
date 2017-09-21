@@ -40,7 +40,7 @@ export default class TopBarIconExample extends PureComponent<any, State> {
 
     return (
       <Animated.View
-        style={[styles.container, { width, transform: [{ translateX }] }]}
+        style={[styles.container, { width, transform: [{ translateX }] } as any]}
       >
         <View style={styles.indicator} />
       </Animated.View>

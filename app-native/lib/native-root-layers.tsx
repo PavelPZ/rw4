@@ -16,18 +16,13 @@ import { PromiseExtensible } from '../../app-common/lib/lib'
 import { providerConnector as recordingProviderConnector, blockGuiConnector } from '../../app-common/lib/recording'
 
 //import { addNavigationHelpers, DrawerNavigator, StackNavigator } from 'react-navigation'
-import { LayoutAnimation, NativeModules, BackHandler, Platform } from "react-native";
+import { /*LayoutAnimation, NativeModules,*/ BackHandler, Platform, Animated } from "react-native";
 import { connectStyle } from 'native-base-shoutem-theme'
 import mapPropsToStyleNames from 'native-base/src/Utils/mapPropsToStyleNames'
 import { ToastContainer as Toast } from 'native-base/src/basic/ToastContainer'
 import { ActionSheetContainer as ActionSheet } from 'native-base/src/basic/Actionsheet'
 import { Font, Asset, Constants } from 'expo'
 import { View, Fab, Container, Content, Header, Footer, Left, Body, Right, Text, Button, Title, Subtitle, Icon } from 'native-base';
-
-
-export const getAnimator = (div: WebNativeCommon.TRouterAnimRoot, display: boolean) => new PromiseExtensible(resolve => resolve())
-
-export const AnimationRoot: React.ComponentType<Router.TRefForAnimation> = props => <View>{props.children}</View>
 
 //COMMON
 
@@ -77,13 +72,14 @@ const recorderButton: React.SFC<Recording.IProps> = props => {
 const RecorderButton = recordingProviderConnector(recorderButton)
 
 //init LayoutAnimation
-const { UIManager } = NativeModules
-UIManager.setLayoutAnimationEnabledExperimental && UIManager.setLayoutAnimationEnabledExperimental(true)
+//const { UIManager } = NativeModules
+//UIManager.setLayoutAnimationEnabledExperimental && UIManager.setLayoutAnimationEnabledExperimental(true)
 
 
 //*** ROOT LAYERS PROVIDER
 export const Provider: React.SFC<{}> = props => <View style={{ flex: 1, marginTop: Constants.statusBarHeight }}>
-  <RouterProvider ref={routerProvider => {
+  <RouterProvider />
+  {/*ref={routerProvider => {
     //PATCH routerProvider.setState
     //console.log('RouterProvider ')
     const oldSetState = routerProvider.setState
@@ -93,7 +89,7 @@ export const Provider: React.SFC<{}> = props => <View style={{ flex: 1, marginTo
       LayoutAnimation.configureNext(animConfig)
       oldSetState.call(routerProvider, ...args)
     })
-  }} />
+  }} />*/}
   <BlockGuiComp zIndex={blockGuiZindex} />
   <RecorderButton />
   <Toast ref={c => { if (!Toast.toastInstance) Toast.toastInstance = c }} />
@@ -101,7 +97,7 @@ export const Provider: React.SFC<{}> = props => <View style={{ flex: 1, marginTo
 </View>
 
 //https://github.com/facebook/react-native/blob/master/Libraries/LayoutAnimation/LayoutAnimation.js
-const animConfig = { duration: 200, create: { type: LayoutAnimation.Types.easeOut, property: LayoutAnimation.Properties.opacity, } }
+//const animConfig = { duration: 200, create: { type: LayoutAnimation.Types.easeOut, property: LayoutAnimation.Properties.opacity, } }
 
 //export const Provider = connectStyle("NativeBase.Root", {}, mapPropsToStyleNames)(provider);
 
@@ -224,3 +220,42 @@ const FooterProvider = footerConnector(footerProvider)
 //  content: { flex: 1 } as ViewStyle,
 //  footer: { justifyContent: 'space-between', flexDirection: 'row' } as ViewStyle,
 //}
+
+//**** ANIMATE
+class TweensPromise extends PromiseExtensible<void> {
+
+  pageTransition(value: Animated.Value, display: boolean): TweensPromise {
+    if (this.state) return this
+    this.value = value
+    value.setValue(display ? 1 : 0.05)
+    const tw = Animated.timing(value, {
+      duration: 125,
+      toValue: display ? 0.05 : 1
+    })
+    value.addListener(v => console.log(v))
+    tw.start(res => {
+      this.resolve()
+      delete this.value
+    });
+
+    return this
+  }
+
+  abort(msg?) {
+    if (this.value) this.value.stopAnimation()
+    delete this.value
+    if (this.state) return this
+    return this.abort(msg)
+  }
+  value: Animated.Value
+}
+
+
+
+export const getAnimator = (animValue: WebNativeCommon.TRouterAnimRoot, display: boolean) => new TweensPromise().pageTransition(animValue, display)
+
+export class AnimationRoot extends React.PureComponent<Router.TRefForAnimation> {
+  value = new Animated.Value(1)
+  componentDidMount() { this.props.refForAnimation(this.value) }
+  render() { return <Animated.View style={{ flex: 1, opacity: this.value as any }}>{this.props.children}</Animated.View> }
+}

@@ -1,3 +1,3 @@
 ﻿declare module WebNativeCommon {
-  type TRouterAnimRoot = ReactNative.View
+  type TRouterAnimRoot = ReactNative.Animated.Value
 }

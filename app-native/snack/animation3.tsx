@@ -83,7 +83,7 @@ export default class AnimatedButtonPress extends React.PureComponent {
     return <View style={styles.container}>
       <TouchableWithoutFeedback onPressIn={() => th.handlePressIn()} onPressOut={() => th.handlePressOut()} >
         <View style={styles.button} onLayout={e => th.getButtonWidthLayout(e)}>
-          <Animated.View style={[styles.bgFill, th.getProgressStyles()]} />
+          <Animated.View style={[styles.bgFill, th.getProgressStyles() as any]} />
           <Text style={styles.text}>Press And Hold Me</Text>
         </View>
       </TouchableWithoutFeedback>

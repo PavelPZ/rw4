@@ -133,7 +133,9 @@ export const middleware: Middleware<IState> = middlAPI => next => a => {
     beforeUnload = null;
     if (router.beforeLoad) beforeUnload = await router.beforeLoad(newState.params)
     if (navigateEnd.navigActionId != navigActionId - 1) return
+    //console.log('before startAnimateOut')
     if (startAnimateOut) await startAnimateOut()
+    //console.log('after startAnimateOut')
     middlAPI.dispatch(navigateEnd)
   }
   asyncRoute()
