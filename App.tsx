@@ -10,13 +10,13 @@ import { Platform } from 'react-native';
 
 //********** COMMON
 import { WaitForRendering, promiseAll } from './app-common/lib/lib'
-import { reducer as routerReducer, middleware as routerMiddleware, init as initRouter, TAnimClass as RouterAnimate } from './app-common/lib/router'
+import { reducer as routerReducer, middleware as routerMiddleware, init as initRouter } from './app-common/lib/router'
 import { init as initRecording, reducer as recordingReducer, saga as recordingSaga, middleware as recordingMiddleware, globalReducer as recordingGlobalReducer, blockGuiReducer, blockGuiSaga } from './app-common/lib/recording'
 import { Provider as LocProvider, reducer as locReducer } from './app-common/lib/loc'
 
 //********** NATIVE specific
 import createHistory from 'history/createMemoryHistory'
-import { Provider as RootProvider, init as initRoot } from './app-native/lib/native-root-layers'
+import { Provider as RootProvider, init as initRoot, getAnimator as getRouteAnimator, AnimationRoot } from './app-native/lib/native-root-layers'
 import { AppLoading } from 'expo'
 //import { recordingJSON } from './App_Data/recording'
 import { Icon } from './app-native/gui/icon'
@@ -68,9 +68,9 @@ export const init = async () => {
         history: createHistory() as Router.IHistory,
         //computeState: (act, st) => Navigator.router.getStateForAction({ type: 'Navigation/NAVIGATE', routeName: act.params && act.params.query && act.params.query.isModal ? 'Modal' : 'Root', params: act } as NavigationNavigateAction, st),
         rootUrl: '/web-app.html',
-        animator: RouterAnimate
+        getAnimator: getRouteAnimator,
       },
-      guiPlatform: { colorToStyle, Platform, Icon, Button, H1, H2, H3, View, Text, Content, Container, Header, Footer },
+      guiPlatform: { colorToStyle, Platform, Icon, Button, H1, H2, H3, View, Text, Content, Container, Header, Footer, AnimationRoot },
     }
   }
 

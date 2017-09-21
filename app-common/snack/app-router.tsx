@@ -1,5 +1,5 @@
 ﻿import React from 'react'
-import { Container, Header, Content, Text, Button, H2, View } from '../gui/gui'
+import { Container, Header, Content, Text, Button, H2, View, AnimationRoot } from '../gui/gui'
 import { registerRouter } from '../lib/router'
 import { isLogged, createLoginButton } from '../lib/login'
 import { storeContextType } from '../lib/lib'
@@ -18,7 +18,7 @@ class appRouterComp extends React.PureComponent<AppRouter.IRoutePar> {
     const props = this.props
     const { children, refForAnimation, ...par } = props
     const isModal = props.query && props.query.isModal
-    return <div ref={root => refForAnimation(root)}>
+    return <AnimationRoot refForAnimation={refForAnimation}>
       <Container testID='xxxxx' style={{ flex: 1 }}>
         <Header>
           {isModal ? <View></View> : <View></View>}
@@ -32,7 +32,7 @@ class appRouterComp extends React.PureComponent<AppRouter.IRoutePar> {
           {window.lmGlobal.isNative ? null : <LoginButton key={5} tabIndex={2} />}
         </Content>
       </Container>
-    </div>
+    </AnimationRoot>
   }
 
 }

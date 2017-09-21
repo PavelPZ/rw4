@@ -29,7 +29,7 @@ import { platform as loginPlatform, Provider as LoginProvider, } from './app-web
 import { init as initMediaQuery } from './app-web/lib/web-media-query'
 import { Provider as RecordingProvider, BlockGuiComp } from './app-web/lib/web-recording'
 import { Provider as DrawerProvider } from './app-web/lib/web-drawer'
-import { getAnimator as getRouteAnimator } from './app-web/lib/web-router'
+import { getAnimator as getRouteAnimator, AnimationRoot } from './app-web/lib/web-router'
 import { Button } from './app-web/gui/button'
 import { Icon } from './app-web/gui/icon'
 import { View, Container, Header, Footer, Content } from './app-web/gui/view'
@@ -77,9 +77,9 @@ export const init = async () => {
         //startRoute: App1.getRoute({ title: 'from Index' }),
         history: createHistory() as Router.IHistory,
         rootUrl: '/web-app.html',
-        getAnimator: getRouteAnimator
+        getAnimator: getRouteAnimator,
       },
-      guiPlatform: { Platform, colorToStyle, Button, Icon, H1, H2, H3, View, Container, Header, Footer, Content, Text }
+      guiPlatform: { Platform, colorToStyle, Button, Icon, H1, H2, H3, View, Container, Header, Footer, Content, Text, AnimationRoot }
     }
   }
 

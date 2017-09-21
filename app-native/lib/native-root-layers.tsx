@@ -12,6 +12,7 @@ import { connect } from 'react-redux'
 
 import { Provider as RouterProvider, goBack, canGoBack } from '../../app-common/lib/router'
 import { footerConnector } from '../../app-common/gui/gui'
+import { PromiseExtensible } from '../../app-common/lib/lib'
 import { providerConnector as recordingProviderConnector, blockGuiConnector } from '../../app-common/lib/recording'
 
 //import { addNavigationHelpers, DrawerNavigator, StackNavigator } from 'react-navigation'
@@ -22,6 +23,11 @@ import { ToastContainer as Toast } from 'native-base/src/basic/ToastContainer'
 import { ActionSheetContainer as ActionSheet } from 'native-base/src/basic/Actionsheet'
 import { Font, Asset, Constants } from 'expo'
 import { View, Fab, Container, Content, Header, Footer, Left, Body, Right, Text, Button, Title, Subtitle, Icon } from 'native-base';
+
+
+export const getAnimator = (div: WebNativeCommon.TRouterAnimRoot, display: boolean) => new PromiseExtensible(resolve => resolve())
+
+export const AnimationRoot: React.ComponentType<Router.TRefForAnimation> = props => <View>{props.children}</View>
 
 //COMMON
 

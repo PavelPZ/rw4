@@ -12,6 +12,7 @@
     Header: React.ComponentType<NativeBase.View>
     Footer: React.ComponentType<NativeBase.View>
     Content: React.ComponentType<NativeBase.View>
+    AnimationRoot: React.ComponentType<Router.TRefForAnimation>
     colorToStyle: { [color: string]: string }
     Platform: ReactNative.PlatformStatic
   }

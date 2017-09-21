@@ -1,4 +1,18 @@
-﻿//********* PROMISE EX
+﻿/*
+LM
+D:\rw\rw4\node_modules\@types\react-redux\index.d.ts
+https://github.com/reactjs/react-redux/blob/master/docs/api.md
+    areStatesEqual?: (olsState, newState) => boolean
+    areStatePropsEqual?: (olsState, newState) => boolean
+    areOwnPropsEqual?: (olsState, newState) => boolean
+*/
+//export const areStateWithoutOnRefEqual = (st1, st2) => {
+//  const {onRef: ign1, ...st1: st1OK} = st1
+//  const {onRef: ign2, ...st2: st2OK} = st2
+//  return shallowEqual(st1OK, st2OK)
+//}
+
+//********* PROMISE EX
 //https://gist.github.com/domenic/8ed6048b187ee8f2ec75
 //https://github.com/promises-aplus/cancellation-spec/issues/6
 

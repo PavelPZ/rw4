@@ -9,8 +9,9 @@
 
   interface IRoutePar {
     query?: { isModal?: boolean }
-    refForAnimation?: (root: HTMLDivElement) => void //for ROUTER animation - callback when animated HTML element is ready
+    refForAnimation?: (root: WebNativeCommon.TRouterAnimRoot) => void //for ROUTER animation - callback when animated HTML element is ready
   }
+  type TRefForAnimation = { refForAnimation?: (root: WebNativeCommon.TRouterAnimRoot) => void }
 
   type IRouterProviderProps = IState 
 
@@ -73,9 +74,9 @@
     rootUrl?: string //html stranka s aplikaci
     history: Router.IHistory
     backHandler?: () => boolean
-    getAnimator?: (div: HTMLElement, display: boolean) => IPromiseExtensible<void>
+    getAnimator?: (div: WebNativeCommon.TRouterAnimRoot, display: boolean) => IPromiseExtensible<void>
   }
-
+  
   interface IRouterAnimator {
     new(div: HTMLElement, display:boolean)
   }

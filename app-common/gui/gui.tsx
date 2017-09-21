@@ -15,6 +15,7 @@ export const Container: React.SFC<ReactNative.ViewProperties & {ref?}> = props =
 export const Content: React.SFC<ReactNative.ViewProperties> = props => { const C = pl().Content; return <C {...props} /> }
 export const Header: React.SFC<ReactNative.ViewProperties> = props => { const C = pl().Header; return <C {...props} /> }
 export const Footer: React.SFC<ReactNative.ViewProperties> = props => { const C = pl().Footer; return <C {...props} /> }
+export const AnimationRoot: React.SFC<Router.TRefForAnimation> = props => { const C = pl().AnimationRoot; return <C {...props} /> }
 
 export * from './colors'
 

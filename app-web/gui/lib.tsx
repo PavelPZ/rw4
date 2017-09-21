@@ -63,15 +63,4 @@ export class TweensPromise extends PromiseExtensible<void> {
   tw: gsap.TweenLite
 }
 
-//export const doTween = (el: HTMLElement, secs: number, pars: GUI.ITweenParsEx) => {
-//  return new Promise<boolean>(resolve => {
-//    const { cancel, tweenProc, ...rest } = pars
-//    let tween = (tweenProc || TweenLite.to)(el, secs, { ...rest, onComplete: () => { if (cancel) delete cancel.cancel; resolve(true) } })
-//    if (cancel) cancel.cancel = () => {
-//      tween.progress(1, true)
-//      delete cancel.cancel
-//      resolve(false)
-//    }
-//  })
-//}
 

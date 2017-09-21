@@ -69,26 +69,7 @@ class Router extends React.PureComponent<{ initPar: { par: number } }> {
     return { actKey, contents: [...contents] }
   }
 
-  //async setContent(content: IGetContent) {
-  //  const { content: { cancel }, content: { cancel: newCancel } } = this.cancel
-  //  if (cancel || newCancel) {
-  //    if (cancel) cancel()
-  //    if (newCancel) newCancel()
-  //    this.setState({ content, newContent: null })
-  //    return
-  //  }
-  //  //render both pages and wait for HTML Elements
-  //  this.setState({ content: this.state.content, newContent: content })
-  //  const divNew = await this.state.newContent.waitFor
-  //  const oldDisplay = divNew.style.display
-  //  divNew.style.display = 'none'
-  //  const divContent = await this.state.content.waitFor
-  //  //hide old and show new
-  //  await doTween(divContent, Router.tweenTime, { ...Router.animProps, ease: Power0.easeIn, cancel: this.cancel.content, })
-  //  this.setState({ content: content, newContent: null })
-  //  divNew.style.display = oldDisplay
-  //  await doTween(divNew, Router.tweenTime, { ...Router.animProps, ease: Power0.easeOut, cancel: this.cancel.newContent, tweenProc: TweenLite.from })
-  //}
+ 
 }
 
 class Animate {
