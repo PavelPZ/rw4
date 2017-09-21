@@ -20,11 +20,11 @@ class appRouterComp extends React.PureComponent<AppRouter.IRoutePar> {
     const isModal = props.query && props.query.isModal
     //console.log('appRouterComp')
     return <AnimationRoot refForAnimation={refForAnimation}>
-      <Container testID='xxxxx' style={{ flex: 1 }}>
-        <Header>
+      <Container style={{ flex: 1 }}>
+        <Header key={1}>
           {isModal ? <View></View> : <View></View>}
         </Header>
-        <Content>
+        <Content key={2}>
           <H2>{props.title}</H2>
           <Button /*tabIndex={1}*/ key={1} label='Add to title' href={AppRouterComp.getRoute({ ...par, title: props.title + ' | xxx' })} />
           <Button /*tabIndex={1}*/ key={2} label='Show Modal' href={AppRouterComp.getRoute({ ...par, title: props.title + ' | mmm' }, true)} />

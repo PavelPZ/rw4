@@ -182,7 +182,7 @@ export const PageTemplate: React.SFC<GUI.IPageTemplateProps> = (props) => {
     <Content key={1} >
       {content}
     </Content>
-    {footerProps && <FooterProvider {...footerProps}/>}
+    {footerProps && <FooterProvider {...footerProps} />}
     {footerNode && !footerProps && <Footer key={2}>{toText(footerNode)}</Footer>}
   </Container>
 }
@@ -224,9 +224,10 @@ const FooterProvider = footerConnector(footerProvider)
 //**** ANIMATE
 class TweensPromise extends PromiseExtensible<void> {
 
-  pageTransition(value: Animated.Value, display: boolean): TweensPromise {
-    if (this.state) return this
-    this.value = value
+  constructor(private value: Animated.Value, private display: boolean) { super() }
+
+  doStart() {
+    const { value, display } = this
     value.setValue(display ? 1 : 0.05)
     const tw = Animated.timing(value, {
       duration: 125,
@@ -237,22 +238,20 @@ class TweensPromise extends PromiseExtensible<void> {
       this.resolve()
       delete this.value
     });
-
-    return this
   }
 
   abort(msg?) {
-    if (this.value) this.value.stopAnimation()
+    const { value, _state } = this
+    if (value) value.stopAnimation()
     delete this.value
-    if (this.state) return this
+    if (_state) return this
     return this.abort(msg)
   }
-  value: Animated.Value
 }
 
 
 
-export const getAnimator = (animValue: WebNativeCommon.TRouterAnimRoot, display: boolean) => new TweensPromise().pageTransition(animValue, display)
+export const getAnimator = (animValue: WebNativeCommon.TRouterAnimRoot, display: boolean) => new TweensPromise(animValue, display)
 
 export class AnimationRoot extends React.PureComponent<Router.TRefForAnimation> {
   value = new Animated.Value(1)

@@ -48,16 +48,16 @@ export const waitChildren = <div className={renderCSS({display:'flex', flex:1, j
 export class TweensPromise extends PromiseExtensible<void> {
 
   animate(el: HTMLElement, secs: number, pars: GUI.ITweenParsEx): TweensPromise {
-    if (this.state) return this
+    if (this._state) return this
     const { tweenProc, ...rest } = pars
-    this.tw = (tweenProc || TweenLite.to)(el, secs, { ...rest, onComplete: () => { delete this.tw; if (this.state) return; this.resolve() } })
+    this.tw = (tweenProc || TweenLite.to)(el, secs, { ...rest, onComplete: () => { delete this.tw; if (this._state) return; this.resolve() } })
     return this
   }
 
   abort(msg?) {
     if (this.tw) this.tw.progress(1, true)
     delete this.tw
-    if (this.state) return this
+    if (this._state) return this
     return this.abort(msg)
   }
   tw: gsap.TweenLite

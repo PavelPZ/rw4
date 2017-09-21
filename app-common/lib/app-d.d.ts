@@ -85,6 +85,7 @@ interface IPromiseExtensible<T = void> {
   onAbort(handler: () => void): IPromiseExtensible<T | PromiseResults>
   abort(msg?): IPromiseExtensible<T | PromiseResults> 
   timeout(time: number, func?: () => void): IPromiseExtensible<T | PromiseResults>
+  start(): IPromiseExtensible<T | PromiseResults>
 }
 
 

@@ -28,10 +28,6 @@ export class View extends React.PureComponent<ViewProperties> {
   }
 }
 
-//export const Container = props => {
-//  debugger
-//  return <View {...props} />
-//}
 export const Container = View
 export const Header = View
 export const Footer = View

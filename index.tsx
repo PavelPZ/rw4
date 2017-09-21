@@ -157,7 +157,7 @@ export const init = async () => {
   const AppRouter: React.SFC<{}> = props => <ReduxProvider store={store} >
     <LayerProvider childs={[
       <BlockGuiComp key={1} zIndex={99} />,
-      <WaitForRendering waitFor={initAfter()} waitChildren={waitChildren}>
+      <WaitForRendering key={2} waitFor={initAfter()} waitChildren={waitChildren}>
         <RouterProvider />
       </WaitForRendering>
     ]}/>

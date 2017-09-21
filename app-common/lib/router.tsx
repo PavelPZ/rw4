@@ -25,7 +25,7 @@ class provider extends React.PureComponent<Router.IRouterProviderProps> {
 
     if (animateOut) animateOut.abort() 
     if (animateIn) animateIn.abort() 
-    animateOut = null; animateIn = null; startAnimateOut = null
+    animateOut = null; animateIn = null; 
 
     const { params } = props
     const Route = routes[props.routeName] as React.ComponentClass<Router.IRoutePar>
@@ -33,14 +33,14 @@ class provider extends React.PureComponent<Router.IRouterProviderProps> {
 
     return <Route key={routeCount++} {...params} refForAnimation={async div => {
       if (!div) return
-      startAnimateOut = () => animateOut = getAnimator(div, true)
+      animateOut = getAnimator(div, true)
       animateIn = getAnimator(div, false)
-      await animateIn
+      await animateIn.start()
     }} />
   }
 }
 let routeCount = 0
-let startAnimateOut: () => IPromiseExtensible
+//let startAnimateOut: () => IPromiseExtensible
 let animateOut: IPromiseExtensible
 let animateIn: IPromiseExtensible
 
@@ -134,7 +134,7 @@ export const middleware: Middleware<IState> = middlAPI => next => a => {
     if (router.beforeLoad) beforeUnload = await router.beforeLoad(newState.params)
     if (navigateEnd.navigActionId != navigActionId - 1) return
     //console.log('before startAnimateOut')
-    if (startAnimateOut) await startAnimateOut()
+    if (animateOut) await animateOut.start()
     //console.log('after startAnimateOut')
     middlAPI.dispatch(navigateEnd)
   }

@@ -64,19 +64,26 @@ export const shallowEqual = (objA, objB) => {
 export class PromiseExtensible<T = void> implements IPromiseExtensible<T> {
   constructor(executor?: (resolve: (value?: T | PromiseLike<T> | PromiseResults) => void, reject: (reason?: any) => void) => void) {
     //window == null && super(executor)
-    this.promise = new Promise<T | PromiseResults>((resolve, reject) => {
-      this.resolve = r => { if (this.state) return; this.state = PromiseStates.resolved; resolve(r) }
-      this.reject = r => { if (this.state) return; this.state = PromiseStates.rejected; reject(r) }
+    this._promise = new Promise<T | PromiseResults>((resolve, reject) => {
+      this.resolve = r => { if (this._state) return; this._state = PromiseStates.resolved; resolve(r) }
+      this.reject = r => { if (this._state) return; this._state = PromiseStates.rejected; reject(r) }
       if (executor) return executor(this.resolve, this.reject)
     })
   }
+  _promise: Promise<any>
+  _state: PromiseStates
+  _started: boolean
+  start() : PromiseExtensible<T | PromiseResults > {
+    if (this._started || this._state) return this
+    this.doStart()
+    return this
+  }
+  doStart() { throw ('doStart')}
   then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T | PromiseResults) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): PromiseExtensible<TResult1 | TResult2 | PromiseResults> {
-    this.promise.then(onfulfilled, onrejected)
+    this._promise.then(onfulfilled, onrejected)
     return this as any
   }
-  catch(msg) { this.promise.catch(msg); return this }
-  promise: Promise<any>
-  state: PromiseStates
+  catch(msg) { this._promise.catch(msg); return this }
   resolve: (res?: T | PromiseLike<T> | PromiseResults) => void
   reject: (reason?: any) => void
   abortHandler: () => void
@@ -85,17 +92,17 @@ export class PromiseExtensible<T = void> implements IPromiseExtensible<T> {
     return this
   }
   abort(msg?): PromiseExtensible<T | PromiseResults> {
-    if (this.state) return this
-    this.state = PromiseStates.aborted
+    if (this._state) return this
+    this._state = PromiseStates.aborted
     if (this.abortHandler) this.abortHandler()
     this.resolve(msg as any || PromiseResults.abort)
     return this
   }
   timeout(time: number, func?: () => void): PromiseExtensible<T | PromiseResults> {
-    if (this.state) return this
+    if (this._state) return this
     this._timer = setTimeout(() => {
-      if (this.state) return
-      this.state = PromiseStates.timeouted
+      if (this._state) return
+      this._state = PromiseStates.timeouted
       if (func) func()
       this.resolve(PromiseResults.timeout)
     }, time);

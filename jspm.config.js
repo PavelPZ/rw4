@@ -22,6 +22,7 @@ SystemJS.config({
     "npm:*.json"
   ],
   map: {
+    "es6-promise": "npm:es6-promise@4.1.1",
     "gsap": "npm:gsap@1.20.2",
     "react-transition-group": "npm:react-transition-group@2.2.0",
     "child_process": "npm:jspm-nodelibs-child_process@0.2.1",
@@ -36,12 +37,12 @@ SystemJS.config({
     "url": "npm:jspm-nodelibs-url@0.2.1",
     "vm": "npm:jspm-nodelibs-vm@0.2.1",
     "fs": "npm:jspm-nodelibs-fs@0.2.1",
-    "react-md": "npm:react-md@1.1.0",
+    "react-md": "npm:react-md@1.1.4",
     "url-pattern": "npm:url-pattern@1.0.3",
     "history": "npm:history@4.7.2",
     "qs": "npm:qs@6.5.1",
-    "react": "npm:react@15.6.1",
-    "react-dom": "npm:react-dom@15.6.1",
+    "react": "npm:react@next",
+    "react-dom": "npm:react-dom@next",
     "buffer": "npm:jspm-nodelibs-buffer@0.2.3",
     "crypto": "npm:jspm-nodelibs-crypto@0.2.1",
     "events": "npm:jspm-nodelibs-events@0.2.2",
@@ -131,14 +132,6 @@ SystemJS.config({
       "map": {
         "punycode": "npm:punycode@1.3.2",
         "querystring": "npm:querystring@0.2.0"
-      }
-    },
-    "npm:react-dom@15.6.1": {
-      "map": {
-        "prop-types": "npm:prop-types@15.5.10",
-        "loose-envify": "npm:loose-envify@1.3.1",
-        "fbjs": "npm:fbjs@0.8.15",
-        "object-assign": "npm:object-assign@4.1.1"
       }
     },
     "npm:jspm-nodelibs-stream@0.2.1": {
@@ -358,13 +351,6 @@ SystemJS.config({
         "warning": "npm:warning@3.0.0"
       }
     },
-    "npm:create-react-class@15.6.0": {
-      "map": {
-        "fbjs": "npm:fbjs@0.8.15",
-        "loose-envify": "npm:loose-envify@1.3.1",
-        "object-assign": "npm:object-assign@4.1.1"
-      }
-    },
     "npm:warning@3.0.0": {
       "map": {
         "loose-envify": "npm:loose-envify@1.3.1"
@@ -401,17 +387,6 @@ SystemJS.config({
         "iconv-lite": "npm:iconv-lite@0.4.19"
       }
     },
-    "npm:inline-style-prefixer@3.0.7": {
-      "map": {
-        "css-in-js-utils": "npm:css-in-js-utils@1.0.3",
-        "bowser": "npm:bowser@1.7.3"
-      }
-    },
-    "npm:css-in-js-utils@1.0.3": {
-      "map": {
-        "hyphenate-style-name": "npm:hyphenate-style-name@1.0.2"
-      }
-    },
     "npm:buffer@5.0.7": {
       "map": {
         "ieee754": "npm:ieee754@1.1.8",
@@ -422,7 +397,7 @@ SystemJS.config({
       "map": {
         "fela-plugin-fallback-value": "npm:fela-plugin-fallback-value@5.0.8",
         "fela-utils": "npm:fela-utils@6.0.1",
-        "inline-style-prefixer": "npm:inline-style-prefixer@3.0.7",
+        "inline-style-prefixer": "npm:inline-style-prefixer@3.0.8",
         "css-in-js-utils": "npm:css-in-js-utils@2.0.0"
       }
     },
@@ -588,27 +563,6 @@ SystemJS.config({
         "safe-buffer": "npm:safe-buffer@5.1.1"
       }
     },
-    "npm:react-md@1.1.0": {
-      "map": {
-        "classnames": "npm:classnames@2.2.5",
-        "invariant": "npm:invariant@2.2.2",
-        "react-motion": "npm:react-motion@0.5.1",
-        "resize-observer-polyfill": "npm:resize-observer-polyfill@1.4.2",
-        "react-swipeable-views": "npm:react-swipeable-views@0.12.8",
-        "prop-types": "npm:prop-types@15.5.10",
-        "react-prop-types": "npm:react-prop-types@0.4.0",
-        "react-transition-group": "npm:react-transition-group@1.2.0"
-      }
-    },
-    "npm:react@15.6.1": {
-      "map": {
-        "create-react-class": "npm:create-react-class@15.6.0",
-        "fbjs": "npm:fbjs@0.8.15",
-        "prop-types": "npm:prop-types@15.5.10",
-        "loose-envify": "npm:loose-envify@1.3.1",
-        "object-assign": "npm:object-assign@4.1.1"
-      }
-    },
     "npm:react-transition-group@1.2.0": {
       "map": {
         "loose-envify": "npm:loose-envify@1.3.1",
@@ -626,6 +580,40 @@ SystemJS.config({
         "dom-helpers": "npm:dom-helpers@3.2.1",
         "warning": "npm:warning@3.0.0",
         "prop-types": "npm:prop-types@15.5.10"
+      }
+    },
+    "npm:react-md@1.1.4": {
+      "map": {
+        "classnames": "npm:classnames@2.2.5",
+        "react-motion": "npm:react-motion@0.5.1",
+        "react-transition-group": "npm:react-transition-group@1.2.0",
+        "react-prop-types": "npm:react-prop-types@0.4.0",
+        "prop-types": "npm:prop-types@15.5.10",
+        "invariant": "npm:invariant@2.2.2",
+        "resize-observer-polyfill": "npm:resize-observer-polyfill@1.4.2",
+        "react-swipeable-views": "npm:react-swipeable-views@0.12.8"
+      }
+    },
+    "npm:react@next": {
+      "map": {
+        "object-assign": "npm:object-assign@4.1.1",
+        "loose-envify": "npm:loose-envify@1.3.1",
+        "fbjs": "npm:fbjs@0.8.15",
+        "prop-types": "npm:prop-types@15.5.10"
+      }
+    },
+    "npm:react-dom@next": {
+      "map": {
+        "object-assign": "npm:object-assign@4.1.1",
+        "loose-envify": "npm:loose-envify@1.3.1",
+        "fbjs": "npm:fbjs@0.8.15",
+        "prop-types": "npm:prop-types@15.5.10"
+      }
+    },
+    "npm:inline-style-prefixer@3.0.8": {
+      "map": {
+        "css-in-js-utils": "npm:css-in-js-utils@2.0.0",
+        "bowser": "npm:bowser@1.7.3"
       }
     }
   }
