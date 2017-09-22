@@ -1,6 +1,7 @@
 ﻿import React from 'react'
 import { StyleSheet, PanResponder, View, Dimensions, Animated, TouchableWithoutFeedback } from 'react-native'
 
+import { connect } from 'react-redux'
 
 interface IProps {
   edgeHitWidth?: number //60
@@ -24,7 +25,7 @@ interface IProps {
   style?: ReactNative.ViewStyle
 }
 
-interface IState {
+interface ISideMenuState {
   width: number,
   height: number,
   openOffsetMenuPercentage: number,
@@ -52,7 +53,9 @@ function shouldOpenMenu(dx: number): boolean {
   return dx > barrierForward;
 }
 
-export default class SideMenu extends React.Component<IProps, IState> {
+
+
+export default class SideMenu extends React.PureComponent <IProps, ISideMenuState> {
   //onLayoutChange: Function;
   responder
   onStartShouldSetResponderCapture
@@ -60,15 +63,15 @@ export default class SideMenu extends React.Component<IProps, IState> {
   onPanResponderMove: Function
   onPanResponderRelease: Function
   onPanResponderTerminate: Function
-  prevLeft: number
-  isOpen: boolean
-  sideMenu
+  prevLeft = 0
+  isOpen = this.props.isOpen
+  isMenuCreated = this.props.isOpen && true 
 
   constructor(props) {
     super(props)
 
-    this.prevLeft = 0;
-    this.isOpen = !!props.isOpe
+    //this.prevLeft = 0;
+    //this.isOpen = !!props.isOpen
 
     const initialMenuPositionMultiplier = props.menuPosition === 'right' ? -1 : 1
     const openOffsetMenuPercentage = props.openMenuOffset / deviceScreen.width
@@ -180,6 +183,7 @@ export default class SideMenu extends React.Component<IProps, IState> {
     const { hiddenMenuOffset, openMenuOffset } = this.state;
     this.moveLeft(isOpen ? openMenuOffset : hiddenMenuOffset)
     this.isOpen = isOpen
+    if (isOpen) this.isMenuCreated = true
 
     this.forceUpdate()
     this.props.onChange(isOpen)
@@ -194,11 +198,11 @@ export default class SideMenu extends React.Component<IProps, IState> {
 
     const { width, height } = this.state
     const animatedStyle = [ styles.frontView, { width, height }, this.props.animationStyle(this.state.left), ]
-    const menuStyle = this.props.menuPosition === 'end' ? { left: this.state.width - this.state.openMenuOffset } : { right: this.state.width - this.state.openMenuOffset }
+    const menuStyle = {[this.props.menuPosition === 'end' ? 'left' : 'right']: this.state.width - this.state.openMenuOffset } //set LEFT or RIGHT position
 
     return <View style={[styles.container, this.props.style]} onLayout={this.onLayoutChange} >
-      <View key={1} style={[styles.menu, menuStyle]}>{this.props.menu}</View>
-      <Animated.View key={2} style={animatedStyle} ref={sideMenu => (this.sideMenu = sideMenu)} {...this.props.fixed && this.isOpen ? {} : this.responder.panHandlers}>
+      <View key={1} style={[styles.menu, menuStyle]}>{this.isMenuCreated && this.props.menu}</View>
+      <Animated.View key={2} style={animatedStyle} {...this.props.fixed && this.isOpen ? {} : this.responder.panHandlers}>
         {this.props.children}
         {!this.props.fixed && this.isOpen && <TouchableWithoutFeedback onPress={() => this.openMenu(false)}>
           <View style={styles.overlay} />
@@ -207,6 +211,13 @@ export default class SideMenu extends React.Component<IProps, IState> {
     </View>
   }
 }
+
+const provider = connect<{ isOpen?: boolean, fixed?: boolean }, {}, IProps>((state: IState) => ({ isOpen: true, fixed: true }))
+class SideMenu2 extends React.PureComponent<IProps> {
+  render() { return null }
+}
+const SideMenuStore = provider(SideMenu)
+
 
 SideMenu['defaultProps'] = {
   toleranceY: 10,

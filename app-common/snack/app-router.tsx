@@ -1,9 +1,11 @@
 ﻿import React from 'react'
-import { Container, Header, Content, Text, Button, H2, View, Page } from '../gui/gui'
+import { Container, Header, Content, Text, Button, H2, View, /*Page*/ } from '../gui/gui'
 import { registerRouter } from '../lib/router'
 import { isLogged, createLoginButton } from '../lib/login'
 import { storeContextType } from '../lib/lib'
 import { contextType as locContextType } from '../lib/loc'
+
+import { Page } from '../../app-native/lib/native-root-layers'
 
 const LoginButton = createLoginButton(props => {
   const { logged, doLoginAction, ...rest } = props
@@ -19,7 +21,7 @@ class appRouterComp extends React.PureComponent<AppRouter.IRoutePar> {
     const { children, refForAnimation, ...par } = props
     const isModal = props.query && props.query.isModal
     //console.log('appRouterComp')
-    return <Page refForAnimation={refForAnimation}>
+    return <Page refForAnimation={refForAnimation} menu={<Menu/>} >
       <Container style={{ flex: 1 }}>
         <Header key={1}>
           {isModal ? <View></View> : <View></View>}
@@ -34,6 +36,12 @@ class appRouterComp extends React.PureComponent<AppRouter.IRoutePar> {
         </Content>
       </Container>
     </Page>
+  }
+}
+
+class Menu extends React.Component {
+  render() {
+    return <Text>{'SITE MENU ' + counter++}</Text>
   }
 }
 

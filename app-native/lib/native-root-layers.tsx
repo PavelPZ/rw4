@@ -23,7 +23,7 @@ import { ToastContainer as Toast } from 'native-base/src/basic/ToastContainer'
 import { ActionSheetContainer as ActionSheet } from 'native-base/src/basic/Actionsheet'
 import { Font, Asset, Constants } from 'expo'
 import { View, Fab, Container, Content, Header, Footer, Left, Body, Right, Text, Button, Title, Subtitle, Icon } from 'native-base';
-import SideMenu from '../gui/react-native-side-menu'
+import SideMenuLow from '../gui/react-native-side-menu'
 
 //COMMON
 
@@ -86,6 +86,20 @@ export const Provider: React.SFC<{}> = props => <View style={{ flex: 1, marginTo
   <ActionSheet ref={c => { if (!ActionSheet.actionsheetInstance) ActionSheet.actionsheetInstance = c }} />
 </View>
 
+export class Page extends React.PureComponent<Router.TRefForAnimation & Router.IRoutePar & { menu?: JSX.Element }> {
+  value = new Animated.Value(1)
+  componentDidMount() { this.props.refForAnimation(this.value) }
+  render() {
+    return <SideMenu menu={this.props.menu} isOpen>
+      <Animated.View style={{ flex: 1, opacity: this.value as any }}>
+        {this.props.children}
+      </Animated.View>
+    </SideMenu>
+  }
+}
+
+const sideMenuProvider = connect<any, {}, any>((state: IState) => null)
+const SideMenu = sideMenuProvider(SideMenuLow)
 
 //*** PAGE TEMPLATE
 
@@ -118,15 +132,3 @@ class TweensPromise extends PromiseExtensible<void> {
 }
 
 export const getAnimator = (animValue: WebNativeCommon.TRouterAnimRoot, display: boolean) => new TweensPromise(animValue, display)
-
-export class Page extends React.PureComponent<Router.TRefForAnimation> {
-  value = new Animated.Value(1)
-  componentDidMount() { this.props.refForAnimation(this.value) }
-  render() {
-    return <SideMenu>
-      <Animated.View style={{ flex: 1, opacity: this.value as any }}>
-        {this.props.children}
-      </Animated.View>
-    </SideMenu>
-  }
-}
