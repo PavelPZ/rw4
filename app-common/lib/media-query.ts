@@ -1,12 +1,13 @@
-﻿import { Platform } from '../gui/gui'
-
-export const reducer = (state: Media.IState, action: Media.IChangeMediaAction | Media.IChangePortraitAction) => {
-  if (!state) return { actMedia: Media.TMedias.mobile, portrait: false, OS: Platform().OS } as Media.IState
+﻿
+export const reducer = (state: Media.IState, action: Media.IWebChangeMediaAction | Media.INativeChangePortraitAction) => {
+  if (!state) return { actMedia: Media.TMedias.mobile } as Media.IState
   switch (action.type) {
-    case Media.Consts.CHANGE_MEDIA: return { ...state, actMedia: action.actMedia }
-    case Media.Consts.CHANGE_PORTRAIT:
-      if (action.portrait == state.portrait) return state
-      return { ...state, portrait: action.portrait }
+    case Media.Consts.WEB_CHANGE_MEDIA: return { ...state, actMedia: action.actMedia }
+    case Media.Consts.NATIVE_CHANGE_DIMENSION: return {
+      ...state,
+      actMedia: action.width >= Media.TMediaBoundaries.desktop ? Media.TMedias.desktop : (action.width >= Media.TMediaBoundaries.tablet ? Media.TMedias.tablet : Media.TMedias.mobile),
+      portrait: action.width > action.height
+    }
     default: return state
   }
 }

@@ -1,5 +1,5 @@
 ﻿import React from 'react'
-import { Container, Header, Content, Text, Button, H2, View, AnimationRoot } from '../gui/gui'
+import { Container, Header, Content, Text, Button, H2, View, Page } from '../gui/gui'
 import { registerRouter } from '../lib/router'
 import { isLogged, createLoginButton } from '../lib/login'
 import { storeContextType } from '../lib/lib'
@@ -19,13 +19,13 @@ class appRouterComp extends React.PureComponent<AppRouter.IRoutePar> {
     const { children, refForAnimation, ...par } = props
     const isModal = props.query && props.query.isModal
     //console.log('appRouterComp')
-    return <AnimationRoot refForAnimation={refForAnimation}>
+    return <Page refForAnimation={refForAnimation}>
       <Container style={{ flex: 1 }}>
         <Header key={1}>
           {isModal ? <View></View> : <View></View>}
         </Header>
         <Content key={2}>
-          <H2>{props.title}</H2>
+          <H2>{props.title + ' ' + counter++}</H2>
           <Button /*tabIndex={1}*/ key={1} label='Add to title' href={AppRouterComp.getRoute({ ...par, title: props.title + ' | xxx' })} />
           <Button /*tabIndex={1}*/ key={2} label='Show Modal' href={AppRouterComp.getRoute({ ...par, title: props.title + ' | mmm' }, true)} />
           <Button /*tabIndex={1}*/ key={3} label='Goto HOME' href={{ routeName: null }/*home*/} />
@@ -33,28 +33,10 @@ class appRouterComp extends React.PureComponent<AppRouter.IRoutePar> {
           {window.lmGlobal.isNative ? null : <LoginButton key={5} tabIndex={2} />}
         </Content>
       </Container>
-    </AnimationRoot>
+    </Page>
   }
-
 }
 
-const appRouterComp_: React.SFC<AppRouter.IRoutePar> = props => {
-  const { children, ...par } = props
-  const isModal = props.query && props.query.isModal
-  return <Container testID='xxxxx' style={{ flex: 1 }}>
-    <Header>
-      {isModal ? <View></View> : <View></View>}
-    </Header>
-    <Content>
-      <H2>{props.title}</H2>
-      <Button /*tabIndex={1}*/ key={1} label='Add to title' href={AppRouterComp.getRoute({ ...par, title: props.title + ' | xxx' })} />
-      <Button /*tabIndex={1}*/ key={2} label='Show Modal' href={AppRouterComp.getRoute({ ...par, title: props.title + ' | mmm' }, true)} />
-      <Button /*tabIndex={1}*/ key={3} label='Goto HOME' href={{ routeName: null }/*home*/} />
-      <Button /*tabIndex={1}*/ key={4} label='DUMMY' />
-      {window.lmGlobal.isNative ? null : <LoginButton key={5} tabIndex={2} />}
-    </Content>
-  </Container>
-}
 let counter = 0
 
 //*** EXPORTS

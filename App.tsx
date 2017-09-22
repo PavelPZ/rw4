@@ -5,7 +5,6 @@ import { Provider as ReduxProvider, connect } from 'react-redux'
 import { createStore, Store, applyMiddleware } from 'redux'
 import createSagaMiddleware from 'redux-saga/index'
 import { all, call } from 'redux-saga/effects'
-//import { addNavigationHelpers, DrawerNavigator, NavigationNavigateAction } from 'react-navigation';
 import { Platform } from 'react-native';
 
 //********** COMMON
@@ -13,23 +12,24 @@ import { WaitForRendering, promiseAll } from './app-common/lib/lib'
 import { reducer as routerReducer, middleware as routerMiddleware, init as initRouter } from './app-common/lib/router'
 import { init as initRecording, reducer as recordingReducer, saga as recordingSaga, middleware as recordingMiddleware, globalReducer as recordingGlobalReducer, blockGuiReducer, blockGuiSaga } from './app-common/lib/recording'
 import { Provider as LocProvider, reducer as locReducer } from './app-common/lib/loc'
+import { reducer as mediaQueryReducer } from './app-common/lib/media-query'
 
 //********** NATIVE specific
 import createHistory from 'history/createMemoryHistory'
-import { Provider as RootProvider, init as initRoot, getAnimator as getRouteAnimator, AnimationRoot } from './app-native/lib/native-root-layers'
+import { Provider as RootProvider, init as initRoot, getAnimator as getRouteAnimator, Page } from './app-native/lib/native-root-layers'
 import { AppLoading } from 'expo'
-//import { recordingJSON } from './App_Data/recording'
 import { Icon } from './app-native/gui/icon'
 import { Button } from './app-native/gui/button'
 import { Content } from './app-native/gui/content'
 import { Container, Header, Footer, Text, StyleProvider, H1, H2, H3, View } from 'native-base'
 import { Theme, colorToStyle } from './app-native/gui/theme'
+import { init as initMediaQuery } from './app-native/lib/native-media-query'
+
 
 //************ aplikace k testovani
 
 import { AppRouterComp } from './app-common/snack/app-router'
 
-//class AppComp extends React.Component { render() { return <Text>Hallo world</Text> } }
 //import AppComp from './app-native/snack/native-base/index'
 //import AppComp from './app-native/snack/redux-simple';
 //import AppComp from './app-native/snack/navigation';
@@ -53,9 +53,12 @@ import AppComp from './app-native/snack/drawer'
 //import AppComp from './app-common/snack/gui/button'
 //import AppComp from './app-native/snack/native-base-button'
 
+console.log('APP')
+
 export const init = async () => {
   window.lmGlobal = {
     isNative: true,
+    OS: Platform.OS as App.PlatformOSType,
     platform: {
       loginPlatform: null,
       recordingPlatform: {
@@ -70,7 +73,7 @@ export const init = async () => {
         rootUrl: '/web-app.html',
         getAnimator: getRouteAnimator,
       },
-      guiPlatform: { colorToStyle, Platform, Icon, Button, H1, H2, H3, View, Text, Content, Container, Header, Footer, AnimationRoot },
+      guiPlatform: { colorToStyle, Platform, Icon, Button, H1, H2, H3, View, Text, Content, Container, Header, Footer, Page },
     }
   }
 
@@ -78,7 +81,7 @@ export const init = async () => {
   //console.log('recordingJSON:\n', JSON.stringify(recordingJSON,null,2))
   await promiseAll([
     initRouter(),
-    initRecording(recordingJSON),
+    initRecording(recordingJSON), 
     initRoot(),
   ])
 
@@ -89,6 +92,7 @@ export const init = async () => {
       recording: recordingReducer(state.recording, action),
       blockGui: blockGuiReducer(state.blockGui, action),
       loc: locReducer(state.loc, action),
+      mediaQuery: mediaQueryReducer(state.mediaQuery, action),
     }
   }
 
@@ -96,7 +100,8 @@ export const init = async () => {
 
   const store = window.lmGlobal.store = createStore<IState>(reducers, {}, applyMiddleware(sagaMiddleware, routerMiddleware, recordingMiddleware))
 
-  await promiseAll([
+  await promiseAll([ 
+    initMediaQuery(),
   ])
 
   const rootSaga = function* () {
@@ -124,6 +129,6 @@ export const init = async () => {
 
 const Root: React.SFC = () => <WaitForRendering finalContent={init()} waitContent={<AppLoading />} />
 
-export default Root;
-//export default AppComp;
+export default Root
+//export default AppComp
 

@@ -12,10 +12,13 @@ declare namespace App {
     getState(): IState
   }
 
+  const enum PlatformOSType { ios = 'ios', android = 'android', windows = 'windows', web = 'web'}
+
   interface IGlobal {
     store?: Store
     platform: IPlatforms
     isNative: boolean
+    OS: PlatformOSType
   }
 
   interface IReducer<TState = IState> { (state: TState, action: Action): TState }

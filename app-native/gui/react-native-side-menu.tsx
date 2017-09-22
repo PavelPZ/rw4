@@ -6,7 +6,7 @@ interface IProps {
   edgeHitWidth?: number //60
   toleranceX?: number //10
   toleranceY?: number //10
-  menuPosition?: 'left' | 'right' //left
+  menuPosition?: 'start' | 'end' //left
   onChange?: Function
   onMove?: Function
   onSliding?: Function
@@ -19,7 +19,9 @@ interface IProps {
   bounceBackOnOverdraw?: boolean //true
   autoClosing?: boolean //true
   menu?: JSX.Element
-  animationStyle?: (value: Animated.Value) => ReactNative.ViewStyle
+  animationStyle?: (value: Animated.Value | number) => ReactNative.ViewStyle
+  fixed?: boolean //LM extension
+  style?: ReactNative.ViewStyle
 }
 
 interface IState {
@@ -120,32 +122,6 @@ export default class SideMenu extends React.Component<IProps, IState> {
     this.setState({ width, height, openMenuOffset, hiddenMenuOffset })
   }
 
-  /**
-   * Get content view. This view will be rendered over menu
-   * @return {React.Component}
-   */
-  getContentView() {
-    let overlay: React.ReactElement<any> = null
-
-    if (this.isOpen) overlay = <TouchableWithoutFeedback onPress={() => this.openMenu(false)}>
-      <View style={styles.overlay} />
-    </TouchableWithoutFeedback>
-
-    const { width, height } = this.state
-    const style = [
-      styles.frontView,
-      { width, height },
-      this.props.animationStyle(this.state.left),
-    ]
-
-    return (
-      <Animated.View style={style} ref={sideMenu => (this.sideMenu = sideMenu)} {...this.responder.panHandlers}>
-        {this.props.children}
-        {overlay}
-      </Animated.View>
-    )
-  }
-
   moveLeft(offset: number) {
     const newOffset = this.menuPositionMultiplier() * offset
 
@@ -155,7 +131,7 @@ export default class SideMenu extends React.Component<IProps, IState> {
   }
 
   menuPositionMultiplier(): -1 | 1 {
-    return this.props.menuPosition === 'right' ? -1 : 1
+    return this.props.menuPosition === 'end' ? -1 : 1
   }
 
   handlePanResponderMove(e: Object, gestureState) {
@@ -189,7 +165,7 @@ export default class SideMenu extends React.Component<IProps, IState> {
         return touchMoved
       }
 
-      const withinEdgeHitWidth = this.props.menuPosition === 'right' ?
+      const withinEdgeHitWidth = this.props.menuPosition === 'end' ?
         gestureState.moveX > (deviceScreen.width - this.props.edgeHitWidth) :
         gestureState.moveX < this.props.edgeHitWidth
 
@@ -215,15 +191,19 @@ export default class SideMenu extends React.Component<IProps, IState> {
   }
 
   render() {
-    const boundryStyle = this.props.menuPosition === 'right' ?
-      { left: this.state.width - this.state.openMenuOffset } :
-      { right: this.state.width - this.state.openMenuOffset }
 
-    const menu = <View style={[styles.menu, boundryStyle]}>{this.props.menu}</View>
+    const { width, height } = this.state
+    const animatedStyle = [ styles.frontView, { width, height }, this.props.animationStyle(this.state.left), ]
+    const menuStyle = this.props.menuPosition === 'end' ? { left: this.state.width - this.state.openMenuOffset } : { right: this.state.width - this.state.openMenuOffset }
 
-    return <View style={styles.container} onLayout={this.onLayoutChange} >
-      <View style={[styles.menu, boundryStyle]}>{this.props.menu}</View>
-      {this.getContentView()}
+    return <View style={[styles.container, this.props.style]} onLayout={this.onLayoutChange} >
+      <View key={1} style={[styles.menu, menuStyle]}>{this.props.menu}</View>
+      <Animated.View key={2} style={animatedStyle} ref={sideMenu => (this.sideMenu = sideMenu)} {...this.props.fixed && this.isOpen ? {} : this.responder.panHandlers}>
+        {this.props.children}
+        {!this.props.fixed && this.isOpen && <TouchableWithoutFeedback onPress={() => this.openMenu(false)}>
+          <View style={styles.overlay} />
+        </TouchableWithoutFeedback>}
+      </Animated.View>
     </View>
   }
 }
@@ -236,15 +216,15 @@ SideMenu['defaultProps'] = {
   menu: null,
   openMenuOffset: deviceScreen.width * (2 / 3),
   disableGestures: false,
-  menuPosition: 'left',
+  menuPosition: 'start',
   hiddenMenuOffset: 0,
   onMove: () => { },
   onStartShouldSetResponderCapture: () => true,
   onChange: () => { },
   onSliding: () => { },
-  animationStyle: value => ({
+  animationStyle: (value: number) => ({
     transform: [{
-      translateX: value as any as number,
+      translateX: value,
     }],
   }),
   animationFunction: (prop, value) => Animated.spring(prop, {
@@ -267,7 +247,7 @@ const absoluteStretch = {
 const styles = {
   container: {
     ...absoluteStretch,
-    justifyContent: 'center',
+    //justifyContent: 'center',
   } as ReactNative.ViewStyle,
   menu: {
     ...absoluteStretch,
@@ -282,7 +262,7 @@ const styles = {
   } as ReactNative.ViewStyle,
   overlay: {
     ...absoluteStretch,
-    //LM
+    //LM extension
     backgroundColor: 'lightgray',
     opacity: 0.8
     //backgroundColor: 'transparent',

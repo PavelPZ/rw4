@@ -23,6 +23,7 @@ import { ToastContainer as Toast } from 'native-base/src/basic/ToastContainer'
 import { ActionSheetContainer as ActionSheet } from 'native-base/src/basic/Actionsheet'
 import { Font, Asset, Constants } from 'expo'
 import { View, Fab, Container, Content, Header, Footer, Left, Body, Right, Text, Button, Title, Subtitle, Icon } from 'native-base';
+import SideMenu from '../gui/react-native-side-menu'
 
 //COMMON
 
@@ -79,147 +80,14 @@ const RecorderButton = recordingProviderConnector(recorderButton)
 //*** ROOT LAYERS PROVIDER
 export const Provider: React.SFC<{}> = props => <View style={{ flex: 1, marginTop: Constants.statusBarHeight }}>
   <RouterProvider />
-  {/*ref={routerProvider => {
-    //PATCH routerProvider.setState
-    //console.log('RouterProvider ')
-    const oldSetState = routerProvider.setState
-    routerProvider.setState = ((...args) => {
-      //console.log('RouterProvider.setState', pr['selector'].props)
-      //LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut)
-      LayoutAnimation.configureNext(animConfig)
-      oldSetState.call(routerProvider, ...args)
-    })
-  }} />*/}
   <BlockGuiComp zIndex={blockGuiZindex} />
   <RecorderButton />
   <Toast ref={c => { if (!Toast.toastInstance) Toast.toastInstance = c }} />
   <ActionSheet ref={c => { if (!ActionSheet.actionsheetInstance) ActionSheet.actionsheetInstance = c }} />
 </View>
 
-//https://github.com/facebook/react-native/blob/master/Libraries/LayoutAnimation/LayoutAnimation.js
-//const animConfig = { duration: 200, create: { type: LayoutAnimation.Types.easeOut, property: LayoutAnimation.Properties.opacity, } }
-
-//export const Provider = connectStyle("NativeBase.Root", {}, mapPropsToStyleNames)(provider);
-
-//*** NAVIGATOR
-//export const AppNavigator = DrawerNavigator({
-//  Drawer: {
-//    screen: StackNavigator({
-//      Modal: {
-//        screen: RouterProvider,
-//        navigationOptions: ({ navigation }) => ({
-//          header: null
-//        })
-//        //navigationOptions: ({ navigation }) => {
-//        //  const route = navigation.state.params as Router.IState
-//        //  return {
-//        //    headerTitle: `${route.params['title'].substr(10)}`,
-//        //    headerRight: <Text>RIGHT</Text>,
-//        //    headerLeft: <Text onPress={goBack}>LEFT</Text>
-//        //  }
-//        //}
-//      }
-//    })
-//  },
-//  Root: {
-//    screen: RouterProvider
-//  },
-//}, {
-//    contentComponent: props => <Text>DRAWER</Text>
-//  })
-
-//const navigProvider: React.SFC<{ navProp, dispatch }> = ({ navProp, dispatch }) => <AppNavigator navigation={addNavigationHelpers({ dispatch: dispatch, state: navProp })} />
-
-//const NavigProvider = connect((state: IState) => ({ navProp: state.router }))(navigProvider);
 
 //*** PAGE TEMPLATE
-
-export const PageTemplate: React.SFC<GUI.IPageTemplateProps> = (props) => {
-  const { content, headerNode, headerProps, footerNode, footerProps } = props
-  let left: React.ReactNode = null
-  let right: React.ReactNode = null
-  const toText = (nd: React.ReactNode) => typeof nd == 'string' ? <Text>{nd}</Text> : nd
-  const toPress = (onPress: () => void) => onPress || (() => { })
-  if (headerProps)
-    switch (headerProps.type) {
-      case GUI.PageHeaderType.modalOKCancel:
-        left = <Button transparent onPress={toPress(headerProps.onOK)}>
-          <Icon name={GUI.IonicNames.close} />
-        </Button>
-        right = <Button success onPress={toPress(headerProps.onCancel)}>
-          <Icon name={GUI.IonicNames.checkmark} />
-          {toText(headerProps.okText)}
-        </Button>
-        break
-      case GUI.PageHeaderType.modalOK:
-        left = <Button transparent onPress={toPress(headerProps.onOK)}>
-          <Icon name={GUI.IonicNames.arrowBack} />
-        </Button>
-        right = toText(headerProps.right)
-        break
-      case GUI.PageHeaderType.drawer:
-        left = <Button transparent onPress={toPress(headerProps.onDrawer)}>
-          <Icon name={GUI.IonicNames.menu} />
-        </Button>
-        right = toText(headerProps.right)
-        break
-      case GUI.PageHeaderType.other:
-        right = toText(headerProps.right)
-        left = toText(headerProps.left)
-        break
-    }
-  return <Container>
-    {headerProps &&
-      <Header key={0} style={{ justifyContent: 'space-between' }}>
-        <Left key={0}>{left}</Left>
-        <Body key={1}>
-          <Title key={0} >{headerProps.bodyTitle}</Title>
-          {headerProps.bodySubtitle && <Subtitle key={1} >{headerProps.bodySubtitle}</Subtitle>}
-        </Body>
-        <Right key={2}>{right}</Right>
-      </Header>}
-    {headerNode && !headerProps && <Header key={0}>{toText(headerNode)}</Header>}
-    <Content key={1} >
-      {content}
-    </Content>
-    {footerProps && <FooterProvider {...footerProps} />}
-    {footerNode && !footerProps && <Footer key={2}>{toText(footerNode)}</Footer>}
-  </Container>
-}
-
-const footerProvider: React.SFC<GUI.IPageFooterProps> = props => <Footer style={{ justifyContent: 'flex-end', alignContent: 'center', flexDirection: 'row' }}>
-  {props.actions.map((act, idx) => <Button key={idx} transparent onPress={act.onPress}>
-    <Icon name={act.icon} style={{ color: 'white' }} />
-  </Button>)}
-  <Button key={999} transparent onPress={() => { }}>
-    <Icon name={GUI.IonicNames.more} style={{ color: 'white' }} />
-  </Button>
-</Footer>
-
-const FooterProvider = footerConnector(footerProvider)
-//console.log(getTheme()['NativeBase.Header'])
-
-//const styles = {
-//  container: { flex: 1 } as ViewStyle,
-//  header: {},//justifyContent: 'space-between', flexDirection: 'row', alignContent: 'center', backgroundColor: 'blue' } as ViewStyle,
-//  headerStyleProvider: {
-//    'NativeBase.ViewNB': {
-//      '.hdr-header': getTheme()['NativeBase.Header'],
-//      '.hdr-left': getTheme()['NativeBase.Left'],
-//      '.hdr-body': getTheme()['NativeBase.Body'],
-//      '.hdr-right': getTheme()['NativeBase.Right'],
-//      '.hdr-title': getTheme()['NativeBase.Title'],
-//      '.hdr-subTitle': getTheme()['NativeBase.Subtitle'],
-//    },
-//  },
-//  left: {},// alignSelf: 'flex-start' } as ViewStyle,
-//  body: {},// alignSelf: 'center', flexDirection: 'column' } as ViewStyle,
-//  title: {},// alignSelf: 'center' } as ViewStyle,
-//  subTitle: {},// alignSelf: 'center' } as ViewStyle,
-//  right: {},//alignSelf: 'flex-end', flexDirection: 'row' } as ViewStyle,
-//  content: { flex: 1 } as ViewStyle,
-//  footer: { justifyContent: 'space-between', flexDirection: 'row' } as ViewStyle,
-//}
 
 //**** ANIMATE
 class TweensPromise extends PromiseExtensible<void> {
@@ -249,12 +117,16 @@ class TweensPromise extends PromiseExtensible<void> {
   }
 }
 
-
-
 export const getAnimator = (animValue: WebNativeCommon.TRouterAnimRoot, display: boolean) => new TweensPromise(animValue, display)
 
-export class AnimationRoot extends React.PureComponent<Router.TRefForAnimation> {
+export class Page extends React.PureComponent<Router.TRefForAnimation> {
   value = new Animated.Value(1)
   componentDidMount() { this.props.refForAnimation(this.value) }
-  render() { return <Animated.View style={{ flex: 1, opacity: this.value as any }}>{this.props.children}</Animated.View> }
+  render() {
+    return <SideMenu>
+      <Animated.View style={{ flex: 1, opacity: this.value as any }}>
+        {this.props.children}
+      </Animated.View>
+    </SideMenu>
+  }
 }
