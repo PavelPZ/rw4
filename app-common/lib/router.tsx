@@ -18,20 +18,31 @@ const providerConnector = connect<Router.IRouterProviderProps, {}, {}>(
 )
 
 export const globalReducer: App.IReducer<IState> = (state, action: Router.IAction) => {
-  if (!state.router) return { ...state, router: getStateFromUrl() }
+  let resState = state
+  if (!state.router) {
+    const router = getStateFromUrl()
+    resState = { ...resState, router }
+    const newRoute = routes[router.routeName]
+    if (newRoute.reducer) resState = newRoute.reducer(resState, { type: Router.Consts.ROUTE_CREATE })
+  } else
+    resState = state
+  const { router: { routeName } } = resState
   switch (action.type) {
     case Router.Consts.NAVIGATE_END:
-      const newRoute = routes[action.newState.routeName]
-      let resState = state
-      if (state.router.routeName && action.newState.routeName !== state.router.routeName) {
-        const oldRoute = routes[state.router.routeName]
+      const { newState: { routeName: actionRouteName } } = action
+      const newRoute = routes[actionRouteName]
+      //if (newRoute.reducer) resState = newRoute.reducer(resState, { type: Router.Consts.ROUTE_CREATE })
+      if (routeName && actionRouteName !== routeName) {
+        const oldRoute = routes[routeName]
         if (oldRoute.reducer) resState = oldRoute.reducer(resState, { type: Router.Consts.ROUTE_DESTROY })
         resState = { ...resState, router: action.newState }
         if (newRoute.reducer) resState = newRoute.reducer(resState, { type: Router.Consts.ROUTE_CREATE })
       } else
         resState = { ...resState, router: action.newState }
       return newRoute.reducer ? newRoute.reducer(resState, action) : resState
-    default: return state
+    default:
+      const actRoute = routes[routeName]
+      return actRoute.reducer ? actRoute.reducer(resState, action) : resState
   }
 }
 
@@ -40,8 +51,8 @@ class provider extends React.PureComponent<Router.IRouterProviderProps> {
     const props = this.props
     if (!props || !props.routeName) return null
 
-    if (animateOut) animateOut.abort() 
-    if (animateIn) animateIn.abort() 
+    if (animateOut) animateOut.abort()
+    if (animateIn) animateIn.abort()
     animateOut = null; animateIn = null;
     const Page = routes[props.routeName]
     const { getAnimator } = window.lmGlobal.platform.routerPlatform
