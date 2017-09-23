@@ -82,7 +82,6 @@
     <TypeScriptCompile Include="app-common\lib\router.tsx" />
     <TypeScriptCompile Include="app-common\snack\fragments.ts" />
     <TypeScriptCompile Include="app-common\snack\gui\button.tsx" />
-    <TypeScriptCompile Include="app-native\gui\react-native-side-menu-d.d.ts" />
     <TypeScriptCompile Include="app-native\lib\native-media-query.ts" />
     <TypeScriptCompile Include="app-native\lib\web-native-common.d.ts" />
     <TypeScriptCompile Include="app-web\gui\gsap.d.ts" />

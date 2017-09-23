@@ -10,8 +10,10 @@ export const init = () => {
     var mql = window.matchMedia(w);
     const idx = i
     const listener = mql => {
-      if (!mql.matches && idx > 0) return
-      const windowSize = !mql.matches && idx == 0 ? Media.TWindowSize.mobile : (idx == 0 ? Media.TWindowSize.tablet : Media.TWindowSize.desktop)
+      let windowSize: Media.TWindowSize
+      if (matchMedias[1].mql.matches) windowSize = Media.TWindowSize.desktop
+      else if (matchMedias[0].mql.matches) windowSize = Media.TWindowSize.tablet
+      else windowSize = Media.TWindowSize.mobile
       window.lmGlobal.store.dispatch<Media.IWebChangeMediaAction>({ type: Media.Consts.WEB_CHANGE_MEDIA, windowSize })
     }
     mql.addListener(listener)

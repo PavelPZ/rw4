@@ -17,6 +17,23 @@ const providerConnector = connect<Router.IRouterProviderProps, {}, {}>(
   (state: IState) => ({ ...state.router, ...state.mediaQuery })// windowSize: state.mediaQuery.windowSize, rnWidth: window.innerWidth })
 )
 
+export const globalReducer: App.IReducer<IState> = (state, action: Router.IAction) => {
+  if (!state.router) return { ...state, router: getStateFromUrl() }
+  switch (action.type) {
+    case Router.Consts.NAVIGATE_END:
+      const newRoute = routes[action.newState.routeName]
+      let resState = state
+      if (state.router.routeName && action.newState.routeName !== state.router.routeName) {
+        const oldRoute = routes[state.router.routeName]
+        if (oldRoute.reducer) resState = oldRoute.reducer(resState, { type: Router.Consts.ROUTE_DESTROY })
+        resState = { ...resState, router: action.newState }
+        if (newRoute.reducer) resState = newRoute.reducer(resState, { type: Router.Consts.ROUTE_CREATE })
+      } else
+        resState = { ...resState, router: action.newState }
+      return newRoute.reducer ? newRoute.reducer(resState, action) : resState
+    default: return state
+  }
+}
 
 class provider extends React.PureComponent<Router.IRouterProviderProps> {
   render() {
@@ -143,26 +160,6 @@ export const middleware: Middleware<IState> = middlAPI => next => a => {
 }
 let navigActionId = 0
 let beforeUnload: () => void
-
-export const globalReducer: App.IReducer<IState> = (state, action: Router.IAction) => {
-  //console.log('globalReducer: ', { ...state, router: getStateFromUrl() })
-  if (!state.router) return { ...state, router: getStateFromUrl()}
-  switch (action.type) {
-    case Router.Consts.NAVIGATE_END:
-      const Route = routes[action.newState.routeName]
-      return Route.reducer ? Route.reducer(state, action) : { ...state, router: action.newState }
-    default: return state
-  }
-}
-
-
-//export const reducer: App.IReducer<Router.IState> = (state, action: Router.IAction) => {
-//  if (!state) return getStateFromUrl() // window.lmGlobal.platform.routerPlatform.startRoute
-//  switch (action.type) {
-//    case Router.Consts.NAVIGATE_END: return action.newState
-//    default: return state
-//  }
-//}
 
 export const init = () => {
   const { startRoute, rootUrl, history } = window.lmGlobal.platform.routerPlatform

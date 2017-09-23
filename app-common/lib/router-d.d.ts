@@ -1,7 +1,8 @@
 ﻿declare namespace Router {
 
   const enum Consts {
-    NAVIGATE_START = 'router/NAVIGATE_START', NAVIGATE_END = 'router/NAVIGATE_END', //'router/NAVIGATE_END',
+    NAVIGATE_START = 'router/NAVIGATE_START', NAVIGATE_END = 'router/NAVIGATE_END', 
+    ROUTE_CREATE = 'ROUTE_CREATE', ROUTE_DESTROY = 'ROUTE_DESTROY', 
     modal = 'modal-'
   }
 
