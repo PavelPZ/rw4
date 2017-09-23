@@ -11,7 +11,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 
 import { Provider as RouterProvider, goBack, canGoBack } from '../../app-common/lib/router'
-import { footerConnector } from '../../app-common/gui/gui'
+//import { footerConnector } from '../../app-common/gui/gui'
 import { PromiseExtensible } from '../../app-common/lib/lib'
 import { providerConnector as recordingProviderConnector, blockGuiConnector } from '../../app-common/lib/recording'
 
@@ -86,22 +86,20 @@ export const Provider: React.SFC<{}> = props => <View style={{ flex: 1, marginTo
   <ActionSheet ref={c => { if (!ActionSheet.actionsheetInstance) ActionSheet.actionsheetInstance = c }} />
 </View>
 
-export class Page extends React.PureComponent<Router.TRefForAnimation & Router.IRoutePar & { menu?: JSX.Element }> {
+export class Page extends React.PureComponent<Router.IPageProps> {
   value = new Animated.Value(1)
   componentDidMount() { this.props.refForAnimation(this.value) }
   render() {
-    return <SideMenu menu={this.props.menu} isOpen>
+    return <SideMenuLow menu={this.props.sidebarMenu}>
       <Animated.View style={{ flex: 1, opacity: this.value as any }}>
         {this.props.children}
       </Animated.View>
-    </SideMenu>
+    </SideMenuLow>
   }
 }
 
-const sideMenuProvider = connect<any, {}, any>((state: IState) => null)
-const SideMenu = sideMenuProvider(SideMenuLow)
-
-//*** PAGE TEMPLATE
+//const sideMenuProvider = connect<any, {}, any>((state: IState) => null)
+//const SideMenu = sideMenuProvider(SideMenuLow)
 
 //**** ANIMATE
 class TweensPromise extends PromiseExtensible<void> {
@@ -115,7 +113,7 @@ class TweensPromise extends PromiseExtensible<void> {
       duration: 125,
       toValue: display ? 0.05 : 1
     })
-    value.addListener(v => console.log(v))
+    //value.addListener(v => console.log(v))
     tw.start(res => {
       this.resolve()
       delete this.value
@@ -127,7 +125,7 @@ class TweensPromise extends PromiseExtensible<void> {
     if (value) value.stopAnimation()
     delete this.value
     if (_state) return this
-    return this.abort(msg)
+    return super.abort(msg)
   }
 }
 

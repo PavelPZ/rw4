@@ -1,13 +1,14 @@
 ﻿
-export const reducer = (state: Media.IState, action: Media.IWebChangeMediaAction | Media.INativeChangePortraitAction) => {
-  if (!state) return { actMedia: Media.TMedias.mobile } as Media.IState
+export const reducer = (state: Media.IState, action: Media.IWebChangeMediaAction | Media.INativeChangeMediaAction) => {
+  if (!state) return { windowSize: Media.TWindowSize.mobile }
   switch (action.type) {
-    case Media.Consts.WEB_CHANGE_MEDIA: return { ...state, actMedia: action.actMedia }
+    case Media.Consts.WEB_CHANGE_MEDIA: return { ...state, windowSize: action.windowSize }
     case Media.Consts.NATIVE_CHANGE_DIMENSION: return {
       ...state,
-      actMedia: action.width >= Media.TMediaBoundaries.desktop ? Media.TMedias.desktop : (action.width >= Media.TMediaBoundaries.tablet ? Media.TMedias.tablet : Media.TMedias.mobile),
-      portrait: action.width > action.height
-    }
+      windowSize: action.rnWidth >= Media.TMediaBoundaries.desktop ? Media.TWindowSize.desktop : (action.rnWidth >= Media.TMediaBoundaries.tablet ? Media.TWindowSize.tablet : Media.TWindowSize.mobile),
+      rnWidth: action.rnWidth,
+      rnHeight: action.rnHeight
+    } as Media.IState
     default: return state
   }
 }

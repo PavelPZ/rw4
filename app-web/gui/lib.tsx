@@ -58,7 +58,7 @@ export class TweensPromise extends PromiseExtensible<void> {
     if (this.tw) this.tw.progress(1, true)
     delete this.tw
     if (this._state) return this
-    return this.abort(msg)
+    return super.abort(msg)
   }
   tw: gsap.TweenLite
 }

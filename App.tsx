@@ -9,7 +9,7 @@ import { Platform } from 'react-native';
 
 //********** COMMON
 import { WaitForRendering, promiseAll } from './app-common/lib/lib'
-import { reducer as routerReducer, middleware as routerMiddleware, init as initRouter } from './app-common/lib/router'
+import { globalReducer as globalRouterReducer, middleware as routerMiddleware, init as initRouter } from './app-common/lib/router'
 import { init as initRecording, reducer as recordingReducer, saga as recordingSaga, middleware as recordingMiddleware, globalReducer as recordingGlobalReducer, blockGuiReducer, blockGuiSaga } from './app-common/lib/recording'
 import { Provider as LocProvider, reducer as locReducer } from './app-common/lib/loc'
 import { reducer as mediaQueryReducer } from './app-common/lib/media-query'
@@ -28,7 +28,7 @@ import { init as initMediaQuery } from './app-native/lib/native-media-query'
 
 //************ aplikace k testovani
 
-import { AppRouterComp } from './app-common/snack/app-router'
+import { AppPage } from './app-common/snack/app-router'
 
 //import AppComp from './app-native/snack/native-base/index'
 //import AppComp from './app-native/snack/redux-simple';
@@ -53,7 +53,7 @@ import AppComp from './app-native/snack/drawer'
 //import AppComp from './app-common/snack/gui/button'
 //import AppComp from './app-native/snack/native-base-button'
 
-console.log('APP')
+//console.log('APP')
 
 export const init = async () => {
   window.lmGlobal = {
@@ -67,7 +67,7 @@ export const init = async () => {
       },
       restAPIPlatform: { serviceUrl: 'http://localhost:3434/rest-api.ashx' }, //NEFUNGUJE
       routerPlatform: {
-        startRoute: AppRouterComp.getRoute({ title: 'START TITLE | xxx' }),
+        startRoute: AppPage.getRoute({ title: 'START TITLE | xxx' }),
         history: createHistory() as Router.IHistory,
         //computeState: (act, st) => Navigator.router.getStateForAction({ type: 'Navigation/NAVIGATE', routeName: act.params && act.params.query && act.params.query.isModal ? 'Modal' : 'Root', params: act } as NavigationNavigateAction, st),
         rootUrl: '/web-app.html',
@@ -81,26 +81,27 @@ export const init = async () => {
   //console.log('recordingJSON:\n', JSON.stringify(recordingJSON,null,2))
   await promiseAll([
     initRouter(),
-    initRecording(recordingJSON), 
+    initRecording(recordingJSON),
     initRoot(),
   ])
 
   const reducers: App.IReducer = (st, action: any) => {
-    const state = recordingGlobalReducer(st, action)
-    return {
-      router: routerReducer(state.router, action),
+    const state = globalRouterReducer(recordingGlobalReducer(st, action), action)
+    const res = {
+      ...state,
       recording: recordingReducer(state.recording, action),
       blockGui: blockGuiReducer(state.blockGui, action),
       loc: locReducer(state.loc, action),
       mediaQuery: mediaQueryReducer(state.mediaQuery, action),
     }
+    return res
   }
 
   const sagaMiddleware = createSagaMiddleware()
 
   const store = window.lmGlobal.store = createStore<IState>(reducers, {}, applyMiddleware(sagaMiddleware, routerMiddleware, recordingMiddleware))
 
-  await promiseAll([ 
+  await promiseAll([
     initMediaQuery(),
   ])
 

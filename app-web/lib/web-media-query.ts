@@ -11,8 +11,8 @@ export const init = () => {
     const idx = i
     const listener = mql => {
       if (!mql.matches && idx > 0) return
-      const actMedia = !mql.matches && idx == 0 ? Media.TMedias.mobile : (idx == 0 ? Media.TMedias.tablet : Media.TMedias.desktop)
-      window.lmGlobal.store.dispatch<Media.IWebChangeMediaAction>({ type: Media.Consts.WEB_CHANGE_MEDIA, actMedia })
+      const windowSize = !mql.matches && idx == 0 ? Media.TWindowSize.mobile : (idx == 0 ? Media.TWindowSize.tablet : Media.TWindowSize.desktop)
+      window.lmGlobal.store.dispatch<Media.IWebChangeMediaAction>({ type: Media.Consts.WEB_CHANGE_MEDIA, windowSize })
     }
     mql.addListener(listener)
     return { mql, listener }
@@ -37,11 +37,11 @@ export const init = () => {
 }
 
 export const fela = {
-  [Media.TMedias.mobile]: `@media (max-width: ${Media.TMediaBoundaries.tablet - 1}px)`,
-  [Media.TMedias.tablet]: `@media (min-width: ${Media.TMediaBoundaries.tablet}px) and (max-width: ${Media.TMediaBoundaries.desktop - 1}px)`,
-  [Media.TMedias.desktop]: `@media (min-width: ${Media.TMediaBoundaries.desktop}px)`,
-  [Media.TMedias.gtMobile]: `@media (min-width: ${Media.TMediaBoundaries.tablet}px)`,
-  [Media.TMedias.ltDesktop]: `@media (max-width: ${Media.TMediaBoundaries.desktop - 1}px)`,
+  [Media.TWindowSize.mobile]: `@media (max-width: ${Media.TMediaBoundaries.tablet - 1}px)`,
+  [Media.TWindowSize.tablet]: `@media (min-width: ${Media.TMediaBoundaries.tablet}px) and (max-width: ${Media.TMediaBoundaries.desktop - 1}px)`,
+  [Media.TWindowSize.desktop]: `@media (min-width: ${Media.TMediaBoundaries.desktop}px)`,
+  [Media.TWindowSize.gtMobile]: `@media (min-width: ${Media.TMediaBoundaries.tablet}px)`,
+  [Media.TWindowSize.ltDesktop]: `@media (max-width: ${Media.TMediaBoundaries.desktop - 1}px)`,
 }
 
 

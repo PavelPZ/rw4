@@ -9,20 +9,17 @@
   }
 
   //****** celkem 5 moznosti pro velikost
-  const enum TMedias {
+  const enum TWindowSize {
     //indexy do web-media konstant
     mobile = 0x1/*just mobile [-] */, tablet = 0x2/*just tablet [--]*/, desktop = 0x4/*just desktop [---]*/,
-    portrait = 0x8,
     //rozsireni pro fela
-    ltDesktop = TMedias.mobile | TMedias.tablet, // " < TMedias.desktop" ..at least tablet [-- or ---]
-    gtMobile = TMedias.tablet | TMedias.ltDesktop,// " > TMedias.mobile" ..max tablet [- or --]
-    portraitMobile = TMedias.mobile | TMedias.portrait,
-    portraitTablet = TMedias.tablet | TMedias.portrait,
+    ltDesktop = TWindowSize.mobile | TWindowSize.tablet, // " < TMedias.desktop" ..at least tablet [-- or ---]
+    gtMobile = TWindowSize.tablet | TWindowSize.ltDesktop,// " > TMedias.mobile" ..max tablet [- or --]
   } 
  
 
-  interface IWebChangeMediaAction extends App.Action<Consts.WEB_CHANGE_MEDIA> { actMedia: TMedias }
-  interface INativeChangePortraitAction extends App.Action<Consts.NATIVE_CHANGE_DIMENSION> { width: number; height:number }
+  interface IWebChangeMediaAction extends App.Action<Consts.WEB_CHANGE_MEDIA> { windowSize: TWindowSize }
+  interface INativeChangeMediaAction extends App.Action<Consts.NATIVE_CHANGE_DIMENSION> { rnWidth: number; rnHeight:number }
 
   interface IDimensionsAddEventListener {
     screen: IDAELItem
@@ -36,12 +33,13 @@
   }
 
   //const enum TOS { ios = 'ios', android = 'android', web = 'web' }
-
   interface IState {
-    actMedia: TMedias
-    portrait: boolean
-    //OS: TOS
+    windowSize?: TWindowSize
+    rnWidth?: number
+    rnHeight?: number
   }
+
+  type IMediaProps = IState
 
 }
 

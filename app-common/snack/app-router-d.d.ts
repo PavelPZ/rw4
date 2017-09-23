@@ -6,7 +6,7 @@
     loadDelay = 600,
   }
 
-  interface IRoutePar extends Router.IRoutePar {
+  interface IRouteProps extends Router.IPageProps {
     title?: string
   }
 

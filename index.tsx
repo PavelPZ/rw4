@@ -15,7 +15,7 @@ import { all, call } from 'redux-saga/effects'
 
 //********** COMMON
 import { Provider as LocProvider, reducer as locReducer } from './app-common/lib/loc'
-import { Provider as RouterProvider, init as initRouter, reducer as routerReducer, middleware as routerMiddleware } from './app-common/lib/router'
+import { Provider as RouterProvider, init as initRouter, globalReducer as globalRouterReducer, middleware as routerMiddleware } from './app-common/lib/router'
 import { promiseAll, getAppId } from './app-common/lib/lib'
 import { init as initRecording, reducer as recordingReducer, saga as recordingSaga, middleware as recordingMiddleware, globalReducer as recordingGlobalReducer, blockGuiReducer, blockGuiSaga } from './app-common/lib/recording'
 import { reducer as loginReducer } from './app-common/lib/login'
@@ -29,7 +29,7 @@ import { platform as loginPlatform, Provider as LoginProvider, } from './app-web
 import { init as initMediaQuery } from './app-web/lib/web-media-query'
 import { Provider as RecordingProvider, BlockGuiComp } from './app-web/lib/web-recording'
 import { Provider as DrawerProvider } from './app-web/lib/web-drawer'
-import { getAnimator as getRouteAnimator, AnimationRoot } from './app-web/lib/web-router'
+import { getAnimator as getRouteAnimator, Page } from './app-web/lib/web-router'
 import { Button } from './app-web/gui/button'
 import { Icon } from './app-web/gui/icon'
 import { View, Container, Header, Footer, Content } from './app-web/gui/view'
@@ -37,7 +37,7 @@ import { Text } from './app-web/gui/text'
 import { H1, H2, H3, Platform, colorToStyle, WaitForRendering, waitChildren } from './app-web/gui/lib'
 
 //************ aplikace k testovani
-import { AppRouterComp } from './app-common/snack/app-router'
+import { AppPage } from './app-common/snack/app-router'
 import ReactMDApp from './app-web/snack/react-md-test'
 import DrawerApp from './app-web/snack/drawer'
 import LocTestApp from './app-common/snack/loc-test'
@@ -56,6 +56,7 @@ import { App1, /*app3Reducer*/ } from './app-web/snack/router-new'
 export const init = async () => {
   window.lmGlobal = {
     isNative: false,
+    OS: App.PlatformOSType.web,
     platform: {
       appPlatform: {
         instanceId: getAppId({
@@ -73,13 +74,13 @@ export const init = async () => {
       recordingPlatform: { guiSize: Recording.TGuiSize.icon },
       restAPIPlatform: { serviceUrl: 'rest-api.ashx' },
       routerPlatform: {
-        startRoute: AppRouterComp.getRoute({ title: 'START TITLE | xxx' }),
+        startRoute: AppPage.getRoute({ title: 'START TITLE | xxx' }),
         //startRoute: App1.getRoute({ title: 'from Index' }),
         history: createHistory() as Router.IHistory,
         rootUrl: '/web-app.html',
         getAnimator: getRouteAnimator,
       },
-      guiPlatform: { Platform, colorToStyle, Button, Icon, H1, H2, H3, View, Container, Header, Footer, Content, Text, AnimationRoot }
+      guiPlatform: { Platform, colorToStyle, Button, Icon, H1, H2, H3, View, Container, Header, Footer, Content, Text, Page }
     }
   }
 
@@ -90,9 +91,10 @@ export const init = async () => {
 
   const reducers: App.IReducer = (st, action: any) => {
     //const state = app3Reducer(recordingGlobalReducer(st, action), action)
-    const state = recordingGlobalReducer(st, action)
+    const state = recordingGlobalReducer(globalRouterReducer(st, action), action)
     return {
-      router: routerReducer(state.router, action),
+      ...state,
+      //router: routerReducer(state.router, action),
       login: loginReducer(state.login, action),
       mediaQuery: mediaQueryReducer(state.mediaQuery, action),
       loc: locReducer(state.loc, action),

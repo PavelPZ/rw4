@@ -14,7 +14,7 @@ const routes: { [name: string]: Router.IRouteComponent } = {}
 
 
 const providerConnector = connect<Router.IRouterProviderProps, {}, {}>(
-  (state: IState) => state.router,
+  (state: IState) => ({ ...state.router, ...state.mediaQuery })// windowSize: state.mediaQuery.windowSize, rnWidth: window.innerWidth })
 )
 
 
@@ -25,13 +25,13 @@ class provider extends React.PureComponent<Router.IRouterProviderProps> {
 
     if (animateOut) animateOut.abort() 
     if (animateIn) animateIn.abort() 
-    animateOut = null; animateIn = null; 
-
-    const { params } = props
-    const Route = routes[props.routeName] as React.ComponentClass<Router.IRoutePar>
+    animateOut = null; animateIn = null;
+    const Page = routes[props.routeName]
     const { getAnimator } = window.lmGlobal.platform.routerPlatform
+    const { params: pars, rnWidth, rnHeight, windowSize } = props
+    const params = { ...pars, rnHeight, rnWidth, windowSize }
 
-    return <Route key={routeCount++} {...params} refForAnimation={async div => {
+    return <Page key={routeCount++} {...params} refForAnimation={async div => {
       if (!div) return
       animateOut = getAnimator(div, true)
       animateIn = getAnimator(div, false)
@@ -144,13 +144,25 @@ export const middleware: Middleware<IState> = middlAPI => next => a => {
 let navigActionId = 0
 let beforeUnload: () => void
 
-export const reducer: App.IReducer<Router.IState> = (state, action: Router.IAction) => {
-  if (!state) return getLocationState() // window.lmGlobal.platform.routerPlatform.startRoute
+export const globalReducer: App.IReducer<IState> = (state, action: Router.IAction) => {
+  //console.log('globalReducer: ', { ...state, router: getStateFromUrl() })
+  if (!state.router) return { ...state, router: getStateFromUrl()}
   switch (action.type) {
-    case Router.Consts.NAVIGATE_END: return action.newState
+    case Router.Consts.NAVIGATE_END:
+      const Route = routes[action.newState.routeName]
+      return Route.reducer ? Route.reducer(state, action) : { ...state, router: action.newState }
     default: return state
   }
 }
+
+
+//export const reducer: App.IReducer<Router.IState> = (state, action: Router.IAction) => {
+//  if (!state) return getStateFromUrl() // window.lmGlobal.platform.routerPlatform.startRoute
+//  switch (action.type) {
+//    case Router.Consts.NAVIGATE_END: return action.newState
+//    default: return state
+//  }
+//}
 
 export const init = () => {
   const { startRoute, rootUrl, history } = window.lmGlobal.platform.routerPlatform
@@ -199,7 +211,7 @@ export const init = () => {
 
   historyPush = (urlPattern, state) => history.push(stringify(urlPattern, state))
   historyUrl = (urlPattern, state) => stringify(urlPattern, state)
-  getLocationState = () => url2state(history.location)
+  getStateFromUrl = () => url2state(history.location)
   //navigate(url2state(history.location))
   const unlisten = history.listen((location, action) => {
     //console.log(JSON.stringify(location,null,2))
@@ -210,4 +222,4 @@ export const init = () => {
 
 let historyPush: (urlPattern: UrlPattern, state: Router.IState) => void
 let historyUrl: (urlPattern: UrlPattern, state: Router.IState) => string
-let getLocationState: () => Router.IState
+let getStateFromUrl: () => Router.IState

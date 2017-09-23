@@ -9,19 +9,15 @@
 
   interface IRoutePar {
     query?: { isModal?: boolean }
-    refForAnimation?: (root: WebNativeCommon.TRouterAnimRoot) => void //for ROUTER animation - callback when animated HTML element is ready
   }
-  type TRefForAnimation = { refForAnimation?: (root: WebNativeCommon.TRouterAnimRoot) => void }
-
-  type IRouterProviderProps = IState 
-
-  interface IGlobalState {
-    nav: IState
-    toolbar
-    drawerHeader
-    drawerContent
+  interface IPagePar extends Media.IMediaProps  {
+    refForAnimation?: (root: WebNativeCommon.TRouterAnimRoot) => void //callback pro page transiton
+    sidebarMenu?: JSX.Element
   }
 
+  type IRouterProviderProps = IState & IPagePar
+  type IPageProps = IRoutePar & IPagePar
+  
   interface IState<TName extends string = string, TParams extends IRoutePar = any> {
     routeName: TName
     params?: TParams
@@ -48,9 +44,10 @@
     urlPattern?
     getRoute?: (params: TParams, isModal?:boolean) => Router.IState<string, TParams>
     nativeScreenDef?: () => { [name: string]: { screen: IRouteComponent<TParams> } }
+    reducer?: (state: App.IGlobalState, action: App.Action) => App.IGlobalState
   }
 
-  type IRouteComponent<TPar extends IRoutePar = IRoutePar> = React.ComponentType & IRoute<TPar>
+  type IRouteComponent<TPar extends IRoutePar = IRoutePar> = React.ComponentType<IPagePar & TPar> & IRoute<IPagePar & TPar>
 
   type TUnloader = () => void
   type TLoader<TParams extends IRoutePar = IRoutePar> = (params: TParams) => Promise<TUnloader>

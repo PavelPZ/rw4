@@ -15,8 +15,12 @@ export const Container: React.SFC<ReactNative.ViewProperties & {ref?}> = props =
 export const Content: React.SFC<ReactNative.ViewProperties> = props => { const C = pl().Content; return <C {...props} /> }
 export const Header: React.SFC<ReactNative.ViewProperties> = props => { const C = pl().Header; return <C {...props} /> }
 export const Footer: React.SFC<ReactNative.ViewProperties> = props => { const C = pl().Footer; return <C {...props} /> }
-export const Page: React.SFC<Router.TRefForAnimation> = props => { const C = pl().Page; return <C {...props} /> }
+export const Page: React.SFC<Router.IPageProps> = props => { const C = pl().Page; return <C {...props} /> }
 
-export * from './colors'
+//export * from './colors'
 
-export const footerConnector = connect<GUI.IPageFooterState, {}, GUI.IPageFooterOwnProps>((state: IState) => state.gui.footer)
+//export const footerConnector = connect<GUI.IPageFooterState, {}, GUI.IPageFooterOwnProps>((state: IState) => state.gui.footer)
+
+export const pageReducer = (state: IState, action: App.Action) => {
+
+}
