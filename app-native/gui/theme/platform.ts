@@ -7,13 +7,13 @@ const deviceWidth = Dimensions.get('window').width
 const platform = Platform.OS == 'windows' ? 'ios' : Platform.OS
 const platformStyle = undefined
 
-const enum Fonts {
+export const enum Fonts {
   System = 'System',
   Roboto_medium = 'Roboto_medium',
   Roboto = 'Roboto'
 }
 
-const enum Palette {
+export const enum Palette {
 
   //Brands
   brandPrimaryAndroid = '#3f51b5',

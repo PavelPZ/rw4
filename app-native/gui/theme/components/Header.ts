@@ -1,6 +1,6 @@
 import { PixelRatio } from "react-native";
 
-import variable from '../platform'
+import variable, { Fonts, Palette }  from '../platform'
 
 export default (variables = variable) => {
 	const platformStyle = variables.platformStyle;

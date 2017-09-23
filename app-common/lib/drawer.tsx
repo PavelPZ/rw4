@@ -1,7 +1,7 @@
 ﻿import React from 'react'
-import { connect } from 'react-redux'
+import { connect, ComponentDecorator } from 'react-redux'
 
-export const providerConnector = connect<Drawer.IStateProps, Drawer.IDispatchProps, {}>(
+export const providerConnector: ComponentDecorator<Drawer.IStateProps & Drawer.IDispatchProps, {}>  = connect(
   (state: IState) => state.drawer,
   (dispatch) => ({
     show: () => dispatch({ type: Drawer.Consts.SHOW, isShow: true } as Drawer.Action),

@@ -13,6 +13,9 @@
 
     //**** COMMON
 
+    //"declaration": true,
+    //"declarationDir": "../rw4-typings/typings/",
+
     "allowSyntheticDefaultImports": true,
     "strictNullChecks": false,
     "downlevelIteration": true,

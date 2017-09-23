@@ -102,7 +102,7 @@ export class Page extends React.PureComponent<Router.IPageProps> {
 //const SideMenu = sideMenuProvider(SideMenuLow)
 
 //**** ANIMATE
-class TweensPromise extends PromiseExtensible<void> {
+export class TweensPromise extends PromiseExtensible<void> {
 
   constructor(private value: Animated.Value, private display: boolean) { super() }
 

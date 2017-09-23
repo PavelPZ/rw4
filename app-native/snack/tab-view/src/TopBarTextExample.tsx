@@ -5,12 +5,12 @@ import { StyleSheet, Dimensions } from 'react-native';
 import { TabViewAnimated, TabBar, TabBarProps, NavigationState } from 'react-native-tab-view';
 import SimplePage from './SimplePage';
 
-type Route = {
+export type Route = {
   key: string,
   title: string,
 };
 
-type State = NavigationState<Route>;
+export type State = NavigationState<Route>;
 
 export default class TopBarTextExample extends PureComponent<any, State> {
   static title = 'Scrollable top bar';

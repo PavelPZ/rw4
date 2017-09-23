@@ -3,7 +3,7 @@ import { StyleSheet, PanResponder, View, Dimensions, Animated, TouchableWithoutF
 
 import { connect } from 'react-redux'
 
-interface IProps {
+export interface IProps {
   edgeHitWidth?: number //60
   toleranceX?: number //10
   toleranceY?: number //10
@@ -25,7 +25,7 @@ interface IProps {
   style?: ReactNative.ViewStyle
 }
 
-interface ISideMenuState {
+export interface ISideMenuState {
   width: number,
   height: number,
   openOffsetMenuPercentage: number,
@@ -37,7 +37,7 @@ interface ISideMenuState {
 
 interface IWindowDimensions { width: number, height: number }
 
-interface IEvent {
+export interface IEvent {
   nativeEvent: {
     layout: {
       width: number,

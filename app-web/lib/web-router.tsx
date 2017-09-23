@@ -1,7 +1,7 @@
 ﻿import React from 'react'
 import { TweensPromise } from '../gui/lib'
 
-class PageTransitionTweensPromise extends TweensPromise {
+export class PageTransitionTweensPromise extends TweensPromise {
   constructor(private div: HTMLElement, private display: boolean) { super() }
   doStart() {
     const { div, display } = this

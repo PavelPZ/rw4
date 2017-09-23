@@ -5,12 +5,12 @@ import { Animated, StyleSheet } from 'react-native';
 import { TabViewAnimated, TabBar, NavigationState } from 'react-native-tab-view';
 import BasicListView from './BasicListView';
 
-type Route = {
+export type Route = {
   key: string,
   title: string,
 };
 
-type State = NavigationState<Route>;
+export type State = NavigationState<Route>;
 
 export default class TopBarTextExample extends PureComponent<any, State> {
   static title = 'Scroll views with lazy load';

@@ -1,5 +1,5 @@
 ﻿import React from 'react'
-import { connect } from 'react-redux'
+import { connect, ComponentDecorator } from 'react-redux'
 import { Container, Header, Content, Text, Button, H2, View, Page } from '../gui/gui'
 import { registerRouter } from '../lib/router'
 import { isLogged, createLoginButton } from '../lib/login'
@@ -39,7 +39,7 @@ class appPageLow extends React.PureComponent<AppRouter.IRouteProps & { title2?: 
   }
 }
 
-const provider = connect<{ title2?: string }, { onClick?}, AppRouter.IRouteProps>(
+const provider: ComponentDecorator<{ title2?: string; onClick?}, AppRouter.IRouteProps> = connect(
   (state: IAppState) => state.xxx,
   (dispatch) => ({
     onClick: title2 => dispatch({ type: 'CLICK', title2 })

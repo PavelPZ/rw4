@@ -6,12 +6,12 @@ import { Ionicons } from '@expo/vector-icons';
 import { TabViewAnimated, TabBar, NavigationState } from 'react-native-tab-view';
 import SimplePage from './SimplePage';
 
-type Route = {
+export type Route = {
   key: string,
   icon: string,
 };
 
-type State = NavigationState<Route>;
+export type State = NavigationState<Route>;
 
 export default class TopBarIconExample extends PureComponent<any, State> {
   static title = 'Icon only top bar';

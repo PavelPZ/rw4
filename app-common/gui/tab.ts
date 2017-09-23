@@ -1,5 +1,5 @@
 ﻿import React from 'react'
-import { connect } from 'react-redux'
+//import { connect } from 'react-redux'
 
 //// **** for user action
 //export const changeIndex = (props: GUI.ITabOwnProps, idx: number) => window.lmGlobal.store.dispatch({ ...props.userAction, idx: idx, data: props.buttons[idx].data } as GUI.ITabUserAction)

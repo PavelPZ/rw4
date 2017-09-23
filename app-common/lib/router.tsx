@@ -1,6 +1,6 @@
 ﻿import React from 'react';
 import { Middleware, MiddlewareAPI, Action, Dispatch } from 'redux'
-import { connect } from 'react-redux'
+import { connect, ComponentDecorator } from 'react-redux'
 import { put, take } from 'redux-saga/effects'
 import { delay } from 'redux-saga'
 import invariant from 'invariant'
@@ -13,7 +13,7 @@ import UrlPattern from 'url-pattern'
 const routes: { [name: string]: Router.IRouteComponent } = {}
 
 
-const providerConnector = connect<Router.IRouterProviderProps, {}, {}>(
+const providerConnector: ComponentDecorator<Router.IRouterProviderProps, {}> = connect(
   (state: IState) => ({ ...state.router, ...state.mediaQuery })// windowSize: state.mediaQuery.windowSize, rnWidth: window.innerWidth })
 )
 

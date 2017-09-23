@@ -28,11 +28,11 @@ const initialLayout = {
   width: Dimensions.get('window').width,
 };
 
-type Route = {
+export type Route = {
   key: string,
 };
 
-type State = NavigationState<Route>;
+export type State = NavigationState<Route>;
 
 export default class CoverflowExample extends PureComponent<any, State> {
   static title = 'Coverflow';

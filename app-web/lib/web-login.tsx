@@ -5,7 +5,6 @@
 //https://developers.facebook.com/docs/facebook-login/web/login-button
 
 import React from 'react'
-import { connect } from 'react-redux'
 import invariant from 'invariant'
 
 import { navigate, actRoute } from '../../app-common/lib/router'

@@ -158,7 +158,6 @@
     <TypeScriptCompile Include="app-native\snack\drawer.tsx" />
     <TypeScriptCompile Include="app-native\snack\native-base\header.tsx" />
     <TypeScriptCompile Include="app-native\snack\native-base\index.tsx" />
-    <TypeScriptCompile Include="app-native\snack\navigation\app-navigation-d.d.ts" />
     <TypeScriptCompile Include="app-common\lib\drawer-d.d.ts" />
     <TypeScriptCompile Include="app-common\lib\drawer.tsx" />
     <TypeScriptCompile Include="app-common\lib\lib.tsx" />
@@ -174,7 +173,6 @@
     <TypeScriptCompile Include="app-common\snack\communication.tsx" />
     <TypeScriptCompile Include="app-common\lib\validate-d.d.ts" />
     <TypeScriptCompile Include="app-common\lib\validate.tsx" />
-    <TypeScriptCompile Include="app-native\snack\navigation\app-navigation.tsx" />
     <TypeScriptCompile Include="app-common\gui\ionic-d.d.ts" />
     <TypeScriptCompile Include="app-web\design\ionic-designtime.tsx" />
     <TypeScriptCompile Include="app-common\gui\ionic.tsx" />
@@ -203,13 +201,7 @@
     <TypeScriptCompile Include="app-common\snack\app-router.tsx" />
     <TypeScriptCompile Include="web-ionic.tsx" />
     <TypeScriptCompile Include="app-common\lib\typings.d.ts" />
-    <TypeScriptCompile Include="app-native\snack\navigation\navigation-redux.tsx" />
-    <TypeScriptCompile Include="app-native\snack\navigation\tab-detailed.tsx" />
-    <TypeScriptCompile Include="app-native\snack\navigation\stack-detailed.tsx" />
-    <TypeScriptCompile Include="app-native\snack\navigation\stack.tsx" />
-    <TypeScriptCompile Include="app-native\snack\navigation\navigation.tsx" />
     <TypeScriptCompile Include="app-native\snack\redux-simple.tsx" />
-    <TypeScriptCompile Include="app-native\snack\navigation\redux\index.tsx" />
     <TypeScriptCompile Include="app-web\gui\react-md.ts" />
     <TypeScriptCompile Include="app-web\snack\drawer.tsx" />
     <TypeScriptCompile Include="app-web\lib\typings.d.ts" />
@@ -218,27 +210,8 @@
     <None Include="app-common\snack\react-navigation.tsx_" />
     <TypeScriptCompile Include="app-web\snack\react-md-test.tsx" />
     <TypeScriptCompile Include="App.tsx" />
-    <TypeScriptCompile Include="app-native\snack\navigation\playground\App.tsx" />
-    <TypeScriptCompile Include="app-native\snack\navigation\playground\Banner.tsx" />
-    <TypeScriptCompile Include="app-native\snack\navigation\playground\CustomTabs.tsx" />
-    <TypeScriptCompile Include="app-native\snack\navigation\playground\Drawer.tsx" />
-    <TypeScriptCompile Include="app-native\snack\navigation\playground\ModalStack.tsx" />
-    <TypeScriptCompile Include="app-native\snack\navigation\playground\SampleText.tsx" />
-    <TypeScriptCompile Include="app-native\snack\navigation\playground\SimpleStack.tsx" />
-    <TypeScriptCompile Include="app-native\snack\navigation\playground\SimpleTabs.tsx" />
-    <TypeScriptCompile Include="app-native\snack\navigation\playground\StacksInTabs.tsx" />
-    <TypeScriptCompile Include="app-native\snack\navigation\playground\StacksOverTabs.tsx" />
-    <TypeScriptCompile Include="app-native\snack\navigation\playground\TabsInDrawer.tsx" />
     <Content Include="app-native\gui\buttons.png" />
     <TypeScriptCompile Include="app-native\gui\theme\platform.ts" />
-    <Content Include="app-native\snack\navigation\playground\assets\NavLogo.png" />
-    <TypeScriptCompile Include="app-native\snack\navigation\redux\src\components\AuthButton.tsx" />
-    <TypeScriptCompile Include="app-native\snack\navigation\redux\src\components\LoginScreen.tsx" />
-    <TypeScriptCompile Include="app-native\snack\navigation\redux\src\components\LoginStatusMessage.tsx" />
-    <TypeScriptCompile Include="app-native\snack\navigation\redux\src\components\MainScreen.tsx" />
-    <TypeScriptCompile Include="app-native\snack\navigation\redux\src\components\ProfileScreen.tsx" />
-    <TypeScriptCompile Include="app-native\snack\navigation\redux\src\navigators\AppNavigator.tsx" />
-    <TypeScriptCompile Include="app-native\snack\navigation\redux\src\reducers\index.tsx" />
     <Content Include="app-native\snack\tab-view\assets\album-art-1.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

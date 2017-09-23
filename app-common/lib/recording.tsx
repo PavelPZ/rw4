@@ -1,5 +1,5 @@
 ﻿import { Middleware, MiddlewareAPI, Action, Dispatch } from 'redux'
-import { connect } from 'react-redux'
+import { connect, ComponentDecorator } from 'react-redux'
 import invariant from 'invariant'
 import { put, take, race } from 'redux-saga/effects'
 import { delay } from 'redux-saga'
@@ -62,7 +62,7 @@ let debugPlayList: Recording.IPlayList[] = []
 
 export const saga = function* () {
   while (true) {
-    const act: Recording.TActions = yield take([Recording.Consts.RECORD_START, Recording.Consts.PLAY_START])
+    const act: Recording.TActions = yield take([Recording.Consts.RECORD_START, Recording.Consts.PLAY_START]) as any
     switch (act.type) {
       case Recording.Consts.RECORD_START:
         continue
@@ -78,9 +78,9 @@ export const saga = function* () {
           yield delay(Recording.Consts.playActionDelay)
           const canc = window.lmGlobal.store.getState().recording.mode != Recording.TModes.playing
           if (!canc) {
-            yield put(playAction)
+            yield put(playAction) 
             const act: Recording.TActions = yield take([Recording.Consts.PLAY_CONTINUE])
-            yield put({ type: Recording.Consts.PLAY_NEXT, idx, listIdx, playMsg } as Recording.PlayNextAction)
+            yield put({ type: Recording.Consts.PLAY_NEXT, idx, listIdx, playMsg } as Recording.PlayNextAction) as any
           }
           return canc
         }
@@ -177,7 +177,7 @@ export const reducer: App.IReducer<Recording.IState> = (state, action: Recording
 }
 
 
-export const providerConnector = connect<Recording.IStateProps, Recording.IDispatchProps, {}>(
+export const providerConnector: ComponentDecorator<Recording.IStateProps & Recording.IDispatchProps, {}> = connect(
   (state: IState) => state.recording as Recording.IStateProps,
   (dispatch) => ({
     recordStart: () => dispatch({ type: Recording.Consts.RECORD_START } as Recording.Action),
@@ -197,12 +197,12 @@ export const providerConnector = connect<Recording.IStateProps, Recording.IDispa
 
 export const blockGuiSaga = function* () {
   while (true) {
-    const act: BlockGui.Action = yield take([BlockGui.Consts.START])
+    const act: BlockGui.Action = yield take([BlockGui.Consts.START]) as any
     yield put({ type: BlockGui.Consts.SET_STATE, state: BlockGui.State.show } as BlockGui.SetStateAction)
     const { waitForIcon, end } = yield race({
       waitForIcon: delay(500),
       end: take([BlockGui.Consts.END]),
-    })
+    }) as any
     if (waitForIcon) {
       yield put({ type: BlockGui.Consts.SET_STATE, state: BlockGui.State.showIcon } as BlockGui.SetStateAction)
       const act: BlockGui.Action = yield take([BlockGui.Consts.END])
@@ -219,6 +219,6 @@ export const blockGuiReducer: App.IReducer<BlockGui.IState> = (state, action: Bl
   }
 }
 
-export const blockGuiConnector = connect<BlockGui.IState, {}, BlockGui.IOwnProps>((state: IState) => state.blockGui)
+export const blockGuiConnector: ComponentDecorator<BlockGui.IState, BlockGui.IOwnProps> = connect((state: IState) => state.blockGui)
 
 const blockGUI = (dispatch: App.Dispatch, isBlock: boolean) => dispatch({ type: isBlock ? BlockGui.Consts.START : BlockGui.Consts.END } as BlockGui.Action)

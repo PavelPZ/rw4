@@ -13,13 +13,13 @@ import BasicListView from './BasicListView';
 
 const AnimatedIcon = Animated.createAnimatedComponent(Ionicons);
 
-type Route = {
+export type Route = {
   key: string,
   title: string,
   icon: string,
 };
 
-type State = NavigationState<Route>;
+export type State = NavigationState<Route>;
 
 export default class TopBarIconExample extends PureComponent<any, State> {
   static title = 'No animation';

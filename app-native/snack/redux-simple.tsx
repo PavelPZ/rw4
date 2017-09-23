@@ -7,7 +7,7 @@ import createSagaMiddleware, { delay } from 'redux-saga/index'
 import { all, call, put, takeEvery, takeLatest, take } from 'redux-saga/effects'
 
 
-interface IState {
+export interface IState {
   counter: number;
 }
 

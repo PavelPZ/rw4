@@ -1,4 +1,4 @@
-import variable from '../platform'
+import variable, { Fonts, Palette } from '../platform'
 
 export default (variables = variable) => {
   const platform = variables.platform;

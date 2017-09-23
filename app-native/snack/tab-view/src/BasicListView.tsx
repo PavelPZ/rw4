@@ -1,14 +1,14 @@
 /* @flow */
 
 import React, { PureComponent } from 'react';
-import { ListView, View, Text, StyleSheet } from 'react-native';
+import { ListView, View, Text, StyleSheet, ListViewDataSource } from 'react-native';
 
 export default class ListViewExample extends PureComponent<any> {
   state = {
     data: [],
     dataSource: new ListView.DataSource({
       rowHasChanged: (r1, r2) => r1 !== r2,
-    }),
+    } as any),
   };
 
   componentWillMount() {

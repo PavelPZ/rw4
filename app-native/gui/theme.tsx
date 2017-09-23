@@ -1,7 +1,7 @@
 ﻿import React from 'react'
 import { StyleProvider } from 'native-base'
 import getTheme from './theme/components/index'
-import variables from './theme/platform'
+import variables, { Palette } from './theme/platform'
 
 export const Theme: React.SFC<{}> = props => <StyleProvider style={getTheme(variables)}>
   {React.Children.only(props.children)}

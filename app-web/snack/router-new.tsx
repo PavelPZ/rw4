@@ -1,10 +1,10 @@
 ﻿import React from 'react'
-import { connect } from 'react-redux'
+import { connect, ComponentDecorator } from 'react-redux'
 import { registerRouter } from '../../app-common/lib/router'
 import { Page } from '../../app-common/gui/gui'
 //import { shallowEqual } from '../../app-common/lib/lib'
 
-interface IRouteProps extends Router.IPageProps {
+export interface IRouteProps extends Router.IPageProps {
   title:string
 }
 
@@ -35,7 +35,7 @@ export const App2: Router.IRouteComponent<IRouteProps> = registerRouter(app2, 'r
 let renderCounter2 = 0
 
 //clasic REDUX prevents re-render during ROUTER animation
-class _app3 extends React.Component<IRouteProps & { click, fromConnect}> {
+class app3 extends React.Component<IRouteProps & { click, fromConnect}> {
   render() {
     return <Page refForAnimation={this.props.refForAnimation}>
       <h1>APP 3 {this.props.title + ' ' + this.props.fromConnect}: {renderCounter3++}</h1>
@@ -45,21 +45,21 @@ class _app3 extends React.Component<IRouteProps & { click, fromConnect}> {
     </Page>
   }
 }
-const app3 = connect<{}, { click }, IRouteProps>(
-  (state: IState, ownProps: IRouteProps) => ({ fromConnect: ' from connect ' }), //({ x: {} }) forces re-render, shallowEqual does not work
-  dispatch => ({
-    click: () => {
-      dispatch({ type: 'app3/click', text: ' t' })
-    }
-  }),
-  //undefined,
-  //{ 
-  //  areOwnPropsEqual: (p1,p2) => {
-  //    return areStateWithoutOnRefEqual(p1,p2) 
-  //    //return shallowEqual(p1,p2) //default does no work, re-render due to changed onRef prop value
-  //  }
-  //}
-)(_app3)
+//const app3: ComponentDecorator<{ fromConnect,  click }, IRouteProps> = connect(
+//  (state: IState, ownProps: IRouteProps) => ({ fromConnect: ' from connect ' }), //({ x: {} }) forces re-render, shallowEqual does not work
+//  dispatch => ({
+//    click: () => {
+//      dispatch({ type: 'app3/click', text: ' t' })
+//    }
+//  }),
+//  //undefined,
+//  //{ 
+//  //  areOwnPropsEqual: (p1,p2) => {
+//  //    return areStateWithoutOnRefEqual(p1,p2) 
+//  //    //return shallowEqual(p1,p2) //default does no work, re-render due to changed onRef prop value
+//  //  }
+//  //}
+//)(_app3)
 export const app3Reducer: App.IReducer<IState> = (state, action:any) => {
   //if (!state) return {}
   switch (action.type) {

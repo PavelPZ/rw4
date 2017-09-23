@@ -4,7 +4,7 @@ import { renderCSS } from './fela';
 
 export const enum ModalType { modal, modalFullScreen, popup, drawer, blockGui }
 export interface IModalPropsLow<T> { $finish?: (res) => void; $doClose?: (res, noAnimation: boolean) => void, $idx?: number; $uniqueId?: number; $component?: React.ComponentType, $type?: ModalType, $popupOwner?: React.ReactInstance, $keepLast?: boolean, $transition?: ITransition }
-type TModalPropsLow = IModalPropsLow<{}>;
+export type TModalPropsLow = IModalPropsLow<{}>;
 
 export const enum TPopupPlaces { Top, Left, Right, Bottom }
 export const config = {
@@ -272,7 +272,7 @@ const fullScreen = (zIndex: number) => ({
   zIndex: zIndex,
 } as CSSProperties);
 
-interface ITransition {
+export interface ITransition {
   init: (duration: number) => CSSProperties;
   start: CSSProperties;
   end: CSSProperties;

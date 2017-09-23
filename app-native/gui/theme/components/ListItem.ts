@@ -1,7 +1,7 @@
 import { Platform, PixelRatio } from "react-native";
 
 import pickerTheme from "./Picker";
-import variable from '../platform'
+import variable, { Fonts, Palette }  from '../platform'
 
 export default (variables = variable) => {
   const platform = variables.platform;

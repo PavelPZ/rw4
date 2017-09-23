@@ -1,6 +1,6 @@
 ﻿import React, { PureComponent } from 'react';
 import { View, StyleSheet } from 'react-native';
-import { TabViewAnimated, TabBar, SceneMap } from 'react-native-tab-view';
+import { TabViewAnimated, TabBar, SceneMap, SceneMapStatic } from 'react-native-tab-view';
 
 const FirstRoute = () => <View style={[styles.container, { backgroundColor: '#ff4081' }]} />;
 const SecondRoute = () => <View style={[styles.container, { backgroundColor: '#673ab7' }]} />;
