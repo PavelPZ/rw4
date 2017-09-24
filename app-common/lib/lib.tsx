@@ -27,7 +27,7 @@ export const storeContextType = <T extends {}>(comp: React.ComponentType<T>) => 
 //    return this.props.waitContent
 //  }
 //}
-export class WaitForRendering extends React.PureComponent<{ waitFor?: Promise<any>, finalContent?: Promise<JSX.Element>, waitContent: JSX.Element }> {
+export class WaitForRendering extends React.PureComponent<{ waitFor?: Promise<any> | PromiseExtensible, finalContent?: Promise<JSX.Element>, waitContent: JSX.Element }> {
   state = { finalContent: null }
   render() {
     if (this.state.finalContent) return this.state.finalContent

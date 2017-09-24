@@ -85,6 +85,7 @@
     <TypeScriptCompile Include="app-native\lib\native-media-query.ts" />
     <TypeScriptCompile Include="app-native\lib\web-native-common.d.ts" />
     <TypeScriptCompile Include="app-native\lib\native-router.tsx" />
+    <TypeScriptCompile Include="app-native\snack\picker.tsx" />
     <TypeScriptCompile Include="app-web\gui\gsap.d.ts" />
     <TypeScriptCompile Include="app-web\lib\web-router.tsx" />
     <TypeScriptCompile Include="app-web\lib\web-native-common.d.ts" />
@@ -207,6 +208,7 @@
     <TypeScriptCompile Include="app-web\lib\typings.d.ts" />
     <TypeScriptCompile Include="app-web\lib\fela-d.d.ts" />
     <TypeScriptCompile Include="app-web\lib\fela.tsx" />
+    <Content Include="app-common\snack\controls.xlsx" />
     <None Include="app-common\snack\react-navigation.tsx_" />
     <TypeScriptCompile Include="app-web\snack\react-md-test.tsx" />
     <TypeScriptCompile Include="App.tsx" />

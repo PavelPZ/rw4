@@ -16,7 +16,7 @@ import { all, call } from 'redux-saga/effects'
 //********** COMMON
 import { Provider as LocProvider, reducer as locReducer } from './app-common/lib/loc'
 import { Provider as RouterProvider, init as initRouter, globalReducer as globalRouterReducer, middleware as routerMiddleware } from './app-common/lib/router'
-import { WaitForRendering, promiseAll, getAppId } from './app-common/lib/lib'
+import { PromiseExtensible, WaitForRendering, promiseAll, getAppId } from './app-common/lib/lib'
 import { init as initRecording, reducer as recordingReducer, saga as recordingSaga, middleware as recordingMiddleware, globalReducer as recordingGlobalReducer, blockGuiReducer, blockGuiSaga } from './app-common/lib/recording'
 import { reducer as loginReducer } from './app-common/lib/login'
 import { reducer as mediaQueryReducer } from './app-common/lib/media-query'
@@ -137,14 +137,13 @@ export const init = async () => {
 
 
   const AppAll: React.SFC<{}> = props => {
-    let loginRendered: () => void
-    const waitForLoginRendered = new Promise<void>(resolve => loginRendered = resolve)
+    const waitForLoginRendered = new PromiseExtensible()
     return <ReduxProvider store={store} >
       <LayerProvider>
         <BlockGuiComp key={1} />,
-        <LoginProvider key={2} loginRendered={async () => { await initAfter(); loginRendered() }} zIndex={100} />,
+        <LoginProvider key={2} loginRendered={async () => { await initAfter(); waitForLoginRendered.resolve() }} zIndex={100} />,
         <LocProvider key={3}>
-          <WaitForRendering waitFor={waitForLoginRendered} waitContent={waitChildren}>
+          <WaitForRendering waitFor={waitForLoginRendered as PromiseExtensible} waitContent={waitChildren}>
             <DrawerProvider>
               <RecordingProvider>
                 <RouterProvider />

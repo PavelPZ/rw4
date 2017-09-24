@@ -46,7 +46,8 @@ import { AppPage } from './app-common/snack/app-router'
 //import AppComp from './app-common/snack/react-navigation';  
 //import AppComp from './app-common/snack/gui/icon'
 //import AppComp from './app-native/snack/native-base/header'
-import AppComp from './app-native/snack/drawer'
+//import AppComp from './app-native/snack/drawer'
+import AppComp from './app-native/snack/picker'
 //import AppComp from './app-native/snack/animation'
 //import AppComp from './app-native/snack/animation2'
 //import AppComp from './app-native/snack/animation3'
@@ -132,8 +133,8 @@ export const init = async () => {
   </ReduxProvider>
 
   return new Promise<JSX.Element>(resolve => resolve(
-    <AppAll />
-    //<AppComp/>
+    //<AppAll />
+    <AppComp/>
   ))
 }
 

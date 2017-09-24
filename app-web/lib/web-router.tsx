@@ -11,4 +11,6 @@ export class PageTransitionTweensPromise extends TweensPromise {
 
 export const getAnimator = (div: HTMLElement, display: boolean) => new PageTransitionTweensPromise(div, display)
 
-export const Page: React.ComponentType<Router.IPageProps> = props => <div ref={props.refForAnimation}>{props.children}</div>
+export const Page: React.ComponentType<Router.IPageProps> = props => <div ref={props.refForAnimation}>
+  {props.children}
+</div>
