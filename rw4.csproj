@@ -84,6 +84,7 @@
     <TypeScriptCompile Include="app-common\snack\gui\button.tsx" />
     <TypeScriptCompile Include="app-native\lib\native-media-query.ts" />
     <TypeScriptCompile Include="app-native\lib\web-native-common.d.ts" />
+    <TypeScriptCompile Include="app-native\lib\native-router.tsx" />
     <TypeScriptCompile Include="app-web\gui\gsap.d.ts" />
     <TypeScriptCompile Include="app-web\lib\web-router.tsx" />
     <TypeScriptCompile Include="app-web\lib\web-native-common.d.ts" />
@@ -181,7 +182,6 @@
     <TypeScriptCompile Include="app-web\gui\lib.tsx" />
     <TypeScriptCompile Include="app-web\gui\text.tsx" />
     <TypeScriptCompile Include="app-web\gui\view.tsx" />
-    <TypeScriptCompile Include="app-web\lib\web-root-layers.tsx" />
     <TypeScriptCompile Include="app-web\lib\web-drawer.tsx" />
     <TypeScriptCompile Include="app-common\snack\gui\icon.tsx" />
     <TypeScriptCompile Include="app-web\snack\icon.tsx" />

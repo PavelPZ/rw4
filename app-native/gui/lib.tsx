@@ -11,7 +11,6 @@ import React from 'react'
 import { connect } from 'react-redux'
 
 import { goBack, canGoBack } from '../../app-common/lib/router'
-import { PromiseExtensible } from '../../app-common/lib/lib'
 import { providerConnector as recordingProviderConnector, blockGuiConnector } from '../../app-common/lib/recording'
 
 //import { addNavigationHelpers, DrawerNavigator, StackNavigator } from 'react-navigation'
@@ -22,7 +21,6 @@ import { /*LayoutAnimation, NativeModules,*/ BackHandler, Platform, Animated } f
 //import { ActionSheetContainer as ActionSheet } from 'native-base/src/basic/Actionsheet'
 import { Font, Constants } from 'expo'
 import { View, Fab, Text, Icon } from 'native-base';
-import SideMenuLow from './react-native-side-menu'
 
 //COMMON
 
@@ -88,49 +86,3 @@ export const LayerProvider: React.SFC<any> = props => <View style={{ flex: 1, ma
   {props.children}
 </View>
 
-
-
-export class Page extends React.PureComponent<Router.IPageProps> {
-  value = new Animated.Value(1)
-  componentDidMount() { this.props.refForAnimation(this.value) }
-  render() {
-    return <SideMenuLow menu={this.props.sidebarMenu}>
-      <Animated.View style={{ flex: 1, opacity: this.value as any }}>
-        {this.props.children}
-      </Animated.View>
-    </SideMenuLow>
-  }
-}
-
-//const sideMenuProvider = connect<any, {}, any>((state: IState) => null)
-//const SideMenu = sideMenuProvider(SideMenuLow)
-
-//**** ANIMATE
-export class TweensPromise extends PromiseExtensible<void> {
-
-  constructor(private value: Animated.Value, private display: boolean) { super() }
-
-  doStart() {
-    const { value, display } = this
-    value.setValue(display ? 1 : 0.05)
-    const tw = Animated.timing(value, {
-      duration: 125,
-      toValue: display ? 0.05 : 1
-    })
-    //value.addListener(v => console.log(v))
-    tw.start(res => {
-      this.resolve()
-      delete this.value
-    });
-  }
-
-  abort(msg?) {
-    const { value, _state } = this
-    if (value) value.stopAnimation()
-    delete this.value
-    if (_state) return this
-    return super.abort(msg)
-  }
-}
-
-export const getAnimator = (animValue: WebNativeCommon.TRouterAnimRoot, display: boolean) => new TweensPromise(animValue, display)

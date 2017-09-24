@@ -16,7 +16,8 @@ import { reducer as mediaQueryReducer } from './app-common/lib/media-query'
 
 //********** NATIVE specific
 import createHistory from 'history/createMemoryHistory'
-import { RecorderButton, LayerProvider, BlockGuiComp, init as initRoot, getAnimator as getRouteAnimator, Page } from './app-native/gui/lib'
+import { RecorderButton, LayerProvider, BlockGuiComp, init as initRoot, } from './app-native/gui/lib'
+import { getAnimator as getRouteAnimator, Page } from './app-native/lib/native-router'
 import { AppLoading } from 'expo'
 import { Icon } from './app-native/gui/icon'
 import { Button } from './app-native/gui/button'
