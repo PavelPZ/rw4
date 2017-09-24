@@ -10,11 +10,15 @@
 
     //**** REACT NATIVE
     "target": "es6",
+    "module": "system",
 
     //**** COMMON
 
     //"declaration": true,
-    //"declarationDir": "../rw4-typings/typings/",
+    //"declarationDir": "../rw4-builds/native/",
+
+    //"outDir": "../rw4-builds/native",
+    //"outFile": "../rw4-builds/native/build.js",
 
     "allowSyntheticDefaultImports": true,
     "strictNullChecks": false,

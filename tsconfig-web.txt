@@ -14,7 +14,10 @@
     //**** COMMON
 
     //"declaration": true,
-    //"declarationDir": "../rw4-typings/typings/",
+    //"declarationDir": "../rw4-builds/web/",
+
+    //"outDir": "../rw4-builds/web",
+    //"outFile": "../rw4-builds/web/build.js",
 
     "allowSyntheticDefaultImports": true,
     "strictNullChecks": false,

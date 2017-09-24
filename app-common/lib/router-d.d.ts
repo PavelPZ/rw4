@@ -1,8 +1,8 @@
 ﻿declare namespace Router {
 
   const enum Consts {
-    NAVIGATE_START = 'router/NAVIGATE_START', NAVIGATE_END = 'router/NAVIGATE_END', 
-    ROUTE_CREATE = 'ROUTE_CREATE', ROUTE_DESTROY = 'ROUTE_DESTROY', 
+    NAVIGATE_START = 'router/NAVIGATE_START', NAVIGATE_END = 'router/NAVIGATE_END',
+    ROUTE_CREATE = 'ROUTE_CREATE', ROUTE_DESTROY = 'ROUTE_DESTROY',
     modal = 'modal-'
   }
 
@@ -11,14 +11,14 @@
   interface IRoutePar {
     query?: { isModal?: boolean }
   }
-  interface IPagePar extends Media.IMediaProps  {
+  interface IPagePar extends Media.IMediaProps {
     refForAnimation?: (root: WebNativeCommon.TRouterAnimRoot) => void //callback pro page transiton
     sidebarMenu?: JSX.Element
   }
 
   type IRouterProviderProps = IState & IPagePar
   type IPageProps = IRoutePar & IPagePar
-  
+
   interface IState<TName extends string = string, TParams extends IRoutePar = any> {
     routeName: TName
     params?: TParams
@@ -43,7 +43,7 @@
     navigate?: (params: TParams) => void //navigace S history.push
     navigateModal?: (params: TParams) => void
     urlPattern?
-    getRoute?: (params: TParams, isModal?:boolean) => Router.IState<string, TParams>
+    getRoute?: (params: TParams, isModal?: boolean) => Router.IState<string, TParams>
     nativeScreenDef?: () => { [name: string]: { screen: IRouteComponent<TParams> } }
     reducer?: (state: App.IGlobalState, action: App.Action) => App.IGlobalState
   }
@@ -74,9 +74,9 @@
     backHandler?: () => boolean
     getAnimator?: (div: WebNativeCommon.TRouterAnimRoot, display: boolean) => IPromiseExtensible<void>
   }
-  
+
   interface IRouterAnimator {
-    new(div: HTMLElement, display:boolean)
+    new(div: HTMLElement, display: boolean)
   }
 
 
@@ -84,6 +84,7 @@
 
 interface IState {
   router?: Router.IState
+  pages: { [routeName: string]: {} }
 }
 
 interface IPlatforms {

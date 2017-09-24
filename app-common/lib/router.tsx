@@ -18,31 +18,30 @@ const providerConnector: ComponentDecorator<Router.IRouterProviderProps, {}> = c
 )
 
 export const globalReducer: App.IReducer<IState> = (state, action: Router.IAction) => {
-  let resState = state
-  if (!state.router) {
+  let newState = state
+  if (!state.router) { //prvni INIT redux action
     const router = getStateFromUrl()
-    resState = { ...resState, router }
+    newState = { ...newState, pages: {}, router }
     const newRoute = routes[router.routeName]
-    if (newRoute.reducer) resState = newRoute.reducer(resState, { type: Router.Consts.ROUTE_CREATE })
-  } else
-    resState = state
-  const { router: { routeName } } = resState
+    if (newRoute.reducer) newState = newRoute.reducer(newState, { type: Router.Consts.ROUTE_CREATE }) //init prvni route state
+    return newState
+  } 
+  const { router: { routeName } } = newState
   switch (action.type) {
     case Router.Consts.NAVIGATE_END:
       const { newState: { routeName: actionRouteName } } = action
       const newRoute = routes[actionRouteName]
-      //if (newRoute.reducer) resState = newRoute.reducer(resState, { type: Router.Consts.ROUTE_CREATE })
-      if (routeName && actionRouteName !== routeName) {
+      if (routeName && actionRouteName !== routeName) { //stara a nova route jsou odlisne
         const oldRoute = routes[routeName]
-        if (oldRoute.reducer) resState = oldRoute.reducer(resState, { type: Router.Consts.ROUTE_DESTROY })
-        resState = { ...resState, router: action.newState }
-        if (newRoute.reducer) resState = newRoute.reducer(resState, { type: Router.Consts.ROUTE_CREATE })
-      } else
-        resState = { ...resState, router: action.newState }
-      return newRoute.reducer ? newRoute.reducer(resState, action) : resState
+        if (oldRoute.reducer) newState = oldRoute.reducer(newState, { type: Router.Consts.ROUTE_DESTROY })
+        newState = { ...newState, router: action.newState }
+        if (newRoute.reducer) newState = newRoute.reducer(newState, { type: Router.Consts.ROUTE_CREATE })
+      } else //navigace v ramci stejne route
+        newState = { ...newState, router: action.newState }
+      return newRoute.reducer ? newRoute.reducer(newState, action) : newState
     default:
       const actRoute = routes[routeName]
-      return actRoute.reducer ? actRoute.reducer(resState, action) : resState
+      return actRoute.reducer ? actRoute.reducer(newState, action) : newState
   }
 }
 
