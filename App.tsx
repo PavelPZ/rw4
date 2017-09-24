@@ -9,14 +9,14 @@ import { Platform } from 'react-native';
 
 //********** COMMON
 import { WaitForRendering, promiseAll } from './app-common/lib/lib'
-import { globalReducer as globalRouterReducer, middleware as routerMiddleware, init as initRouter } from './app-common/lib/router'
+import { Provider as RouterProvider, globalReducer as globalRouterReducer, middleware as routerMiddleware, init as initRouter } from './app-common/lib/router'
 import { init as initRecording, reducer as recordingReducer, saga as recordingSaga, middleware as recordingMiddleware, globalReducer as recordingGlobalReducer, blockGuiReducer, blockGuiSaga } from './app-common/lib/recording'
 import { Provider as LocProvider, reducer as locReducer } from './app-common/lib/loc'
 import { reducer as mediaQueryReducer } from './app-common/lib/media-query'
 
 //********** NATIVE specific
 import createHistory from 'history/createMemoryHistory'
-import { Provider as RootProvider, init as initRoot, getAnimator as getRouteAnimator, Page } from './app-native/lib/native-root-layers'
+import { RecorderButton, LayerProvider, BlockGuiComp, init as initRoot, getAnimator as getRouteAnimator, Page } from './app-native/lib/native-root-layers'
 import { AppLoading } from 'expo'
 import { Icon } from './app-native/gui/icon'
 import { Button } from './app-native/gui/button'
@@ -25,6 +25,8 @@ import { Container, Header, Footer, Text, StyleProvider, H1, H2, H3, View } from
 import { Theme, colorToStyle } from './app-native/gui/theme'
 import { init as initMediaQuery } from './app-native/lib/native-media-query'
 
+import { ToastContainer as Toast } from 'native-base/src/basic/ToastContainer'
+import { ActionSheetContainer as ActionSheet } from 'native-base/src/basic/Actionsheet'
 
 //************ aplikace k testovani
 
@@ -114,19 +116,26 @@ export const init = async () => {
 
   sagaMiddleware.run(rootSaga)
 
-  const App = RootProvider
-  //const App = AppComp
-
-  const appAll = <ReduxProvider store={store}>
+  const AppAll: React.SFC<{}> = props => <ReduxProvider store={store}>
     <LocProvider>
       <Theme>
-        {<App />}
+        <LayerProvider>
+          <RouterProvider key={1} />
+          <BlockGuiComp key={2} />
+          <RecorderButton key={3} />
+          <Toast ref={c => { if (!Toast.toastInstance) Toast.toastInstance = c }} key={4} />
+          <ActionSheet ref={c => { if (!ActionSheet.actionsheetInstance) ActionSheet.actionsheetInstance = c }} key={5} />
+        </LayerProvider>
       </Theme>
     </LocProvider>
   </ReduxProvider>
 
-  return new Promise<JSX.Element>(resolve => resolve(appAll))
+  return new Promise<JSX.Element>(resolve => resolve(
+    <AppAll />
+    //<AppComp/>
+  ))
 }
+
 
 const Root: React.SFC = () => <WaitForRendering finalContent={init()} waitContent={<AppLoading />} />
 

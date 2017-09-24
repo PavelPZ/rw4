@@ -127,11 +127,7 @@ declare namespace BlockGui {
     state: State
   }
 
-  interface IOwnProps {
-    zIndex: number
-  }
-
-  type IProps = IState & IOwnProps
+  type IProps = IState
 
   interface Action {
     type: Consts.START | Consts.END

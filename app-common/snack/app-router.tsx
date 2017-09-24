@@ -60,13 +60,14 @@ let counter = 0
 export const AppPage: Router.IRouteComponent<AppRouter.IRouteProps> = registerRouter(appPage, AppRouter.Consts.name, AppRouter.Consts.urlMask, {
   beforeLoad: params => new Promise<Router.TUnloader>(resolve => setTimeout(() => resolve(), AppRouter.Consts.loadDelay)),
   needsLogin: params => !window.lmGlobal.isNative && params.title.length >= 'START TITLE | xxx'.length,
-  reducer: (state: IAppState, action: any) => {
+  reducer: (state: IAppState, action: Router.ICreateDestroyAction | Router.IAction | App.Action<'CLICK'>) => {
     const initState = { title2: 'start' }
+    const changeState = false/*!action.routeChanged*/
     switch (action.type) {
-      case Router.Consts.ROUTE_CREATE: console.log(Router.Consts.ROUTE_CREATE); return { ...state, xxx: initState }
+      case Router.Consts.ROUTE_CREATE: console.log(Router.Consts.ROUTE_CREATE); return changeState ? state : { ...state, xxx: initState }
       case Router.Consts.NAVIGATE_END: console.log(Router.Consts.NAVIGATE_END); return { ...state, xxx: initState } //nova navigace: initialni stav
-      case Router.Consts.ROUTE_DESTROY: console.log(Router.Consts.ROUTE_DESTROY); const { xxx, ...rest } = state; return rest //opusteni router: clear jeho STATE
-      case 'CLICK': return { ...state, xxx: { title2: action.title2 } }
+      case Router.Consts.ROUTE_DESTROY: console.log(Router.Consts.ROUTE_DESTROY); if (changeState) return state; const { xxx, ...rest } = state; return rest //opusteni router: clear jeho STATE
+      case 'CLICK': return { ...state, xxx: { title2: (action as any).title2 } }
       default: return state
     }
   }

@@ -102,7 +102,7 @@ export const Provider = providerConnector(provider)
 
 //******************** BLOCK GUI
 
-const blockGui: React.SFC<BlockGui.IProps> = props => props.state == BlockGui.State.no ? null : <Portal visible={props.state != BlockGui.State.no} className={renderCSS({ position: 'fixed', bottom: 0, right: 0, top: 0, left: 0, display: 'flex', justifyContent: 'center', alignItems: 'center', zIndex: props.zIndex, cursor: 'wait' })} >
+const blockGui: React.SFC<BlockGui.IProps> = props => props.state == BlockGui.State.no ? null : <Portal visible={props.state != BlockGui.State.no} className={renderCSS({ position: 'fixed', bottom: 0, right: 0, top: 0, left: 0, display: 'flex', justifyContent: 'center', alignItems: 'center', zIndex: 99, cursor: 'wait' })} >
   {props.state == BlockGui.State.showIcon ? <Icon name={GUI.IonicNames.alarm} /> : <span />}
 </Portal>
 

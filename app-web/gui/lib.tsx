@@ -32,15 +32,20 @@ export const colorToStyle = {
   [GUI.Colors.dark]: GUI.Colors.Black,
 }
 
-export class WaitForRendering extends React.PureComponent<{ waitFor: Promise<any>, waitChildren: React.ReactNode }> {
-  state = { doRender: false }
-  render() {
-    if (this.state.doRender) return React.Children.only(this.props.children)
-    //this.props.waitFor.then(() => setTimeout(() => this.setState({ doRender: true }), 500))
-    this.props.waitFor.then(() => setTimeout(() => this.setState({ doRender: true }), 1))
-    return waitChildren
-  }
-}
+//export class WaitForRendering extends React.PureComponent<{ waitFor: Promise<any>, waitChildren: JSX.Element }> {
+//  state = { doRender: false }
+//  render() {
+//    if (this.state.doRender) return React.Children.only(this.props.children)
+//    //this.props.waitFor.then(() => setTimeout(() => this.setState({ doRender: true }), 500))
+//    this.props.waitFor.then(() => setTimeout(() => this.setState({ doRender: true }), 1))
+//    return this.props.waitChildren
+//  }
+//}
+export const LayerProvider: React.SFC<any> = props => <div>
+  {props.children}
+</div>
+
+
 export const waitChildren = <div className={renderCSS({display:'flex', flex:1, justifyContent:'center', alignItems: 'center', height:'100v'})}>
   <h2>Loading...</h2>
 </div>

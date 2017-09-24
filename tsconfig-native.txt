@@ -10,7 +10,7 @@
 
     //**** REACT NATIVE
     "target": "es6",
-    "module": "system",
+    //"module": "system",
 
     //**** COMMON
 

@@ -219,6 +219,6 @@ export const blockGuiReducer: App.IReducer<BlockGui.IState> = (state, action: Bl
   }
 }
 
-export const blockGuiConnector: ComponentDecorator<BlockGui.IState, BlockGui.IOwnProps> = connect((state: IState) => state.blockGui)
+export const blockGuiConnector: ComponentDecorator<BlockGui.IState, {}> = connect((state: IState) => state.blockGui)
 
 const blockGUI = (dispatch: App.Dispatch, isBlock: boolean) => dispatch({ type: isBlock ? BlockGui.Consts.START : BlockGui.Consts.END } as BlockGui.Action)

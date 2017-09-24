@@ -10,19 +10,18 @@
 import React from 'react'
 import { connect } from 'react-redux'
 
-import { Provider as RouterProvider, goBack, canGoBack } from '../../app-common/lib/router'
-//import { footerConnector } from '../../app-common/gui/gui'
+import { goBack, canGoBack } from '../../app-common/lib/router'
 import { PromiseExtensible } from '../../app-common/lib/lib'
 import { providerConnector as recordingProviderConnector, blockGuiConnector } from '../../app-common/lib/recording'
 
 //import { addNavigationHelpers, DrawerNavigator, StackNavigator } from 'react-navigation'
 import { /*LayoutAnimation, NativeModules,*/ BackHandler, Platform, Animated } from "react-native";
-import { connectStyle } from 'native-base-shoutem-theme'
-import mapPropsToStyleNames from 'native-base/src/Utils/mapPropsToStyleNames'
-import { ToastContainer as Toast } from 'native-base/src/basic/ToastContainer'
-import { ActionSheetContainer as ActionSheet } from 'native-base/src/basic/Actionsheet'
-import { Font, Asset, Constants } from 'expo'
-import { View, Fab, Container, Content, Header, Footer, Left, Body, Right, Text, Button, Title, Subtitle, Icon } from 'native-base';
+//import { connectStyle } from 'native-base-shoutem-theme'
+//import mapPropsToStyleNames from 'native-base/src/Utils/mapPropsToStyleNames'
+//import { ToastContainer as Toast } from 'native-base/src/basic/ToastContainer'
+//import { ActionSheetContainer as ActionSheet } from 'native-base/src/basic/Actionsheet'
+import { Font, Constants } from 'expo'
+import { View, Fab, Text, Icon } from 'native-base';
 import SideMenuLow from '../gui/react-native-side-menu'
 
 //COMMON
@@ -45,8 +44,8 @@ export const init = async () => {
 const blockGuiZindex = 99
 
 const blockGuiComp: React.SFC<BlockGui.IProps> = props => props.state == BlockGui.State.no ? null :
-  <View style={{ justifyContent: 'center', alignItems: 'center', zIndex: props.zIndex, elevation: 99, flex: 1, position: 'absolute', left: 0, top: 0, right: 0, bottom: 0 }} />
-const BlockGuiComp = blockGuiConnector(blockGuiComp)
+  <View style={{ justifyContent: 'center', alignItems: 'center', zIndex: blockGuiZindex, elevation: 99, flex: 1, position: 'absolute', left: 0, top: 0, right: 0, bottom: 0 }} />
+export const BlockGuiComp = blockGuiConnector(blockGuiComp)
 
 //*** RECORDER
 const Btn: React.SFC<{ play?: boolean; click: () => void }> = props =>
@@ -70,7 +69,7 @@ const recorderButton: React.SFC<Recording.IProps> = props => {
   }
 }
 
-const RecorderButton = recordingProviderConnector(recorderButton)
+export const RecorderButton = recordingProviderConnector(recorderButton)
 
 //init LayoutAnimation
 //const { UIManager } = NativeModules
@@ -78,13 +77,18 @@ const RecorderButton = recordingProviderConnector(recorderButton)
 
 
 //*** ROOT LAYERS PROVIDER
-export const Provider: React.SFC<{}> = props => <View style={{ flex: 1, marginTop: Constants.statusBarHeight }}>
-  <RouterProvider />
-  <BlockGuiComp zIndex={blockGuiZindex} />
-  <RecorderButton />
-  <Toast ref={c => { if (!Toast.toastInstance) Toast.toastInstance = c }} />
-  <ActionSheet ref={c => { if (!ActionSheet.actionsheetInstance) ActionSheet.actionsheetInstance = c }} />
+//export const Provider: React.SFC<{}> = props => <View style={{ flex: 1, marginTop: Constants.statusBarHeight }}>
+//  <RouterProvider />
+//  <BlockGuiComp />
+//  <RecorderButton />
+//  <Toast ref={c => { if (!Toast.toastInstance) Toast.toastInstance = c }} />
+//  <ActionSheet ref={c => { if (!ActionSheet.actionsheetInstance) ActionSheet.actionsheetInstance = c }} />
+//</View>
+export const LayerProvider: React.SFC<any> = props => <View style={{ flex: 1, marginTop: Constants.statusBarHeight }}>
+  {props.children}
 </View>
+
+
 
 export class Page extends React.PureComponent<Router.IPageProps> {
   value = new Animated.Value(1)

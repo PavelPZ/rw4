@@ -16,7 +16,7 @@ import { all, call } from 'redux-saga/effects'
 //********** COMMON
 import { Provider as LocProvider, reducer as locReducer } from './app-common/lib/loc'
 import { Provider as RouterProvider, init as initRouter, globalReducer as globalRouterReducer, middleware as routerMiddleware } from './app-common/lib/router'
-import { promiseAll, getAppId } from './app-common/lib/lib'
+import { WaitForRendering, promiseAll, getAppId } from './app-common/lib/lib'
 import { init as initRecording, reducer as recordingReducer, saga as recordingSaga, middleware as recordingMiddleware, globalReducer as recordingGlobalReducer, blockGuiReducer, blockGuiSaga } from './app-common/lib/recording'
 import { reducer as loginReducer } from './app-common/lib/login'
 import { reducer as mediaQueryReducer } from './app-common/lib/media-query'
@@ -24,7 +24,7 @@ import { reducer as drawerReducer } from './app-common/lib/drawer'
 
 //********** WEB specific
 import createHistory from 'history/createBrowserHistory'
-import { Provider as LayerProvider } from './app-web/lib/web-root-layers'
+//import { Provider as LayerProvider } from './app-web/lib/web-root-layers'
 import { platform as loginPlatform, Provider as LoginProvider, } from './app-web/lib/web-login'
 import { init as initMediaQuery } from './app-web/lib/web-media-query'
 import { Provider as RecordingProvider, BlockGuiComp } from './app-web/lib/web-recording'
@@ -34,7 +34,7 @@ import { Button } from './app-web/gui/button'
 import { Icon } from './app-web/gui/icon'
 import { View, Container, Header, Footer, Content } from './app-web/gui/view'
 import { Text } from './app-web/gui/text'
-import { H1, H2, H3, Platform, colorToStyle, WaitForRendering, waitChildren } from './app-web/gui/lib'
+import { LayerProvider, H1, H2, H3, Platform, colorToStyle, waitChildren } from './app-web/gui/lib'
 
 //************ aplikace k testovani
 import { AppPage } from './app-common/snack/app-router'
@@ -107,7 +107,7 @@ export const init = async () => {
 
   const sagaMiddleware = createSagaMiddleware()
 
-  const store = window.lmGlobal.store = createStore<IState>(reducers, { }, applyMiddleware(sagaMiddleware, routerMiddleware, recordingMiddleware))
+  const store = window.lmGlobal.store = createStore<IState>(reducers, {}, applyMiddleware(sagaMiddleware, routerMiddleware, recordingMiddleware))
 
   const rootSaga = function* () {
     const rootRes = yield all({
@@ -140,11 +140,11 @@ export const init = async () => {
     let loginRendered: () => void
     const waitForLoginRendered = new Promise<void>(resolve => loginRendered = resolve)
     return <ReduxProvider store={store} >
-      <LayerProvider childs={[
-        <BlockGuiComp key={1} zIndex={99} />,
+      <LayerProvider>
+        <BlockGuiComp key={1} />,
         <LoginProvider key={2} loginRendered={async () => { await initAfter(); loginRendered() }} zIndex={100} />,
         <LocProvider key={3}>
-          <WaitForRendering waitFor={waitForLoginRendered} waitChildren={waitChildren}>
+          <WaitForRendering waitFor={waitForLoginRendered} waitContent={waitChildren}>
             <DrawerProvider>
               <RecordingProvider>
                 <RouterProvider />
@@ -152,24 +152,24 @@ export const init = async () => {
             </DrawerProvider>
           </WaitForRendering>
         </LocProvider>
-      ]} />
+      </LayerProvider>
     </ReduxProvider>
   }
 
   const AppRouter: React.SFC<{}> = props => <ReduxProvider store={store} >
-    <LayerProvider childs={[
-      <BlockGuiComp key={1} zIndex={99} />,
-      <WaitForRendering key={2} waitFor={initAfter()} waitChildren={waitChildren}>
+    <LayerProvider>
+      <BlockGuiComp key={1} />,
+      <WaitForRendering key={2} waitFor={initAfter()} waitContent={waitChildren}>
         <RouterProvider />
       </WaitForRendering>
-    ]}/>
+    </LayerProvider>
   </ReduxProvider>
 
   const appNo = noRouteApp
 
   ReactDOM.render(
-    <AppRouter />
-    //<AppAll />
+    //<AppRouter />
+    <AppAll />
     //<div></div>
     //appNo
     , document.getElementById('content'))

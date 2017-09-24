@@ -17,16 +17,38 @@ export const storeContextType = <T extends {}>(comp: React.ComponentType<T>) => 
   return comp
 }
 
-export class WaitForRendering extends React.PureComponent<{ finalContent: Promise<JSX.Element>, waitContent: JSX.Element }> {
+//export class WaitForRendering2 extends React.PureComponent<{ finalContent: Promise<JSX.Element>, waitContent: JSX.Element }> {
+//  state = { finalContent: null }
+//  render() {
+//    if (this.state.finalContent) {
+//      return this.state.finalContent
+//    }
+//    this.props.finalContent.then(cont => this.setState({ finalContent: cont }))
+//    return this.props.waitContent
+//  }
+//}
+export class WaitForRendering extends React.PureComponent<{ waitFor?: Promise<any>, finalContent?: Promise<JSX.Element>, waitContent: JSX.Element }> {
   state = { finalContent: null }
   render() {
-    if (this.state.finalContent) {
-      return this.state.finalContent
+    if (this.state.finalContent) return this.state.finalContent
+    const { waitFor, finalContent, waitContent } = this.props
+    const asyncProc = async () => {
+      let childs: JSX.Element
+      if (waitFor) {
+        await waitFor
+        childs = React.Children.only(this.props.children)
+      } else if (finalContent) {
+        childs = await finalContent
+      } else
+        throw '!waitFor && ! finalContent'
+      //setTimeout(() => this.setState({ finalContent: childs }),1)
+      this.setState({ finalContent: childs })
     }
-    this.props.finalContent.then(cont => this.setState({ finalContent: cont }))
-    return this.props.waitContent
+    asyncProc()
+    return waitContent
   }
 }
+
 
 const hasOwn = Object.prototype.hasOwnProperty
 

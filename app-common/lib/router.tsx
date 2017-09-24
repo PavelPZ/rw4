@@ -18,30 +18,30 @@ const providerConnector: ComponentDecorator<Router.IRouterProviderProps, {}> = c
 )
 
 export const globalReducer: App.IReducer<IState> = (state, action: Router.IAction) => {
-  let newState = state
   if (!state.router) { //prvni INIT redux action
     const router = getStateFromUrl()
-    newState = { ...newState, pages: {}, router }
+    let newState:IState = { ...state, router }
     const newRoute = routes[router.routeName]
-    if (newRoute.reducer) newState = newRoute.reducer(newState, { type: Router.Consts.ROUTE_CREATE }) //init prvni route state
+    if (newRoute.reducer) newState = newRoute.reducer(newState, { type: Router.Consts.ROUTE_CREATE, routeChanged: true} as Router.ICreateDestroyAction) //init prvni route state
     return newState
   } 
-  const { router: { routeName } } = newState
+  const { router: { routeName } } = state
   switch (action.type) {
     case Router.Consts.NAVIGATE_END:
+      let newState = state
       const { newState: { routeName: actionRouteName } } = action
       const newRoute = routes[actionRouteName]
-      if (routeName && actionRouteName !== routeName) { //stara a nova route jsou odlisne
+      if (actionRouteName !== routeName) { //stara a nova route jsou odlisne
         const oldRoute = routes[routeName]
-        if (oldRoute.reducer) newState = oldRoute.reducer(newState, { type: Router.Consts.ROUTE_DESTROY })
-        newState = { ...newState, router: action.newState }
-        if (newRoute.reducer) newState = newRoute.reducer(newState, { type: Router.Consts.ROUTE_CREATE })
-      } else //navigace v ramci stejne route
-        newState = { ...newState, router: action.newState }
-      return newRoute.reducer ? newRoute.reducer(newState, action) : newState
+        if (oldRoute.reducer) newState = oldRoute.reducer(newState, { type: Router.Consts.ROUTE_DESTROY, routeChanged:true } as Router.ICreateDestroyAction)
+      } //navigace v ramci stejne route
+      newState = { ...newState, router: action.newState }
+      if (newRoute.reducer) newState = newRoute.reducer(newState, { type: Router.Consts.ROUTE_CREATE, routeChanged: actionRouteName !== routeName } as Router.ICreateDestroyAction)
+      newState = { ...newState, router: action.newState }
+      return newState
     default:
       const actRoute = routes[routeName]
-      return actRoute.reducer ? actRoute.reducer(newState, action) : newState
+      return actRoute.reducer ? actRoute.reducer(state, action) : state 
   }
 }
 
@@ -141,7 +141,7 @@ export const middleware: Middleware<IState> = middlAPI => next => a => {
   let isAsync = false
   const router = routes[newState.routeName];
   // login needed => ignore NAVIGATE_START
-  if (loginProcessing(router.needsLogin && router.needsLogin(newState.params), newState)) return a
+  if (loginProcessing(router.needsLogin && router.needsLogin(newState.params), newState)) { animateOut = null; return a }
   //send NAVIGATE_START
   action.navigActionId = navigActionId++
   next(action)

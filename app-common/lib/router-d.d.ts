@@ -30,6 +30,12 @@
     navigActionId?: number //pro sparovani Consts.NAVIGATE_START a Consts.NAVIGATE_END a hlidani rychlych BACK kliku v browseru nebo androidu
   }
 
+  interface ICreateDestroyAction {
+    type: Consts.ROUTE_CREATE | Consts.ROUTE_DESTROY
+    routeChanged:boolean
+  }
+
+
   //interface IInitPar {
   //  startRoute: IState
   //  rootUrl: string //html stranka s aplikaci
@@ -84,7 +90,6 @@
 
 interface IState {
   router?: Router.IState
-  pages: { [routeName: string]: {} }
 }
 
 interface IPlatforms {
