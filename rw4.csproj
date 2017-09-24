@@ -146,7 +146,7 @@
     <TypeScriptCompile Include="app-native\gui\theme\components\View.ts" />
     <TypeScriptCompile Include="app-native\lib\animated.d.ts" />
     <TypeScriptCompile Include="app-native\lib\native-base.d.ts" />
-    <TypeScriptCompile Include="app-native\lib\native-root-layers.tsx" />
+    <TypeScriptCompile Include="app-native\gui\lib.tsx" />
     <TypeScriptCompile Include="app-native\lib\template.tsx" />
     <TypeScriptCompile Include="app-native\snack\animation3.tsx" />
     <TypeScriptCompile Include="app-native\snack\animation2.tsx" />

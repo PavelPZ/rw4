@@ -22,7 +22,7 @@ import { /*LayoutAnimation, NativeModules,*/ BackHandler, Platform, Animated } f
 //import { ActionSheetContainer as ActionSheet } from 'native-base/src/basic/Actionsheet'
 import { Font, Constants } from 'expo'
 import { View, Fab, Text, Icon } from 'native-base';
-import SideMenuLow from '../gui/react-native-side-menu'
+import SideMenuLow from './react-native-side-menu'
 
 //COMMON
 
