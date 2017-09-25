@@ -10,7 +10,8 @@ import { renderCSS } from '../lib/fela'
 const drawerWidth = 250
 const fixedStyle: CSSProperties = { position: 'fixed', top: 0, left: 0, right: 0, bottom: 0 }
 
-class SimpleDrawer extends React.PureComponent<{ windowSize: Media.TWindowSize, changeWindowSize: (windowSize: Media.TWindowSize) => void }> {
+class Drawer extends React.PureComponent<{ windowSize: Media.TWindowSize, changeWindowSize: (windowSize: Media.TWindowSize) => void }> {
+
   state = { visible: this.props.windowSize != Media.TWindowSize.mobile };
 
   async changeVisible(visible: boolean) {
@@ -31,10 +32,10 @@ class SimpleDrawer extends React.PureComponent<{ windowSize: Media.TWindowSize, 
   renderedPromise: PromiseExtensible //ceka se na vykresleni root DIVu
   animPromise: DrawerPromise //animace
   promisePars: IDrawerPromise = {} as any //HTML elementy pro animaci
-  contentProps: IContentProps = {
+  contentProps: IContentProps = { //parametr pro content komponentu. Je immutable v ramci existence SimpleDrawer (meni se az pri zmene windowSize), aby se content zbytecne nevykresloval
     myContent: content => this.promisePars.content = content,
     windowSize: this.props.windowSize
-  } //parametr pro content komponentu. Je immutable v ramci existence SimpleDrawer (meni se az pri zmene windowSize), aby se content zbytecne nevykresloval
+  } 
   drawerProps: IDrawerProps = {
     changeVisible: visible => this.changeVisible(visible),
     windowSize: this.props.windowSize,
@@ -47,7 +48,7 @@ class SimpleDrawer extends React.PureComponent<{ windowSize: Media.TWindowSize, 
     if (animPromise) { animPromise.abort(); delete this.animPromise }
 
     contentProps.button = <span ref={span => promisePars.tabletOpenButton = span} style={{ visibility: windowSize == Media.TWindowSize.mobile ? 'visible' : 'hidden' }}>
-      <Button icon onClick={() => this.changeVisible(true)}>close</Button>
+      <Button icon onClick={() => this.changeVisible(true)}>menu</Button>
     </span>
 
     contentProps.initLeft = visible && windowSize != Media.TWindowSize.mobile ? drawerWidth : 0
@@ -55,30 +56,29 @@ class SimpleDrawer extends React.PureComponent<{ windowSize: Media.TWindowSize, 
 
     return <div ref={() => this.renderedPromise && this.renderedPromise.resolve()}>
       {/*page content*/}
-      <Content key={0} changeWindowSize={changeWindowSize} drawerAble={contentProps} />
+      <Content key={0} changeWindowSize={changeWindowSize} drawerProps={contentProps} />
       {/*backdrop pro zakryti mobile contentu*/}
       {this.props.windowSize == Media.TWindowSize.mobile && <div key={1} ref={div => promisePars.mobileBackDrop = div} className={renderCSS({ ...fixedStyle, backgroundColor: 'gray' })} style={{ display: 'none', opacity: 0}} onClick={() => {
         this.changeVisible(false)
       }} />}
       {/*drawer*/}
-      <Drawer key={2} drawerAble={drawerProps}/>
+      <DrawerMenu key={2} drawerAble={drawerProps}/>
       {/*blockGUI pro fazi animace*/}
       <div key={3} ref={div => promisePars.backDrop = div} className={renderCSS(fixedStyle)} style={{ display: 'none'}} />
     </div>
   }
 
-  componentdidmount() { if (this.animPromise) this.animPromise.abort() }
 }
 
 export default class App extends React.PureComponent {
   state = { windowSize: Media.TWindowSize.desktop }
   render() {
-    return <SimpleDrawer key={count++} windowSize={this.state.windowSize} changeWindowSize={windowSize => this.setState({ windowSize })} />
+    return <Drawer key={count++} windowSize={this.state.windowSize} changeWindowSize={windowSize => this.setState({ windowSize })} />
   }
 }
 let count = 0
 
-class Drawer extends React.PureComponent<{ drawerAble: IDrawerProps }> {
+class DrawerMenu extends React.PureComponent<{ drawerAble: IDrawerProps }> {
   render() {
     const { windowSize, changeVisible, myDrawer, initLeft } = this.props.drawerAble
     return <div key={2} ref={div => myDrawer(div)} className={renderCSS({ ...fixedStyle, backgroundColor: 'lightgray', width: drawerWidth })} style={{ left: initLeft }}>
@@ -89,9 +89,9 @@ class Drawer extends React.PureComponent<{ drawerAble: IDrawerProps }> {
 }
 let drRenderCount = 0
 
-class Content extends React.PureComponent<{ changeWindowSize: (windowSize: Media.TWindowSize) => void, drawerAble: IContentProps }> {
+class Content extends React.PureComponent<{ changeWindowSize: (windowSize: Media.TWindowSize) => void, drawerProps: IContentProps }> {
   render() {
-    const { changeWindowSize, drawerAble: { button, myContent, initLeft, windowSize } } = this.props
+    const { changeWindowSize, drawerProps: { button, myContent, initLeft, windowSize } } = this.props
     return <div key={1} ref={div => myContent(div)} className={renderCSS({ ...fixedStyle, backgroundColor: 'yellow' })} style={{ left: initLeft }}>
       <Toolbar key={0} colored style={{ backgroundColor: 'black' }} nav={windowSize != Media.TWindowSize.desktop ? button : undefined} className="md-divider-border md-divider-border--bottom" />
       <h1 key={1}>CONTENT: {windowSize}, {renderCount++}</h1>
