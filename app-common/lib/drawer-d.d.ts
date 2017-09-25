@@ -6,52 +6,29 @@
 
   interface Action {
     type: Consts.SHOW
-    isShow:boolean
+    visible:boolean
   }
 
   interface IState {
-    visible: boolean
+    drawerVisible?: boolean
   }
 
-  interface IPlatform {
-    getContent: () => React.ReactElement<{}>
+  interface IProps extends IState {
+    windowSize:Media.TWindowSize
   }
 
-  type IStateProps = IState
-  interface IDispatchProps {
-    show()
-    hide()
+  interface IShowDrawer {
+    showDrawer?(isShow:boolean)
   }
-  type IProps = IStateProps & IDispatchProps
-
-  interface IDrawerPartsState {
-    routeName: string
-  }
-
-  interface IToolbarTitle extends IDrawerPartsState {
-    title?: string
-  }
-
-  interface IToolbarActions extends IDrawerPartsState {
-  }
-
-  interface IDrawerChildren extends IDrawerPartsState {
-  }
-
-  interface IDrawerHeaderChildren extends IDrawerPartsState {
-    title?: string
+  interface IOwnProps extends IShowDrawer {
+    navItems: JSX.Element[]
+    headerLeft?:JSX.Element
+    headerDesktop?:JSX.Element
   }
 
 }
 
 interface IState {
   drawer?: Drawer.IState
-  toolbarTitle?: Drawer.IToolbarTitle
-  toolbarActions?: Drawer.IToolbarActions
-  drawerChildren?: Drawer.IDrawerChildren
-  drawerHeaderChildren?: Drawer.IDrawerHeaderChildren
 }
 
-interface IPlatforms {
-  drawerPlatform?: Drawer.IPlatform
-}

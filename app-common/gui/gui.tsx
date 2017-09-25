@@ -20,6 +20,6 @@ export const Page: React.SFC<Router.IPageProps> = props => { const C = pl().Page
 
 //export const footerConnector = connect<GUI.IPageFooterState, {}, GUI.IPageFooterOwnProps>((state: IState) => state.gui.footer)
 
-export const pageReducer = (state: IState, action: App.Action) => {
+//export const pageReducer = (state: IState, action: App.Action) => {
 
-}
+//}

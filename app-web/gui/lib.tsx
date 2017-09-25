@@ -68,6 +68,9 @@ export class TweensPromise extends PromiseExtensible<void> {
   tw: gsap.TweenLite
 }
 
-
-
-
+export class TweensAnimate extends TweensPromise {
+  constructor(el: HTMLElement, secs: number, pars: GUI.ITweenParsEx) {
+    super()
+    this.animate(el, secs, pars)
+  }
+}

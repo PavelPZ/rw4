@@ -28,7 +28,7 @@ import createHistory from 'history/createBrowserHistory'
 import { platform as loginPlatform, Provider as LoginProvider, } from './app-web/lib/web-login'
 import { init as initMediaQuery } from './app-web/lib/web-media-query'
 import { Provider as RecordingProvider, BlockGuiComp } from './app-web/lib/web-recording'
-import { Provider as DrawerProvider } from './app-web/lib/web-drawer'
+//import { Provider as DrawerProvider } from './app-web/lib/web-drawer'
 import { getAnimator as getRouteAnimator, Page } from './app-web/lib/web-router'
 import { Button } from './app-web/gui/button'
 import { Icon } from './app-web/gui/icon'
@@ -124,7 +124,7 @@ export const init = async () => {
   let noRouteApp: JSX.Element = null
 
   //noRouteApp = <ReactMDApp/>
-  //noRouteApp = <DrawerApp/>
+  noRouteApp = <DrawerApp/>
   //noRouteApp = <LocTestApp />
   //noRouteApp = <ValidateTestApp />
   //noRouteApp = <RestAPI />
@@ -132,7 +132,7 @@ export const init = async () => {
   //noRouteApp = <IonicTest />
   //noRouteApp = <ReduxProvider store={store} ><ConnectTest /></ReduxProvider>
   //noRouteApp = <Animated />
-  noRouteApp = <AnimatedGsap />
+  //noRouteApp = <AnimatedGsap />
   //noRouteApp = <AnimatedGsapNew />
 
 
@@ -140,15 +140,13 @@ export const init = async () => {
     const waitForLoginRendered = new PromiseExtensible()
     return <ReduxProvider store={store} >
       <LayerProvider>
-        <BlockGuiComp key={1} />,
-        <LoginProvider key={2} loginRendered={async () => { await initAfter(); waitForLoginRendered.resolve() }} zIndex={100} />,
+        <BlockGuiComp key={1} />
+        <LoginProvider key={2} loginRendered={async () => { await initAfter(); waitForLoginRendered.resolve() }} zIndex={100} />
         <LocProvider key={3}>
-          <WaitForRendering waitFor={waitForLoginRendered as PromiseExtensible} waitContent={waitChildren}>
-            <DrawerProvider>
+          <WaitForRendering waitFor={waitForLoginRendered} waitContent={waitChildren}>
               <RecordingProvider>
                 <RouterProvider />
               </RecordingProvider>
-            </DrawerProvider>
           </WaitForRendering>
         </LocProvider>
       </LayerProvider>
@@ -157,7 +155,7 @@ export const init = async () => {
 
   const AppRouter: React.SFC<{}> = props => <ReduxProvider store={store} >
     <LayerProvider>
-      <BlockGuiComp key={1} />,
+      <BlockGuiComp key={1} />
       <WaitForRendering key={2} waitFor={initAfter()} waitContent={waitChildren}>
         <RouterProvider />
       </WaitForRendering>
@@ -168,9 +166,9 @@ export const init = async () => {
 
   ReactDOM.render(
     //<AppRouter />
-    <AppAll />
+    //<AppAll />
     //<div></div>
-    //appNo
+    appNo
     , document.getElementById('content'))
 }
 

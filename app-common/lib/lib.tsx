@@ -17,16 +17,6 @@ export const storeContextType = <T extends {}>(comp: React.ComponentType<T>) => 
   return comp
 }
 
-//export class WaitForRendering2 extends React.PureComponent<{ finalContent: Promise<JSX.Element>, waitContent: JSX.Element }> {
-//  state = { finalContent: null }
-//  render() {
-//    if (this.state.finalContent) {
-//      return this.state.finalContent
-//    }
-//    this.props.finalContent.then(cont => this.setState({ finalContent: cont }))
-//    return this.props.waitContent
-//  }
-//}
 export class WaitForRendering extends React.PureComponent<{ waitFor?: Promise<any> | PromiseExtensible, finalContent?: Promise<JSX.Element>, waitContent: JSX.Element }> {
   state = { finalContent: null }
   render() {
@@ -48,7 +38,6 @@ export class WaitForRendering extends React.PureComponent<{ waitFor?: Promise<an
     return waitContent
   }
 }
-
 
 const hasOwn = Object.prototype.hasOwnProperty
 
@@ -87,11 +76,12 @@ export class PromiseExtensible<T = void> implements IPromiseExtensible<T> {
   constructor(executor?: (resolve: (value?: T | PromiseLike<T> | PromiseResults) => void, reject: (reason?: any) => void) => void) {
     //window == null && super(executor)
     this._promise = new Promise<T | PromiseResults>((resolve, reject) => {
-      this.resolve = r => { if (this._state) return; this._state = PromiseStates.resolved; resolve(r) }
+      this.resolve = (r: T, state: PromiseStates) => { if (this._state) return; this._state = state || PromiseStates.resolved; resolve(r); this.finished(r) }
       this.reject = r => { if (this._state) return; this._state = PromiseStates.rejected; reject(r) }
       if (executor) return executor(this.resolve, this.reject)
     })
   }
+  finished(res: T | PromiseLike<T> | PromiseResults) { }
   _promise: Promise<any>
   _state: PromiseStates
   _started: boolean
@@ -106,7 +96,7 @@ export class PromiseExtensible<T = void> implements IPromiseExtensible<T> {
     return this as any
   }
   catch(msg) { this._promise.catch(msg); return this }
-  resolve: (res?: T | PromiseLike<T> | PromiseResults) => void
+  resolve: (res?: T | PromiseLike<T> | PromiseResults, state?: PromiseStates) => void
   reject: (reason?: any) => void
   abortHandler: () => void
   onAbort(handler: () => void): PromiseExtensible<T | PromiseResults> {
@@ -115,22 +105,23 @@ export class PromiseExtensible<T = void> implements IPromiseExtensible<T> {
   }
   abort(msg?): PromiseExtensible<T | PromiseResults> {
     if (this._state) return this
-    this._state = PromiseStates.aborted
     if (this.abortHandler) this.abortHandler()
-    this.resolve(msg as any || PromiseResults.abort)
+    this.resolve(msg as any || PromiseResults.abort, PromiseStates.aborted)
     return this
   }
   timeout(time: number, func?: () => void): PromiseExtensible<T | PromiseResults> {
     if (this._state) return this
     this._timer = setTimeout(() => {
       if (this._state) return
-      this._state = PromiseStates.timeouted
       if (func) func()
-      this.resolve(PromiseResults.timeout)
+      this.resolve(PromiseResults.timeout, PromiseStates.timeouted)
     }, time);
     return this;
   }
-  _timer:number
+  _timer: number
+  static delay(msec: number): Promise<void> {
+    return new Promise(resolve => setTimeout(resolve, msec))
+  }
 }
 
 const testPromiseEx = () => {

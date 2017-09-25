@@ -1,18 +1,14 @@
 ﻿import React from 'react'
 import { connect, ComponentDecorator } from 'react-redux'
 
-export const providerConnector: ComponentDecorator<Drawer.IStateProps & Drawer.IDispatchProps, {}>  = connect(
-  (state: IState) => state.drawer,
-  (dispatch) => ({
-    show: () => dispatch({ type: Drawer.Consts.SHOW, isShow: true } as Drawer.Action),
-    hide: () => dispatch({ type: Drawer.Consts.SHOW, isShow: false } as Drawer.Action),
-  } as Drawer.IDispatchProps)
+export const providerConnector: ComponentDecorator<Drawer.IProps, Drawer.IOwnProps>  = connect(
+  (state: IState) => ({drawerVisible: state.drawer.drawerVisible, windowSize: state.mediaQuery.windowSize} as Drawer.IProps),
 )
 
 export const reducer: App.IReducer<Drawer.IState> = (state, action: Drawer.Action) => {
-  if (!state) return { visible: false, toolbarTitle:'' }
+  if (!state) return { }
   switch (action.type) {
-    case Drawer.Consts.SHOW: return state
+    case Drawer.Consts.SHOW: return { drawerVisible: action.visible}
     default: return state
   }
 }

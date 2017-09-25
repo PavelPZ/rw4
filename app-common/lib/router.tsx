@@ -14,7 +14,10 @@ const routes: { [name: string]: Router.IRouteComponent } = {}
 
 
 const providerConnector: ComponentDecorator<Router.IRouterProviderProps, {}> = connect(
-  (state: IState) => ({ ...state.router, ...state.mediaQuery })// windowSize: state.mediaQuery.windowSize, rnWidth: window.innerWidth })
+  (state: IState) => ({ ...state.router, ...state.mediaQuery }),// windowSize: state.mediaQuery.windowSize, rnWidth: window.innerWidth })
+  (dispatch) => ({
+    showDrawer: visible => { /*debugger;*/ dispatch({ type: Drawer.Consts.SHOW, visible } as Drawer.Action)},
+  } as Drawer.IShowDrawer)
 )
 
 export const globalReducer: App.IReducer<IState> = (state, action: Router.IAction) => {
@@ -37,7 +40,7 @@ export const globalReducer: App.IReducer<IState> = (state, action: Router.IActio
       } //navigace v ramci stejne route
       newState = { ...newState, router: action.newState }
       if (newRoute.reducer) newState = newRoute.reducer(newState, { type: Router.Consts.ROUTE_CREATE, routeChanged: actionRouteName !== routeName } as Router.ICreateDestroyAction)
-      newState = { ...newState, router: action.newState }
+      newState = { ...newState, router: action.newState, drawer:{ } }
       return newState
     default:
       const actRoute = routes[routeName]
@@ -55,8 +58,8 @@ class provider extends React.PureComponent<Router.IRouterProviderProps> {
     animateOut = null; animateIn = null;
     const Page = routes[props.routeName]
     const { getAnimator } = window.lmGlobal.platform.routerPlatform
-    const { params: pars, rnWidth, rnHeight, windowSize } = props
-    const params = { ...pars, rnHeight, rnWidth, windowSize }
+    const { params: pars, rnWidth, rnHeight, windowSize, showDrawer } = props
+    const params: Router.IPageProps = { ...pars, rnHeight, rnWidth, windowSize, showDrawer }
 
     return <Page key={routeCount++} {...params} refForAnimation={async div => {
       if (!div) return

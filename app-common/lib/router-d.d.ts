@@ -11,13 +11,18 @@
   interface IRoutePar {
     query?: { isModal?: boolean }
   }
-  interface IPagePar extends Media.IMediaProps {
+  interface IPagePar extends Media.IMediaProps, Drawer.IShowDrawer {
     refForAnimation?: (root: WebNativeCommon.TRouterAnimRoot) => void //callback pro page transiton
-    sidebarMenu?: JSX.Element
+    drawerMenu?: Drawer.IOwnProps
+    //drawerVisible?:boolean
   }
 
-  type IRouterProviderProps = IState & IPagePar
-  type IPageProps = IRoutePar & IPagePar
+  type IRouterProviderProps = IState & IPagePar 
+  type IPageProps = IRoutePar & IPagePar // & IPageDispatchProps
+
+  //interface IPageDispatchProps {
+  //  showDrawer?:(visible:boolean) => void
+  //}
 
   interface IState<TName extends string = string, TParams extends IRoutePar = any> {
     routeName: TName

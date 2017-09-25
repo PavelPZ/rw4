@@ -14,13 +14,17 @@ const LoginButton = createLoginButton(props => {
     onPress={doLoginAction} />
 })
 
-class appPageLow extends React.PureComponent<AppRouter.IRouteProps & { title2?: string } & { onClick?}> {
+class appPageLow extends React.PureComponent<AppRouter.IRouteProps & { title2?: string, onClick? }> {
   render() {
     const props = this.props
-    const { children, refForAnimation, ...par } = props
+    const { children, ...par } = props
+    const pageProps = {
+      ...par,
+      sidebarMenu:{navItems: [<Menu key={0}/>]}
+    }
     const isModal = props.query && props.query.isModal
     //console.log('appRouterComp', props)
-    return <Page refForAnimation={refForAnimation} sidebarMenu={<Menu />} >
+    return <Page {...par} drawerMenu={{navItems:[<Menu key={0}/>]}}>
       <Container style={{ flex: 1 }}>
         <Header key={1}>
           <View><Text style={{ color: 'lightgray' }}>{JSON.stringify(props)}</Text></View>
@@ -42,7 +46,8 @@ class appPageLow extends React.PureComponent<AppRouter.IRouteProps & { title2?: 
 const provider: ComponentDecorator<{ title2?: string; onClick?}, AppRouter.IRouteProps> = connect(
   (state: IAppState) => state.xxx,
   (dispatch) => ({
-    onClick: title2 => dispatch({ type: 'CLICK', title2 })
+    onClick: title2 => dispatch({ type: 'CLICK', title2 }),
+    //showDrawer: visible => dispatch({ type: 'CLICK' }),
   })
 )
 

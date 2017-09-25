@@ -1,3 +1,16 @@
+declare module 'classnames' {
+  type ClassValue = string | number | ClassDictionary | ClassArray;
+  interface ClassDictionary {
+	  [id: string]: boolean;
+  }
+  interface ClassArray extends Array<ClassValue> { }
+  interface ClassNamesFn {
+	  (...classes: ClassValue[]): string;
+  }
+  var classNames: ClassNamesFn;
+  export default classNames
+}
+
 declare namespace DFela {
 
     type TRuleProps = {};
