@@ -10,7 +10,11 @@ import { renderCSS } from '../lib/fela'
 const drawerWidth = 250
 const fixedStyle: CSSProperties = { position: 'fixed', top: 0, left: 0, right: 0, bottom: 0 }
 
-class Drawer extends React.PureComponent<{ windowSize: Media.TWindowSize, changeWindowSize: (windowSize: Media.TWindowSize) => void }> {
+//swipes https://github.com/glepur/react-native-swipe-gestures/blob/master/index.js
+//https://facebook.github.io/react-native/docs/panresponder.html
+//https://facebook.github.io/react-native/releases/0.24/docs/panresponder.html
+
+class Drawer extends React.PureComponent<{ windowSize: Media.TWindowSize, changeWindowSize: (windowSize: Media.TWindowSize) => void }> { 
 
   state = { visible: this.props.windowSize != Media.TWindowSize.mobile };
 

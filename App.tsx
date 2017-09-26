@@ -46,8 +46,7 @@ import { AppPage } from './app-common/snack/app-router'
 //import AppComp from './app-common/snack/react-navigation';  
 //import AppComp from './app-common/snack/gui/icon'
 //import AppComp from './app-native/snack/native-base/header'
-//import AppComp from './app-native/snack/drawer'
-import AppComp from './app-native/snack/picker'
+//import AppComp from './app-native/snack/picker'
 //import AppComp from './app-native/snack/animation'
 //import AppComp from './app-native/snack/animation2'
 //import AppComp from './app-native/snack/animation3'
@@ -56,6 +55,7 @@ import AppComp from './app-native/snack/picker'
 //import AppComp from './app-native/snack/design-dump-colors'
 //import AppComp from './app-common/snack/gui/button'
 //import AppComp from './app-native/snack/native-base-button'
+import AppComp from './app-native/snack/drawer'
 
 //console.log('APP')
 
@@ -141,6 +141,6 @@ export const init = async () => {
 
 const Root: React.SFC = () => <WaitForRendering finalContent={init()} waitContent={<AppLoading />} />
 
-export default Root
-//export default AppComp
+//export default Root
+export default AppComp
 

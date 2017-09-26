@@ -37,7 +37,7 @@ export class Page extends React.PureComponent<Router.IPageProps> {
   value = new Animated.Value(1)
   componentDidMount() { this.props.refForAnimation(this.value) }
   render() {
-    return <SideMenu menu={this.props.sidebarMenu}>
+    return <SideMenu menu={this.props.drawerMenu.navItems[0]}>
       <Animated.View style={{ flex: 1, opacity: this.value as any }}>
         {this.props.children}
       </Animated.View>

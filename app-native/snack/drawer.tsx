@@ -18,7 +18,7 @@ class drawerExample extends React.Component<Media.IState> {
           <Text onPress={() => this.setState({ isOpen: true })} style={{ alignSelf: 'flex-start' }}>DRAWER OPEN 1</Text>
         </View>
         <View key={2} style={{backgroundColor: 'yellow' }}>
-          <Text>{JSON.stringify(this.props, null, 2)}</Text>
+          <Text>{'HALLO WORLD' /*JSON.stringify(this.props, null, 2)*/}</Text>
         </View>
         <Content key={3} idx={2}/>
         <Content key={4} idx={3} />
@@ -36,8 +36,10 @@ class Content extends React.PureComponent<{ idx: number }> {
 
 let counter = 0
 
-const provider = connect<Media.IState, {}, {}>((state: IState) => state.mediaQuery)
+//const provider = connect<Media.IState, {}, {}>((state: IState) => state.mediaQuery)
 
-const DrawerExample = provider(drawerExample)
+//const DrawerExample = provider(drawerExample)
 
-export default DrawerExample
+//export default DrawerExample
+
+export default drawerExample

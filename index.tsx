@@ -39,7 +39,6 @@ import { LayerProvider, H1, H2, H3, Platform, colorToStyle, waitChildren } from 
 //************ aplikace k testovani
 import { AppPage } from './app-common/snack/app-router'
 import ReactMDApp from './app-web/snack/react-md-test'
-import DrawerApp from './app-web/snack/drawer'
 import LocTestApp from './app-common/snack/loc-test'
 import ValidateTestApp from './app-web/snack/validate-test'
 import RestAPI from './app-common/snack/test-restAPI'
@@ -51,6 +50,8 @@ import Animated from './app-web/snack/animated-transition'
 import AnimatedGsap from './app-web/snack/animated-gsap'
 import AnimatedGsapNew from './app-web/snack/animated-gsap-new'
 import { App1, /*app3Reducer*/ } from './app-web/snack/router-new'
+import DrawerApp from './app-web/snack/drawer'
+import DrawerNativeLikeApp from './app-web/snack/drawer-native-like'
 
 //*********** spusteni
 export const init = async () => {
@@ -134,6 +135,9 @@ export const init = async () => {
   //noRouteApp = <Animated />
   //noRouteApp = <AnimatedGsap />
   //noRouteApp = <AnimatedGsapNew />
+  //noRouteApp = <DrawerApp />
+  noRouteApp = <DrawerNativeLikeApp />
+  
 
 
   const AppAll: React.SFC<{}> = props => {
