@@ -1,14 +1,19 @@
 ﻿import React from 'react'
-import { StyleSheet, PanResponder, View, Dimensions, Animated, TouchableWithoutFeedback } from 'react-native'
+import { Text, StyleSheet, PanResponder, PanResponderInstance, PanResponderGestureState, GestureResponderEvent, View, Dimensions, Animated, TouchableWithoutFeedback } from 'react-native'
 
 import { connect } from 'react-redux'
+
+type TAnimationFunction = <T extends Animated.AnimationConfig = Animated.AnimationConfig>(
+  value: Animated.AnimatedValue | Animated.AnimatedValueXY,
+  config: T | number | Animated.AnimatedValue | { x: number, y: number } | Animated.AnimatedValueXY
+) => Animated.CompositeAnimation
 
 export interface IProps {
   edgeHitWidth?: number //60
   toleranceX?: number //10
   toleranceY?: number //10
   isRight?: boolean//false
-  animationFunction?: Function
+  animationFunction?: TAnimationFunction
   onChange?: Function
   isOpen?: boolean //false
   autoClosing?: boolean //true
@@ -19,12 +24,8 @@ export interface IProps {
 }
 
 export default class SideMenu extends React.PureComponent<IProps> {
-  responder
-  onMoveShouldSetPanResponder: Function
-  onPanResponderMove: Function
-  onPanResponderRelease: Function
-  onPanResponderTerminate: Function
-  prevLeft = 0
+  responder: PanResponderInstance
+  prevLeft = 0 //0 pro zavrene, openMenuOffset pro otevrene menu
   isOpen = this.props.isOpen
   isMenuCreated = this.props.isOpen && true
   deviceScreen = Dimensions.get('window')
@@ -33,31 +34,21 @@ export default class SideMenu extends React.PureComponent<IProps> {
   barrierForward = this.deviceScreen.width / 4
   openMenuOffset = this.deviceScreen.width * (2 / 3)
   left: Animated.Value
-  value:number
+  value: number //0..1 pri open, 1..0 pri close
 
   constructor(props: IProps) {
     super(props)
 
     this.left = new Animated.Value(props.isOpen ? this.openMenuOffset * this.menuPositionMultiplier() : 0)
-    this.left.addListener(({ value }) => this.value = Math.abs(value / this.openMenuOffset))
-
-
-    this.onMoveShouldSetPanResponder = this.handleMoveShouldSetPanResponder.bind(this)
-    this.onPanResponderMove = this.handlePanResponderMove.bind(this)
-    this.onPanResponderRelease = this.handlePanResponderEnd.bind(this)
-    this.onPanResponderTerminate = this.handlePanResponderEnd.bind(this)
-  }
-
-  shouldOpenMenu(dx: number): boolean {
-    return dx > this.barrierForward
+    this.left.addListener(({ value }) => { this.value = Math.abs(value / this.openMenuOffset); /*console.log(this.value)*/ })
   }
 
   componentWillMount(): void {
     this.responder = PanResponder.create({
-      onMoveShouldSetPanResponder: this.onMoveShouldSetPanResponder,
-      onPanResponderMove: this.onPanResponderMove,
-      onPanResponderRelease: this.onPanResponderRelease,
-      onPanResponderTerminate: this.onPanResponderTerminate,
+      onMoveShouldSetPanResponder: this.onMoveShouldSetPanResponder.bind(this),
+      onPanResponderMove: this.onPanResponderMove.bind(this),
+      onPanResponderRelease: this.onPanResponderRelease.bind(this),
+      onPanResponderTerminate: this.onPanResponderRelease.bind(this),
       onStartShouldSetResponderCapture: () => true
     } as any)
   }
@@ -68,33 +59,21 @@ export default class SideMenu extends React.PureComponent<IProps> {
     }
   }
 
-  moveLeft(offset: number) {
-    const newOffset = this.menuPositionMultiplier() * offset
-
-    this.props.animationFunction(this.left, newOffset).start()
-
-    this.prevLeft = newOffset
-  }
-
   menuPositionMultiplier() {
     return this.props.isRight ? -1 : 1
   }
 
-  handlePanResponderMove(e: Object, gestureState) {
-    if ((this.left as any).__getValue() * this.menuPositionMultiplier() >= 0) {
-      let newLeft = this.prevLeft + gestureState.dx
-      this.left.setValue(newLeft)
-    }
+  onPanResponderMove(e: GestureResponderEvent, gestureState: PanResponderGestureState) {
+    //console.log(gestureState.dx, gestureState.vx, gestureState.moveX) //vx je rychlost, moveX je souradnice POINTERu
+    this.left.setValue(this.prevLeft + gestureState.dx) //dx je celkova delka x-move v pixelech. Kladna pro otevirani, zaporna pro zavirani
   }
 
-  handlePanResponderEnd(e: Object, gestureState) {
-    const offsetLeft = this.menuPositionMultiplier() *
-      ((this.left as any).__getValue() + gestureState.dx)
-
-    this.openMenu(this.shouldOpenMenu(offsetLeft))
+  onPanResponderRelease(e: GestureResponderEvent, gestureState: PanResponderGestureState) {
+    const offsetLeft = this.menuPositionMultiplier() * (this.value + gestureState.dx)
+    this.openMenu(offsetLeft > this.barrierForward)
   }
 
-  handleMoveShouldSetPanResponder(e: any, gestureState: any): boolean {
+  onMoveShouldSetPanResponder(e: GestureResponderEvent, gestureState: PanResponderGestureState): boolean {
     const x = Math.round(Math.abs(gestureState.dx))
     const y = Math.round(Math.abs(gestureState.dy))
 
@@ -113,23 +92,30 @@ export default class SideMenu extends React.PureComponent<IProps> {
   }
 
   openMenu(isOpen: boolean): void {
-    const { openMenuOffset } = this;
-    this.moveLeft(isOpen ? openMenuOffset : 0)
+
+    const moveLeft = (offset: number) => {
+      const newOffset = this.menuPositionMultiplier() * offset
+      this.props.animationFunction(this.left, newOffset).start()
+      this.prevLeft = newOffset
+    }
+
+    moveLeft(isOpen ? this.openMenuOffset : 0)
     this.isOpen = isOpen
     if (isOpen) this.isMenuCreated = true
 
-    this.forceUpdate()
-    this.props.onChange(isOpen)
+    //this.forceUpdate()
+    if (!isOpen) setTimeout(() => this.props.onChange(isOpen),150)
   }
 
   render() {
 
     const { width, height, openMenuOffset } = this
-    const animatedStyle = [styles.frontView, { width, height }, this.props.animationStyle(this.left),]
+    const animatedStyle = [styles.animatedStyle, this.props.animationStyle(this.left),]
+    //const animatedStyle = [styles.animatedStyle, { height, right: 0 }, this.props.animationStyle(this.left),]
     const menuStyle = this.props.isRight ? { left: width - openMenuOffset } : { right: width - openMenuOffset } //set LEFT or RIGHT position
 
     return <View style={[styles.container, this.props.style]} >
-      <View key={1} style={[styles.menu, menuStyle]}>{this.isMenuCreated && this.props.menu}</View>
+      <View key={1} style={[styles.menu, menuStyle]}><Text>{count++}</Text>{this.isMenuCreated && this.props.menu}</View>
       <Animated.View key={2} style={animatedStyle} {...this.props.fixed && this.isOpen ? {} : this.responder.panHandlers}>
         {this.props.children}
         {!this.props.fixed && this.isOpen && <TouchableWithoutFeedback onPress={() => this.openMenu(false)}>
@@ -140,22 +126,38 @@ export default class SideMenu extends React.PureComponent<IProps> {
   }
 }
 
+let count = 0
+
 SideMenu['defaultProps'] = {
   toleranceY: 10,
   toleranceX: 10,
-  edgeHitWidth: 60,
+  edgeHitWidth: 60, 
   children: null,
   menu: null,
   onChange: () => { },
   isRight: false,
+  //animationStyle: (value: number) => ({
+  //  transform: [{
+  //    scaleX: value,
+  //  }],
+  //}),
+  //animationStyle: (value: number) => ({
+  //  transform: [{
+  //    translateX: value,
+  //  }],
+  //}),
   animationStyle: (value: number) => ({
-    transform: [{
-      translateX: value,
-    }],
+    left: value
   }),
+  //animationFunction: (prop, value) => Animated.timing(prop, {
+  //  toValue: value,
+  //  duration: 300,
+  //}),
+  //https://stackoverflow.com/questions/34677717/react-native-animated-spring-speed
   animationFunction: (prop, value) => Animated.spring(prop, {
     toValue: value,
-    friction: 8,
+    speed: 24,
+    bounciness: 4
   }),
   isOpen: false,
   autoClosing: true,
@@ -170,18 +172,16 @@ const absoluteStretch = {
 } as ReactNative.ViewStyle
 
 const styles = {
-  container: {
+  container: { //ROOT, obsahuje animated a menu
     ...absoluteStretch,
     //justifyContent: 'center',
   } as ReactNative.ViewStyle,
-  menu: {
+  menu: { //obsah menu
     ...absoluteStretch,
   },
-  frontView: {
+  animatedStyle: { //animated, obsahuje overlay
+    ...absoluteStretch,
     flex: 1,
-    position: 'absolute',
-    left: 0,
-    top: 0,
     backgroundColor: 'transparent',
     overflow: 'hidden',
   } as ReactNative.ViewStyle,

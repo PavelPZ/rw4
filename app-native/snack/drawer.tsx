@@ -12,13 +12,13 @@ class drawerExample extends React.Component<Media.IState> {
           <Text onPress={() => this.setState({ isOpen: false })}>DRAWER CLOSE</Text>
         </View>}
         isOpen={this.state.isOpen}
-        onChange={isOpen => this.setState({ isOpen })}>
+        onChange={isOpen => (this.state.isOpen!=isOpen) && this.setState({isOpen})}>
 
         <View key={1} style={{backgroundColor: 'yellow' }}>
           <Text onPress={() => this.setState({ isOpen: true })} style={{ alignSelf: 'flex-start' }}>DRAWER OPEN 1</Text>
         </View>
         <View key={2} style={{backgroundColor: 'yellow' }}>
-          <Text>{'HALLO WORLD' /*JSON.stringify(this.props, null, 2)*/}</Text>
+          <Text>{'HALLO WORLD'/*JSON.stringify(this.props, null, 2)*/}</Text>
         </View>
         <Content key={3} idx={2}/>
         <Content key={4} idx={3} />
@@ -30,7 +30,7 @@ class drawerExample extends React.Component<Media.IState> {
 
 class Content extends React.PureComponent<{ idx: number }> {
   render() {
-    return <Text>CONTENT {this.props.idx} {counter++}</Text>
+    return <Text>CONTENT {this.props.idx} {counter++}\n asdfas df asd f as asdfas df asd f as asdfas df asd f as asdfas df asd f as asdfas df asd f as asdfas df asd f as asdfas df asd f as asdfas df asd f as</Text>
   }
 }
 
