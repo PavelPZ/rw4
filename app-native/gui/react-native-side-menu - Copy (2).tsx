@@ -32,13 +32,13 @@ export default class SideMenu extends React.PureComponent<IProps> {
   left: Animated.Value
   animationFunction: TAnimationFunction //https://stackoverflow.com/questions/34677717/react-native-animated-spring-speed
   animationStyle: (value: Animated.Value) => {}
-  state = { isOpen: this.props.initIsOpen }
+  state = { isOpen: this.props.initIsOpen}
 
   constructor(props: IProps) {
     super(props)
     this.left = new Animated.Value(this.state.isOpen ? this.openMenuOffset * this.menuPositionMultiplier() : 0)
     this.animationFunction = (prop, value) => Animated.spring(prop, { toValue: value, speed: 24, bounciness: 4 })
-    this.animationStyle = value => (props.fixed ? { left: value } : { transform: [{ translateX: value }] })
+    this.animationStyle = value => (props.fixed ? { left: value } : { transform: [{ translateX: value }]})
   }
 
   componentWillMount(): void {
@@ -52,7 +52,7 @@ export default class SideMenu extends React.PureComponent<IProps> {
   }
 
   componentWillReceiveProps(props: IProps): void {
-    this.openMenu(props.initIsOpen)
+    this.openMenu(props.initIsOpen) 
   }
 
   menuPositionMultiplier() {
@@ -108,7 +108,7 @@ export default class SideMenu extends React.PureComponent<IProps> {
 
   render() {
 
-    const { width, openMenuOffset, left, responder, state: { isOpen }, props: { style, menu, fixed, children } } = this
+    const { width, openMenuOffset, left, responder, state: { isOpen }, props: { style, menu, fixed, children }  }  = this
     const animatedStyle = [styles.animatedStyle, this.animationStyle(left),]
     const menuStyle = this.props.isRight ? { left: width - openMenuOffset } : { right: width - openMenuOffset } //set LEFT or RIGHT position
 

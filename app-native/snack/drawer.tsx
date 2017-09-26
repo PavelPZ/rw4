@@ -11,7 +11,7 @@ class drawerExample extends React.Component<Media.IState> {
         <View style={{ flex: 1, backgroundColor: 'lightgray' }}>
           <Text onPress={() => this.setState({ isOpen: false })}>DRAWER CLOSE</Text>
         </View>}
-        isOpen={this.state.isOpen}
+        initIsOpen={this.state.isOpen}
         onChange={isOpen => (this.state.isOpen!=isOpen) && this.setState({isOpen})}>
 
         <View key={1} style={{backgroundColor: 'yellow' }}>
