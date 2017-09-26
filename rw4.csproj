@@ -82,6 +82,7 @@
     <TypeScriptCompile Include="app-common\lib\router.tsx" />
     <TypeScriptCompile Include="app-common\snack\fragments.ts" />
     <TypeScriptCompile Include="app-common\snack\gui\button.tsx" />
+    <TypeScriptCompile Include="app-native\gui\react-native-side-menu - Copy %282%29.tsx" />
     <TypeScriptCompile Include="app-native\gui\react-native-side-menu - Copy.tsx" />
     <TypeScriptCompile Include="app-native\lib\native-media-query.ts" />
     <TypeScriptCompile Include="app-native\lib\web-native-common.d.ts" />

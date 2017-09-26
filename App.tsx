@@ -141,6 +141,6 @@ export const init = async () => {
 
 const Root: React.SFC = () => <WaitForRendering finalContent={init()} waitContent={<AppLoading />} />
 
-//export default Root
-export default AppComp
+export default Root
+//export default AppComp
 
