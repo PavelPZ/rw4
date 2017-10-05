@@ -19,7 +19,7 @@
       switch (out.dataType) {
         case RestAPI.Types.ERROR: throw new Error(resp.headers['x-lm-msg'])
         case RestAPI.Types.JSON: return resp.text().then(txt => {
-          try { out.data = txt ? JSON.parse(txt) : null } catch (msg) { throw new Error(`ERROR: ${msg} (${txt})`) }
+          try { out.data = txt ? JSON.parse(txt) : null } catch (msg) { throw new Error(`ERROR in rest-api.ts: ${msg} (${txt})`) }
           return out
         })
         case RestAPI.Types.STRING: return resp.text().then(txt => { out.data = txt; return out })

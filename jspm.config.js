@@ -22,6 +22,8 @@ SystemJS.config({
     "npm:*.json"
   ],
   map: {
+    "@types/react-dom": "npm:@types/react-dom@16.0.0",
+    "@types/react": "npm:@types/react@16.0.8",
     "es6-promise": "npm:es6-promise@4.1.1",
     "gsap": "npm:gsap@1.20.2",
     "react-transition-group": "npm:react-transition-group@2.2.0",
@@ -614,6 +616,12 @@ SystemJS.config({
       "map": {
         "css-in-js-utils": "npm:css-in-js-utils@2.0.0",
         "bowser": "npm:bowser@1.7.3"
+      }
+    },
+    "npm:@types/react-dom@16.0.0": {
+      "map": {
+        "@types/react": "npm:@types/react@16.0.8",
+        "@types/node": "npm:@types/node@8.0.32"
       }
     }
   }

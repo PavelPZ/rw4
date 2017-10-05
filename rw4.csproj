@@ -82,6 +82,7 @@
     <TypeScriptCompile Include="app-common\lib\router.tsx" />
     <TypeScriptCompile Include="app-common\snack\fragments.ts" />
     <TypeScriptCompile Include="app-common\snack\gui\button.tsx" />
+    <TypeScriptCompile Include="app-common\snack\web-socket.tsx" />
     <TypeScriptCompile Include="app-native\gui\react-native-side-menu - Copy %282%29.tsx" />
     <TypeScriptCompile Include="app-native\gui\react-native-side-menu - Copy.tsx" />
     <TypeScriptCompile Include="app-native\lib\native-media-query.ts" />
@@ -216,6 +217,7 @@
     <None Include="app-common\snack\react-navigation.tsx_" />
     <TypeScriptCompile Include="app-web\snack\react-md-test.tsx" />
     <TypeScriptCompile Include="App.tsx" />
+    <Content Include="app-common\snack\web-socket.html" />
     <Content Include="app-native\gui\buttons.png" />
     <TypeScriptCompile Include="app-native\gui\theme\platform.ts" />
     <Content Include="app-native\snack\tab-view\assets\album-art-1.jpg">
@@ -252,6 +254,7 @@
     <TypeScriptCompile Include="app-native\snack\tab-view\src\SimplePage.tsx" />
     <TypeScriptCompile Include="app-native\snack\tab-view\src\TopBarIconExample.tsx" />
     <TypeScriptCompile Include="app-native\snack\tab-view\src\TopBarTextExample.tsx" />
+    <Content Include="app-common\snack\web-socket.ashx" />
     <None Include="app-native\snack\tab-view\assets\json.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -352,7 +355,10 @@
   <ItemGroup>
     <Compile Include="app-common\lib\recording.cs" />
     <Compile Include="app-common\snack\test-restAPI.cs" />
-    <Compile Include="IndexHandler.cs" />
+    <None Include="IndexHandler.cs_" />
+    <Compile Include="app-common\snack\web-socket.ashx.cs">
+      <DependentUpon>web-socket.ashx</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="app-common\lib\rest-api.cs" />
   </ItemGroup>

@@ -1,1 +1,1 @@
-﻿<%@ WebHandler Language="C#" CodeBehind="app-common/rest-api.cs" Class="Rest.API" %>
+﻿<%@ WebHandler Language="C#" CodeBehind="app-common/lib/rest-api.cs" Class="Rest.API" %>
