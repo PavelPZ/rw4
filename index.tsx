@@ -166,18 +166,12 @@ export const init = async () => {
     </LayerProvider>
   </ReduxProvider>
 
-  const appNo = <X/>
+  const appNo = noRouteApp
 
   ReactDOM.render(
-    //<AppRouter />
+    <AppRouter />
     //<AppAll />
     //<div></div>
-    appNo
+    //appNo
     , document.getElementById('content'))
-}
-
-class X extends React.Component {
-  render() {
-    return [<h1>XXX</h1>, <h2>YYY</h2>]
-  }
 }

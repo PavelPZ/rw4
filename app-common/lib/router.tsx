@@ -16,35 +16,34 @@ const routes: { [name: string]: Router.IRouteComponent } = {}
 const providerConnector: ComponentDecorator<Router.IRouterProviderProps, {}> = connect(
   (state: IState) => ({ ...state.router, ...state.mediaQuery }),// windowSize: state.mediaQuery.windowSize, rnWidth: window.innerWidth })
   (dispatch) => ({
-    showDrawer: visible => { /*debugger;*/ dispatch({ type: Drawer.Consts.SHOW, visible } as Drawer.Action)},
+    showDrawer: visible => { /*debugger;*/ dispatch({ type: Drawer.Consts.SHOW, visible } as Drawer.Action) },
   } as Drawer.IShowDrawer)
 )
 
 export const globalReducer: App.IReducer<IState> = (state, action: Router.IAction) => {
   if (!state.router) { //prvni INIT redux action
     const router = getStateFromUrl()
-    let newState:IState = { ...state, router }
+    let newState: IState = { ...state, router }
     const newRoute = routes[router.routeName]
-    if (newRoute.reducer) newState = newRoute.reducer(newState, { type: Router.Consts.ROUTE_CREATE, routeChanged: true} as Router.ICreateDestroyAction) //init prvni route state
+    if (newRoute.reducer) newState = newRoute.reducer(newState, { type: Router.Consts.ROUTE_CREATE, routeChanged: true } as Router.ICreateDestroyAction) //init prvni route state
     return newState
-  } 
-  const { router: { routeName } } = state
+  }
+  const { router: { routeName: oldRouteName } } = state
   switch (action.type) {
     case Router.Consts.NAVIGATE_END:
       let newState = state
-      const { newState: { routeName: actionRouteName } } = action
-      const newRoute = routes[actionRouteName]
-      if (actionRouteName !== routeName) { //stara a nova route jsou odlisne
-        const oldRoute = routes[routeName]
-        if (oldRoute.reducer) newState = oldRoute.reducer(newState, { type: Router.Consts.ROUTE_DESTROY, routeChanged:true } as Router.ICreateDestroyAction)
-      } //navigace v ramci stejne route
-      newState = { ...newState, router: action.newState }
-      if (newRoute.reducer) newState = newRoute.reducer(newState, { type: Router.Consts.ROUTE_CREATE, routeChanged: actionRouteName !== routeName } as Router.ICreateDestroyAction)
-      newState = { ...newState, router: action.newState, drawer:{ } }
+      const { newState: { routeName: newRouteName } } = action
+      const routeChanged = newRouteName !== oldRouteName
+      const oldRoute = routes[oldRouteName]
+      const newRoute = routes[newRouteName]
+      if (oldRoute.reducer) newState = oldRoute.reducer(newState, { type: Router.Consts.ROUTE_DESTROY, routeChanged: routeChanged  } as Router.ICreateDestroyAction)
+      newState = { ...newState, router: action.newState, drawer: {} }
+      if (newRoute.reducer) newState = newRoute.reducer(newState, { type: Router.Consts.ROUTE_CREATE, routeChanged: routeChanged } as Router.ICreateDestroyAction)
+      //newState = { ...newState, router: action.newState, drawer: {} }
       return newState
     default:
-      const actRoute = routes[routeName]
-      return actRoute.reducer ? actRoute.reducer(state, action) : state 
+      const actRoute = routes[oldRouteName]
+      return actRoute.reducer ? actRoute.reducer(state, action) : state
   }
 }
 

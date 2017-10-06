@@ -44,7 +44,7 @@ class Drawer extends React.PureComponent<{ windowSize: Media.TWindowSize, change
   }
 
   render() {
-    const { promisePars, contentProps, drawerProps, state: { visible }, props: { windowSize, changeWindowSize }, animPromise } = this
+    const { promisePars, contentProps, drawerProps, state: { visible }, props: { windowSize, changeWindowSize }, animPromise, renderedPromise } = this
     if (animPromise) { animPromise.abort(); delete this.animPromise }
 
     contentProps.button = <span ref={span => promisePars.tabletOpenButton = span} style={{ visibility: windowSize == Media.TWindowSize.mobile ? 'visible' : 'hidden' }}>
@@ -54,11 +54,11 @@ class Drawer extends React.PureComponent<{ windowSize: Media.TWindowSize, change
     contentProps.initLeft = visible && windowSize != Media.TWindowSize.mobile ? drawerWidth : 0
     drawerProps.initLeft = (contentProps.initLeft ? 0 : -drawerWidth)
 
-    return <div ref={() => this.renderedPromise && this.renderedPromise.resolve()}>
+    return <div ref={() => renderedPromise && renderedPromise.resolve()}>
       {/*page content*/}
       <Content key={0} changeWindowSize={changeWindowSize} drawerProps={contentProps} />
       {/*backdrop pro zakryti mobile contentu*/}
-      {this.props.windowSize == Media.TWindowSize.mobile && <div key={1} ref={div => promisePars.mobileBackDrop = div} className={renderCSS({ ...fixedStyle, backgroundColor: 'gray' })} style={{ display: 'none', opacity: 0 }} onClick={() => {
+      {windowSize == Media.TWindowSize.mobile && <div key={1} ref={div => promisePars.mobileBackDrop = div} className={renderCSS({ ...fixedStyle, backgroundColor: 'gray' })} style={{ display: 'none', opacity: 0 }} onClick={() => {
         this.changeVisible(false)
       }} />}
       {/*drawer*/}
