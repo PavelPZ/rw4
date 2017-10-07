@@ -4,9 +4,11 @@ import { registerRouter } from '../../app-common/lib/router'
 import { Page } from '../../app-common/gui/gui'
 //import { shallowEqual } from '../../app-common/lib/lib'
 
-export interface IRouteProps extends Router.IPageProps {
+export interface IRoutePar extends Router.IRoutePar {
   title:string
 }
+
+type IRouteProps = Router.IPageProps<IRoutePar>
 
 //cannot prevent re-render during ROUTER animation
 const app1: React.SFC<IRouteProps> = props => <Page refForAnimation={props.refForAnimation} >

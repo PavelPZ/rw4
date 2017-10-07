@@ -7,7 +7,7 @@ import { TextProperties } from 'react-native';
 //export type IWebText = ReactNative.TextProperties
 
 //d:\rw\know-how\react-native-web\src\components\Text\index.js
-export const Text: React.SFC<TextProperties> = props => {
+export const Text: React.SFC<ReactNative.TextProperties> = props => {
   const {
     numberOfLines,
     onPress,
@@ -24,11 +24,11 @@ export const Text: React.SFC<TextProperties> = props => {
   //if (otherProps != undefined) otherProps.dir = 'auto';
 
   const ruleProps: CSSProperties = {
-    borderWidth: 0,
-    font: 'inherit',
-    margin: 0,
-    padding: 0,
-    textDecorationLine: 'none',
+    //borderWidth: 0,
+    //font: 'inherit',
+    //margin: 0,
+    //padding: 0,
+    //textDecorationLine: 'none',
     whiteSpace: 'pre-wrap',
     wordWrap: 'break-word',
     ...(selectable === false ? { userSelect: 'none' } as CSSProperties : null),

@@ -12,18 +12,17 @@
   interface IState {
     drawerVisible?: boolean
   }
-
-  interface IProps extends IState {
-    windowSize:Media.TWindowSize
-  }
-
-  interface IShowDrawer {
+  
+  interface IDispatchProps {
     showDrawer?(isShow:boolean)
   }
-  interface IOwnProps extends IShowDrawer {
-    navItems: JSX.Element[]
+  type IStateProps = IState & Router.IPageProps
+
+  interface IOwnProps {
+    navItems?: JSX.Element[]
     headerLeft?:JSX.Element
-    headerDesktop?:JSX.Element
+    headerDesktop?: JSX.Element
+    drawerMenu
   }
 
 }

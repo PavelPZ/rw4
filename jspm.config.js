@@ -22,6 +22,7 @@ SystemJS.config({
     "npm:*.json"
   ],
   map: {
+    "animated": "npm:animated@0.2.0",
     "@types/react-dom": "npm:@types/react-dom@16.0.0",
     "@types/react": "npm:@types/react@16.0.8",
     "es6-promise": "npm:es6-promise@4.1.1",
@@ -66,7 +67,7 @@ SystemJS.config({
     "js-cookie": "npm:js-cookie@2.1.4",
     "lodash": "npm:lodash@4.17.4",
     "process": "npm:jspm-nodelibs-process@0.2.1",
-    "prop-types": "npm:prop-types@15.5.10",
+    "prop-types": "npm:prop-types@15.6.0",
     "redux-saga": "npm:redux-saga@0.15.6",
     "tslib": "npm:tslib@1.7.1",
     "whatwg-fetch": "npm:whatwg-fetch@2.0.3"
@@ -109,7 +110,7 @@ SystemJS.config({
       "map": {
         "invariant": "npm:invariant@2.2.2",
         "hoist-non-react-statics": "npm:hoist-non-react-statics@2.3.1",
-        "prop-types": "npm:prop-types@15.5.10",
+        "prop-types": "npm:prop-types@15.6.0",
         "loose-envify": "npm:loose-envify@1.3.1",
         "lodash-es": "npm:lodash-es@4.17.4",
         "lodash": "npm:lodash@4.17.4"
@@ -153,7 +154,7 @@ SystemJS.config({
     },
     "npm:jspm-nodelibs-buffer@0.2.3": {
       "map": {
-        "buffer": "npm:buffer@5.0.7"
+        "buffer": "npm:buffer@5.0.8"
       }
     },
     "npm:crypto-browserify@3.11.1": {
@@ -190,7 +191,7 @@ SystemJS.config({
     "npm:diffie-hellman@5.0.2": {
       "map": {
         "randombytes": "npm:randombytes@2.0.5",
-        "miller-rabin": "npm:miller-rabin@4.0.0",
+        "miller-rabin": "npm:miller-rabin@4.0.1",
         "bn.js": "npm:bn.js@4.11.8"
       }
     },
@@ -209,7 +210,7 @@ SystemJS.config({
         "inherits": "npm:inherits@2.0.3",
         "safe-buffer": "npm:safe-buffer@5.1.1",
         "ripemd160": "npm:ripemd160@2.0.1",
-        "sha.js": "npm:sha.js@2.4.8",
+        "sha.js": "npm:sha.js@2.4.9",
         "cipher-base": "npm:cipher-base@1.0.4"
       }
     },
@@ -217,7 +218,7 @@ SystemJS.config({
       "map": {
         "inherits": "npm:inherits@2.0.3",
         "ripemd160": "npm:ripemd160@2.0.1",
-        "sha.js": "npm:sha.js@2.4.8",
+        "sha.js": "npm:sha.js@2.4.9",
         "cipher-base": "npm:cipher-base@1.0.4"
       }
     },
@@ -255,11 +256,6 @@ SystemJS.config({
         "safe-buffer": "npm:safe-buffer@5.1.1"
       }
     },
-    "npm:sha.js@2.4.8": {
-      "map": {
-        "inherits": "npm:inherits@2.0.3"
-      }
-    },
     "npm:browserify-des@1.0.0": {
       "map": {
         "cipher-base": "npm:cipher-base@1.0.4",
@@ -271,12 +267,6 @@ SystemJS.config({
       "map": {
         "inherits": "npm:inherits@2.0.3",
         "hash-base": "npm:hash-base@2.0.2"
-      }
-    },
-    "npm:miller-rabin@4.0.0": {
-      "map": {
-        "bn.js": "npm:bn.js@4.11.8",
-        "brorand": "npm:brorand@1.1.0"
       }
     },
     "npm:parse-asn1@5.1.0": {
@@ -342,12 +332,6 @@ SystemJS.config({
         "minimalistic-assert": "npm:minimalistic-assert@1.0.0"
       }
     },
-    "npm:prop-types@15.5.10": {
-      "map": {
-        "loose-envify": "npm:loose-envify@1.3.1",
-        "fbjs": "npm:fbjs@0.8.15"
-      }
-    },
     "npm:react-prop-types@0.4.0": {
       "map": {
         "warning": "npm:warning@3.0.0"
@@ -389,12 +373,6 @@ SystemJS.config({
         "iconv-lite": "npm:iconv-lite@0.4.19"
       }
     },
-    "npm:buffer@5.0.7": {
-      "map": {
-        "ieee754": "npm:ieee754@1.1.8",
-        "base64-js": "npm:base64-js@1.2.1"
-      }
-    },
     "npm:fela-plugin-prefixer@5.0.8": {
       "map": {
         "fela-plugin-fallback-value": "npm:fela-plugin-fallback-value@5.0.8",
@@ -409,7 +387,7 @@ SystemJS.config({
         "react-swipeable-views-core": "npm:react-swipeable-views-core@0.12.8",
         "warning": "npm:warning@3.0.0",
         "dom-helpers": "npm:dom-helpers@3.2.1",
-        "prop-types": "npm:prop-types@15.5.10",
+        "prop-types": "npm:prop-types@15.6.0",
         "babel-runtime": "npm:babel-runtime@6.26.0"
       }
     },
@@ -426,8 +404,8 @@ SystemJS.config({
       "map": {
         "react-swipeable-views-core": "npm:react-swipeable-views-core@0.12.8",
         "react-event-listener": "npm:react-event-listener@0.5.0",
-        "prop-types": "npm:prop-types@15.5.10",
-        "fbjs": "npm:fbjs@0.8.15",
+        "prop-types": "npm:prop-types@15.6.0",
+        "fbjs": "npm:fbjs@0.8.16",
         "keycode": "npm:keycode@2.1.9",
         "babel-runtime": "npm:babel-runtime@6.26.0"
       }
@@ -442,7 +420,7 @@ SystemJS.config({
       "map": {
         "raf": "npm:raf@3.3.2",
         "performance-now": "npm:performance-now@0.2.0",
-        "prop-types": "npm:prop-types@15.5.10"
+        "prop-types": "npm:prop-types@15.6.0"
       }
     },
     "npm:fela-dom@5.0.8": {
@@ -461,8 +439,8 @@ SystemJS.config({
     "npm:react-event-listener@0.5.0": {
       "map": {
         "warning": "npm:warning@3.0.0",
-        "prop-types": "npm:prop-types@15.5.10",
-        "fbjs": "npm:fbjs@0.8.15",
+        "prop-types": "npm:prop-types@15.6.0",
+        "fbjs": "npm:fbjs@0.8.16",
         "babel-runtime": "npm:babel-runtime@6.26.0"
       }
     },
@@ -493,17 +471,6 @@ SystemJS.config({
       "map": {
         "fela-utils": "npm:fela-utils@6.0.1",
         "css-in-js-utils": "npm:css-in-js-utils@2.0.0"
-      }
-    },
-    "npm:fbjs@0.8.15": {
-      "map": {
-        "core-js": "npm:core-js@1.2.7",
-        "isomorphic-fetch": "npm:isomorphic-fetch@2.2.1",
-        "loose-envify": "npm:loose-envify@1.3.1",
-        "promise": "npm:promise@7.3.1",
-        "setimmediate": "npm:setimmediate@1.0.5",
-        "object-assign": "npm:object-assign@4.1.1",
-        "ua-parser-js": "npm:ua-parser-js@0.7.14"
       }
     },
     "npm:fela-utils@6.0.1": {
@@ -543,7 +510,7 @@ SystemJS.config({
         "create-hash": "npm:create-hash@1.1.3",
         "create-hmac": "npm:create-hmac@1.1.6",
         "ripemd160": "npm:ripemd160@2.0.1",
-        "sha.js": "npm:sha.js@2.4.8",
+        "sha.js": "npm:sha.js@2.4.9",
         "safe-buffer": "npm:safe-buffer@5.1.1"
       }
     },
@@ -568,7 +535,7 @@ SystemJS.config({
     "npm:react-transition-group@1.2.0": {
       "map": {
         "loose-envify": "npm:loose-envify@1.3.1",
-        "prop-types": "npm:prop-types@15.5.10",
+        "prop-types": "npm:prop-types@15.6.0",
         "dom-helpers": "npm:dom-helpers@3.2.1",
         "chain-function": "npm:chain-function@1.0.0",
         "warning": "npm:warning@3.0.0"
@@ -581,7 +548,7 @@ SystemJS.config({
         "classnames": "npm:classnames@2.2.5",
         "dom-helpers": "npm:dom-helpers@3.2.1",
         "warning": "npm:warning@3.0.0",
-        "prop-types": "npm:prop-types@15.5.10"
+        "prop-types": "npm:prop-types@15.6.0"
       }
     },
     "npm:react-md@1.1.4": {
@@ -590,7 +557,7 @@ SystemJS.config({
         "react-motion": "npm:react-motion@0.5.1",
         "react-transition-group": "npm:react-transition-group@1.2.0",
         "react-prop-types": "npm:react-prop-types@0.4.0",
-        "prop-types": "npm:prop-types@15.5.10",
+        "prop-types": "npm:prop-types@15.6.0",
         "invariant": "npm:invariant@2.2.2",
         "resize-observer-polyfill": "npm:resize-observer-polyfill@1.4.2",
         "react-swipeable-views": "npm:react-swipeable-views@0.12.8"
@@ -600,16 +567,16 @@ SystemJS.config({
       "map": {
         "object-assign": "npm:object-assign@4.1.1",
         "loose-envify": "npm:loose-envify@1.3.1",
-        "fbjs": "npm:fbjs@0.8.15",
-        "prop-types": "npm:prop-types@15.5.10"
+        "fbjs": "npm:fbjs@0.8.16",
+        "prop-types": "npm:prop-types@15.6.0"
       }
     },
     "npm:react-dom@next": {
       "map": {
         "object-assign": "npm:object-assign@4.1.1",
         "loose-envify": "npm:loose-envify@1.3.1",
-        "fbjs": "npm:fbjs@0.8.15",
-        "prop-types": "npm:prop-types@15.5.10"
+        "fbjs": "npm:fbjs@0.8.16",
+        "prop-types": "npm:prop-types@15.6.0"
       }
     },
     "npm:inline-style-prefixer@3.0.8": {
@@ -622,6 +589,48 @@ SystemJS.config({
       "map": {
         "@types/react": "npm:@types/react@16.0.8",
         "@types/node": "npm:@types/node@8.0.32"
+      }
+    },
+    "npm:animated@0.2.0": {
+      "map": {
+        "invariant": "npm:invariant@2.2.2",
+        "normalize-css-color": "npm:normalize-css-color@1.0.2"
+      }
+    },
+    "npm:fbjs@0.8.16": {
+      "map": {
+        "loose-envify": "npm:loose-envify@1.3.1",
+        "object-assign": "npm:object-assign@4.1.1",
+        "promise": "npm:promise@7.3.1",
+        "isomorphic-fetch": "npm:isomorphic-fetch@2.2.1",
+        "core-js": "npm:core-js@1.2.7",
+        "ua-parser-js": "npm:ua-parser-js@0.7.14",
+        "setimmediate": "npm:setimmediate@1.0.5"
+      }
+    },
+    "npm:prop-types@15.6.0": {
+      "map": {
+        "loose-envify": "npm:loose-envify@1.3.1",
+        "object-assign": "npm:object-assign@4.1.1",
+        "fbjs": "npm:fbjs@0.8.16"
+      }
+    },
+    "npm:buffer@5.0.8": {
+      "map": {
+        "base64-js": "npm:base64-js@1.2.1",
+        "ieee754": "npm:ieee754@1.1.8"
+      }
+    },
+    "npm:sha.js@2.4.9": {
+      "map": {
+        "inherits": "npm:inherits@2.0.3",
+        "safe-buffer": "npm:safe-buffer@5.1.1"
+      }
+    },
+    "npm:miller-rabin@4.0.1": {
+      "map": {
+        "bn.js": "npm:bn.js@4.11.8",
+        "brorand": "npm:brorand@1.1.0"
       }
     }
   }

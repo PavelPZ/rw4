@@ -1,4 +1,5 @@
 import 'whatwg-fetch' //kvuli MSIE
+//Animated
 //gsap
 import 'gsap/src/minified/TweenLite.min'
 import 'gsap/src/minified/plugins/CSSPlugin.min'
@@ -14,6 +15,7 @@ import { all, call } from 'redux-saga/effects'
 
 
 //********** COMMON
+import { initGUI } from './app-common/gui/gui'
 import { Provider as LocProvider, reducer as locReducer } from './app-common/lib/loc'
 import { Provider as RouterProvider, init as initRouter, globalReducer as globalRouterReducer, middleware as routerMiddleware } from './app-common/lib/router'
 import { PromiseExtensible, WaitForRendering, promiseAll, getAppId } from './app-common/lib/lib'
@@ -21,8 +23,10 @@ import { init as initRecording, reducer as recordingReducer, saga as recordingSa
 import { reducer as loginReducer } from './app-common/lib/login'
 import { reducer as mediaQueryReducer } from './app-common/lib/media-query'
 import { reducer as drawerReducer } from './app-common/lib/drawer'
+import { DrawerLayout } from './app-common/snack/drawer'
 
 //********** WEB specific
+import Animated from 'animated'
 import createHistory from 'history/createBrowserHistory'
 //import { Provider as LayerProvider } from './app-web/lib/web-root-layers'
 import { platform as loginPlatform, Provider as LoginProvider, } from './app-web/lib/web-login'
@@ -32,7 +36,7 @@ import { Provider as RecordingProvider, BlockGuiComp } from './app-web/lib/web-r
 import { getAnimator as getRouteAnimator, Page } from './app-web/lib/web-router'
 import { Button } from './app-web/gui/button'
 import { Icon } from './app-web/gui/icon'
-import { View, Container, Header, Footer, Content } from './app-web/gui/view'
+import { View, Container, Header, Footer, Content, AnimatedView } from './app-web/gui/view'
 import { Text } from './app-web/gui/text'
 import { LayerProvider, H1, H2, H3, Platform, colorToStyle, waitChildren } from './app-web/gui/lib'
 
@@ -46,17 +50,20 @@ import IonicDesigntime from './app-web/design/ionic-designtime'
 import IonicTest from './app-common/snack/gui/icon'
 import ButtonTest from './app-common/snack/gui/button'
 import { ConnectTest, reducer as connectTestReducer } from './app-web/snack/connect-test'
-import Animated from './app-web/snack/animated-transition'
+import AnimatedTransition from './app-web/snack/animated-transition'
 import AnimatedGsap from './app-web/snack/animated-gsap'
 import AnimatedGsapNew from './app-web/snack/animated-gsap-new'
 import { App1, /*app3Reducer*/ } from './app-web/snack/router-new'
 import DrawerApp from './app-web/snack/drawer'
 import DrawerNativeLikeApp from './app-web/snack/drawer-native-like'
+import DrawerCommon from './app-common/snack/drawer'
+
 
 //*********** spusteni
 export const init = async () => {
   window.lmGlobal = {
     isNative: false,
+    topMargin:0,
     OS: App.PlatformOSType.web,
     platform: {
       appPlatform: {
@@ -81,13 +88,14 @@ export const init = async () => {
         rootUrl: '/web-app.html',
         getAnimator: getRouteAnimator,
       },
-      guiPlatform: { Platform, colorToStyle, Button, Icon, H1, H2, H3, View, Container, Header, Footer, Content, Text, Page }
+      //guiPlatform: { Platform, colorToStyle, Button, Icon, H1, H2, H3, View, Container, Header, Footer, Content, Text, Page, DrawerLayout, AnimatedView }
     }
   }
 
   await promiseAll([
+    initGUI({ Platform, colorToStyle, Button, Icon, H1, H2, H3, View, Container, Header, Footer, Content, Text, Page, DrawerLayout, AnimatedView, Animated }),
     initRouter(),
-    initRecording()
+    initRecording(),
   ])
 
   const reducers: App.IReducer = (st, action: any) => {
@@ -125,7 +133,7 @@ export const init = async () => {
   let noRouteApp: JSX.Element = null
 
   //noRouteApp = <ReactMDApp/>
-  noRouteApp = <DrawerApp/>
+  //noRouteApp = <DrawerApp/>
   //noRouteApp = <LocTestApp />
   //noRouteApp = <ValidateTestApp />
   //noRouteApp = <RestAPI />
@@ -136,7 +144,8 @@ export const init = async () => {
   //noRouteApp = <AnimatedGsap />
   //noRouteApp = <AnimatedGsapNew />
   //noRouteApp = <DrawerApp />
-  noRouteApp = <DrawerNativeLikeApp />
+  //noRouteApp = <DrawerNativeLikeApp />
+  noRouteApp = <DrawerCommon/>
   
 
 

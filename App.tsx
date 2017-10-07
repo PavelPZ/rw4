@@ -5,20 +5,23 @@ import { Provider as ReduxProvider, connect } from 'react-redux'
 import { createStore, Store, applyMiddleware } from 'redux'
 import createSagaMiddleware from 'redux-saga/index'
 import { all, call } from 'redux-saga/effects'
-import { Platform } from 'react-native';
+import { Platform, Animated } from 'react-native';
 
 //********** COMMON
+import { initGUI } from './app-common/gui/gui'
 import { WaitForRendering, promiseAll } from './app-common/lib/lib'
 import { Provider as RouterProvider, globalReducer as globalRouterReducer, middleware as routerMiddleware, init as initRouter } from './app-common/lib/router'
 import { init as initRecording, reducer as recordingReducer, saga as recordingSaga, middleware as recordingMiddleware, globalReducer as recordingGlobalReducer, blockGuiReducer, blockGuiSaga } from './app-common/lib/recording'
 import { Provider as LocProvider, reducer as locReducer } from './app-common/lib/loc'
 import { reducer as mediaQueryReducer } from './app-common/lib/media-query'
+import { DrawerLayout } from './app-common/snack/drawer'
+import { reducer as drawerReducer } from './app-common/lib/drawer'
 
 //********** NATIVE specific
 import createHistory from 'history/createMemoryHistory'
 import { RecorderButton, LayerProvider, BlockGuiComp, init as initRoot, } from './app-native/gui/lib'
 import { getAnimator as getRouteAnimator, Page } from './app-native/lib/native-router'
-import { AppLoading } from 'expo'
+import { AppLoading, Constants } from 'expo'
 import { Icon } from './app-native/gui/icon'
 import { Button } from './app-native/gui/button'
 import { Content } from './app-native/gui/content'
@@ -32,6 +35,10 @@ import { ActionSheetContainer as ActionSheet } from 'native-base/src/basic/Actio
 //************ aplikace k testovani
 
 import { AppPage } from './app-common/snack/app-router'
+
+class AppComp extends React.Component {
+  render() { return <Text>HALLO</Text>}
+}
 
 //import AppComp from './app-native/snack/native-base/index'
 //import AppComp from './app-native/snack/redux-simple';
@@ -55,13 +62,15 @@ import { AppPage } from './app-common/snack/app-router'
 //import AppComp from './app-native/snack/design-dump-colors'
 //import AppComp from './app-common/snack/gui/button'
 //import AppComp from './app-native/snack/native-base-button'
-import AppComp from './app-native/snack/drawer'
+//import AppComp from './app-native/snack/drawer'
+//import AppComp from './app-common/snack/drawer'
 
 //console.log('APP')
 
 export const init = async () => {
   window.lmGlobal = {
     isNative: true,
+    topMargin: Constants.statusBarHeight,
     OS: Platform.OS as App.PlatformOSType,
     platform: {
       loginPlatform: null,
@@ -77,9 +86,9 @@ export const init = async () => {
         rootUrl: '/web-app.html',
         getAnimator: getRouteAnimator,
       },
-      guiPlatform: { colorToStyle, Platform, Icon, Button, H1, H2, H3, View, Text, Content, Container, Header, Footer, Page },
     }
   }
+  initGUI({ Platform, colorToStyle, Button, Icon, H1, H2, H3, View, Container, Header, Footer, Content, Text, Page, DrawerLayout, AnimatedView: Animated.View, Animated })
 
   const recordingJSON = await require('./App_Data/recording.json')
   //console.log('recordingJSON:\n', JSON.stringify(recordingJSON,null,2))
@@ -97,6 +106,7 @@ export const init = async () => {
       blockGui: blockGuiReducer(state.blockGui, action),
       loc: locReducer(state.loc, action),
       mediaQuery: mediaQueryReducer(state.mediaQuery, action),
+      drawer: drawerReducer(state.drawer, action),
     }
     return res
   }
@@ -133,8 +143,8 @@ export const init = async () => {
   </ReduxProvider>
 
   return new Promise<JSX.Element>(resolve => resolve(
-    //<AppAll />
-    <AppComp/>
+    <AppAll />
+    //<AppComp/>
   ))
 }
 
@@ -143,4 +153,3 @@ const Root: React.SFC = () => <WaitForRendering finalContent={init()} waitConten
 
 export default Root
 //export default AppComp
-

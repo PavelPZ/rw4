@@ -1,25 +1,56 @@
-﻿import React from 'react'
+﻿export let Animated: typeof ReactNative.Animated
+export let Button: React.ComponentType<GUI.IButtonProps>
+export let Icon: React.ComponentType<GUI.IIconProps>
+export let H1: React.ComponentType<NativeBase.H1>
+export let H2: React.ComponentType<NativeBase.H2>
+export let View: React.ComponentType<ReactNative.ViewProperties>
+export let Text: React.ComponentType<ReactNative.TextProperties>
+export let Platform: ReactNative.PlatformStatic
+export let AnimatedView: React.ComponentType<ReactNative.ViewProperties>
 
-const pl = () => window.lmGlobal.platform.guiPlatform
+export let Container: React.ComponentType<ReactNative.ViewProperties & { ref?}>
+export let Content: React.ComponentType<ReactNative.ViewProperties>
+export let Header: React.ComponentType<ReactNative.ViewProperties>
+export let Footer: React.ComponentType<ReactNative.ViewProperties>
+export let Page: React.ComponentType<Router.IPageProps>
+export let DrawerLayout: React.ComponentType<Drawer.IOwnProps>
+export let colorToStyle: { [color: string]: string }
 
-export const Button: React.SFC<GUI.IButtonProps> = props => { const C = pl().Button; return <C {...props} /> }
-export const Icon: React.SFC<GUI.IIconProps> = props => { const C = pl().Icon; return <C {...props} /> }
-export const H1: React.SFC<NativeBase.H1> = props => { const C = pl().H1; return <C {...props} /> }
-export const H2: React.SFC<NativeBase.H2> = props => { const C = pl().H2; return <C {...props} /> }
-export const View: React.SFC<ReactNative.ViewProperties> = props => { const C = pl().View; return <C {...props} /> }
-export const Text: React.SFC<ReactNative.TextProperties> = props => { const C = pl().Text; return <C {...props} /> }
-export const Platform = () => pl().Platform
+export const initGUI = async (pl: IPlatform) => {
+  Animated = pl.Animated
+  View = pl.View
+  Button = pl.Button
+  Icon = pl.Icon
+  H1 = pl.H1
+  H2 = pl.H2
+  Text = pl.Text
+  Platform = pl.Platform
+  AnimatedView = pl.AnimatedView
+  Container = pl.Container
+  Content = pl.Content
+  Header = pl.Header
+  Footer = pl.Footer
+  Page = pl.Page
+  DrawerLayout = pl.DrawerLayout
+  colorToStyle = pl.colorToStyle
+}
 
-export const Container: React.SFC<ReactNative.ViewProperties & {ref?}> = props => { const C = pl().Container; return <C {...props} /> }
-export const Content: React.SFC<ReactNative.ViewProperties> = props => { const C = pl().Content; return <C {...props} /> }
-export const Header: React.SFC<ReactNative.ViewProperties> = props => { const C = pl().Header; return <C {...props} /> }
-export const Footer: React.SFC<ReactNative.ViewProperties> = props => { const C = pl().Footer; return <C {...props} /> }
-export const Page: React.SFC<Router.IPageProps> = props => { const C = pl().Page; return <C {...props} /> }
-
-//export * from './colors'
-
-//export const footerConnector = connect<GUI.IPageFooterState, {}, GUI.IPageFooterOwnProps>((state: IState) => state.gui.footer)
-
-//export const pageReducer = (state: IState, action: App.Action) => {
-
-//}
+interface IPlatform {
+  Button: React.SFC<GUI.IButtonProps>
+  Icon: React.SFC<GUI.IIconProps>
+  H1: React.ComponentType<NativeBase.H1>
+  H2: React.ComponentType<NativeBase.H2>
+  H3: React.ComponentType<NativeBase.H3>
+  View: React.ComponentType<NativeBase.View>
+  AnimatedView: React.ComponentType<ReactNative.ViewProperties>
+  Text: React.ComponentType<NativeBase.Text>
+  Container: React.ComponentType<NativeBase.View>
+  Header: React.ComponentType<NativeBase.View>
+  Footer: React.ComponentType<NativeBase.View>
+  Content: React.ComponentType<NativeBase.View>
+  Page: React.ComponentType<Router.IRoutePar>
+  DrawerLayout: React.ComponentType<Drawer.IOwnProps>
+  colorToStyle: { [color: string]: string }
+  Platform: ReactNative.PlatformStatic
+  Animated: typeof ReactNative.Animated
+}

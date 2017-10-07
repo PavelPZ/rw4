@@ -5,7 +5,7 @@ import { Toolbar, Button, MenuButton, Drawer as MDDrawer, DrawerPosition, Drawer
 import { providerConnector } from '../../app-common/lib/drawer'
 import { renderCSS } from './fela'
 
-const drawer: React.SFC<Drawer.IProps & Drawer.IOwnProps> = props =>{
+const drawer: React.SFC<Drawer.IDispatchProps & Drawer.IOwnProps & Drawer.IStateProps> = props => {
   const {children, headerDesktop, navItems, headerLeft, showDrawer, drawerVisible, windowSize} = props
   const type: DrawerType = windowSize == Media.TWindowSize.mobile ? 'temporary' : (windowSize == Media.TWindowSize.tablet ? 'persistent' : 'full-height')
   const headerComp = windowSize != Media.TWindowSize.tablet ? headerDesktop : <Toolbar colored style={{backgroundColor:'black'}}  className="md-divider-border md-divider-border--bottom" 

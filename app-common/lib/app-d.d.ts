@@ -18,6 +18,7 @@ declare namespace App {
     store?: Store
     platform: IPlatforms
     isNative: boolean
+    topMargin:number
     OS: PlatformOSType
   }
 

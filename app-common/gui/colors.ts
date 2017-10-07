@@ -1,4 +1,6 @@
-﻿export const getColor = (color: GUI.Colors, shade?: GUI.Shadows) => {
+﻿import { colorToStyle } from './gui'
+
+export const getColor = (color: GUI.Colors, shade?: GUI.Shadows) => {
   const p = palette[color]
   if (!p) return null
   return p[shade || GUI.Shadows.S500] as string
@@ -14,7 +16,7 @@ export const getColors = (color: GUI.Colors, shade?: GUI.Shadows) => ({
 export const fillColorToStyle = (color: GUI.Colors | string, style: { color?: string }, shadow?: GUI.Shadows) => {
   let c: string
   if (!color) c = GUI.Colors.primary
-  c = window.lmGlobal.platform.guiPlatform.colorToStyle[color as GUI.Colors]
+  c = colorToStyle[color as GUI.Colors]
   if (!c) c = getColor(color as GUI.Colors, shadow)
   if (!c) c = color as string
   style.color = c

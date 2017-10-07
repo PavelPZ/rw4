@@ -1,21 +1,18 @@
 ﻿declare namespace GUI {
 
-  interface IPlatform {
-    Button: React.SFC<GUI.IButtonProps>
-    Icon: React.SFC<IIconProps>
-    H1: React.ComponentType<NativeBase.H1>
-    H2: React.ComponentType<NativeBase.H2>
-    H3: React.ComponentType<NativeBase.H3>
-    View: React.ComponentType<NativeBase.View>
-    Text: React.ComponentType<NativeBase.Text>
-    Container: React.ComponentType<NativeBase.View>
-    Header: React.ComponentType<NativeBase.View>
-    Footer: React.ComponentType<NativeBase.View>
-    Content: React.ComponentType<NativeBase.View>
-    Page: React.ComponentType<Router.IRoutePar>
-    colorToStyle: { [color: string]: string }
-    Platform: ReactNative.PlatformStatic
-  }
+  //interface AnimatedViewStyle {
+  //  opacity?: ReactNative.Animated.Value
+  //  width?: ReactNative.Animated.Value
+  //  height?: ReactNative.Animated.Value
+  //  left?: ReactNative.Animated.Value
+  //  right?: ReactNative.Animated.Value
+  //  top?: ReactNative.Animated.Value
+  //  bottom?: ReactNative.Animated.Value
+  //}
+
+  //interface AnimatedViewProps extends ReactNative.ViewProperties {
+  //  animatedStyle?: AnimatedViewStyle
+  //}
 
   interface IState {
   }
@@ -69,10 +66,6 @@
 
   }
 
-}
-
-interface IPlatforms {
-  guiPlatform?: GUI.IPlatform
 }
 
 interface IState {

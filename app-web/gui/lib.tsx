@@ -41,9 +41,10 @@ export const colorToStyle = {
 //    return this.props.waitChildren
 //  }
 //}
-export const LayerProvider: React.SFC<any> = props => <div>
-  {props.children}
-</div>
+//export const LayerProvider: React.SFC<any> = props => <div>
+//  {props.children}
+//</div>
+export const LayerProvider: React.SFC<any> = props => React.Children.toArray(props.children) as any
 
 
 export const waitChildren = <div className={renderCSS({display:'flex', flex:1, justifyContent:'center', alignItems: 'center', height:'100v'})}>

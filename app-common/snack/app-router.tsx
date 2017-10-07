@@ -1,6 +1,6 @@
 ﻿import React from 'react'
 import { connect, ComponentDecorator } from 'react-redux'
-import { Container, Header, Content, Text, Button, H2, View, Page } from '../gui/gui'
+import { Container, Header, Content, Text, Button, H2, View, DrawerLayout } from '../gui/gui'
 import { registerRouter } from '../lib/router'
 import { isLogged, createLoginButton } from '../lib/login'
 import { storeContextType } from '../lib/lib'
@@ -14,7 +14,28 @@ const LoginButton = createLoginButton(props => {
     onPress={doLoginAction} />
 })
 
-class appPageLow extends React.PureComponent<AppRouter.IRouteProps & { title2?: string, onClick? }> {
+const enum Consts {
+  name = 'app-router',
+  urlMask = '/:title',
+  loadDelay = 600,
+}
+
+interface IRoutePar extends Router.IRoutePar {
+  title?: string
+}
+
+type IOwnProps = Router.IPageProps<IRoutePar>
+interface IStateProps {
+  title2: string
+}
+type IState = IStateProps
+interface IDispatchProps {
+  onClick
+}
+
+type IProps = IStateProps & IDispatchProps
+
+class appPageLow extends React.PureComponent<IOwnProps & IStateProps & IDispatchProps> {
   render() {
     const props = this.props
     const { children, ...par } = props
@@ -24,31 +45,32 @@ class appPageLow extends React.PureComponent<AppRouter.IRouteProps & { title2?: 
     }
     const isModal = props.query && props.query.isModal
     //console.log('appRouterComp', props)
-    return <Page {...par} drawerMenu={{navItems:[<Menu key={0}/>]}}>
+    return <DrawerLayout {...par} drawerMenu={{navItems:[<Menu key={0}/>]}}>
       <Container style={{ flex: 1 }}>
         <Header key={1}>
           <View><Text style={{ color: 'lightgray' }}>{JSON.stringify(props)}</Text></View>
         </Header>
         <Content key={2}>
           <H2>{props.title + ' ' + props.title2 + ' ' + counter++}</H2>
-          <Button /*tabIndex={1}*/ key={1} label='Add to title' href={AppPage.getRoute({ ...par, title: props.title + ' | xxx' } as AppRouter.IRouteProps)} />
-          <Button /*tabIndex={1}*/ key={2} label='Show Modal' href={AppPage.getRoute({ ...par, title: props.title + ' | mmm' } as AppRouter.IRouteProps, true)} />
+          <Button /*tabIndex={1}*/ key={1} label='Add to title' href={AppPage.getRoute({ ...par, title: props.title + ' | xxx' } as IRoutePar)} />
+          <Button /*tabIndex={1}*/ key={2} label='Show Modal' href={AppPage.getRoute({ ...par, title: props.title + ' | mmm' } as IRoutePar, true)} />
           <Button /*tabIndex={1}*/ key={3} label='Goto HOME' href={{ routeName: null }/*home*/} />
           <Button /*tabIndex={1}*/ key={4} label='DUMMY' />
           <Button /*tabIndex={1}*/ key={41} label='TITLE2' onPress={() => props.onClick(props.title2 + ' t2') } />
           {!window.lmGlobal.isNative && <LoginButton key={5} tabIndex={2} />}
         </Content>
       </Container>
-    </Page>
+    </DrawerLayout>
   }
 }
+let counter = 0
 
-const provider: ComponentDecorator<{ title2?: string; onClick?}, AppRouter.IRouteProps> = connect(
+const provider: ComponentDecorator<IStateProps & IDispatchProps, IOwnProps> = connect(
   (state: IAppState) => state.xxx,
   (dispatch) => ({
     onClick: title2 => dispatch({ type: 'CLICK', title2 }),
     //showDrawer: visible => dispatch({ type: 'CLICK' }),
-  })
+  } as IDispatchProps)
 )
 
 const appPage = provider(appPageLow)
@@ -59,11 +81,9 @@ class Menu extends React.Component {
   }
 }
 
-let counter = 0
-
 //*** EXPORTS
-export const AppPage: Router.IRouteComponent<AppRouter.IRouteProps> = registerRouter(appPage, AppRouter.Consts.name, AppRouter.Consts.urlMask, {
-  beforeLoad: params => new Promise<Router.TUnloader>(resolve => setTimeout(() => resolve(), AppRouter.Consts.loadDelay)),
+export const AppPage: Router.IRouteComponent<IRoutePar> = registerRouter(appPage, Consts.name, Consts.urlMask, {
+  beforeLoad: params => new Promise<Router.TUnloader>(resolve => setTimeout(() => resolve(), Consts.loadDelay)),
   needsLogin: params => !window.lmGlobal.isNative && params.title.length >= 'START TITLE | xxx'.length,
   reducer: (state: IAppState, action: Router.ICreateDestroyAction | Router.IAction | App.Action<'CLICK'>) => {
     const initState = { title2: 'start' }
@@ -78,6 +98,6 @@ export const AppPage: Router.IRouteComponent<AppRouter.IRouteProps> = registerRo
   }
 })
 
-interface IAppState extends IState {
-  xxx: { title2?: string }
+interface IAppState extends App.IGlobalState {
+  xxx: IState
 }

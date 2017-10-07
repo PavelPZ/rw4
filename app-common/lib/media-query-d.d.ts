@@ -17,9 +17,10 @@
     gtMobile = TWindowSize.tablet | TWindowSize.ltDesktop,// " > TMedias.mobile" ..max tablet [- or --]
   } 
  
+  interface IWindowSize { windowSize: TWindowSize }
 
-  interface IWebChangeMediaAction extends App.Action<Consts.WEB_CHANGE_MEDIA> { windowSize: TWindowSize }
-  interface INativeChangeMediaAction extends App.Action<Consts.NATIVE_CHANGE_DIMENSION> { rnWidth: number; rnHeight:number }
+  interface IWebChangeMediaAction extends App.Action<Consts.WEB_CHANGE_MEDIA>, IWindowSize { }
+  interface INativeChangeMediaAction extends App.Action<Consts.NATIVE_CHANGE_DIMENSION>, IWindowSize { rnWidth: number; rnHeight:number }
 
   interface IDimensionsAddEventListener {
     screen: IDAELItem

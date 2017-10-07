@@ -11,22 +11,26 @@
   interface IRoutePar {
     query?: { isModal?: boolean }
   }
-  interface IPagePar extends Media.IMediaProps, Drawer.IShowDrawer {
-    refForAnimation?: (root: WebNativeCommon.TRouterAnimRoot) => void //callback pro page transiton
-    drawerMenu?: Drawer.IOwnProps
-    //drawerVisible?:boolean
-  }
+  //interface IPagePar extends Media.IMediaProps/*, Drawer.IShowDrawer*/ {
+  //  refForAnimation?: (root: WebNativeCommon.TRouterAnimRoot) => void //callback pro page transiton
+  //  //drawerMenu?: Drawer.IOwnProps
+  //  //drawerVisible?:boolean
+  //}
 
-  type IRouterProviderProps = IState & IPagePar 
-  type IPageProps = IRoutePar & IPagePar // & IPageDispatchProps
+  type IRouterStateProps<TRoutePar extends IRoutePar = any> = IState<string, TRoutePar> & Media.IMediaProps
+  interface IRouterDispatchProps {
+    debugSetWindowSize?: (windowSize: Media.TWindowSize) => void
+  }
+  
+  type IPageProps<TRoutePar extends IRoutePar = IRoutePar> = TRoutePar & Media.IMediaProps & { refForAnimation?: (root: WebNativeCommon.TRouterAnimRoot) => void } & IRouterDispatchProps
 
   //interface IPageDispatchProps {
   //  showDrawer?:(visible:boolean) => void
   //}
 
-  interface IState<TName extends string = string, TParams extends IRoutePar = any> {
+  interface IState<TName extends string = string, TRoutePar extends IRoutePar = any> {
     routeName: TName
-    params?: TParams
+    params?: TRoutePar
   }
 
   interface IAction {
@@ -59,7 +63,7 @@
     reducer?: (state: App.IGlobalState, action: App.Action) => App.IGlobalState
   }
 
-  type IRouteComponent<TPar extends IRoutePar = IRoutePar> = React.ComponentType<IPagePar & TPar> & IRoute<IPagePar & TPar>
+  type IRouteComponent<TPar extends IRoutePar = IRoutePar> = React.ComponentType<IPageProps<TPar>> & IRoute<IPageProps<TPar>>
 
   type TUnloader = () => void
   type TLoader<TParams extends IRoutePar = IRoutePar> = (params: TParams) => Promise<TUnloader>
