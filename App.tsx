@@ -25,6 +25,7 @@ import { AppLoading, Constants } from 'expo'
 import { Icon } from './app-native/gui/icon'
 import { Button } from './app-native/gui/button'
 import { Content } from './app-native/gui/content'
+import { AnimatedView } from './app-native/gui/animated-view'
 import { Container, Header, Footer, Text, StyleProvider, H1, H2, H3, View } from 'native-base'
 import { Theme, colorToStyle } from './app-native/gui/theme'
 import { init as initMediaQuery } from './app-native/lib/native-media-query'
@@ -88,7 +89,7 @@ export const init = async () => {
       },
     }
   }
-  initGUI({ colorToStyle, Button, Icon, H1, H2, H3, View, Container, Header, Footer, Content, Text, Page, DrawerLayout, AnimatedView: Animated.View, Animated })
+  initGUI({ colorToStyle, Button, Icon, H1, H2, H3, View, Container, Header, Footer, Content, Text, Page, DrawerLayout, AnimatedView, Animated })
 
   const recordingJSON = await require('./App_Data/recording.json')
   //console.log('recordingJSON:\n', JSON.stringify(recordingJSON,null,2))

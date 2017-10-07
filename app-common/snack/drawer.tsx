@@ -3,35 +3,32 @@ import { connect, ComponentDecorator } from 'react-redux'
 import { providerConnector as drawerConnector } from '../lib/drawer'
 import { providerConnector as routerConnector } from '../lib/router'
 import { View, Text, Animated, AnimatedView } from '../gui/gui'
+import GestureRecognizer from '../../app-native/gui/react-native-swipe-gesture'
 
 const absoluteStretch: ReactNative.ViewStyle = { position: 'absolute', top: 0, left: 0, right: 0, bottom: 0 }
-
-interface IAnimation {
-  to: (value: number) => void
-  cancel: () => void
-}
 
 const drawerLayoutTablet: React.SFC<Drawer.IDispatchProps & Drawer.IStateProps & Drawer.IOwnProps> = props => {
 
   const { drawerVisible, windowSize } = props
   const { content, menu, ...rest } = props
-  return <AnimatedView {...{ anim: { propName: 'left', targetValue: drawerVisible ? 0 : -240 } }} style={{ position: 'absolute', top: 0, right: 0, bottom: 0, marginTop: window.lmGlobal.topMargin, flexDirection: 'row', }}>
-    <Menu key={1} {...rest} {...menu} style={{ width: 240, backgroundColor: 'purple' }} />
-    <Content key={2} {...rest} {...content} style={{ flex: 1, backgroundColor: 'yellow' }} />
+  return <AnimatedView {...{ anim: { propName: 'left', targetValue: drawerVisible ? 0 : -256 } }} style={{ position: 'absolute', top: 0, right: 0, bottom: 0, marginTop: window.lmGlobal.topMargin, flexDirection: 'row', }}>
+    <Menu key={1} {...rest} {...menu} style={{ width: 256 }} />
+    <Content key={2} {...rest} {...content} style={{ flex: 1 }} />
   </AnimatedView>
 }
 
 const drawerLayoutMobile: React.SFC<Drawer.IDispatchProps & Drawer.IStateProps & Drawer.IOwnProps> = props => {
 
-  const { drawerVisible, windowSize, showDrawer } = props
+  const { drawerVisible, windowSize, showDrawer, rnWidth } = props
+  const drawerWidth = Math.min(rnWidth - 56, 320) //https://react-md.mlaursen.com/components/drawers
   const { content, menu, ...rest } = props
-  return [
-    <Content key={1} {...rest} {...content} style={{ ...absoluteStretch as any, marginTop: window.lmGlobal.topMargin }} />,
-    <AnimatedView key={2} {...{ onPress: () => drawerVisible && showDrawer(false), anim: { propName: 'opacity', targetValue: drawerVisible ? 0.5 : 0, backdropShow: !!drawerVisible} }} style={{ ...absoluteStretch as any, backgroundColor: 'gray' }} />,
-    <AnimatedView key={3} {...{ anim: { propName: 'left', targetValue: drawerVisible ? 0 : -240 } }} style={{ position: 'absolute', top: 0, bottom: 0, width: 240, marginTop: window.lmGlobal.topMargin, flexDirection: 'row', backgroundColor: 'purple'}}>
-      <Menu {...rest} {...menu} style={{ flex:1 }} />
-    </AnimatedView>,
-  ] as any
+  return <GestureRecognizer style={{ ...absoluteStretch as any, marginTop: window.lmGlobal.topMargin }} onSwipeRight={isEdge => isEdge && showDrawer(true)} onSwipeLeft={() => showDrawer(false)}>
+    <Content key={1} {...rest} {...content} style={{ ...absoluteStretch as any }} />
+    <AnimatedView key={2} {...{ onPress: () => drawerVisible && showDrawer(false), anim: { propName: 'opacity', targetValue: drawerVisible ? 0.85 : 0, backdropShow: !!drawerVisible } }} style={{ ...absoluteStretch as any, backgroundColor: 'gray' }} />
+    <AnimatedView key={3} {...{ anim: { propName: 'left', targetValue: drawerVisible ? 0 : -drawerWidth } }} style={{ position: 'absolute', top: 0, bottom: 0, width: drawerWidth, flexDirection: 'row' }}>
+      <Menu {...rest} {...menu} style={{ flex: 1 }} />
+    </AnimatedView>
+  </GestureRecognizer>
 }
 
 const drawerLayoutDesktop: React.SFC<Drawer.IDispatchProps & Drawer.IStateProps & Drawer.IOwnProps> = props => {
@@ -39,8 +36,8 @@ const drawerLayoutDesktop: React.SFC<Drawer.IDispatchProps & Drawer.IStateProps 
   const { drawerVisible, windowSize } = props
   const { content, menu, ...rest } = props
   return <View style={{ position: 'absolute', left: 0, top: 0, right: 0, bottom: 0, marginTop: window.lmGlobal.topMargin, flexDirection: 'row', }}>
-    <Menu key={1} {...rest} {...menu} style={{ width: 240, backgroundColor: 'purple' }} />
-    <Content key={2} {...rest} {...content} style={{ flex: 1, backgroundColor: 'yellow' }} />
+    <Menu key={1} {...rest} {...menu} style={{ width: 256 }} />
+    <Content key={2} {...rest} {...content} style={{ flex: 1 }} />
   </View>
 }
 

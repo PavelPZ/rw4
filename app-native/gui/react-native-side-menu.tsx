@@ -20,7 +20,7 @@ export interface IProps {
   style?: ReactNative.ViewStyle
 }
 
-//interval, kdy se zacina MOVE. Pro CLOSE: dal se jiz nic netestuje. Pro OPEN: testuje se jeste ydali je move uvnitr 0..edgeHitWidth a MOVE je vetsi nez barrierForward
+//interval, kdy se zacina MOVE. Pro CLOSE: dal se jiz nic netestuje. Pro OPEN: testuje se jeste zdali je move uvnitr 0..edgeHitWidth a MOVE je vetsi nez barrierForward
 const edgeHitWidth = 60
 const toleranceX = 10
 const toleranceY = 10
@@ -66,7 +66,7 @@ export default class SideMenu extends React.PureComponent<IProps> {
     return this.props.isRight ? -1 : 1
   }
 
-  onPanResponderMove(e: GestureResponderEvent, gestureState: PanResponderGestureState) {
+  onPanResponderMove(e: ReactNative.GestureResponderEvent, gestureState: ReactNative.PanResponderGestureState) {
     //console.log(gestureState.dx, gestureState.vx, gestureState.moveX) //vx je rychlost, moveX je souradnice POINTERu
     //this.animProp.setValue((this.state.isOpen ? this.openMenuOffset : 0) + gestureState.dx) //dx je celkova delka x-move v pixelech. Kladna pro otevirani, zaporna pro zavirani
     this.mobileMove(gestureState.dx)

@@ -49,22 +49,22 @@ class appPageLow extends React.PureComponent<IOwnProps & IStateProps & IDispatch
     //console.log('appRouterComp', props)
     //const menu: Drawer.IMenu = { node: props => <View style={props.style as any}></View> }}  }
     return <DrawerLayout menu={{
-      node: props => <View style={props.style as any}><Text>MENU</Text></View>
+      node: props => <View style={{ ...props.style as any, backgroundColor:'purple' }}><Text>MENU</Text></View>
     }} content={{
       node: <Container style={{ flex: 1, backgroundColor: 'yellow'}}>
         <Header key={1}>
           <View><Text style={{ color: 'lightgray' }}>{JSON.stringify(ownProps)}</Text></View>
         </Header>
         <Content key={2}>
-          <Text key={1} onPress={() => {
+          <Text key={11} onPress={() => {
             const { windowSize } = ownProps
             ownProps.debugSetWindowSize(windowSize == Media.TWindowSize.desktop ? Media.TWindowSize.mobile : (windowSize == Media.TWindowSize.tablet ? Media.TWindowSize.desktop : Media.TWindowSize.tablet))
           }}>Window size: {ownProps.windowSize}</Text>
-          <Text key={2} onPress={() => ownProps.toogleDrawer()}>Drawer visible Drawer visible Drawer visible</Text>
+          <Text key={21} onPress={() => ownProps.toogleDrawer()}>Drawer visible Drawer visible Drawer visible</Text>
 
           <H2>{ownProps.title + ' ' + ownProps.title2 + ' ' + counter++}</H2>
           <Button /*tabIndex={1}*/ key={1} label='Add to title' href={AppPage.getRoute({ ...par, title: ownProps.title + ' | xxx' } as IRoutePar)} />
-          <Button /*tabIndex={1}*/ key={2} label='Show Modal' href={AppPage.getRoute({ ...par, title: ownProps.title + ' | mmm' } as IRoutePar, true)} />
+          <Button /*tabIndex={1}*/ key={2} label='xShow Modal' href={AppPage.getRoute({ ...par, title: ownProps.title + ' | mmm' } as IRoutePar, true)} />
           <Button /*tabIndex={1}*/ key={3} label='Goto HOME' href={{ routeName: null }/*home*/} />
           <Button /*tabIndex={1}*/ key={4} label='DUMMY' />
           <Button /*tabIndex={1}*/ key={41} label='TITLE2' onPress={() => ownProps.onClick(ownProps.title2 + ' t2')} />

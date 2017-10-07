@@ -18,32 +18,15 @@ export const View: React.SFC<ReactNative.ViewProperties> = props => {
   return <div {...otherPropsTyped as any} className={renderCSS(ruleProps)} />
 }
 
-class animatedView extends React.Component<any> {
-  render() {
-    //const animValues = {}
-    //const values: CSSProperties = {
-    //  display: 'flex',
-    //  flexDirection: 'column',
-    //}
-    //for (const p in this.props.style as any) {
-    //  const val = this.props.style[p]
-    //  if (p=='left') animValues[p] = val
-    //  else values[p] = val
-    //}
-    const style: CSSProperties = {
-      display: 'flex',
-      flexDirection: 'column',
-      ...this.props.style as any as CSSProperties
-    }
-    return <div style={this.props.style as any} className={this.props.className}>{this.props.children}</div>
-  }
-}
-
+//******************* ANIMATED animace, pomuze ladeni v REACT NATIVE
 //react-native-animatable: https://snack.expo.io/SJfJguhrW
 //https://blog.bam.tech/developper-news/5-tips-to-make-a-great-component-to-page-animation-in-react-native
 
-//export const AnimatedView: React.ComponentType<ReactNative.ViewProperties> = Animated.createAnimatedComponent(animatedView)
-export const AnimatedView2: React.ComponentType<any> = Animated.createAnimatedComponent(animatedView)
+class animated$View extends React.Component<any> {
+  render() { return <div style={this.props.style as any} className={this.props.className}>{this.props.children}</div> }
+}
+
+export const Animated$View: React.ComponentType<any> = Animated.createAnimatedComponent(animated$View)
 
 interface IAnim {
   propName: string //jmeno animacni property, napr. LEFT, OPACITY apod
@@ -82,7 +65,7 @@ export class AnimatedView extends React.Component<ReactNative.ViewProperties & {
       if (backdropShow === false) this.hideAfterAnim = true //backdrop je schovan
     }
     if (this.hideAfterAnim) return null //prvni backdrop render => render je prazdny
-    const anim = <AnimatedView2 style={{ [propName]: animValue }} className={renderCSS(style)}>{this.props.children}</AnimatedView2>
+    const anim = <Animated$View style={{ [propName]: animValue }} className={renderCSS(style)}>{this.props.children}</Animated$View>
     return onPress ? <div onClick={onPress}>{anim}</div> : anim
   }
 
@@ -92,6 +75,7 @@ export class AnimatedView extends React.Component<ReactNative.ViewProperties & {
 
 }
 
+//******************* GSAP animace pro web
 export class AnimatedView3 extends React.PureComponent<ReactNative.ViewProperties & { anim?: IAnim, onPress?}> {
 
   render() {
@@ -131,23 +115,7 @@ export class AnimatedView3 extends React.PureComponent<ReactNative.ViewPropertie
 
 }
 
-
 export const Container = View
 export const Header = View
 export const Footer = View
 export const Content = View
-
-//const ViewStyle: CSSProperties = {
-//  display: 'flex',
-//  flexDirection: 'column',
-//  //alignItems: 'stretch',
-//  //borderWidth: 0,
-//  //borderStyle: 'solid',
-//  //boxSizing: 'border-box',
-//  //margin: 0,
-//  //padding: 0,
-//  //position: 'relative',
-//  //// fix flexbox bugs
-//  //minHeight: 0,
-//  //minWidth: 0,
-//};

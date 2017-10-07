@@ -382,12 +382,12 @@
     /**
      * The X position of the touch, relative to the element
      */
-    locationX: number
+    pageX : number
 
     /**
      * The Y position of the touch, relative to the element
      */
-    locationY: number
+    pageY: number
 
     /**
      * The X position of the touch, relative to the screen
