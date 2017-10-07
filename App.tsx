@@ -71,7 +71,7 @@ export const init = async () => {
   window.lmGlobal = {
     isNative: true,
     topMargin: Constants.statusBarHeight,
-    OS: Platform.OS as App.PlatformOSType,
+    OS: Platform.OS,
     platform: {
       loginPlatform: null,
       recordingPlatform: {
@@ -88,7 +88,7 @@ export const init = async () => {
       },
     }
   }
-  initGUI({ Platform, colorToStyle, Button, Icon, H1, H2, H3, View, Container, Header, Footer, Content, Text, Page, DrawerLayout, AnimatedView: Animated.View, Animated })
+  initGUI({ colorToStyle, Button, Icon, H1, H2, H3, View, Container, Header, Footer, Content, Text, Page, DrawerLayout, AnimatedView: Animated.View, Animated })
 
   const recordingJSON = await require('./App_Data/recording.json')
   //console.log('recordingJSON:\n', JSON.stringify(recordingJSON,null,2))

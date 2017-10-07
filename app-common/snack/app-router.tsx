@@ -31,35 +31,47 @@ interface IStateProps {
 type IState = IStateProps
 interface IDispatchProps {
   onClick
+  toogleDrawer
 }
 
 type IProps = IStateProps & IDispatchProps
 
 class appPageLow extends React.PureComponent<IOwnProps & IStateProps & IDispatchProps> {
   render() {
-    const props = this.props
-    const { children, ...par } = props
-    const pageProps = {
-      ...par,
-      sidebarMenu:{navItems: [<Menu key={0}/>]}
-    }
-    const isModal = props.query && props.query.isModal
+    const ownProps = this.props
+    const { children, ...par } = ownProps
+    //const pageProps = {
+    //  ...par,
+    //  sidebarMenu: { navItems: [<Menu key={0} />] }
+    //}
+    const isModal = ownProps.query && ownProps.query.isModal
+
     //console.log('appRouterComp', props)
-    return <DrawerLayout {...par} drawerMenu={{navItems:[<Menu key={0}/>]}}>
-      <Container style={{ flex: 1 }}>
+    //const menu: Drawer.IMenu = { node: props => <View style={props.style as any}></View> }}  }
+    return <DrawerLayout menu={{
+      node: props => <View style={props.style as any}><Text>MENU</Text></View>
+    }} content={{
+      node: <Container style={{ flex: 1, backgroundColor: 'yellow'}}>
         <Header key={1}>
-          <View><Text style={{ color: 'lightgray' }}>{JSON.stringify(props)}</Text></View>
+          <View><Text style={{ color: 'lightgray' }}>{JSON.stringify(ownProps)}</Text></View>
         </Header>
         <Content key={2}>
-          <H2>{props.title + ' ' + props.title2 + ' ' + counter++}</H2>
-          <Button /*tabIndex={1}*/ key={1} label='Add to title' href={AppPage.getRoute({ ...par, title: props.title + ' | xxx' } as IRoutePar)} />
-          <Button /*tabIndex={1}*/ key={2} label='Show Modal' href={AppPage.getRoute({ ...par, title: props.title + ' | mmm' } as IRoutePar, true)} />
+          <Text key={1} onPress={() => {
+            const { windowSize } = ownProps
+            ownProps.debugSetWindowSize(windowSize == Media.TWindowSize.desktop ? Media.TWindowSize.mobile : (windowSize == Media.TWindowSize.tablet ? Media.TWindowSize.desktop : Media.TWindowSize.tablet))
+          }}>Window size: {ownProps.windowSize}</Text>
+          <Text key={2} onPress={() => ownProps.toogleDrawer()}>Drawer visible Drawer visible Drawer visible</Text>
+
+          <H2>{ownProps.title + ' ' + ownProps.title2 + ' ' + counter++}</H2>
+          <Button /*tabIndex={1}*/ key={1} label='Add to title' href={AppPage.getRoute({ ...par, title: ownProps.title + ' | xxx' } as IRoutePar)} />
+          <Button /*tabIndex={1}*/ key={2} label='Show Modal' href={AppPage.getRoute({ ...par, title: ownProps.title + ' | mmm' } as IRoutePar, true)} />
           <Button /*tabIndex={1}*/ key={3} label='Goto HOME' href={{ routeName: null }/*home*/} />
           <Button /*tabIndex={1}*/ key={4} label='DUMMY' />
-          <Button /*tabIndex={1}*/ key={41} label='TITLE2' onPress={() => props.onClick(props.title2 + ' t2') } />
+          <Button /*tabIndex={1}*/ key={41} label='TITLE2' onPress={() => ownProps.onClick(ownProps.title2 + ' t2')} />
           {!window.lmGlobal.isNative && <LoginButton key={5} tabIndex={2} />}
         </Content>
       </Container>
+    }}>
     </DrawerLayout>
   }
 }
@@ -69,7 +81,7 @@ const provider: ComponentDecorator<IStateProps & IDispatchProps, IOwnProps> = co
   (state: IAppState) => state.xxx,
   (dispatch) => ({
     onClick: title2 => dispatch({ type: 'CLICK', title2 }),
-    //showDrawer: visible => dispatch({ type: 'CLICK' }),
+    toogleDrawer: () => dispatch({ type: Drawer.Consts.TOOGLE })
   } as IDispatchProps)
 )
 

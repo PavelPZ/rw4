@@ -63,8 +63,8 @@ import DrawerCommon from './app-common/snack/drawer'
 export const init = async () => {
   window.lmGlobal = {
     isNative: false,
-    topMargin:0,
-    OS: App.PlatformOSType.web,
+    topMargin: 0,
+    OS: 'web',
     platform: {
       appPlatform: {
         instanceId: getAppId({
@@ -88,12 +88,11 @@ export const init = async () => {
         rootUrl: '/web-app.html',
         getAnimator: getRouteAnimator,
       },
-      //guiPlatform: { Platform, colorToStyle, Button, Icon, H1, H2, H3, View, Container, Header, Footer, Content, Text, Page, DrawerLayout, AnimatedView }
     }
   }
 
   await promiseAll([
-    initGUI({ Platform, colorToStyle, Button, Icon, H1, H2, H3, View, Container, Header, Footer, Content, Text, Page, DrawerLayout, AnimatedView, Animated }),
+    initGUI({ colorToStyle, Button, Icon, H1, H2, H3, View, Container, Header, Footer, Content, Text, Page, DrawerLayout, AnimatedView, Animated }),
     initRouter(),
     initRecording(),
   ])
@@ -103,7 +102,6 @@ export const init = async () => {
     const state = recordingGlobalReducer(globalRouterReducer(st, action), action)
     return {
       ...state,
-      //router: routerReducer(state.router, action),
       login: loginReducer(state.login, action),
       mediaQuery: mediaQueryReducer(state.mediaQuery, action),
       loc: locReducer(state.loc, action),

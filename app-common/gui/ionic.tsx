@@ -1,16 +1,15 @@
 ﻿import React from 'react'
-import { Platform } from './gui'
 
 //https://github.com/ionic-team/ionicons
 //https://raw.githubusercontent.com/GeekyAnts/NativeBase/master/src/basic/Icon/index.js
 
-export const getIcon = (name: string, logoId: string, OS: string, active: boolean) => {
+export const getIcon = (name: string, logoId: string, OS: ReactNative.PlatformOSType, active: boolean) => {
   if (logoId) return logoId
   if (name) {
     const icn = iconsMeta[name]
     if (!icn) throw new Error('!icn')
     const act = active ? 'active' : 'default'
-    const actOS = OS ? OS : (Platform.OS == 'web' ? webLikeOS : Platform.OS)
+    const actOS = OS ? OS : (window.lmGlobal.OS == 'web' ? webLikeOS : window.lmGlobal.OS)
     return iconsMeta[name][actOS][act]
   }
 }

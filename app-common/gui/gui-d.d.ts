@@ -56,7 +56,7 @@
     iconName?: GUI.IonicNames
     iconLogo?: GUI.IonicLogos
     iconRight?: boolean
-    iconOS?: string //ignoruje se pro RN
+    iconOS?: ReactNative.PlatformOSType //ignoruje se pro RN
     iconActive?: boolean
     label?: string //label=='' || !label && icon => icon in button else standalone icon
     //secondary?: boolean

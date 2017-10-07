@@ -1,5 +1,9 @@
 declare namespace App {
 
+  const enum Consts {
+    animationDurationMsec = 200
+  }
+
   interface Action<T = string> {
     type: T
   }
@@ -18,8 +22,8 @@ declare namespace App {
     store?: Store
     platform: IPlatforms
     isNative: boolean
-    topMargin:number
-    OS: PlatformOSType
+    topMargin: number
+    OS: ReactNative.PlatformOSType
   }
 
   interface IReducer<TState = IState> { (state: TState, action: Action): TState }

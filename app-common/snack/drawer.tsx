@@ -11,27 +11,86 @@ interface IAnimation {
   cancel: () => void
 }
 
-class drawerLayout extends React.PureComponent<Drawer.IDispatchProps & Drawer.IStateProps & Drawer.IOwnProps> {
+const drawerLayoutTablet: React.SFC<Drawer.IDispatchProps & Drawer.IStateProps & Drawer.IOwnProps> = props => {
 
-  render() {
-    const { props, props: { drawerVisible, windowSize } } = this
-    return <AnimatedView {...{ anim: { propName: 'left', targetValue: windowSize != Media.TWindowSize.desktop && (this.props.drawerVisible ? 0 : -240)}}} style={{ position: 'absolute', top: 0, right: 0, bottom: 0, marginTop: window.lmGlobal.topMargin, flexDirection: 'row', }}>
-      <View key={1} style={{ width:240, backgroundColor: 'purple' }}>
-        <Text> 
-          as df as fas df asd fs  as df as fas df asd fs  as df as fas df asd fs  as df as fas df asd fs  as df as fas df asd fs  as df as fas df asd fs
-          as df as fas df asd fs  as df as fas df asd fs  as df as fas df asd fs  as df as fas df asd fs  as df as fas df asd fs  as df as fas df asd fs
-        </Text>
-      </View>
-      <View key={2} style={{ flex: 1, backgroundColor: 'yellow' }}>
-        <Text key={1} onPress={() => {
-          const { windowSize } = props
-          props.debugSetWindowSize(windowSize == Media.TWindowSize.desktop ? Media.TWindowSize.mobile : (windowSize == Media.TWindowSize.tablet ? Media.TWindowSize.desktop : Media.TWindowSize.tablet))
-        }}>Window size: {props.windowSize}</Text>
-        <Text key={2} onPress={() => props.showDrawer(!props.drawerVisible)}>Drawer visible Drawer visible Drawer visible</Text>
-        {props.children}
-      </View>
-    </AnimatedView>
+  const { drawerVisible, windowSize } = props
+  const { content, menu, ...rest } = props
+  return <AnimatedView {...{ anim: { propName: 'left', targetValue: drawerVisible ? 0 : -240 } }} style={{ position: 'absolute', top: 0, right: 0, bottom: 0, marginTop: window.lmGlobal.topMargin, flexDirection: 'row', }}>
+    <Menu key={1} {...rest} {...menu} style={{ width: 240, backgroundColor: 'purple' }} />
+    <Content key={2} {...rest} {...content} style={{ flex: 1, backgroundColor: 'yellow' }} />
+  </AnimatedView>
+}
+
+const drawerLayoutMobile: React.SFC<Drawer.IDispatchProps & Drawer.IStateProps & Drawer.IOwnProps> = props => {
+
+  const { drawerVisible, windowSize, showDrawer } = props
+  const { content, menu, ...rest } = props
+  return [
+    <Content key={1} {...rest} {...content} style={{ ...absoluteStretch as any, marginTop: window.lmGlobal.topMargin }} />,
+    <AnimatedView key={2} {...{ onPress: () => drawerVisible && showDrawer(false), anim: { propName: 'opacity', targetValue: drawerVisible ? 0.5 : 0, backdropShow: !!drawerVisible} }} style={{ ...absoluteStretch as any, backgroundColor: 'gray' }} />,
+    <AnimatedView key={3} {...{ anim: { propName: 'left', targetValue: drawerVisible ? 0 : -240 } }} style={{ position: 'absolute', top: 0, bottom: 0, width: 240, marginTop: window.lmGlobal.topMargin, flexDirection: 'row', backgroundColor: 'purple'}}>
+      <Menu {...rest} {...menu} style={{ flex:1 }} />
+    </AnimatedView>,
+  ] as any
+}
+
+const drawerLayoutDesktop: React.SFC<Drawer.IDispatchProps & Drawer.IStateProps & Drawer.IOwnProps> = props => {
+
+  const { drawerVisible, windowSize } = props
+  const { content, menu, ...rest } = props
+  return <View style={{ position: 'absolute', left: 0, top: 0, right: 0, bottom: 0, marginTop: window.lmGlobal.topMargin, flexDirection: 'row', }}>
+    <Menu key={1} {...rest} {...menu} style={{ width: 240, backgroundColor: 'purple' }} />
+    <Content key={2} {...rest} {...content} style={{ flex: 1, backgroundColor: 'yellow' }} />
+  </View>
+}
+
+const drawerLayout: React.SFC<Drawer.IOwnProps> = props => {
+  let ActDrawer
+  switch (props.windowSize) {
+    case Media.TWindowSize.mobile: ActDrawer = drawerLayoutMobile; break
+    case Media.TWindowSize.tablet: ActDrawer = drawerLayoutTablet; break
+    case Media.TWindowSize.desktop: ActDrawer = drawerLayoutDesktop; break
   }
+  return <ActDrawer {...props} />
+}
+
+const Content: React.SFC<Drawer.IContent> = props => {
+  const { header, content, style, nodeChilds, nodeType: Node, node, ...rest } = props
+  if (Node) return <Node { ...props } />
+  if (node) return node
+  return [
+    props.nodeChilds && <View style={{ ...style as any }}>{props.nodeChilds.map(Node => <Node { ...props } />)}</View>,
+    !props.nodeChilds && <View style={{ ...style as any }}>
+      <ContentHeader key={1} {...header } {...rest } style={{ height: 50 }} />
+      <ContentContent key={2} {...content } {...rest } style={{ flex: 1 }} />
+    </View>
+  ] as any
+}
+
+const ContentHeader: React.SFC<Drawer.IContentHeader> = props => {
+  const { left, body, right, style, nodeChilds, node: Node, ...rest } = props
+  if (Node) return <Node { ...props } />
+  return <View style={style as any}>
+    {props.nodeChilds && props.nodeChilds.map(Node => <Node { ...props } />)}
+    {!props.nodeChilds && [
+
+    ]}
+  </View>
+}
+
+const ContentContent: React.SFC<Drawer.IContentContent> = props => {
+  const { style, node: Node, ...rest } = props
+  if (Node) return <Node { ...props } />
+  return <View style={style as any}>
+    {props.children}
+  </View>
+}
+
+const Menu: React.SFC<Drawer.IDispatchProps & Drawer.IStateProps & Drawer.IMenu> = props => {
+  if (props.node) return <props.node { ...props } />
+  return <View style={props.style as any}>
+
+  </View>
 }
 
 export const DrawerLayout = drawerConnector(drawerLayout)

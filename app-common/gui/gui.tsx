@@ -5,8 +5,7 @@ export let H1: React.ComponentType<NativeBase.H1>
 export let H2: React.ComponentType<NativeBase.H2>
 export let View: React.ComponentType<ReactNative.ViewProperties>
 export let Text: React.ComponentType<ReactNative.TextProperties>
-export let Platform: ReactNative.PlatformStatic
-export let AnimatedView: React.ComponentType<ReactNative.ViewProperties>
+export let AnimatedView: React.ComponentClass<ReactNative.ViewProperties>
 
 export let Container: React.ComponentType<ReactNative.ViewProperties & { ref?}>
 export let Content: React.ComponentType<ReactNative.ViewProperties>
@@ -24,7 +23,6 @@ export const initGUI = async (pl: IPlatform) => {
   H1 = pl.H1
   H2 = pl.H2
   Text = pl.Text
-  Platform = pl.Platform
   AnimatedView = pl.AnimatedView
   Container = pl.Container
   Content = pl.Content
@@ -36,13 +34,13 @@ export const initGUI = async (pl: IPlatform) => {
 }
 
 interface IPlatform {
-  Button: React.SFC<GUI.IButtonProps>
-  Icon: React.SFC<GUI.IIconProps>
+  Button: React.ComponentType<GUI.IButtonProps>
+  Icon: React.ComponentType<GUI.IIconProps>
   H1: React.ComponentType<NativeBase.H1>
   H2: React.ComponentType<NativeBase.H2>
   H3: React.ComponentType<NativeBase.H3>
   View: React.ComponentType<NativeBase.View>
-  AnimatedView: React.ComponentType<ReactNative.ViewProperties>
+  AnimatedView: React.ComponentClass<ReactNative.ViewProperties>
   Text: React.ComponentType<NativeBase.Text>
   Container: React.ComponentType<NativeBase.View>
   Header: React.ComponentType<NativeBase.View>
@@ -51,6 +49,5 @@ interface IPlatform {
   Page: React.ComponentType<Router.IRoutePar>
   DrawerLayout: React.ComponentType<Drawer.IOwnProps>
   colorToStyle: { [color: string]: string }
-  Platform: ReactNative.PlatformStatic
   Animated: typeof ReactNative.Animated
 }
