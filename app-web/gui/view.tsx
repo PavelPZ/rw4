@@ -28,20 +28,13 @@ class animated$View extends React.Component<any> {
 
 export const Animated$View: React.ComponentType<any> = Animated.createAnimatedComponent(animated$View)
 
-interface IAnim {
-  propName: string //jmeno animacni property, napr. LEFT, OPACITY apod
-  targetValue: number //cilova hodnota animace
-  duration?: number
-  backdropShow?: boolean //render anim komponenty vraci null. objevi se a zacne se animovat pri backdropShow===true. Pri backdropShow===false provede animaci a render vrati null
-}
-
 //easing: https://github.com/facebook/react-native/blob/master/Libraries/Animated/src/Easing.js
 const elastic = (bounciness = 1) => {
   const p = bounciness * Math.PI
   return t => 1 - Math.pow(Math.cos(t * Math.PI / 2), 3) * Math.cos(t * p)
 }
 
-export class AnimatedView extends React.Component<ReactNative.ViewProperties & { anim?: IAnim, onPress?}> {
+export class AnimatedView3 extends React.Component<GUI.IAnimatedViewProps> {
 
   render() {
     const { animatedValue, animation, props: { onPress, anim: { propName, targetValue, duration, backdropShow } } } = this
@@ -75,8 +68,13 @@ export class AnimatedView extends React.Component<ReactNative.ViewProperties & {
 
 }
 
+export const Swiper: React.SFC<GUI.ISwiperProps> = props => {
+  const { onSwipe, onSwipeDown, onSwipeRight, onSwipeLeft, onSwipeUp, ...rest } = props
+  return <View {...rest} />
+}
+
 //******************* GSAP animace pro web
-export class AnimatedView3 extends React.PureComponent<ReactNative.ViewProperties & { anim?: IAnim, onPress?}> {
+export class AnimatedView extends React.PureComponent<GUI.IAnimatedViewProps> {
 
   render() {
     const { lastValue, animate, div, props: { onPress, anim: { targetValue, propName, duration, backdropShow } } } = this

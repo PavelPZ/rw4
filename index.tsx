@@ -36,7 +36,7 @@ import { Provider as RecordingProvider, BlockGuiComp } from './app-web/lib/web-r
 import { getAnimator as getRouteAnimator, Page } from './app-web/lib/web-router'
 import { Button } from './app-web/gui/button'
 import { Icon } from './app-web/gui/icon'
-import { View, Container, Header, Footer, Content, AnimatedView } from './app-web/gui/view'
+import { View, Container, Header, Footer, Content, AnimatedView, Swiper } from './app-web/gui/view'
 import { Text } from './app-web/gui/text'
 import { LayerProvider, H1, H2, H3, Platform, colorToStyle, waitChildren } from './app-web/gui/lib'
 
@@ -92,7 +92,7 @@ export const init = async () => {
   }
 
   await promiseAll([
-    initGUI({ colorToStyle, Button, Icon, H1, H2, H3, View, Container, Header, Footer, Content, Text, Page, DrawerLayout, AnimatedView, Animated }),
+    initGUI({ colorToStyle, Button, Icon, H1, H2, H3, View, Container, Header, Footer, Content, Text, Page, DrawerLayout, AnimatedView, Swiper, Animated }),
     initRouter(),
     initRecording(),
   ])
@@ -143,7 +143,7 @@ export const init = async () => {
   //noRouteApp = <AnimatedGsapNew />
   //noRouteApp = <DrawerApp />
   //noRouteApp = <DrawerNativeLikeApp />
-  noRouteApp = <DrawerCommon/>
+  //noRouteApp = <DrawerCommon/>
   
 
 

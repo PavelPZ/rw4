@@ -64,7 +64,7 @@ class appPageLow extends React.PureComponent<IOwnProps & IStateProps & IDispatch
 
           <H2>{ownProps.title + ' ' + ownProps.title2 + ' ' + counter++}</H2>
           <Button /*tabIndex={1}*/ key={1} label='Add to title' href={AppPage.getRoute({ ...par, title: ownProps.title + ' | xxx' } as IRoutePar)} />
-          <Button /*tabIndex={1}*/ key={2} label='xShow Modal' href={AppPage.getRoute({ ...par, title: ownProps.title + ' | mmm' } as IRoutePar, true)} />
+          <Button /*tabIndex={1}*/ key={2} label='Show Modal' href={AppPage.getRoute({ ...par, title: ownProps.title + ' | mmm' } as IRoutePar, true)} />
           <Button /*tabIndex={1}*/ key={3} label='Goto HOME' href={{ routeName: null }/*home*/} />
           <Button /*tabIndex={1}*/ key={4} label='DUMMY' />
           <Button /*tabIndex={1}*/ key={41} label='TITLE2' onPress={() => ownProps.onClick(ownProps.title2 + ' t2')} />

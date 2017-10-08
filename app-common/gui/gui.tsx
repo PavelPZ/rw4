@@ -5,7 +5,8 @@ export let H1: React.ComponentType<NativeBase.H1>
 export let H2: React.ComponentType<NativeBase.H2>
 export let View: React.ComponentType<ReactNative.ViewProperties>
 export let Text: React.ComponentType<ReactNative.TextProperties>
-export let AnimatedView: React.ComponentClass<ReactNative.ViewProperties>
+export let AnimatedView: React.ComponentClass<GUI.IAnimatedViewProps>
+export let Swiper: React.ComponentType<GUI.ISwiperProps>
 
 export let Container: React.ComponentType<ReactNative.ViewProperties & { ref?}>
 export let Content: React.ComponentType<ReactNative.ViewProperties>
@@ -24,6 +25,7 @@ export const initGUI = async (pl: IPlatform) => {
   H2 = pl.H2
   Text = pl.Text
   AnimatedView = pl.AnimatedView
+  Swiper = pl.Swiper
   Container = pl.Container
   Content = pl.Content
   Header = pl.Header
@@ -40,7 +42,8 @@ interface IPlatform {
   H2: React.ComponentType<NativeBase.H2>
   H3: React.ComponentType<NativeBase.H3>
   View: React.ComponentType<NativeBase.View>
-  AnimatedView: React.ComponentClass<ReactNative.ViewProperties>
+  AnimatedView: React.ComponentClass<GUI.IAnimatedViewProps>
+  Swiper: React.ComponentType<GUI.ISwiperProps>
   Text: React.ComponentType<NativeBase.Text>
   Container: React.ComponentType<NativeBase.View>
   Header: React.ComponentType<NativeBase.View>

@@ -1,14 +1,7 @@
 ﻿import React from 'react';
 import { Animated, TouchableWithoutFeedback } from 'react-native'
 
-interface IAnim {
-  propName: string //jmeno animacni property, napr. LEFT, OPACITY apod
-  targetValue: number //cilova hodnota animace
-  duration?: number
-  backdropShow?: boolean //render anim komponenty vraci null. objevi se a zacne se animovat pri backdropShow===true. Pri backdropShow===false provede animaci a render vrati null
-}
-
-export class AnimatedView extends React.Component<ReactNative.ViewProperties & { anim?: IAnim, onPress?}> {
+export class AnimatedView extends React.Component<GUI.IAnimatedViewProps> {
 
   render() {
     const { animatedValue, animation, props: { onPress, anim: { propName, targetValue, duration, backdropShow } } } = this

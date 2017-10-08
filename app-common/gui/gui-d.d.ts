@@ -66,6 +66,33 @@
 
   }
 
+  //**** SWIPER
+  type TOnSwipe = (isEdge: boolean, gestureState: ReactNative.PanResponderGestureState, e: ReactNative.GestureResponderEvent) => void
+  const enum swipeDirections {
+    SWIPE_UP = 'SWIPE_UP',
+    SWIPE_DOWN = 'SWIPE_DOWN',
+    SWIPE_LEFT = 'SWIPE_LEFT',
+    SWIPE_RIGHT = 'SWIPE_RIGHT'
+  }
+  
+  interface ISwiperProps extends ReactNative.ViewProperties {
+    onSwipe?: (swipeDirection: swipeDirections, gestureState: ReactNative.PanResponderGestureState, e: ReactNative.GestureResponderEvent) => void
+    onSwipeUp?: TOnSwipe
+    onSwipeDown?: TOnSwipe
+    onSwipeLeft?: TOnSwipe
+    onSwipeRight?: TOnSwipe
+  }
+
+  //**** ANIMATED VIEW
+  interface IAnimatedViewProps extends ReactNative.ViewProperties {
+    anim?: {
+      propName: string //jmeno animacni property, napr. LEFT, OPACITY apod
+      targetValue: number //cilova hodnota animace
+      duration?: number
+      backdropShow?: boolean //render anim komponenty vraci null. objevi se a zacne se animovat pri backdropShow===true. Pri backdropShow===false provede animaci a render vrati null
+    }
+    onPress?:() => void
+  }
 }
 
 interface IState {
