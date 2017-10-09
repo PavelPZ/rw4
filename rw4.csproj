@@ -74,6 +74,7 @@
     <Content Include=".gitignore" />
     <TypeScriptCompile Include="app-common\gui\colors.ts" />
     <TypeScriptCompile Include="app-common\gui\colors-d.d.ts" />
+    <TypeScriptCompile Include="app-common\gui\md-icons-d.d.ts" />
     <TypeScriptCompile Include="app-common\gui\native-base-d.d.ts" />
     <TypeScriptCompile Include="app-common\gui\tab.ts" />
     <TypeScriptCompile Include="app-common\gui\gui-d.d.ts" />
@@ -83,7 +84,7 @@
     <TypeScriptCompile Include="app-common\lib\router.tsx" />
     <TypeScriptCompile Include="app-common\snack\fragments.ts" />
     <TypeScriptCompile Include="app-common\snack\gui\button.tsx" />
-    <TypeScriptCompile Include="app-common\snack\drawer.tsx" />
+    <TypeScriptCompile Include="app-common\gui\drawer.tsx" />
     <TypeScriptCompile Include="app-common\snack\web-socket.tsx" />
     <TypeScriptCompile Include="app-native\gui\animated-view.tsx" />
     <TypeScriptCompile Include="app-native\gui\react-native-side-menu - Copy %282%29.tsx" />
@@ -219,7 +220,6 @@
     <TypeScriptCompile Include="app-web\lib\fela-d.d.ts" />
     <TypeScriptCompile Include="app-web\lib\fela.tsx" />
     <Content Include="app-common\snack\controls.xlsx" />
-    <None Include="app-common\snack\react-navigation.tsx_" />
     <TypeScriptCompile Include="app-web\snack\react-md-test.tsx" />
     <TypeScriptCompile Include="App.tsx" />
     <Content Include="app-common\snack\web-socket.html" />
@@ -360,6 +360,7 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="app-common\gui\md-icons-design.cs" />
     <Compile Include="app-common\lib\recording.cs" />
     <Compile Include="app-common\snack\test-restAPI.cs" />
     <None Include="IndexHandler.cs_" />

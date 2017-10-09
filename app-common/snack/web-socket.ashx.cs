@@ -12,6 +12,7 @@ namespace web_socket {
 
   public class Handler : IHttpHandler {
     public void ProcessRequest(HttpContext context) {
+      //rw4.app_common.gui.md_icons_design.run(); return;
       if (context.IsWebSocketRequest)
         context.AcceptWebSocketRequest(ProcessSocketRequest);
     }

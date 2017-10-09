@@ -17,22 +17,22 @@
   interface IState {
   }
 
-  interface IToolbarButton {
-    onPress:() => void
-  }
-  interface IToolbarIconButton extends IToolbarButton {
-    icon: GUI.IonicNames
-  }
-  interface IToolbarTextButton extends IToolbarButton {
-    title: string
-  }
+  //interface IToolbarButton {
+  //  onPress:() => void
+  //}
+  //interface IToolbarIconButton extends IToolbarButton {
+  //  icon: GUI.IonicNames
+  //}
+  //interface IToolbarTextButton extends IToolbarButton {
+  //  title: string
+  //}
 
-  interface IToolbar {
-    title?: string
-    subTitle?: string,
-    startButton: IToolbarIconButton,
-    actions: IToolbarButton | IToolbarButton[]
-  }
+  //interface IToolbar {
+  //  title?: string
+  //  subTitle?: string,
+  //  startButton: IToolbarIconButton,
+  //  actions: IToolbarButton | IToolbarButton[]
+  //}
 
   //**** BUTTON
 

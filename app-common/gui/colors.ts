@@ -1,6 +1,6 @@
 ﻿import { colorToStyle } from './gui'
 
-export const getColor = (color: GUI.Colors, shade?: GUI.Shadows) => {
+export const getBackgroundColor = (color: GUI.Colors, shade?: GUI.Shadows) => {
   const p = palette[color]
   if (!p) return null
   return p[shade || GUI.Shadows.S500] as string
@@ -9,15 +9,15 @@ export const getColor = (color: GUI.Colors, shade?: GUI.Shadows) => {
 export const getTextColor = (color: GUI.Colors, shade?: GUI.Shadows, textShade?: GUI.TextShadows) => palette[paletteText[color][shade || GUI.Shadows.S500]][textShade || GUI.TextShadows.Primary] as string
 
 export const getColors = (color: GUI.Colors, shade?: GUI.Shadows) => ({
-  color: getColor(color, shade),
+  background: getBackgroundColor(color, shade),
   text: getTextColor(color, shade),
-} as GUI.IColors)
+} as GUI.IColorPair)
 
 export const fillColorToStyle = (color: GUI.Colors | string, style: { color?: string }, shadow?: GUI.Shadows) => {
   let c: string
   if (!color) c = GUI.Colors.primary
   c = colorToStyle[color as GUI.Colors]
-  if (!c) c = getColor(color as GUI.Colors, shadow)
+  if (!c) c = getBackgroundColor(color as GUI.Colors, shadow)
   if (!c) c = color as string
   style.color = c
   return true

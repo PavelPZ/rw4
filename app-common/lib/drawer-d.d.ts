@@ -30,7 +30,8 @@
     content?: IContent
   }
   interface IMenu extends IStyled {
-    node?: React.ComponentType<IMenu>
+    nodeType?: React.ComponentType<IMenu>
+    node?: JSX.Element
     nodeChilds?: React.ComponentType<IMenu>[]
     header?: IMenuHeader
     content?: IMenuContent

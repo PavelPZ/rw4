@@ -1,4 +1,6 @@
-﻿export let Animated: typeof ReactNative.Animated
+﻿export * from './drawer'
+
+export let Animated: typeof ReactNative.Animated
 export let Button: React.ComponentType<GUI.IButtonProps>
 export let Icon: React.ComponentType<GUI.IIconProps>
 export let H1: React.ComponentType<NativeBase.H1>
@@ -13,7 +15,7 @@ export let Content: React.ComponentType<ReactNative.ViewProperties>
 export let Header: React.ComponentType<ReactNative.ViewProperties>
 export let Footer: React.ComponentType<ReactNative.ViewProperties>
 export let Page: React.ComponentType<Router.IPageProps>
-export let DrawerLayout: React.ComponentType<Drawer.IOwnProps>
+//export const DrawerLayout = _DrawerLayout
 export let colorToStyle: { [color: string]: string }
 
 export const initGUI = async (pl: IPlatform) => {
@@ -31,7 +33,6 @@ export const initGUI = async (pl: IPlatform) => {
   Header = pl.Header
   Footer = pl.Footer
   Page = pl.Page
-  DrawerLayout = pl.DrawerLayout
   colorToStyle = pl.colorToStyle
 }
 
@@ -50,7 +51,6 @@ interface IPlatform {
   Footer: React.ComponentType<NativeBase.View>
   Content: React.ComponentType<NativeBase.View>
   Page: React.ComponentType<Router.IRoutePar>
-  DrawerLayout: React.ComponentType<Drawer.IOwnProps>
   colorToStyle: { [color: string]: string }
   Animated: typeof ReactNative.Animated
 }

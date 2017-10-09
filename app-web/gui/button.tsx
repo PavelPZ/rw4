@@ -36,9 +36,9 @@ export const Button: React.SFC<GUI.IButtonProps> = props => {
     const colors = getColors(colorToStyle[color] || color, shadow)
     if (color != GUI.Colors.default) {
       if (actMode == GUI.ButtonMode.flat) // || actMode == GUI.ButtonMode.icon)
-        colorStyle.color = colors.color
+        colorStyle.color = colors.background
       else {
-        colorStyle.backgroundColor = colors.color
+        colorStyle.backgroundColor = colors.background
         colorStyle.color = colors.text
       }
     }

@@ -23,7 +23,6 @@ import { init as initRecording, reducer as recordingReducer, saga as recordingSa
 import { reducer as loginReducer } from './app-common/lib/login'
 import { reducer as mediaQueryReducer } from './app-common/lib/media-query'
 import { reducer as drawerReducer } from './app-common/lib/drawer'
-import { DrawerLayout } from './app-common/snack/drawer'
 
 //********** WEB specific
 import Animated from 'animated'
@@ -56,7 +55,6 @@ import AnimatedGsapNew from './app-web/snack/animated-gsap-new'
 import { App1, /*app3Reducer*/ } from './app-web/snack/router-new'
 import DrawerApp from './app-web/snack/drawer'
 import DrawerNativeLikeApp from './app-web/snack/drawer-native-like'
-import DrawerCommon from './app-common/snack/drawer'
 
 
 //*********** spusteni
@@ -92,7 +90,7 @@ export const init = async () => {
   }
 
   await promiseAll([
-    initGUI({ colorToStyle, Button, Icon, H1, H2, H3, View, Container, Header, Footer, Content, Text, Page, DrawerLayout, AnimatedView, Swiper, Animated }),
+    initGUI({ colorToStyle, Button, Icon, H1, H2, H3, View, Container, Header, Footer, Content, Text, Page, AnimatedView, Swiper, Animated }),
     initRouter(),
     initRecording(),
   ])

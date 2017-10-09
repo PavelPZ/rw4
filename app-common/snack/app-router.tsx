@@ -1,6 +1,6 @@
 ﻿import React from 'react'
 import { connect, ComponentDecorator } from 'react-redux'
-import { Container, Header, Content, Text, Button, H2, View, DrawerLayout } from '../gui/gui'
+import { Container, Header, Content, Text, Button, H2, View, DrawerLayout, getDrawerContentStyle, getDrawerMenuStyle } from '../gui/gui'
 import { registerRouter } from '../lib/router'
 import { isLogged, createLoginButton } from '../lib/login'
 import { storeContextType } from '../lib/lib'
@@ -25,6 +25,7 @@ interface IRoutePar extends Router.IRoutePar {
 }
 
 type IOwnProps = Router.IPageProps<IRoutePar>
+
 interface IStateProps {
   title2: string
 }
@@ -38,36 +39,28 @@ type IProps = IStateProps & IDispatchProps
 
 class appPageLow extends React.PureComponent<IOwnProps & IStateProps & IDispatchProps> {
   render() {
-    const ownProps = this.props
-    const { children, ...par } = ownProps
-    //const pageProps = {
-    //  ...par,
-    //  sidebarMenu: { navItems: [<Menu key={0} />] }
-    //}
-    const isModal = ownProps.query && ownProps.query.isModal
+    const { query, windowSize, debugSetWindowSize, toogleDrawer, title, title2, onClick } = this.props
+    const isModal = query && query.isModal
 
-    //console.log('appRouterComp', props)
-    //const menu: Drawer.IMenu = { node: props => <View style={props.style as any}></View> }}  }
     return <DrawerLayout menu={{
-      node: props => <View style={{ ...props.style as any, backgroundColor:'purple' }}><Text>MENU</Text></View>
+      node: <View style={{ ...getDrawerMenuStyle(windowSize) as any, backgroundColor:'purple' }}><Text>MENU</Text></View>
     }} content={{
-      node: <Container style={{ flex: 1, backgroundColor: 'yellow'}}>
+      node: <Container style={{ ...getDrawerContentStyle(windowSize) as any, backgroundColor: 'yellow' }}>
         <Header key={1}>
-          <View><Text style={{ color: 'lightgray' }}>{JSON.stringify(ownProps)}</Text></View>
+          <View><Text style={{ color: 'lightgray' }}>{JSON.stringify(this.props)}</Text></View>
         </Header>
         <Content key={2}>
           <Text key={11} onPress={() => {
-            const { windowSize } = ownProps
-            ownProps.debugSetWindowSize(windowSize == Media.TWindowSize.desktop ? Media.TWindowSize.mobile : (windowSize == Media.TWindowSize.tablet ? Media.TWindowSize.desktop : Media.TWindowSize.tablet))
-          }}>Window size: {ownProps.windowSize}</Text>
-          <Text key={21} onPress={() => ownProps.toogleDrawer()}>Drawer visible Drawer visible Drawer visible</Text>
+            debugSetWindowSize(windowSize == Media.TWindowSize.desktop ? Media.TWindowSize.mobile : (windowSize == Media.TWindowSize.tablet ? Media.TWindowSize.desktop : Media.TWindowSize.tablet))
+          }}>Window size: {windowSize}</Text>
+          <Text key={21} onPress={() => toogleDrawer()}>Drawer visible Drawer visible Drawer visible</Text>
 
-          <H2>{ownProps.title + ' ' + ownProps.title2 + ' ' + counter++}</H2>
-          <Button /*tabIndex={1}*/ key={1} label='Add to title' href={AppPage.getRoute({ ...par, title: ownProps.title + ' | xxx' } as IRoutePar)} />
-          <Button /*tabIndex={1}*/ key={2} label='Show Modal' href={AppPage.getRoute({ ...par, title: ownProps.title + ' | mmm' } as IRoutePar, true)} />
+          <H2>{title + ' ' + title2 + ' ' + counter++}</H2>
+          <Button /*tabIndex={1}*/ key={1} label='Add to title' href={AppPage.getRoute({ ...this.props, title: title + ' | xxx' } as IRoutePar)} />
+          <Button /*tabIndex={1}*/ key={2} label='Show Modal' href={AppPage.getRoute({ ...this.props, title: title + ' | mmm' } as IRoutePar, true)} />
           <Button /*tabIndex={1}*/ key={3} label='Goto HOME' href={{ routeName: null }/*home*/} />
           <Button /*tabIndex={1}*/ key={4} label='DUMMY' />
-          <Button /*tabIndex={1}*/ key={41} label='TITLE2' onPress={() => ownProps.onClick(ownProps.title2 + ' t2')} />
+          <Button /*tabIndex={1}*/ key={41} label='TITLE2' onPress={() => onClick(title2 + ' t2')} />
           {!window.lmGlobal.isNative && <LoginButton key={5} tabIndex={2} />}
         </Content>
       </Container>

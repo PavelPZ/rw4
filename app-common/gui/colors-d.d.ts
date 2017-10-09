@@ -1,7 +1,7 @@
 ﻿declare namespace GUI {
 
-  export interface IColors {
-    color: string
+  export interface IColorPair {
+    background: string
     text: string
   }
 
