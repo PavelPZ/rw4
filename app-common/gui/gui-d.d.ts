@@ -73,8 +73,9 @@
     menu: JSX.Element
     willBeVisible: boolean
     drawerWidth: number
-    screenWidth,
+    screenWidth
     doShowDrawer: (isShow: boolean) => void
+    isTablet?:boolean
     duration?: number
   }
 

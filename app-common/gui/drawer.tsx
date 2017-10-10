@@ -47,8 +47,8 @@ const mobile: React.SFC<Drawer.IDispatchProps & Drawer.IStateProps & Drawer.IOwn
   return <AnimatedMobileDrawer
     willBeVisible={drawerVisible}
     doShowDrawer={isShow => showDrawer(isShow)}
-    content={<Content {...rest} {...content} />}
-    menu={<Menu {...rest} {...menu} />}
+    content={Content({ ...rest, ...content })}
+    menu={Menu({ ...rest, ...menu })}
     drawerWidth={drawerWidth}
     screenWidth={rnWidth}
   />
@@ -60,12 +60,13 @@ const tablet: React.SFC<Drawer.IDispatchProps & Drawer.IStateProps & Drawer.IOwn
   const { content, menu, ...rest } = props
 
   return <AnimatedTabletDrawer
-    willBeVisible={!drawerVisible}
+    willBeVisible={drawerVisible}
     doShowDrawer={isShow => showDrawer(isShow)}
-    content={<Content {...rest} {...content} />}
-    menu={<Menu {...rest} {...menu} />}
+    content={Content({...rest,...content})}
+    menu={Menu({...rest,...menu})}
     drawerWidth={nonMobileMenuWidth}
     screenWidth={rnWidth}
+    isTablet
   />
 
   //return <AnimatedTabletDrawer anim={{ propName: 'left', targetValue: drawerVisible ? 0 : -nonMobileMenuWidth }} style={{ position: 'absolute', top: 0, right: 0, bottom: 0, marginTop: window.lmGlobal.topMargin, flexDirection: 'row', }}>
@@ -77,10 +78,12 @@ const tablet: React.SFC<Drawer.IDispatchProps & Drawer.IStateProps & Drawer.IOwn
 const desktop: React.SFC<Drawer.IDispatchProps & Drawer.IStateProps & Drawer.IOwnProps> = props => {
 
   const { drawerVisible, windowSize } = props
-  const { content, menu, ...rest } = props
-  return <View style={{ position: 'absolute', left: 0, top: 0, right: 0, bottom: 0, flexDirection: 'row', }}>
-    <Menu {...rest} {...menu} key={1} style={{ width: nonMobileMenuWidth }}/>
-    <Content {...rest} {...content} key={0} style={{ flex:1 }}/>
+  const { content: cont, menu: men, ...rest } = props
+  const menu = Menu({...rest, ...men})
+  const content = Content({ ...rest, ...cont}) //<Content {...rest} {...cont} />
+  return <View style={{ ...absoluteStretch, flexDirection: 'row', }}>
+    {React.cloneElement(menu, { ...menu.props, key: 0, style: { ...menu.props.style, width: nonMobileMenuWidth } })}
+    {React.cloneElement(content, { ...content.props, key: 1, style: { ...content.props.style, flex: 1  } })}
   </View>
 }
 //<Menu key={1} {...rest} {...menu} style={getDrawerMenuStyle(windowSize)} />
