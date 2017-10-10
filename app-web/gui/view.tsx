@@ -118,7 +118,7 @@ interface IAnimatedMobileDrawerProps {
   menu: JSX.Element
   visibleOpacity: [number, number]
   visibleLeft: [number, number]
-  targetVisible: boolean
+  willBeVisible: boolean
   drawerWidth: number
   hideDrawer: () => void
   duration?: number
@@ -133,16 +133,16 @@ export class AnimatedMobileDrawer2 extends React.PureComponent<IAnimatedMobileDr
   backdropVisible: boolean
   render() {
     const { backdropVisible, animation, rendered, value, props } = this
-    const { duration, visibleOpacity, visibleLeft, content, menu, targetVisible, drawerWidth, hideDrawer } = props
+    const { duration, visibleOpacity, visibleLeft, content, menu, willBeVisible, drawerWidth, hideDrawer } = props
     if (animation) animation.stop()
     const opacityValue = value.interpolate({ inputRange: [0, 1], outputRange: visibleOpacity })
     const leftValue = value.interpolate({ inputRange: [0, 1], outputRange: visibleLeft })
     if (!rendered)
       this.rendered = true
     else {
-      if (targetVisible /*zacatek animace backdropu*/) this.backdropVisible = true
-      this.animation = Animated.timing(value, { toValue: targetVisible ? 1 : 0, duration: duration || App.Consts.animationDurationMsec, delay: 1 })
-      this.animation.start(res => { delete this.animation; if (!targetVisible) { this.backdropVisible = false; this.forceUpdate() } })
+      if (willBeVisible /*zacatek animace backdropu*/) this.backdropVisible = true
+      this.animation = Animated.timing(value, { toValue: willBeVisible ? 1 : 0, duration: duration || App.Consts.animationDurationMsec, delay: 1 })
+      this.animation.start(res => { delete this.animation; if (!willBeVisible) { this.backdropVisible = false; this.forceUpdate() } })
     }
     return [
       React.cloneElement(content, { ...content.props, key: 0, style: { ...content.props.style, ...absoluteStretch } }),
@@ -165,23 +165,23 @@ export class AnimatedMobileDrawer extends React.PureComponent<IAnimatedMobileDra
 
   render() {
     const { backdropVisible, animateMenu, animateBackdrop, divBackdrop, divMenu, rendered, props } = this
-    const { duration, visibleOpacity, visibleLeft, content, menu, targetVisible: tv, drawerWidth, hideDrawer } = props
-    const targetVisible = rendered ? tv : true
-    let menuLeft:any = visibleLeft[targetVisible ? 0 : 1]
-    let backdropOpacity: any = visibleOpacity[targetVisible ? 0 : 1]
+    const { duration, visibleOpacity, visibleLeft, content, menu, willBeVisible: tv, drawerWidth, hideDrawer } = props
+    const willBeVisible = rendered ? tv : true
+    let menuLeft:any = visibleLeft[willBeVisible ? 0 : 1]
+    let backdropOpacity: any = visibleOpacity[willBeVisible ? 0 : 1]
     if (animateMenu) { menuLeft = divMenu.style.left; animateMenu.kill(); delete this.animateMenu } if (animateBackdrop) { backdropOpacity = divBackdrop.style.opacity; animateBackdrop.kill(); delete this.animateBackdrop }
     const doAnimate = () => {
       const { divBackdrop, divMenu, props } = this
-      const { duration, visibleOpacity, visibleLeft, targetVisible } = props
+      const { duration, visibleOpacity, visibleLeft, willBeVisible } = props
       const dur = duration || App.Consts.animationDurationMsec
-      this.animateMenu = TweenLite.to(divMenu, dur / 1000, { left: visibleLeft[targetVisible ? 1 : 0] })
-      this.animateBackdrop = TweenLite.to(divBackdrop, dur / 1000, { opacity: visibleOpacity[targetVisible ? 1 : 0], onComplete: () => { delete this.animateMenu; delete this.animateBackdrop; if (!targetVisible) { this.backdropVisible = false; this.forceUpdate() } } })
+      this.animateMenu = TweenLite.to(divMenu, dur / 1000, { left: visibleLeft[willBeVisible ? 1 : 0] })
+      this.animateBackdrop = TweenLite.to(divBackdrop, dur / 1000, { opacity: visibleOpacity[willBeVisible ? 1 : 0], onComplete: () => { delete this.animateMenu; delete this.animateBackdrop; if (!willBeVisible) { this.backdropVisible = false; this.forceUpdate() } } })
     }
     let doAnimateInRef: (div: HTMLElement) => void
     if (!rendered)
       this.rendered = true
     else {
-      if (targetVisible /*zacatek animace backdropu*/) this.backdropVisible = true
+      if (willBeVisible /*zacatek animace backdropu*/) this.backdropVisible = true
       if (divBackdrop) doAnimate(); else doAnimateInRef = (div: HTMLElement) => {
         this.divBackdrop = div
         setTimeout(doAnimate, 1)
@@ -190,7 +190,7 @@ export class AnimatedMobileDrawer extends React.PureComponent<IAnimatedMobileDra
     return [
       React.cloneElement(content, { ...content.props, key: 0, style: { ...content.props.style, ...absoluteStretch } }),
       this.backdropVisible && <div key={1} ref={doAnimateInRef} onClick={hideDrawer} style={{ ...absoluteStretch, backgroundColor: 'gray', opacity: backdropOpacity } as CSSProperties} />,
-      <div key={2} ref={div => this.divMenu = div} style={{ position: 'absolute', top: 0, bottom: 0, width: drawerWidth, maxWidth: '85vw', display: 'flex', left: menuLeft }} >
+      <div key={2} ref={div => this.divMenu = div} style={{ position: 'absolute', top: 0, bottom: 0, width: drawerWidth, display: 'flex', left: menuLeft }} >
         {React.cloneElement(menu, { ...menu.props, style: { ...menu.props.style, flex: 1 } })}
       </div>
     ] as any

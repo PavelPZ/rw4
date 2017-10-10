@@ -86,10 +86,7 @@
     <TypeScriptCompile Include="app-common\snack\gui\button.tsx" />
     <TypeScriptCompile Include="app-common\gui\drawer.tsx" />
     <TypeScriptCompile Include="app-common\snack\web-socket.tsx" />
-    <TypeScriptCompile Include="app-native\gui\animated-view.tsx" />
-    <TypeScriptCompile Include="app-native\gui\react-native-side-menu - Copy %282%29.tsx" />
-    <TypeScriptCompile Include="app-native\gui\react-native-swipe-gesture.tsx" />
-    <TypeScriptCompile Include="app-native\gui\react-native-side-menu - Copy.tsx" />
+    <TypeScriptCompile Include="app-native\gui\drawer.tsx" />
     <TypeScriptCompile Include="app-native\lib\native-media-query.ts" />
     <TypeScriptCompile Include="app-native\lib\web-native-common.d.ts" />
     <TypeScriptCompile Include="app-native\lib\native-router.tsx" />
@@ -109,7 +106,6 @@
     <TypeScriptCompile Include="app-native\gui\content.tsx" />
     <TypeScriptCompile Include="app-native\gui\button.tsx" />
     <TypeScriptCompile Include="app-native\gui\icon.tsx" />
-    <TypeScriptCompile Include="app-native\gui\react-native-side-menu.tsx" />
     <TypeScriptCompile Include="app-native\gui\react-native-tab-view.d.ts" />
     <TypeScriptCompile Include="app-native\gui\theme.tsx" />
     <TypeScriptCompile Include="app-native\gui\theme\components\Badge.ts" />

@@ -1,7 +1,6 @@
 ﻿import React from 'react'
 import { PromiseExtensible } from '../../app-common/lib/lib'
 import { Animated } from "react-native";
-import SideMenu from '../gui/react-native-side-menu'
 
 //**** ANIMATE
 export class AnimatedPromise extends PromiseExtensible<void> {

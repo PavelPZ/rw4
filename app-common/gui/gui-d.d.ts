@@ -66,24 +66,18 @@
 
   }
 
-  //**** SWIPER
-  type TOnSwipe = (isEdge: boolean, gestureState: ReactNative.PanResponderGestureState, e: ReactNative.GestureResponderEvent) => void
-  const enum swipeDirections {
-    SWIPE_UP = 'SWIPE_UP',
-    SWIPE_DOWN = 'SWIPE_DOWN',
-    SWIPE_LEFT = 'SWIPE_LEFT',
-    SWIPE_RIGHT = 'SWIPE_RIGHT'
-  }
-  
-  interface ISwiperProps extends ReactNative.ViewProperties {
-    onSwipe?: (swipeDirection: swipeDirections, gestureState: ReactNative.PanResponderGestureState, e: ReactNative.GestureResponderEvent) => void
-    onSwipeUp?: TOnSwipe
-    onSwipeDown?: TOnSwipe
-    onSwipeLeft?: TOnSwipe
-    onSwipeRight?: TOnSwipe
+  //**** DRAWER
+
+  interface IAnimatedMobileDrawerProps {
+    content: JSX.Element
+    menu: JSX.Element
+    willBeVisible: boolean
+    drawerWidth: number
+    screenWidth,
+    doShowDrawer: (isShow: boolean) => void
+    duration?: number
   }
 
-  //**** ANIMATED VIEW
   interface IAnimatedViewProps extends ReactNative.ViewProperties {
     anim?: {
       propName: string //jmeno animacni property, napr. LEFT, OPACITY apod

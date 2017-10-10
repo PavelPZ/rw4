@@ -14,7 +14,7 @@ import { Provider as RouterProvider, globalReducer as globalRouterReducer, middl
 import { init as initRecording, reducer as recordingReducer, saga as recordingSaga, middleware as recordingMiddleware, globalReducer as recordingGlobalReducer, blockGuiReducer, blockGuiSaga } from './app-common/lib/recording'
 import { Provider as LocProvider, reducer as locReducer } from './app-common/lib/loc'
 import { reducer as mediaQueryReducer } from './app-common/lib/media-query'
-import { DrawerLayout } from './app-common/snack/drawer'
+import { DrawerLayout } from './app-common/gui/drawer'
 import { reducer as drawerReducer } from './app-common/lib/drawer'
 
 //********** NATIVE specific
@@ -25,8 +25,7 @@ import { AppLoading, Constants } from 'expo'
 import { Icon } from './app-native/gui/icon'
 import { Button } from './app-native/gui/button'
 import { Content } from './app-native/gui/content'
-import { AnimatedView } from './app-native/gui/animated-view'
-import { Swiper } from './app-native/gui/react-native-swipe-gesture'
+import { AnimatedTabletDrawer, AnimatedMobileDrawer } from './app-native/gui/drawer'
 import { Container, Header, Footer, Text, StyleProvider, H1, H2, H3, View } from 'native-base'
 import { Theme, colorToStyle } from './app-native/gui/theme'
 import { init as initMediaQuery } from './app-native/lib/native-media-query'
@@ -90,7 +89,7 @@ export const init = async () => {
       },
     }
   }
-  initGUI({ colorToStyle, Button, Icon, H1, H2, H3, View, Container, Header, Footer, Content, Text, Page, DrawerLayout, AnimatedView, Animated, Swiper })
+  initGUI({ colorToStyle, Button, Icon, H1, H2, H3, View, Container, Header, Footer, Content, Text, Page, AnimatedTabletDrawer, Animated, AnimatedMobileDrawer })
 
   const recordingJSON = await require('./App_Data/recording.json')
   //console.log('recordingJSON:\n', JSON.stringify(recordingJSON,null,2))

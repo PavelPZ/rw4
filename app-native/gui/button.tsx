@@ -62,13 +62,13 @@ export const Button: React.SFC<GUI.IButtonProps> = props => {
     else {
       const colors = getColors(color, shadow)
       if (transparent)
-        textStyle.color = colors.color
+        textStyle.color = colors.background
       else if (bordered) {
-        textStyle.color = colors.color
-        style.borderColor = colors.color
+        textStyle.color = colors.background
+        style.borderColor = colors.background
       } else {
         textStyle.color = colors.text
-        style.backgroundColor = colors.color
+        style.backgroundColor = colors.background
       }
     }
   }

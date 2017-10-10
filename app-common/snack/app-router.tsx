@@ -1,6 +1,6 @@
 ﻿import React from 'react'
 import { connect, ComponentDecorator } from 'react-redux'
-import { Container, Header, Content, Text, Button, H2, View, DrawerLayout, getDrawerContentStyle, getDrawerMenuStyle } from '../gui/gui'
+import { Container, Header, Content, Text, Button, H2, View, DrawerLayout } from '../gui/gui'
 import { registerRouter } from '../lib/router'
 import { isLogged, createLoginButton } from '../lib/login'
 import { storeContextType } from '../lib/lib'
@@ -43,9 +43,9 @@ class appPageLow extends React.PureComponent<IOwnProps & IStateProps & IDispatch
     const isModal = query && query.isModal
 
     return <DrawerLayout menu={{
-      node: <View style={{ ...getDrawerMenuStyle(windowSize) as any, backgroundColor:'purple' }}><Text>MENU</Text></View>
+      node: <View style={{ backgroundColor: 'purple' }}><Text>MENU{menuCounter++}</Text></View>
     }} content={{
-      node: <Container style={{ ...getDrawerContentStyle(windowSize) as any, backgroundColor: 'yellow' }}>
+      node: <Container style={{ backgroundColor: 'yellow' }}>
         <Header key={1}>
           <View><Text style={{ color: 'lightgray' }}>{JSON.stringify(this.props)}</Text></View>
         </Header>
@@ -69,6 +69,7 @@ class appPageLow extends React.PureComponent<IOwnProps & IStateProps & IDispatch
   }
 }
 let counter = 0
+let menuCounter = 0
 
 const provider: ComponentDecorator<IStateProps & IDispatchProps, IOwnProps> = connect(
   (state: IAppState) => state.xxx,

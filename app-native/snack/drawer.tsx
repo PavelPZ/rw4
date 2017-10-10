@@ -1,28 +1,27 @@
 ﻿import React from 'react';
 import { connect } from 'react-redux';
 import {Button , View, Text } from 'react-native';
-import SideMenu from '../gui/react-native-side-menu'
 
-export default class App extends React.PureComponent {
-  state = { windowSize: Media.TWindowSize.mobile }
-  sideMenu: SideMenu
-  render() {
-    const changeWindowSize = windowSize => this.setState({ windowSize: windowSize == Media.TWindowSize.desktop ? Media.TWindowSize.mobile : (windowSize == Media.TWindowSize.tablet ? Media.TWindowSize.desktop : Media.TWindowSize.tablet) })
-    return <SideMenu isRight
-      ref={sideMenu => this.sideMenu = sideMenu}
-      key={count++}
-      windowSize={this.state.windowSize}
-      menuContent={props => <View style={[props]}>
-        <Button key={1} onPress={() => this.sideMenu.openMenu(false)} title='CLOSE MENU' />
-      </View>}
-      content={props => <View key={999} style={props}>
-        <Button key={1} onPress={() => this.sideMenu.openMenu(true)} title='OPEN MENU' />
-        <Button key={2} onPress={() => changeWindowSize(this.state.windowSize)} title='CHANGE SCREEN' />
-      </View>}
-    />
-  }
-}
-let count = 0
+//export default class App extends React.PureComponent {
+//  state = { windowSize: Media.TWindowSize.mobile }
+//  sideMenu: SideMenu
+//  render() {
+//    const changeWindowSize = windowSize => this.setState({ windowSize: windowSize == Media.TWindowSize.desktop ? Media.TWindowSize.mobile : (windowSize == Media.TWindowSize.tablet ? Media.TWindowSize.desktop : Media.TWindowSize.tablet) })
+//    return <SideMenu isRight
+//      ref={sideMenu => this.sideMenu = sideMenu}
+//      key={count++}
+//      windowSize={this.state.windowSize}
+//      menuContent={props => <View style={[props]}>
+//        <Button key={1} onPress={() => this.sideMenu.openMenu(false)} title='CLOSE MENU' />
+//      </View>}
+//      content={props => <View key={999} style={props}>
+//        <Button key={1} onPress={() => this.sideMenu.openMenu(true)} title='OPEN MENU' />
+//        <Button key={2} onPress={() => changeWindowSize(this.state.windowSize)} title='CHANGE SCREEN' />
+//      </View>}
+//    />
+//  }
+//}
+//let count = 0
 
 
 //class drawerExample extends React.Component<Media.IState> {
