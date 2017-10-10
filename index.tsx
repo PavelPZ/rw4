@@ -35,7 +35,8 @@ import { Provider as RecordingProvider, BlockGuiComp } from './app-web/lib/web-r
 import { getAnimator as getRouteAnimator, Page } from './app-web/lib/web-router'
 import { Button } from './app-web/gui/button'
 import { Icon } from './app-web/gui/icon'
-import { View, Container, Header, Footer, Content, AnimatedView, Swiper } from './app-web/gui/view'
+import { View, Container, Header, Footer, Content } from './app-web/gui/view'
+import { AnimatedMobileDrawer, AnimatedTabletDrawer } from './app-web/gui/drawer'
 import { Text } from './app-web/gui/text'
 import { LayerProvider, H1, H2, H3, Platform, colorToStyle, waitChildren } from './app-web/gui/lib'
 
@@ -90,7 +91,7 @@ export const init = async () => {
   }
 
   await promiseAll([
-    initGUI({ colorToStyle, Button, Icon, H1, H2, H3, View, Container, Header, Footer, Content, Text, Page, AnimatedView, Swiper, Animated }),
+    initGUI({ colorToStyle, Button, Icon, H1, H2, H3, View, Container, Header, Footer, Content, Text, Page, AnimatedMobileDrawer, AnimatedTabletDrawer, Animated }),
     initRouter(),
     initRecording(),
   ])
