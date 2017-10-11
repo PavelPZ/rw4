@@ -15,17 +15,17 @@ import { init as initRecording, reducer as recordingReducer, saga as recordingSa
 import { Provider as LocProvider, reducer as locReducer } from './app-common/lib/loc'
 import { reducer as mediaQueryReducer } from './app-common/lib/media-query'
 import { DrawerLayout } from './app-common/gui/drawer'
-import { reducer as drawerReducer } from './app-common/lib/drawer'
+import { reducer as drawerReducer } from './app-common/gui/drawer'
 
 //********** NATIVE specific
 import createHistory from 'history/createMemoryHistory'
 import { RecorderButton, LayerProvider, BlockGuiComp, init as initRoot, } from './app-native/gui/lib'
-import { getAnimator as getRouteAnimator, Page } from './app-native/lib/native-router'
+import { getAnimator as getRouteAnimator } from './app-native/lib/native-router'
 import { AppLoading, Constants } from 'expo'
 import { Icon } from './app-native/gui/icon'
 import { Button } from './app-native/gui/button'
 import { Content } from './app-native/gui/content'
-import { AnimatedTabletDrawer, AnimatedMobileDrawer } from './app-native/gui/drawer'
+import { AnimatedDrawer } from './app-native/gui/drawer'
 import { Container, Header, Footer, Text, StyleProvider, H1, H2, H3, View } from 'native-base'
 import { Theme, colorToStyle } from './app-native/gui/theme'
 import { init as initMediaQuery } from './app-native/lib/native-media-query'
@@ -89,7 +89,7 @@ export const init = async () => {
       },
     }
   }
-  initGUI({ colorToStyle, Button, Icon, H1, H2, H3, View, Container, Header, Footer, Content, Text, Page, AnimatedTabletDrawer, Animated, AnimatedMobileDrawer })
+  initGUI({ colorToStyle, Button, Icon, H1, H2, H3, View, Container, Header, Footer, Content, Text, AnimatedDrawer, Animated })
 
   const recordingJSON = await require('./App_Data/recording.json')
   //console.log('recordingJSON:\n', JSON.stringify(recordingJSON,null,2))

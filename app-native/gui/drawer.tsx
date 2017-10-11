@@ -1,14 +1,13 @@
 ﻿import React from 'react';
-import { Text, View, Animated, TouchableWithoutFeedback, PanResponder } from 'react-native'
+import { View, Animated, TouchableWithoutFeedback, PanResponder } from 'react-native'
 
-export class AnimatedMobileDrawer extends React.PureComponent<GUI.IAnimatedMobileDrawerProps> {
+export class AnimatedDrawer extends React.PureComponent<GUI.IAnimatedMobileDrawerProps> {
   rendered: boolean
   value = new Animated.Value(this.props.willBeVisible ? 1 : 0)
   animation: ReactNative.Animated.CompositeAnimation
-  panResponder: ReactNative.PanResponderInstance
 
   render() {
-    const { animation, rendered, value, props, panResponder } = this
+    const { animation, rendered, value, props } = this
     const { isTablet, duration, content, menu, willBeVisible, drawerWidth, doShowDrawer, screenWidth } = props
     const doAnimation = (willBeVisible: boolean, newDrawerState?: boolean) => {
       this.animation = Animated.timing(value, { toValue: willBeVisible ? 1 : 0, duration: duration || App.Consts.animationDurationMsec, delay: 1 })
@@ -67,8 +66,6 @@ export class AnimatedMobileDrawer extends React.PureComponent<GUI.IAnimatedMobil
       </View>
   }
 }
-
-export const AnimatedTabletDrawer = AnimatedMobileDrawer
 
 const absoluteStretch = { position: 'absolute', top: 0, left: 0, right: 0, bottom: 0 }
 const topBottom = { position: 'absolute', top: 0, bottom: 0 }

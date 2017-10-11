@@ -1,8 +1,24 @@
 ﻿import React from 'react'
 import { connect, ComponentDecorator } from 'react-redux'
-import { providerConnector as drawerConnector } from '../lib/drawer'
-import { providerConnector as routerConnector } from '../lib/router'
-import { View, Text, Animated, AnimatedMobileDrawer, AnimatedTabletDrawer } from '../gui/gui'
+import { View, Text, Animated, AnimatedDrawer } from '../gui/gui'
+
+const providerConnector: ComponentDecorator<Drawer.IDispatchProps & Drawer.IStateProps, Drawer.IOwnProps> = connect(
+  (state: IState) => ({ ...state.drawer, ...state.mediaQuery } as Drawer.IStateProps),
+  (dispatch, ownProps) => ({
+    showDrawer: visible => dispatch({ type: Drawer.Consts.SHOW, visible }),
+  } as Drawer.IDispatchProps)
+)
+
+export const reducer: App.IReducer<Drawer.IState> = (state, action: Drawer.Action | Media.INativeChangeMediaAction | Media.IWebChangeMediaAction) => {
+  if (!state) return {}
+  switch (action.type) {
+    case Drawer.Consts.SHOW: return { drawerVisible: action.visible }
+    case Drawer.Consts.TOOGLE: return { drawerVisible: !state.drawerVisible }
+    case Media.Consts.WEB_CHANGE_MEDIA:
+    case Media.Consts.NATIVE_CHANGE_DIMENSION: return { drawerVisible: action.windowSize != Media.TWindowSize.mobile }
+    default: return state
+  }
+}
 
 const absoluteStretch: ReactNative.ViewStyle = { position: 'absolute', top: 0, left: 0, right: 0, bottom: 0 }
 
@@ -14,7 +30,7 @@ const mobile: React.SFC<Drawer.IDispatchProps & Drawer.IStateProps & Drawer.IOwn
   const { lmGlobal: { isNative } } = window //https://react-md.mlaursen.com/components/drawers
   const drawerWidth = Math.min(320, (isNative ? rnWidth : window.innerWidth) - 56)
 
-  return <AnimatedMobileDrawer
+  return <AnimatedDrawer
     willBeVisible={drawerVisible}
     doShowDrawer={isShow => showDrawer(isShow)}
     content={Content({ ...rest, ...content })}
@@ -29,7 +45,7 @@ const tablet: React.SFC<Drawer.IDispatchProps & Drawer.IStateProps & Drawer.IOwn
   const { drawerVisible, windowSize, showDrawer, rnWidth } = props
   const { content, menu, ...rest } = props
 
-  return <AnimatedTabletDrawer
+  return <AnimatedDrawer
     willBeVisible={drawerVisible}
     doShowDrawer={isShow => showDrawer(isShow)}
     content={Content({...rest,...content})}
@@ -101,5 +117,5 @@ const Menu: React.SFC<Drawer.IDispatchProps & Drawer.IStateProps & Drawer.IMenu>
   </View>
 }
 
-export const DrawerLayout = drawerConnector(drawerLayout)
+export const DrawerLayout = providerConnector(drawerLayout)
 

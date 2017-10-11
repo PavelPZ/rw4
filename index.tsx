@@ -22,7 +22,7 @@ import { PromiseExtensible, WaitForRendering, promiseAll, getAppId } from './app
 import { init as initRecording, reducer as recordingReducer, saga as recordingSaga, middleware as recordingMiddleware, globalReducer as recordingGlobalReducer, blockGuiReducer, blockGuiSaga } from './app-common/lib/recording'
 import { reducer as loginReducer } from './app-common/lib/login'
 import { reducer as mediaQueryReducer } from './app-common/lib/media-query'
-import { reducer as drawerReducer } from './app-common/lib/drawer'
+import { reducer as drawerReducer } from './app-common/gui/drawer'
 
 //********** WEB specific
 import Animated from 'animated'
@@ -32,11 +32,11 @@ import { platform as loginPlatform, Provider as LoginProvider, } from './app-web
 import { init as initMediaQuery } from './app-web/lib/web-media-query'
 import { Provider as RecordingProvider, BlockGuiComp } from './app-web/lib/web-recording'
 //import { Provider as DrawerProvider } from './app-web/lib/web-drawer'
-import { getAnimator as getRouteAnimator, Page } from './app-web/lib/web-router'
+import { getAnimator as getRouteAnimator } from './app-web/lib/web-router'
 import { Button } from './app-web/gui/button'
 import { Icon } from './app-web/gui/icon'
 import { View, Container, Header, Footer, Content } from './app-web/gui/view'
-import { AnimatedMobileDrawer, AnimatedTabletDrawer } from './app-web/gui/drawer'
+import { AnimatedDrawer } from './app-web/gui/drawer'
 import { Text } from './app-web/gui/text'
 import { LayerProvider, H1, H2, H3, Platform, colorToStyle, waitChildren } from './app-web/gui/lib'
 
@@ -53,7 +53,7 @@ import { ConnectTest, reducer as connectTestReducer } from './app-web/snack/conn
 import AnimatedTransition from './app-web/snack/animated-transition'
 import AnimatedGsap from './app-web/snack/animated-gsap'
 import AnimatedGsapNew from './app-web/snack/animated-gsap-new'
-import { App1, /*app3Reducer*/ } from './app-web/snack/router-new'
+//import { App1, /*app3Reducer*/ } from './app-web/snack/router-new'
 import DrawerApp from './app-web/snack/drawer'
 import DrawerNativeLikeApp from './app-web/snack/drawer-native-like'
 
@@ -91,7 +91,7 @@ export const init = async () => {
   }
 
   await promiseAll([
-    initGUI({ colorToStyle, Button, Icon, H1, H2, H3, View, Container, Header, Footer, Content, Text, Page, AnimatedMobileDrawer, AnimatedTabletDrawer, Animated }),
+    initGUI({ colorToStyle, Button, Icon, H1, H2, H3, View, Container, Header, Footer, Content, Text, AnimatedDrawer, Animated }),
     initRouter(),
     initRecording(),
   ])

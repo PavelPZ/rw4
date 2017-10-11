@@ -168,8 +168,8 @@
     <TypeScriptCompile Include="app-native\snack\drawer.tsx" />
     <TypeScriptCompile Include="app-native\snack\native-base\header.tsx" />
     <TypeScriptCompile Include="app-native\snack\native-base\index.tsx" />
-    <TypeScriptCompile Include="app-common\lib\drawer-d.d.ts" />
-    <TypeScriptCompile Include="app-common\lib\drawer.tsx" />
+    <TypeScriptCompile Include="app-common\gui\drawer-d.d.ts" />
+    <None Include="app-common\lib\drawer.tsx_" />
     <TypeScriptCompile Include="app-common\lib\lib.tsx" />
     <TypeScriptCompile Include="app-common\lib\rest-api-d.d.ts" />
     <TypeScriptCompile Include="app-common\lib\rest-api.ts" />
@@ -191,7 +191,7 @@
     <TypeScriptCompile Include="app-web\gui\lib.tsx" />
     <TypeScriptCompile Include="app-web\gui\text.tsx" />
     <TypeScriptCompile Include="app-web\gui\view.tsx" />
-    <TypeScriptCompile Include="app-web\lib\web-drawer.tsx" />
+    <None Include="app-web\lib\web-drawer.tsx_" />
     <TypeScriptCompile Include="app-common\snack\gui\icon.tsx" />
     <TypeScriptCompile Include="app-web\snack\icon.tsx" />
     <TypeScriptCompile Include="app-web\snack\validate-test.tsx" />

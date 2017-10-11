@@ -68,10 +68,10 @@ export class AnimatedView3 extends React.Component<GUI.IAnimatedViewProps> {
 
 }
 
-export const Swiper: React.SFC<GUI.ISwiperProps> = props => {
-  const { onSwipe, onSwipeDown, onSwipeRight, onSwipeLeft, onSwipeUp, ...rest } = props
-  return <View {...rest} />
-}
+//export const Swiper: React.SFC<GUI.ISwiperProps> = props => {
+//  const { onSwipe, onSwipeDown, onSwipeRight, onSwipeLeft, onSwipeUp, ...rest } = props
+//  return <View {...rest} />
+//}
 
 //******************* GSAP animace pro web
 export class AnimatedView extends React.PureComponent<GUI.IAnimatedViewProps> {
