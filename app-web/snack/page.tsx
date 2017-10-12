@@ -72,7 +72,8 @@ const lorem = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 1
 const absoluteStretch = { position: 'absolute', top: 0, left: 0, right: 0, bottom: 0 } as ReactNative.ViewStyle
 
 const Button2: React.SFC<GUI.IButtonProps2> = props => {
-  const { light, iconAfter, iconName, dark, success, info, warning, danger, children, swapped, color, shadow, ...rest } = props
+  const { light, iconAfter, iconName, dark, success, info, warning, danger, children, swapped, color, shadow, web = {}, ...rest } = props
+  const { className = '' } = web
   const { flat, floating, icon, raised } = props
   //color
   let colorPair = getColors(color, shadow) || getColors(success && colorToStyle[GUI.Colors.success] || info && colorToStyle[GUI.Colors.info] || dark && colorToStyle[GUI.Colors.dark] || info && colorToStyle[GUI.Colors.info] || warning && colorToStyle[GUI.Colors.warning] || danger && colorToStyle[GUI.Colors.danger])
@@ -81,6 +82,8 @@ const Button2: React.SFC<GUI.IButtonProps2> = props => {
   let iconClassName = getIcon2(iconName, 'android')
   if (iconClassName) iconClassName = renderCSS({ fontSize: 24 }) + ' icon ion-' + iconClassName
 
-  const mdProps: ButtonProps = { ...props, swapTheming: swapped, iconBefore: !iconAfter, iconClassName, raised: !flat && !floating && !icon, style: { ...colorPair, paddingTop: floating ? 10 : (icon ? 6 : undefined) } }
+  const mdProps: ButtonProps = {
+    ...rest, swapTheming: swapped, iconBefore: !iconAfter, iconClassName, raised: !flat && !floating && !icon, className: className + ' ' + renderCSS({ ...colorPair, paddingTop: floating ? 10 : (icon ? 6 : undefined) })
+  }
   return <Button {...mdProps}>{!floating && !icon && children}</Button>
 }

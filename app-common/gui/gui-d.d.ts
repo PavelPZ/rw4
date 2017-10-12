@@ -47,6 +47,7 @@
     light?: boolean //nb: nic
     iconName?: GUI.IonicIcons, //md: iconChildren, nb: <Icon name='icon' />
     iconAfter?: boolean //md: iconBefore={false}, nb:iconLeft x iconRight
+    active?:boolean,
     //nb colors:
     dark?: boolean
     success?: boolean
@@ -55,6 +56,7 @@
     danger?: boolean
     color?: GUI.Colors
     shadow?: GUI.Shadows
+    web?: React.HTMLAttributes<any>
   }
 
 
