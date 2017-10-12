@@ -1,8 +1,8 @@
 ﻿declare namespace GUI {
 
   export interface IColorPair {
-    background: string
-    text: string
+    backgroundColor: string
+    color: string
   }
 
   const enum Colors {

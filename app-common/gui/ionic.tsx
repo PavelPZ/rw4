@@ -1,5 +1,6 @@
 ﻿import React from 'react'
 
+
 //https://github.com/ionic-team/ionicons
 //https://raw.githubusercontent.com/GeekyAnts/NativeBase/master/src/basic/Icon/index.js
 
@@ -9,12 +10,73 @@ export const getIcon = (name: string, logoId: string, OS: ReactNative.PlatformOS
     const icn = iconsMeta[name]
     if (!icn) throw new Error('!icn')
     const act = active ? 'active' : 'default'
-    const actOS = OS ? OS : (window.lmGlobal.OS == 'web' ? webLikeOS : window.lmGlobal.OS)
+    const actOS = OS ? OS : (window.platform.OS == 'web' ? webLikeOS : window.platform.OS)
     return iconsMeta[name][actOS][act]
   }
 }
 
+export const getIcon2 = (name: GUI.IonicIcons, OS?: ReactNative.PlatformOSType, active?: boolean) => {
+  if (!name) return null
+  if (logoIcons[name]) return name
+  const icn = iconsMeta[name]
+  if (!icn) throw new Error('!icn')
+  const act = active ? 'active' : 'default'
+  const actOS = OS ? OS : (window.platform.OS == 'web' ? webLikeOS : window.platform.OS)
+  return iconsMeta[name][actOS][act]
+}
+
 const webLikeOS = 'android'
+
+export const logoIcons = {
+  [GUI.IonicLogos.logoAndroid]: true,
+  [GUI.IonicLogos.logoAngular]: true,
+  [GUI.IonicLogos.logoApple]: true,
+  [GUI.IonicLogos.logoBitcoin]: true,
+  [GUI.IonicLogos.logoBuffer]: true,
+  [GUI.IonicLogos.logoChrome]: true,
+  [GUI.IonicLogos.logoCodepen]: true,
+  [GUI.IonicLogos.logoCss3]: true,
+  [GUI.IonicLogos.logoDesignernews]: true,
+  [GUI.IonicLogos.logoDribbble]: true,
+  [GUI.IonicLogos.logoDropbox]: true,
+  [GUI.IonicLogos.logoEuro]: true,
+  [GUI.IonicLogos.logoFacebook]: true,
+  [GUI.IonicLogos.logoFoursquare]: true,
+  [GUI.IonicLogos.logoFreebsdDevil]: true,
+  [GUI.IonicLogos.logoGithub]: true,
+  [GUI.IonicLogos.logoGoogle]: true,
+  [GUI.IonicLogos.logoGoogleplus]: true,
+  [GUI.IonicLogos.logoHackernews]: true,
+  [GUI.IonicLogos.logoHtml5]: true,
+  [GUI.IonicLogos.logoInstagram]: true,
+  [GUI.IonicLogos.logoJavascript]: true,
+  [GUI.IonicLogos.logoLinkedin]: true,
+  [GUI.IonicLogos.logoMarkdown]: true,
+  [GUI.IonicLogos.logoNodejs]: true,
+  [GUI.IonicLogos.logoOctocat]: true,
+  [GUI.IonicLogos.logoPinterest]: true,
+  [GUI.IonicLogos.logoPlaystation]: true,
+  [GUI.IonicLogos.logoPython]: true,
+  [GUI.IonicLogos.logoReddit]: true,
+  [GUI.IonicLogos.logoRss]: true,
+  [GUI.IonicLogos.logoSass]: true,
+  [GUI.IonicLogos.logoSkype]: true,
+  [GUI.IonicLogos.logoSnapchat]: true,
+  [GUI.IonicLogos.logoSteam]: true,
+  [GUI.IonicLogos.logoTumblr]: true,
+  [GUI.IonicLogos.logoTux]: true,
+  [GUI.IonicLogos.logoTwitch]: true,
+  [GUI.IonicLogos.logoTwitter]: true,
+  [GUI.IonicLogos.logoUsd]: true,
+  [GUI.IonicLogos.logoVimeo]: true,
+  [GUI.IonicLogos.logoWhatsapp]: true,
+  [GUI.IonicLogos.logoWindows]: true,
+  [GUI.IonicLogos.logoWordpress]: true,
+  [GUI.IonicLogos.logoXbox]: true,
+  [GUI.IonicLogos.logoYahoo]: true,
+  [GUI.IonicLogos.logoYen]: true,
+  [GUI.IonicLogos.logoYoutube]: true,
+}
 
 //https://github.com/GeekyAnts/NativeBase/blob/master/src/basic/Icon/NBIcons.json
 export const iconsMeta = {

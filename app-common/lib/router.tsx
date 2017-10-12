@@ -56,7 +56,7 @@ class provider extends React.PureComponent<Router.IRouterStateProps> {
     if (animateIn) animateIn.abort()
     animateOut = null; animateIn = null;
     const Route = routes[props.routeName]
-    const { getAnimator } = window.lmGlobal.platform.routerPlatform
+    const { getAnimator } = window.platform.routerPlatform
     const { params: pars, ...mediaPars } = props
     const params: Router.IPageProps = { ...pars, ...mediaPars }
 
@@ -77,19 +77,19 @@ export const Provider = providerConnector(provider)
 
 // ***** EXPORTS
 
-export const goBack = () => window.lmGlobal.platform.routerPlatform.history.goBack()
+export const goBack = () => window.platform.routerPlatform.history.goBack()
 
-export const canGoBack = () => window.lmGlobal.isNative ? window.lmGlobal.platform.routerPlatform.history.canGo(-1) : true
+export const canGoBack = () => window.rn ? window.platform.routerPlatform.history.canGo(-1) : true
 
-export const actRoute = () => window.lmGlobal.store.getState().router
+export const actRoute = () => window.store.getState().router
 
 //navigace BEZ history.push. S history.push viz navigateUrl
 export const navigate = (routeName?: string | Router.IState, params?) => {
   let newState: Router.IState;
-  if (!routeName) newState = window.lmGlobal.platform.routerPlatform.startRoute
+  if (!routeName) newState = window.platform.routerPlatform.startRoute
   else if (typeof (routeName) !== 'string') newState = routeName
   else newState = { routeName: routeName, params: params }
-  window.lmGlobal.store.dispatch({ type: Router.Consts.NAVIGATE_START, newState })
+  window.store.dispatch({ type: Router.Consts.NAVIGATE_START, newState })
 }
 
 export const navigatePushHome = () => navigatePush(null)
@@ -174,7 +174,7 @@ let navigActionId = 0
 let beforeUnload: () => void
 
 export const init = () => {
-  const { startRoute, rootUrl, history } = window.lmGlobal.platform.routerPlatform
+  const { startRoute, rootUrl, history } = window.platform.routerPlatform
 
   const match = (pattern: UrlPattern, pathname: string, search: string) => {
     const par = !pattern ? {} : pattern.match(pathname) as Router.IRoutePar

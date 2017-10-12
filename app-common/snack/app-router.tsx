@@ -61,7 +61,7 @@ class appPageLow extends React.PureComponent<IOwnProps & IStateProps & IDispatch
           <Button /*tabIndex={1}*/ key={3} label='Goto HOME' href={{ routeName: null }/*home*/} />
           <Button /*tabIndex={1}*/ key={4} label='DUMMY' />
           <Button /*tabIndex={1}*/ key={41} label='TITLE2' onPress={() => onClick(title2 + ' t2')} />
-          {!window.lmGlobal.isNative && <LoginButton key={5} tabIndex={2} />}
+          {!window.rn && <LoginButton key={5} tabIndex={2} />}
         </Content>
       </Container>
     }}>
@@ -90,7 +90,7 @@ class Menu extends React.Component {
 //*** EXPORTS
 export const AppPage: Router.IRouteComponent<IRoutePar> = registerRouter(appPage, Consts.name, Consts.urlMask, {
   beforeLoad: params => new Promise<Router.TUnloader>(resolve => setTimeout(() => resolve(), Consts.loadDelay)),
-  needsLogin: params => !window.lmGlobal.isNative && params.title.length >= 'START TITLE | xxx'.length,
+  needsLogin: params => !window.rn && params.title.length >= 'START TITLE | xxx'.length,
   reducer: (state: IAppState, action: Router.ICreateDestroyAction | Router.IAction | App.Action<'CLICK'>) => {
     const initState = { title2: 'start' }
     const changeState = false/*!action.routeChanged*/

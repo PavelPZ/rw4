@@ -20,7 +20,7 @@
   type IStateProps = IState & Router.IPageProps
 
   interface IStyled {
-    style?: CSSProperties
+    style?: ReactNative.ViewStyle
   }
 
   type TAllProps = Drawer.IDispatchProps & Drawer.IStateProps & IStyled & { children?: React.ReactNode }
@@ -45,15 +45,12 @@
     node?: JSX.Element
   }
   interface IContent extends TAllProps {
-    nodeType?: React.ComponentType<IContent>
     node?: JSX.Element
-    nodeChilds?: React.ComponentType<IContent>[]
     header?: IContentHeader
     content?: IContentContent
   }
   interface IContentHeader extends TAllProps {
-    node?: React.ComponentType<IContentHeader>
-    nodeChilds?: React.ComponentType<IContentHeader>[]
+    node?: JSX.Element
     left?: JSX.Element
     body?: JSX.Element
     right?: IContentRight

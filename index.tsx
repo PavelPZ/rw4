@@ -53,6 +53,7 @@ import { ConnectTest, reducer as connectTestReducer } from './app-web/snack/conn
 import AnimatedTransition from './app-web/snack/animated-transition'
 import AnimatedGsap from './app-web/snack/animated-gsap'
 import AnimatedGsapNew from './app-web/snack/animated-gsap-new'
+import Page from './app-web/snack/page'
 //import { App1, /*app3Reducer*/ } from './app-web/snack/router-new'
 import DrawerApp from './app-web/snack/drawer'
 import DrawerNativeLikeApp from './app-web/snack/drawer-native-like'
@@ -60,34 +61,31 @@ import DrawerNativeLikeApp from './app-web/snack/drawer-native-like'
 
 //*********** spusteni
 export const init = async () => {
-  window.lmGlobal = {
-    isNative: false,
-    topMargin: 0,
+  window.rn = false
+  window.platform = {
     OS: 'web',
-    platform: {
-      appPlatform: {
-        instanceId: getAppId({
-          localhost: 'localhost',
-          test: 'zvahov.langmaster.cz:6080'
-        }),
-      },
-      loginPlatform: loginPlatform({
-        facebook: {
-          localhost: { fbAppId: '198385910196240', fbAPIVersion: 'v2.10' },
-          test: { fbAppId: '341123529665594', fbAPIVersion: 'v2.10' }
-        },
-        googleClientId: '79001294507-haubsvbmtj5lu4a30hp4kb44hl66qhoc.apps.googleusercontent.com', loc: 'en-GB'
+    appPlatform: {
+      instanceId: getAppId({
+        localhost: 'localhost',
+        test: 'zvahov.langmaster.cz:6080'
       }),
-      recordingPlatform: { guiSize: Recording.TGuiSize.icon },
-      restAPIPlatform: { serviceUrl: 'rest-api.ashx' },
-      routerPlatform: {
-        startRoute: AppPage.getRoute({ title: 'START TITLE | xxx' }),
-        //startRoute: App1.getRoute({ title: 'from Index' }),
-        history: createHistory() as Router.IHistory,
-        rootUrl: '/web-app.html',
-        getAnimator: getRouteAnimator,
+    },
+    loginPlatform: loginPlatform({
+      facebook: {
+        localhost: { fbAppId: '198385910196240', fbAPIVersion: 'v2.10' },
+        test: { fbAppId: '341123529665594', fbAPIVersion: 'v2.10' }
       },
-    }
+      googleClientId: '79001294507-haubsvbmtj5lu4a30hp4kb44hl66qhoc.apps.googleusercontent.com', loc: 'en-GB'
+    }),
+    recordingPlatform: { guiSize: Recording.TGuiSize.icon },
+    restAPIPlatform: { serviceUrl: 'rest-api.ashx' },
+    routerPlatform: {
+      startRoute: AppPage.getRoute({ title: 'START TITLE | xxx' }),
+      //startRoute: App1.getRoute({ title: 'from Index' }),
+      history: createHistory() as Router.IHistory,
+      rootUrl: '/web-app.html',
+      getAnimator: getRouteAnimator,
+    },
   }
 
   await promiseAll([
@@ -113,7 +111,7 @@ export const init = async () => {
 
   const sagaMiddleware = createSagaMiddleware()
 
-  const store = window.lmGlobal.store = createStore<IState>(reducers, {}, applyMiddleware(sagaMiddleware, routerMiddleware, recordingMiddleware))
+  const store = window.store = createStore<IState>(reducers, {}, applyMiddleware(sagaMiddleware, routerMiddleware, recordingMiddleware))
 
   const rootSaga = function* () {
     const rootRes = yield all({
@@ -143,7 +141,8 @@ export const init = async () => {
   //noRouteApp = <DrawerApp />
   //noRouteApp = <DrawerNativeLikeApp />
   //noRouteApp = <DrawerCommon/>
-  
+  noRouteApp = <Page />
+
 
 
   const AppAll: React.SFC<{}> = props => {
@@ -154,9 +153,9 @@ export const init = async () => {
         <LoginProvider key={2} loginRendered={async () => { await initAfter(); waitForLoginRendered.resolve() }} zIndex={100} />
         <LocProvider key={3}>
           <WaitForRendering waitFor={waitForLoginRendered} waitContent={waitChildren}>
-              <RecordingProvider>
-                <RouterProvider />
-              </RecordingProvider>
+            <RecordingProvider>
+              <RouterProvider />
+            </RecordingProvider>
           </WaitForRendering>
         </LocProvider>
       </LayerProvider>
@@ -175,9 +174,9 @@ export const init = async () => {
   const appNo = noRouteApp
 
   ReactDOM.render(
-    <AppRouter />
+    //<AppRouter />
     //<AppAll />
     //<div></div>
-    //appNo
+    appNo
     , document.getElementById('content'))
 }

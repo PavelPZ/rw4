@@ -7,6 +7,8 @@ import pluginPrefixer from "fela-plugin-prefixer";
 import pluginFallbackValue from "fela-plugin-fallback-value";
 import pluginLvha from "fela-plugin-lvha";
 import pluginUnit from "fela-plugin-unit";
+import flatten from 'lodash/flatten'
+import merge from 'lodash/merge'
 
 const renderer = createRenderer({
   plugins: [
@@ -22,7 +24,8 @@ render(renderer)
 
 export const renderRules = (...rules: DFela.TRule[]) => renderer.renderRule(combineRules(...rules))
 export const renderRule = (rule: DFela.TRule) => renderer.renderRule(rule)
-export const renderCSSs = (...csss: CSSProperties[]) => renderer.renderRule(combineRules(...csss.map(css => () => css)))
+export const renderCSSs = (...csss: (CSSProperties | CSSProperties[])[]) => renderCSS(merge({} as CSSProperties, ...flatten(csss)))
+
 export const renderCSS = (css: CSSProperties) => css ? renderer.renderRule(() => css) : ''
 export const renderKeyFrame = (frame: KeyFrames) => renderer.renderKeyframe(() => frame)
 export const renderStatic = (css: string | CSSProperties) => renderer.renderStatic(css)

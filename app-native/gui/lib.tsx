@@ -82,7 +82,7 @@ export const RecorderButton = recordingProviderConnector(recorderButton)
 //  <Toast ref={c => { if (!Toast.toastInstance) Toast.toastInstance = c }} />
 //  <ActionSheet ref={c => { if (!ActionSheet.actionsheetInstance) ActionSheet.actionsheetInstance = c }} />
 //</View>
-export const LayerProvider: React.SFC<any> = props => <View style={{ flex: 1, marginTop: window.lmGlobal.topMargin }}>
+export const LayerProvider: React.SFC<any> = props => <View style={{ flex: 1, marginTop: Constants.statusBarHeight }}>
   {props.children}
 </View>
 

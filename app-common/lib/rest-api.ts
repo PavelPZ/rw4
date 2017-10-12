@@ -1,6 +1,6 @@
 ﻿export const restAPI = async <T extends {} = {}, TData extends {} = {}>(data: RestAPI.IInp) => {
 
-  return fetch(window.lmGlobal.platform.restAPIPlatform.serviceUrl, {
+  return fetch(window.platform.restAPIPlatform.serviceUrl, {
     method: 'post',
     headers: {
       'Content-Type': 'application/octet-stream',

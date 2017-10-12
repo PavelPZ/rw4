@@ -27,8 +27,7 @@ const nonMobileMenuWidth = 256
 const mobile: React.SFC<Drawer.IDispatchProps & Drawer.IStateProps & Drawer.IOwnProps> = props => {
   const { drawerVisible, windowSize, showDrawer, rnWidth } = props
   const { content, menu, ...rest } = props
-  const { lmGlobal: { isNative } } = window //https://react-md.mlaursen.com/components/drawers
-  const drawerWidth = Math.min(320, (isNative ? rnWidth : window.innerWidth) - 56)
+  const drawerWidth = Math.min(320, (window.rn ? rnWidth : window.innerWidth) - 56) //https://react-md.mlaursen.com/components/drawers
 
   return <AnimatedDrawer
     willBeVisible={drawerVisible}
@@ -78,25 +77,21 @@ const drawerLayout: React.SFC<Drawer.IOwnProps> = props => {
   return <ActDrawer {...props} />
 }
 
+//************ CONTENT
+
 const Content: React.SFC<Drawer.IContent> = props => {
-  const { header, content, style, nodeChilds, nodeType: NodeType, node, ...rest } = props
-  if (NodeType) return <NodeType { ...props } />
+  const { header, content, style, node, ...rest } = props
   if (node) return node
-  if (nodeChilds) return <View style={{ ...style as any }}>{props.nodeChilds.map(Node => <Node { ...props } />)}</View>
-  return <View style={{ ...style as any }}>
+  return <View style={style}>
     <ContentHeader key={1} {...header } {...rest } style={{ height: 50 }} />
     <ContentContent key={2} {...content } {...rest } style={{ flex: 1 }} />
   </View>
 }
 
 const ContentHeader: React.SFC<Drawer.IContentHeader> = props => {
-  const { left, body, right, style, nodeChilds, node: Node, ...rest } = props
-  if (Node) return <Node { ...props } />
-  return <View style={style as any}>
-    {props.nodeChilds && props.nodeChilds.map(Node => <Node { ...props } />)}
-    {!props.nodeChilds && [
-
-    ]}
+  const { left, body, right, style, node, ...rest } = props
+  if (node) return node
+  return <View style={style}>
   </View>
 }
 

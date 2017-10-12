@@ -20,7 +20,7 @@ export const platform = (par: Login.IPlatformPar) => ({
   doLogin: (returnUrl: Router.IState) => isLogged() == Login.TLoginStatus.unlogged && provider && provider.show(true, returnUrl),
   doLogout: () => {
     if (isLogged() != Login.TLoginStatus.logged) return
-    if (window.lmGlobal.store.getState().login.provider == Login.Consts.facebook) {
+    if (window.store.getState().login.provider == Login.Consts.facebook) {
       FB.logout()
       console.log('facebook: User signed out.')
     } else {
@@ -48,7 +48,7 @@ export class Provider extends React.PureComponent<WebLogin.IProviderProps> {
     console.log('LOGIN: start Login rendering')
     return <Portal ref={div => this.loginHTML = div['_container']} visible className={renderCSS({ display: 'none', backgroundColor: 'white', position: 'fixed', left: 0, top: 0, bottom: 0, right: 0, alignItems: 'flex-start', justifyContent: 'center', zIndex: this.props.zIndex })} >
       <Paper className={renderCSS({ display: 'flex', flexDirection: 'column', flex: 1, height: 150, maxWidth: 300, alignItems: 'center', justifyContent: 'space-around', marginTop: 100 })} zDepth={3}>
-        <div ref={div => { element = div; init().then(() => { this.props.loginRendered(); window.lmGlobal.platform.loginPlatform.providerExist = true }) }}>
+        <div ref={div => { element = div; init().then(() => { this.props.loginRendered(); window.platform.loginPlatform.providerExist = true }) }}>
           <Button iconLogo={GUI.IonicLogos.logoGoogle} label='GOOGLE' color={GUI.Colors.info} />
         </div>
         <Button iconLogo={GUI.IonicLogos.logoFacebook} label='FACEBOOK' onPress={facebookLoginBtnClick} color={GUI.Colors.info} />
@@ -63,7 +63,7 @@ export class Provider extends React.PureComponent<WebLogin.IProviderProps> {
   }
 
   onLogin(provider: Login.TProviders, name: string, firstName: string, lastName: string, picture: string, email: string) {
-    window.lmGlobal.store.dispatch<Login.ILoginAction>({
+    window.store.dispatch<Login.ILoginAction>({
       type: Login.Consts.LOGIN, logged: Login.TLoginStatus.logged, provider: provider,
       name, firstName, lastName, picture, email
     })
@@ -73,7 +73,7 @@ export class Provider extends React.PureComponent<WebLogin.IProviderProps> {
   }
 
   onLogout() {
-    window.lmGlobal.store.dispatch<Login.ILoginAction>({ type: Login.Consts.LOGIN, logged: Login.TLoginStatus.unlogged, })
+    window.store.dispatch<Login.ILoginAction>({ type: Login.Consts.LOGIN, logged: Login.TLoginStatus.unlogged, })
     navigate(actRoute())
   }
 }
@@ -82,8 +82,8 @@ export class Provider extends React.PureComponent<WebLogin.IProviderProps> {
 let provider: Provider
 
 const init = () => {
-  const { googleClientId, facebook, loc } = window.lmGlobal.platform.loginPlatform.par
-  const { fbAppId, fbAPIVersion } = facebook[window.lmGlobal.platform.appPlatform.instanceId]
+  const { googleClientId, facebook, loc } = window.platform.loginPlatform.par
+  const { fbAppId, fbAPIVersion } = facebook[window.platform.appPlatform.instanceId]
   return Promise.all([
     googleInit(googleClientId, loc),
     facebookInit(fbAppId, fbAPIVersion)

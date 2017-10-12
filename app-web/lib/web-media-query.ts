@@ -14,7 +14,7 @@ export const init = () => {
       if (matchMedias[1].mql.matches) windowSize = Media.TWindowSize.desktop
       else if (matchMedias[0].mql.matches) windowSize = Media.TWindowSize.tablet
       else windowSize = Media.TWindowSize.mobile
-      window.lmGlobal.store.dispatch<Media.IWebChangeMediaAction>({ type: Media.Consts.WEB_CHANGE_MEDIA, windowSize })
+      window.store.dispatch<Media.IWebChangeMediaAction>({ type: Media.Consts.WEB_CHANGE_MEDIA, windowSize })
     }
     mql.addListener(listener)
     return { mql, listener }
@@ -22,7 +22,7 @@ export const init = () => {
 
   //const portrait = (() => {
   //  var mql = window.matchMedia('(orientation: portrait)');
-  //  const listener = mql => window.lmGlobal.store.dispatch<Media.IChangePortraitAction>({ type: Media.Consts.CHANGE_PORTRAIT, portrait: mql.matches })
+  //  const listener = mql => window.store.dispatch<Media.IChangePortraitAction>({ type: Media.Consts.CHANGE_PORTRAIT, portrait: mql.matches })
   //  mql.addListener(listener)
   //  return { mql, listener }
   //})()

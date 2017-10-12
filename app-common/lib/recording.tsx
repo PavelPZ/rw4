@@ -6,7 +6,7 @@ import { delay } from 'redux-saga'
 import { restAPI } from './rest-api'
 
 export const init = async (playLists?: Recording.IPlayList[]) => { //async init
-  const rec = window.lmGlobal.platform.recordingPlatform
+  const rec = window.platform.recordingPlatform
   const guiSize = (rec && rec.guiSize) || Recording.TGuiSize.no
   initState = { guiSize } 
   if (guiSize == Recording.TGuiSize.no) return null
@@ -72,11 +72,11 @@ export const saga = function* () {
         const setPlayInitState = function* (startState: IState) {
           yield delay(Recording.Consts.playActionDelay)
           yield put({ type: Recording.Consts.PLAY_INIT_STATE, startState } as Recording.PlayInitStateAction)
-          return window.lmGlobal.store.getState().recording
+          return window.store.getState().recording
         }
         const playAndGoNext = function* (playAction: App.Action, idx: number, listIdx: number, playMsg: string) {
           yield delay(Recording.Consts.playActionDelay)
-          const canc = window.lmGlobal.store.getState().recording.mode != Recording.TModes.playing
+          const canc = window.store.getState().recording.mode != Recording.TModes.playing
           if (!canc) {
             yield put(playAction) 
             const act: Recording.TActions = yield take([Recording.Consts.PLAY_CONTINUE])
@@ -85,7 +85,7 @@ export const saga = function* () {
           return canc
         }
         while (true) {
-          let state = window.lmGlobal.store.getState().recording
+          let state = window.store.getState().recording
           if (!playSelected) {
             if (!state.idx) state = yield* setPlayInitState(state.startState)
             const rec = state.recording
@@ -105,7 +105,7 @@ export const saga = function* () {
                 break
               } else {
                 yield put({ type: Recording.Consts.PLAY_NEXT, idx: 0, listIdx: state.listIdx + 1 } as Recording.PlayNextAction)
-                state = window.lmGlobal.store.getState().recording
+                state = window.store.getState().recording
                 playList = state.playLists[playSelected[state.listIdx]]
               }
             }
@@ -125,8 +125,8 @@ export const globalReducer: App.IReducer<IState> = (state, action: Recording.Pla
     case Recording.Consts.PLAY_INIT_STATE:
       const { recording } = state
       const newRecording: Recording.IState = { ...recording, mode: Recording.TModes.playing }
-      //if (window.lmGlobal.platform.routerPlatform.computeState) //expand WEB routes to native routes
-      //  action.startState = { ...action.startState, router: window.lmGlobal.platform.routerPlatform.computeState(action.startState.router, undefined)}
+      //if (window.platform.routerPlatform.computeState) //expand WEB routes to native routes
+      //  action.startState = { ...action.startState, router: window.platform.routerPlatform.computeState(action.startState.router, undefined)}
       return { ...action.startState, recording: newRecording }
     default: return state
   }
@@ -138,7 +138,7 @@ export const reducer: App.IReducer<Recording.IState> = (state, action: Recording
   if (!state) return { ...resetState, ...initState }
   switch (action.type) {
     case Recording.Consts.RECORD_START:
-      const { recording, ...startState } = window.lmGlobal.store.getState()
+      const { recording, ...startState } = window.store.getState()
       return { ...state, mode: Recording.TModes.recording, recording: [], startState: JSON.parse(JSON.stringify(startState)) }
     case Recording.Consts.RECORD:
       return { ...state, recording: [...state.recording, action.action], playMsg: `REC: ${state.recording.length + 1}` }

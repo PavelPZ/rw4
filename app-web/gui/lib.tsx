@@ -22,10 +22,10 @@ export const ClickHandler = (onPress: () => void, props) => {
 }
 
 export const colorToStyle = {
-  [GUI.Colors.success]: GUI.Colors.Green,
   [GUI.Colors.primary]: GUI.Colors.Indigo,
-  [GUI.Colors.danger]: GUI.Colors.Pink,
   [GUI.Colors.secondary]: GUI.Colors.Pink,
+  [GUI.Colors.danger]: GUI.Colors.Pink,
+  [GUI.Colors.success]: GUI.Colors.Green,
   [GUI.Colors.warning]: GUI.Colors.Orange,
   [GUI.Colors.info]: GUI.Colors.Blue,
   [GUI.Colors.default]: GUI.Colors.White,

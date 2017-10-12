@@ -28,11 +28,11 @@ export class AnimatedDrawer extends React.PureComponent<GUI.IAnimatedMobileDrawe
       return val < 0 ? 0 : (val > 1 ? 1 : val)
     }
     const dxStart = 0.11 * drawerWidth
-    const onPanResponderRelease = (e, gestureState) => { if (uninterpolate(gestureState.dx) > 0.4) doAnimation(true, true); else doAnimation(false) }
 
+    const onPanResponderRelease = (e, gestureState) => { if (uninterpolate(gestureState.dx) > 0.4/*pomer sirky draweru, po kterem se drawer otevre*/) doAnimation(true, true); else doAnimation(false) }
     const toVisibleHandlers = PanResponder.create({
       onMoveShouldSetPanResponderCapture: (e, gestureState) => {
-        if (e.nativeEvent.pageX > 40 || (gestureState.dx > 10 && Math.abs(gestureState.dy) < 10)) return false
+        if (e.nativeEvent.pageX > (isTablet ? 60 : 40 /*sirka pruhu vlevo, citriveho na drag start*/) || (gestureState.dx > 10 && Math.abs(gestureState.dy) < 10)) return false
         value.setValue(0.11)
         return true
       },
@@ -40,11 +40,12 @@ export class AnimatedDrawer extends React.PureComponent<GUI.IAnimatedMobileDrawe
       onPanResponderRelease: onPanResponderRelease,
       onPanResponderTerminate: onPanResponderRelease,
     })
+    const onHideResponderRelease = (e, gestureState) => { if (gestureState.dx < -40) doAnimation(false, false) }
     const toHideHandlers = PanResponder.create({
       onMoveShouldSetPanResponderCapture: (e, gestureState) => gestureState.dx < -10 && Math.abs(gestureState.dy) < 10,
       onPanResponderMove: (e, gestureState) => value.setValue(uninterpolate(gestureState.dx, true)),
-      onPanResponderRelease: () => doAnimation(false, false),
-      onPanResponderTerminate: () => doAnimation(false, false),
+      onPanResponderRelease: onHideResponderRelease,
+      onPanResponderTerminate: onHideResponderRelease
     })
 
     if (isTablet)

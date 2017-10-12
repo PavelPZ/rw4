@@ -37,10 +37,7 @@ import { ActionSheetContainer as ActionSheet } from 'native-base/src/basic/Actio
 
 import { AppPage } from './app-common/snack/app-router'
 
-class AppComp extends React.Component {
-  render() { return <Text>HALLO</Text>}
-}
-
+//class AppComp extends React.Component { render() { return <Text>HALLO</Text>} }
 //import AppComp from './app-native/snack/native-base/index'
 //import AppComp from './app-native/snack/redux-simple';
 //import AppComp from './app-native/snack/navigation';
@@ -65,29 +62,28 @@ class AppComp extends React.Component {
 //import AppComp from './app-native/snack/native-base-button'
 //import AppComp from './app-native/snack/drawer'
 //import AppComp from './app-common/snack/drawer'
+import AppComp from './app-native/snack/page'
+
 
 //console.log('APP')
 
 export const init = async () => {
-  window.lmGlobal = {
-    isNative: true,
-    topMargin: Constants.statusBarHeight,
+  window.rn = true
+  window.platform = {
     OS: Platform.OS,
-    platform: {
-      loginPlatform: null,
-      recordingPlatform: {
-        guiSize: Recording.TGuiSize.icon,
-        //recordingJSON
-      },
-      restAPIPlatform: { serviceUrl: 'http://localhost:3434/rest-api.ashx' }, //NEFUNGUJE
-      routerPlatform: {
-        startRoute: AppPage.getRoute({ title: 'START TITLE | xxx' }),
-        history: createHistory() as Router.IHistory,
-        //computeState: (act, st) => Navigator.router.getStateForAction({ type: 'Navigation/NAVIGATE', routeName: act.params && act.params.query && act.params.query.isModal ? 'Modal' : 'Root', params: act } as NavigationNavigateAction, st),
-        rootUrl: '/web-app.html',
-        getAnimator: getRouteAnimator,
-      },
-    }
+    loginPlatform: null,
+    recordingPlatform: {
+      guiSize: Recording.TGuiSize.icon,
+      //recordingJSON
+    },
+    restAPIPlatform: { serviceUrl: 'http://localhost:3434/rest-api.ashx' }, //NEFUNGUJE
+    routerPlatform: {
+      startRoute: AppPage.getRoute({ title: 'START TITLE | xxx' }),
+      history: createHistory() as Router.IHistory,
+      //computeState: (act, st) => Navigator.router.getStateForAction({ type: 'Navigation/NAVIGATE', routeName: act.params && act.params.query && act.params.query.isModal ? 'Modal' : 'Root', params: act } as NavigationNavigateAction, st),
+      rootUrl: '/web-app.html',
+      getAnimator: getRouteAnimator,
+    },
   }
   initGUI({ colorToStyle, Button, Icon, H1, H2, H3, View, Container, Header, Footer, Content, Text, AnimatedDrawer, Animated })
 
@@ -114,7 +110,7 @@ export const init = async () => {
 
   const sagaMiddleware = createSagaMiddleware()
 
-  const store = window.lmGlobal.store = createStore<IState>(reducers, {}, applyMiddleware(sagaMiddleware, routerMiddleware, recordingMiddleware))
+  const store = window.store = createStore<IState>(reducers, {}, applyMiddleware(sagaMiddleware, routerMiddleware, recordingMiddleware))
 
   await promiseAll([
     initMediaQuery(),
@@ -144,8 +140,8 @@ export const init = async () => {
   </ReduxProvider>
 
   return new Promise<JSX.Element>(resolve => resolve(
-    <AppAll />
-    //<AppComp/>
+    //<AppAll />
+    <AppComp />
   ))
 }
 

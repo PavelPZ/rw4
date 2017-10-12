@@ -1,5 +1,5 @@
 ﻿import React from 'react';
-import { renderCSS } from '../lib/fela'
+import { renderCSSs, renderCSS } from '../lib/fela'
 
 export class AnimatedDrawer extends React.PureComponent<GUI.IAnimatedMobileDrawerProps> {
 
@@ -16,7 +16,7 @@ export class AnimatedDrawer extends React.PureComponent<GUI.IAnimatedMobileDrawe
     if (isTablet)
       return <div
         ref={div => firstRender() && tweens.push(TweenLite.to(div, duration, { paused: true, reversed: true, left: -drawerWidth }))}
-        className={renderCSS({ left: 0, position: 'absolute', top: 0, right: 0, bottom: 0, flexDirection: 'row', display: 'flex' })}
+        className={renderCSSs(absoluteStretch, { flexDirection: 'row', display: 'flex' })}
       >
         {React.cloneElement(menu, { ...menu.props, key: 1, style: { ...menu.props.style, width: drawerWidth } })}
         {React.cloneElement(content, { ...content.props, key: 0, style: { ...content.props.style, flex: 1 } })}
@@ -26,7 +26,7 @@ export class AnimatedDrawer extends React.PureComponent<GUI.IAnimatedMobileDrawe
         React.cloneElement(content, { ...content.props, key: 0, style: { ...content.props.style, ...absoluteStretch } }),
         <div key={1}
           ref={div => firstRender() && tweens.push(TweenLite.to(div, duration, { display: 'block', paused: true, reversed: true, opacity: 0.85 }))}
-          className={renderCSS({ ...absoluteStretch, backgroundColor: 'gray', opacity: 0, display: 'none' })}
+          className={renderCSSs(absoluteStretch, {backgroundColor: 'gray', opacity: 0, display: 'none' })}
           onClick={() => doShowDrawer(false)} />,
         <div key={2}
           ref={div => firstRender() && tweens.push(TweenLite.to(div, duration, { paused: true, reversed: true, left: 0 }))}

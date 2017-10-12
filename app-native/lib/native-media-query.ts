@@ -6,11 +6,11 @@ export const init = () => {
   //console.log('Dimensions.init:', Dimensions.get('window'), Dimensions.get('screen'))
   const { width: rnWidth, height: rnHeight } = Dimensions.get('window')
   const winSize = (rnWidth) => rnWidth >= Media.TMediaBoundaries.desktop ? Media.TWindowSize.desktop : (rnWidth >= Media.TMediaBoundaries.tablet ? Media.TWindowSize.tablet : Media.TWindowSize.mobile)
-  window.lmGlobal.store.dispatch<Media.INativeChangeMediaAction>({ type: Media.Consts.NATIVE_CHANGE_DIMENSION, rnWidth, rnHeight, windowSize: winSize(rnWidth) })
+  window.store.dispatch<Media.INativeChangeMediaAction>({ type: Media.Consts.NATIVE_CHANGE_DIMENSION, rnWidth, rnHeight, windowSize: winSize(rnWidth) })
   Dimensions.addEventListener('change', (res: Media.IDimensionsAddEventListener) => {
     //console.log('Dimensions.addEventListener:', res)
     const { width: rnWidth, height: rnHeight } = res.window
-    window.lmGlobal.store.dispatch<Media.INativeChangeMediaAction>({ type: Media.Consts.NATIVE_CHANGE_DIMENSION, rnWidth, rnHeight, windowSize: winSize(rnWidth) })
+    window.store.dispatch<Media.INativeChangeMediaAction>({ type: Media.Consts.NATIVE_CHANGE_DIMENSION, rnWidth, rnHeight, windowSize: winSize(rnWidth) })
   })
 }
 

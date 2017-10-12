@@ -35,6 +35,28 @@
   //}
 
   //**** BUTTON
+  interface IButtonProps2 {
+    flat?: boolean //nb: transparent
+    raised?: boolean //nb: nic
+    floating?: boolean
+    icon?: boolean //nm: ???
+    swapped?: boolean //md: swapTheming, raised+swapped = nb:bordered
+    disabled?: boolean
+    primary?: boolean
+    secondary?: boolean
+    light?: boolean //nb: nic
+    iconName?: GUI.IonicIcons, //md: iconChildren, nb: <Icon name='icon' />
+    iconAfter?: boolean //md: iconBefore={false}, nb:iconLeft x iconRight
+    //nb colors:
+    dark?: boolean
+    success?: boolean
+    info?: boolean
+    warning?: boolean
+    danger?: boolean
+    color?: GUI.Colors
+    shadow?: GUI.Shadows
+  }
+
 
   const enum ButtonMode {
     raised = 'raised',
@@ -75,7 +97,7 @@
     drawerWidth: number
     screenWidth
     doShowDrawer: (isShow: boolean) => void
-    isTablet?:boolean
+    isTablet?: boolean
     duration?: number
   }
 
@@ -86,10 +108,14 @@
       duration?: number
       backdropShow?: boolean //render anim komponenty vraci null. objevi se a zacne se animovat pri backdropShow===true. Pri backdropShow===false provede animaci a render vrati null
     }
-    onPress?:() => void
+    onPress?: () => void
   }
 }
 
 interface IState {
   gui?: GUI.IState
 }
+
+type ViewProperties = ReactNative.ViewProperties & { web?: React.HTMLAttributes<any>, webStyle?: CSSProperties }
+type TextProperties = ReactNative.TextProperties & { web?: React.HTMLAttributes<any>, webStyle?: CSSProperties }
+

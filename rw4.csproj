@@ -90,6 +90,7 @@
     <TypeScriptCompile Include="app-native\lib\native-media-query.ts" />
     <TypeScriptCompile Include="app-native\lib\web-native-common.d.ts" />
     <TypeScriptCompile Include="app-native\lib\native-router.tsx" />
+    <TypeScriptCompile Include="app-native\snack\page.tsx" />
     <TypeScriptCompile Include="app-native\snack\picker.tsx" />
     <TypeScriptCompile Include="app-web\gui\animated.d.ts" />
     <TypeScriptCompile Include="app-web\gui\drawer.tsx" />
@@ -101,6 +102,7 @@
     <TypeScriptCompile Include="app-web\snack\animated-transition.tsx" />
     <TypeScriptCompile Include="app-web\snack\drawer-native-like.tsx" />
     <TypeScriptCompile Include="app-web\snack\drawer-old.tsx" />
+    <TypeScriptCompile Include="app-web\snack\page.tsx" />
     <TypeScriptCompile Include="app-web\snack\router-new.tsx" />
     <TypeScriptCompile Include="app-web\snack\connect-test.tsx" />
     <TypeScriptCompile Include="app-common\utils\cammel-case.ts" />
@@ -169,7 +171,6 @@
     <TypeScriptCompile Include="app-native\snack\native-base\header.tsx" />
     <TypeScriptCompile Include="app-native\snack\native-base\index.tsx" />
     <TypeScriptCompile Include="app-common\gui\drawer-d.d.ts" />
-    <None Include="app-common\lib\drawer.tsx_" />
     <TypeScriptCompile Include="app-common\lib\lib.tsx" />
     <TypeScriptCompile Include="app-common\lib\rest-api-d.d.ts" />
     <TypeScriptCompile Include="app-common\lib\rest-api.ts" />

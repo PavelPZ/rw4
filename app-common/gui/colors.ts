@@ -8,9 +8,9 @@ export const getBackgroundColor = (color: GUI.Colors, shade?: GUI.Shadows) => {
 
 export const getTextColor = (color: GUI.Colors, shade?: GUI.Shadows, textShade?: GUI.TextShadows) => palette[paletteText[color][shade || GUI.Shadows.S500]][textShade || GUI.TextShadows.Primary] as string
 
-export const getColors = (color: GUI.Colors, shade?: GUI.Shadows) => ({
-  background: getBackgroundColor(color, shade),
-  text: getTextColor(color, shade),
+export const getColors = (color: GUI.Colors, shade?: GUI.Shadows) => (color && {
+  backgroundColor: getBackgroundColor(color, shade),
+  color: getTextColor(color, shade),
 } as GUI.IColorPair)
 
 export const fillColorToStyle = (color: GUI.Colors | string, style: { color?: string }, shadow?: GUI.Shadows) => {

@@ -21,7 +21,6 @@ declare namespace App {
   interface IGlobal {
     store?: Store
     platform: IPlatforms
-    isNative: boolean
     topMargin: number
     OS: ReactNative.PlatformOSType
   }
@@ -53,12 +52,17 @@ declare namespace App {
 }
 
 interface Window {
-  lmGlobal: App.IGlobal
+  //lmGlobal: App.IGlobal
+  store: App.Store
+  platform: IPlatforms
+  rn:boolean
 }
 
 interface IState { }
 
-interface IPlatforms { }
+interface IPlatforms {
+  OS: ReactNative.PlatformOSType
+}
 
 interface IContext {
   store?: App.Store
