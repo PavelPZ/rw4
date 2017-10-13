@@ -1,6 +1,7 @@
 ﻿import React from 'react'
 import { connect, ComponentDecorator } from 'react-redux'
 import { View, Text, Animated, AnimatedDrawer } from '../gui/gui'
+import { Content, Menu } from '../../app-web/snack/page'
 
 const providerConnector: ComponentDecorator<Drawer.IDispatchProps & Drawer.IStateProps, Drawer.IOwnProps> = connect(
   (state: IState) => ({ ...state.drawer, ...state.mediaQuery } as Drawer.IStateProps),
@@ -24,49 +25,6 @@ const absoluteStretch: ReactNative.ViewStyle = { position: 'absolute', top: 0, l
 
 const nonMobileMenuWidth = 256
 
-const mobile: React.SFC<Drawer.IDispatchProps & Drawer.IStateProps & Drawer.IOwnProps> = props => {
-  const { drawerVisible, windowSize, showDrawer, rnWidth } = props
-  const { content, menu, ...rest } = props
-  const drawerWidth = Math.min(320, (window.rn ? rnWidth : window.innerWidth) - 56) //https://react-md.mlaursen.com/components/drawers
-
-  return <AnimatedDrawer
-    willBeVisible={drawerVisible}
-    doShowDrawer={isShow => showDrawer(isShow)}
-    content={Content({ ...rest, ...content })}
-    menu={Menu({ ...rest, ...menu })}
-    drawerWidth={drawerWidth}
-    screenWidth={rnWidth}
-  />
-}
-
-const tablet: React.SFC<Drawer.IDispatchProps & Drawer.IStateProps & Drawer.IOwnProps> = props => {
-
-  const { drawerVisible, windowSize, showDrawer, rnWidth } = props
-  const { content, menu, ...rest } = props
-
-  return <AnimatedDrawer
-    willBeVisible={drawerVisible}
-    doShowDrawer={isShow => showDrawer(isShow)}
-    content={Content({...rest,...content})}
-    menu={Menu({...rest,...menu})}
-    drawerWidth={nonMobileMenuWidth}
-    screenWidth={rnWidth}
-    isTablet
-  />
-}
-
-const desktop: React.SFC<Drawer.IDispatchProps & Drawer.IStateProps & Drawer.IOwnProps> = props => {
-
-  const { drawerVisible, windowSize } = props
-  const { content: cont, menu: men, ...rest } = props
-  const menu = Menu({...rest, ...men})
-  const content = Content({ ...rest, ...cont}) //<Content {...rest} {...cont} />
-  return <View style={{ ...absoluteStretch, flexDirection: 'row', }}>
-    {React.cloneElement(menu, { ...menu.props, key: 0, style: { ...menu.props.style, width: nonMobileMenuWidth } })}
-    {React.cloneElement(content, { ...content.props, key: 1, style: { ...content.props.style, flex: 1  } })}
-  </View>
-}
-
 const drawerLayout: React.SFC<Drawer.IOwnProps> = props => {
   let ActDrawer
   switch (props.windowSize) {
@@ -74,43 +32,82 @@ const drawerLayout: React.SFC<Drawer.IOwnProps> = props => {
     case Media.TWindowSize.tablet: ActDrawer = tablet; break
     case Media.TWindowSize.desktop: ActDrawer = desktop; break
   }
-  return <ActDrawer {...props} />
+  return ActDrawer(props)
+}
+
+const mobile: React.SFC<Drawer.IOwnProps> = props => {
+  const { content, menu, children, drawerVisible, ...rest } = props
+  const { windowSize, showDrawer, rnWidth } = props
+  const drawerWidth = Math.min(320, (window.rn ? rnWidth : window.innerWidth) - 56) //https://react-md.mlaursen.com/components/drawers
+  return <AnimatedDrawer
+    willBeVisible={drawerVisible}
+    doShowDrawer={isShow => showDrawer(isShow)}
+    content={<Content { ...rest} {...content } />}
+    menu={<Menu { ...rest} {...menu } />}
+    drawerWidth={drawerWidth}
+    screenWidth={rnWidth}
+  />
+}
+
+const tablet: React.SFC<Drawer.IOwnProps> = props => {
+  const { content, menu, children, drawerVisible, ...rest } = props
+  const { windowSize, showDrawer, rnWidth } = props
+  return <AnimatedDrawer
+    willBeVisible={drawerVisible}
+    doShowDrawer={isShow => showDrawer(isShow)}
+    content={<Content { ...rest} {...content } />}
+    menu={<Menu { ...rest} {...menu } />}
+    drawerWidth={nonMobileMenuWidth}
+    screenWidth={rnWidth}
+    isTablet
+  />
+}
+
+const desktop: React.SFC<Drawer.IDispatchProps & Drawer.IStateProps & Drawer.IOwnProps> = props => {
+  const { content, menu, children, drawerVisible, ...rest } = props
+  const { windowSize } = props
+  const mm = <Menu {...rest} { ...menu}/>
+  const cc = <Content { ...rest} {...content}/>
+  return <View style={{ ...absoluteStretch, flexDirection: 'row', }}>
+    {React.cloneElement(mm, { ...mm.props, key: 0, style: { ...mm.props.style, width: nonMobileMenuWidth } })}
+    {React.cloneElement(cc, { ...cc.props, key: 1, style: { ...cc.props.style, flex: 1  } })}
+  </View>
 }
 
 //************ CONTENT
 
-const Content: React.SFC<Drawer.IContent> = props => {
-  const { header, content, style, node, ...rest } = props
-  if (node) return node
-  return <View style={style}>
-    <ContentHeader key={1} {...header } {...rest } style={{ height: 50 }} />
-    <ContentContent key={2} {...content } {...rest } style={{ flex: 1 }} />
-  </View>
-}
+//const Content: React.SFC<Drawer.IContent> = props => {
+//  const { header, content, style, node, ...rest } = props
+//  if (node) return node
+//  return <View key={1} style={{ width: 256, zIndex: 1 }} web={{ className: 'md-paper--1' }}> {/*<Container key={1} style={{ flex:0, width:256, backgroundColor: '#fafafa', ...elevation }}>*/}
+//    <ContentHeader key={1} {...header } {...rest } style={{ height: 50 }} />
+//    <ContentContent key={2} {...content } {...rest } style={{ flex: 1 }} />
+//  </View>
+//}
 
-const ContentHeader: React.SFC<Drawer.IContentHeader> = props => {
-  const { left, body, right, style, node, ...rest } = props
-  if (node) return node
-  return <View style={style}>
-  </View>
-}
+//const ContentHeader: React.SFC<Drawer.IContentHeader> = props => {
+//  const { left, body, right, style, node, ...rest } = props
+//  if (node) return node
+//  return <View style={style}>
+//  </View>
+//}
 
-const ContentContent: React.SFC<Drawer.IContentContent> = props => {
-  const { style, node: Node, ...rest } = props
-  if (Node) return <Node { ...props } />
-  return <View style={style as any}>
-    {props.children}
-  </View>
-}
+//const ContentContent: React.SFC<Drawer.IContentContent> = props => {
+//  const { style, node, ...rest } = props
+//  if (node) return node
+//  return <View style={style as any}>
+//    {props.children}
+//  </View>
+//}
 
-const Menu: React.SFC<Drawer.IDispatchProps & Drawer.IStateProps & Drawer.IMenu> = props => {
-  const { header, content, style, nodeChilds, nodeType: NodeType, node, ...rest } = props
-  if (NodeType) return <NodeType { ...props } />
-  if (node) return node
-  return <View style={props.style as any}>
+//const Menu: React.SFC<Drawer.IDispatchProps & Drawer.IStateProps & Drawer.IMenu> = props => {
+//  const { header, content, style, nodeChilds, nodeType: NodeType, node, ...rest } = props
+//  if (NodeType) return <NodeType { ...props } />
+//  if (node) return node
+//  return <View style={props.style as any}>
 
-  </View>
-}
+//  </View>
+//}
 
 export const DrawerLayout = providerConnector(drawerLayout)
 

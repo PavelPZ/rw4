@@ -1,89 +1,201 @@
 ﻿import React from 'react';
-import { Divider, BottomNavigation, Toolbar, Button, ButtonProps, FontIcon } from 'react-md'
-import { View, } from '../../app-common/gui/gui'
-import { colorToStyle } from '../gui/lib'
-import { getColors, getTextColor } from '../../app-common/gui/colors'
+import { Divider, BottomNavigation, Toolbar, FontIcon, Button as MDButton } from 'react-md'
+import { navigateUrl, navigatePush } from '../../app-common/lib/router'
+import { Text, View, Button } from '../../app-common/gui/gui'
+import { colorToStyle } from '../../app-common/gui/gui'
+import { getColors } from '../../app-common/gui/colors'
 import { getIcon2 } from '../../app-common/gui/ionic'
 import { renderCSS } from '../lib/fela'
+import { shallowEqual } from '../../app-common/lib/lib'
 
-const app: React.SFC<any> = props => <View style={[absoluteStretch, { flexDirection: 'row' }]}>
-  <View key={1} style={{ width: 256, zIndex: 1 }} web={{ className: 'md-paper--1' }}>
-    <Toolbar
-      nav={<Button icon>menu</Button>}
-      //title="Colored"
-      titleMenu={<span>Colored</span>}
-      actions={[
-        <Button icon key={1}>menu</Button>,
-      ]}
-    />
-    <Divider style={{ marginTop: -1 }} />
-    <View style={{ flex: 1, padding: 8 }} webStyle={{ overflow: 'auto' }}>
-      {lorem}
+export class Content extends React.Component<Drawer.IContent> {
+  shouldComponentUpdate(nextProps: Drawer.IContent, nextState, nextContext) {
+    const { style: style1, ...rest1 } = this.props
+    const { style: style2, ...rest2 } = nextProps
+    return !shallowEqual(style1, style2) || !shallowEqual(rest1, rest2)
+  }
+
+  render() {
+    const { header, content, style, node, ...rest } = this.props
+    if (node) return React.cloneElement(node, { ...node.props, key: 20 })
+    return <View key={20} style={{ flex: 1 }} >
+      {contentHeader({ ...header, ...rest })}
+      {contentContent({ ...content, ...rest, style: { flex: 1 } })}
     </View>
+  }
+}
+
+const contentHeader: React.SFC<Drawer.IContentHeader> = props => {
+  const { left, title, right, style, node, ...rest } = props
+  if (node) return React.cloneElement(node, { ...node.props, key: 10 })
+  return <Toolbar key={10} colored zDepth={2}
+    nav={left}
+    title={title}
+    actions={right}
+  />
+}
+
+const contentContent: React.SFC<Drawer.IContentContent> = props => {
+  const { style, node, items, ...rest } = props
+  if (node) return React.cloneElement(node, { ...node.props, key: 20 })
+  return <View key={20} style={{ flex: 1, padding: 8, ...style }} webStyle={{ overflow: 'auto' }}>
+    {items(rest)}
   </View>
-  <View key={1} style={{ flex: 1 }} >
-    <Toolbar
-      primary
-      nav={<Button icon>menu</Button>}
-      title="Colored"
-      zDepth={2}
-      actions={[
-        <Button key={1} flat>C</Button>,
-        <Button icon key={2}>menu</Button>,
-        <Button icon key={3}>menu</Button>
-      ]}
-    />
-    <div style={{ flex: 1, overflow: 'auto', padding: 8 }}>
-      <Button2>none</Button2><br />
-      <Button2 primary>primary</Button2><br />
-      <Button2 dark>dark</Button2><br />
-      <Button2 color={GUI.Colors.Cyan} shadow={GUI.Shadows.S200}>color shadow</Button2><br />
-      <Button2 success>success</Button2><br />
-      <Button2 flat info>flat info</Button2><br />
-      <Button2 flat danger iconName={GUI.IonicIcons.bookmark}>flat warning iconName</Button2><br />
-      <Button2 flat warning iconAfter iconName={GUI.IonicIcons.archive}>flat warning iconAfter iconName</Button2><br />
-      <Button2 floating color={GUI.Colors.Cyan} iconName={GUI.IonicIcons.archive}>asdfasd</Button2><br />
-      <Button2 floating danger iconName={GUI.IonicIcons.attach}>asdfasd</Button2><br />
-      <Button2 icon iconName={GUI.IonicIcons.close} primary>asdfasd</Button2><br />
-      <Button2 icon iconName={GUI.IonicIcons.clock} primary swapped></Button2><br />
-      <Button2 icon danger iconName={GUI.IonicIcons.clock} ></Button2><br />
-      <Button2 icon danger swapped iconName={GUI.IonicIcons.logoFacebook} ></Button2><br />
-      <Button2 icon swapped color={GUI.Colors.Cyan} shadow={GUI.Shadows.S200} iconName={GUI.IonicIcons.logoGoogle} ></Button2><br />
-      {/*}
-      */}
-    </div>
-    <BottomNavigation style={{ position: 'static', marginLeft: 1, boxShadow: 0 }} links={[{
-      label: 'Recent',
-      icon: <FontIcon>access_time</FontIcon>,
-    }, {
-      label: 'Favorites',
-      icon: <FontIcon>favorite</FontIcon>,
-    }, {
-      label: 'Nearby',
-      icon: <FontIcon>place</FontIcon>,
-    }]} onNavChange={() => { }} />
+}
+
+export class Menu extends React.Component<Drawer.IMenu> {
+  shouldComponentUpdate(nextProps: Drawer.IContent, nextState, nextContext) {
+    const { style: style1, ...rest1 } = this.props
+    const { style: style2, ...rest2 } = nextProps
+    return !shallowEqual(style1, style2) || !shallowEqual(rest1, rest2)
+  }
+
+  render() {
+    const { header, content, node, ...rest } = this.props
+    if (node) return React.cloneElement(node, { ...node.props, key: 10 })
+    return <View key={10} style={{ width: 256, zIndex: 1 }} web={{ className: 'md-paper--1' }}>
+      {menuHeader({ ...rest, ...header })}
+      <Divider key={20} style={{ marginTop: -1 }} />
+      {menuContent({ ...content, ...rest })}
+    </View>
+  }
+}
+
+const menuHeader = (props: Drawer.IMenuHeader) => {
+  const { node, left, title, right, ...rest } = props
+  if (node) return React.cloneElement(node, { ...node.props, key: 10 })
+  return <Toolbar key={10}
+    nav={left}
+    title={title}
+    actions={right}
+  />
+}
+
+const menuContent = (props: Drawer.IMenuContent) => {
+  const { node, items, ...rest } = props
+  if (node) return React.cloneElement(node, { ...node.props, key: 30 })
+  return <View key={30} style={{ flex: 1, padding: 8 }} webStyle={{ overflow: 'auto' }}>
+    {items(rest)}
   </View>
-</View>
+}
+
+const app: React.SFC<any> = p => {
+
+  const props3: Drawer.IOwnProps = {
+    menu: {
+      header: {
+        left: <MDButton icon>menu</MDButton>,
+        title: 'MENU',
+        right: [<MDButton icon key={1}>menu</MDButton>]
+      },
+      content: {
+        items: props => lorem
+      }
+    },
+    content: {
+      header: {
+        left: <MDButton icon>menu</MDButton>,
+        title: 'Colored',
+        right: [<MDButton key={1} flat>C</MDButton>, <MDButton icon key={2}>menu</MDButton>, <MDButton icon key={3}>menu</MDButton>]
+      },
+      content: {
+        items: props => lorem
+      }
+    }
+  }
+
+
+  const props2: Drawer.IOwnProps = {
+    menu: {
+      header: {
+        node: <Toolbar key={1}
+          nav={<MDButton icon>menu</MDButton>}
+          title="MENU"
+          //titleMenu={<span>Colored</span>}
+          actions={[
+            <MDButton icon key={1}>menu</MDButton>,
+          ]}
+        />
+      },
+      content: {
+        items: props => lorem
+      }
+    },
+    content: {
+      header: {
+        node: <Toolbar key={3}
+          nav={<MDButton icon>menu</MDButton>}
+          title="Colored"
+          colored
+          zDepth={2}
+          actions={[
+            <MDButton key={1} flat>C</MDButton>,
+            <MDButton icon key={2}>menu</MDButton>,
+            <MDButton icon key={3}>menu</MDButton>
+          ]}
+        />
+      },
+      content: {
+        items: props => lorem
+      }
+    }
+  }
+
+  const props1: Drawer.IOwnProps = {
+    menu: {
+      node: <View key={1} style={{ width: 256, zIndex: 1 }} web={{ className: 'md-paper--1' }}>
+        <Toolbar key={1}
+          nav={<MDButton icon>menu</MDButton>}
+          title="MENU"
+          //titleMenu={<span>Colored</span>}
+          actions={[
+            <MDButton icon key={1}>menu</MDButton>,
+          ]}
+        />
+        <Divider key={2} style={{ marginTop: -1 }} />
+        <View key={3} style={{ flex: 1, padding: 8 }} webStyle={{ overflow: 'auto' }}>
+          {lorem}
+        </View>
+      </View>
+    },
+    content: {
+      node: <View key={2} style={{ flex: 1 }} >
+        <Toolbar key={3}
+          nav={<MDButton icon>menu</MDButton>}
+          title="Colored"
+          colored
+          zDepth={2}
+          actions={[
+            <MDButton key={1} flat>C</MDButton>,
+            <MDButton icon key={2}>menu</MDButton>,
+            <MDButton icon key={3}>menu</MDButton>
+          ]}
+        />
+        <View key={4} webStyle={{ overflow: 'auto', }} style={{ flex: 1, padding: 8, flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-between' }}>
+          {lorem}
+        </View>
+        <BottomNavigation key={5} style={{ position: 'static', marginLeft: 1, boxShadow: 0 }} links={[{
+          label: 'Recent',
+          icon: <FontIcon>access_time</FontIcon>,
+        }, {
+          label: 'Favorites',
+          icon: <FontIcon>favorite</FontIcon>,
+        }, {
+          label: 'Nearby',
+          icon: <FontIcon>place</FontIcon>,
+        }]} onNavChange={() => { }} />
+      </View>
+    }
+  }
+  const { menu:m, content:c, ...rest } = props3
+  return <View style={[absoluteStretch, { flexDirection: 'row' }]}>
+    <Menu { ...m} { ...rest }/>
+    <Content { ...c} {...rest }/>
+  </View>
+}
 
 export default app
 
-const lorem = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(i => ['adsf asd fasd f asd fasd f asdf asd fas df asdf asdf ', <br />])
+const lorem = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(i => 'adsf asd fasd f asd fasd f asdf asd fas df asdf asdf ')
 
 const absoluteStretch = { position: 'absolute', top: 0, left: 0, right: 0, bottom: 0 } as ReactNative.ViewStyle
-
-const Button2: React.SFC<GUI.IButtonProps2> = props => {
-  const { light, iconAfter, iconName, dark, success, info, warning, danger, children, swapped, color, shadow, web = {}, ...rest } = props
-  const { className = '' } = web
-  const { flat, floating, icon, raised } = props
-  //color
-  let colorPair = getColors(color, shadow) || getColors(success && colorToStyle[GUI.Colors.success] || info && colorToStyle[GUI.Colors.info] || dark && colorToStyle[GUI.Colors.dark] || info && colorToStyle[GUI.Colors.info] || warning && colorToStyle[GUI.Colors.warning] || danger && colorToStyle[GUI.Colors.danger])
-  if (colorPair && !swapped && (flat || icon)) colorPair = { backgroundColor: 'transparent', color: colorPair.backgroundColor }
-  //icon
-  let iconClassName = getIcon2(iconName, 'android')
-  if (iconClassName) iconClassName = renderCSS({ fontSize: 24 }) + ' icon ion-' + iconClassName
-
-  const mdProps: ButtonProps = {
-    ...rest, swapTheming: swapped, iconBefore: !iconAfter, iconClassName, raised: !flat && !floating && !icon, className: className + ' ' + renderCSS({ ...colorPair, paddingTop: floating ? 10 : (icon ? 6 : undefined) })
-  }
-  return <Button {...mdProps}>{!floating && !icon && children}</Button>
-}

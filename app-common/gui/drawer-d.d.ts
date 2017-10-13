@@ -29,20 +29,20 @@
     menu: IMenu
     content?: IContent
   }
-  interface IMenu extends IStyled {
-    nodeType?: React.ComponentType<IMenu>
+  interface IMenu extends TAllProps {
     node?: JSX.Element
-    nodeChilds?: React.ComponentType<IMenu>[]
     header?: IMenuHeader
     content?: IMenuContent
   }
-  interface IMenuHeader {
+  interface IMenuHeader extends TAllProps {
     node?: JSX.Element
     left?: JSX.Element
-    right?: JSX.Element
+    title?:string,
+    right?: JSX.Element[]
   }
-  interface IMenuContent {
+  interface IMenuContent extends TAllProps {
     node?: JSX.Element
+    items?: (props: TAllProps) => React.ReactNode
   }
   interface IContent extends TAllProps {
     node?: JSX.Element
@@ -52,15 +52,12 @@
   interface IContentHeader extends TAllProps {
     node?: JSX.Element
     left?: JSX.Element
-    body?: JSX.Element
-    right?: IContentRight
-  }
-  interface IContentRight {
-    node?: JSX.Element
-    navItems?: JSX.Element[]
+    title?: string,
+    right?: JSX.Element[]
   }
   interface IContentContent extends TAllProps {
-    node?: React.ComponentType<IContentContent>
+    node?: JSX.Element
+    items?: (props: TAllProps) => React.ReactNode
   }
 
 }

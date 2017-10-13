@@ -39,15 +39,20 @@
     flat?: boolean //nb: transparent
     raised?: boolean //nb: nic
     floating?: boolean
-    icon?: boolean //nm: ???
-    swapped?: boolean //md: swapTheming, raised+swapped = nb:bordered
+    //icon?: boolean //nm: ???
+    bordered?: boolean //md: raised+swapped
+    //swapped?: boolean 
     disabled?: boolean
+    iconName?: GUI.IonicIcons, //md: iconChildren, nb: <Icon name='icon' />
+    iconAfter?: boolean //md: iconBefore={false}, nb:iconLeft x iconRight
+    active?: boolean,
+
+    onPress?: () => void
+    href?: Router.IState
+
     primary?: boolean
     secondary?: boolean
     light?: boolean //nb: nic
-    iconName?: GUI.IonicIcons, //md: iconChildren, nb: <Icon name='icon' />
-    iconAfter?: boolean //md: iconBefore={false}, nb:iconLeft x iconRight
-    active?:boolean,
     //nb colors:
     dark?: boolean
     success?: boolean

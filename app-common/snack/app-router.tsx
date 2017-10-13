@@ -1,5 +1,6 @@
 ﻿import React from 'react'
 import { connect, ComponentDecorator } from 'react-redux'
+import { Button as MDButton } from 'react-md'
 import { Container, Header, Content, Text, Button, H2, View, DrawerLayout } from '../gui/gui'
 import { registerRouter } from '../lib/router'
 import { isLogged, createLoginButton } from '../lib/login'
@@ -9,9 +10,7 @@ import { contextType as locContextType } from '../lib/loc'
 const LoginButton = createLoginButton(props => {
   const { logged, doLoginAction, ...rest } = props
   if (logged == Login.TLoginStatus.unsupported) return null
-  return <Button
-    label={logged == Login.TLoginStatus.logged ? 'LOGOUT' : 'LOGIN'}
-    onPress={doLoginAction} />
+  return <Button onPress={doLoginAction}>{logged == Login.TLoginStatus.logged ? 'LOGOUT' : 'LOGIN'}</Button>
 })
 
 const enum Consts {
@@ -42,30 +41,68 @@ class appPageLow extends React.PureComponent<IOwnProps & IStateProps & IDispatch
     const { query, windowSize, debugSetWindowSize, toogleDrawer, title, title2, onClick } = this.props
     const isModal = query && query.isModal
 
-    return <DrawerLayout menu={{
-      node: <View style={{ backgroundColor: 'purple' }}><Text>MENU{menuCounter++}</Text></View>
-    }} content={{
-      node: <Container style={{ backgroundColor: 'yellow' }}>
-        <Header key={1}>
-          <View><Text style={{ color: 'lightgray' }}>{JSON.stringify(this.props)}</Text></View>
-        </Header>
-        <Content key={2}>
-          <Text key={11} onPress={() => {
-            debugSetWindowSize(windowSize == Media.TWindowSize.desktop ? Media.TWindowSize.mobile : (windowSize == Media.TWindowSize.tablet ? Media.TWindowSize.desktop : Media.TWindowSize.tablet))
-          }}>Window size: {windowSize}</Text>
-          <Text key={21} onPress={() => toogleDrawer()}>Drawer visible Drawer visible Drawer visible</Text>
+    const props3: Drawer.IOwnProps = {
+      menu: {
+        header: {
+          left: <MDButton icon>menu</MDButton>,
+          title: 'MENU',
+          right: [<MDButton icon key={1}>menu</MDButton>]
+        },
+        content: {
+          items: props => <Text>MENU{menuCounter++}</Text>
+        }
+      },
+      content: {
+        header: {
+          left: <MDButton icon>menu</MDButton>,
+          title: 'Colored',
+          right: [<MDButton key={1} flat>C</MDButton>, <MDButton icon key={2}>menu</MDButton>, <MDButton icon key={3}>menu</MDButton>]
+        },
+        content: {
+          items: props => [
+            <Text key={11} onPress={() => {
+              debugSetWindowSize(windowSize == Media.TWindowSize.desktop ? Media.TWindowSize.mobile : (windowSize == Media.TWindowSize.tablet ? Media.TWindowSize.desktop : Media.TWindowSize.tablet))
+            }}>Window size: {windowSize}</Text>,
+            <Text key={21} onPress={() => toogleDrawer()}>Drawer visible Drawer visible Drawer visible</Text>,
 
-          <H2>{title + ' ' + title2 + ' ' + counter++}</H2>
-          <Button /*tabIndex={1}*/ key={1} label='Add to title' href={AppPage.getRoute({ ...this.props, title: title + ' | xxx' } as IRoutePar)} />
-          <Button /*tabIndex={1}*/ key={2} label='Show Modal' href={AppPage.getRoute({ ...this.props, title: title + ' | mmm' } as IRoutePar, true)} />
-          <Button /*tabIndex={1}*/ key={3} label='Goto HOME' href={{ routeName: null }/*home*/} />
-          <Button /*tabIndex={1}*/ key={4} label='DUMMY' />
-          <Button /*tabIndex={1}*/ key={41} label='TITLE2' onPress={() => onClick(title2 + ' t2')} />
-          {!window.rn && <LoginButton key={5} tabIndex={2} />}
-        </Content>
-      </Container>
-    }}>
-    </DrawerLayout>
+            <H2>{title + ' ' + title2 + ' ' + counter++}</H2>,
+            <Button web={{ tabIndex: 1 }} key={1} href={AppPage.getRoute({ ...this.props, title: title + ' | xxx' } as IRoutePar)}>Add to title</Button>,
+            <Button web={{ tabIndex: 2 }} key={2} href={AppPage.getRoute({ ...this.props, title: title + ' | mmm' } as IRoutePar, true)} >Show Modal</Button>,
+            <Button web={{ tabIndex: 3 }} key={3} href={{ routeName: null }/*home*/} >Goto HOME</Button>,
+            <Button web={{ tabIndex: 4 }} key={4} >DUMMY</Button>,
+            <Button web={{ tabIndex: 5 }} key={41} onPress={() => onClick(title2 + ' t2')} >TITLE2</Button>,
+            !window.rn && <LoginButton key={5} tabIndex={2} />
+          ]
+        }
+      }
+    }
+
+    return <DrawerLayout {...props3}/>
+
+    //return <DrawerLayout menu={{
+    //  node: <View style={{ backgroundColor: 'purple' }}><Text>MENU{menuCounter++}</Text></View>
+    //}} content={{
+    //  node: <Container style={{ backgroundColor: 'yellow' }}>
+    //    <Header key={1}>
+    //      <View><Text style={{ color: 'lightgray' }}>{JSON.stringify(this.props)}</Text></View>
+    //    </Header>
+    //    <Content key={2}>
+    //      <Text key={11} onPress={() => {
+    //        debugSetWindowSize(windowSize == Media.TWindowSize.desktop ? Media.TWindowSize.mobile : (windowSize == Media.TWindowSize.tablet ? Media.TWindowSize.desktop : Media.TWindowSize.tablet))
+    //      }}>Window size: {windowSize}</Text>
+    //      <Text key={21} onPress={() => toogleDrawer()}>Drawer visible Drawer visible Drawer visible</Text>
+
+    //      <H2>{title + ' ' + title2 + ' ' + counter++}</H2>
+    //      <Button web={{ tabIndex: 1 }} key={1} href={AppPage.getRoute({ ...this.props, title: title + ' | xxx' } as IRoutePar)}>Add to title</Button>
+    //      <Button web={{ tabIndex: 2 }} key={2} href={AppPage.getRoute({ ...this.props, title: title + ' | mmm' } as IRoutePar, true)} >Show Modal</Button>
+    //      <Button web={{ tabIndex: 3 }} key={3} href={{ routeName: null }/*home*/} >Goto HOME</Button>
+    //      <Button web={{ tabIndex: 4 }} key={4} >DUMMY</Button>
+    //      <Button web={{ tabIndex: 5 }} key={41} onPress={() => onClick(title2 + ' t2')} >TITLE2</Button>
+    //      {!window.rn && <LoginButton key={5} tabIndex={2} />}
+    //    </Content>
+    //  </Container>
+    //}}>
+    //</DrawerLayout>
   }
 }
 let counter = 0

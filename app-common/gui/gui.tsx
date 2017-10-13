@@ -1,7 +1,7 @@
 ﻿export * from './drawer'
 
 export let Animated: typeof ReactNative.Animated
-export let Button: React.ComponentType<GUI.IButtonProps>
+export let Button: React.ComponentType<GUI.IButtonProps2>
 export let Icon: React.ComponentType<GUI.IIconProps>
 export let H1: React.ComponentType<TextProperties>
 export let H2: React.ComponentType<TextProperties>
@@ -16,7 +16,7 @@ export let Header: React.ComponentType<ViewProperties>
 export let Footer: React.ComponentType<ViewProperties>
 //export let Page: React.ComponentType<Router.IPageProps>
 //export const DrawerLayout = _DrawerLayout
-export let colorToStyle: { [color: string]: string }
+export let colorToStyle: { [color: string]: GUI.Colors }
 
 export const initGUI = async (pl: IPlatform) => {
   Animated = pl.Animated
@@ -37,7 +37,7 @@ export const initGUI = async (pl: IPlatform) => {
 }
 
 interface IPlatform {
-  Button: React.ComponentType<GUI.IButtonProps>
+  Button: React.ComponentType<GUI.IButtonProps2>
   Icon: React.ComponentType<GUI.IIconProps>
   H1: React.ComponentType<TextProperties>
   H2: React.ComponentType<TextProperties>
@@ -50,6 +50,6 @@ interface IPlatform {
   Footer: React.ComponentType<ViewProperties>
   Content: React.ComponentType<ViewProperties>
   //Page: React.ComponentType<Router.IRoutePar>
-  colorToStyle: { [color: string]: string }
+  colorToStyle: { [color: string]: GUI.Colors }
   Animated: typeof ReactNative.Animated
 }

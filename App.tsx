@@ -85,7 +85,7 @@ export const init = async () => {
       getAnimator: getRouteAnimator,
     },
   }
-  initGUI({ colorToStyle, Button, Icon, H1, H2, H3, View, Container, Header, Footer, Content, Text, AnimatedDrawer, Animated })
+  initGUI({ colorToStyle: {}, Button, Icon, H1, H2, H3, View, Container, Header, Footer, Content, Text, AnimatedDrawer, Animated })
 
   const recordingJSON = await require('./App_Data/recording.json')
   //console.log('recordingJSON:\n', JSON.stringify(recordingJSON,null,2))
