@@ -141,7 +141,7 @@ export const init = async () => {
   //noRouteApp = <DrawerApp />
   //noRouteApp = <DrawerNativeLikeApp />
   //noRouteApp = <DrawerCommon/>
-  noRouteApp = <Page />
+  //noRouteApp = <Page />
 
 
 

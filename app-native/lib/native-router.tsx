@@ -32,7 +32,7 @@ export class AnimatedPromise extends PromiseExtensible<void> {
 
 export const getAnimator = (animValue: WebNativeCommon.TRouterAnimRoot, display: boolean) => new AnimatedPromise(animValue, display)
 
-export class Page extends React.PureComponent<Router.IPageProps> {
+export class Page extends React.PureComponent<Router.IRouterPageProps> {
   value = new Animated.Value(1)
   componentDidMount() { this.props.refForAnimation(this.value) }
   render() {

@@ -12,11 +12,11 @@ import UrlPattern from 'url-pattern'
 
 const routes: { [name: string]: Router.IRouteComponent } = {}
 
-export const providerConnector: ComponentDecorator<Router.IRouterStateProps & Router.IRouterDispatchProps, {}> = connect(
+export const providerConnector: ComponentDecorator<Router.IRouterProps, {}> = connect(
   (state: IState) => ({ ...state.router, ...state.mediaQuery }),
   (dispatch) => ({
     debugSetWindowSize: windowSize => dispatch({ type: Media.Consts.WEB_CHANGE_MEDIA, windowSize } as Media.IWebChangeMediaAction),
-  } as Router.IRouterDispatchProps)
+  } as Router.IRouterDispatch)
 )
 
 export const globalReducer: App.IReducer<IState> = (state, action: Router.IAction) => {
@@ -46,7 +46,7 @@ export const globalReducer: App.IReducer<IState> = (state, action: Router.IActio
   }
 }
 
-class provider extends React.PureComponent<Router.IRouterStateProps> {
+class provider extends React.PureComponent<Router.IRouterProps> {
   render() {
     const props = this.props
     if (!props || !props.routeName) return null
@@ -57,7 +57,7 @@ class provider extends React.PureComponent<Router.IRouterStateProps> {
     const Route = routes[props.routeName]
     const { getAnimator } = window.platform.routerPlatform
     const { params: pars, ...mediaPars } = props
-    const params: Router.IPageProps = { ...pars, ...mediaPars }
+    const params: Router.IRouterPageProps = { ...pars, ...mediaPars }
 
     return <Route key={routeCount++} {...params} refForAnimation={async div => {
       if (!div) return
@@ -108,7 +108,7 @@ export const navigateUrl = (route: Router.IState) => {
   return historyUrl(router.urlPattern, route)
 }
 
-export function registerRouter<TPar extends Router.IRoutePar = Router.IRoutePar>(router: React.ComponentType<Router.IPageProps<TPar>>, routeName: string, urlMask?: string, extension?: Router.IRoute<TPar>) {
+export function registerRouter<TPar extends Router.IRoutePar = Router.IRoutePar>(router: React.ComponentType<Router.IRouterPageProps<TPar>>, routeName: string, urlMask?: string, extension?: Router.IRoute<TPar>) {
   invariant(!routes[routeName], 'registerRouter: route %0 already exists', routeName);
   const res = Object.assign(router, extension) as Router.IRouteComponent
   res.routeName = routeName

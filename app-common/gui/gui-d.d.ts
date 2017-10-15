@@ -97,14 +97,14 @@
 
   //**** DRAWER
 
-  interface IAnimatedMobileDrawerProps {
-    content: JSX.Element
-    menu: JSX.Element
-    drawerVisible: boolean
+  interface IAnimatedMobileDrawerProps extends Drawer.IProps {
+    //content: JSX.Element
+    //menu: JSX.Element
+    //drawerVisible: boolean
     drawerWidth: number
-    screenWidth
-    showDrawer: (isShow: boolean) => void
-    refForAnimation: (div: WebNativeCommon.TRouterAnimRoot) => void
+    screenWidth: number
+    //showDrawer: (isShow: boolean) => void
+    //refForAnimation: (div: WebNativeCommon.TRouterAnimRoot) => void
     isTablet?: boolean
     duration?: number
   }

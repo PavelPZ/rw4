@@ -17,16 +17,14 @@
   //  //drawerVisible?:boolean
   //}
 
-  type IRouterStateProps<TRoutePar extends IRoutePar = any> = IState<string, TRoutePar> & Media.IMediaProps
-  interface IRouterDispatchProps {
+  type IRouterState<TRoutePar extends IRoutePar = any> = IState<string, TRoutePar> & Media.IMediaProps
+  interface IRouterDispatch {
     debugSetWindowSize?: (windowSize: Media.TWindowSize) => void
   }
-  
-  type IPageProps<TRoutePar extends IRoutePar = IRoutePar> = TRoutePar & Media.IMediaProps & { refForAnimation?: (root: WebNativeCommon.TRouterAnimRoot) => void } & IRouterDispatchProps
+  type IRouterProps = IRouterState & IRouterDispatch
 
-  //interface IPageDispatchProps {
-  //  showDrawer?:(visible:boolean) => void
-  //}
+  //==IRouterProps, IRoutePar je posunut na misto IState
+  type IRouterPageProps<TRoutePar extends IRoutePar = IRoutePar> = TRoutePar & Media.IMediaProps & { refForAnimation?: (root: WebNativeCommon.TRouterAnimRoot) => void } & IRouterDispatch
 
   interface IState<TName extends string = string, TRoutePar extends IRoutePar = any> {
     routeName: TName
@@ -63,7 +61,7 @@
     reducer?: (state: App.IGlobalState, action: App.Action) => App.IGlobalState
   }
 
-  type IRouteComponent<TPar extends IRoutePar = IRoutePar> = React.ComponentType<IPageProps<TPar>> & IRoute<IPageProps<TPar>>
+  type IRouteComponent<TPar extends IRoutePar = IRoutePar> = React.ComponentType<IRouterPageProps<TPar>> & IRoute<IRouterPageProps<TPar>>
 
   type TUnloader = () => void
   type TLoader<TParams extends IRoutePar = IRoutePar> = (params: TParams) => Promise<TUnloader>

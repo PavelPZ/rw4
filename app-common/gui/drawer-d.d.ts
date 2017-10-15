@@ -10,30 +10,35 @@
     visible?: boolean
   }
 
-  interface IStateProps {
+  interface IState {
     drawerVisible?: boolean
   }
 
-  interface IDispatchProps {
+  interface IDispatch {
     showDrawer?(isShow: boolean)
   }
-  //type IStateProps = IState //& Router.IPageProps
+
+  type IOwn = IPageContent & Router.IRouterPageProps
+  type IStateDispatch = IState & IDispatch
+  type IProps = IStateDispatch & IOwn
 
   interface IStyled {
     style?: ReactNative.ViewStyle
     key?: string | number
-    web?
-    webStyle?
+    web?: React.HTMLAttributes<any>,
+    webStyle?: CSSProperties
   }
 
-  type TAllProps = Drawer.IDispatchProps & Drawer.IStateProps & IStyled & Router.IPageProps & { children?: React.ReactNode }
+  type TAllProps = IStateDispatch & IStyled & Router.IRouterPageProps //& { children?: React.ReactNode }
 
-  interface IOwnProps extends Router.IPageProps {
+  type TGetNode = (par: IStyled) => JSX.Element
+
+  interface IPageContent {
     menu: IMenu
     content?: IContent
   }
   interface IMenu extends TAllProps {
-    node?: (prop: IMenu) => JSX.Element
+    node?: TGetNode
     header?: IMenuHeader
     content?: IMenuContent
   }
@@ -44,28 +49,29 @@
     right?: JSX.Element[]
   }
   interface IMenuContent extends TAllProps {
-    node?: JSX.Element
-    items?: (props: TAllProps) => React.ReactNode
+    node?: TGetNode
+    items?: JSX.Element[]
   }
   interface IContent extends TAllProps {
-    node?: JSX.Element
+    node?: TGetNode
+    children?: React.ReactNode
     header?: IContentHeader
     content?: IContentContent
   }
   interface IContentHeader extends TAllProps {
-    node?: JSX.Element
+    node?: TGetNode
     left?: JSX.Element
     title?: string,
     right?: JSX.Element[]
   }
   interface IContentContent extends TAllProps {
-    node?: JSX.Element
-    items?: (props: TAllProps) => React.ReactNode
+    node?: TGetNode
+    items?: JSX.Element[]
   }
 
 }
 
 interface IState {
-  drawer?: Drawer.IStateProps
+  drawer?: Drawer.IState
 }
 
