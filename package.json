@@ -10,11 +10,11 @@
     "@types/history": "^4.6.0",
     "@types/lodash": "^4.14.71",
     "@types/qs": "^6.5.0",
-    "@types/react": "^16.0.8",
-    "@types/react-dom": "^16.0.0",
+    "@types/react": "^16.0.10",
+    "@types/react-dom": "^16.0.1",
     "@types/react-native": "^0.47.0",
-    "@types/react-native-vector-icons": "^4.3.2",
-    "@types/react-navigation": "^1.0.16",
+    "@types/react-native-vector-icons": "^4.4.1",
+    "@types/react-navigation": "^1.0.21",
     "@types/react-redux": "^4.4.47",
     "@types/react-transition-group": "^2.0.4",
     "babel-preset-react-native": "^2.0.0",
@@ -23,9 +23,9 @@
     "history": "^4.7.2",
     "invariant": "^2.2.2",
     "lodash": "^4.17.4",
-    "native-base": "^2.3.1",
+    "native-base": "^2.3.3",
     "react": "^16.0.0",
-    "react-md": "^1.1.4",
+    "react-md": "^1.2.3",
     "react-native": "https://github.com/expo/react-native/archive/sdk-21.0.0.tar.gz",
     "react-native-side-menu": "^1.1.3",
     "react-native-tab-view": "0.0.69",
@@ -33,7 +33,7 @@
     "react-redux": "^5.0.5",
     "redux": "^3.7.2",
     "redux-saga": "^0.15.6",
-    "tslib": "^1.7.1",
+    "tslib": "^1.8.0",
     "url-pattern": "^1.0.3"
   },
   "jspm": {
@@ -60,7 +60,7 @@
       "lodash": "npm:lodash@^4.17.4",
       "prop-types": "npm:prop-types@^15.5.10",
       "qs": "npm:qs@^6.5.0",
-      "react-md": "npm:react-md@^1.1.0",
+      "react-md": "npm:react-md@^1.2.3",
       "react-redux": "npm:react-redux@^5.0.6",
       "react-transition-group": "npm:react-transition-group@^2.2.0",
       "redux-saga": "npm:redux-saga@^0.15.6",
@@ -82,9 +82,9 @@
       "os": "npm:jspm-nodelibs-os@^0.2.0",
       "path": "npm:jspm-nodelibs-path@^0.2.0",
       "process": "npm:jspm-nodelibs-process@^0.2.0",
-      "react": "npm:react",
-      "react-dom": "npm:react-dom@next",
-      "redux": "npm:redux@^3.0.0",
+      "react": "npm:react@^16.0.0-beta.5",
+      "react-dom": "npm:react-dom@16.0.0",
+      "redux": "npm:redux@^3.7.2",
       "stream": "npm:jspm-nodelibs-stream@^0.2.0",
       "string_decoder": "npm:jspm-nodelibs-string_decoder@^0.2.0",
       "url": "npm:jspm-nodelibs-url@^0.2.0",
@@ -119,7 +119,7 @@
       "npm:safe-buffer@5.1.1": {
         "browser": "index.js"
       },
-      "npm:tslib@1.7.1": {
+      "npm:tslib@1.8.0": {
         "format": "cjs",
         "meta": {
           "tslib.js": {

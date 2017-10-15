@@ -23,11 +23,11 @@ SystemJS.config({
   ],
   map: {
     "animated": "npm:animated@0.2.0",
-    "@types/react-dom": "npm:@types/react-dom@16.0.0",
-    "@types/react": "npm:@types/react@16.0.8",
+    "@types/react-dom": "npm:@types/react-dom@16.0.1",
+    "@types/react": "npm:@types/react@16.0.10",
     "es6-promise": "npm:es6-promise@4.1.1",
-    "gsap": "npm:gsap@1.20.2",
-    "react-transition-group": "npm:react-transition-group@2.2.0",
+    "gsap": "npm:gsap@1.20.3",
+    "react-transition-group": "npm:react-transition-group@2.2.1",
     "child_process": "npm:jspm-nodelibs-child_process@0.2.1",
     "http": "npm:jspm-nodelibs-http@0.2.0",
     "https": "npm:jspm-nodelibs-https@0.2.2",
@@ -40,12 +40,12 @@ SystemJS.config({
     "url": "npm:jspm-nodelibs-url@0.2.1",
     "vm": "npm:jspm-nodelibs-vm@0.2.1",
     "fs": "npm:jspm-nodelibs-fs@0.2.1",
-    "react-md": "npm:react-md@1.1.4",
+    "react-md": "npm:react-md@1.2.3",
     "url-pattern": "npm:url-pattern@1.0.3",
     "history": "npm:history@4.7.2",
     "qs": "npm:qs@6.5.1",
-    "react": "npm:react@next",
-    "react-dom": "npm:react-dom@next",
+    "react": "npm:react@16.0.0",
+    "react-dom": "npm:react-dom@16.0.0",
     "buffer": "npm:jspm-nodelibs-buffer@0.2.3",
     "crypto": "npm:jspm-nodelibs-crypto@0.2.1",
     "events": "npm:jspm-nodelibs-events@0.2.2",
@@ -55,11 +55,11 @@ SystemJS.config({
     "util": "npm:jspm-nodelibs-util@0.2.2",
     "fela": "npm:fela@5.2.0",
     "fela-dom": "npm:fela-dom@5.0.8",
-    "fela-plugin-extend": "npm:fela-plugin-extend@5.0.7",
-    "fela-plugin-fallback-value": "npm:fela-plugin-fallback-value@5.0.8",
-    "fela-plugin-lvha": "npm:fela-plugin-lvha@5.0.7",
-    "fela-plugin-prefixer": "npm:fela-plugin-prefixer@5.0.8",
-    "fela-plugin-unit": "npm:fela-plugin-unit@5.0.7",
+    "fela-plugin-extend": "npm:fela-plugin-extend@5.0.10",
+    "fela-plugin-fallback-value": "npm:fela-plugin-fallback-value@5.0.11",
+    "fela-plugin-lvha": "npm:fela-plugin-lvha@5.0.10",
+    "fela-plugin-prefixer": "npm:fela-plugin-prefixer@5.0.11",
+    "fela-plugin-unit": "npm:fela-plugin-unit@5.0.10",
     "assert": "npm:jspm-nodelibs-assert@0.2.1",
     "classnames": "npm:classnames@2.2.5",
     "core-js": "npm:core-js@2.5.1",
@@ -69,7 +69,7 @@ SystemJS.config({
     "process": "npm:jspm-nodelibs-process@0.2.1",
     "prop-types": "npm:prop-types@15.6.0",
     "redux-saga": "npm:redux-saga@0.15.6",
-    "tslib": "npm:tslib@1.7.1",
+    "tslib": "npm:tslib@1.8.0",
     "whatwg-fetch": "npm:whatwg-fetch@2.0.3"
   },
   packages: {
@@ -241,7 +241,7 @@ SystemJS.config({
     "npm:browserify-cipher@1.0.0": {
       "map": {
         "browserify-des": "npm:browserify-des@1.0.0",
-        "browserify-aes": "npm:browserify-aes@1.0.8",
+        "browserify-aes": "npm:browserify-aes@1.1.0",
         "evp_bytestokey": "npm:evp_bytestokey@1.0.3"
       }
     },
@@ -271,7 +271,7 @@ SystemJS.config({
     },
     "npm:parse-asn1@5.1.0": {
       "map": {
-        "browserify-aes": "npm:browserify-aes@1.0.8",
+        "browserify-aes": "npm:browserify-aes@1.1.0",
         "create-hash": "npm:create-hash@1.1.3",
         "evp_bytestokey": "npm:evp_bytestokey@1.0.3",
         "pbkdf2": "npm:pbkdf2@3.0.14",
@@ -342,11 +342,6 @@ SystemJS.config({
         "loose-envify": "npm:loose-envify@1.3.1"
       }
     },
-    "npm:raf@3.3.2": {
-      "map": {
-        "performance-now": "npm:performance-now@2.1.0"
-      }
-    },
     "npm:invariant@2.2.2": {
       "map": {
         "loose-envify": "npm:loose-envify@1.3.1"
@@ -373,14 +368,6 @@ SystemJS.config({
         "iconv-lite": "npm:iconv-lite@0.4.19"
       }
     },
-    "npm:fela-plugin-prefixer@5.0.8": {
-      "map": {
-        "fela-plugin-fallback-value": "npm:fela-plugin-fallback-value@5.0.8",
-        "fela-utils": "npm:fela-utils@6.0.1",
-        "inline-style-prefixer": "npm:inline-style-prefixer@3.0.8",
-        "css-in-js-utils": "npm:css-in-js-utils@2.0.0"
-      }
-    },
     "npm:react-swipeable-views@0.12.8": {
       "map": {
         "react-swipeable-views-utils": "npm:react-swipeable-views-utils@0.12.8",
@@ -403,7 +390,7 @@ SystemJS.config({
     "npm:react-swipeable-views-utils@0.12.8": {
       "map": {
         "react-swipeable-views-core": "npm:react-swipeable-views-core@0.12.8",
-        "react-event-listener": "npm:react-event-listener@0.5.0",
+        "react-event-listener": "npm:react-event-listener@0.5.1",
         "prop-types": "npm:prop-types@15.6.0",
         "fbjs": "npm:fbjs@0.8.16",
         "keycode": "npm:keycode@2.1.9",
@@ -416,59 +403,15 @@ SystemJS.config({
         "babel-runtime": "npm:babel-runtime@6.26.0"
       }
     },
-    "npm:react-motion@0.5.1": {
-      "map": {
-        "raf": "npm:raf@3.3.2",
-        "performance-now": "npm:performance-now@0.2.0",
-        "prop-types": "npm:prop-types@15.6.0"
-      }
-    },
     "npm:fela-dom@5.0.8": {
       "map": {
-        "fela-tools": "npm:fela-tools@5.0.7",
+        "fela-tools": "npm:fela-tools@5.0.10",
         "fela-utils": "npm:fela-utils@6.0.1"
       }
     },
     "npm:fela@5.2.0": {
       "map": {
-        "fela-tools": "npm:fela-tools@5.0.7",
-        "fela-utils": "npm:fela-utils@6.0.1",
-        "css-in-js-utils": "npm:css-in-js-utils@2.0.0"
-      }
-    },
-    "npm:react-event-listener@0.5.0": {
-      "map": {
-        "warning": "npm:warning@3.0.0",
-        "prop-types": "npm:prop-types@15.6.0",
-        "fbjs": "npm:fbjs@0.8.16",
-        "babel-runtime": "npm:babel-runtime@6.26.0"
-      }
-    },
-    "npm:fela-plugin-extend@5.0.7": {
-      "map": {
-        "fela-utils": "npm:fela-utils@6.0.1",
-        "css-in-js-utils": "npm:css-in-js-utils@2.0.0"
-      }
-    },
-    "npm:fela-plugin-unit@5.0.7": {
-      "map": {
-        "fela-utils": "npm:fela-utils@6.0.1",
-        "css-in-js-utils": "npm:css-in-js-utils@2.0.0"
-      }
-    },
-    "npm:fela-plugin-lvha@5.0.7": {
-      "map": {
-        "fela-utils": "npm:fela-utils@6.0.1"
-      }
-    },
-    "npm:fela-plugin-fallback-value@5.0.8": {
-      "map": {
-        "fela-utils": "npm:fela-utils@6.0.1",
-        "css-in-js-utils": "npm:css-in-js-utils@2.0.0"
-      }
-    },
-    "npm:fela-tools@5.0.7": {
-      "map": {
+        "fela-tools": "npm:fela-tools@5.0.10",
         "fela-utils": "npm:fela-utils@6.0.1",
         "css-in-js-utils": "npm:css-in-js-utils@2.0.0"
       }
@@ -493,16 +436,6 @@ SystemJS.config({
     "npm:css-in-js-utils@2.0.0": {
       "map": {
         "hyphenate-style-name": "npm:hyphenate-style-name@1.0.2"
-      }
-    },
-    "npm:browserify-aes@1.0.8": {
-      "map": {
-        "cipher-base": "npm:cipher-base@1.0.4",
-        "create-hash": "npm:create-hash@1.1.3",
-        "evp_bytestokey": "npm:evp_bytestokey@1.0.3",
-        "inherits": "npm:inherits@2.0.3",
-        "safe-buffer": "npm:safe-buffer@5.1.1",
-        "buffer-xor": "npm:buffer-xor@1.0.3"
       }
     },
     "npm:pbkdf2@3.0.14": {
@@ -532,63 +465,10 @@ SystemJS.config({
         "safe-buffer": "npm:safe-buffer@5.1.1"
       }
     },
-    "npm:react-transition-group@1.2.0": {
-      "map": {
-        "loose-envify": "npm:loose-envify@1.3.1",
-        "prop-types": "npm:prop-types@15.6.0",
-        "dom-helpers": "npm:dom-helpers@3.2.1",
-        "chain-function": "npm:chain-function@1.0.0",
-        "warning": "npm:warning@3.0.0"
-      }
-    },
-    "npm:react-transition-group@2.2.0": {
-      "map": {
-        "loose-envify": "npm:loose-envify@1.3.1",
-        "chain-function": "npm:chain-function@1.0.0",
-        "classnames": "npm:classnames@2.2.5",
-        "dom-helpers": "npm:dom-helpers@3.2.1",
-        "warning": "npm:warning@3.0.0",
-        "prop-types": "npm:prop-types@15.6.0"
-      }
-    },
-    "npm:react-md@1.1.4": {
-      "map": {
-        "classnames": "npm:classnames@2.2.5",
-        "react-motion": "npm:react-motion@0.5.1",
-        "react-transition-group": "npm:react-transition-group@1.2.0",
-        "react-prop-types": "npm:react-prop-types@0.4.0",
-        "prop-types": "npm:prop-types@15.6.0",
-        "invariant": "npm:invariant@2.2.2",
-        "resize-observer-polyfill": "npm:resize-observer-polyfill@1.4.2",
-        "react-swipeable-views": "npm:react-swipeable-views@0.12.8"
-      }
-    },
-    "npm:react@next": {
-      "map": {
-        "object-assign": "npm:object-assign@4.1.1",
-        "loose-envify": "npm:loose-envify@1.3.1",
-        "fbjs": "npm:fbjs@0.8.16",
-        "prop-types": "npm:prop-types@15.6.0"
-      }
-    },
-    "npm:react-dom@next": {
-      "map": {
-        "object-assign": "npm:object-assign@4.1.1",
-        "loose-envify": "npm:loose-envify@1.3.1",
-        "fbjs": "npm:fbjs@0.8.16",
-        "prop-types": "npm:prop-types@15.6.0"
-      }
-    },
     "npm:inline-style-prefixer@3.0.8": {
       "map": {
         "css-in-js-utils": "npm:css-in-js-utils@2.0.0",
-        "bowser": "npm:bowser@1.7.3"
-      }
-    },
-    "npm:@types/react-dom@16.0.0": {
-      "map": {
-        "@types/react": "npm:@types/react@16.0.8",
-        "@types/node": "npm:@types/node@8.0.32"
+        "bowser": "npm:bowser@1.8.0"
       }
     },
     "npm:animated@0.2.0": {
@@ -604,7 +484,7 @@ SystemJS.config({
         "promise": "npm:promise@7.3.1",
         "isomorphic-fetch": "npm:isomorphic-fetch@2.2.1",
         "core-js": "npm:core-js@1.2.7",
-        "ua-parser-js": "npm:ua-parser-js@0.7.14",
+        "ua-parser-js": "npm:ua-parser-js@0.7.17",
         "setimmediate": "npm:setimmediate@1.0.5"
       }
     },
@@ -631,6 +511,130 @@ SystemJS.config({
       "map": {
         "bn.js": "npm:bn.js@4.11.8",
         "brorand": "npm:brorand@1.1.0"
+      }
+    },
+    "npm:react-md@1.2.3": {
+      "map": {
+        "react-swipeable-views": "npm:react-swipeable-views@0.12.8",
+        "react-prop-types": "npm:react-prop-types@0.4.0",
+        "resize-observer-polyfill": "npm:resize-observer-polyfill@1.4.2",
+        "react-motion": "npm:react-motion@0.5.2",
+        "prop-types": "npm:prop-types@15.6.0",
+        "classnames": "npm:classnames@2.2.5",
+        "react-transition-group": "npm:react-transition-group@1.2.1"
+      }
+    },
+    "npm:react-dom@16.0.0": {
+      "map": {
+        "loose-envify": "npm:loose-envify@1.3.1",
+        "fbjs": "npm:fbjs@0.8.16",
+        "prop-types": "npm:prop-types@15.6.0",
+        "object-assign": "npm:object-assign@4.1.1"
+      }
+    },
+    "npm:react@16.0.0": {
+      "map": {
+        "loose-envify": "npm:loose-envify@1.3.1",
+        "fbjs": "npm:fbjs@0.8.16",
+        "prop-types": "npm:prop-types@15.6.0",
+        "object-assign": "npm:object-assign@4.1.1"
+      }
+    },
+    "npm:react-motion@0.5.2": {
+      "map": {
+        "prop-types": "npm:prop-types@15.6.0",
+        "performance-now": "npm:performance-now@0.2.0",
+        "raf": "npm:raf@3.4.0"
+      }
+    },
+    "npm:react-transition-group@1.2.1": {
+      "map": {
+        "prop-types": "npm:prop-types@15.6.0",
+        "loose-envify": "npm:loose-envify@1.3.1",
+        "dom-helpers": "npm:dom-helpers@3.2.1",
+        "warning": "npm:warning@3.0.0",
+        "chain-function": "npm:chain-function@1.0.0"
+      }
+    },
+    "npm:raf@3.4.0": {
+      "map": {
+        "performance-now": "npm:performance-now@2.1.0"
+      }
+    },
+    "npm:react-event-listener@0.5.1": {
+      "map": {
+        "babel-runtime": "npm:babel-runtime@6.26.0",
+        "fbjs": "npm:fbjs@0.8.16",
+        "prop-types": "npm:prop-types@15.6.0",
+        "warning": "npm:warning@3.0.0"
+      }
+    },
+    "npm:browserify-aes@1.1.0": {
+      "map": {
+        "cipher-base": "npm:cipher-base@1.0.4",
+        "safe-buffer": "npm:safe-buffer@5.1.1",
+        "create-hash": "npm:create-hash@1.1.3",
+        "evp_bytestokey": "npm:evp_bytestokey@1.0.3",
+        "inherits": "npm:inherits@2.0.3",
+        "buffer-xor": "npm:buffer-xor@1.0.3"
+      }
+    },
+    "npm:react-transition-group@2.2.1": {
+      "map": {
+        "classnames": "npm:classnames@2.2.5",
+        "prop-types": "npm:prop-types@15.6.0",
+        "dom-helpers": "npm:dom-helpers@3.2.1",
+        "chain-function": "npm:chain-function@1.0.0",
+        "warning": "npm:warning@3.0.0",
+        "loose-envify": "npm:loose-envify@1.3.1"
+      }
+    },
+    "npm:fela-plugin-prefixer@5.0.11": {
+      "map": {
+        "fela-plugin-fallback-value": "npm:fela-plugin-fallback-value@5.0.11",
+        "css-in-js-utils": "npm:css-in-js-utils@2.0.0",
+        "fela-utils": "npm:fela-utils@7.0.2",
+        "inline-style-prefixer": "npm:inline-style-prefixer@3.0.8"
+      }
+    },
+    "npm:@types/react-dom@16.0.1": {
+      "map": {
+        "@types/react": "npm:@types/react@16.0.10",
+        "@types/node": "npm:@types/node@8.0.34"
+      }
+    },
+    "npm:fela-plugin-unit@5.0.10": {
+      "map": {
+        "css-in-js-utils": "npm:css-in-js-utils@2.0.0",
+        "fela-utils": "npm:fela-utils@7.0.2"
+      }
+    },
+    "npm:fela-plugin-fallback-value@5.0.11": {
+      "map": {
+        "css-in-js-utils": "npm:css-in-js-utils@2.0.0",
+        "fela-utils": "npm:fela-utils@7.0.2"
+      }
+    },
+    "npm:fela-plugin-extend@5.0.10": {
+      "map": {
+        "css-in-js-utils": "npm:css-in-js-utils@2.0.0",
+        "fela-utils": "npm:fela-utils@7.0.2"
+      }
+    },
+    "npm:fela-plugin-lvha@5.0.10": {
+      "map": {
+        "fela-utils": "npm:fela-utils@7.0.2"
+      }
+    },
+    "npm:fela-utils@7.0.2": {
+      "map": {
+        "css-in-js-utils": "npm:css-in-js-utils@2.0.0"
+      }
+    },
+    "npm:fela-tools@5.0.10": {
+      "map": {
+        "css-in-js-utils": "npm:css-in-js-utils@2.0.0",
+        "fela-utils": "npm:fela-utils@7.0.2"
       }
     }
   }

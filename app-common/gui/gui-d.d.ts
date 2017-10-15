@@ -39,9 +39,7 @@
     flat?: boolean //nb: transparent
     raised?: boolean //nb: nic
     floating?: boolean
-    //icon?: boolean //nm: ???
     bordered?: boolean //md: raised+swapped
-    //swapped?: boolean 
     disabled?: boolean
     iconName?: GUI.IonicIcons, //md: iconChildren, nb: <Icon name='icon' />
     iconAfter?: boolean //md: iconBefore={false}, nb:iconLeft x iconRight
@@ -65,18 +63,18 @@
   }
 
 
-  const enum ButtonMode {
-    raised = 'raised',
-    flat = 'flat',
-    fixedTR = 'fixedTR',
-    fixedTL = 'fixedTL',
-    fixedBR = 'fixedBR',
-    fixedBL = 'fixedBL',
-    rounded = 'rounded',
-    roundedMini = 'roundedMini',
-    icon = 'icon',
-    bordered = 'bordered', //for Nativebase only
-  }
+  //const enum ButtonMode {
+  //  raised = 'raised',
+  //  flat = 'flat',
+  //  fixedTR = 'fixedTR',
+  //  fixedTL = 'fixedTL',
+  //  fixedBR = 'fixedBR',
+  //  fixedBL = 'fixedBL',
+  //  rounded = 'rounded',
+  //  roundedMini = 'roundedMini',
+  //  icon = 'icon',
+  //  bordered = 'bordered', //for Nativebase only
+  //}
 
   //interface IButtonProps { //default raised, primary
   //  onPress?: () => void
@@ -105,15 +103,15 @@
     duration?: number
   }
 
-  interface IAnimatedViewProps extends ReactNative.ViewProperties {
-    anim?: {
-      propName: string //jmeno animacni property, napr. LEFT, OPACITY apod
-      targetValue: number //cilova hodnota animace
-      duration?: number
-      backdropShow?: boolean //render anim komponenty vraci null. objevi se a zacne se animovat pri backdropShow===true. Pri backdropShow===false provede animaci a render vrati null
-    }
-    onPress?: () => void
-  }
+  //interface IAnimatedViewProps extends ReactNative.ViewProperties {
+  //  anim?: {
+  //    propName: string //jmeno animacni property, napr. LEFT, OPACITY apod
+  //    targetValue: number //cilova hodnota animace
+  //    duration?: number
+  //    backdropShow?: boolean //render anim komponenty vraci null. objevi se a zacne se animovat pri backdropShow===true. Pri backdropShow===false provede animaci a render vrati null
+  //  }
+  //  onPress?: () => void
+  //}
 }
 
 interface IState {
