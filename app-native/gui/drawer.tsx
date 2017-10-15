@@ -1,6 +1,8 @@
 ﻿import React from 'react';
 import { View, Animated, TouchableWithoutFeedback, PanResponder } from 'react-native'
 
+export const getDrawerHeader = (isContent: boolean, props: Drawer.IHeader) => <View/>
+
 export class AnimatedDrawer extends React.PureComponent<GUI.IAnimatedMobileDrawerProps> {
   rendered: boolean
   value = new Animated.Value(this.props.drawerVisible ? 1 : 0)
@@ -8,7 +10,7 @@ export class AnimatedDrawer extends React.PureComponent<GUI.IAnimatedMobileDrawe
 
   render() {
     const { animation, rendered, value, props } = this
-    const { isTablet, duration, content, menu, drawerVisible: willBeVisible, drawerWidth, showDrawer, screenWidth } = props
+    const { isTablet, duration, content, menu, drawerVisible: willBeVisible, drawerWidth, showDrawer, screenWidth, getMenu, getContent } = props
     const doAnimation = (willBeVisible: boolean, newDrawerState?: boolean) => {
       this.animation = Animated.timing(value, { toValue: willBeVisible ? 1 : 0, duration: duration || App.Consts.animationDurationMsec, delay: 1 })
       this.animation.start(() => { this.animation = null; if (typeof (newDrawerState) != 'undefined') showDrawer(newDrawerState) })
@@ -51,18 +53,18 @@ export class AnimatedDrawer extends React.PureComponent<GUI.IAnimatedMobileDrawe
     if (isTablet)
       return <View style={absoluteStretch as any} {...!willBeVisible ? toVisibleHandlers.panHandlers : toHideHandlers.panHandlers}>
         <Animated.View style={{ left: leftValue as any, position: 'absolute', top: 0, right: 0, bottom: 0, flexDirection: 'row' }} >
-          {React.cloneElement(menu, { ...menu.props, key: 1, style: { ...menu.props.style, width: drawerWidth } })}
-          {React.cloneElement(content, { ...content.props, key: 0, style: { ...content.props.style, flex: 1 } })}
+          {getMenu(menu, { key: 1, style: { width: drawerWidth } })}
+          {getContent(content, { key: 0, style: { flex: 1 } })}
         </Animated.View>
       </View>
     else
       return <View style={absoluteStretch as any} {...!willBeVisible ? toVisibleHandlers.panHandlers : toHideHandlers.panHandlers}>
-        {React.cloneElement(content, { ...content.props, key: 0, style: { ...content.props.style, ...absoluteStretch } })}
+        {getContent(content, { key: 0, style: absoluteStretch as ReactNative.ViewProperties })}
         <TouchableWithoutFeedback key={1} onPress={() => showDrawer(false)}>
           <Animated.View style={{ opacity: opacityValue as any, width: widthValue as any, ...topBottom, left: 0, backgroundColor: 'gray' }} />
         </TouchableWithoutFeedback>
         <Animated.View key={2} style={{ left: leftValue as any, ...topBottom, width: drawerWidth }} >
-          {React.cloneElement(menu, { ...menu.props, style: { ...menu.props.style, flex: 1 } })}
+          {getMenu(menu, { style: { flex: 1 } })}
         </Animated.View>
       </View>
   }

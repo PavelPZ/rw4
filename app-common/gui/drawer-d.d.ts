@@ -39,11 +39,10 @@
   }
   interface IMenu extends TAllProps {
     node?: TGetNode
-    header?: IMenuHeader
+    header?: IHeader
     content?: IMenuContent
   }
-  interface IMenuHeader extends TAllProps {
-    node?: JSX.Element
+  interface IHeader extends TAllProps {
     left?: JSX.Element
     title?: string,
     right?: JSX.Element[]
@@ -55,15 +54,10 @@
   interface IContent extends TAllProps {
     node?: TGetNode
     children?: React.ReactNode
-    header?: IContentHeader
+    header?: IHeader
     content?: IContentContent
   }
-  interface IContentHeader extends TAllProps {
-    node?: TGetNode
-    left?: JSX.Element
-    title?: string,
-    right?: JSX.Element[]
-  }
+  
   interface IContentContent extends TAllProps {
     node?: TGetNode
     items?: JSX.Element[]

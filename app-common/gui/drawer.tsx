@@ -1,13 +1,11 @@
 ﻿import React from 'react'
 import { connect, ComponentDecorator } from 'react-redux'
-import { View, Text, AnimatedDrawer } from '../gui/gui'
+import { View, Text, AnimatedDrawer, getDrawerHeader } from '../gui/gui'
 
-//const Menu: React.SFC<Drawer.IMenu> = props => <View style={{ backgroundColor: 'lightgray', width: 256 }}><Text>MENU MENU MENU MENU MENU MENU MENU MENU MENU MENU MENU MENU </Text></View>
-//const Content: React.SFC<Drawer.IContent> = props => <View style={{ backgroundColor: 'yellow', flex: 1 }}><Text>CONTENT CONTENT CONTENT CONTENT CONTENT CONTENT CONTENT CONTENT CONTENT CONTENT CONTENT CONTENT CONTENT CONTENT CONTENT CONTENT CONTENT CONTENT </Text></View>
-import { getMenu, getContent } from '../../app-web/gui/drawer'
+const getContent = (pars: Drawer.IContent, st: Drawer.IStyled) => <Content {...pars} {...st} />
+const getMenu = (pars: Drawer.IMenu, st: Drawer.IStyled) => <Menu {...pars} {...st} />
 
-
-export const providerConnector: ComponentDecorator<Drawer.IStateDispatch, Drawer.IOwn> = connect(
+export const providerConnector: ComponentDecorator<Drawer.IStateDispatch, {}> = connect(
   (state: IState) => ({ ...state.drawer, ...state.mediaQuery } as Drawer.IState),
   dispatch => ({
     showDrawer: visible => dispatch({ type: Drawer.Consts.SHOW, visible }),
@@ -26,33 +24,25 @@ export const reducer: App.IReducer<Drawer.IState> = (state, action: Drawer.Actio
 }
 
 const mobile: React.SFC<Drawer.IProps> = props => {
-  //const { content, menu, drawerVisible, children, ...rest } = props
   const { children, ...rest } = props
   const { refForAnimation, windowSize, showDrawer, rnWidth } = props
   const drawerWidth = Math.min(320, (window.rn ? rnWidth : window.innerWidth) - 56) //https://react-md.mlaursen.com/components/drawers
   return <AnimatedDrawer
     {...props}
-    //drawerVisible={drawerVisible}
-    //showDrawer={showDrawer}
-    //refForAnimation={refForAnimation}
-    //content={<Content { ...rest} {...content } />}
-    //menu={<Menu { ...rest} {...menu } />}
+    getContent={getContent}
+    getMenu={getMenu}
     drawerWidth={drawerWidth}
     screenWidth={rnWidth}
   />
 }
 
 const tablet: React.SFC<Drawer.IProps> = props => {
-  //const { content, menu, drawerVisible, children, ...rest } = props
   const { children, ...rest } = props
   const { refForAnimation, windowSize, showDrawer, rnWidth } = props
   return <AnimatedDrawer
     {...props}
-    //drawerVisible={drawerVisible}
-    //showDrawer={showDrawer}
-    //content={<Content { ...rest} {...content } />}
-    //menu={<Menu { ...rest} {...menu } />}
-    //refForAnimation={refForAnimation}
+    getContent={getContent}
+    getMenu={getMenu}
     drawerWidth={nonMobileMenuWidth}
     screenWidth={rnWidth}
     isTablet
@@ -82,4 +72,53 @@ const drawerLayout: React.SFC<Drawer.IProps> = props => {
 }
 
 export const DrawerLayout = providerConnector(drawerLayout)
+
+class Content extends React.Component<Drawer.IContent> {
+
+  shouldComponentUpdate(nextProps: Drawer.IContent) { return false }
+
+  render() {
+    const { header, content, node, style, key, web, webStyle, children, ...rest } = this.props
+    const styled = { style, key, web, webStyle }
+    if (node) return node(styled)
+    return <View {...styled} >
+      {getDrawerHeader(true, { ...header })}
+      {contentContent({ ...content, ...rest })}
+    </View>
+  }
+}
+
+const contentContent = ({ node, style, key, web, webStyle, items, ...rest }: Drawer.IContentContent) => {
+  const styled: Drawer.IStyled = { key: 20, style: { flex: 1, padding: 8 }, webStyle: { overflow: 'auto' } }
+  if (node) return node(styled)
+  return <View {...styled}>
+    {items}
+  </View>
+}
+
+class Menu extends React.Component<Drawer.IMenu> {
+
+  shouldComponentUpdate(nextProps) { return false }
+
+  render() {
+    const { header, content, node, style, key, web, webStyle, children, ...rest } = this.props
+    const styled = { style: { ...style, zIndex: 1, backgroundColor: 'white' }, key, web: { ...web, className: 'md-paper--1' }, webStyle }
+    if (node) return node(styled)
+    return <View {...styled}>
+      {getDrawerHeader(false, { ...header })}
+      {menuContent({ ...content, ...rest })}
+    </View>
+  }
+}
+
+const menuContent = (props: Drawer.IMenuContent) => {
+  const { node, style, items, ...rest } = props
+  const styled: Drawer.IStyled = { key: 30, style: { flex: 1, padding: 8 }, webStyle: { overflow: 'auto' } }
+  if (node) return node(styled)
+  return <View {...styled}>
+    {items}
+  </View>
+}
+
+
 

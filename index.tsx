@@ -36,7 +36,7 @@ import { getAnimator as getRouteAnimator } from './app-web/lib/web-router'
 import { Button } from './app-web/gui/button'
 import { Icon } from './app-web/gui/icon'
 import { View, Container, Header, Footer, Content } from './app-web/gui/view'
-import { AnimatedDrawer } from './app-web/gui/drawer'
+import { AnimatedDrawer, getDrawerHeader } from './app-web/gui/drawer'
 import { Text } from './app-web/gui/text'
 import { LayerProvider, H1, H2, H3, Platform, colorToStyle, waitChildren } from './app-web/gui/lib'
 
@@ -89,7 +89,7 @@ export const init = async () => {
   }
 
   await promiseAll([
-    initGUI({ colorToStyle, Button, Icon, H1, H2, H3, View, Container, Header, Footer, Content, Text, AnimatedDrawer, Animated }),
+    initGUI({ colorToStyle, Button, Icon, H1, H2, H3, View, Container, Header, Footer, Content, Text, AnimatedDrawer, getDrawerHeader, Animated }),
     initRouter(),
     initRecording(),
   ])
