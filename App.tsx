@@ -58,11 +58,11 @@ import { AppPage } from './app-common/snack/app-router'
 //import AppComp from './app-native/snack/tab-view'
 //import AppComp from './app-native/snack/tab-view/main'
 //import AppComp from './app-native/snack/design-dump-colors'
-//import AppComp from './app-common/snack/gui/button'
+import AppComp from './app-common/snack/gui/button'
 //import AppComp from './app-native/snack/native-base-button'
 //import AppComp from './app-native/snack/drawer'
 //import AppComp from './app-common/snack/drawer'
-import AppComp from './app-native/snack/page'
+//import AppComp from './app-native/snack/page'
 
 
 //console.log('APP')
@@ -140,11 +140,10 @@ export const init = async () => {
   </ReduxProvider>
 
   return new Promise<JSX.Element>(resolve => resolve(
-    //<AppAll />
-    <AppComp />
+    <AppAll />
+    //<AppComp />
   ))
 }
-
 
 const Root: React.SFC = () => <WaitForRendering finalContent={init()} waitContent={<AppLoading />} />
 

@@ -39,7 +39,8 @@ const app = () => <Container style={{ marginTop: 30 }}>
     <Button key={25} floating color={GUI.Colors.Cyan} iconName={GUI.IonicIcons.archive}>asdfasd</Button>
     <Button key={26} floating color={GUI.Colors.Cyan} iconName={GUI.IonicIcons.archive} disabled>asdfasd disabled</Button>
     <Button key={27} floating danger iconName={GUI.IonicIcons.attach}>asdfasd</Button>
-    <Button key={28} floating light iconName={GUI.IonicIcons.attach}>asdfasd</Button>  </Content>
+    <Button key={28} floating light iconName={GUI.IonicIcons.attach}>asdfasd</Button>
+  </Content>
 </Container >
 
 export default app

@@ -3,15 +3,15 @@ import { View, Animated, TouchableWithoutFeedback, PanResponder } from 'react-na
 
 export class AnimatedDrawer extends React.PureComponent<GUI.IAnimatedMobileDrawerProps> {
   rendered: boolean
-  value = new Animated.Value(this.props.willBeVisible ? 1 : 0)
+  value = new Animated.Value(this.props.drawerVisible ? 1 : 0)
   animation: ReactNative.Animated.CompositeAnimation
 
   render() {
     const { animation, rendered, value, props } = this
-    const { isTablet, duration, content, menu, willBeVisible, drawerWidth, doShowDrawer, screenWidth } = props
+    const { isTablet, duration, content, menu, drawerVisible: willBeVisible, drawerWidth, showDrawer, screenWidth } = props
     const doAnimation = (willBeVisible: boolean, newDrawerState?: boolean) => {
       this.animation = Animated.timing(value, { toValue: willBeVisible ? 1 : 0, duration: duration || App.Consts.animationDurationMsec, delay: 1 })
-      this.animation.start(() => { this.animation = null; if (typeof (newDrawerState) != 'undefined') doShowDrawer(newDrawerState) })
+      this.animation.start(() => { this.animation = null; if (typeof (newDrawerState) != 'undefined') showDrawer(newDrawerState) })
     }
     if (animation) { animation.stop(); this.animation = null }
     const opacityValue = isTablet ? null : value.interpolate({ inputRange: [0, 0.1, 1], outputRange: [0, 0, 0.85] })
@@ -58,7 +58,7 @@ export class AnimatedDrawer extends React.PureComponent<GUI.IAnimatedMobileDrawe
     else
       return <View style={absoluteStretch as any} {...!willBeVisible ? toVisibleHandlers.panHandlers : toHideHandlers.panHandlers}>
         {React.cloneElement(content, { ...content.props, key: 0, style: { ...content.props.style, ...absoluteStretch } })}
-        <TouchableWithoutFeedback key={1} onPress={() => doShowDrawer(false)}>
+        <TouchableWithoutFeedback key={1} onPress={() => showDrawer(false)}>
           <Animated.View style={{ opacity: opacityValue as any, width: widthValue as any, ...topBottom, left: 0, backgroundColor: 'gray' }} />
         </TouchableWithoutFeedback>
         <Animated.View key={2} style={{ left: leftValue as any, ...topBottom, width: drawerWidth }} >

@@ -5,11 +5,11 @@ export class AnimatedDrawer extends React.PureComponent<GUI.IAnimatedMobileDrawe
 
   tweens: gsap.TweenLite[] = []
   firstRender = true
-  isVisible = this.props.willBeVisible
+  isVisible = this.props.drawerVisible
 
   render() {
     const { isVisible, tweens, props, firstRender } = this
-    const { isTablet, duration: dur, content, menu, willBeVisible, drawerWidth, doShowDrawer, refForAnimation } = props
+    const { isTablet, duration: dur, content, menu, drawerVisible: willBeVisible, drawerWidth, showDrawer, refForAnimation } = props
     const duration = (dur || App.Consts.animationDurationMsec) / 1000
 
     const noAnimation = firstRender || isVisible == willBeVisible
@@ -52,7 +52,7 @@ export class AnimatedDrawer extends React.PureComponent<GUI.IAnimatedMobileDrawe
         <div key={2}
           ref={div => divCreated(0, div, false, () => TweenLite.to(div, duration, { display: 'block', paused: true, reversed: true, opacity: 0.85 }))}
           className={renderCSSs(absoluteStretch, { backgroundColor: 'gray', opacity: 0, display: 'none' })}
-          onClick={() => doShowDrawer(false)} />
+          onClick={() => showDrawer(false)} />
         {!noAnimation && <div key={3}
           ref={div => divCreated(1, div, false, () => TweenLite.to(div, duration, { paused: true, reversed: true, left: 0 }))}
           className={renderCSS({ position: 'absolute', top: 0, bottom: 0, width: drawerWidth, display: 'flex', left: -drawerWidth } as CSSProperties)} >

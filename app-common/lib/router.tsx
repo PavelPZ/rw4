@@ -12,7 +12,6 @@ import UrlPattern from 'url-pattern'
 
 const routes: { [name: string]: Router.IRouteComponent } = {}
 
-
 export const providerConnector: ComponentDecorator<Router.IRouterStateProps & Router.IRouterDispatchProps, {}> = connect(
   (state: IState) => ({ ...state.router, ...state.mediaQuery }),
   (dispatch) => ({

@@ -100,11 +100,11 @@
   interface IAnimatedMobileDrawerProps {
     content: JSX.Element
     menu: JSX.Element
-    willBeVisible: boolean
+    drawerVisible: boolean
     drawerWidth: number
     screenWidth
-    doShowDrawer: (isShow: boolean) => void
-    refForAnimation: (div: HTMLElement) => void
+    showDrawer: (isShow: boolean) => void
+    refForAnimation: (div: WebNativeCommon.TRouterAnimRoot) => void
     isTablet?: boolean
     duration?: number
   }

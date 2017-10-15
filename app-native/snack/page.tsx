@@ -1,6 +1,6 @@
 ﻿import React from 'react';
 import { Footer, FooterTab, Icon, Title, Subtitle, Container, Header, Content, Text, Button, H2, View, Left, Right, Body } from 'native-base'
-import { getColors, getTextColor } from '../../app-common/gui/colors'
+import { getColors } from '../../app-common/gui/colors'
 import { getIcon2 } from '../../app-common/gui/ionic'
 import { navigateUrl } from '../../app-common/lib/router'
 

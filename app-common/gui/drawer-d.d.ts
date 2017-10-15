@@ -10,14 +10,14 @@
     visible?: boolean
   }
 
-  interface IState {
+  interface IStateProps {
     drawerVisible?: boolean
   }
 
   interface IDispatchProps {
     showDrawer?(isShow: boolean)
   }
-  type IStateProps = IState & Router.IPageProps
+  //type IStateProps = IState //& Router.IPageProps
 
   interface IStyled {
     style?: ReactNative.ViewStyle
@@ -26,14 +26,14 @@
     webStyle?
   }
 
-  type TAllProps = Drawer.IDispatchProps & Drawer.IStateProps & IStyled & { children?: React.ReactNode }
+  type TAllProps = Drawer.IDispatchProps & Drawer.IStateProps & IStyled & Router.IPageProps & { children?: React.ReactNode }
 
-  interface IOwnProps extends TAllProps {
+  interface IOwnProps extends Router.IPageProps {
     menu: IMenu
     content?: IContent
   }
   interface IMenu extends TAllProps {
-    node?: (prop: IStyled) => JSX.Element
+    node?: (prop: IMenu) => JSX.Element
     header?: IMenuHeader
     content?: IMenuContent
   }
@@ -66,6 +66,6 @@
 }
 
 interface IState {
-  drawer?: Drawer.IState
+  drawer?: Drawer.IStateProps
 }
 

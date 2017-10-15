@@ -1,6 +1,6 @@
 ﻿import React from 'react'
 import { connect, ComponentDecorator } from 'react-redux'
-import { Button as MDButton } from 'react-md'
+//import { Button as MDButton } from 'react-md'
 import { Container, Header, Content, Text, Button, H2, View, DrawerLayout } from '../gui/gui'
 import { registerRouter } from '../lib/router'
 import { isLogged, createLoginButton } from '../lib/login'
@@ -23,23 +23,14 @@ interface IRoutePar extends Router.IRoutePar {
   title?: string
 }
 
-type IOwnProps = Router.IPageProps<IRoutePar>
+type IOwnRouterProps = Router.IPageProps<IRoutePar>
 
-interface IStateProps {
-  title2: string
-}
-type IState = IStateProps
-interface IDispatchProps {
-  onClick
-  toogleDrawer
-}
-
-const appPage: React.SFC<IOwnProps & IStateProps & IDispatchProps> = props => {
-  const { title, title2, onClick, children, toogleDrawer, ...rest } = props
-  const props3: Drawer.IOwnProps = {
+//*** PAGE
+const appPage: React.SFC<IOwnRouterProps> = routerProps => {
+  const drawerProps = {
     menu: {
       header: {
-        left: <MDButton icon>menu</MDButton>,
+        //left: <MDButton icon>menu</MDButton>,
         title: 'MENU',
         //right: [<MDButton icon key={1}>menu</MDButton>]
       },
@@ -51,18 +42,28 @@ const appPage: React.SFC<IOwnProps & IStateProps & IDispatchProps> = props => {
       header: {
         //left: <MDButton icon>menu</MDButton>,
         title: 'Colored',
-        right: [<MDButton key={1} flat>C</MDButton>, <MDButton icon key={2}>menu</MDButton>, <MDButton icon key={3}>menu</MDButton>]
+        //right: [<MDButton key={1} flat>C</MDButton>, <MDButton icon key={2}>menu</MDButton>, <MDButton icon key={3}>menu</MDButton>]
       },
       content: {
-        items: props => <AppPageLowContent {...props} {...rest} />
+        items: props => <AppPageLowContent {...props} {...drawerProps} />
       }
     }
   }
 
-  return <DrawerLayout {...props3} {...props} />
+  return <DrawerLayout {...drawerProps} {...routerProps} />
 }
 
-const appPageLowContent: React.SFC<IOwnProps & IStateProps & IDispatchProps & Drawer.TAllProps> = props => {
+interface IStateProps {
+  title2: string
+}
+type IState = IStateProps
+interface IDispatchProps {
+  onClick
+  toogleDrawer
+}
+
+//*** PAGE CONTENT
+const appPageLowContent: React.SFC<IStateProps & IDispatchProps & IOwnRouterProps & Drawer.TAllProps> = props => {
   const { title, title2, onClick, toogleDrawer, query, windowSize, debugSetWindowSize } = props
   const isModal = query && query.isModal
 
@@ -84,7 +85,7 @@ const appPageLowContent: React.SFC<IOwnProps & IStateProps & IDispatchProps & Dr
 let counter = 0
 let menuCounter = 0
 
-const provider: ComponentDecorator<IStateProps & IDispatchProps, IOwnProps & Drawer.TAllProps> = connect(
+const provider: ComponentDecorator<IStateProps & IDispatchProps, IOwnRouterProps & Drawer.TAllProps> = connect(
   (state: IAppState) => state.xxx,
   (dispatch) => ({
     onClick: title2 => dispatch({ type: 'CLICK', title2 }),
