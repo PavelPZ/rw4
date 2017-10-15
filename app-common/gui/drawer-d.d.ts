@@ -21,6 +21,9 @@
 
   interface IStyled {
     style?: ReactNative.ViewStyle
+    key?: string | number
+    web?
+    webStyle?
   }
 
   type TAllProps = Drawer.IDispatchProps & Drawer.IStateProps & IStyled & { children?: React.ReactNode }
@@ -30,14 +33,14 @@
     content?: IContent
   }
   interface IMenu extends TAllProps {
-    node?: JSX.Element
+    node?: (prop: IStyled) => JSX.Element
     header?: IMenuHeader
     content?: IMenuContent
   }
   interface IMenuHeader extends TAllProps {
     node?: JSX.Element
     left?: JSX.Element
-    title?:string,
+    title?: string,
     right?: JSX.Element[]
   }
   interface IMenuContent extends TAllProps {

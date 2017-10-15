@@ -3,7 +3,7 @@ import { connect, ComponentDecorator } from 'react-redux'
 import { View, Text, Animated, AnimatedDrawer } from '../gui/gui'
 import { Content, Menu } from '../../app-web/snack/page'
 
-const providerConnector: ComponentDecorator<Drawer.IDispatchProps & Drawer.IStateProps, Drawer.IOwnProps> = connect(
+export const providerConnector: ComponentDecorator<Drawer.IDispatchProps & Drawer.IStateProps, {}> = connect(
   (state: IState) => ({ ...state.drawer, ...state.mediaQuery } as Drawer.IStateProps),
   (dispatch, ownProps) => ({
     showDrawer: visible => dispatch({ type: Drawer.Consts.SHOW, visible }),

@@ -34,83 +34,57 @@ interface IDispatchProps {
   toogleDrawer
 }
 
-type IProps = IStateProps & IDispatchProps
-
-class appPageLow extends React.PureComponent<IOwnProps & IStateProps & IDispatchProps> {
-  render() {
-    const { title, title2, onClick, children, toogleDrawer, ...rest } = this.props
-    const { query, windowSize, debugSetWindowSize} = this.props
-    const isModal = query && query.isModal
-
-    const props3: Drawer.IOwnProps = {
-      ...rest,
-      menu: {
-        header: {
-          left: <MDButton icon>menu</MDButton>,
-          title: 'MENU',
-          right: [<MDButton icon key={1}>menu</MDButton>]
-        },
-        content: {
-          items: props => <Text>MENU{menuCounter++}</Text>
-        }
+const appPage: React.SFC<IOwnProps & IStateProps & IDispatchProps> = props => {
+  const { title, title2, onClick, children, toogleDrawer, ...rest } = props
+  const props3: Drawer.IOwnProps = {
+    menu: {
+      header: {
+        left: <MDButton icon>menu</MDButton>,
+        title: 'MENU',
+        //right: [<MDButton icon key={1}>menu</MDButton>]
       },
       content: {
-        header: {
-          left: <MDButton icon>menu</MDButton>,
-          title: 'Colored',
-          right: [<MDButton key={1} flat>C</MDButton>, <MDButton icon key={2}>menu</MDButton>, <MDButton icon key={3}>menu</MDButton>]
-        },
-        content: {
-          items: props => [
-            <Text key={11} onPress={() => {
-              debugSetWindowSize(windowSize == Media.TWindowSize.desktop ? Media.TWindowSize.mobile : (windowSize == Media.TWindowSize.tablet ? Media.TWindowSize.desktop : Media.TWindowSize.tablet))
-            }}>Window size: {windowSize}</Text>,
-            <Text key={21} onPress={() => { /*debugger;*/ toogleDrawer() }}>Drawer visible Drawer visible Drawer visible</Text>,
-
-            <H2 key={23}>{title + ' ' + title2 + ' ' + counter++}</H2>,
-            <Button web={{ tabIndex: 1 }} key={1} href={AppPage.getRoute({ ...this.props, title: title + ' | xxx' } as IRoutePar)}>Add to title</Button>,
-            <Button web={{ tabIndex: 2 }} key={2} href={AppPage.getRoute({ ...this.props, title: title + ' | mmm' } as IRoutePar, true)} >Show Modal</Button>,
-            <Button web={{ tabIndex: 3 }} key={3} href={{ routeName: null }/*home*/} >Goto HOME</Button>,
-            <Button web={{ tabIndex: 4 }} key={4} >DUMMY</Button>,
-            <Button web={{ tabIndex: 5 }} key={41} onPress={() => onClick(title2 + ' t2')} >TITLE2</Button>,
-            !window.rn && <LoginButton key={6} tabIndex={2} />
-          ]
-        }
+        items: props => <Text>MENU{menuCounter++}</Text>
+      }
+    },
+    content: {
+      header: {
+        //left: <MDButton icon>menu</MDButton>,
+        title: 'Colored',
+        right: [<MDButton key={1} flat>C</MDButton>, <MDButton icon key={2}>menu</MDButton>, <MDButton icon key={3}>menu</MDButton>]
+      },
+      content: {
+        items: props => <AppPageLowContent {...props} {...rest} />
       }
     }
-
-    return <DrawerLayout {...props3}/>
-
-    //return <DrawerLayout menu={{
-    //  node: <View style={{ backgroundColor: 'purple' }}><Text>MENU{menuCounter++}</Text></View>
-    //}} content={{
-    //  node: <Container style={{ backgroundColor: 'yellow' }}>
-    //    <Header key={1}>
-    //      <View><Text style={{ color: 'lightgray' }}>{JSON.stringify(this.props)}</Text></View>
-    //    </Header>
-    //    <Content key={2}>
-    //      <Text key={11} onPress={() => {
-    //        debugSetWindowSize(windowSize == Media.TWindowSize.desktop ? Media.TWindowSize.mobile : (windowSize == Media.TWindowSize.tablet ? Media.TWindowSize.desktop : Media.TWindowSize.tablet))
-    //      }}>Window size: {windowSize}</Text>
-    //      <Text key={21} onPress={() => toogleDrawer()}>Drawer visible Drawer visible Drawer visible</Text>
-
-    //      <H2>{title + ' ' + title2 + ' ' + counter++}</H2>
-    //      <Button web={{ tabIndex: 1 }} key={1} href={AppPage.getRoute({ ...this.props, title: title + ' | xxx' } as IRoutePar)}>Add to title</Button>
-    //      <Button web={{ tabIndex: 2 }} key={2} href={AppPage.getRoute({ ...this.props, title: title + ' | mmm' } as IRoutePar, true)} >Show Modal</Button>
-    //      <Button web={{ tabIndex: 3 }} key={3} href={{ routeName: null }/*home*/} >Goto HOME</Button>
-    //      <Button web={{ tabIndex: 4 }} key={4} >DUMMY</Button>
-    //      <Button web={{ tabIndex: 5 }} key={41} onPress={() => onClick(title2 + ' t2')} >TITLE2</Button>
-    //      {!window.rn && <LoginButton key={5} tabIndex={2} />}
-    //    </Content>
-    //  </Container>
-    //}}>
-    //</DrawerLayout>
   }
+
+  return <DrawerLayout {...props3} {...props} />
 }
+
+const appPageLowContent: React.SFC<IOwnProps & IStateProps & IDispatchProps & Drawer.TAllProps> = props => {
+  const { title, title2, onClick, toogleDrawer, query, windowSize, debugSetWindowSize } = props
+  const isModal = query && query.isModal
+
+  return [<Text key={11} onPress={() => {
+    debugSetWindowSize(windowSize == Media.TWindowSize.desktop ? Media.TWindowSize.mobile : (windowSize == Media.TWindowSize.tablet ? Media.TWindowSize.desktop : Media.TWindowSize.tablet))
+  }}>Window size: {windowSize}</Text>,
+  <Text key={21} onPress={() => { /*debugger;*/ toogleDrawer() }}>Drawer visible Drawer visible Drawer visible</Text>,
+
+  <H2 key={23}>{title + ' ' + title2 + ' ' + counter++}</H2>,
+  <Button web={{ tabIndex: 1 }} key={1} href={AppPage.getRoute({ ...props, title: title + ' | xxx' } as IRoutePar)}>Add to title</Button>,
+  <Button web={{ tabIndex: 2 }} key={2} href={AppPage.getRoute({ ...props, title: title + ' | mmm' } as IRoutePar, true)} >Show Modal</Button>,
+  <Button web={{ tabIndex: 3 }} key={3} href={{ routeName: null }/*home*/} >Goto HOME</Button>,
+  <Button web={{ tabIndex: 4 }} key={4} >DUMMY</Button>,
+  <Button web={{ tabIndex: 5 }} key={41} onPress={() => onClick(title2 + ' t2')} >TITLE2</Button>,
+  !window.rn && <LoginButton key={6} tabIndex={2} />
+  ] as any
+}
+
 let counter = 0
 let menuCounter = 0
 
-const provider: ComponentDecorator<IStateProps & IDispatchProps, IOwnProps> = connect(
+const provider: ComponentDecorator<IStateProps & IDispatchProps, IOwnProps & Drawer.TAllProps> = connect(
   (state: IAppState) => state.xxx,
   (dispatch) => ({
     onClick: title2 => dispatch({ type: 'CLICK', title2 }),
@@ -118,7 +92,7 @@ const provider: ComponentDecorator<IStateProps & IDispatchProps, IOwnProps> = co
   } as IDispatchProps)
 )
 
-const appPage = provider(appPageLow)
+const AppPageLowContent = provider(appPageLowContent)
 
 class Menu extends React.Component {
   render() {

@@ -3,47 +3,58 @@ import { renderCSSs, renderCSS } from '../lib/fela'
 
 export class AnimatedDrawer extends React.PureComponent<GUI.IAnimatedMobileDrawerProps> {
 
-  tweens: gsap.TweenLite[] = [] 
-  secondRender:boolean
+  tweens: gsap.TweenLite[] = []
+  firstRender = true
+  isVisible = this.props.willBeVisible
 
   render() {
-    const { tweens, props, secondRender } = this
+    const { isVisible, tweens, props, firstRender } = this
     const { isTablet, duration: dur, content, menu, willBeVisible, drawerWidth, doShowDrawer, refForAnimation } = props
     const duration = (dur || App.Consts.animationDurationMsec) / 1000
-    const firstEnter = !secondRender; this.secondRender = true
 
-    const animate = () => !firstEnter && tweens[0] && (isTablet || tweens[1]) && tweens.forEach(t => t.reversed() ? t.play() : t.reverse())
+    const noAnimation = firstRender || isVisible == willBeVisible
+    if (!noAnimation) this.isVisible = willBeVisible
+    this.firstRender = false
 
-    const divCreated = (idx: number, div: HTMLElement, animationDiv: boolean, tweenLite: gsap.TweenLite) => {
-      if (tweens[idx]) return //optimalizace: skutecny DIV html element se vytvari jen jednou, React DIV komponenta ale pri kazdem Render
-      tweens[idx] = tweenLite
-      refForAnimation && refForAnimation(div) //tablet: animace pro router
+    const animate = () => {
+      if (noAnimation || refsNum == 0 || (!isTablet && refsNum < 2)) return
+      tweens.forEach(t => t.reversed() ? t.play() : t.reverse())
+    }
+
+    let refsNum = 0
+    const divCreated = (idx: number, div: HTMLElement, animationDiv: boolean, tweenLite: () => gsap.TweenLite) => {
+      if (!div) return
+      refsNum++
+      if (!tweens[idx]) {
+        tweens[idx] = tweenLite()
+        refForAnimation && refForAnimation(div) //tablet: animace pro router
+      }
       animate()
     }
 
-    if (!firstEnter) animate()
+    //if (!firstEnter) setTimeout(animate, 1)
 
     //const firstRender = () => tweens.length < (isTablet ? 1 : 2)
     //if (!firstRender()) tweens.forEach(t => t.reversed() ? t.play() : t.reverse())
 
     //https://codepen.io/rhernando/pen/ojvRaK
-    if (isTablet)
+    if (isTablet) {
       return <div
-        ref={div => div && divCreated(0, div, true, TweenLite.to(div, duration, { paused: true, reversed: true, left: -drawerWidth }))}
-        className={renderCSSs(absoluteStretch, { flexDirection: 'row', display: 'flex' })}
+        ref={div => divCreated(0, div, true, () => TweenLite.to(div, duration, { paused: true, reversed: true, left: isVisible ? -drawerWidth : 0 }))}
+        className={renderCSSs(absoluteStretch, { flexDirection: 'row', display: 'flex', left: isVisible ? 0 : -drawerWidth })}
       >
         {React.cloneElement(menu, { ...menu.props, key: 1, style: { ...menu.props.style, width: drawerWidth } })}
         {React.cloneElement(content, { ...content.props, key: 0, style: { ...content.props.style, flex: 1 } })}
       </div>
-    else
+    } else
       return <div ref={refForAnimation}>
         {React.cloneElement(content, { ...content.props, key: 1, style: { ...content.props.style, ...absoluteStretch } })}
         <div key={2}
-          ref={div => div && divCreated(0, div, false, TweenLite.to(div, duration, { display: 'block', paused: true, reversed: true, opacity: 0.85 }))}
+          ref={div => divCreated(0, div, false, () => TweenLite.to(div, duration, { display: 'block', paused: true, reversed: true, opacity: 0.85 }))}
           className={renderCSSs(absoluteStretch, { backgroundColor: 'gray', opacity: 0, display: 'none' })}
           onClick={() => doShowDrawer(false)} />
-        {!firstEnter && <div key={3}
-          ref={div => div && divCreated(1, div, false, TweenLite.to(div, duration, { paused: true, reversed: true, left: 0 }))}
+        {!noAnimation && <div key={3}
+          ref={div => divCreated(1, div, false, () => TweenLite.to(div, duration, { paused: true, reversed: true, left: 0 }))}
           className={renderCSS({ position: 'absolute', top: 0, bottom: 0, width: drawerWidth, display: 'flex', left: -drawerWidth } as CSSProperties)} >
           {React.cloneElement(menu, { ...menu.props, style: { ...menu.props.style, flex: 1 } })}
         </div>}
