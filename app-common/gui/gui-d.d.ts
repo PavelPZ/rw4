@@ -104,6 +104,7 @@
     drawerWidth: number
     screenWidth
     doShowDrawer: (isShow: boolean) => void
+    refForAnimation: (div: HTMLElement) => void
     isTablet?: boolean
     duration?: number
   }
@@ -123,6 +124,6 @@ interface IState {
   gui?: GUI.IState
 }
 
-type ViewProperties = ReactNative.ViewProperties & { web?: React.HTMLAttributes<any>, webStyle?: CSSProperties }
-type TextProperties = ReactNative.TextProperties & { web?: React.HTMLAttributes<any>, webStyle?: CSSProperties }
+type ViewProperties = ReactNative.ViewProperties & { web?: React.HTMLAttributes<any>, webStyle?: CSSProperties, webRef?: (div: HTMLElement) => void }
+type TextProperties = ReactNative.TextProperties & { web?: React.HTMLAttributes<any>, webStyle?: CSSProperties, webRef?: (span: HTMLElement) => void }
 

@@ -38,10 +38,12 @@ type IProps = IStateProps & IDispatchProps
 
 class appPageLow extends React.PureComponent<IOwnProps & IStateProps & IDispatchProps> {
   render() {
-    const { query, windowSize, debugSetWindowSize, toogleDrawer, title, title2, onClick } = this.props
+    const { title, title2, onClick, children, toogleDrawer, ...rest } = this.props
+    const { query, windowSize, debugSetWindowSize} = this.props
     const isModal = query && query.isModal
 
     const props3: Drawer.IOwnProps = {
+      ...rest,
       menu: {
         header: {
           left: <MDButton icon>menu</MDButton>,
@@ -63,15 +65,15 @@ class appPageLow extends React.PureComponent<IOwnProps & IStateProps & IDispatch
             <Text key={11} onPress={() => {
               debugSetWindowSize(windowSize == Media.TWindowSize.desktop ? Media.TWindowSize.mobile : (windowSize == Media.TWindowSize.tablet ? Media.TWindowSize.desktop : Media.TWindowSize.tablet))
             }}>Window size: {windowSize}</Text>,
-            <Text key={21} onPress={() => toogleDrawer()}>Drawer visible Drawer visible Drawer visible</Text>,
+            <Text key={21} onPress={() => { /*debugger;*/ toogleDrawer() }}>Drawer visible Drawer visible Drawer visible</Text>,
 
-            <H2>{title + ' ' + title2 + ' ' + counter++}</H2>,
+            <H2 key={23}>{title + ' ' + title2 + ' ' + counter++}</H2>,
             <Button web={{ tabIndex: 1 }} key={1} href={AppPage.getRoute({ ...this.props, title: title + ' | xxx' } as IRoutePar)}>Add to title</Button>,
             <Button web={{ tabIndex: 2 }} key={2} href={AppPage.getRoute({ ...this.props, title: title + ' | mmm' } as IRoutePar, true)} >Show Modal</Button>,
             <Button web={{ tabIndex: 3 }} key={3} href={{ routeName: null }/*home*/} >Goto HOME</Button>,
             <Button web={{ tabIndex: 4 }} key={4} >DUMMY</Button>,
             <Button web={{ tabIndex: 5 }} key={41} onPress={() => onClick(title2 + ' t2')} >TITLE2</Button>,
-            !window.rn && <LoginButton key={5} tabIndex={2} />
+            !window.rn && <LoginButton key={6} tabIndex={2} />
           ]
         }
       }

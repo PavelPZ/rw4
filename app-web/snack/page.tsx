@@ -6,26 +6,27 @@ import { colorToStyle } from '../../app-common/gui/gui'
 import { getColors } from '../../app-common/gui/colors'
 import { getIcon2 } from '../../app-common/gui/ionic'
 import { renderCSS } from '../lib/fela'
-import { shallowEqual } from '../../app-common/lib/lib'
+//import { shallowEqual } from '../../app-common/lib/lib'
 
 export class Content extends React.Component<Drawer.IContent> {
-  shouldComponentUpdate(nextProps: Drawer.IContent, nextState, nextContext) {
-    const { style: style1, ...rest1 } = this.props
-    const { style: style2, ...rest2 } = nextProps
-    return !shallowEqual(style1, style2) || !shallowEqual(rest1, rest2)
-  }
+  //shouldComponentUpdate(nextProps: Drawer.IContent, nextState, nextContext) {
+  //  const { style: style1, ...rest1 } = this.props
+  //  const { style: style2, ...rest2 } = nextProps
+  //  return !shallowEqual(style1, style2) || !shallowEqual(rest1, rest2)
+  //}
+  shouldComponentUpdate(nextProps: Drawer.IContent) { return nextProps.windowSize != this.props.windowSize }
 
   render() {
-    const { header, content, style, node, ...rest } = this.props
+    const { header, content, node, style, ...rest } = this.props
     if (node) return React.cloneElement(node, { ...node.props, key: 20 })
-    return <View key={20} style={{ flex: 1 }} >
+    return <View key={20} style={[{ flex: 1 }, style]} >
       {contentHeader({ ...header, ...rest })}
       {contentContent({ ...content, ...rest, style: { flex: 1 } })}
     </View>
   }
 }
 
-const contentHeader: React.SFC<Drawer.IContentHeader> = props => {
+export const contentHeader = (props: Drawer.IContentHeader) => {
   const { left, title, right, style, node, ...rest } = props
   if (node) return React.cloneElement(node, { ...node.props, key: 10 })
   return <Toolbar key={10} colored zDepth={2}
@@ -35,7 +36,7 @@ const contentHeader: React.SFC<Drawer.IContentHeader> = props => {
   />
 }
 
-const contentContent: React.SFC<Drawer.IContentContent> = props => {
+export const contentContent = (props: Drawer.IContentContent) => {
   const { style, node, items, ...rest } = props
   if (node) return React.cloneElement(node, { ...node.props, key: 20 })
   return <View key={20} style={{ flex: 1, padding: 8, ...style }} webStyle={{ overflow: 'auto' }}>
@@ -44,16 +45,14 @@ const contentContent: React.SFC<Drawer.IContentContent> = props => {
 }
 
 export class Menu extends React.Component<Drawer.IMenu> {
-  shouldComponentUpdate(nextProps: Drawer.IContent, nextState, nextContext) {
-    const { style: style1, ...rest1 } = this.props
-    const { style: style2, ...rest2 } = nextProps
-    return !shallowEqual(style1, style2) || !shallowEqual(rest1, rest2)
+  shouldComponentUpdate(nextProps: Drawer.IContent) {
+    return nextProps.windowSize != this.props.windowSize
   }
 
   render() {
-    const { header, content, node, ...rest } = this.props
+    const { header, content, node, style, ...rest } = this.props
     if (node) return React.cloneElement(node, { ...node.props, key: 10 })
-    return <View key={10} style={{ width: 256, zIndex: 1 }} web={{ className: 'md-paper--1' }}>
+    return <View key={10} style={[{ zIndex: 1 }, style]} web={{ className: 'md-paper--1' }}>
       {menuHeader({ ...rest, ...header })}
       <Divider key={20} style={{ marginTop: -1 }} />
       {menuContent({ ...content, ...rest })}

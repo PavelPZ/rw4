@@ -37,7 +37,7 @@ const drawerLayout: React.SFC<Drawer.IOwnProps> = props => {
 
 const mobile: React.SFC<Drawer.IOwnProps> = props => {
   const { content, menu, children, drawerVisible, ...rest } = props
-  const { windowSize, showDrawer, rnWidth } = props
+  const { refForAnimation, windowSize, showDrawer, rnWidth } = props
   const drawerWidth = Math.min(320, (window.rn ? rnWidth : window.innerWidth) - 56) //https://react-md.mlaursen.com/components/drawers
   return <AnimatedDrawer
     willBeVisible={drawerVisible}
@@ -46,12 +46,13 @@ const mobile: React.SFC<Drawer.IOwnProps> = props => {
     menu={<Menu { ...rest} {...menu } />}
     drawerWidth={drawerWidth}
     screenWidth={rnWidth}
+    refForAnimation={refForAnimation}
   />
 }
 
 const tablet: React.SFC<Drawer.IOwnProps> = props => {
   const { content, menu, children, drawerVisible, ...rest } = props
-  const { windowSize, showDrawer, rnWidth } = props
+  const { refForAnimation, windowSize, showDrawer, rnWidth } = props
   return <AnimatedDrawer
     willBeVisible={drawerVisible}
     doShowDrawer={isShow => showDrawer(isShow)}
@@ -59,16 +60,17 @@ const tablet: React.SFC<Drawer.IOwnProps> = props => {
     menu={<Menu { ...rest} {...menu } />}
     drawerWidth={nonMobileMenuWidth}
     screenWidth={rnWidth}
+    refForAnimation={refForAnimation}
     isTablet
   />
 }
 
 const desktop: React.SFC<Drawer.IDispatchProps & Drawer.IStateProps & Drawer.IOwnProps> = props => {
-  const { content, menu, children, drawerVisible, ...rest } = props
+  const { content, menu, children, drawerVisible, refForAnimation, ...rest } = props
   const { windowSize } = props
   const mm = <Menu {...rest} { ...menu}/>
-  const cc = <Content { ...rest} {...content}/>
-  return <View style={{ ...absoluteStretch, flexDirection: 'row', }}>
+  const cc = <Content { ...rest} {...content} />
+  return <View style={{ ...absoluteStretch, flexDirection: 'row', }} webRef={refForAnimation}>
     {React.cloneElement(mm, { ...mm.props, key: 0, style: { ...mm.props.style, width: nonMobileMenuWidth } })}
     {React.cloneElement(cc, { ...cc.props, key: 1, style: { ...cc.props.style, flex: 1  } })}
   </View>
