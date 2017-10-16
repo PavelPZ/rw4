@@ -261,6 +261,8 @@
     <None Include="app-native\snack\tab-view\assets\json.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <Content Include="app-web\assets\ionic\css\ionicons-original.css" />
+    <Content Include="app-web\assets\ionic\css\lm-ionicons-header.css" />
     <Content Include="app-web\assets\ionic\css\ionicons-core.css" />
     <Content Include="app-web\assets\ionic\css\ionicons-core.min.css" />
     <Content Include="app-web\assets\ionic\css\ionicons.min.css" />

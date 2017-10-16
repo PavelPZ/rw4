@@ -5,8 +5,8 @@ import { Divider, BottomNavigation, Toolbar } from 'react-md'
 import { View, Button } from '../../app-common/gui/gui'
 import { providerConnector } from '../../app-common/gui/drawer'
 
-export const getDrawerContent = (pars: Drawer.IContent, st: Drawer.IStyled) => <Content {...pars} {...st} />
-export const getDrawerMenu = (pars: Drawer.IMenu, st: Drawer.IStyled) => <Menu {...pars} {...st} />
+const getDrawerContent = (pars: Drawer.IContent, st: Drawer.IStyled) => <Content {...pars} {...st} />
+const getDrawerMenu = (pars: Drawer.IMenu, st: Drawer.IStyled) => <Menu {...pars} {...st} />
 
 class Content extends React.Component<Drawer.IContent> {
 
@@ -16,10 +16,10 @@ class Content extends React.Component<Drawer.IContent> {
     const { header, content, node, style, web, webStyle, children, ...rest } = this.props
     const styled = { web, style: [viewStyle, style, webStyle] } as Drawer.IStyled
     if (node) return node(styled)
-    return <div {...styled as any} >
+    return <View {...styled} >
       {getToolbar({ key: 10, ...header, isContent: true })}
       {contentContent({ ...content, ...rest, key: 20 })}
-    </div >
+    </View>
   }
 }
 
@@ -37,7 +37,7 @@ class Menu extends React.Component<Drawer.IMenu> {
 
   render() {
     const { header, content, node, style, web, webStyle, children, ...rest } = this.props
-    const styled = { style: { ...style, zIndex: 1, backgroundColor: 'white' }, web: { ...web, className: 'md-paper--1' }, webStyle }
+    const styled = { style: [style, { zIndex: 1, backgroundColor: 'white' }, webStyle], web: { ...web, className: 'md-paper--1' } } as Drawer.IStyled
     if (node) return node(styled)
     return <View {...styled}>
       {getToolbar({ key: 10, ...header, isContent: false })}
@@ -93,8 +93,9 @@ export class AnimatedDrawer extends React.PureComponent<GUI.IAnimatedMobileDrawe
 
   render() {
     const { isVisible, tweens, props, firstRender } = this
-    const { isTablet, duration: dur, content, menu, drawerVisible: willBeVisible, drawerWidth, showDrawer, refForAnimation, getMenu, getContent } = props
+    const { windowSize, duration: dur, content, menu, drawerVisible: willBeVisible, drawerWidth, showDrawer, refForAnimation } = props
     const duration = (dur || App.Consts.animationDurationMsec) / 1000
+    const isTablet = windowSize === Media.TWindowSize.tablet
 
     const noAnimation = firstRender || isVisible == willBeVisible
     if (!noAnimation) this.isVisible = willBeVisible
@@ -111,23 +112,21 @@ export class AnimatedDrawer extends React.PureComponent<GUI.IAnimatedMobileDrawe
       refsNum++
       if (!tweens[idx]) {
         tweens[idx] = tweenLite()
-        refForAnimation && refForAnimation(div) //tablet: animace pro router
+        animationDiv && refForAnimation && refForAnimation(div) //tablet: animace pro router
       }
       animate()
     }
 
-    //https://codepen.io/rhernando/pen/ojvRaK
-    if (isTablet) {
-      return <div
+    switch (windowSize) {
+      case Media.TWindowSize.tablet: return <div
         ref={div => divCreated(0, div, true, () => TweenLite.to(div, duration, { paused: true, reversed: true, left: isVisible ? -drawerWidth : 0 }))}
-        className={renderCSSs(absoluteStretch as CSSProperties, { flexDirection: 'row', display: 'flex', left: isVisible ? 0 : -drawerWidth })}
+        className={renderCSSs(absoluteStretch as CSSProperties, { flexDirection: 'row', display: 'flex', alignContent: 'stretch', left: isVisible ? 0 : -drawerWidth })}
       >
-        {getMenu(menu, { key: 0, style: { width: drawerWidth } })}
-        {getContent(content, { key: 1, style: { flex: 1 } })}
+        {getDrawerMenu(menu, { key: 0, style: { flexBasis: drawerWidth, flexShrink: 0 } })}
+        {getDrawerContent(content, { key: 1, style: { flex: 1 } })}
       </div>
-    } else
-      return <div ref={refForAnimation}>
-        {getContent(content, { key: 1, style: absoluteStretch as ReactNative.ViewProperties })}
+      case Media.TWindowSize.mobile: return <div ref={refForAnimation}>
+        {getDrawerContent(content, { key: 1, style: absoluteStretch as ReactNative.ViewProperties })}
         <div key={2}
           ref={div => divCreated(0, div, false, () => TweenLite.to(div, duration, { display: 'block', paused: true, reversed: true, opacity: 0.85 }))}
           className={renderCSSs(absoluteStretch as CSSProperties, { backgroundColor: 'gray', opacity: 0, display: 'none' })}
@@ -135,9 +134,14 @@ export class AnimatedDrawer extends React.PureComponent<GUI.IAnimatedMobileDrawe
         {!noAnimation && <div key={3}
           ref={div => divCreated(1, div, false, () => TweenLite.to(div, duration, { paused: true, reversed: true, left: 0 }))}
           className={renderCSS({ position: 'absolute', top: 0, bottom: 0, width: drawerWidth, display: 'flex', left: -drawerWidth } as CSSProperties)} >
-          {getMenu(menu, { key: 0, style: { flex: 1 } })}
+          {getDrawerMenu(menu, { key: 0, style: { flex: 1 } })}
         </div>}
       </div>
+      default: return <div className={renderCSSs(absoluteStretch as CSSProperties, { display: 'flex', flexDirection: 'row' })} ref={refForAnimation}>
+        {getDrawerMenu(menu, { key: 1, style: { flexBasis: drawerWidth, flexShrink: 0 } })}
+        {getDrawerContent(content, { key: 2, style: { flex: 1 } })}
+      </div>
+    }
   }
 }
 

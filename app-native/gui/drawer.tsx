@@ -1,20 +1,22 @@
 ﻿import React from 'react';
-import { View, Animated, TouchableWithoutFeedback, PanResponder } from 'react-native'
-import { Footer, FooterTab, Icon, Title, Subtitle, Container, Header, Content, Text, Button, H2, Left, Right, Body } from 'native-base'
+import { Text, View, Animated, TouchableWithoutFeedback, PanResponder } from 'react-native'
+import { Button, Footer, FooterTab, Icon, Title, Subtitle, Container, Header, Content, H2, Left, Right, Body } from 'native-base'
+import variables from './theme/platform'
 import { providerConnector } from '../../app-common/gui/drawer'
+import { connectStyle } from 'native-base-shoutem-theme'
 
-export const getDrawerContent = (pars: Drawer.IContent, st: Drawer.IStyled) => <ContentDr {...pars} {...st} />
-export const getDrawerMenu = (pars: Drawer.IMenu, st: Drawer.IStyled) => <Menu {...pars} {...st} />
+const getDrawerContent = (pars: Drawer.IContent, styled: Drawer.IStyled) => <ContentDr {...pars} {...styled} />
+const getDrawerMenu = (pars: Drawer.IMenu, styled: Drawer.IStyled) => <Menu {...pars} {...styled} />
 
 class ContentDr extends React.Component<Drawer.IContent> {
 
   shouldComponentUpdate(nextProps: Drawer.IContent) { return false }
 
   render() {
-    const { header, content, node, style, key, web, webStyle, children, ...rest } = this.props
-    const styled = { style, key }
+    const { header, content, node, style, web, webStyle, children, ...rest } = this.props
+    const styled = { style }
     if (node) return node(styled)
-    return <Container {...styled}>
+    return <Container {...styled as any}>
       {getToolbar({ key: 10, ...header, isContent: true })}
       {contentContent({ ...content, ...rest })}
     </Container>
@@ -22,9 +24,9 @@ class ContentDr extends React.Component<Drawer.IContent> {
 }
 
 const contentContent = ({ node, style, key, web, webStyle, items, ...rest }: Drawer.IContentContent) => {
-  const styled: Drawer.IStyled = { key: 2, style: { padding: 10, flexWrap: 'wrap', flexDirection: 'row', justifyContent: 'space-between' } }
+  const styled: Drawer.IStyled = { key: key, style: { padding: 10 } }
   if (node) return node(styled)
-  return <Content key={styled.key} contentContainerStyle={styled.style}>
+  return <Content key={styled.key} contentContainerStyle={styled.style as any}>
     {items}
   </Content>
 }
@@ -34,10 +36,11 @@ class Menu extends React.Component<Drawer.IMenu> {
   shouldComponentUpdate(nextProps) { return false }
 
   render() {
-    const { header, content, node, style, key, web, webStyle, children, ...rest } = this.props
-    const styled = { style: { ...style, backgroundColor: 'white', ...elevation }, key }
+    const { header, content, node, style, web, webStyle, children, ...rest } = this.props
+    const styled = { style: [style, { backgroundColor: 'white' }, elevation] as ReactNative.ViewStyle[] }
+    //console.log(styled)
     if (node) return node(styled)
-    return <Container {...styled}>
+    return <Container {...styled as any}>
       {getToolbar({ key: 10, ...header, isContent: false })}
       {menuContent({ ...content, ...rest })}
     </Container>
@@ -46,62 +49,74 @@ class Menu extends React.Component<Drawer.IMenu> {
 
 const menuContent = (props: Drawer.IMenuContent) => {
   const { node, style, items, ...rest } = props
-  const styled: Drawer.IStyled = { key: 30, style: { flex: 1, padding: 8 } }
+  const styled = { key: 30, style: { flex: 1, padding: 8 } }
   if (node) return node(styled)
   return <Content {...styled}>
     {items}
   </Content>
 }
 
-
 const drawerButtonShow: React.SFC<Drawer.IProps> = ({ drawerVisible, windowSize, showDrawer }) => !drawerVisible && (windowSize == Media.TWindowSize.tablet || windowSize == Media.TWindowSize.mobile) &&
-  <Button icon onClick={() => showDrawer(true)} className='md-btn--toolbar md-toolbar--action-left'>menu</Button>
+  <Button transparent onPress={() => showDrawer(true)}><Icon name={GUI.IonicIcons.menu} /></Button>
 const DrawerButtonShow = providerConnector(drawerButtonShow)
+
 const drawerButtonHide: React.SFC<Drawer.IProps> = ({ drawerVisible, windowSize, showDrawer }) => drawerVisible && (windowSize == Media.TWindowSize.tablet || windowSize == Media.TWindowSize.mobile) &&
-  <Button icon onClick={() => showDrawer(false)} className='md-btn--toolbar'>close</Button>
+  <Button transparent onPress={() => showDrawer(false)}><Icon name={GUI.IonicIcons.close} /></Button>
 const DrawerButtonHide = providerConnector(drawerButtonHide)
 
 const getToolbar = (props: Drawer.IHeader & { isContent: boolean }) => {
   const { left, title, right, key, isContent, drawerVisible, windowSize, showDrawer } = props
   let toolbar: JSX.Element
   if (isContent) {
-    toolbar = <Toolbar key={key} colored zDepth={2}
-      nav={left || <DrawerButtonShow {...{ drawerVisible, windowSize, showDrawer }} />}
-      title={title}
-      actions={right}
-    />
+    toolbar = <Header key={key}>
+      <Left>
+        {left || <DrawerButtonShow {...{ drawerVisible, windowSize, showDrawer }} />}
+      </Left>
+      <Body>
+        <Title>{title}</Title>
+      </Body>
+      <Right>
+        {right}
+      </Right>
+    </Header>
   } else {
-    toolbar = <Toolbar key={key}
-      nav={left}
-      title={title}
-      actions={right || <DrawerButtonHide {...{ drawerVisible, windowSize, showDrawer }} />}
-    />
+    toolbar = <Header key={key} style={noElevation}>
+      <Left>
+        {left}
+      </Left>
+      <Body>
+        <Title>{title}</Title>
+      </Body>
+      <Right>
+        {right || <DrawerButtonHide {...{ drawerVisible, windowSize, showDrawer }} />}
+      </Right>
+    </Header>
   }
   return toolbar
 }
-
 
 export class AnimatedDrawer extends React.PureComponent<GUI.IAnimatedMobileDrawerProps> {
   rendered: boolean
   value = new Animated.Value(this.props.drawerVisible ? 1 : 0)
   animation: ReactNative.Animated.CompositeAnimation
+  routeOpacity = new Animated.Value(0)
 
   render() {
-    const { animation, rendered, value, props } = this
-    const { isTablet, duration, content, menu, drawerVisible: willBeVisible, drawerWidth, showDrawer, screenWidth, getMenu, getContent } = props
+    const { animation, rendered, value, props, routeOpacity } = this
+    const { windowSize, duration, content, menu, drawerVisible: willBeVisible, drawerWidth, showDrawer, screenWidth, refForAnimation } = props
     const doAnimation = (willBeVisible: boolean, newDrawerState?: boolean) => {
       this.animation = Animated.timing(value, { toValue: willBeVisible ? 1 : 0, duration: duration || App.Consts.animationDurationMsec, delay: 1 })
       this.animation.start(() => { this.animation = null; if (typeof (newDrawerState) != 'undefined') showDrawer(newDrawerState) })
     }
+    const isTablet = windowSize === Media.TWindowSize.tablet
     if (animation) { animation.stop(); this.animation = null }
     const opacityValue = isTablet ? null : value.interpolate({ inputRange: [0, 0.1, 1], outputRange: [0, 0, 0.85] })
     const leftValue = value.interpolate({ inputRange: [0, 1], outputRange: [-drawerWidth, 0] })
     const widthValue = isTablet ? null : value.interpolate({ inputRange: [0, 0.1, 1], outputRange: [0, screenWidth, screenWidth] })
     if (!rendered)
       this.rendered = true
-    else {
+    else
       doAnimation(willBeVisible)
-    }
 
     const uninterpolate = (dx: number, hide?: boolean) => {
       let val = (hide ? drawerWidth + dx : dx) / drawerWidth
@@ -112,7 +127,7 @@ export class AnimatedDrawer extends React.PureComponent<GUI.IAnimatedMobileDrawe
     const onPanResponderRelease = (e, gestureState) => { if (uninterpolate(gestureState.dx) > 0.4/*pomer sirky draweru, po kterem se drawer otevre*/) doAnimation(true, true); else doAnimation(false) }
     const toVisibleHandlers = PanResponder.create({
       onMoveShouldSetPanResponderCapture: (e, gestureState) => {
-        if (e.nativeEvent.pageX > (isTablet ? 60 : 40 /*sirka pruhu vlevo, citriveho na drag start*/) || (gestureState.dx > 10 && Math.abs(gestureState.dy) < 10)) return false
+        if (e.nativeEvent.pageX > (isTablet ? 60 : 40 /*sirka pruhu vlevo, citriveho na drag start*/) || (gestureState.dx < 10)) return false
         value.setValue(0.11)
         return true
       },
@@ -127,29 +142,40 @@ export class AnimatedDrawer extends React.PureComponent<GUI.IAnimatedMobileDrawe
       onPanResponderRelease: onHideResponderRelease,
       onPanResponderTerminate: onHideResponderRelease
     })
-
-    if (isTablet)
-      return <View style={absoluteStretch as any} {...!willBeVisible ? toVisibleHandlers.panHandlers : toHideHandlers.panHandlers}>
-        <Animated.View style={{ left: leftValue as any, position: 'absolute', top: 0, right: 0, bottom: 0, flexDirection: 'row' }} >
-          {getDrawerMenu(menu, { key: 1, style: { width: drawerWidth } })}
+    console.log(windowSize, leftValue, widthValue)
+    switch (windowSize) {
+      case Media.TWindowSize.tablet: return <Animated.View
+        style={[absoluteStretch as any, { backgroundColor: 'white', opacity: routeOpacity }]}
+        {...!willBeVisible ? toVisibleHandlers.panHandlers : toHideHandlers.panHandlers}
+        ref={view => view && !rendered && refForAnimation && refForAnimation(routeOpacity)}>
+        <Animated.View style={{ left: leftValue, position: 'absolute', top: 0, right: 0, bottom: 0, flexDirection: 'row' }} >
+          {getDrawerMenu(menu, { key: 1, style: { flexBasis: drawerWidth, flexShrink: 0, flex:0 } })}
           {getDrawerContent(content, { key: 0, style: { flex: 1 } })}
         </Animated.View>
-      </View>
-    else
-      return <View style={absoluteStretch as any} {...!willBeVisible ? toVisibleHandlers.panHandlers : toHideHandlers.panHandlers}>
-        {getDrawerContent(content, { key: 0, style: absoluteStretch as ReactNative.ViewProperties })}
-        <TouchableWithoutFeedback key={1} onPress={() => showDrawer(false)}>
+      </Animated.View>
+      case Media.TWindowSize.mobile: return <Animated.View
+        style={[absoluteStretch, { backgroundColor: 'white', opacity: routeOpacity }]}
+        {...!willBeVisible ? toVisibleHandlers.panHandlers : toHideHandlers.panHandlers }
+        ref={view => view && !rendered && refForAnimation && refForAnimation(routeOpacity)}>
+        {getDrawerContent(content, { key: 1, style: absoluteStretch as ReactNative.ViewProperties })}
+        <TouchableWithoutFeedback key={2} onPress={() => showDrawer(false)}>
           <Animated.View style={{ opacity: opacityValue as any, width: widthValue as any, ...topBottom, left: 0, backgroundColor: 'gray' }} />
-        </TouchableWithoutFeedback>
-        <Animated.View key={2} style={{ left: leftValue as any, ...topBottom, width: drawerWidth }} >
-          {getDrawerMenu(menu, { style: { flex: 1 } })}
+        </TouchableWithoutFeedback >
+        <Animated.View key={3} style={[topBottom, { left: leftValue, width: drawerWidth }]} >
+          {getDrawerMenu(menu, { style: { } })}
         </Animated.View>
-      </View>
+      </Animated.View >
+      default: return <Animated.View style={[absoluteStretch, {opacity: routeOpacity, flexDirection: 'row' }]} ref={view => refForAnimation(routeOpacity)}>
+        {getDrawerMenu(menu, { key: 1, style: { flexBasis: drawerWidth, flexShrink: 0, flex: 0 } })}
+        {getDrawerContent(content, { key: 2, style: { flex: 1 } })}
+      </Animated.View>
+    }
   }
 }
 
 const absoluteStretch = { position: 'absolute', top: 0, left: 0, right: 0, bottom: 0 }
 const topBottom = { position: 'absolute', top: 0, bottom: 0 }
+
 const elevation = {
   elevation: 3,
   shadowColor: "#000",

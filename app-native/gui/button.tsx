@@ -2,12 +2,12 @@
 import { Text, Button as NBButton, Fab as NBFab, Icon } from 'native-base'
 import { View, Platform, Dimensions, PixelRatio, ViewStyle } from 'react-native'
 
-import { navigateUrl, navigatePush } from '../../app-common/lib/router'
+import { navigatePush } from '../../app-common/lib/router'
 import { getIcon2 } from '../../app-common/gui/ionic'
 import { getColors } from '../../app-common/gui/colors'
 import { colorToBsStyle } from './theme'
 
-export const Button: React.SFC<GUI.IButtonProps2> = props => {
+export const Button: React.SFC<GUI.IButtonProps> = props => {
   const { flat, floating, raised, active, iconAfter, iconName, children, color, shadow, secondary, web, onPress: press, href, light, ...rest } = props
   const { primary, dark, success, info, warning, danger, bordered, disabled } = props
 
@@ -31,7 +31,7 @@ export const Button: React.SFC<GUI.IButtonProps2> = props => {
 
   //click
   let onPress = () => { }
-  if (press) onPress = press; else if (typeof href != 'undefined') onPress = () => navigateUrl(href)
+  if (press) onPress = press; else if (typeof href != 'undefined') onPress = () => navigatePush(href)
 
   const mdProps: NativeBase.Button = {
     style: [colorStyle, floatingStyle] as any,
@@ -40,7 +40,7 @@ export const Button: React.SFC<GUI.IButtonProps2> = props => {
     transparent: flat || false,
     onPress,
     ...rest,
-    ...raised || flat ? (iconAfter ? { iconRight: true } : { iconLeft: true }) : undefined
+    ...raised || flat ? (iconAfter ? { iconRight: true } : { iconLeft: true }) : undefined,
   }
 
   //console.log(mdProps, textStyle, floatingStyle, floatingIconStyle)

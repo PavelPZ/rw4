@@ -1,6 +1,6 @@
 ﻿import React from 'react'
 import { connect, ComponentDecorator } from 'react-redux'
-import { View, Text, AnimatedDrawer, getDrawerContent, getDrawerMenu} from '../gui/gui'
+import { View, Text, AnimatedDrawer} from '../gui/gui'
 
 export const providerConnector: ComponentDecorator<Drawer.IStateDispatch, {}> = connect(
   (state: IState) => ({ ...state.drawer, ...state.mediaQuery } as Drawer.IState),
@@ -22,12 +22,10 @@ export const reducer: App.IReducer<Drawer.IState> = (state, action: Drawer.Actio
 
 const mobile: React.SFC<Drawer.IProps> = props => {
   const { children, ...rest } = props
-  const { refForAnimation, windowSize, showDrawer, rnWidth } = props
+  const { rnWidth } = props
   const drawerWidth = Math.min(320, (window.rn ? rnWidth : window.innerWidth) - 56) //https://react-md.mlaursen.com/components/drawers
   return <AnimatedDrawer
     {...props}
-    getContent={getDrawerContent}
-    getMenu={getDrawerMenu}
     drawerWidth={drawerWidth}
     screenWidth={rnWidth}
   />
@@ -35,24 +33,22 @@ const mobile: React.SFC<Drawer.IProps> = props => {
 
 const tablet: React.SFC<Drawer.IProps> = props => {
   const { children, ...rest } = props
-  const { refForAnimation, windowSize, showDrawer, rnWidth } = props
+  const { rnWidth } = props
   return <AnimatedDrawer
     {...props}
-    getContent={getDrawerContent}
-    getMenu={getDrawerMenu}
     drawerWidth={nonMobileMenuWidth}
     screenWidth={rnWidth}
-    isTablet
   />
 }
 
 const desktop: React.SFC<Drawer.IProps> = props => {
-  const { content, menu, children, drawerVisible, refForAnimation, ...rest } = props
-  const { windowSize } = props
-  return <View style={{ ...absoluteStretch, flexDirection: 'row', }} >
-    {getDrawerMenu(menu, { key: 1, style: { width: nonMobileMenuWidth } })}
-    {getDrawerContent(content, { key: 2, style: { flex: 1 } })}
-  </View>
+  const { children, rnWidth,...rest } = props
+  return <AnimatedDrawer
+    {...props}
+    drawerWidth={nonMobileMenuWidth}
+    screenWidth={rnWidth}
+  />
+
 }
 const absoluteStretch: ReactNative.ViewStyle = { position: 'absolute', top: 0, left: 0, right: 0, bottom: 0 }
 const nonMobileMenuWidth = 256

@@ -5,14 +5,14 @@ import { Animated } from "react-native";
 //**** ANIMATE
 export class AnimatedPromise extends PromiseExtensible<void> {
 
-  constructor(private value: Animated.Value, private display: boolean) { super() }
+  constructor(private value: Animated.Value, private startIsVisible: boolean) { super() }
 
   doStart() {
-    const { value, display } = this
-    value.setValue(display ? 1 : 0.05)
+    const { value, startIsVisible } = this
+    value.setValue(startIsVisible ? 1 : 0.05)
     const tw = Animated.timing(value, {
       duration: 125,
-      toValue: display ? 0.05 : 1
+      toValue: startIsVisible ? 0.05 : 1
     })
     //value.addListener(v => console.log(v))
     tw.start(res => {

@@ -6,7 +6,7 @@ import { getIcon2 } from '../../app-common/gui/ionic'
 import { renderCSS } from '../lib/fela'
 import { navigateUrl, navigatePush } from '../../app-common/lib/router'
 
-export const Button: React.SFC<GUI.IButtonProps2> = props => {
+export const Button: React.SFC<GUI.IButtonProps> = props => {
   const { flat, light, iconAfter, iconName, dark, success, info, warning, danger, children, color, shadow, bordered, web = {}, webStyle, onPress, href, ...rest } = props
   const { className = '', onClick: click, ...webRest } = web
   const { floating, raised, disabled, primary, secondary } = props

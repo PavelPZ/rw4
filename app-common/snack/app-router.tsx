@@ -71,19 +71,20 @@ const appPageLowContent: React.SFC<IProps & Drawer.IStyled> = props => {
   const { title, title2, onClick, toogleDrawer, query, windowSize, debugSetWindowSize } = props
   const isModal = query && query.isModal
 
-  return [<Text key={11} onPress={() => {
-    debugSetWindowSize(windowSize == Media.TWindowSize.desktop ? Media.TWindowSize.mobile : (windowSize == Media.TWindowSize.tablet ? Media.TWindowSize.desktop : Media.TWindowSize.tablet))
-  }}>Window size: {windowSize}</Text>,
-  <Text key={21} onPress={() => { /*debugger;*/ toogleDrawer() }}>Drawer visible Drawer visible Drawer visible</Text>,
+  return <View style={{ flex: 1 }}>
+    <Text key={11} onPress={() => {
+      debugSetWindowSize(windowSize == Media.TWindowSize.desktop ? Media.TWindowSize.mobile : (windowSize == Media.TWindowSize.tablet ? Media.TWindowSize.desktop : Media.TWindowSize.tablet))
+    }}>Window size: {windowSize}</Text>
+    <Text key={21} onPress={() => { /*debugger;*/ toogleDrawer() }}>Drawer visible Drawer visible Drawer visible</Text>
 
-  <H2 key={23}>{title + ' ' + title2 + ' ' + counter++}</H2>,
-  <Button web={{ tabIndex: 1 }} key={1} href={AppPage.getRoute({ ...props, title: title + ' | xxx' } as IRoutePar)}>Add to title</Button>,
-  <Button web={{ tabIndex: 2 }} key={2} href={AppPage.getRoute({ ...props, title: title + ' | mmm' } as IRoutePar, true)} >Show Modal</Button>,
-  <Button web={{ tabIndex: 3 }} key={3} href={{ routeName: null }/*home*/} >Goto HOME</Button>,
-  <Button web={{ tabIndex: 4 }} key={4} >DUMMY</Button>,
-  <Button web={{ tabIndex: 5 }} key={41} onPress={() => onClick(title2 + ' t2')} >TITLE2</Button>,
-  !window.rn && <LoginButton key={6} tabIndex={2} />
-  ] as any
+    <H2 key={23}>{title + ' ' + title2 + ' ' + counter++}</H2>
+    <Button web={{ tabIndex: 1 }} key={1} href={AppPage.getRoute({ ...props, title: title + ' | xxx' } as IRoutePar)}>Add to title</Button>
+    <Button web={{ tabIndex: 2 }} key={2} href={AppPage.getRoute({ ...props, title: title + ' | mmm' } as IRoutePar, true)} >Show Modal</Button>
+    <Button web={{ tabIndex: 3 }} key={3} href={{ routeName: null }/*home*/} >Goto HOME</Button>
+    <Button web={{ tabIndex: 4 }} key={4} >DUMMY</Button>
+    <Button web={{ tabIndex: 5 }} key={41} onPress={() => onClick(title2 + ' t2')} >TITLE2</Button>
+    {!window.rn && <LoginButton key={6} tabIndex={2} />}
+  </View>
 }
 
 let counter = 0

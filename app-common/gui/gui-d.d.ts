@@ -35,7 +35,7 @@
   //}
 
   //**** BUTTON
-  interface IButtonProps2 {
+  interface IButtonProps {
     flat?: boolean //nb: transparent
     raised?: boolean //nb: nic
     floating?: boolean
@@ -96,11 +96,8 @@
   //**** DRAWER
 
   interface IAnimatedMobileDrawerProps extends Drawer.IProps {
-    getContent: (pars: Drawer.IContent, st: Drawer.IStyled) => JSX.Element
-    getMenu: (pars: Drawer.IMenu, st: Drawer.IStyled) => JSX.Element
     drawerWidth: number
     screenWidth: number
-    isTablet?: boolean
     duration?: number
   }
 

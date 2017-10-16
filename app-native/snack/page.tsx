@@ -95,7 +95,7 @@ const app: React.SFC<any> = props => <View style={{ flexDirection: 'row', flex: 
   </Container>
 </View>
 
-const Button2: React.SFC<GUI.IButtonProps2> = props => {
+const Button2: React.SFC<GUI.IButtonProps> = props => {
   const { flat, floating, raised, active, iconAfter, iconName, children, color, shadow, secondary, web, onPress: press, href, light, ...rest } = props
   const { primary, dark, success, info, warning, danger, bordered, disabled } = props
 
