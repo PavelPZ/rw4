@@ -5,12 +5,6 @@ import { View, Button, Container, Header, Content, Footer } from '../../gui/gui'
 const app = () => <Container style={{ marginTop: 30 }}>
   <Header />
   <Content style={{ flex: 1, padding: 8, flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-between' }}>
-    {/*
-    <Button key={71} mode={GUI.ButtonMode.fixedBL} color={GUI.Colors.DeepOrange} iconName={GUI.IonicNames.alert} />
-    <Button key={72} mode={GUI.ButtonMode.fixedBR} color={GUI.Colors.Blue} iconName={GUI.IonicNames.americanFootball} />
-    <Button key={73} mode={GUI.ButtonMode.fixedTL} color={GUI.Colors.Cyan} iconLogo={GUI.IonicLogos.logoFacebook} />
-    <Button key={74} mode={GUI.ButtonMode.fixedTR} color={GUI.Colors.DeepPurple} iconName={GUI.IonicNames.analytics} iconActive />
-*/}
     <Button key={1} light onPress={() => alert('press')}>light</Button>
     <Button key={2}>primary</Button>
     <Button key={3} secondary>secondary</Button>
@@ -25,7 +19,7 @@ const app = () => <Container style={{ marginTop: 30 }}>
     <Button key={12} bordered primary>bordered primary</Button>
     <Button key={13} bordered dark>bordered dark</Button>
     <Button key={14} bordered danger iconName={GUI.IonicIcons.alert}>bordered danger iconName</Button>
-    <Button key={141} bordered danger iconName={GUI.IonicIcons.bookmark}></Button>
+    <Button key={141} bordered danger iconName={GUI.IonicIcons.archive}></Button>
     <Button key={15} bordered danger iconAfter iconName={GUI.IonicIcons.bookmark}>bordered danger iconAfter iconName</Button>
     <Button key={16} bordered color={GUI.Colors.Cyan} shadow={GUI.Shadows.S200}>bordered color shadow</Button>
     <Button key={17} bordered color={GUI.Colors.Cyan} shadow={GUI.Shadows.S200} iconName={GUI.IonicIcons.bookmark}>bordered color shadow icon</Button>
@@ -40,6 +34,14 @@ const app = () => <Container style={{ marginTop: 30 }}>
     <Button key={26} floating color={GUI.Colors.Cyan} iconName={GUI.IonicIcons.archive} disabled>asdfasd disabled</Button>
     <Button key={27} floating danger iconName={GUI.IonicIcons.attach}>asdfasd</Button>
     <Button key={28} floating light iconName={GUI.IonicIcons.attach}>asdfasd</Button>
+    {/*
+*/}
+    {/*
+    <Button key={71} mode={GUI.ButtonMode.fixedBL} color={GUI.Colors.DeepOrange} iconName={GUI.IonicNames.alert} />
+    <Button key={72} mode={GUI.ButtonMode.fixedBR} color={GUI.Colors.Blue} iconName={GUI.IonicNames.americanFootball} />
+    <Button key={73} mode={GUI.ButtonMode.fixedTL} color={GUI.Colors.Cyan} iconLogo={GUI.IonicLogos.logoFacebook} />
+    <Button key={74} mode={GUI.ButtonMode.fixedTR} color={GUI.Colors.DeepPurple} iconName={GUI.IonicNames.analytics} iconActive />
+*/}
   </Content>
 </Container >
 

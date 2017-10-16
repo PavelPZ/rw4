@@ -7,28 +7,32 @@ import { renderCSS } from '../lib/fela'
 import { navigateUrl, navigatePush } from '../../app-common/lib/router'
 
 export const Button: React.SFC<GUI.IButtonProps2> = props => {
-  const { light, iconAfter, iconName, dark, success, info, warning, danger, children, color, shadow, bordered, web = {}, onPress, href, ...rest } = props
+  const { flat, light, iconAfter, iconName, dark, success, info, warning, danger, children, color, shadow, bordered, web = {}, webStyle, onPress, href, ...rest } = props
   const { className = '', onClick: click, ...webRest } = web
-  const { flat, floating, raised, disabled, primary, secondary } = props
+  const { floating, raised, disabled, primary, secondary } = props
 
   //color
   let colorPair: CSSProperties = disabled ? { backgroundColor: 'lightgray', color: 'white' } : getColors(color, shadow) || success && getColors(GUI.Colors.success) || info && getColors(GUI.Colors.info) ||
     dark && getColors(GUI.Colors.dark) || info && getColors(GUI.Colors.info) || warning && getColors(GUI.Colors.warning) || danger && getColors(GUI.Colors.danger)
   if (colorPair && (flat || bordered)) colorPair = { backgroundColor: 'transparent', color: colorPair.backgroundColor } //background <==> color
+  let style: CSSProperties = { ...colorPair }
   //pouze ikona pro NON icon buttons
-  const iconOnly = !floating && React.Children.count(children) == 0
+  const hasChildren = React.Children.count(children) > 0
+  const iconOnly = !floating && !hasChildren
   //icon
   let iconClassName = getIcon2(iconName, 'android')
-  if (iconClassName) iconClassName = renderCSS({ fontSize: 24, alignSelf: iconOnly ? 'center' : undefined }) + ' icon ion-' + iconClassName
-  //floating
-  if (floating) colorPair = { ...colorPair, paddingTop: 10 }
+  if (iconClassName) iconClassName = renderCSS({ fontSize: 24 }) + ' ion ion-' + iconClassName
   //pouze ikona
-  if (iconOnly) colorPair = { ...colorPair, minWidth: 50, paddingLeft:31 }
+  if (iconOnly && !flat) style = { ...style, minWidth: 50, paddingLeft: 31 }
+  //children
+  const childs = !hasChildren || floating ? '' : children
 
   //click
   let onClick: (event: React.MouseEvent<HTMLElement>) => void
   if (click) onClick = click
   else if (onPress || typeof href != 'undefined') onClick = ev => { ev.stopPropagation(); ev.preventDefault(); if (onPress) onPress(); else navigatePush(href) }
+
+  style = { ...style, ...webStyle }
 
   const mdProps: ButtonProps = {
     ...rest,
@@ -36,13 +40,15 @@ export const Button: React.SFC<GUI.IButtonProps2> = props => {
     swapTheming: bordered,
     iconBefore: !iconAfter,
     iconClassName,
+    flat: flat && !iconOnly,
+    icon: flat && iconOnly,
     primary: primary || !light && !dark && !success && !info && !warning && !danger && !color && !secondary, //default is PRIMARY
     href: !href ? undefined : navigateUrl(href),
     raised: !flat && !floating || bordered,
-    className: className + ' ' + renderCSS(colorPair),
+    className: className + ' ' + renderCSS(style),
     onClick
   }
-  return <MDButton {...mdProps}>{!floating && children}</MDButton>
+  return <MDButton {...mdProps}>{childs}</MDButton>
 }
 //import React from 'react'
 

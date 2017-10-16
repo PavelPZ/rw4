@@ -1,7 +1,85 @@
 ﻿import React from 'react';
 import { View, Animated, TouchableWithoutFeedback, PanResponder } from 'react-native'
+import { Footer, FooterTab, Icon, Title, Subtitle, Container, Header, Content, Text, Button, H2, Left, Right, Body } from 'native-base'
+import { providerConnector } from '../../app-common/gui/drawer'
 
-export const getDrawerHeader = (isContent: boolean, props: Drawer.IHeader) => <View/>
+export const getDrawerContent = (pars: Drawer.IContent, st: Drawer.IStyled) => <ContentDr {...pars} {...st} />
+export const getDrawerMenu = (pars: Drawer.IMenu, st: Drawer.IStyled) => <Menu {...pars} {...st} />
+
+class ContentDr extends React.Component<Drawer.IContent> {
+
+  shouldComponentUpdate(nextProps: Drawer.IContent) { return false }
+
+  render() {
+    const { header, content, node, style, key, web, webStyle, children, ...rest } = this.props
+    const styled = { style, key }
+    if (node) return node(styled)
+    return <Container {...styled}>
+      {getToolbar({ key: 10, ...header, isContent: true })}
+      {contentContent({ ...content, ...rest })}
+    </Container>
+  }
+}
+
+const contentContent = ({ node, style, key, web, webStyle, items, ...rest }: Drawer.IContentContent) => {
+  const styled: Drawer.IStyled = { key: 2, style: { padding: 10, flexWrap: 'wrap', flexDirection: 'row', justifyContent: 'space-between' } }
+  if (node) return node(styled)
+  return <Content key={styled.key} contentContainerStyle={styled.style}>
+    {items}
+  </Content>
+}
+
+class Menu extends React.Component<Drawer.IMenu> {
+
+  shouldComponentUpdate(nextProps) { return false }
+
+  render() {
+    const { header, content, node, style, key, web, webStyle, children, ...rest } = this.props
+    const styled = { style: { ...style, backgroundColor: 'white', ...elevation }, key }
+    if (node) return node(styled)
+    return <Container {...styled}>
+      {getToolbar({ key: 10, ...header, isContent: false })}
+      {menuContent({ ...content, ...rest })}
+    </Container>
+  }
+}
+
+const menuContent = (props: Drawer.IMenuContent) => {
+  const { node, style, items, ...rest } = props
+  const styled: Drawer.IStyled = { key: 30, style: { flex: 1, padding: 8 } }
+  if (node) return node(styled)
+  return <Content {...styled}>
+    {items}
+  </Content>
+}
+
+
+const drawerButtonShow: React.SFC<Drawer.IProps> = ({ drawerVisible, windowSize, showDrawer }) => !drawerVisible && (windowSize == Media.TWindowSize.tablet || windowSize == Media.TWindowSize.mobile) &&
+  <Button icon onClick={() => showDrawer(true)} className='md-btn--toolbar md-toolbar--action-left'>menu</Button>
+const DrawerButtonShow = providerConnector(drawerButtonShow)
+const drawerButtonHide: React.SFC<Drawer.IProps> = ({ drawerVisible, windowSize, showDrawer }) => drawerVisible && (windowSize == Media.TWindowSize.tablet || windowSize == Media.TWindowSize.mobile) &&
+  <Button icon onClick={() => showDrawer(false)} className='md-btn--toolbar'>close</Button>
+const DrawerButtonHide = providerConnector(drawerButtonHide)
+
+const getToolbar = (props: Drawer.IHeader & { isContent: boolean }) => {
+  const { left, title, right, key, isContent, drawerVisible, windowSize, showDrawer } = props
+  let toolbar: JSX.Element
+  if (isContent) {
+    toolbar = <Toolbar key={key} colored zDepth={2}
+      nav={left || <DrawerButtonShow {...{ drawerVisible, windowSize, showDrawer }} />}
+      title={title}
+      actions={right}
+    />
+  } else {
+    toolbar = <Toolbar key={key}
+      nav={left}
+      title={title}
+      actions={right || <DrawerButtonHide {...{ drawerVisible, windowSize, showDrawer }} />}
+    />
+  }
+  return toolbar
+}
+
 
 export class AnimatedDrawer extends React.PureComponent<GUI.IAnimatedMobileDrawerProps> {
   rendered: boolean
@@ -53,18 +131,18 @@ export class AnimatedDrawer extends React.PureComponent<GUI.IAnimatedMobileDrawe
     if (isTablet)
       return <View style={absoluteStretch as any} {...!willBeVisible ? toVisibleHandlers.panHandlers : toHideHandlers.panHandlers}>
         <Animated.View style={{ left: leftValue as any, position: 'absolute', top: 0, right: 0, bottom: 0, flexDirection: 'row' }} >
-          {getMenu(menu, { key: 1, style: { width: drawerWidth } })}
-          {getContent(content, { key: 0, style: { flex: 1 } })}
+          {getDrawerMenu(menu, { key: 1, style: { width: drawerWidth } })}
+          {getDrawerContent(content, { key: 0, style: { flex: 1 } })}
         </Animated.View>
       </View>
     else
       return <View style={absoluteStretch as any} {...!willBeVisible ? toVisibleHandlers.panHandlers : toHideHandlers.panHandlers}>
-        {getContent(content, { key: 0, style: absoluteStretch as ReactNative.ViewProperties })}
+        {getDrawerContent(content, { key: 0, style: absoluteStretch as ReactNative.ViewProperties })}
         <TouchableWithoutFeedback key={1} onPress={() => showDrawer(false)}>
           <Animated.View style={{ opacity: opacityValue as any, width: widthValue as any, ...topBottom, left: 0, backgroundColor: 'gray' }} />
         </TouchableWithoutFeedback>
         <Animated.View key={2} style={{ left: leftValue as any, ...topBottom, width: drawerWidth }} >
-          {getMenu(menu, { style: { flex: 1 } })}
+          {getDrawerMenu(menu, { style: { flex: 1 } })}
         </Animated.View>
       </View>
   }
@@ -72,3 +150,18 @@ export class AnimatedDrawer extends React.PureComponent<GUI.IAnimatedMobileDrawe
 
 const absoluteStretch = { position: 'absolute', top: 0, left: 0, right: 0, bottom: 0 }
 const topBottom = { position: 'absolute', top: 0, bottom: 0 }
+const elevation = {
+  elevation: 3,
+  shadowColor: "#000",
+  shadowOffset: { width: 2, height: 0 },
+  shadowOpacity: 0.2,
+  shadowRadius: 1.2,
+}
+
+const noElevation = {
+  elevation: 0,
+  shadowColor: 'transparent',
+  shadowOffset: { width: 0, height: 0 },
+  shadowOpacity: 0,
+  shadowRadius: 0,
+}

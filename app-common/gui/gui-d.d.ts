@@ -60,6 +60,7 @@
     color?: GUI.Colors
     shadow?: GUI.Shadows
     web?: React.HTMLAttributes<any>
+    webStyle?: CSSProperties
   }
 
 

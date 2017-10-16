@@ -1,17 +1,66 @@
 ﻿import React from 'react';
 import { renderCSS, renderCSSs } from '../lib/fela'
 
-import { Divider, BottomNavigation, Toolbar, FontIcon, Button } from 'react-md'
-import { View } from '../../app-common/gui/gui'
+import { Divider, BottomNavigation, Toolbar } from 'react-md'
+import { View, Button } from '../../app-common/gui/gui'
 import { providerConnector } from '../../app-common/gui/drawer'
 
-export const getDrawerHeader = (isContent: boolean, props: Drawer.IHeader) => getToolbar({ key: 10, ...props, isContent: isContent })
+export const getDrawerContent = (pars: Drawer.IContent, st: Drawer.IStyled) => <Content {...pars} {...st} />
+export const getDrawerMenu = (pars: Drawer.IMenu, st: Drawer.IStyled) => <Menu {...pars} {...st} />
+
+class Content extends React.Component<Drawer.IContent> {
+
+  shouldComponentUpdate(nextProps: Drawer.IContent) { return false }
+
+  render() {
+    const { header, content, node, style, web, webStyle, children, ...rest } = this.props
+    const styled = { web, style: [viewStyle, style, webStyle] } as Drawer.IStyled
+    if (node) return node(styled)
+    return <div {...styled as any} >
+      {getToolbar({ key: 10, ...header, isContent: true })}
+      {contentContent({ ...content, ...rest, key: 20 })}
+    </div >
+  }
+}
+
+const contentContent = ({ node, style, key, web, webStyle, items, ...rest }: Drawer.IContentContent) => {
+  const styled: Drawer.IStyled = { key: key, style: { flex: 1, padding: 8 }, webStyle: { overflow: 'auto' } }
+  if (node) return node(styled)
+  return <View {...styled}>
+    {items}
+  </View>
+}
+
+class Menu extends React.Component<Drawer.IMenu> {
+
+  shouldComponentUpdate(nextProps) { return false }
+
+  render() {
+    const { header, content, node, style, web, webStyle, children, ...rest } = this.props
+    const styled = { style: { ...style, zIndex: 1, backgroundColor: 'white' }, web: { ...web, className: 'md-paper--1' }, webStyle }
+    if (node) return node(styled)
+    return <View {...styled}>
+      {getToolbar({ key: 10, ...header, isContent: false })}
+      {menuContent({ ...content, ...rest, key: 30 })}
+    </View>
+  }
+}
+
+const menuContent = (props: Drawer.IMenuContent) => {
+  const { node, style, items, key, ...rest } = props
+  const styled: Drawer.IStyled = { key: key, style: { flex: 1, padding: 8 }, webStyle: { overflow: 'auto' } }
+  if (node) return node(styled)
+  return <View {...styled}>
+    {items}
+  </View>
+}
+
 
 const drawerButtonShow: React.SFC<Drawer.IProps> = ({ drawerVisible, windowSize, showDrawer }) => !drawerVisible && (windowSize == Media.TWindowSize.tablet || windowSize == Media.TWindowSize.mobile) &&
-  <Button icon onClick={() => showDrawer(true)} className='md-btn--toolbar md-toolbar--action-left'>menu</Button>
+  <Button flat iconName={GUI.IonicIcons.menu} onPress={() => showDrawer(true)} web={{ className: 'md-btn--toolbar md-toolbar--action-left' }} />
 const DrawerButtonShow = providerConnector(drawerButtonShow)
 const drawerButtonHide: React.SFC<Drawer.IProps> = ({ drawerVisible, windowSize, showDrawer }) => drawerVisible && (windowSize == Media.TWindowSize.tablet || windowSize == Media.TWindowSize.mobile) &&
-  <Button icon onClick={() => showDrawer(false)} className='md-btn--toolbar'>close</Button>
+  <Button flat iconName={GUI.IonicIcons.close} onPress={() => showDrawer(false)} web={{ className: 'md-btn--toolbar' }} />
 const DrawerButtonHide = providerConnector(drawerButtonHide)
 
 const getToolbar = (props: Drawer.IHeader & { isContent: boolean }) => {
@@ -19,7 +68,7 @@ const getToolbar = (props: Drawer.IHeader & { isContent: boolean }) => {
   let toolbar: JSX.Element
   if (isContent) {
     toolbar = <Toolbar key={key} colored zDepth={2}
-      nav={left || <DrawerButtonShow {...{ drawerVisible, windowSize, showDrawer}} />}
+      nav={left || <DrawerButtonShow {...{ drawerVisible, windowSize, showDrawer }} />}
       title={title}
       actions={right}
     />
@@ -74,7 +123,7 @@ export class AnimatedDrawer extends React.PureComponent<GUI.IAnimatedMobileDrawe
         className={renderCSSs(absoluteStretch as CSSProperties, { flexDirection: 'row', display: 'flex', left: isVisible ? 0 : -drawerWidth })}
       >
         {getMenu(menu, { key: 0, style: { width: drawerWidth } })}
-        {getContent(content, { key: 1, style: { flex: 1 } })} 
+        {getContent(content, { key: 1, style: { flex: 1 } })}
       </div>
     } else
       return <div ref={refForAnimation}>
@@ -93,3 +142,4 @@ export class AnimatedDrawer extends React.PureComponent<GUI.IAnimatedMobileDrawe
 }
 
 const absoluteStretch = { position: 'absolute', top: 0, left: 0, right: 0, bottom: 0 }
+const viewStyle: CSSProperties = { display: 'flex', flexDirection: 'column' } 

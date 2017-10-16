@@ -17,7 +17,8 @@ export let Footer: React.ComponentType<ViewProperties>
 //export let Page: React.ComponentType<Router.IPageProps>
 //export const DrawerLayout = _DrawerLayout
 export let colorToStyle: { [color: string]: GUI.Colors }
-export let getDrawerHeader: (isContent: boolean, props: Drawer.IHeader) => React.ReactNode
+export let getDrawerContent: (pars: Drawer.IContent, st: Drawer.IStyled) => JSX.Element
+export let getDrawerMenu: (pars: Drawer.IMenu, st: Drawer.IStyled) => JSX.Element
 
 export const initGUI = async (pl: IPlatform) => {
   Animated = pl.Animated
@@ -35,7 +36,8 @@ export const initGUI = async (pl: IPlatform) => {
   Footer = pl.Footer
   //Page = pl.Page
   colorToStyle = pl.colorToStyle
-  getDrawerHeader = pl.getDrawerHeader
+  getDrawerContent = pl.getDrawerContent
+  getDrawerMenu = pl.getDrawerMenu
 }
 
 interface IPlatform {
@@ -46,7 +48,8 @@ interface IPlatform {
   H3: React.ComponentType<TextProperties>
   View: React.ComponentType<NativeBase.View>
   AnimatedDrawer: React.ComponentClass<GUI.IAnimatedMobileDrawerProps>
-  getDrawerHeader:(isContent: boolean, props: Drawer.IHeader) => React.ReactNode
+  getDrawerContent: (pars: Drawer.IContent, st: Drawer.IStyled) => JSX.Element
+  getDrawerMenu: (pars: Drawer.IMenu, st: Drawer.IStyled) => JSX.Element
   Text: React.ComponentType<NativeBase.Text>
   Container: React.ComponentType<ViewProperties>
   Header: React.ComponentType<ViewProperties>
