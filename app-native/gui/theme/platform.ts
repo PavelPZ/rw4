@@ -5,7 +5,7 @@ import { Platform, Dimensions, PixelRatio } from 'react-native'
 const deviceHeight = Dimensions.get('window').height
 const deviceWidth = Dimensions.get('window').width
 const platform = Platform.OS == 'windows' ? 'ios' : Platform.OS
-const platformStyle = undefined
+const platformStyle = 'material'
 
 export const enum Fonts {
   System = 'System',
@@ -68,7 +68,7 @@ export const enum Palette {
   //NU col21 = '#039be5',
 }
 
-export const getPlatformVariables = (platform:string) => {
+export const getPlatformVariables = (platform: string) => {
   const ios = platform == 'ios'
   return {
   platformStyle,

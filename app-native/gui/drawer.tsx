@@ -1,10 +1,14 @@
 ﻿import React from 'react';
 import { Text, View, Animated, TouchableWithoutFeedback, PanResponder } from 'react-native'
-import { Button, Footer, FooterTab, Icon, Title, Subtitle, Container, Header, Content, H2, Left, Right, Body } from 'native-base'
-import variables from './theme/platform'
+import { Button, Footer, FooterTab, Icon, Title, Subtitle, Container, Header, Content, H2, Left, Right, Body, StyleProvider } from 'native-base'
 import { providerConnector } from '../../app-common/gui/drawer'
+
+import headerTheme from './theme/components/Header'
+import variables, { getPlatformVariables, Palette, Fonts } from './theme/platform'
+import getTheme from './theme/components/index'
+
 import { connectStyle } from 'native-base-shoutem-theme'
-//import { Button as GUIButton } from '../../app-common/gui/gui'
+import { Button as GUIButton } from '../../app-common/gui/gui'
 
 const getDrawerContent = (pars: Drawer.IContent, styled: Drawer.IStyled) => <ContentDr {...pars} {...styled} />
 const getDrawerMenu = (pars: Drawer.IMenu, styled: Drawer.IStyled) => <Menu {...pars} {...styled} />
@@ -58,44 +62,55 @@ const menuContent = (props: Drawer.IMenuContent) => {
 }
 
 const drawerButtonShow: React.SFC<Drawer.IProps> = ({ drawerVisible, windowSize, showDrawer }) => !drawerVisible && (windowSize == Media.TWindowSize.tablet || windowSize == Media.TWindowSize.mobile) &&
-  <Button transparent onPress={() => showDrawer(true)}><Icon name={GUI.IonicIcons.menu} /></Button>
-//GUIButton({ iconName: GUI.IonicIcons.menu, flat: true, onPress: () => showDrawer(true) })
+  GUIButton({ iconName: GUI.IonicIcons.menu, flat: true, light: true, onPress: () => showDrawer(true) })
 const DrawerButtonShow = providerConnector(drawerButtonShow)
 
 const drawerButtonHide: React.SFC<Drawer.IProps> = ({ drawerVisible, windowSize, showDrawer }) => drawerVisible && (windowSize == Media.TWindowSize.tablet || windowSize == Media.TWindowSize.mobile) &&
-  <Button transparent onPress={() => showDrawer(false)}><Icon name={GUI.IonicIcons.close} /></Button>
+  GUIButton({ iconName: GUI.IonicIcons.close, flat: true, light: true, onPress: () => showDrawer(false) })
 const DrawerButtonHide = providerConnector(drawerButtonHide)
 
 const getToolbar = (props: Drawer.IHeader & { isContent: boolean }) => {
   const { left, title, right, key, isContent, drawerVisible, windowSize, showDrawer } = props
   let toolbar: JSX.Element
   if (isContent) {
-    toolbar = <Header key={key}>
-      {(windowSize != Media.TWindowSize.mobile || left) && <Left>
-        {left || <DrawerButtonShow {...{ drawerVisible, windowSize, showDrawer }} />}
-      </Left>}
-      <Body>
-        <Title>{title}</Title>
-      </Body>
-      {right && <Right>
-        {right}
-      </Right>}
-    </Header>
+    toolbar = <StyleProvider style={darkHeader}>
+      <Header key={key}>
+        {(windowSize != Media.TWindowSize.mobile || left) && <Left>
+          {left || <DrawerButtonShow {...{ drawerVisible, windowSize, showDrawer }} />}
+        </Left>}
+        <Body>
+          <Title>{title}</Title>
+        </Body>
+        {right && <Right>
+          {right}
+        </Right>}
+      </Header>
+    </StyleProvider>
   } else {
-    toolbar = <Header key={key} style={noElevation}>
-      {left && <Left>
-        {left}
-      </Left>}
-      <Body>
-        <Title>{title}</Title>
-      </Body>
-      {(windowSize != Media.TWindowSize.mobile || right) && <Right>
-        {right || <DrawerButtonHide {...{ drawerVisible, windowSize, showDrawer }} />}
-      </Right>}
-    </Header>
+    toolbar = <StyleProvider style={lightHeader}>
+      <Header key={key} style={noElevation} >
+        {left && <Left>
+          {left}
+        </Left>}
+        <Body>
+          <Title>{title} {title}</Title>
+        </Body>
+        {(windowSize != Media.TWindowSize.mobile || right) && <Right>
+          {right || <DrawerButtonHide {...{ drawerVisible, windowSize, showDrawer }} />}
+        </Right>}
+      </Header>
+    </StyleProvider>
   }
   return toolbar
 }
+//console.log(variables)
+const vars = getPlatformVariables(variables.platform)
+vars.toolbarDefaultBg = variables.inverseTextColor
+vars.toolbarBtnColor = variables.brandPrimary
+vars.titleFontColor = variables.colHeader
+
+const lightHeader = getTheme(variables)
+const darkHeader = { ...lightHeader, 'NativeBase.Header': headerTheme(vars) }
 
 export class AnimatedDrawer extends React.PureComponent<GUI.IAnimatedMobileDrawerProps> {
   rendered: boolean
@@ -144,7 +159,7 @@ export class AnimatedDrawer extends React.PureComponent<GUI.IAnimatedMobileDrawe
       onPanResponderRelease: onHideResponderRelease,
       onPanResponderTerminate: onHideResponderRelease
     })
-    console.log(windowSize, leftValue, widthValue)
+    //console.log(windowSize, leftValue, widthValue)
     switch (windowSize) {
       case Media.TWindowSize.tablet: return <Animated.View
         style={[absoluteStretch as any, { backgroundColor: 'white', opacity: routeOpacity }]}
@@ -161,7 +176,7 @@ export class AnimatedDrawer extends React.PureComponent<GUI.IAnimatedMobileDrawe
         ref={view => view && !rendered && refForAnimation && refForAnimation(routeOpacity)}>
         {getDrawerContent(content, { key: 1, style: absoluteStretch as ReactNative.ViewProperties })}
         <TouchableWithoutFeedback key={2} onPress={() => showDrawer(false)}>
-          <Animated.View style={{ opacity: opacityValue as any, width: widthValue as any, ...topBottom, left: 0, backgroundColor: 'gray', elevation:4 } as ReactNative.ViewStyle} />
+          <Animated.View style={{ opacity: opacityValue as any, width: widthValue as any, ...topBottom, left: 0, backgroundColor: 'gray', elevation: 4 } as ReactNative.ViewStyle} />
         </TouchableWithoutFeedback >
         <Animated.View key={3} style={[topBottom, { left: leftValue, width: drawerWidth }]} >
           {getDrawerMenu(menu, { style: { elevation: 5 } })}

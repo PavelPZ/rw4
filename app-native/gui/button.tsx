@@ -8,7 +8,7 @@ import { getColors } from '../../app-common/gui/colors'
 import { colorToBsStyle } from './theme'
 
 export const Button: React.SFC<GUI.IButtonProps> = props => {
-  const { flat, floating, raised, active, iconAfter, iconName, children, color, shadow, secondary, web, onPress: press, href, light, ...rest } = props
+  const { flat, floating, raised, active, iconAfter, iconName, children, color, shadow, secondary, web, onPress: press, href, light, webStyle, ...rest } = props
   const { primary, dark, success, info, warning, danger, bordered, disabled } = props
 
   //CUSTOM color
@@ -43,7 +43,7 @@ export const Button: React.SFC<GUI.IButtonProps> = props => {
     ...raised || flat ? (iconAfter ? { iconRight: true } : { iconLeft: true }) : undefined,
   }
 
-  console.log(mdProps, textStyle, floatingStyle, floatingIconStyle)
+  //IC && console.log(mdProps)
   return <NBButton {...mdProps}>{comps}</NBButton>
 }
 const floatingSize = 52
