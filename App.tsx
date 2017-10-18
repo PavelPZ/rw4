@@ -5,7 +5,6 @@ import { Provider as ReduxProvider, connect } from 'react-redux'
 import { createStore, Store, applyMiddleware } from 'redux'
 import createSagaMiddleware from 'redux-saga/index'
 import { all, call } from 'redux-saga/effects'
-import { Platform, Animated } from 'react-native';
 
 //********** COMMON
 import { initGUI } from './app-common/gui/gui'
@@ -18,15 +17,16 @@ import { DrawerLayout } from './app-common/gui/drawer'
 import { reducer as drawerReducer } from './app-common/gui/drawer'
 
 //********** NATIVE specific
+import { Text, Platform, View } from 'react-native';
 import createHistory from 'history/createMemoryHistory'
 import { RecorderButton, LayerProvider, BlockGuiComp, init as initRoot, } from './app-native/gui/lib'
 import { getAnimator as getRouteAnimator } from './app-native/lib/native-router'
 import { AppLoading, Constants } from 'expo'
 import { Icon } from './app-native/gui/icon'
 import { Button } from './app-native/gui/button'
-import { Content } from './app-native/gui/content'
+//import { Content } from './app-native/gui/content'
 import { AnimatedDrawer } from './app-native/gui/drawer'
-import { Container, Header, Footer, Text, StyleProvider, H1, H2, H3, View } from 'native-base'
+import { H1, H2, H3 } from 'native-base'
 import { Theme, colorToStyle } from './app-native/gui/theme'
 import { init as initMediaQuery } from './app-native/lib/native-media-query'
 
@@ -85,7 +85,7 @@ export const init = async () => {
       getAnimator: getRouteAnimator,
     },
   }
-  initGUI({ colorToStyle: {}, Button, Icon, H1, H2, H3, View, Container, Header, Footer, Content, Text, AnimatedDrawer, Animated })
+  initGUI({ colorToStyle: {}, Button, Icon, H1, H2, H3, View, Text, AnimatedDrawer })
 
   const recordingJSON = await require('./App_Data/recording.json')
   //console.log('recordingJSON:\n', JSON.stringify(recordingJSON,null,2))

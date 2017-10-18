@@ -126,7 +126,7 @@ export class AnimatedDrawer extends React.PureComponent<GUI.IAnimatedMobileDrawe
         {getDrawerContent(content, { key: 1, style: { flex: 1 } })}
       </div>
       case Media.TWindowSize.mobile: return <div ref={refForAnimation}>
-        {getDrawerContent(content, { key: 1, style: absoluteStretch as ReactNative.ViewProperties })}
+        {getDrawerContent(content, { key: 1, style: absoluteStretch as RN.ViewProperties })}
         <div key={2}
           ref={div => divCreated(0, div, false, () => TweenLite.to(div, duration, { display: 'block', paused: true, reversed: true, opacity: 0.85 }))}
           className={renderCSSs(absoluteStretch as CSSProperties, { backgroundColor: 'gray', opacity: 0, display: 'none' })}

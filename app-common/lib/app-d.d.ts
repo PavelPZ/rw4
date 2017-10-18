@@ -22,7 +22,7 @@ declare namespace App {
     store?: Store
     platform: IPlatforms
     topMargin: number
-    OS: ReactNative.PlatformOSType
+    OS: RN.PlatformOSType
   }
 
   interface IReducer<TState = IState> { (state: TState, action: Action): TState }
@@ -61,7 +61,7 @@ interface Window {
 interface IState { }
 
 interface IPlatforms {
-  OS: ReactNative.PlatformOSType
+  OS: RN.PlatformOSType
 }
 
 interface IContext {

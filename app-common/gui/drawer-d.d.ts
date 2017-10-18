@@ -23,7 +23,7 @@
   type IProps = IStateDispatch & IOwn
 
   interface IStyled {
-    style?: ReactNative.ViewStyle | ReactNative.ViewStyle[]
+    style?: RN.ViewStyle | RN.ViewStyle[]
     key?: string | number
     web?: React.HTMLAttributes<any>,
     webStyle?: CSSProperties

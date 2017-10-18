@@ -1,5 +1,5 @@
 ﻿////export as namespace AnimatedProxy;
-//import ReactNative from 'react-native'
+//import RN from 'react-native'
 
 //declare const animated: IAnimated;
 
@@ -9,7 +9,7 @@
 //  new(value: number);
 //}
 //interface ValueXYClass {
-//  new(valueIn?: { x: number | ReactNative.Animated.AnimatedValue; y: number | ReactNative.Animated.AnimatedValue });
+//  new(valueIn?: { x: number | RN.Animated.AnimatedValue; y: number | RN.Animated.AnimatedValue });
 //}
 
 

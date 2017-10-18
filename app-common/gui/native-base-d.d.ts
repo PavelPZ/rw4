@@ -1,30 +1,30 @@
 ﻿declare namespace NativeBase {
-  export interface Text extends ReactNative.TextProperties {
+  export interface Text extends RN.TextProperties {
     note?: boolean;
     uppercase?: boolean;
   }
 
-  export interface Switch extends ReactNative.SwitchProperties { }
+  export interface Switch extends RN.SwitchProperties { }
 
-  export interface View extends ReactNative.ViewProperties {
+  export interface View extends RN.ViewProperties {
     padder?: boolean;
   }
 
-  export interface Picker extends ReactNative.PickerProperties {
+  export interface Picker extends RN.PickerProperties {
     iosHeader?: string;
     inlineLabel?: boolean;
     headerBackButtonText?: string;
   }
 
-  export interface H1 extends ReactNative.TextProperties { }
+  export interface H1 extends RN.TextProperties { }
   /**
        * see Widget Text.js
        */
-  export interface H2 extends ReactNative.TextProperties { }
+  export interface H2 extends RN.TextProperties { }
   /**
        * see Widget Text.js
        */
-  export interface H3 extends ReactNative.TextProperties { }
+  export interface H3 extends RN.TextProperties { }
   /**
        * see Widget Text.js
        */
@@ -36,7 +36,7 @@
     info?: boolean;
   }
 
-  export interface Badge extends ReactNative.ViewProperties, BsStyle { }
+  export interface Badge extends RN.ViewProperties, BsStyle { }
   /**
        * see Widget CardSwiper.js
        */
@@ -77,7 +77,7 @@
            * Default: regular
            */
     rounded?: boolean;
-    style?: ReactNative.ViewStyle;
+    style?: RN.ViewStyle;
     /**
            * It is advisable to use hasTabs prop with Header while using Tab
            */
@@ -86,40 +86,40 @@
   }
 
   export interface Left {
-    style?: ReactNative.ViewStyle;
+    style?: RN.ViewStyle;
   }
 
   export interface Body {
-    style?: ReactNative.ViewStyle;
+    style?: RN.ViewStyle;
   }
 
   export interface Right {
-    style?: ReactNative.ViewStyle;
+    style?: RN.ViewStyle;
   }
 
   /**
        * see Widget FooterTab.js
        */
   export interface FooterTab {
-    style?: ReactNative.ViewStyle;
+    style?: RN.ViewStyle;
   }
   /**
        * see Widget Footer.js
        */
   export interface Footer {
-    style?: ReactNative.ViewStyle;
+    style?: RN.ViewStyle;
   }
   /**
        * see Widget Title.js
        */
   export interface Title {
-    style?: ReactNative.ViewStyle;
+    style?: RN.ViewStyle;
   }
   /**
        * see Widget Subtitle/index.js
        */
   export interface SubTitle {
-    style?: ReactNative.ViewStyle;
+    style?: RN.ViewStyle;
   }
   /**
        * see Widget Container.js
@@ -129,7 +129,7 @@
            * The theme prop can be applied to any component of NativeBase.
            */
     theme?: Object;
-    style?: ReactNative.ViewStyle;
+    style?: RN.ViewStyle;
   }
   /**
        * see Widget Content.js
@@ -142,21 +142,21 @@
     padder?: boolean;
     disableKBDismissScroll?: boolean;
     enableResetScrollToCoords?: boolean;
-    style?: ReactNative.ViewStyle;
-    contentContainerStyle?: ReactNative.ViewStyle;
+    style?: RN.ViewStyle;
+    contentContainerStyle?: RN.ViewStyle;
   }
   /**
        * see Widget Button.js
        */
-  export interface Button extends ReactNative.TouchableOpacityProperties, BsStyle {
+  export interface Button extends RN.TouchableOpacityProperties, BsStyle {
     /**
            * Defines button style
            */
-    style?: ReactNative.ViewStyle;
+    style?: RN.ViewStyle;
     /**
            * Defines button text style
            */
-    textStyle?: ReactNative.TextStyle;
+    textStyle?: RN.TextStyle;
     /**
            * Block level button
            */
@@ -239,7 +239,7 @@
   /**
        * see Widget ListItem.js
        */
-  export interface ListItem extends ReactNative.TouchableOpacityProperties {
+  export interface ListItem extends RN.TouchableOpacityProperties {
     header?: boolean;
     noBorder?: boolean;
     /**
@@ -279,7 +279,7 @@
   /**
        * see Widget CardItem.js
        */
-  export interface CardItem extends ReactNative.TouchableOpacityProperties {
+  export interface CardItem extends RN.TouchableOpacityProperties {
     header?: boolean;
     footer?: boolean;
     cardBody?: boolean;
@@ -289,8 +289,8 @@
        * Override React ListViewProperties
        */
   export interface ReactListViewProperties
-    extends ReactNative.ScrollViewProperties,
-    React.Props<ReactNative.ListViewStatic> {
+    extends RN.ScrollViewProperties,
+    React.Props<RN.ListViewStatic> {
     /**
            * Flag indicating whether empty section headers should be rendered.
            * In the future release empty section headers will be rendered by
@@ -384,8 +384,8 @@
            * Defaults to returning a ScrollView with the given props.
            */
     renderScrollComponent?: (
-      props: ReactNative.ScrollViewProperties
-    ) => React.ReactElement<ReactNative.ScrollViewProperties>;
+      props: RN.ScrollViewProperties
+    ) => React.ReactElement<RN.ScrollViewProperties>;
 
     /**
            * (sectionData, sectionID) => renderable
@@ -426,30 +426,30 @@
            */
     stickyHeaderIndices?: number[];
 
-    ref?: React.Ref<ReactNative.ListViewStatic & ReactNative.ScrollViewStatic & ReactNative.ViewStatic>;
+    ref?: React.Ref<RN.ListViewStatic & RN.ScrollViewStatic & RN.ViewStatic>;
   }
   /**
        * see Widget Card.js
        */
-  export interface Card extends ReactNative.ViewProperties, ReactListViewProperties {
+  export interface Card extends RN.ViewProperties, ReactListViewProperties {
     dataArray?: Array<any>;
-    style?: ReactNative.ViewStyle;
-    ref?: React.Ref<ReactNative.ViewProperties | ReactListViewProperties>;
+    style?: RN.ViewStyle;
+    ref?: React.Ref<RN.ViewProperties | ReactListViewProperties>;
   }
   /**
        * react-native-easy-grid
        */
-  export interface Grid extends ReactNative.ViewProperties { }
-  export interface Row extends ReactNative.ViewProperties {
+  export interface Grid extends RN.ViewProperties { }
+  export interface Row extends RN.ViewProperties {
     size?: number;
   }
-  export interface Col extends ReactNative.ViewProperties {
+  export interface Col extends RN.ViewProperties {
     size?: number;
   }
   /**
        * see Widget InputGroup.js
        */
-  export interface InputGroup extends ReactNative.ViewProperties {
+  export interface InputGroup extends RN.ViewProperties {
     /**
            * Wraps the textbox with predefined border options.
            * Default: underline
@@ -481,7 +481,7 @@
   /**
        * see Widget Input.js
        */
-  export interface Input extends ReactNative.TextInputProperties {
+  export interface Input extends RN.TextInputProperties {
     label?: string;
     /**
            * Label placed to the left of the input element.
@@ -498,19 +498,19 @@
   /**
        * see Widget Textarea.js
        */
-  export interface Textarea extends ReactNative.TextInputProperties {
+  export interface Textarea extends RN.TextInputProperties {
     rowSpan: number;
   }
 
   export interface Label {
-    style?: ReactNative.TextStyle;
+    style?: RN.TextStyle;
   }
   /**
        * see Widget Icon.js
        */
   export interface Icon {
     name: string;
-    // TODO position attribute of ReactNative.FlexStyle hasn't another position values without "absolute" and "relative"
+    // TODO position attribute of RN.FlexStyle hasn't another position values without "absolute" and "relative"
     style?: any;
     onPress?: (e?: any) => any;
     active?: boolean;
@@ -522,7 +522,7 @@
   /**
        * see Widget Icon.js
        */
-  export interface Thumbnail extends ReactNative.ImageProperties {
+  export interface Thumbnail extends RN.ImageProperties {
     /**
            * Dimension of thumbnail.
            * Default: 30
@@ -542,7 +542,7 @@
   /**
        * see Widget Spinner.js
        */
-  export interface Spinner extends ReactNative.ActivityIndicatorProperties {
+  export interface Spinner extends RN.ActivityIndicatorProperties {
     inverse?: boolean;
   }
   /**
@@ -554,7 +554,7 @@
   /**
        * see Widget CheckBox.js
        */
-  export interface Radio extends ReactNative.TouchableOpacityProperties {
+  export interface Radio extends RN.TouchableOpacityProperties {
     selected?: boolean;
   }
   /**
@@ -569,10 +569,10 @@
        * vendor react-native-drawer
        */
   export interface DrawerStyles {
-    drawer?: ReactNative.ViewStyle;
-    main?: ReactNative.ViewStyle;
-    drawerOverlay?: ReactNative.ViewStyle;
-    mainOverlay?: ReactNative.ViewStyle;
+    drawer?: RN.ViewStyle;
+    main?: RN.ViewStyle;
+    drawerOverlay?: RN.ViewStyle;
+    mainOverlay?: RN.ViewStyle;
   }
   export interface Drawer {
     acceptDoubleTap?: boolean;
@@ -582,7 +582,7 @@
     children?: any; open?: boolean;
     closedDrawerOffset?: number;
     content?: any;
-    deviceScreen?: ReactNative.ScaledSize;
+    deviceScreen?: RN.ScaledSize;
     disabled?: boolean;
     initializeOpen?: boolean;
     negotiatePan?: boolean;
@@ -621,9 +621,9 @@
     heading: TabHeading;
   }
   export interface TabHeading {
-    activeTabStyle?: ReactNative.ViewStyle;
-    textStyle?: ReactNative.TextStyle;
-    activeTextStyle?: ReactNative.TextStyle;
+    activeTabStyle?: RN.ViewStyle;
+    textStyle?: RN.TextStyle;
+    activeTextStyle?: RN.TextStyle;
   }
 
   export interface Item {
@@ -645,21 +645,21 @@
   }
 
   export interface Form {
-    style?: ReactNative.ViewStyle;
+    style?: RN.ViewStyle;
   }
 
   export interface Fab {
     active?: boolean;
     direction?: "down" | "up" | "left" | "right";
-    containerStyle?: ReactNative.ViewStyle;
+    containerStyle?: RN.ViewStyle;
     onPress?: () => void;
     position?: "topLeft" | "topRight" | "bottomLeft" | "bottomRight";
-    style?: ReactNative.ViewStyle;
+    style?: RN.ViewStyle;
   }
 
-  export interface Image extends ReactNative.TextProperties { }
+  export interface Image extends RN.TextProperties { }
 
-  export interface Segment extends ReactNative.TextProperties { }
+  export interface Segment extends RN.TextProperties { }
 
   export interface StyleProvider {
     style?: any;

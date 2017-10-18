@@ -4,7 +4,7 @@
 //https://github.com/ionic-team/ionicons
 //https://raw.githubusercontent.com/GeekyAnts/NativeBase/master/src/basic/Icon/index.js
 
-export const getIcon = (name: string, logoId: string, OS: ReactNative.PlatformOSType, active: boolean) => {
+export const getIcon = (name: string, logoId: string, OS: RN.PlatformOSType, active: boolean) => {
   if (logoId) return logoId
   if (name) {
     const icn = iconsMeta[name]
@@ -15,7 +15,7 @@ export const getIcon = (name: string, logoId: string, OS: ReactNative.PlatformOS
   }
 }
 
-export const getIcon2 = (name: GUI.IonicIcons, OS?: ReactNative.PlatformOSType, active?: boolean) => {
+export const getIcon2 = (name: GUI.IonicIcons, OS?: RN.PlatformOSType, active?: boolean) => {
   if (!name) return null
   if (logoIcons[name]) return name
   const icn = iconsMeta[name]

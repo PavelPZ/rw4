@@ -45,6 +45,7 @@
     "App.tsx",
     "polyfill/index.tsx",
     "native-base-theme",
+    "react-native-elements",
 
     "jspm_packages/",
     "node_modules/"

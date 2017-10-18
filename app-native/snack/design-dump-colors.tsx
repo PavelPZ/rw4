@@ -1,7 +1,6 @@
 import React from 'react'
 
-import { View, Button, Text, Card, H3 } from 'native-base'
-import { ScrollView } from 'react-native'
+import { ScrollView, View, Button, Text } from 'react-native'
 
 import getTheme from '../gui/theme/components/index'
 import { getPlatformVariables } from '../gui/theme/platform'
@@ -49,10 +48,10 @@ const app: React.SFC<any> = props => {
   return <ScrollView style={{ marginTop: 30 }}>
     {list.map((it, idx) => { 
       const textColor = it.color == Palette.gray_16 || it.color == Palette.gray_17 || it.color == Palette.gray_black ? 'white' : 'black'
-      return <Card key={idx} style={{ backgroundColor: it.color, marginBottom: 5 }}>
-        <H3 style={{ color: textColor }}>{it.name}: {it.color}</H3>
+      return <View key={idx} style={{ backgroundColor: it.color, marginBottom: 5 }}>
+        <Text style={{ color: textColor }}>{it.name}: {it.color}</Text>
         {getPaths(it.paths).map((p, idx2) => <Text key={idx2} style={{ fontSize: 8, color: textColor }}>{p}</Text>)}
-      </Card>
+      </View>
     })}
   </ScrollView>
 }

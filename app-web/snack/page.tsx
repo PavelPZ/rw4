@@ -128,4 +128,4 @@ import { providerConnector } from '../../app-common/gui/drawer'
 
 //const lorem = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(i => 'adsf asd fasd f asd fasd f asdf asd fas df asdf asdf ')
 
-//const absoluteStretch = { position: 'absolute', top: 0, left: 0, right: 0, bottom: 0 } as ReactNative.ViewStyle
+//const absoluteStretch = { position: 'absolute', top: 0, left: 0, right: 0, bottom: 0 } as RN.ViewStyle

@@ -1,16 +1,16 @@
 ﻿declare namespace GUI {
 
   //interface AnimatedViewStyle {
-  //  opacity?: ReactNative.Animated.Value
-  //  width?: ReactNative.Animated.Value
-  //  height?: ReactNative.Animated.Value
-  //  left?: ReactNative.Animated.Value
-  //  right?: ReactNative.Animated.Value
-  //  top?: ReactNative.Animated.Value
-  //  bottom?: ReactNative.Animated.Value
+  //  opacity?: RN.Animated.Value
+  //  width?: RN.Animated.Value
+  //  height?: RN.Animated.Value
+  //  left?: RN.Animated.Value
+  //  right?: RN.Animated.Value
+  //  top?: RN.Animated.Value
+  //  bottom?: RN.Animated.Value
   //}
 
-  //interface AnimatedViewProps extends ReactNative.ViewProperties {
+  //interface AnimatedViewProps extends RN.ViewProperties {
   //  animatedStyle?: AnimatedViewStyle
   //}
 
@@ -84,7 +84,7 @@
   //  iconName?: GUI.IonicNames
   //  iconLogo?: GUI.IonicLogos
   //  iconRight?: boolean
-  //  iconOS?: ReactNative.PlatformOSType //ignoruje se pro RN
+  //  iconOS?: RN.PlatformOSType //ignoruje se pro RN
   //  iconActive?: boolean
   //  label?: string //label=='' || !label && icon => icon in button else standalone icon
   //  color?: Colors //https://react-md.mlaursen.com/components/buttons: flat and icon buttons will theme the text color in the button while raised and floating will theme the background of the button.
@@ -101,7 +101,7 @@
     duration?: number
   }
 
-  //interface IAnimatedViewProps extends ReactNative.ViewProperties {
+  //interface IAnimatedViewProps extends RN.ViewProperties {
   //  anim?: {
   //    propName: string //jmeno animacni property, napr. LEFT, OPACITY apod
   //    targetValue: number //cilova hodnota animace
@@ -116,6 +116,6 @@ interface IState {
   gui?: GUI.IState
 }
 
-type ViewProperties = ReactNative.ViewProperties & { web?: React.HTMLAttributes<any>, webStyle?: CSSProperties, webRef?: (div: HTMLElement) => void }
-type TextProperties = ReactNative.TextProperties & { web?: React.HTMLAttributes<any>, webStyle?: CSSProperties, webRef?: (span: HTMLElement) => void }
+type ViewProperties = RN.ViewProperties & { web?: React.HTMLAttributes<any>, webStyle?: CSSProperties, webRef?: (div: HTMLElement) => void }
+type TextProperties = RN.TextProperties & { web?: React.HTMLAttributes<any>, webStyle?: CSSProperties, webRef?: (span: HTMLElement) => void }
 

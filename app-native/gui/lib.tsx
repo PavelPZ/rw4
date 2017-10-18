@@ -14,13 +14,14 @@ import { goBack, canGoBack } from '../../app-common/lib/router'
 import { providerConnector as recordingProviderConnector, blockGuiConnector } from '../../app-common/lib/recording'
 
 //import { addNavigationHelpers, DrawerNavigator, StackNavigator } from 'react-navigation'
-import { /*LayoutAnimation, NativeModules,*/ BackHandler, Platform, Animated } from "react-native";
+import { /*LayoutAnimation, NativeModules,*/ BackHandler, Platform, Animated, StatusBar } from "react-native";
 //import { connectStyle } from 'native-base-shoutem-theme'
 //import mapPropsToStyleNames from 'native-base/src/Utils/mapPropsToStyleNames'
 //import { ToastContainer as Toast } from 'native-base/src/basic/ToastContainer'
 //import { ActionSheetContainer as ActionSheet } from 'native-base/src/basic/Actionsheet'
 import { Font, Constants } from 'expo'
-import { View, Fab, Text, Icon } from 'native-base';
+import { View } from 'react-native';
+import { Icon, Fab } from 'native-base';
 
 //COMMON
 
@@ -74,15 +75,12 @@ export const RecorderButton = recordingProviderConnector(recorderButton)
 //UIManager.setLayoutAnimationEnabledExperimental && UIManager.setLayoutAnimationEnabledExperimental(true)
 
 
-//*** ROOT LAYERS PROVIDER
-//export const Provider: React.SFC<{}> = props => <View style={{ flex: 1, marginTop: Constants.statusBarHeight }}>
-//  <RouterProvider />
-//  <BlockGuiComp />
-//  <RecorderButton />
-//  <Toast ref={c => { if (!Toast.toastInstance) Toast.toastInstance = c }} />
-//  <ActionSheet ref={c => { if (!ActionSheet.actionsheetInstance) ActionSheet.actionsheetInstance = c }} />
-//</View>
 export const LayerProvider: React.SFC<any> = props => <View style={{ flex: 1, marginTop: Constants.statusBarHeight }}>
   {props.children}
 </View>
+
+//export const LayerProvider: React.SFC<any> = props => <View style={{ flex: 1, /*marginTop: Constants.statusBarHeight*/ }}>
+//  <StatusBar hidden={true} />
+//  {props.children}
+//</View>
 

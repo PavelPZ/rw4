@@ -10,11 +10,6 @@ export const View: React.SFC<ViewProperties> = props => {
   return <div ref={webRef} {...otherPropsTyped as any} {...webRest} className={className + ' ' + renderCSSs({ display: 'flex', flexDirection: 'column' }, style as any, webStyle2, webStyle)} />
 }
 
-export const Container = View
-export const Header = View
-export const Footer = View
-export const Content = View
-
 ////******************* ANIMATED animace, pomuze ladeni v REACT NATIVE
 ////react-native-animatable: https://snack.expo.io/SJfJguhrW
 ////https://blog.bam.tech/developper-news/5-tips-to-make-a-great-component-to-page-animation-in-react-native
@@ -60,7 +55,7 @@ export const Content = View
 //  }
 
 //  animatedValue: Animated.Value
-//  animation: ReactNative.Animated.CompositeAnimation
+//  animation: RN.Animated.CompositeAnimation
 //  hideAfterAnim: boolean
 
 //}
@@ -126,7 +121,7 @@ export const Content = View
 //export class AnimatedMobileDrawer2 extends React.PureComponent<IAnimatedMobileDrawerProps> {
 //  rendered: boolean
 //  value = new Animated.Value(0)
-//  animation: ReactNative.Animated.CompositeAnimation
+//  animation: RN.Animated.CompositeAnimation
 //  backdropVisible: boolean
 //  render() {
 //    const { backdropVisible, animation, rendered, value, props } = this

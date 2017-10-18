@@ -1,4 +1,9 @@
-﻿declare namespace ReactNative {
+﻿export = RN
+export as namespace RN
+
+import React from 'react'
+
+declare namespace RN {
   // Type definitions for react-native 0.49
   // Project: https://github.com/facebook/react-native
   // Definitions by: Eloy Durán <https://github.com/alloy>
@@ -20,8 +25,6 @@
   // CREDITS: This work is based on an original work made by Bernd Paradies: https://github.com/bparadie
   //
   ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-  /// <reference types="react" />
 
   export type MeasureOnSuccessCallback = (
     x: number,

@@ -1,10 +1,9 @@
 ﻿import React from 'react'
-import { View, Button, Container, Header, Content, Footer } from '../../gui/gui'
+import { View, Button } from '../../gui/gui'
 
 
-const app = () => <Container style={{ marginTop: 30 }}>
-  <Header />
-  <Content style={{ flex: 1, padding: 8, flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-between' }}>
+const app = () => <View style={{ marginTop: 30 }}>
+  <View style={{ flex: 1, padding: 8, flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-between' }}>
     <Button key={1} light onPress={() => alert('press')}>light</Button>
     <Button key={2}>primary</Button>
     <Button key={3} secondary>secondary</Button>
@@ -42,7 +41,7 @@ const app = () => <Container style={{ marginTop: 30 }}>
     <Button key={73} mode={GUI.ButtonMode.fixedTL} color={GUI.Colors.Cyan} iconLogo={GUI.IonicLogos.logoFacebook} />
     <Button key={74} mode={GUI.ButtonMode.fixedTR} color={GUI.Colors.DeepPurple} iconName={GUI.IonicNames.analytics} iconActive />
 */}
-  </Content>
-</Container >
+  </View>
+</View>
 
 export default app

@@ -109,11 +109,11 @@ const styles = StyleSheet.create({
     backgroundColor: 'gray',
     height:30,
     //paddingLeft:50
-  } as ReactNative.ViewStyle,
+  } as RN.ViewStyle,
   tab: {
     width: Dimensions.get("window").width / 3.5,
     height: 30,
-  } as ReactNative.ViewStyle,
+  } as RN.ViewStyle,
   indicator: {
     backgroundColor: 'yellow',
   },

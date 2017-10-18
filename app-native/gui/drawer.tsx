@@ -1,19 +1,15 @@
 ﻿import React from 'react';
-import { Text, View, Animated, TouchableWithoutFeedback, PanResponder } from 'react-native'
-import { Button, Footer, FooterTab, Icon, Title, Subtitle, Container, Header, Content, H2, Left, Right, Body, StyleProvider } from 'native-base'
+import { Text, View, Animated, TouchableWithoutFeedback, PanResponder, StyleSheet, Platform } from 'react-native'
+import { Header } from 'native-base'
 import { providerConnector } from '../../app-common/gui/drawer'
+import { Button } from '../../app-common/gui/gui'
 
-import headerTheme from './theme/components/Header'
-import variables, { getPlatformVariables, Palette, Fonts } from './theme/platform'
-import getTheme from './theme/components/index'
+import variables from './theme/platform'
 
-import { connectStyle } from 'native-base-shoutem-theme'
-import { Button as GUIButton } from '../../app-common/gui/gui'
+const getContent = (pars: Drawer.IContent, styled: Drawer.IStyled) => <Content {...pars} {...styled} />
+const getMenu = (pars: Drawer.IMenu, styled: Drawer.IStyled) => <Menu {...pars} {...styled} />
 
-const getDrawerContent = (pars: Drawer.IContent, styled: Drawer.IStyled) => <ContentDr {...pars} {...styled} />
-const getDrawerMenu = (pars: Drawer.IMenu, styled: Drawer.IStyled) => <Menu {...pars} {...styled} />
-
-class ContentDr extends React.Component<Drawer.IContent> {
+class Content extends React.Component<Drawer.IContent> {
 
   shouldComponentUpdate(nextProps: Drawer.IContent) { return false }
 
@@ -21,19 +17,19 @@ class ContentDr extends React.Component<Drawer.IContent> {
     const { header, content, node, style, web, webStyle, children, ...rest } = this.props
     const styled = { style }
     if (node) return node(styled)
-    return <Container {...styled as any}>
+    return <View {...styled as any}>
       {getToolbar({ key: 10, ...header, isContent: true })}
       {contentContent({ ...content, ...rest })}
-    </Container>
+    </View>
   }
 }
 
 const contentContent = ({ node, style, key, web, webStyle, items, ...rest }: Drawer.IContentContent) => {
-  const styled: Drawer.IStyled = { key: key }
+  const styled: Drawer.IStyled = { key: key, style: { flex: 1 } }
   if (node) return node(styled)
-  return <Content key={styled.key} contentContainerStyle={styled.style as any}>
+  return <View key={styled.key} style={styled.style}>
     {items}
-  </Content>
+  </View>
 }
 
 class Menu extends React.Component<Drawer.IMenu> {
@@ -42,13 +38,13 @@ class Menu extends React.Component<Drawer.IMenu> {
 
   render() {
     const { header, content, node, style, web, webStyle, children, ...rest } = this.props
-    const styled = { style: [elevation, { backgroundColor: 'white' }, style] as ReactNative.ViewStyle[] }
+    const styled = { style: [elevation, { backgroundColor: 'white' }, style] as RN.ViewStyle[] }
     //console.log(styled)
     if (node) return node(styled)
-    return <Container {...styled as any}>
+    return <View {...styled as any}>
       {getToolbar({ key: 10, ...header, isContent: false })}
       {menuContent({ ...content, ...rest })}
-    </Container>
+    </View>
   }
 }
 
@@ -56,66 +52,53 @@ const menuContent = (props: Drawer.IMenuContent) => {
   const { node, style, items, ...rest } = props
   const styled = { key: 30, style: { flex: 1, padding: 8 } }
   if (node) return node(styled)
-  return <Content {...styled}>
+  return <View {...styled}>
     {items}
-  </Content>
+  </View>
 }
 
 const drawerButtonShow: React.SFC<Drawer.IProps> = ({ drawerVisible, windowSize, showDrawer }) => !drawerVisible && (windowSize == Media.TWindowSize.tablet || windowSize == Media.TWindowSize.mobile) &&
-  GUIButton({ iconName: GUI.IonicIcons.menu, flat: true, light: true, onPress: () => showDrawer(true) })
+  Button({ iconName: GUI.IonicIcons.menu, flat: true, light: true, onPress: () => showDrawer(true) })
 const DrawerButtonShow = providerConnector(drawerButtonShow)
 
 const drawerButtonHide: React.SFC<Drawer.IProps> = ({ drawerVisible, windowSize, showDrawer }) => drawerVisible && (windowSize == Media.TWindowSize.tablet || windowSize == Media.TWindowSize.mobile) &&
-  GUIButton({ iconName: GUI.IonicIcons.close, flat: true, light: true, onPress: () => showDrawer(false) })
+  Button({ iconName: GUI.IonicIcons.close, flat: true, light: true, onPress: () => showDrawer(false) })
 const DrawerButtonHide = providerConnector(drawerButtonHide)
 
 const getToolbar = (props: Drawer.IHeader & { isContent: boolean }) => {
   const { left, title, right, key, isContent, drawerVisible, windowSize, showDrawer } = props
   let toolbar: JSX.Element
   if (isContent) {
-    toolbar = <StyleProvider style={darkHeader}>
-      <Header key={key}>
-        {(windowSize != Media.TWindowSize.mobile || left) && <Left>
-          {left || <DrawerButtonShow {...{ drawerVisible, windowSize, showDrawer }} />}
-        </Left>}
-        <Body>
-          <Title>{title}</Title>
-        </Body>
-        {right && <Right>
-          {right}
-        </Right>}
-      </Header>
-    </StyleProvider>
+    toolbar = <View key={key} style={styles.header}>
+      {(windowSize != Media.TWindowSize.mobile || left) && <View key={1} style={styles.left}>
+        {left || <DrawerButtonShow {...{ drawerVisible, windowSize, showDrawer }} />}
+      </View>}
+      <View key={2} style={styles.body}>
+        <Text numberOfLines={1} style={[styles.title, styles.titlePrimary]}>{title}</Text>
+      </View>
+      {right && <View key={3} style={styles.right}>
+        {right}
+      </View>}
+    </View>
   } else {
-    toolbar = <StyleProvider style={lightHeader}>
-      <Header key={key} style={noElevation} >
-        {left && <Left>
-          {left}
-        </Left>}
-        <Body>
-          <Title>{title} {title}</Title>
-        </Body>
-        {(windowSize != Media.TWindowSize.mobile || right) && <Right>
-          {right || <DrawerButtonHide {...{ drawerVisible, windowSize, showDrawer }} />}
-        </Right>}
-      </Header>
-    </StyleProvider>
+    toolbar = <View key={key} style={[noElevation, styles.header]} >
+      {left && <View key={1} style={styles.left}>
+        {left}
+      </View>}
+      <View key={2} style={styles.body}>
+        <Text numberOfLines={1} style={[styles.title, styles.titleLight]}>{title}</Text>
+      </View>
+      {(windowSize != Media.TWindowSize.mobile || right) && <View key={3} style={styles.right}>
+        {right || <DrawerButtonHide {...{ drawerVisible, windowSize, showDrawer }} />}
+      </View>}
+    </View>
   }
   return toolbar
 }
-//console.log(variables)
-const vars = getPlatformVariables(variables.platform)
-vars.toolbarDefaultBg = variables.inverseTextColor
-vars.toolbarBtnColor = variables.brandPrimary
-vars.titleFontColor = variables.colHeader
-
-const lightHeader = getTheme(variables)
-const darkHeader = { ...lightHeader, 'NativeBase.Header': headerTheme(vars) }
-
 export class AnimatedDrawer extends React.PureComponent<GUI.IAnimatedMobileDrawerProps> {
   rendered: boolean
   value = new Animated.Value(this.props.drawerVisible ? 1 : 0)
-  animation: ReactNative.Animated.CompositeAnimation
+  animation: RN.Animated.CompositeAnimation
   routeOpacity = new Animated.Value(0)
 
   render() {
@@ -162,36 +145,82 @@ export class AnimatedDrawer extends React.PureComponent<GUI.IAnimatedMobileDrawe
     //console.log(windowSize, leftValue, widthValue)
     switch (windowSize) {
       case Media.TWindowSize.tablet: return <Animated.View
-        style={[absoluteStretch as any, { backgroundColor: 'white', opacity: routeOpacity }]}
+        style={[styles.absolute as any, { backgroundColor: 'white', opacity: routeOpacity }]}
         {...!willBeVisible ? toVisibleHandlers.panHandlers : toHideHandlers.panHandlers}
         ref={view => view && !rendered && refForAnimation && refForAnimation(routeOpacity)}>
         <Animated.View style={{ left: leftValue, position: 'absolute', top: 0, right: 0, bottom: 0, flexDirection: 'row' }} >
-          {getDrawerMenu(menu, { key: 1, style: { flexBasis: drawerWidth, flexShrink: 0, flex: 0 } })}
-          {getDrawerContent(content, { key: 0, style: { flex: 1 } })}
+          {getMenu(menu, { key: 1, style: { flexBasis: drawerWidth, flexShrink: 0, flex: 0 } })}
+          {getContent(content, { key: 0, style: { flex: 1 } })}
         </Animated.View>
       </Animated.View>
       case Media.TWindowSize.mobile: return <Animated.View
-        style={[absoluteStretch, { backgroundColor: 'white', opacity: routeOpacity }]}
+        style={[styles.absolute, { backgroundColor: 'white', opacity: routeOpacity }]}
         {...!willBeVisible ? toVisibleHandlers.panHandlers : toHideHandlers.panHandlers }
         ref={view => view && !rendered && refForAnimation && refForAnimation(routeOpacity)}>
-        {getDrawerContent(content, { key: 1, style: absoluteStretch as ReactNative.ViewProperties })}
+        {getContent(content, { key: 1, style: styles.absolute as RN.ViewProperties })}
         <TouchableWithoutFeedback key={2} onPress={() => showDrawer(false)}>
-          <Animated.View style={{ opacity: opacityValue as any, width: widthValue as any, ...topBottom, left: 0, backgroundColor: 'gray', elevation: 4 } as ReactNative.ViewStyle} />
+          <Animated.View style={[{ opacity: opacityValue as any, width: widthValue as any }, styles.topBottom, { left: 0, backgroundColor: 'gray', elevation: 4 }]} />
         </TouchableWithoutFeedback >
-        <Animated.View key={3} style={[topBottom, { left: leftValue, width: drawerWidth }]} >
-          {getDrawerMenu(menu, { style: { elevation: 5 } })}
+        <Animated.View key={3} style={[styles.topBottom, { left: leftValue, width: drawerWidth }]} >
+          {getMenu(menu, { style: { elevation: 5, flex: 1 } })}
         </Animated.View>
       </Animated.View >
-      default: return <Animated.View style={[absoluteStretch, { opacity: routeOpacity, flexDirection: 'row' }]} ref={view => refForAnimation(routeOpacity)}>
-        {getDrawerMenu(menu, { key: 1, style: { flexBasis: drawerWidth, flexShrink: 0, flex: 0 } })}
-        {getDrawerContent(content, { key: 2, style: { flex: 1 } })}
+      default: return <Animated.View style={[styles.absolute, { opacity: routeOpacity, flexDirection: 'row' }]} ref={view => refForAnimation(routeOpacity)}>
+        {getMenu(menu, { key: 1, style: { flexBasis: drawerWidth, flexShrink: 0, flex: 0 } })}
+        {getContent(content, { key: 2, style: { flex: 1 } })}
       </Animated.View>
     }
   }
 }
 
-const absoluteStretch = { position: 'absolute', top: 0, left: 0, right: 0, bottom: 0 }
-const topBottom = { position: 'absolute', top: 0, bottom: 0 }
+const styles = StyleSheet.create({
+  absolute: { position: 'absolute', top: 0, left: 0, right: 0, bottom: 0 },
+  topBottom: { position: 'absolute', top: 0, bottom: 0 },
+  body: {
+    ...Platform.select<RN.ViewStyle>({ ios: { alignItems: 'center' }, android: { alignItems: 'flex-start' } }),
+    flex: 1, alignSelf: 'center'
+  },
+  right: { flex: 0, alignItems: 'center', flexDirection: 'row', justifyContent: 'flex-end' },
+  left: {
+    //...Platform.select({ ios: { flex: 1 }, android: { flex: 0.5 } }),
+    flex: 0, alignItems: 'center', flexDirection: 'row', justifyContent: 'flex-start'
+  },
+  title: {
+    ...Platform.select<RN.TextStyle>({ ios: { fontWeight: '600' }, android: { fontWeight: undefined } }),
+    textAlign: 'center',
+  },
+  titlePrimary: {
+    fontSize: variables.titleFontSize,
+    fontFamily: variables.titleFontfamily,
+    color: variables.titleFontColor,
+  },
+  titleLight: {
+    fontSize: variables.titleFontSize,
+    fontFamily: variables.titleFontfamily,
+    color: variables.titleFontColor,
+  },
+  //https://raw.githubusercontent.com/GeekyAnts/NativeBase/master/src/theme/components/Header.js
+  header: {
+    ...Platform.select<RN.ViewStyle>({ ios: { paddingTop: 15, borderBottomWidth: 1 /*/ PixelRatio.getPixelSizeForLayoutSize(1)*/ }, android: { paddingTop: 1 } }),
+    flexDirection: 'row',
+    paddingHorizontal: 15,
+    justifyContent: 'space-between',
+    backgroundColor: variables.toolbarDefaultBg,
+    borderBottomColor: variables.toolbarDefaultBorder,
+    height: variables.toolbarHeight,
+    elevation: 3,
+    //shadowColor: platformStyle === "material" ? "#000" : undefined,
+    //shadowOffset: platformStyle === "material" ? { width: 0, height: 2 } : undefined,
+    //shadowOpacity: platformStyle === "material" ? 0.2 : undefined,
+    //shadowRadius: platformStyle === "material" ? 1.2 : undefined,
+    top: 0,
+    left: 0,
+    right: 0,
+  },
+})
+
+//const styles.absoluteStretch = { position: 'absolute', top: 0, left: 0, right: 0, bottom: 0 }
+//const topBottom = { position: 'absolute', top: 0, bottom: 0 }
 
 const elevation = {
   elevation: 3,

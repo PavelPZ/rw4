@@ -102,13 +102,13 @@ const Button2: React.SFC<GUI.IButtonProps> = props => {
   //CUSTOM color
   let colorPair = disabled ? {backgroundColor:'lightgray', color: 'white'} : getColors(color, shadow)
   if (colorPair && (flat || bordered)) colorPair = { backgroundColor: 'transparent', color: colorPair.backgroundColor } //invert colors for flat and bordered
-  const textStyle: ReactNative.StyleProp<ReactNative.TextStyle> = colorPair ? { color: colorPair.color } : {} //set color to text
-  const colorStyle: ReactNative.ViewStyle = colorPair && !bordered ? { backgroundColor: colorPair.backgroundColor } : {} //set color to background
+  const textStyle: RN.StyleProp<RN.TextStyle> = colorPair ? { color: colorPair.color } : {} //set color to text
+  const colorStyle: RN.ViewStyle = colorPair && !bordered ? { backgroundColor: colorPair.backgroundColor } : {} //set color to background
   if (colorPair && bordered) colorStyle.borderColor = colorPair.color //set color to border
 
   //floating
-  const floatingStyle: ReactNative.ViewStyle = floating && { width: floatingSize, height: floatingSize, borderRadius: floatingSize / 2, justifyContent: 'center', alignItems: 'center' }
-  const floatingIconStyle: ReactNative.TextStyle = floating && { marginLeft: 0, marginRight: 0 }
+  const floatingStyle: RN.ViewStyle = floating && { width: floatingSize, height: floatingSize, borderRadius: floatingSize / 2, justifyContent: 'center', alignItems: 'center' }
+  const floatingIconStyle: RN.TextStyle = floating && { marginLeft: 0, marginRight: 0 }
 
   //CHILDREN
   const iconId = getIcon2(iconName)

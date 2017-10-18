@@ -31,17 +31,3 @@ export class AnimatedPromise extends PromiseExtensible<void> {
 }
 
 export const getAnimator = (animValue: WebNativeCommon.TRouterAnimRoot, display: boolean) => new AnimatedPromise(animValue, display)
-
-export class Page extends React.PureComponent<Router.IRouterPageProps> {
-  value = new Animated.Value(1)
-  componentDidMount() { this.props.refForAnimation(this.value) }
-  render() {
-    return null
-    //return <SideMenu menuContent={this.props.drawerMenu.navItems[0]}>
-    //  <Animated.View style={{ flex: 1, opacity: this.value as any }}>
-    //    {this.props.children}
-    //  </Animated.View>
-    //</SideMenu>
-  }
-}
-

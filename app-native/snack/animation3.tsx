@@ -50,7 +50,7 @@ export default class AnimatedButtonPress extends React.PureComponent {
     this.setState({ textComplete: res.finished ? 'You held it long enough to fire the action!' : '' })
   }
 
-  getButtonWidthLayout(e: ReactNative.LayoutChangeEvent) {
+  getButtonWidthLayout(e: RN.LayoutChangeEvent) {
 
     //!!!! not called
     //const st = {
@@ -99,7 +99,7 @@ const styles = {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center'
-  } as ReactNative.ViewStyle,
+  } as RN.ViewStyle,
   button: {
     padding: 10,
     borderWidth: 3,

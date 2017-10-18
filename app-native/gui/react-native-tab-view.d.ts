@@ -27,7 +27,7 @@ declare module 'react-native-tab-view' {
       measured: boolean,
     },
     navigationState: NavigationState<T>,
-    position: ReactNative.Animated.Value,
+    position: RN.Animated.Value,
     jumpToIndex: (index: number) => void,
     getLastPosition: () => number,
     subscribe: (event: SubscriptionName, callback: Function) => { remove: Function },
@@ -61,7 +61,7 @@ declare module 'react-native-tab-view' {
     [key: string]: any
   }
 
-  export interface TabViewAnimatedProps extends ReactNative.ViewProperties, TabViewPagerPanProps {
+  export interface TabViewAnimatedProps extends RN.ViewProperties, TabViewPagerPanProps {
     navigationState: any
     onIndexChange?: (index: number) => void
     onRequestChangeTab?: (index: number) => void
@@ -75,7 +75,7 @@ declare module 'react-native-tab-view' {
     renderPager?: (props: any) => JSX.Element
   }
 
-  export interface TabViewPagerPanProps extends ReactNative.ViewProperties {
+  export interface TabViewPagerPanProps extends RN.ViewProperties {
     animationEnabled?: boolean
     swipeEnabled?: boolean
     swipeDistanceThreshold?: number 
@@ -85,11 +85,11 @@ declare module 'react-native-tab-view' {
   }
 
   export interface TabBarProps {
-    labelStyle?: ReactNative.TextStyle
-    indicatorStyle?: ReactNative.ViewStyle
+    labelStyle?: RN.TextStyle
+    indicatorStyle?: RN.ViewStyle
     renderBadge?(scene: any): JSX.Element
     renderLabel?(scene: any): JSX.Element
-    style?: ReactNative.ViewStyle
+    style?: RN.ViewStyle
     scrollEnabled?: boolean,
     activeTextColor?: string,
     inactiveTextColor?: string,

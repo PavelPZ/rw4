@@ -4,10 +4,10 @@ import { renderCSS } from '../lib/fela'
 import { MouseHandler } from './lib';
 import { TextProperties } from 'react-native';
 
-//export type IWebText = ReactNative.TextProperties
+//export type IWebText = RN.TextProperties
 
 //d:\rw\know-how\react-native-web\src\components\Text\index.js
-export const Text: React.SFC<ReactNative.TextProperties> = props => {
+export const Text: React.SFC<RN.TextProperties> = props => {
   const {
     numberOfLines,
     onPress,

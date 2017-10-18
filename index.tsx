@@ -25,7 +25,7 @@ import { reducer as mediaQueryReducer } from './app-common/lib/media-query'
 import { reducer as drawerReducer } from './app-common/gui/drawer'
 
 //********** WEB specific
-import Animated from 'animated'
+//import Animated from 'animated'
 import createHistory from 'history/createBrowserHistory'
 //import { Provider as LayerProvider } from './app-web/lib/web-root-layers'
 import { platform as loginPlatform, Provider as LoginProvider, } from './app-web/lib/web-login'
@@ -35,7 +35,7 @@ import { Provider as RecordingProvider, BlockGuiComp } from './app-web/lib/web-r
 import { getAnimator as getRouteAnimator } from './app-web/lib/web-router'
 import { Button } from './app-web/gui/button'
 import { Icon } from './app-web/gui/icon'
-import { View, Container, Header, Footer, Content } from './app-web/gui/view'
+import { View } from './app-web/gui/view'
 import { AnimatedDrawer } from './app-web/gui/drawer'
 import { Text } from './app-web/gui/text'
 import { LayerProvider, H1, H2, H3, Platform, colorToStyle, waitChildren } from './app-web/gui/lib'
@@ -89,7 +89,7 @@ export const init = async () => {
   }
 
   await promiseAll([
-    initGUI({ colorToStyle, Button, Icon, H1, H2, H3, View, Container, Header, Footer, Content, Text, AnimatedDrawer, Animated }),
+    initGUI({ colorToStyle, Button, Icon, H1, H2, H3, View, Text, AnimatedDrawer }),
     initRouter(),
     initRecording(),
   ])
