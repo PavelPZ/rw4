@@ -23,6 +23,6 @@ export const colorToStyle = {
   [GUI.Colors.secondary]: variables.brandDanger,
   [GUI.Colors.warning]: variables.brandWarning,
   [GUI.Colors.info]: variables.brandInfo,
-  [GUI.Colors.default]: variables.inverseTextColor,
+  [GUI.Colors.light]: variables.inverseTextColor,
   [GUI.Colors.dark]: variables.textColor,
 }

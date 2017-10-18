@@ -38,7 +38,7 @@ import { Icon } from './app-web/gui/icon'
 import { View } from './app-web/gui/view'
 import { AnimatedDrawer } from './app-web/gui/drawer'
 import { Text } from './app-web/gui/text'
-import { LayerProvider, H1, H2, H3, Platform, colorToStyle, waitChildren } from './app-web/gui/lib'
+import { LayerProvider, H1, H2, H3, Platform, waitChildren } from './app-web/gui/lib'
 
 //************ aplikace k testovani
 import { AppPage } from './app-common/snack/app-router'
@@ -89,7 +89,7 @@ export const init = async () => {
   }
 
   await promiseAll([
-    initGUI({ colorToStyle, Button, Icon, H1, H2, H3, View, Text, AnimatedDrawer }),
+    initGUI({ Button, Icon, H1, H2, H3, View, Text, AnimatedDrawer }),
     initRouter(),
     initRecording(),
   ])

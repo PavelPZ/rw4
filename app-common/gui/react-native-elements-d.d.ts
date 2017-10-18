@@ -16,6 +16,7 @@ declare namespace RNE {
     | 'foundation'
     | 'evilicon'
     | 'entypo'
+    | 'Ionicon'
     | string;
 
   interface IconObject {
@@ -197,7 +198,7 @@ declare namespace RNE {
     secondary2?: boolean
     secondary3?: boolean
     primary1?: boolean
-    primary2: boolean
+    primary2?: boolean
     rounded?: boolean
     outline?: boolean
     transparent?: boolean

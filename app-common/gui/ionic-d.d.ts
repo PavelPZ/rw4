@@ -1,13 +1,13 @@
 ﻿declare namespace GUI {
 
-  interface IIconProps {
-    name?: IonicNames
-    logoId?: IonicLogos
+  interface IIconProps extends GUI.IColorProps {
+    name?: IonicIcons
     active?: boolean
-    color?: GUI.Colors | string
-    shadow?: GUI.Shadows 
-    style?: CSSProperties
+    style?: RN.ViewStyle & RN.TextStyle | (RN.ViewStyle & RN.TextStyle)[]
     OS?: 'ios' | 'android'
+    reverse?: boolean
+    native?: { raised?: boolean }
+    onPress?: () => void
   }
 
   const enum IonicIcons {

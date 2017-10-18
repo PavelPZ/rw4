@@ -4,18 +4,18 @@
 //https://github.com/ionic-team/ionicons
 //https://raw.githubusercontent.com/GeekyAnts/NativeBase/master/src/basic/Icon/index.js
 
-export const getIcon = (name: string, logoId: string, OS: RN.PlatformOSType, active: boolean) => {
-  if (logoId) return logoId
-  if (name) {
-    const icn = iconsMeta[name]
-    if (!icn) throw new Error('!icn')
-    const act = active ? 'active' : 'default'
-    const actOS = OS ? OS : (window.platform.OS == 'web' ? webLikeOS : window.platform.OS)
-    return iconsMeta[name][actOS][act]
-  }
-}
+//export const getIcon = (name: string, logoId: string, OS: RN.PlatformOSType, active: boolean) => {
+//  if (logoId) return logoId
+//  if (name) {
+//    const icn = iconsMeta[name]
+//    if (!icn) throw new Error('!icn')
+//    const act = active ? 'active' : 'default'
+//    const actOS = OS ? OS : (window.platform.OS == 'web' ? webLikeOS : window.platform.OS)
+//    return iconsMeta[name][actOS][act]
+//  }
+//}
 
-export const getIcon2 = (name: GUI.IonicIcons, OS?: RN.PlatformOSType, active?: boolean) => {
+export const getIcon = (name: GUI.IonicIcons, OS?: RN.PlatformOSType, active?: boolean) => {
   if (!name) return null
   if (logoIcons[name]) return name
   const icn = iconsMeta[name]

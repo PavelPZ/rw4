@@ -35,17 +35,10 @@
     ]
   },
   "exclude": [
-    //*** web
-    //"index.tsx",
-    //"app-web/",
-    //"polyfill/web.tsx",
-
     //*** native
     "app-native",
     "App.tsx",
-    "polyfill/index.tsx",
     "native-base-theme",
-    "react-native-elements",
 
     "jspm_packages/",
     "node_modules/"

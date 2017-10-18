@@ -34,24 +34,17 @@
   //  actions: IToolbarButton | IToolbarButton[]
   //}
 
-  //**** BUTTON
-  interface IButtonProps {
-    flat?: boolean //nb: transparent
-    raised?: boolean //nb: nic
-    floating?: boolean
-    bordered?: boolean //md: raised+swapped
-    disabled?: boolean
-    iconName?: GUI.IonicIcons, //md: iconChildren, nb: <Icon name='icon' />
-    iconAfter?: boolean //md: iconBefore={false}, nb:iconLeft x iconRight
-    active?: boolean,
+  const enum ButtonFixed {
+    tr = 'tr',
+    tl = 'tl',
+    br = 'br',
+    bl = 'bl',
+  }
 
-    onPress?: () => void
-    href?: Router.IState
-
+  interface IColorProps {
     primary?: boolean
     secondary?: boolean
-    light?: boolean //nb: nic
-    //nb colors:
+    light?: boolean
     dark?: boolean
     success?: boolean
     info?: boolean
@@ -59,6 +52,32 @@
     danger?: boolean
     color?: GUI.Colors
     shadow?: GUI.Shadows
+  }
+
+  //**** BUTTON
+  interface IButtonProps extends IColorProps{
+
+    //icon
+    iconName?: GUI.IonicIcons 
+    iconAfter?: boolean
+
+    //mode
+    raised?: boolean
+    flat?: boolean
+    floating?: boolean
+    bordered?: boolean
+    disabled?: boolean
+    active?: boolean,
+
+    //press
+    onPress?: () => void
+    href?: Router.IState
+
+    //fixed
+    fixed?: boolean
+    fixedPosition?: ButtonFixed
+
+    //web ex
     web?: React.HTMLAttributes<any>
     webStyle?: CSSProperties
   }

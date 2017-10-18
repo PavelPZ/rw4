@@ -1,7 +1,7 @@
 ﻿import React from 'react';
 import { Footer, FooterTab, Icon, Title, Subtitle, Container, Header, Content, Text, Button, H2, View, Left, Right, Body } from 'native-base'
 import { getColors } from '../../app-common/gui/colors'
-import { getIcon2 } from '../../app-common/gui/ionic'
+import { getIcon } from '../../app-common/gui/ionic'
 import { navigateUrl } from '../../app-common/lib/router'
 
 //import { colorToStyle } from '../../app-common/gui/gui'
@@ -111,7 +111,7 @@ const Button2: React.SFC<GUI.IButtonProps> = props => {
   const floatingIconStyle: RN.TextStyle = floating && { marginLeft: 0, marginRight: 0 }
 
   //CHILDREN
-  const iconId = getIcon2(iconName)
+  const iconId = getIcon(iconName)
   const IC = iconId && <Icon key={1} name={iconId} style={[textStyle, floatingIconStyle]} />
   const text = children && !floating && React.Children.count(children) == 1 && React.Children.toArray(children)[0] as string
   const TXT = text && <Text key={2} style={textStyle}>{text}</Text>

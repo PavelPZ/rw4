@@ -8,6 +8,19 @@ const getBackgroundColor = (color: GUI.Colors, shade?: GUI.Shadows) => {
 
 const getTextColor = (color: GUI.Colors, shade?: GUI.Shadows, textShade?: GUI.TextShadows) => palette[paletteText[color][shade || GUI.Shadows.S500]][textShade || GUI.TextShadows.Primary] as string
 
+export const getColors2 = (props: GUI.IColorProps, invert?: boolean) => {
+  const { primary, secondary, light, dark, success, info, warning, danger, color: c, shadow } = props
+  let colors = c || primary && GUI.Colors.primary || secondary && GUI.Colors.secondary || dark && GUI.Colors.Black || light && GUI.Colors.White || info && GUI.Colors.info || success && GUI.Colors.success || danger && GUI.Colors.danger || warning && GUI.Colors.warning || GUI.Colors.primary
+  const col = colorToStyle[colors]; if (col) colors = col
+  if (!colors) return undefined
+  const color = getTextColor(colors, shadow)
+  const bkgnd = getBackgroundColor(colors, shadow)
+  return {
+    backgroundColor: invert ? color : bkgnd,
+    color: invert ? bkgnd : color
+  }
+}
+
 export const getColors = (color: GUI.Colors, shade?: GUI.Shadows) => {
   const col = colorToStyle[color]; if (col) color = col
   if (!color) return undefined
@@ -697,5 +710,3 @@ const paletteText = {
   },
 
 }
-
-

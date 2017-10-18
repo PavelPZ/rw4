@@ -21,17 +21,6 @@ export const ClickHandler = (onPress: () => void, props) => {
   props.onKeyDown = KeyboardHandler(onPress)
 }
 
-export const colorToStyle = {
-  [GUI.Colors.primary]: GUI.Colors.Indigo,
-  [GUI.Colors.secondary]: GUI.Colors.Pink,
-  [GUI.Colors.danger]: GUI.Colors.Pink,
-  [GUI.Colors.success]: GUI.Colors.Green,
-  [GUI.Colors.warning]: GUI.Colors.Orange,
-  [GUI.Colors.info]: GUI.Colors.Blue,
-  [GUI.Colors.default]: GUI.Colors.White,
-  [GUI.Colors.dark]: GUI.Colors.Black,
-}
-
 //export class WaitForRendering extends React.PureComponent<{ waitFor: Promise<any>, waitChildren: JSX.Element }> {
 //  state = { doRender: false }
 //  render() {

@@ -960,7 +960,7 @@ declare module '@expo/vector-icons' {
     size?: number;
     name: string;
     color?: string;
-    style?: ViewStyle & TextStyle;
+    style?: ViewStyle & TextStyle | (ViewStyle & TextStyle)[];
   }
 
   export class Entypo extends React.Component<IconProps, void> { }

@@ -27,8 +27,10 @@ import { Button } from './app-native/gui/button'
 //import { Content } from './app-native/gui/content'
 import { AnimatedDrawer } from './app-native/gui/drawer'
 import { H1, H2, H3 } from 'native-base'
-import { Theme, colorToStyle } from './app-native/gui/theme'
+//import { Theme, colorToStyle } from './app-native/gui/theme'
 import { init as initMediaQuery } from './app-native/lib/native-media-query'
+
+import { Button as RNEButtons } from 'react-native-elements'
 
 import { ToastContainer as Toast } from 'native-base/src/basic/ToastContainer'
 import { ActionSheetContainer as ActionSheet } from 'native-base/src/basic/Actionsheet'
@@ -49,7 +51,7 @@ import { AppPage } from './app-common/snack/app-router'
 //import AppComp from './app-native/snack/navigation/stack-detailed';
 //import { AppRouterComp } from './app-native/snack/navigation/app-navigation';
 //import AppComp from './app-common/snack/react-navigation';  
-//import AppComp from './app-common/snack/gui/icon'
+import AppComp from './app-common/snack/gui/icon'
 //import AppComp from './app-native/snack/native-base/header'
 //import AppComp from './app-native/snack/picker'
 //import AppComp from './app-native/snack/animation'
@@ -58,7 +60,7 @@ import { AppPage } from './app-common/snack/app-router'
 //import AppComp from './app-native/snack/tab-view'
 //import AppComp from './app-native/snack/tab-view/main'
 //import AppComp from './app-native/snack/design-dump-colors'
-import AppComp from './app-common/snack/gui/button'
+//import AppComp from './app-common/snack/gui/button'
 //import AppComp from './app-native/snack/native-base-button'
 //import AppComp from './app-native/snack/drawer'
 //import AppComp from './app-common/snack/drawer'
@@ -85,7 +87,7 @@ export const init = async () => {
       getAnimator: getRouteAnimator,
     },
   }
-  initGUI({ colorToStyle: {}, Button, Icon, H1, H2, H3, View, Text, AnimatedDrawer })
+  initGUI({ Button, Icon, H1, H2, H3, View, Text, AnimatedDrawer })
 
   const recordingJSON = await require('./App_Data/recording.json')
   //console.log('recordingJSON:\n', JSON.stringify(recordingJSON,null,2))
@@ -127,21 +129,20 @@ export const init = async () => {
 
   const AppAll: React.SFC<{}> = props => <ReduxProvider store={store}>
     <LocProvider>
-      <Theme>
-        <LayerProvider>
-          <RouterProvider key={1} />
-          <BlockGuiComp key={2} />
-          <RecorderButton key={3} />
-          <Toast ref={c => { if (!Toast.toastInstance) Toast.toastInstance = c }} key={4} />
-          <ActionSheet ref={c => { if (!ActionSheet.actionsheetInstance) ActionSheet.actionsheetInstance = c }} key={5} />
-        </LayerProvider>
-      </Theme>
+      <LayerProvider>
+        <RouterProvider key={1} />
+        <BlockGuiComp key={2} />
+        <RecorderButton key={3} />
+        <Toast ref={c => { if (!Toast.toastInstance) Toast.toastInstance = c }} key={4} />
+        <ActionSheet ref={c => { if (!ActionSheet.actionsheetInstance) ActionSheet.actionsheetInstance = c }} key={5} />
+      </LayerProvider>
     </LocProvider>
   </ReduxProvider>
 
   return new Promise<JSX.Element>(resolve => resolve(
-    <AppAll />
-    //<AppComp />
+    //<AppAll />
+    <AppComp />
+    //<Icon name={GUI.IonicIcons.boat} color={GUI.Colors.Cyan} reverse style={{marginTop:30}} />
   ))
 }
 

@@ -19,7 +19,17 @@ export const initGUI = async (pl: IPlatform) => {
   H3 = pl.H3
   Text = pl.Text
   AnimatedDrawer = pl.AnimatedDrawer
-  colorToStyle = pl.colorToStyle
+  colorToStyle = pl.colorToStyle || {
+    [GUI.Colors.primary]: GUI.Colors.Indigo,
+    [GUI.Colors.secondary]: GUI.Colors.Pink,
+    [GUI.Colors.danger]: GUI.Colors.Pink,
+    [GUI.Colors.success]: GUI.Colors.Green,
+    [GUI.Colors.warning]: GUI.Colors.Orange,
+    [GUI.Colors.info]: GUI.Colors.Blue,
+    [GUI.Colors.light]: GUI.Colors.White,
+    [GUI.Colors.dark]: GUI.Colors.Black,
+  }
+
 }
 
 interface IPlatform {
@@ -31,5 +41,5 @@ interface IPlatform {
   View: React.ComponentType<ViewProperties>
   AnimatedDrawer: React.ComponentClass<GUI.IAnimatedMobileDrawerProps>
   Text: React.ComponentType<NativeBase.Text>
-  colorToStyle: { [color: string]: GUI.Colors }
+  colorToStyle?: { [color: string]: GUI.Colors }
 }

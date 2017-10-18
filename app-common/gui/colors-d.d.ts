@@ -8,7 +8,8 @@
   const enum Colors {
     primary = 'primary',
     secondary = 'secondary',
-    default = 'default',
+    //default = 'default',
+    light = 'light',
     info = 'info',
     danger = 'danger',
     warning = 'warning',

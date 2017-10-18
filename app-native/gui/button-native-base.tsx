@@ -1,7 +1,6 @@
 ﻿import React from 'react'
-import { Icon, Button as NBButton } from 'native-base'
-//import { Ionicons as Icon} from '@expo/vector-icons'
-import { Text, View, Platform, Dimensions, PixelRatio, ViewStyle, StyleSheet } from 'react-native'
+import { Text, Button as NBButton, Fab as NBFab, Icon } from 'native-base'
+import { View, Platform, Dimensions, PixelRatio, ViewStyle } from 'react-native'
 
 import { navigatePush } from '../../app-common/lib/router'
 import { getIcon } from '../../app-common/gui/ionic'
@@ -48,7 +47,3 @@ export const Button: React.SFC<GUI.IButtonProps> = props => {
   return <NBButton {...mdProps}>{comps}</NBButton>
 }
 const floatingSize = 52
-
-const styles = StyleSheet.create({
-  floating: { width: floatingSize, height: floatingSize, borderRadius: floatingSize / 2, justifyContent: 'center', alignItems: 'center' },
-})
