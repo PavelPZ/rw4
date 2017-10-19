@@ -97,6 +97,7 @@
     <TypeScriptCompile Include="app-native\snack\page.tsx" />
     <TypeScriptCompile Include="app-native\snack\picker.tsx" />
     <TypeScriptCompile Include="app-web\gui\animated.d.ts" />
+    <TypeScriptCompile Include="app-web\gui\button - Copy.tsx" />
     <TypeScriptCompile Include="app-web\gui\drawer.tsx" />
     <TypeScriptCompile Include="app-web\gui\gsap.d.ts" />
     <TypeScriptCompile Include="app-web\lib\web-router.tsx" />
