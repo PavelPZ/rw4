@@ -88,8 +88,7 @@
     webStyle?: CSSProperties
   }
 
-
-  //const enum ButtonMode {
+    //const enum ButtonMode {
   //  raised = 'raised',
   //  flat = 'flat',
   //  fixedTR = 'fixedTR',

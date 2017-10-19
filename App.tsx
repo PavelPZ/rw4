@@ -22,11 +22,10 @@ import createHistory from 'history/createMemoryHistory'
 import { RecorderButton, LayerProvider, BlockGuiComp, init as initRoot, } from './app-native/gui/lib'
 import { getAnimator as getRouteAnimator } from './app-native/lib/native-router'
 import { AppLoading, Constants } from 'expo'
-import { Icon } from './app-native/gui/icon'
+import { Icon, H1, H2, H3, H4 } from './app-native/gui/other'
 import { Button } from './app-native/gui/button'
 //import { Content } from './app-native/gui/content'
 import { AnimatedDrawer } from './app-native/gui/drawer'
-import { H1, H2, H3 } from 'native-base'
 //import { Theme, colorToStyle } from './app-native/gui/theme'
 import { init as initMediaQuery } from './app-native/lib/native-media-query'
 
@@ -59,8 +58,8 @@ import { AppPage } from './app-common/snack/app-router'
 //import AppComp from './app-native/snack/tab-view'
 //import AppComp from './app-native/snack/tab-view/main'
 //import AppComp from './app-native/snack/design-dump-colors'
-import AppComp from './app-common/snack/gui/icon'
-//import AppComp from './app-common/snack/gui/button'
+//import AppComp from './app-common/snack/gui/icon'
+import AppComp from './app-common/snack/gui/button'
 //import AppComp from './app-native/snack/native-base-button'
 //import AppComp from './app-native/snack/drawer'
 //import AppComp from './app-common/snack/drawer'
@@ -87,7 +86,7 @@ export const init = async () => {
       getAnimator: getRouteAnimator,
     },
   }
-  initGUI({ Button, Icon, H1, H2, H3, View, Text, AnimatedDrawer })
+  initGUI({ Button, Icon, H1, H2, H3, H4, View, Text, AnimatedDrawer })
 
   const recordingJSON = await require('./App_Data/recording.json')
   //console.log('recordingJSON:\n', JSON.stringify(recordingJSON,null,2))

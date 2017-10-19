@@ -34,11 +34,11 @@ import { Provider as RecordingProvider, BlockGuiComp } from './app-web/lib/web-r
 //import { Provider as DrawerProvider } from './app-web/lib/web-drawer'
 import { getAnimator as getRouteAnimator } from './app-web/lib/web-router'
 import { Button } from './app-web/gui/button'
-import { Icon } from './app-web/gui/icon'
+import { Icon, H1, H2, H3, H4 } from './app-web/gui/other'
 import { View } from './app-web/gui/view'
 import { AnimatedDrawer } from './app-web/gui/drawer'
 import { Text } from './app-web/gui/text'
-import { LayerProvider, H1, H2, H3, Platform, waitChildren } from './app-web/gui/lib'
+import { LayerProvider, Platform, waitChildren } from './app-web/gui/lib'
 
 //************ aplikace k testovani
 import { AppPage } from './app-common/snack/app-router'
@@ -89,7 +89,7 @@ export const init = async () => {
   }
 
   await promiseAll([
-    initGUI({ Button, Icon, H1, H2, H3, View, Text, AnimatedDrawer }),
+    initGUI({ Button, Icon, H1, H2, H3, H4, View, Text, AnimatedDrawer }),
     initRouter(),
     initRecording(),
   ])
@@ -142,8 +142,8 @@ export const init = async () => {
   //noRouteApp = <DrawerNativeLikeApp />
   //noRouteApp = <DrawerCommon/>
   //noRouteApp = <Page />
-  //noRouteApp = <ButtonTest />
-  noRouteApp = <IonicTest />
+  noRouteApp = <ButtonTest />
+  //noRouteApp = <IonicTest />
 
 
 

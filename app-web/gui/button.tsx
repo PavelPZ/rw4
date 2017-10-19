@@ -7,8 +7,9 @@ import { renderCSS } from '../lib/fela'
 import { navigateUrl, navigatePush } from '../../app-common/lib/router'
 
 export const Button: React.SFC<GUI.IButtonProps> = props => {
-  const { floating, flat, iconAfter, iconName, outline, children, web: { className = '', onClick }, webStyle, onPress, href } = props
+  const { floating, flat, iconAfter, iconName, outline, children, webStyle, web = {}, onPress, href, disabled, ...rest} = props
 
+  const { onClick, className } = web
   let colorPair = getColors2(props)
 
   //color
@@ -42,10 +43,12 @@ export const Button: React.SFC<GUI.IButtonProps> = props => {
     iconClassName,
     flat: flat && !iconOnly,
     icon: flat && iconOnly,
+    floating,
+    raised: (!flat && !floating) || outline,
     href: !href ? undefined : navigateUrl(href),
-    raised: !flat && !floating || outline,
     className: className + ' ' + renderCSS(style),
-    onClick: click
+    onClick: click,
+    disabled
   }
   return <MDButton {...mdProps}>{childs}</MDButton>
 }

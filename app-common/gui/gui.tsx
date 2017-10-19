@@ -5,6 +5,7 @@ export let Icon: React.ComponentType<GUI.IIconProps>
 export let H1: React.ComponentType<TextProperties>
 export let H2: React.ComponentType<TextProperties>
 export let H3: React.ComponentType<TextProperties>
+export let H4: React.ComponentType<TextProperties>
 export let View: React.ComponentType<ViewProperties>
 export let Text: React.ComponentType<TextProperties>
 export let AnimatedDrawer: React.ComponentClass<GUI.IAnimatedMobileDrawerProps>
@@ -17,6 +18,7 @@ export const initGUI = async (pl: IPlatform) => {
   H1 = pl.H1
   H2 = pl.H2
   H3 = pl.H3
+  H4 = pl.H4
   Text = pl.Text
   AnimatedDrawer = pl.AnimatedDrawer
   colorToStyle = pl.colorToStyle || {
@@ -38,6 +40,7 @@ interface IPlatform {
   H1: React.ComponentType<TextProperties>
   H2: React.ComponentType<TextProperties>
   H3: React.ComponentType<TextProperties>
+  H4: React.ComponentType<TextProperties>
   View: React.ComponentType<ViewProperties>
   AnimatedDrawer: React.ComponentClass<GUI.IAnimatedMobileDrawerProps>
   Text: React.ComponentType<NativeBase.Text>

@@ -3,10 +3,6 @@ import { PlatformStatic } from 'react-native';
 import { renderCSS } from '../lib/fela';
 import { PromiseExtensible } from '../../app-common/lib/lib';
 
-export const H1: React.SFC<{}> = props => <h1 {...props} />
-export const H2: React.SFC<{}> = props => <h2 {...props} />
-export const H3: React.SFC<{}> = props => <h3 {...props} />
-
 export const Platform: PlatformStatic = {
   OS: 'web',
   Version: 1,
