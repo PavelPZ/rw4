@@ -51,7 +51,6 @@ import { AppPage } from './app-common/snack/app-router'
 //import AppComp from './app-native/snack/navigation/stack-detailed';
 //import { AppRouterComp } from './app-native/snack/navigation/app-navigation';
 //import AppComp from './app-common/snack/react-navigation';  
-import AppComp from './app-common/snack/gui/icon'
 //import AppComp from './app-native/snack/native-base/header'
 //import AppComp from './app-native/snack/picker'
 //import AppComp from './app-native/snack/animation'
@@ -60,6 +59,7 @@ import AppComp from './app-common/snack/gui/icon'
 //import AppComp from './app-native/snack/tab-view'
 //import AppComp from './app-native/snack/tab-view/main'
 //import AppComp from './app-native/snack/design-dump-colors'
+import AppComp from './app-common/snack/gui/icon'
 //import AppComp from './app-common/snack/gui/button'
 //import AppComp from './app-native/snack/native-base-button'
 //import AppComp from './app-native/snack/drawer'

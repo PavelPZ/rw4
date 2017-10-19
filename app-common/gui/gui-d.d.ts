@@ -50,24 +50,30 @@
     info?: boolean
     warning?: boolean
     danger?: boolean
+    disabled?: boolean
     color?: GUI.Colors
     shadow?: GUI.Shadows
   }
 
+  interface IIconPropsLow {
+    iconName?: GUI.IonicIcons
+    iconOS?: RN.PlatformOSType
+    active?: boolean
+  }
+
+
   //**** BUTTON
-  interface IButtonProps extends IColorProps{
+  interface IButtonProps extends IColorProps, IIconPropsLow {
 
     //icon
-    iconName?: GUI.IonicIcons 
     iconAfter?: boolean
 
     //mode
-    raised?: boolean
+    //raised?: boolean
     flat?: boolean
     floating?: boolean
-    bordered?: boolean
-    disabled?: boolean
-    active?: boolean,
+    //bordered?: boolean
+    outline?: boolean
 
     //press
     onPress?: () => void

@@ -1,54 +1,59 @@
 ﻿import React from 'react'
-import { Icon, Button as NBButton } from 'native-base'
-//import { Ionicons as Icon} from '@expo/vector-icons'
-import { Text, View, Platform, Dimensions, PixelRatio, ViewStyle, StyleSheet } from 'react-native'
-
 import { navigatePush } from '../../app-common/lib/router'
-import { getIcon } from '../../app-common/gui/ionic'
-import { getColors } from '../../app-common/gui/colors'
-import { colorToBsStyle } from './theme'
+import { getIcon2 } from '../../app-common/gui/ionic'
+import { getColors2 } from '../../app-common/gui/colors'
+
+import { TouchableNativeFeedback, TouchableHighlight } from 'react-native'
+import { Button as RNEButton } from 'react-native-elements'
+import { Icon } from './icon'
+
+//D:\rw\rw4\node_modules\react-native-elements\src\buttons\Button.js
+////LM
+//  //leftIcon: PropTypes.object,
+//  //rightIcon: PropTypes.object,
+//  //iconRight: PropTypes.object,
+
+////LM
+//alignSelf: 'center'
+
+
 
 export const Button: React.SFC<GUI.IButtonProps> = props => {
-  const { flat, floating, raised, active, iconAfter, iconName, children, color, shadow, secondary, web, onPress: press, href, light, webStyle, ...rest } = props
-  const { primary, dark, success, info, warning, danger, bordered, disabled } = props
-
-  //CUSTOM color
-  let colorPair = disabled ? { backgroundColor: 'lightgray', color: 'white' } : getColors(color, shadow)
-  if (colorPair && (flat || bordered)) colorPair = { backgroundColor: 'transparent', color: colorPair.backgroundColor } //invert colors for flat and bordered
-  const textStyle: RN.StyleProp<RN.TextStyle> = colorPair ? { color: colorPair.color } : {} //set color to text
-  const colorStyle: RN.ViewStyle = colorPair && !bordered ? { backgroundColor: colorPair.backgroundColor } : {} //set color to background
-  if (colorPair && bordered) colorStyle.borderColor = colorPair.color //set color to border
-
-  //floating
-  const floatingStyle: RN.ViewStyle = floating && { width: floatingSize, height: floatingSize, borderRadius: floatingSize / 2, justifyContent: 'center', alignItems: 'center' }
-  const floatingIconStyle: RN.TextStyle = floating && { marginLeft: 0, marginRight: 0 }
-
-  //CHILDREN
-  const iconId = getIcon(iconName)
-  const IC = iconId && <Icon key={1} name={iconId} style={[textStyle, floatingIconStyle]} />
-  const text = children && !floating && React.Children.count(children) == 1 && React.Children.toArray(children)[0] as string
-  const TXT = text && <Text key={2} style={textStyle}>{text}</Text>
-  let comps = iconAfter ? [TXT, IC] : [IC, TXT] //CHILDREN order
+  const { flat: transparent, floating, iconAfter, children, onPress, outline, href, disabled } = props
 
   //click
-  let onPress = () => { }
-  if (press) onPress = press; else if (typeof href != 'undefined') onPress = () => navigatePush(href)
+  let press = () => { }
+  if (onPress) press = onPress; else if (typeof href != 'undefined') press = () => navigatePush(href)
+  let title = children && !floating && React.Children.count(children) == 1 && React.Children.toArray(children)[0] as string
+  const iconId = getIcon2(props)
 
-  const mdProps: NativeBase.Button = {
-    style: [colorStyle, floatingStyle] as any,
-    primary: primary || !light && !dark && !success && !info && !warning && !danger && !color && !secondary, //default is PRIMARY
-    danger: danger || secondary || false,
-    transparent: flat || false,
+  //if (floating || (!title && iconId && transparent)) {
+  //  const iconProps: GUI.IIconProps = { native: { inButton: true }, ...props as any, onPress: press }
+  //  return <Icon {...iconProps} reverse={floating} />
+  //}
+
+  if (title && window.platform.OS == 'android') title = title.toUpperCase()
+  if (!title) title = ''
+  let { color, backgroundColor } = getColors2(props)
+  if (transparent || outline)[color, backgroundColor] = [backgroundColor, 'transparent']
+  const iconProps = iconId && { name: iconId, type: 'ionicon', color }
+
+  const mdProps = {
     onPress,
-    ...rest,
-    ...raised || flat ? (iconAfter ? { iconRight: true } : { iconLeft: true }) : undefined,
-  }
+    ...iconId && (iconAfter ? { rightIcon: iconProps } : { icon: iconProps }),
+    disabled,
+    color,
+    transparent,
+    backgroundColor,
+    disabledStyle: { backgroundColor },
+    title,
+    outline,
+    borderRadius: floating ? 24 : 2,
+    buttonStyle: !title && iconId ? { paddingLeft: 18, paddingRight: 7, } : {},
+    containerViewStyle: floating ? { backgroundColor: 'transparent' } : {},
+    raised: !transparent && !disabled,
+  } as RNE.ButtonProps
 
-  //IC && console.log(mdProps)
-  return <NBButton {...mdProps}>{comps}</NBButton>
+  console.log(mdProps)
+  return <RNEButton {...mdProps} />
 }
-const floatingSize = 52
-
-const styles = StyleSheet.create({
-  floating: { width: floatingSize, height: floatingSize, borderRadius: floatingSize / 2, justifyContent: 'center', alignItems: 'center' },
-})

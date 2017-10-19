@@ -25,6 +25,11 @@ export const getIcon = (name: GUI.IonicIcons, OS?: RN.PlatformOSType, active?: b
   return iconsMeta[name][actOS][act]
 }
 
+export const getIcon2 = (props: GUI.IIconPropsLow) => {
+  const { iconOS, iconName, active } = props
+  return getIcon(iconName, iconOS, active)
+}
+
 const webLikeOS = 'android'
 
 export const logoIcons = {

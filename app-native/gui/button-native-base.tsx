@@ -8,8 +8,9 @@ import { getColors } from '../../app-common/gui/colors'
 import { colorToBsStyle } from './theme'
 
 export const Button: React.SFC<GUI.IButtonProps> = props => {
-  const { flat, floating, raised, active, iconAfter, iconName, children, color, shadow, secondary, web, onPress: press, href, light, webStyle, ...rest } = props
-  const { primary, dark, success, info, warning, danger, bordered, disabled } = props
+  const { flat, floating, active, iconAfter, iconName, children, color, shadow, secondary, web, onPress: press, href, light, webStyle, ...rest } = props
+  const { primary, dark, success, info, warning, danger, disabled } = props
+  const bordered = false
 
   //CUSTOM color
   let colorPair = disabled ? { backgroundColor: 'lightgray', color: 'white' } : getColors(color, shadow)
@@ -39,8 +40,8 @@ export const Button: React.SFC<GUI.IButtonProps> = props => {
     danger: danger || secondary || false,
     transparent: flat || false,
     onPress,
-    ...rest,
-    ...raised || flat ? (iconAfter ? { iconRight: true } : { iconLeft: true }) : undefined,
+    //...rest,
+    //...raised || flat ? (iconAfter ? { iconRight: true } : { iconLeft: true }) : undefined,
   }
 
   //IC && console.log(mdProps)

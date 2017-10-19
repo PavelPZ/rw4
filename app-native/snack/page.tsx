@@ -62,13 +62,6 @@ const app: React.SFC<any> = props => <View style={{ flexDirection: 'row', flex: 
       <Button2 color={GUI.Colors.Cyan} shadow={GUI.Shadows.S200}>color shadow</Button2>
       <Button2 success>success</Button2>
       <Button2 success disabled iconName={GUI.IonicIcons.bookmark}>success disabled iconName</Button2>
-      <Button2 bordered primary>bordered primary</Button2>
-      <Button2 bordered dark>bordered dark</Button2>
-      <Button2 bordered danger iconName={GUI.IonicIcons.bookmark}>bordered danger iconName</Button2>
-      <Button2 bordered danger iconAfter iconName={GUI.IonicIcons.bookmark}>bordered danger iconAfter iconName</Button2>
-      <Button2 bordered color={GUI.Colors.Cyan} shadow={GUI.Shadows.S200}>bordered color shadow</Button2>
-      <Button2 bordered color={GUI.Colors.Cyan} shadow={GUI.Shadows.S200} iconName={GUI.IonicIcons.bookmark}>bordered color shadow icon</Button2>
-      <Button2 bordered color={GUI.Colors.Cyan} shadow={GUI.Shadows.S200} iconName={GUI.IonicIcons.bookmark} disabled>bordered color shadow icon disabled</Button2>
       <Button2 flat info>flat info</Button2>
       <Button2 flat danger iconName={GUI.IonicIcons.bookmark}>flat warning iconName</Button2>
       <Button2 flat danger iconName={GUI.IonicIcons.bookmark}></Button2>
@@ -96,8 +89,9 @@ const app: React.SFC<any> = props => <View style={{ flexDirection: 'row', flex: 
 </View>
 
 const Button2: React.SFC<GUI.IButtonProps> = props => {
-  const { flat, floating, raised, active, iconAfter, iconName, children, color, shadow, secondary, web, onPress: press, href, light, ...rest } = props
-  const { primary, dark, success, info, warning, danger, bordered, disabled } = props
+  const { flat, floating, active, iconAfter, iconName, children, color, shadow, secondary, web, onPress: press, href, light, ...rest } = props
+  const { primary, dark, success, info, warning, danger, disabled } = props
+  const bordered = false
 
   //CUSTOM color
   let colorPair = disabled ? {backgroundColor:'lightgray', color: 'white'} : getColors(color, shadow)
@@ -127,8 +121,8 @@ const Button2: React.SFC<GUI.IButtonProps> = props => {
     danger: danger || secondary || false,
     transparent: flat || false,
     onPress,
-    ...rest,
-    ...raised || flat ? (iconAfter ? { iconRight: true } : { iconLeft: true }) : undefined
+    //...rest,
+    //...raised || flat ? (iconAfter ? { iconRight: true } : { iconLeft: true }) : undefined
   }
 
   //console.log(mdProps, textStyle, floatingStyle, floatingIconStyle)

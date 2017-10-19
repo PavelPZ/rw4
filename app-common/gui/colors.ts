@@ -9,12 +9,19 @@ const getBackgroundColor = (color: GUI.Colors, shade?: GUI.Shadows) => {
 const getTextColor = (color: GUI.Colors, shade?: GUI.Shadows, textShade?: GUI.TextShadows) => palette[paletteText[color][shade || GUI.Shadows.S500]][textShade || GUI.TextShadows.Primary] as string
 
 export const getColors2 = (props: GUI.IColorProps, invert?: boolean) => {
-  const { primary, secondary, light, dark, success, info, warning, danger, color: c, shadow } = props
-  let colors = c || primary && GUI.Colors.primary || secondary && GUI.Colors.secondary || dark && GUI.Colors.Black || light && GUI.Colors.White || info && GUI.Colors.info || success && GUI.Colors.success || danger && GUI.Colors.danger || warning && GUI.Colors.warning || GUI.Colors.primary
-  const col = colorToStyle[colors]; if (col) colors = col
-  if (!colors) return undefined
-  const color = getTextColor(colors, shadow)
-  const bkgnd = getBackgroundColor(colors, shadow)
+  const { primary, secondary, light, dark, success, info, warning, danger, color: c, shadow, disabled } = props
+  let color
+  let bkgnd
+  if (disabled) {
+    color = palette['White']['Disabled']
+    bkgnd = palette['Black']['Disabled']
+  } else {
+    let colors = c || primary && GUI.Colors.primary || secondary && GUI.Colors.secondary || dark && GUI.Colors.Black || light && GUI.Colors.White || info && GUI.Colors.info || success && GUI.Colors.success || danger && GUI.Colors.danger || warning && GUI.Colors.warning || GUI.Colors.primary
+    const col = colorToStyle[colors]; if (col) colors = col
+    if (!colors) return undefined
+    color = getTextColor(colors, shadow)
+    bkgnd = getBackgroundColor(colors, shadow)
+  }
   return {
     backgroundColor: invert ? color : bkgnd,
     color: invert ? bkgnd : color

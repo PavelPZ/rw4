@@ -1,15 +1,12 @@
 ﻿declare namespace GUI {
 
-  interface IIconProps extends GUI.IColorProps {
-    name?: IonicIcons
-    active?: boolean
+  interface IIconProps extends GUI.IColorProps, GUI.IIconPropsLow {
     style?: RN.ViewStyle & RN.TextStyle | (RN.ViewStyle & RN.TextStyle)[]
-    OS?: 'ios' | 'android'
     reverse?: boolean
-    native?: { raised?: boolean }
+    //native?: { inButton?: boolean }
     onPress?: () => void
   }
-
+  
   const enum IonicIcons {
     closedCaptioning = 'closedCaptioning',
     refreshCircle = 'refreshCircle',

@@ -15,6 +15,7 @@
     warning = 'warning',
     success = 'success',
     dark = 'dark',
+    disabled = 'disabled',
     //---
     Red = 'Red',
     Pink = 'Pink',
@@ -38,7 +39,7 @@
     BlueGrey = 'Blue Grey',
     //---
     White = 'White',
-    Black = 'Black', 
+    Black = 'Black',
   }
   const enum Shadows {
     S50 = '50',
