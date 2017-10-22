@@ -72,7 +72,7 @@ interface IPlatforms {
   appPlatform?: App.IPlatform
 }
 declare const __moduleName: string
-type CSSProperties = DStyles.CSSProperties & DStyles.NestedCSSSelectors // & DFela.IExtend & { className?: string; dir?: string; }
+type CSSProperties = DStyles.CSSProperties// & DStyles.NestedCSSSelectors // & DFela.IExtend & { className?: string; dir?: string; }
 
 
 declare const enum PromiseResults {

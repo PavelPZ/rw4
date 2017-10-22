@@ -5,9 +5,9 @@ import { renderCSS, renderCSSs } from '../lib/fela'
 
 //D:\rw\know-how\react-native-web\src\components\View\index.js
 export const View: React.SFC<ViewProperties> = props => {
-  const { style, web = {} as React.HTMLAttributes<any>, webStyle, webRef, ...otherPropsTyped } = props
+  const { style, web = {} as React.HTMLAttributes<any>, webStyle, ref, ...otherPropsTyped } = props
   const { style: webStyle2, className = '', ...webRest } = web
-  return <div ref={webRef} {...otherPropsTyped as any} {...webRest} className={className + ' ' + renderCSSs({ display: 'flex', flexDirection: 'column' }, style as any, webStyle2, webStyle)} />
+  return <div ref={ref} {...otherPropsTyped as any} {...webRest} className={className + ' ' + renderCSSs({ display: 'flex', flexDirection: 'column' }, style as any, webStyle2, webStyle)} />
 }
 
 ////******************* ANIMATED animace, pomuze ladeni v REACT NATIVE

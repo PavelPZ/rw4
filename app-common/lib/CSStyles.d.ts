@@ -279,7 +279,9 @@ declare namespace DStyles {
   /**
    * Font weights
    */
-  export type CSSFontWeight = 'normal' | 'bold' | 'bolder' | 'lighter' | 100 | 200 | 300 | 400 | 500 | 600 | 700 | 800 | 900 | number | CSSGlobalValues;
+  //LM NATIVE
+  //export type CSSFontWeight = 'normal' | 'bold' | 'bolder' | 'lighter' | 100 | 200 | 300 | 400 | 500 | 600 | 700 | 800 | 900 | number | CSSGlobalValues;
+  export type CSSFontWeight = "normal" | "bold" | "100" | "200" | "300" | "400" | "500" | "600" | "700" | "800" | "900"
 
   /**
    * This interface documents key CSS properties for autocomplete
@@ -826,7 +828,7 @@ declare namespace DStyles {
 
     /**
      * Specifies the width of the rule between columns.
-     * @see https://developer.mozilla.org/en-US/docs/Web/CSS/column-rule-width
+4     * @see https://developer.mozilla.org/en-US/docs/Web/CSS/column-rule-width
      */
     columnRuleWidth?: CSSValue<CSSLength | CSSPercentage>;
 
@@ -1764,7 +1766,10 @@ declare namespace DStyles {
      * The text-align CSS property describes how inline content like text is aligned in its parent block element. text-align does not control the alignment of block elements itself, only their inline content.
      * @see https://developer.mozilla.org/en/docs/Web/CSS/text-align
      */
-    textAlign?: CSSGlobalValues | 'start' | 'end' | 'left' | 'right' | 'center' | 'justify' | 'justify-all' | 'match-parent';
+    //LM NATIVE
+    //textAlign?: CSSGlobalValues | 'start' | 'end' | 'left' | 'right' | 'center' | 'justify' | 'justify-all' | 'match-parent';
+    textAlign?: "auto" | "left" | "right" | "center"
+
 
     /**
      * The text-align-last CSS property describes how the last line of a block element or a line before line break is aligned in its parent block element.

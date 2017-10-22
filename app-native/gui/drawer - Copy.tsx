@@ -1,7 +1,6 @@
 ﻿import React from 'react';
 import { Text, View, Animated, TouchableWithoutFeedback, PanResponder, StyleSheet, Platform } from 'react-native'
-//import { Header } from 'native-base'
-import { Header } from 'react-native-elements'
+import { Header } from 'native-base'
 import { providerConnector } from '../../app-common/gui/drawer'
 import { Button } from '../../app-common/gui/gui'
 
@@ -70,17 +69,29 @@ const getToolbar = (props: Drawer.IHeader & { isContent: boolean }) => {
   const { left, title, right, key, isContent, drawerVisible, windowSize, showDrawer } = props
   let toolbar: JSX.Element
   if (isContent) {
-    toolbar = <Header key={key}
-      leftComponent={(windowSize != Media.TWindowSize.mobile || left) && (left || <DrawerButtonShow {...{ drawerVisible, windowSize, showDrawer }} />)}
-      centerComponent={<Text numberOfLines={1} >{title}</Text>}
-      rightComponent={right && right[0]}
-    />
+    toolbar = <View key={key} style={styles.header}>
+      {(windowSize != Media.TWindowSize.mobile || left) && <View key={1} style={styles.left}>
+        {left || <DrawerButtonShow {...{ drawerVisible, windowSize, showDrawer }} />}
+      </View>}
+      <View key={2} style={styles.body}>
+        <Text numberOfLines={1} style={[styles.title, styles.titlePrimary]}>{title}</Text>
+      </View>
+      {right && <View key={3} style={styles.right}>
+        {right}
+      </View>}
+    </View>
   } else {
-    toolbar = <Header key={key}
-      leftComponent={left}
-      centerComponent={<Text numberOfLines={1} >{title}</Text>}
-      rightComponent={(windowSize != Media.TWindowSize.mobile || right) && (right && right[0] || <DrawerButtonHide {...{ drawerVisible, windowSize, showDrawer }} />)}
-    />
+    toolbar = <View key={key} style={[noElevation, styles.header]} >
+      {left && <View key={1} style={styles.left}>
+        {left}
+      </View>}
+      <View key={2} style={styles.body}>
+        <Text numberOfLines={1} style={[styles.title, styles.titleLight]}>{title}</Text>
+      </View>
+      {(windowSize != Media.TWindowSize.mobile || right) && <View key={3} style={styles.right}>
+        {right || <DrawerButtonHide {...{ drawerVisible, windowSize, showDrawer }} />}
+      </View>}
+    </View>
   }
   return toolbar
 }
@@ -165,6 +176,47 @@ export class AnimatedDrawer extends React.PureComponent<GUI.IAnimatedMobileDrawe
 const styles = StyleSheet.create({
   absolute: { position: 'absolute', top: 0, left: 0, right: 0, bottom: 0 },
   topBottom: { position: 'absolute', top: 0, bottom: 0 },
+  body: {
+    ...Platform.select<RN.ViewStyle>({ ios: { alignItems: 'center' }, android: { alignItems: 'flex-start' } }),
+    flex: 1, alignSelf: 'center'
+  },
+  right: { flex: 0, alignItems: 'center', flexDirection: 'row', justifyContent: 'flex-end' },
+  left: {
+    //...Platform.select({ ios: { flex: 1 }, android: { flex: 0.5 } }),
+    flex: 0, alignItems: 'center', flexDirection: 'row', justifyContent: 'flex-start'
+  },
+  title: {
+    ...Platform.select<RN.TextStyle>({ ios: { fontWeight: '600' }, android: { fontWeight: undefined } }),
+    textAlign: 'center',
+  },
+  titlePrimary: {
+    fontSize: variables.titleFontSize,
+    fontFamily: variables.titleFontfamily,
+    color: variables.titleFontColor,
+  },
+  titleLight: {
+    fontSize: variables.titleFontSize,
+    fontFamily: variables.titleFontfamily,
+    color: variables.titleFontColor,
+  },
+  //https://raw.githubusercontent.com/GeekyAnts/NativeBase/master/src/theme/components/Header.js
+  header: {
+    ...Platform.select<RN.ViewStyle>({ ios: { paddingTop: 15, borderBottomWidth: 1 /*/ PixelRatio.getPixelSizeForLayoutSize(1)*/ }, android: { paddingTop: 1 } }),
+    flexDirection: 'row',
+    paddingHorizontal: 15,
+    justifyContent: 'space-between',
+    backgroundColor: variables.toolbarDefaultBg,
+    borderBottomColor: variables.toolbarDefaultBorder,
+    height: variables.toolbarHeight,
+    elevation: 3,
+    //shadowColor: platformStyle === "material" ? "#000" : undefined,
+    //shadowOffset: platformStyle === "material" ? { width: 0, height: 2 } : undefined,
+    //shadowOpacity: platformStyle === "material" ? 0.2 : undefined,
+    //shadowRadius: platformStyle === "material" ? 1.2 : undefined,
+    top: 0,
+    left: 0,
+    right: 0,
+  },
 })
 
 //const styles.absoluteStretch = { position: 'absolute', top: 0, left: 0, right: 0, bottom: 0 }

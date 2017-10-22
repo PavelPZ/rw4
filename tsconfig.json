@@ -2,23 +2,22 @@
   "compileOnSave": true,
   "compilerOptions": {
     //**** WEB
-    //"target": "es5",
-    //"module": "system",
-    //"inlineSourceMap": true,
-    //"inlineSources": true,
-    //"importHelpers": true,
+    "target": "es5",
+    "module": "system",
+    "inlineSourceMap": true,
+    "inlineSources": true,
+    "importHelpers": true,
 
     //**** REACT NATIVE
-    "target": "es6",
-    //"module": "system",
+    //"target": "es6",
 
     //**** COMMON
 
     //"declaration": true,
-    //"declarationDir": "../rw4-builds/native/",
+    //"declarationDir": "../rw4-builds/web/",
 
-    //"outDir": "../rw4-builds/native",
-    //"outFile": "../rw4-builds/native/build.js",
+    //"outDir": "../rw4-builds/web",
+    //"outFile": "../rw4-builds/web/build.js",
 
     "allowSyntheticDefaultImports": true,
     "strictNullChecks": false,
@@ -36,9 +35,10 @@
     ]
   },
   "exclude": [
-    //*** web
-    "index.tsx",
-    "app-web/",
+    //*** native
+    "app-native",
+    "App.tsx",
+    "native-base-theme",
 
     "jspm_packages/",
     "node_modules/"

@@ -140,6 +140,4 @@ interface IState {
   gui?: GUI.IState
 }
 
-type ViewProperties = RN.ViewProperties & { web?: React.HTMLAttributes<any>, webStyle?: CSSProperties, webRef?: (div: HTMLElement) => void }
-type TextProperties = RN.TextProperties & { web?: React.HTMLAttributes<any>, webStyle?: CSSProperties, webRef?: (span: HTMLElement) => void }
 

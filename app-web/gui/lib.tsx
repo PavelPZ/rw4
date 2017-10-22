@@ -32,7 +32,7 @@ export const ClickHandler = (onPress: () => void, props) => {
 export const LayerProvider: React.SFC<any> = props => React.Children.toArray(props.children) as any
 
 
-export const waitChildren = <div className={renderCSS({display:'flex', flex:1, justifyContent:'center', alignItems: 'center', height:'100v'})}>
+export const waitChildren = <div className={renderCSS({ display: 'flex', flex: 1, justifyContent: 'center', alignItems: 'center', height:'100vh'})}>
   <h2>Loading...</h2>
 </div>
 

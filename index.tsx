@@ -57,6 +57,7 @@ import Page from './app-web/snack/page'
 //import { App1, /*app3Reducer*/ } from './app-web/snack/router-new'
 import DrawerApp from './app-web/snack/drawer'
 import DrawerNativeLikeApp from './app-web/snack/drawer-native-like'
+import Header from './app-web/snack/header'
 
 
 //*********** spusteni
@@ -142,8 +143,9 @@ export const init = async () => {
   //noRouteApp = <DrawerNativeLikeApp />
   //noRouteApp = <DrawerCommon/>
   //noRouteApp = <Page />
-  noRouteApp = <ButtonTest />
+  //noRouteApp = <ButtonTest />
   //noRouteApp = <IonicTest />
+  noRouteApp = <Header />
 
 
 
@@ -173,12 +175,22 @@ export const init = async () => {
     </LayerProvider>
   </ReduxProvider>
 
+  const AppContent: React.SFC<{}> = props => <ReduxProvider store={store} >
+    <LayerProvider>
+      <BlockGuiComp key={1} />
+      <WaitForRendering key={2} waitFor={initAfter()} waitContent={waitChildren}>
+        {appNo}
+      </WaitForRendering>
+    </LayerProvider>
+  </ReduxProvider>
+
+
   const appNo = noRouteApp
   
   ReactDOM.render(
     //<AppRouter />
     //<AppAll />
-    //<div></div>
-    appNo
+    <AppContent/>
+    //appNo
     , document.getElementById('content'))
 }
