@@ -23,7 +23,7 @@
     "strictNullChecks": false,
     "downlevelIteration": true,
     "moduleResolution": "node",
-    "strict": true,
+    //"strict": true,
     "noImplicitReturns": true,
     //"experimentalDecorators": true,
     "noImplicitAny": false,

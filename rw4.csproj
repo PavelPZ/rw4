@@ -109,7 +109,9 @@
     <TypeScriptCompile Include="app-web\snack\animated-transition.tsx" />
     <TypeScriptCompile Include="app-web\snack\drawer-native-like.tsx" />
     <TypeScriptCompile Include="app-web\snack\drawer-old.tsx" />
-    <TypeScriptCompile Include="app-web\snack\header.tsx" />
+    <TypeScriptCompile Include="app-web\snack\layout\layout-d.d.ts" />
+    <TypeScriptCompile Include="app-web\snack\layout\index.tsx" />
+    <TypeScriptCompile Include="app-web\snack\layout\templates.tsx" />
     <TypeScriptCompile Include="app-web\snack\page.tsx" />
     <TypeScriptCompile Include="app-web\snack\router-new.tsx" />
     <TypeScriptCompile Include="app-web\snack\connect-test.tsx" />
@@ -352,6 +354,7 @@
     <Content Include="app-web\assets\ionic\fonts\ionicons.ttf" />
     <Content Include="app-web\assets\ionic\fonts\ionicons.woff" />
     <Content Include="app-web\assets\ionic\fonts\ionicons.woff2" />
+    <Content Include="app-web\snack\material-ui-theme.json" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

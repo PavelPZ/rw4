@@ -8,7 +8,7 @@
       'x-lm-action': data.action,
       ...(data.dataType ? { 'x-lm-data-type': data.dataType } : null),
       ...(data.par ? { 'x-lm-par': encodeURIComponent(JSON.stringify(data.par)) } : null),
-    },
+    } as any,
     body: data.data && data.dataType === RestAPI.Types.JSON ? JSON.stringify(data.data) : data.data
   })
     .then(resp => {

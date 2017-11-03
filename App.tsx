@@ -144,7 +144,6 @@ export const init = async () => {
     //<Icon name={GUI.IonicIcons.boat} color={GUI.Colors.Cyan} reverse style={{marginTop:30}} />
   ))
 }
-
 const Root: React.SFC = () => <WaitForRendering finalContent={init()} waitContent={<AppLoading />} />
 
 export default Root

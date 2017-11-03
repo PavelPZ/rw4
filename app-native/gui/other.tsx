@@ -25,7 +25,7 @@ export const Icon: React.SFC<GUI.IIconProps> = props => {
   return <RNEIcon {...rneProps} />
 }
 
-export const H1: React.SFC<TextProperties> = props => <Text h1 {...props}></Text>
-export const H2: React.SFC<TextProperties> = props => <Text h2 {...props}></Text>
-export const H3: React.SFC<TextProperties> = props => <Text h3 {...props}></Text>
-export const H4: React.SFC<TextProperties> = props => <Text h4 {...props}></Text>
+export const H1: React.SFC<TextProperties> = props => <Text h1 {...props as any}></Text>
+export const H2: React.SFC<TextProperties> = props => <Text h2 {...props as any}></Text>
+export const H3: React.SFC<TextProperties> = props => <Text h3 {...props as any}></Text>
+export const H4: React.SFC<TextProperties> = props => <Text h4 {...props as any}></Text>

@@ -97,12 +97,12 @@ export class AnimatedDrawer extends React.PureComponent<GUI.IAnimatedMobileDrawe
     const duration = (dur || App.Consts.animationDurationMsec) / 1000
     const isTablet = windowSize === Media.TWindowSize.tablet
 
-    const noAnimation = firstRender || isVisible == willBeVisible
-    if (!noAnimation) this.isVisible = willBeVisible
+    const animation = !firstRender && isVisible != willBeVisible
+    if (animation) this.isVisible = willBeVisible
     this.firstRender = false
 
     const animate = () => {
-      if (noAnimation || refsNum == 0 || (!isTablet && refsNum < 2)) return
+      if (!animation || refsNum == 0 || (!isTablet && refsNum < 2)) return
       tweens.forEach(t => t.reversed() ? t.play() : t.reverse())
     }
 
@@ -131,7 +131,7 @@ export class AnimatedDrawer extends React.PureComponent<GUI.IAnimatedMobileDrawe
           ref={div => divCreated(0, div, false, () => TweenLite.to(div, duration, { display: 'block', paused: true, reversed: true, opacity: 0.85 }))}
           className={renderCSSs(absoluteStretch as CSSProperties, { backgroundColor: 'gray', opacity: 0, display: 'none' })}
           onClick={() => showDrawer(false)} />
-        {!noAnimation && <div key={3}
+        {animation && <div key={3}
           ref={div => divCreated(1, div, false, () => TweenLite.to(div, duration, { paused: true, reversed: true, left: 0 }))}
           className={renderCSS({ position: 'absolute', top: 0, bottom: 0, width: drawerWidth, display: 'flex', left: -drawerWidth } as CSSProperties)} >
           {getDrawerMenu(menu, { key: 0, style: { flex: 1 } })}

@@ -13,3 +13,4 @@ export function fromCammelCase(obj: string): string { return kebabCase(obj); }
 //}
 //var toCammelCaseRegex = /-([a-z])/gi;
 //var fromCammelCaseRegex = /([A-Z])/g;
+

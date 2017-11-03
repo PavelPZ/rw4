@@ -57,7 +57,7 @@ import Page from './app-web/snack/page'
 //import { App1, /*app3Reducer*/ } from './app-web/snack/router-new'
 import DrawerApp from './app-web/snack/drawer'
 import DrawerNativeLikeApp from './app-web/snack/drawer-native-like'
-import Header from './app-web/snack/header'
+import Header from './app-web/snack/layout/index'
 
 
 //*********** spusteni

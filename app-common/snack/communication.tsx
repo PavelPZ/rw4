@@ -34,7 +34,7 @@ const doPost = async <TOut extends {}>(inp: {}) => {
     method: 'post',
     headers: {
       'Content-Type': 'application/json'
-    },
+    } as any,
     body: JSON.stringify(postData)
   })
     .then(res => { if (!res.ok) throw new Error(`ERROR: ${res.status}-${res.statusText} (${url})`); return res.text() })

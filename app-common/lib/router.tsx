@@ -5,7 +5,6 @@ import { put, take } from 'redux-saga/effects'
 import { delay } from 'redux-saga'
 import invariant from 'invariant'
 import { loginProcessing } from './login'
-import { shallowEqual } from './lib'
 
 import qs from 'qs'
 import UrlPattern from 'url-pattern'
