@@ -186,11 +186,11 @@ export const init = async () => {
 
 
   const appNo = noRouteApp
-  
+
   ReactDOM.render(
     //<AppRouter />
     //<AppAll />
-    <AppContent/>
+    <AppContent />
     //appNo
     , document.getElementById('content'))
 }

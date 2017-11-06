@@ -1,6 +1,8 @@
 //********** LIBRARIES
 import React from 'react'
 
+import { Button as B } from 'react-native-elements'
+
 import { Provider as ReduxProvider, connect } from 'react-redux'
 import { createStore, Store, applyMiddleware } from 'redux'
 import createSagaMiddleware from 'redux-saga/index'

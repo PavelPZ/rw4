@@ -16,7 +16,7 @@ declare namespace App {
     getState(): IState
   }
 
-  const enum PlatformOSType { ios = 'ios', android = 'android', windows = 'windows', web = 'web'}
+  const enum PlatformOSType { ios = 'ios', android = 'android', windows = 'windows', web = 'web' }
 
   interface IGlobal {
     store?: Store
@@ -55,7 +55,7 @@ interface Window {
   //lmGlobal: App.IGlobal
   store: App.Store
   platform: IPlatforms
-  rn:boolean
+  rn: boolean
 }
 
 interface IState { }
@@ -95,7 +95,7 @@ interface IPromiseExtensible<T = void> {
   then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T | PromiseResults) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): IPromiseExtensible<TResult1 | TResult2 | PromiseResults>
   catch(msg)
   onAbort(handler: () => void): IPromiseExtensible<T | PromiseResults>
-  abort(msg?): IPromiseExtensible<T | PromiseResults> 
+  abort(msg?): IPromiseExtensible<T | PromiseResults>
   timeout(time: number, func?: () => void): IPromiseExtensible<T | PromiseResults>
   start(): IPromiseExtensible<T | PromiseResults>
 }

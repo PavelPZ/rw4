@@ -2,7 +2,7 @@
 
   const enum Consts {
     name = 'login',
-    LOGIN = 'login/LOGIN', 
+    LOGIN = 'login/LOGIN',
     facebook = 'facebook', google = 'google',
   }
 
@@ -37,7 +37,7 @@
     par: IPlatformPar
     doLogin: (returnUrl: Router.IState) => void
     doLogout: () => void
-    providerExist?:boolean
+    providerExist?: boolean
   }
 
   type ILoginButtonProps = ILoginButtonMapProps & ILoginButtonDispatchProps
@@ -59,3 +59,4 @@ interface IState {
 interface IPlatforms {
   loginPlatform?: Login.IPlatform
 }
+
