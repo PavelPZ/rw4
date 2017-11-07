@@ -8,23 +8,26 @@
     "inlineSources": true,
     "importHelpers": true,
 
-    //**** REACT NATIVE
-    //"target": "es6",
-
     //**** COMMON
-
     //"declaration": true,
     //"declarationDir": "../rw4-builds/web/",
 
     //"outDir": "../rw4-builds/web",
     //"outFile": "../rw4-builds/web/build.js",
 
+    "baseUrl": ".",
+    "paths": {
+      "rw-router/*": [ "libs/rw-router/*" ],
+      "rw-login/*": [ "libs/rw-login/*" ]
+    },
+
     "allowSyntheticDefaultImports": true,
     "strictNullChecks": false,
     "downlevelIteration": true,
     "moduleResolution": "node",
-    //"strict": true,
+    "strict": true,
     "noImplicitReturns": true,
+    "strictFunctionTypes": false,
     //"experimentalDecorators": true,
     "noImplicitAny": false,
     "jsx": "react",
@@ -36,9 +39,8 @@
   },
   "exclude": [
     //*** native
-    "app-native",
-    "App.tsx",
-    "native-base-theme",
+    //"app-native",
+    //"App.tsx",
 
     "jspm_packages/",
     "node_modules/"

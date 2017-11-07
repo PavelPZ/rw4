@@ -43,27 +43,20 @@
     actions: App.Action[]
   }
 
-  interface Action {
-    type: Consts.RECORD_START | Consts.RECORD_END | Consts.PLAY_CONTINUE | Consts.PLAY_CANCEL | Consts.PLAY_END | Consts.CHANGE_SIZE | Consts.LIST_DELETE | Consts.LIST_INVERT
-  }
+  interface Action extends App.Action<Consts.RECORD_START | Consts.RECORD_END | Consts.PLAY_CONTINUE | Consts.PLAY_CANCEL | Consts.PLAY_END | Consts.CHANGE_SIZE | Consts.LIST_DELETE | Consts.LIST_INVERT> { }
 
   interface playSelected { playSelected: number[] } //indexes to IState.playLists  //Consts.playLastRecording: lastRecording, Consts.playAllPlaylist: all playlist, >=0: playlist[idx] 
-  interface PlayStartAction extends playSelected {
-    type: Consts.PLAY_START
-  }
+  interface PlayStartAction extends playSelected, App.Action<Consts.PLAY_START> { }
 
-  interface PlayInitStateAction { //extends playSelected {
-    type: Consts.PLAY_INIT_STATE
+  interface PlayInitStateAction extends App.Action<Consts.PLAY_INIT_STATE> { //extends playSelected {
     startState: App.IGlobalState
   }
 
-  interface RecordSaveAction {
-    type: Consts.RECORD_SAVE_START
+  interface RecordSaveAction extends App.Action<Consts.RECORD_SAVE_START>{
     name: string
   }
 
-  interface RecordAction {
-    type: Consts.RECORD
+  interface RecordAction extends App.Action<Consts.RECORD>{
     action: App.Action
   }
 
@@ -72,15 +65,13 @@
   //  playLists: IPlayList[]
   //}
 
-  interface PlayNextAction {
-    type: Consts.PLAY_NEXT
+  interface PlayNextAction extends App.Action<Consts.PLAY_NEXT> {
     idx: number
     listIdx: number
     playMsg: string
   }
 
-  interface ListSelChange {
-    type: Consts.LIST_SEL_CHANGE
+  interface ListSelChange extends App.Action<Consts.LIST_SEL_CHANGE> {
     idx: number
     checked: boolean
   }

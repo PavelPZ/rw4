@@ -1,19 +1,29 @@
+//import { Action, Dispatch } from 'redux'
+
 declare namespace App {
 
   const enum Consts {
     animationDurationMsec = 200
   }
 
-  interface Action<T = string> {
+  interface Action<T = string> extends Redux.Action {
     type: T
   }
 
-  interface Dispatch {
-    <A extends Action>(action: A): A
-  }
-  interface Store {
-    dispatch: <A extends Action>(action: A) => A
-    getState(): IState
+  type Dispatch<S> = Redux.Dispatch<S>
+
+  //interface StoreLow<S> {
+  //  dispatch: Dispatch<S>
+  //  getState(): S
+  //  subscribe(listener: () => void): any
+  //  replaceReducer(nextReducer: any): void
+  //}
+  //interface Dispatch {
+  //  <A extends Action>(action: A): A
+  //}
+  interface Store extends Redux.Store<IState>{
+    //dispatch: <A extends Action>(action: A) => A
+    //getState(): IState
   }
 
   const enum PlatformOSType { ios = 'ios', android = 'android', windows = 'windows', web = 'web' }
@@ -25,15 +35,17 @@ declare namespace App {
     OS: RN.PlatformOSType
   }
 
-  interface IReducer<TState = IState> { (state: TState, action: Action): TState }
 
-  interface SCF<P = {}> {
-    (props: P & { children?: React.ReactNode }, context?: IContext): React.ReactElement<any> | null
-    propTypes?: React.ValidationMap<P>
-    contextTypes?: React.ValidationMap<any>
-    defaultProps?: Partial<P>
-    displayName?: string
-  }
+
+  type IReducer<TState = IState> = Redux.Reducer<TState> //{ (state: TState, action: Action): TState }
+
+  //interface SCF<P = {}> {
+  //  (props: P & { children?: React.ReactNode }, context?: IContext): React.ReactElement<any> | null
+  //  propTypes?: React.ValidationMap<P>
+  //  contextTypes?: React.ValidationMap<any>
+  //  defaultProps?: Partial<P>
+  //  displayName?: string
+  //}
 
   type IGlobalState = IState
 

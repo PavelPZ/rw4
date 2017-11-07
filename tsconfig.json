@@ -20,12 +20,20 @@
     //"outDir": "../rw4-builds/native",
     //"outFile": "../rw4-builds/native/build.js",
 
+    "baseUrl": ".",
+    "paths": {
+      "rw-router/*": [ "libs/rw-router/*" ],
+      "rw-login/*": [ "libs/rw-login/*" ]
+    },
+
     "allowSyntheticDefaultImports": true,
     "strictNullChecks": false,
     "downlevelIteration": true,
     "moduleResolution": "node",
     //"strict": true,
     "noImplicitReturns": true,
+    "strictFunctionTypes": false,
+
     //"experimentalDecorators": true,
     "noImplicitAny": false,
     "jsx": "react",
@@ -37,8 +45,8 @@
   },
   "exclude": [
     //*** web
-    "index.tsx",
-    "app-web/",
+    //"index.tsx",
+    //"app-web/",
 
     "jspm_packages/",
     "node_modules/"

@@ -5,8 +5,7 @@
     TOOGLE = 'drawer/TOOGLE'
   }
 
-  interface Action {
-    type: Consts.SHOW | Consts.TOOGLE
+  interface Action extends App.Action<Consts.SHOW | Consts.TOOGLE> {
     visible?: boolean
   }
 
