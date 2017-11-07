@@ -29,7 +29,7 @@ export const Button: React.SFC<GUI.IButtonProps> = props => {
   const iconProps = iconId && { name: iconId, type: 'ionicon', color }
 
   const mdProps = {
-    onPress,
+    onPress: press,
     ...iconId && (iconAfter ? { rightIcon: iconProps } : { icon: iconProps }),
     disabled,
     color,

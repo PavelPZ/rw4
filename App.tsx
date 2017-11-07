@@ -91,7 +91,6 @@ export const init = async () => {
   initGUI({ Button, Icon, H1, H2, H3, H4, View, Text, AnimatedDrawer })
 
   const recordingJSON = await require('./App_Data/recording.json')
-  //console.log('await promiseAll')
   await promiseAll([
     initRouter(),
     initRecording(recordingJSON),
