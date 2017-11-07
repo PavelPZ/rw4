@@ -1,5 +1,5 @@
 ﻿import { Middleware, MiddlewareAPI, Action, Dispatch } from 'redux'
-import { connect, ComponentDecorator } from 'react-redux'
+import { connect } from 'react-redux'
 import invariant from 'invariant'
 import { put, take, race } from 'redux-saga/effects'
 import { delay } from 'redux-saga'
@@ -16,7 +16,7 @@ export const init = async (playLists?: Recording.IPlayList[]) => { //async init
 }
 let initState: Recording.IState = {}
 
-export const middleware: Middleware<IState> = middlAPI => next => act => { //inspirace v D:\rw\rw\rw-redux\async.ts
+export const middleware: Middleware = (middlAPI: MiddlewareAPI<IState>) => next => act => { //inspirace v D:\rw\rw\rw-redux\async.ts
 
   next(act)
 
@@ -177,8 +177,8 @@ export const reducer: App.IReducer<Recording.IState> = (state, action: Recording
 }
 
 
-export const providerConnector: ComponentDecorator<Recording.IStateProps & Recording.IDispatchProps, {}> = connect(
-  (state: IState) => state.recording as Recording.IStateProps,
+export const providerConnector = connect<Recording.IStateProps & Recording.IDispatchProps, {}>(
+  (state: IState) => state.recording as Recording.IStateProps & Recording.IDispatchProps,
   (dispatch) => ({
     recordStart: () => dispatch({ type: Recording.Consts.RECORD_START } as Recording.Action),
     recordEnd: () => dispatch({ type: Recording.Consts.RECORD_END } as Recording.Action),
@@ -219,6 +219,6 @@ export const blockGuiReducer: App.IReducer<BlockGui.IState> = (state, action: Bl
   }
 }
 
-export const blockGuiConnector: ComponentDecorator<BlockGui.IState, {}> = connect((state: IState) => state.blockGui)
+export const blockGuiConnector = connect<BlockGui.IState>((state: IState) => state.blockGui)
 
 const blockGUI = (dispatch: App.Dispatch<IState>, isBlock: boolean) => dispatch({ type: isBlock ? BlockGui.Consts.START : BlockGui.Consts.END } as BlockGui.Action)

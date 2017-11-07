@@ -1,10 +1,10 @@
 ﻿import React from 'react';
-import { connect, Store, ComponentDecorator } from 'react-redux'
+import { connect, Store } from 'react-redux'
 import { put, take } from 'redux-saga/effects'
 import invariant from 'invariant'
 import { actRoute } from 'rw-router/index'
 
-export const createLoginButton: ComponentDecorator<Login.ILoginButtonMapProps & Login.ILoginButtonDispatchProps, React.HTMLAttributes<{}>> = connect(
+export const createLoginButton = connect<Login.ILoginButtonMapProps, Login.ILoginButtonDispatchProps, React.HTMLAttributes<{}>>(
   (state: IState) => ({ logged: state.login.logged }),
   (dispatch) => ({
     doLoginAction: () => {

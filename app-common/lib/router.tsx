@@ -1,6 +1,6 @@
 ﻿import React from 'react';
 import { Middleware, MiddlewareAPI, Action, Dispatch } from 'redux'
-import { connect, ComponentDecorator } from 'react-redux'
+import { connect } from 'react-redux'
 import { put, take } from 'redux-saga/effects'
 import { delay } from 'redux-saga'
 import invariant from 'invariant'
@@ -11,7 +11,7 @@ import UrlPattern from 'url-pattern'
 
 const routes: { [name: string]: Router.IRouteComponent } = {}
 
-export const providerConnector: ComponentDecorator<Router.IRouterProps, {}> = connect(
+export const providerConnector = connect<Router.IRouterState, Router.IRouterDispatch>(
   (state: IState) => ({ ...state.router, ...state.mediaQuery }),
   (dispatch) => ({
     debugSetWindowSize: windowSize => dispatch({ type: Media.Consts.WEB_CHANGE_MEDIA, windowSize } as Media.IWebChangeMediaAction),
@@ -134,7 +134,7 @@ export interface Middleware<S> {
   (api: MiddlewareAPI<S>): (next: Dispatch<S>) => Dispatch<S>;
 }
 */
-export const middleware: Middleware<IState> = middlAPI => next => a => {
+export const middleware: Middleware = (middlAPI: MiddlewareAPI<IState>) => next => a => {
   const action: Router.IAction = a as any
   if (action.type != Router.Consts.NAVIGATE_START) { next(a); return a }
   const newState = action.newState

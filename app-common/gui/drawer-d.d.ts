@@ -18,7 +18,7 @@
   }
 
   type IOwn = IPageContent & Router.IRouterPageProps
-  type IStateDispatch = IState & IDispatch
+  type IStateDispatch = IState & IDispatch & Media.IState
   type IProps = IStateDispatch & IOwn
 
   interface IStyled {

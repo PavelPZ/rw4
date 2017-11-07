@@ -141,8 +141,8 @@ export const init = async () => {
   </ReduxProvider>
 
   return new Promise<JSX.Element>(resolve => resolve(
-    //<AppAll />
-    <AppComp />
+    <AppAll />
+    //<AppComp />
     //<Icon name={GUI.IonicIcons.boat} color={GUI.Colors.Cyan} reverse style={{marginTop:30}} />
   ))
 }

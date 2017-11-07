@@ -8,7 +8,7 @@ import { all, call, put, takeEvery, takeLatest, take } from 'redux-saga/effects'
 
 
 export interface IState {
-  counter: number;
+  counter?: number;
 }
 
 function* numbers() {
@@ -30,7 +30,7 @@ export let store = createStore<IState>(reducers, { counter: 0 }, applyMiddleware
 
 const compConnector = connect(st => st, dispatch => ({ onPress: () => dispatch({ type: 'COUNTER_START' }) }))
 
-const comp = (props: IState & { onPress }) => <View style={styles.container}>
+const comp = (props: IState & { onPress? }) => <View style={styles.container}>
   <Button title='Add Count' onPress={props.onPress} />
   <Text>{props.counter}</Text>
 </View>

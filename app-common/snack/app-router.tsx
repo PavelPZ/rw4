@@ -1,5 +1,5 @@
 ﻿import React from 'react'
-import { connect, ComponentDecorator } from 'react-redux'
+import { connect } from 'react-redux'
 import { Text, Button, H2, View, DrawerLayout } from '../gui/gui'
 import { registerRouter } from '../lib/router'
 import { isLogged, createLoginButton } from '../lib/login'
@@ -58,7 +58,7 @@ const appPage: React.SFC<IOwn> = routerProps => {
         //right: [<MDButton key={1} flat>C</MDButton>, <MDButton icon key={2}>menu</MDButton>, <MDButton icon key={3}>menu</MDButton>]
       },
       content: {
-        node: props => <AppPageLowContent {...props} {...routerProps} />
+        node: props => <AppPageLowContent {...props as any} {...routerProps} />
       }
     }
   }
@@ -90,7 +90,7 @@ const appPageLowContent: React.SFC<IProps & Drawer.IStyled> = props => {
 let counter = 0
 let menuCounter = 0
 
-const provider: ComponentDecorator<IStateDispatch, IOwn & Drawer.TAllProps> = connect(
+const provider = connect<IState, any, IOwn & Drawer.TAllProps>(
   (state: IAppState) => state.xxx,
   (dispatch) => ({
     onClick: title2 => dispatch({ type: 'CLICK', title2 }),

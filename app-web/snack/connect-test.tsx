@@ -1,5 +1,5 @@
 ﻿import React from 'react'
-import { connect, ComponentDecorator } from 'react-redux'
+import { connect } from 'react-redux'
 
 import { shallowEqual } from '../../app-common/lib/lib'
 
@@ -44,7 +44,7 @@ export const reducer: App.IReducer<ITestState> = (state, action: IAction) => {
   }
 }
 
-const connector: ComponentDecorator<ITestProps & ITestDispatchProps, {}> = connect(
+const connector = connect<ITestProps, ITestDispatchProps, {}>(
   (state: IMyState) => state.connectTest,
   dispatch => ({
     changeName: value => dispatch({ type: Consts.NAME, value } as IAction),
@@ -95,7 +95,7 @@ let renderCount = 0
 export const ConnectTest = connector(app)
 
 interface IApp2OwnProps { id: number; name: string }
-const connector2: ComponentDecorator<ITestValue & ITestDispatchProps, IApp2OwnProps> = connect(
+const connector2 = connect<ITestValue, ITestDispatchProps, IApp2OwnProps>(
   (state: IMyState) => state.connectTest.pars,
   dispatch => ({
     changeFromUrl: value => dispatch({ type: Consts.FROM_URL, value } as IAction),

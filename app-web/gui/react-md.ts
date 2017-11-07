@@ -1,4 +1,4 @@
-﻿export { default as Button, ButtonProps, FixedPositions } from 'react-md/lib/Buttons/Button'
+﻿export { default as Button, ButtonProps } from 'react-md/lib/Buttons/Button'
 export { default as Paper } from 'react-md/lib/Papers/Paper'
 export { default as Drawer } from 'react-md/lib/Drawers/Drawer'
 export { DrawerProps, DrawerPosition, MediaType, DrawerType, MobileDrawerType } from 'react-md/lib/Drawers/index'

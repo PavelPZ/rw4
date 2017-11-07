@@ -1,9 +1,9 @@
 ﻿import React from 'react'
-import { connect, ComponentDecorator } from 'react-redux'
+import { connect } from 'react-redux'
 import { View, Text, AnimatedDrawer} from '../gui/gui'
 
-export const providerConnector: ComponentDecorator<Drawer.IStateDispatch, {}> = connect(
-  (state: IState) => ({ ...state.drawer, ...state.mediaQuery } as Drawer.IState),
+export const providerConnector = connect<Drawer.IState, Drawer.IDispatch>(
+  (state: IState) => ({ ...state.drawer, ...state.mediaQuery } /*as Drawer.IState*/),
   dispatch => ({
     showDrawer: visible => dispatch({ type: Drawer.Consts.SHOW, visible }),
   } as Drawer.IDispatch)

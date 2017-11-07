@@ -58,11 +58,11 @@ const menuContent = (props: Drawer.IMenuContent) => {
   </View>
 }
 
-const drawerButtonShow: React.SFC<Drawer.IProps> = ({ drawerVisible, windowSize, showDrawer }) => !drawerVisible && (windowSize == Media.TWindowSize.tablet || windowSize == Media.TWindowSize.mobile) &&
+const drawerButtonShow: React.SFC<Drawer.IStateDispatch> = ({ drawerVisible, windowSize, showDrawer }) => !drawerVisible && (windowSize == Media.TWindowSize.tablet || windowSize == Media.TWindowSize.mobile) &&
   Button({ iconName: GUI.IonicIcons.menu, flat: true, light: true, onPress: () => showDrawer(true) })
 const DrawerButtonShow = providerConnector(drawerButtonShow)
 
-const drawerButtonHide: React.SFC<Drawer.IProps> = ({ drawerVisible, windowSize, showDrawer }) => drawerVisible && (windowSize == Media.TWindowSize.tablet || windowSize == Media.TWindowSize.mobile) &&
+const drawerButtonHide: React.SFC<Drawer.IStateDispatch> = ({ drawerVisible, windowSize, showDrawer }) => drawerVisible && (windowSize == Media.TWindowSize.tablet || windowSize == Media.TWindowSize.mobile) &&
   Button({ iconName: GUI.IonicIcons.close, flat: true, light: true, onPress: () => showDrawer(false) })
 const DrawerButtonHide = providerConnector(drawerButtonHide)
 
