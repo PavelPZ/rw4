@@ -5,7 +5,7 @@ import invariant from 'invariant'
 import { actRoute } from 'rw-router/index'
 
 export const createLoginButton = connect<Login.ILoginButtonMapProps, Login.ILoginButtonDispatchProps, React.HTMLAttributes<{}>>(
-  (state: IState) => ({ logged: state.login.logged }),
+  (state: IState) => ({ logged: state.login.logged } as Login.ILoginButtonMapProps),
   (dispatch) => ({
     doLoginAction: () => {
       const logSt = isLogged()

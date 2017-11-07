@@ -16,7 +16,7 @@ class provider extends React.PureComponent<Loc.IState> {
   }
   static childContextTypes = { loc: PropTypes.any }
 }
-const providerConnector = connect<Loc.IState, {}>((state: IState) => state.loc)
+const providerConnector = connect<Loc.IState>((state: IState) => state.loc)
 export const Provider = providerConnector(provider)
 
 export const reducer: App.IReducer<Loc.IState> = (state, action) => {

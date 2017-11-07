@@ -10,7 +10,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 
-import { goBack, canGoBack } from '../../app-common/lib/router'
+import { goBack, canGoBack } from 'rw-router/index'
 import { providerConnector as recordingProviderConnector, blockGuiConnector } from '../../app-common/lib/recording'
 
 //import { addNavigationHelpers, DrawerNavigator, StackNavigator } from 'react-navigation'
@@ -21,7 +21,7 @@ import { /*LayoutAnimation, NativeModules,*/ BackHandler, Platform, Animated, St
 //import { ActionSheetContainer as ActionSheet } from 'native-base/src/basic/Actionsheet'
 import { Font, Constants } from 'expo'
 import { View } from 'react-native';
-import { Icon, Fab } from 'native-base';
+//import { Icon, Fab } from 'native-base';
 
 //COMMON
 
@@ -33,10 +33,10 @@ export const init = async () => {
     goBack()
     return true
   })
-  await Font.loadAsync({
-    'Roboto': require('native-base/Fonts/Roboto.ttf'),
-    'Roboto_medium': require('native-base/Fonts/Roboto_medium.ttf'),
-  })
+  //await Font.loadAsync({
+  //  'Roboto': require('native-base/Fonts/Roboto.ttf'),
+  //  'Roboto_medium': require('native-base/Fonts/Roboto_medium.ttf'),
+  //})
 }
 
 //*** BLOCK GUI
@@ -47,10 +47,10 @@ const blockGuiComp: React.SFC<BlockGui.IProps> = props => props.state == BlockGu
 export const BlockGuiComp = blockGuiConnector(blockGuiComp)
 
 //*** RECORDER
-const Btn: React.SFC<{ play?: boolean; click: () => void }> = props =>
-  <Fab active onPress={props.click} position="bottomLeft" style={{ backgroundColor: '#5067FF' }} direction="up" containerStyle={{ zIndex: blockGuiZindex + 1, elevation: 100 }}>
-    <Icon name={props.play ? GUI.IonicNames.play : GUI.IonicNames.pause} />
-  </Fab>
+const Btn: React.SFC<{ play?: boolean; click: () => void }> = props => null
+  //<Fab active onPress={props.click} position="bottomLeft" style={{ backgroundColor: '#5067FF' }} direction="up" containerStyle={{ zIndex: blockGuiZindex + 1, elevation: 100 }}>
+  //  <Icon name={props.play ? GUI.IonicNames.play : GUI.IonicNames.pause} />
+  //</Fab>
 
 
 const PlayAllBtn: React.SFC<Recording.IProps> = props => {

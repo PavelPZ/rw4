@@ -1,4 +1,4 @@
-//import { Action, Dispatch } from 'redux'
+//import { Action } from 'redux'
 
 declare namespace App {
 
@@ -6,11 +6,11 @@ declare namespace App {
     animationDurationMsec = 200
   }
 
-  interface Action<T = string> extends Redux.Action {
+  interface ActionLow<T = string> extends Redux.Action {
     type: T
   }
 
-  type Dispatch<S> = Redux.Dispatch<S>
+  //type DispatchLow = Dispatch<any>
 
   //interface StoreLow<S> {
   //  dispatch: Dispatch<S>

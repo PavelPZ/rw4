@@ -58,7 +58,7 @@
     urlPattern?
     getRoute?: (params: TParams, isModal?: boolean) => Router.IState<string, TParams>
     nativeScreenDef?: () => { [name: string]: { screen: IRouteComponent<TParams> } }
-    reducer?: (state: App.IGlobalState, action: App.Action) => App.IGlobalState
+    reducer?: (state: App.IGlobalState, action: App.ActionLow) => App.IGlobalState
   }
 
   type IRouteComponent<TPar extends IRoutePar = IRoutePar> = React.ComponentType<IRouterPageProps<TPar>> & IRoute<IRouterPageProps<TPar>>

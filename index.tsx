@@ -17,10 +17,10 @@ import { all, call } from 'redux-saga/effects'
 //********** COMMON
 import { initGUI } from './app-common/gui/gui'
 import { Provider as LocProvider, reducer as locReducer } from './app-common/lib/loc'
-import { Provider as RouterProvider, init as initRouter, globalReducer as globalRouterReducer, middleware as routerMiddleware } from './app-common/lib/router'
+import { Provider as RouterProvider, init as initRouter, globalReducer as globalRouterReducer, middleware as routerMiddleware } from 'rw-router/index'
 import { PromiseExtensible, WaitForRendering, promiseAll, getAppId } from './app-common/lib/lib'
 import { init as initRecording, reducer as recordingReducer, saga as recordingSaga, middleware as recordingMiddleware, globalReducer as recordingGlobalReducer, blockGuiReducer, blockGuiSaga } from './app-common/lib/recording'
-import { reducer as loginReducer } from './app-common/lib/login'
+import { reducer as loginReducer } from 'rw-login/index'
 import { reducer as mediaQueryReducer } from './app-common/lib/media-query'
 import { reducer as drawerReducer } from './app-common/gui/drawer'
 
@@ -188,8 +188,8 @@ export const init = async () => {
   const appNo = noRouteApp
 
   ReactDOM.render(
-    <AppRouter />
-    //<AppAll />
+    //<AppRouter />
+    <AppAll />
     //<AppContent />
     //appNo
     , document.getElementById('content'))

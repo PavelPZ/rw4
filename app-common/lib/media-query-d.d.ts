@@ -19,8 +19,8 @@
  
   interface IWindowSize { windowSize: TWindowSize }
 
-  interface IWebChangeMediaAction extends App.Action<Consts.WEB_CHANGE_MEDIA>, IWindowSize { }
-  interface INativeChangeMediaAction extends App.Action<Consts.NATIVE_CHANGE_DIMENSION>, IWindowSize { rnWidth: number; rnHeight:number }
+  interface IWebChangeMediaAction extends App.ActionLow<Consts.WEB_CHANGE_MEDIA>, IWindowSize { }
+  interface INativeChangeMediaAction extends App.ActionLow<Consts.NATIVE_CHANGE_DIMENSION>, IWindowSize { rnWidth: number; rnHeight:number }
 
   interface IDimensionsAddEventListener {
     screen: IDAELItem

@@ -11,7 +11,7 @@ import { all, call } from 'redux-saga/effects'
 //********** COMMON
 import { initGUI } from './app-common/gui/gui'
 import { WaitForRendering, promiseAll } from './app-common/lib/lib'
-import { Provider as RouterProvider, globalReducer as globalRouterReducer, middleware as routerMiddleware, init as initRouter } from './app-common/lib/router'
+import { Provider as RouterProvider, globalReducer as globalRouterReducer, middleware as routerMiddleware, init as initRouter } from 'rw-router/index'
 import { init as initRecording, reducer as recordingReducer, saga as recordingSaga, middleware as recordingMiddleware, globalReducer as recordingGlobalReducer, blockGuiReducer, blockGuiSaga } from './app-common/lib/recording'
 import { Provider as LocProvider, reducer as locReducer } from './app-common/lib/loc'
 import { reducer as mediaQueryReducer } from './app-common/lib/media-query'
@@ -91,7 +91,7 @@ export const init = async () => {
   initGUI({ Button, Icon, H1, H2, H3, H4, View, Text, AnimatedDrawer })
 
   const recordingJSON = await require('./App_Data/recording.json')
-  //console.log('recordingJSON:\n', JSON.stringify(recordingJSON,null,2))
+  //console.log('await promiseAll')
   await promiseAll([
     initRouter(),
     initRecording(recordingJSON),

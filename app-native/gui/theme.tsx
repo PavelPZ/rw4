@@ -1,11 +1,11 @@
 ﻿import React from 'react'
-import { StyleProvider } from 'native-base'
+//import { StyleProvider } from 'native-base'
 import getTheme from './theme/components/index'
 import variables, { Palette } from './theme/platform'
 
-export const Theme: React.SFC<{}> = props => <StyleProvider style={getTheme(variables)}>
-  {React.Children.only(props.children)}
-</StyleProvider>
+//export const Theme: React.SFC<{}> = props => <StyleProvider style={getTheme(variables)}>
+//  {React.Children.only(props.children)}
+//</StyleProvider>
 
 export const colorToBsStyle = (color: GUI.Colors, bsStyle: NativeBase.BsStyle) => {
   bsStyle.success = color == GUI.Colors.success

@@ -12,7 +12,9 @@ SystemJS.config({
   },
   map: {
     "redux-saga/effects": "npm:redux-saga@0.15.6/lib/effects",
-    "redux-saga/index": "npm:redux-saga@0.15.6/lib/index"
+    "redux-saga/index": "npm:redux-saga@0.15.6/lib/index",
+    "rw-login": "libs/rw-login",
+    "rw-router": "libs/rw-router"
   }
 });
 

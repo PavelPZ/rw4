@@ -1,11 +1,16 @@
 {
   "presets": [ "babel-preset-expo" ],
-  "ignore": [
-    "jspm_package"
-  ],
   "env": {
     "development": {
       "plugins": [ "transform-react-jsx-source" ]
     }
-  }
+  },
+  "plugins": [
+    [
+      "module-resolver",
+      {
+        "root": [ "./libs" ]
+      }
+    ]
+  ]
 }

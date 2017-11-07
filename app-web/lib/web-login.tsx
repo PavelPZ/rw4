@@ -7,8 +7,8 @@
 import React from 'react'
 import invariant from 'invariant'
 
-import { navigate, actRoute } from '../../app-common/lib/router'
-import { isLogged } from '../../app-common/lib/login'
+import { navigate, actRoute } from 'rw-router/index'
+import { isLogged } from 'rw-login/index'
 import { getIcon } from '../../app-common/gui/ionic'
 import { Button } from '../../app-common/gui/gui'
 

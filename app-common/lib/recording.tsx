@@ -1,5 +1,4 @@
-﻿import { Middleware, MiddlewareAPI, Action, Dispatch } from 'redux'
-import { connect } from 'react-redux'
+﻿import { connect } from 'react-redux'
 import invariant from 'invariant'
 import { put, take, race } from 'redux-saga/effects'
 import { delay } from 'redux-saga'
@@ -16,7 +15,7 @@ export const init = async (playLists?: Recording.IPlayList[]) => { //async init
 }
 let initState: Recording.IState = {}
 
-export const middleware: Middleware = (middlAPI: MiddlewareAPI<IState>) => next => act => { //inspirace v D:\rw\rw\rw-redux\async.ts
+export const middleware: Redux.Middleware = (middlAPI: Redux.MiddlewareAPI<IState>) => next => act => { //inspirace v D:\rw\rw\rw-redux\async.ts
 
   next(act)
 
@@ -50,8 +49,8 @@ export const middleware: Middleware = (middlAPI: MiddlewareAPI<IState>) => next 
 let actAsyncAction: string
 let blockGuiTimer = 0
 
-const record = (state: Recording.IState, dispatch: Dispatch<any>, action: Action) => state && state.mode == Recording.TModes.recording && dispatch({ type: Recording.Consts.RECORD, action } as Recording.RecordAction)
-const playContinue = (state: Recording.IState, dispatch: Dispatch<any>) => state && state.mode == Recording.TModes.playing && dispatch({ type: Recording.Consts.PLAY_CONTINUE } as Recording.Action)
+const record = (state: Recording.IState, dispatch: Redux.Dispatch<any>, action: Redux.Action) => state && state.mode == Recording.TModes.recording && dispatch({ type: Recording.Consts.RECORD, action } as Recording.RecordAction)
+const playContinue = (state: Recording.IState, dispatch: Redux.Dispatch<any>) => state && state.mode == Recording.TModes.playing && dispatch({ type: Recording.Consts.PLAY_CONTINUE } as Recording.Action)
 
 const loadPlayList = () => callRestAPI(Recording.RestAPI.Consts.LOAD).then(d => d.data as Recording.IPlayList[] || [])
 const savePlayList = (pl: Recording.IPlayList[]) => callRestAPI(Recording.RestAPI.Consts.SAVE, pl)
@@ -74,7 +73,7 @@ export const saga = function* () {
           yield put({ type: Recording.Consts.PLAY_INIT_STATE, startState } as Recording.PlayInitStateAction)
           return window.store.getState().recording
         }
-        const playAndGoNext = function* (playAction: App.Action, idx: number, listIdx: number, playMsg: string) {
+        const playAndGoNext = function* (playAction: App.ActionLow, idx: number, listIdx: number, playMsg: string) {
           yield delay(Recording.Consts.playActionDelay)
           const canc = window.store.getState().recording.mode != Recording.TModes.playing
           if (!canc) {
@@ -221,4 +220,4 @@ export const blockGuiReducer: App.IReducer<BlockGui.IState> = (state, action: Bl
 
 export const blockGuiConnector = connect<BlockGui.IState>((state: IState) => state.blockGui)
 
-const blockGUI = (dispatch: App.Dispatch<IState>, isBlock: boolean) => dispatch({ type: isBlock ? BlockGui.Consts.START : BlockGui.Consts.END } as BlockGui.Action)
+const blockGUI = (dispatch: Redux.Dispatch<IState>, isBlock: boolean) => dispatch({ type: isBlock ? BlockGui.Consts.START : BlockGui.Consts.END } as BlockGui.Action)

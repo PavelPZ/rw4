@@ -4,7 +4,7 @@ import { getColors2 } from '../../app-common/gui/colors'
 //import { colorToStyle } from '../../app-common/gui/gui'
 import { getIcon2 } from '../../app-common/gui/ionic'
 import { renderCSS } from '../lib/fela'
-import { navigateUrl, navigatePush } from '../../app-common/lib/router'
+import { navigateUrl, navigatePush } from 'rw-router/index'
 
 export const Button: React.SFC<GUI.IButtonProps> = props => {
   const { floating, flat, iconAfter, iconName, outline, children, webStyle, web = {}, onPress, href, disabled, ...rest} = props

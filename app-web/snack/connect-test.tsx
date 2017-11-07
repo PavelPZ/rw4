@@ -9,7 +9,7 @@ const enum Consts {
   STATE = 'ct/STATE',
 }
 
-interface IAction extends App.Action {
+interface IAction extends App.ActionLow {
   type: Consts.NAME | Consts.FROM_URL | Consts.STATE
   value: string
 }

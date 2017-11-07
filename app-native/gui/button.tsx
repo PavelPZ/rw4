@@ -1,5 +1,5 @@
 ﻿import React from 'react'
-import { navigatePush } from '../../app-common/lib/router'
+import { navigatePush } from 'rw-router/index'
 import { getIcon2 } from '../../app-common/gui/ionic'
 import { getColors2 } from '../../app-common/gui/colors'
 

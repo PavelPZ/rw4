@@ -1,6 +1,6 @@
 ﻿import React from 'react';
 import { Divider, BottomNavigation, Toolbar, FontIcon, Button as MDButton } from 'react-md'
-import { navigateUrl, navigatePush } from '../../app-common/lib/router'
+import { navigateUrl, navigatePush } from 'rw-router/index'
 import { Text, View, Button } from '../../app-common/gui/gui'
 import { colorToStyle } from '../../app-common/gui/gui'
 import { getColors } from '../../app-common/gui/colors'

@@ -8,7 +8,7 @@
 
   type TProviders = Consts.google | Consts.facebook
 
-  interface ILoginAction extends App.Action<Consts.LOGIN>, ILoginInfo { } //common action for login x logout
+  interface ILoginAction extends App.ActionLow<Consts.LOGIN>, ILoginInfo { } //common action for login x logout
 
   const enum TLoginStatus { unsupported, logged, unlogged }
 

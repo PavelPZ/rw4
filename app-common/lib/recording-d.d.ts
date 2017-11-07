@@ -26,7 +26,7 @@
     mode?: TModes
     guiSize?: TGuiSize
     playLists?: IPlayList[] //all saved playlists
-    recording?: App.Action[] //recorded playlist
+    recording?: App.ActionLow[] //recorded playlist
     startState?: TGlobalState //start status before first recording action
     //for playing
     idx?: number
@@ -40,24 +40,24 @@
     checked: boolean
     active: boolean
     startState: TGlobalState
-    actions: App.Action[]
+    actions: App.ActionLow[]
   }
 
-  interface Action extends App.Action<Consts.RECORD_START | Consts.RECORD_END | Consts.PLAY_CONTINUE | Consts.PLAY_CANCEL | Consts.PLAY_END | Consts.CHANGE_SIZE | Consts.LIST_DELETE | Consts.LIST_INVERT> { }
+  interface Action extends App.ActionLow<Consts.RECORD_START | Consts.RECORD_END | Consts.PLAY_CONTINUE | Consts.PLAY_CANCEL | Consts.PLAY_END | Consts.CHANGE_SIZE | Consts.LIST_DELETE | Consts.LIST_INVERT> { }
 
   interface playSelected { playSelected: number[] } //indexes to IState.playLists  //Consts.playLastRecording: lastRecording, Consts.playAllPlaylist: all playlist, >=0: playlist[idx] 
-  interface PlayStartAction extends playSelected, App.Action<Consts.PLAY_START> { }
+  interface PlayStartAction extends playSelected, App.ActionLow<Consts.PLAY_START> { }
 
-  interface PlayInitStateAction extends App.Action<Consts.PLAY_INIT_STATE> { //extends playSelected {
+  interface PlayInitStateAction extends App.ActionLow<Consts.PLAY_INIT_STATE> { //extends playSelected {
     startState: App.IGlobalState
   }
 
-  interface RecordSaveAction extends App.Action<Consts.RECORD_SAVE_START>{
+  interface RecordSaveAction extends App.ActionLow<Consts.RECORD_SAVE_START>{
     name: string
   }
 
-  interface RecordAction extends App.Action<Consts.RECORD>{
-    action: App.Action
+  interface RecordAction extends App.ActionLow<Consts.RECORD>{
+    action: App.ActionLow
   }
 
   //interface InitAction {
@@ -65,13 +65,13 @@
   //  playLists: IPlayList[]
   //}
 
-  interface PlayNextAction extends App.Action<Consts.PLAY_NEXT> {
+  interface PlayNextAction extends App.ActionLow<Consts.PLAY_NEXT> {
     idx: number
     listIdx: number
     playMsg: string
   }
 
-  interface ListSelChange extends App.Action<Consts.LIST_SEL_CHANGE> {
+  interface ListSelChange extends App.ActionLow<Consts.LIST_SEL_CHANGE> {
     idx: number
     checked: boolean
   }

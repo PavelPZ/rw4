@@ -1,8 +1,8 @@
 ﻿import React from 'react'
-import { Text, Button as NBButton, Fab as NBFab, Icon } from 'native-base'
-import { View, Platform, Dimensions, PixelRatio, ViewStyle } from 'react-native'
+import { Button as NBButton, Icon } from 'native-base'
+import { Text, View, Platform, Dimensions, PixelRatio, ViewStyle } from 'react-native'
 
-import { navigatePush } from '../../app-common/lib/router'
+import { navigatePush } from 'rw-router/index'
 import { getIcon } from '../../app-common/gui/ionic'
 import { getColors } from '../../app-common/gui/colors'
 import { colorToBsStyle } from './theme'

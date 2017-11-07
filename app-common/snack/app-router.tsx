@@ -1,8 +1,8 @@
 ﻿import React from 'react'
 import { connect } from 'react-redux'
 import { Text, Button, H2, View, DrawerLayout } from '../gui/gui'
-import { registerRouter } from '../lib/router'
-import { isLogged, createLoginButton } from '../lib/login'
+import { registerRouter } from 'rw-router/index'
+import { isLogged, createLoginButton } from 'rw-login/index'
 import { storeContextType } from '../lib/lib'
 import { contextType as locContextType } from '../lib/loc'
 
@@ -110,7 +110,7 @@ class Menu extends React.Component {
 export const AppPage: Router.IRouteComponent<IRoutePar> = registerRouter(appPage, Consts.name, Consts.urlMask, {
   beforeLoad: params => new Promise<Router.TUnloader>(resolve => setTimeout(() => resolve(), Consts.loadDelay)),
   needsLogin: params => !window.rn && params.title.length >= 'START TITLE | xxx'.length,
-  reducer: (state: IAppState, action: Router.ICreateDestroyAction | Router.IAction | App.Action<'CLICK'>) => {
+  reducer: (state: IAppState, action: Router.ICreateDestroyAction | Router.IAction | App.ActionLow<'CLICK'>) => {
     const initState = { title2: 'start' }
     const changeState = false/*!action.routeChanged*/
     switch (action.type) {

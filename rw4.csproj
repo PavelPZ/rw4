@@ -82,8 +82,8 @@
     <TypeScriptCompile Include="app-common\gui\gui.tsx" />
     <TypeScriptCompile Include="app-common\gui\react-native-d.d.ts" />
     <TypeScriptCompile Include="app-common\lib\app-d.d.ts" />
-    <TypeScriptCompile Include="app-common\lib\router-d.d.ts" />
-    <TypeScriptCompile Include="app-common\lib\router.tsx" />
+    <TypeScriptCompile Include="libs\rw-router\router-d.d.ts" />
+    <None Include="app-common\lib\router.tsx_" />
     <TypeScriptCompile Include="app-common\lib\dom.d.ts" />
     <TypeScriptCompile Include="app-common\snack\fragments.ts" />
     <TypeScriptCompile Include="app-common\snack\gui\button.tsx" />
@@ -182,8 +182,8 @@
     <TypeScriptCompile Include="app-common\lib\rest-api.ts" />
     <TypeScriptCompile Include="app-common\lib\loc-d.d.ts" />
     <TypeScriptCompile Include="app-common\lib\loc.tsx" />
-    <TypeScriptCompile Include="app-common\lib\login.tsx" />
-    <TypeScriptCompile Include="app-common\lib\login-d.d.ts" />
+    <None Include="app-common\lib\login.tsx_" />
+    <TypeScriptCompile Include="libs\rw-login\login-d.d.ts" />
     <TypeScriptCompile Include="app-common\lib\media-query.ts" />
     <TypeScriptCompile Include="app-common\lib\media-query-d.d.ts" />
     <TypeScriptCompile Include="app-common\snack\test-restAPI.tsx" />
