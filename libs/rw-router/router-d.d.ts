@@ -22,9 +22,11 @@
     debugSetWindowSize?: (windowSize: Media.TWindowSize) => void
   }
   type IRouterProps = IRouterState & IRouterDispatch
+  type TLoginProcessing = (needsLogin: boolean, returnUrl: Router.IState) => boolean
 
+  type TAnimationRoot = HTMLElement | RN.Animated.Value
   //==IRouterProps, IRoutePar je posunut na misto IState
-  type IRouterPageProps<TRoutePar extends IRoutePar = IRoutePar> = TRoutePar & Media.IMediaProps & { refForAnimation?: (root: WebNativeCommon.TRouterAnimRoot) => void } & IRouterDispatch
+  type IRouterPageProps<TRoutePar extends IRoutePar = IRoutePar> = TRoutePar & Media.IMediaProps & { refForAnimation?: (root: TAnimationRoot) => void } & IRouterDispatch
 
   interface IState<TName extends string = string, TRoutePar extends IRoutePar = any> {
     routeName: TName
@@ -79,13 +81,15 @@
     canGo?: (n: number) => boolean
   }
 
+  type TGetAnimator = (div: TAnimationRoot, display: boolean) => Utils.IPromise<void>
+
   interface IPlatform {
     //computeState?: (action: IState, st) => any //pro Native: dej RN
     startRoute: IState
     rootUrl?: string //html stranka s aplikaci
     history: Router.IHistory
     backHandler?: () => boolean
-    getAnimator?: (div: WebNativeCommon.TRouterAnimRoot, display: boolean) => IPromiseExtensible<void>
+    getAnimator?: TGetAnimator
   }
 
   interface IRouterAnimator {
@@ -99,7 +103,7 @@ interface IState {
   router?: Router.IState
 }
 
-interface IPlatforms {
-  routerPlatform?: Router.IPlatform
-}
+//interface IPlatforms {
+//  routerPlatform?: Router.IPlatform
+//}
 

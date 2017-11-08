@@ -17,7 +17,7 @@ import { all, call } from 'redux-saga/effects'
 //********** COMMON
 import { initGUI } from './app-common/gui/gui'
 import { Provider as LocProvider, reducer as locReducer } from './app-common/lib/loc'
-import { Provider as RouterProvider, init as initRouter, globalReducer as globalRouterReducer, middleware as routerMiddleware } from 'rw-router/index'
+import { Provider as RouterProvider, globalReducer as globalRouterReducer, middleware as routerMiddleware } from 'rw-router/index'
 import { PromiseExtensible, WaitForRendering, promiseAll, getAppId } from './app-common/lib/lib'
 import { init as initRecording, reducer as recordingReducer, saga as recordingSaga, middleware as recordingMiddleware, globalReducer as recordingGlobalReducer, blockGuiReducer, blockGuiSaga } from './app-common/lib/recording'
 import { reducer as loginReducer } from 'rw-login/index'
@@ -25,6 +25,9 @@ import { reducer as mediaQueryReducer } from './app-common/lib/media-query'
 import { reducer as drawerReducer } from './app-common/gui/drawer'
 
 //********** WEB specific
+import { init as initRouter } from 'rw-router/index-w'
+import { loginProcessing } from 'rw-login/index'
+
 //import Animated from 'animated'
 import createHistory from 'history/createBrowserHistory'
 //import { Provider as LayerProvider } from './app-web/lib/web-root-layers'
@@ -32,7 +35,7 @@ import { platform as loginPlatform, Provider as LoginProvider, } from './app-web
 import { init as initMediaQuery } from './app-web/lib/web-media-query'
 import { Provider as RecordingProvider, BlockGuiComp } from './app-web/lib/web-recording'
 //import { Provider as DrawerProvider } from './app-web/lib/web-drawer'
-import { getAnimator as getRouteAnimator } from './app-web/lib/web-router'
+//import { getAnimator as getRouteAnimator } from './app-web/lib/web-router'
 import { Button } from './app-web/gui/button'
 import { Icon, H1, H2, H3, H4 } from './app-web/gui/other'
 import { View } from './app-web/gui/view'
@@ -63,6 +66,9 @@ import DrawerNativeLikeApp from './app-web/snack/drawer-native-like'
 //*********** spusteni
 export const init = async () => {
   window.rn = false
+
+  initRouter(AppPage.getRoute({ title: 'START TITLE | xxx' }), '/web-app.html', loginProcessing)
+
   window.platform = {
     OS: 'web',
     appPlatform: {
@@ -80,18 +86,18 @@ export const init = async () => {
     }),
     recordingPlatform: { guiSize: Recording.TGuiSize.icon },
     restAPIPlatform: { serviceUrl: 'rest-api.ashx' },
-    routerPlatform: {
-      startRoute: AppPage.getRoute({ title: 'START TITLE | xxx' }),
-      //startRoute: App1.getRoute({ title: 'from Index' }),
-      history: createHistory() as Router.IHistory,
-      rootUrl: '/web-app.html',
-      getAnimator: getRouteAnimator,
-    },
+    //routerPlatform: {
+    //  startRoute: AppPage.getRoute({ title: 'START TITLE | xxx' }),
+    //  //startRoute: App1.getRoute({ title: 'from Index' }),
+    //  history: createHistory() as Router.IHistory,
+    //  rootUrl: '/web-app.html',
+    //  getAnimator: getRouteAnimator,
+    //},
   }
 
   await promiseAll([
     initGUI({ Button, Icon, H1, H2, H3, H4, View, Text, AnimatedDrawer }),
-    initRouter(),
+    //initRouter(),
     initRecording(),
   ])
 

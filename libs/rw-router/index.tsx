@@ -1,10 +1,8 @@
 ﻿import React from 'react';
-//import { Middleware, MiddlewareAPI, Action, Dispatch } from 'redux'
 import { connect } from 'react-redux'
 import { put, take } from 'redux-saga/effects'
 import { delay } from 'redux-saga'
 import invariant from 'invariant'
-import { loginProcessing } from 'rw-login/index'
 
 import qs from 'qs'
 import UrlPattern from 'url-pattern'
@@ -54,37 +52,37 @@ class provider extends React.PureComponent<Router.IRouterProps> {
     if (animateIn) animateIn.abort()
     animateOut = null; animateIn = null;
     const Route = routes[props.routeName]
-    const { getAnimator } = window.platform.routerPlatform
+    //const { getAnimator } = window.platform.routerPlatform
     const { params: pars, ...mediaPars } = props
     const params: Router.IRouterPageProps = { ...pars, ...mediaPars }
 
     return <Route key={routeCount++} {...params} refForAnimation={async div => {
       if (!div) return
-      animateOut = getAnimator(div, true)
-      animateIn = getAnimator(div, false)
+      animateOut = _getAnimator(div, true)
+      animateIn = _getAnimator(div, false)
       await animateIn.start()
     }} />
   }
 }
 let routeCount = 0
 //let startAnimateOut: () => IPromiseExtensible
-let animateOut: IPromiseExtensible
-let animateIn: IPromiseExtensible
+let animateOut: Utils.IPromise
+let animateIn: Utils.IPromise
 
 export const Provider = providerConnector(provider)
 
 // ***** EXPORTS
 
-export const goBack = () => window.platform.routerPlatform.history.goBack()
+export const goBack = () => _history.goBack()
 
-export const canGoBack = () => window.rn ? window.platform.routerPlatform.history.canGo(-1) : true
+export const canGoBack = () => window.rn ? _history.canGo(-1) : true
 
 export const actRoute = () => window.store.getState().router
 
 //navigace BEZ history.push. S history.push viz navigateUrl
 export const navigate = (routeName?: string | Router.IState, params?) => {
   let newState: Router.IState;
-  if (!routeName) newState = window.platform.routerPlatform.startRoute
+  if (!routeName) newState = _startRoute
   else if (typeof (routeName) !== 'string') newState = routeName
   else newState = { routeName: routeName, params: params }
   window.store.dispatch({ type: Router.Consts.NAVIGATE_START, newState })
@@ -141,7 +139,7 @@ export const middleware: Redux.Middleware = (middlAPI: Redux.MiddlewareAPI<IStat
   let isAsync = false
   const router = routes[newState.routeName];
   // login needed => ignore NAVIGATE_START
-  if (loginProcessing(router.needsLogin && router.needsLogin(newState.params), newState)) { animateOut = null; return a }
+  if (_loginProcessing && _loginProcessing (router.needsLogin && router.needsLogin(newState.params), newState)) { animateOut = null; return a }
   //send NAVIGATE_START
   action.navigActionId = navigActionId++
   next(action)
@@ -171,9 +169,12 @@ export const middleware: Redux.Middleware = (middlAPI: Redux.MiddlewareAPI<IStat
 let navigActionId = 0
 let beforeUnload: () => void
 
-export const init = () => {
-  const { startRoute, rootUrl, history } = window.platform.routerPlatform
-
+export const init = (startRoute: Router.IState, history: Router.IHistory, getAnimator: Router.TGetAnimator, rootUrl: string/*html stranka s aplikaci*/, loginProcessing: Router.TLoginProcessing) => {
+  _getAnimator = getAnimator
+  _history = history
+  _startRoute = startRoute
+  _loginProcessing = loginProcessing
+  //const { startRoute, rootUrl, history } = window.platform.routerPlatform
   const match = (pattern: UrlPattern, pathname: string, search: string) => {
     const par = !pattern ? {} : pattern.match(pathname) as Router.IRoutePar
     //console.log('match: ', pathname, '\r\n', JSON.stringify(par, null, 2))
@@ -230,3 +231,7 @@ export const init = () => {
 let historyPush: (urlPattern: UrlPattern, state: Router.IState) => void
 let historyUrl: (urlPattern: UrlPattern, state: Router.IState) => string
 let getStateFromUrl: () => Router.IState
+let _getAnimator: Router.TGetAnimator
+let _history: Router.IHistory
+let _startRoute: Router.IState
+let _loginProcessing: Router.TLoginProcessing

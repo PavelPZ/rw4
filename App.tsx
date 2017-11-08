@@ -11,7 +11,7 @@ import { all, call } from 'redux-saga/effects'
 //********** COMMON
 import { initGUI } from './app-common/gui/gui'
 import { WaitForRendering, promiseAll } from './app-common/lib/lib'
-import { Provider as RouterProvider, globalReducer as globalRouterReducer, middleware as routerMiddleware, init as initRouter } from 'rw-router/index'
+import { Provider as RouterProvider, globalReducer as globalRouterReducer, middleware as routerMiddleware } from 'rw-router/index'
 import { init as initRecording, reducer as recordingReducer, saga as recordingSaga, middleware as recordingMiddleware, globalReducer as recordingGlobalReducer, blockGuiReducer, blockGuiSaga } from './app-common/lib/recording'
 import { Provider as LocProvider, reducer as locReducer } from './app-common/lib/loc'
 import { reducer as mediaQueryReducer } from './app-common/lib/media-query'
@@ -19,10 +19,10 @@ import { DrawerLayout } from './app-common/gui/drawer'
 import { reducer as drawerReducer } from './app-common/gui/drawer'
 
 //********** NATIVE specific
+import { init as initRouter } from 'rw-router/index-n'
 import { Text, Platform, View } from 'react-native';
-import createHistory from 'history/createMemoryHistory'
 import { RecorderButton, LayerProvider, BlockGuiComp, init as initRoot, } from './app-native/gui/lib'
-import { getAnimator as getRouteAnimator } from './app-native/lib/native-router'
+//import { getAnimator as getRouteAnimator } from './app-native/lib/native-router'
 import { AppLoading, Constants } from 'expo'
 import { Icon, H1, H2, H3, H4 } from './app-native/gui/other'
 import { Button } from './app-native/gui/button'
@@ -72,6 +72,9 @@ import AppComp from './app-common/snack/gui/button'
 
 export const init = async () => {
   window.rn = true
+
+  initRouter(AppPage.getRoute({ title: 'START TITLE | xxx' }), '/web-app.html')
+
   window.platform = {
     OS: Platform.OS,
     loginPlatform: null,
@@ -80,19 +83,19 @@ export const init = async () => {
       //recordingJSON
     },
     restAPIPlatform: { serviceUrl: 'http://localhost:3434/rest-api.ashx' }, //NEFUNGUJE
-    routerPlatform: {
-      startRoute: AppPage.getRoute({ title: 'START TITLE | xxx' }),
-      history: createHistory() as Router.IHistory,
-      //computeState: (act, st) => Navigator.router.getStateForAction({ type: 'Navigation/NAVIGATE', routeName: act.params && act.params.query && act.params.query.isModal ? 'Modal' : 'Root', params: act } as NavigationNavigateAction, st),
-      rootUrl: '/web-app.html',
-      getAnimator: getRouteAnimator,
-    },
+    //routerPlatform: {
+    //  startRoute: AppPage.getRoute({ title: 'START TITLE | xxx' }),
+    //  history: createHistory() as Router.IHistory,
+    //  //computeState: (act, st) => Navigator.router.getStateForAction({ type: 'Navigation/NAVIGATE', routeName: act.params && act.params.query && act.params.query.isModal ? 'Modal' : 'Root', params: act } as NavigationNavigateAction, st),
+    //  rootUrl: '/web-app.html',
+    //  getAnimator: getRouteAnimator,
+    //},
   }
   initGUI({ Button, Icon, H1, H2, H3, H4, View, Text, AnimatedDrawer })
 
   const recordingJSON = await require('./App_Data/recording.json')
   await promiseAll([
-    initRouter(),
+    //initRouter(),
     initRecording(recordingJSON),
     initRoot(),
   ])

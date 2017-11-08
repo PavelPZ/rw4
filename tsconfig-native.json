@@ -1,29 +1,14 @@
 ﻿{
   "compileOnSave": true,
   "compilerOptions": {
-    //**** WEB
-    //"target": "es5",
-    //"module": "system",
-    //"inlineSourceMap": true,
-    //"inlineSources": true,
-    //"importHelpers": true,
-
-    //**** REACT NATIVE
     "target": "es6",
-    //"module": "system",
-
-    //**** COMMON
-
-    //"declaration": true,
-    //"declarationDir": "../rw4-builds/native/",
-
-    //"outDir": "../rw4-builds/native",
-    //"outFile": "../rw4-builds/native/build.js",
 
     "baseUrl": ".",
     "paths": {
       "rw-router/*": [ "libs/rw-router/*" ],
-      "rw-login/*": [ "libs/rw-login/*" ]
+      "rw-login/*": [ "libs/rw-login/*" ],
+      "rw-utils/*": [ "libs/rw-utils/*" ],
+      "rw-controls/*": [ "libs/rw-controls/*" ]
     },
 
     "allowSyntheticDefaultImports": true,
@@ -34,7 +19,7 @@
     "noImplicitReturns": true,
     "strictFunctionTypes": false,
 
-    //"experimentalDecorators": true,
+    "experimentalDecorators": true,
     "noImplicitAny": false,
     "jsx": "react",
     "lib": [
@@ -43,17 +28,10 @@
       "esnext.asynciterable"
     ]
   },
+  "include": [ "**/*" ],
   "exclude": [
-    //*** web
-    //"index.tsx",
-    //"app-web/",
-
     "jspm_packages/",
     "node_modules/"
 
   ]
 }
-
-    //"baseUrl": ".",
-    //"paths": {
-    //},

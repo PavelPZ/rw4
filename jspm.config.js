@@ -13,8 +13,11 @@ SystemJS.config({
   map: {
     "redux-saga/effects": "npm:redux-saga@0.15.6/lib/effects",
     "redux-saga/index": "npm:redux-saga@0.15.6/lib/index",
+
     "rw-login": "libs/rw-login",
-    "rw-router": "libs/rw-router"
+    "rw-router": "libs/rw-router",
+    "rw-utils": "libs/rw-utils",
+    "rw-controls": "libs/rw-controls"
   }
 });
 
