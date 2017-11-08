@@ -1,5 +1,3 @@
-
-
 export class PromiseExtensible<T = void> implements Utils.IPromise<T> {
   constructor(executor?: (resolve: (value?: T | PromiseLike<T> | Utils.PromiseResults) => void, reject: (reason?: any) => void) => void) {
     this._promise = new Promise<T | Utils.PromiseResults>((resolve, reject) => {

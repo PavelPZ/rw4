@@ -1,8 +1,8 @@
 ﻿import React from 'react'
-import { connect } from 'react-redux'
+import { connect, InferableComponentEnhancerWithProps } from 'react-redux'
 import { View, Text, AnimatedDrawer} from '../gui/gui'
 
-export const providerConnector = connect<Drawer.IState, Drawer.IDispatch>(
+export const providerConnector: InferableComponentEnhancerWithProps<Drawer.IState & Drawer.IDispatch, {}> = connect(
   (state: IState) => ({ ...state.drawer, ...state.mediaQuery } /*as Drawer.IState*/),
   dispatch => ({
     showDrawer: visible => dispatch({ type: Drawer.Consts.SHOW, visible }),

@@ -3,7 +3,7 @@
 import { Toolbar, Button } from '../gui/react-md'
 
 import { PromiseExtensible, promiseAll } from '../../app-common/lib/lib'
-import { TweensAnimate } from '../gui/lib'
+import { TweensAnimate } from 'rw-utils/promise/animate-w'
 
 import { renderCSS } from '../lib/fela'
 
@@ -115,7 +115,7 @@ interface IContentProps {
   windowSize: Media.TWindowSize
 }
 
-interface IDrawerPromise {
+export interface IDrawerPromise {
   drawer: HTMLElement
   content: HTMLElement
   backDrop: HTMLElement

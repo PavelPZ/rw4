@@ -1,4 +1,4 @@
-﻿import { connect } from 'react-redux'
+﻿import { connect, InferableComponentEnhancerWithProps } from 'react-redux'
 import invariant from 'invariant'
 import { put, take, race } from 'redux-saga/effects'
 import { delay } from 'redux-saga'
@@ -7,7 +7,7 @@ import { restAPI } from './rest-api'
 export const init = async (playLists?: Recording.IPlayList[]) => { //async init
   const rec = window.platform.recordingPlatform
   const guiSize = (rec && rec.guiSize) || Recording.TGuiSize.no
-  initState = { guiSize } 
+  initState = { guiSize }
   if (guiSize == Recording.TGuiSize.no) return null
   //if (rec.recordingJSON) { initState.playLists = rec.recordingJSON; return null }
   if (playLists) { initState.playLists = playLists; return null }
@@ -23,13 +23,13 @@ export const middleware: Redux.Middleware = (middlAPI: Redux.MiddlewareAPI<IStat
 
   if (type.endsWith(system)) return act
 
-  if (type.endsWith(asyncStart)) { 
+  if (type.endsWith(asyncStart)) {
     //invariant(!actAsyncAction, `asyncMiddleware: !${actAsyncAction}`) //max single asyncSTART...
     const state = middlAPI.getState().recording
     actAsyncAction = type.substr(0, type.length - asyncStart.length)
     record(state, middlAPI.dispatch, act) //record start action
     blockGuiTimer = setTimeout(() => { blockGUI(middlAPI.dispatch, true); blockGuiTimer = 0 }, 1)
-  } else if (type.endsWith(asyncEnd)) { 
+  } else if (type.endsWith(asyncEnd)) {
     //invariant(actAsyncAction === type.substr(0, type.length - asyncEnd.length), `asyncMiddleware: ${actAsyncAction} != ${type}`) //...must be finished by just single asyncEND
     const state = middlAPI.getState().recording
     if (blockGuiTimer) { clearTimeout(blockGuiTimer); blockGuiTimer = 0 } else blockGUI(middlAPI.dispatch, false)
@@ -77,7 +77,7 @@ export const saga = function* () {
           yield delay(Recording.Consts.playActionDelay)
           const canc = window.store.getState().recording.mode != Recording.TModes.playing
           if (!canc) {
-            yield put(playAction) 
+            yield put(playAction)
             const act: Recording.TActions = yield take([Recording.Consts.PLAY_CONTINUE])
             yield put({ type: Recording.Consts.PLAY_NEXT, idx, listIdx, playMsg } as Recording.PlayNextAction) as any
           }
@@ -176,7 +176,7 @@ export const reducer: App.IReducer<Recording.IState> = (state, action: Recording
 }
 
 
-export const providerConnector = connect<Recording.IStateProps & Recording.IDispatchProps, {}>(
+export const providerConnector: InferableComponentEnhancerWithProps<Recording.IStateProps & Recording.IDispatchProps, {}> = connect(
   (state: IState) => state.recording as Recording.IStateProps & Recording.IDispatchProps,
   (dispatch) => ({
     recordStart: () => dispatch({ type: Recording.Consts.RECORD_START } as Recording.Action),
@@ -218,6 +218,6 @@ export const blockGuiReducer: App.IReducer<BlockGui.IState> = (state, action: Bl
   }
 }
 
-export const blockGuiConnector = connect<BlockGui.IState>((state: IState) => state.blockGui)
+export const blockGuiConnector: InferableComponentEnhancerWithProps<BlockGui.IState, {}> = connect((state: IState) => state.blockGui)
 
 const blockGUI = (dispatch: Redux.Dispatch<IState>, isBlock: boolean) => dispatch({ type: isBlock ? BlockGui.Consts.START : BlockGui.Consts.END } as BlockGui.Action)

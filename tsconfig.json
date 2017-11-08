@@ -15,6 +15,9 @@
       "rw-controls/*": [ "libs/rw-controls/*" ]
     },
 
+    //"declaration": true,
+    //"declarationDir": "./types",
+
     "allowSyntheticDefaultImports": true,
     "strictNullChecks": false,
     "downlevelIteration": true,

@@ -34,7 +34,7 @@ export const initGUI = async (pl: IPlatform) => {
 
 }
 
-interface IPlatform {
+export interface IPlatform {
   Button: React.SFC<GUI.IButtonProps>
   Icon: React.ComponentType<GUI.IIconProps>
   H1: React.ComponentType<TextProperties>

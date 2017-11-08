@@ -24,7 +24,7 @@ export interface ITestState {
 }
 
 type ITestProps = ITestState
-interface ITestDispatchProps {
+export interface ITestDispatchProps {
   changeName?: (name: string) => void
   changeFromUrl?: (value: string) => void
   changeState?: (value: string) => void

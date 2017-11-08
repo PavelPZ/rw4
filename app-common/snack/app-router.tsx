@@ -20,7 +20,7 @@ const enum Consts {
   loadDelay = 600,
 }
 
-interface IRoutePar extends Router.IRoutePar {
+export interface IRoutePar extends Router.IRoutePar {
   title?: string
 }
 

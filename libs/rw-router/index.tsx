@@ -1,5 +1,5 @@
 ﻿import React from 'react';
-import { connect } from 'react-redux'
+import { connect, InferableComponentEnhancerWithProps } from 'react-redux'
 import { put, take } from 'redux-saga/effects'
 import { delay } from 'redux-saga'
 import invariant from 'invariant'
@@ -9,7 +9,7 @@ import UrlPattern from 'url-pattern'
 
 const routes: { [name: string]: Router.IRouteComponent } = {}
 
-export const providerConnector = connect<Router.IRouterState, Router.IRouterDispatch>(
+export const providerConnector: InferableComponentEnhancerWithProps<Router.IRouterState & Router.IRouterDispatch, {}> = connect(
   (state: IState) => ({ ...state.router, ...state.mediaQuery }),
   (dispatch) => ({
     debugSetWindowSize: windowSize => dispatch({ type: Media.Consts.WEB_CHANGE_MEDIA, windowSize } as Media.IWebChangeMediaAction),
@@ -65,7 +65,6 @@ class provider extends React.PureComponent<Router.IRouterProps> {
   }
 }
 let routeCount = 0
-//let startAnimateOut: () => IPromiseExtensible
 let animateOut: Utils.IPromise
 let animateIn: Utils.IPromise
 

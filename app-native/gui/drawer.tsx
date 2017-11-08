@@ -5,8 +5,6 @@ import { Header } from 'react-native-elements'
 import { providerConnector } from '../../app-common/gui/drawer'
 import { Button } from '../../app-common/gui/gui'
 
-import variables from './theme/platform'
-
 const getContent = (pars: Drawer.IContent, styled: Drawer.IStyled) => <Content {...pars} {...styled} />
 const getMenu = (pars: Drawer.IMenu, styled: Drawer.IStyled) => <Menu {...pars} {...styled} />
 

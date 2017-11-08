@@ -6,16 +6,9 @@
     modal = 'modal-'
   }
 
-  //type IState = IStateLow<string, {}>
-
   interface IRoutePar {
     query?: { isModal?: boolean }
   }
-  //interface IPagePar extends Media.IMediaProps/*, Drawer.IShowDrawer*/ {
-  //  refForAnimation?: (root: WebNativeCommon.TRouterAnimRoot) => void //callback pro page transiton
-  //  //drawerMenu?: Drawer.IOwnProps
-  //  //drawerVisible?:boolean
-  //}
 
   type IRouterState<TRoutePar extends IRoutePar = any> = IState<string, TRoutePar> & Media.IMediaProps
   interface IRouterDispatch {
@@ -33,23 +26,14 @@
     params?: TRoutePar
   }
 
-  interface IAction {
-    type: Consts.NAVIGATE_START | Consts.NAVIGATE_END
+  interface IAction extends App.ActionLow<Consts.NAVIGATE_START | Consts.NAVIGATE_END>{
     newState: IState //null => LOGIN redirect
     navigActionId?: number //pro sparovani Consts.NAVIGATE_START a Consts.NAVIGATE_END a hlidani rychlych BACK kliku v browseru nebo androidu
   }
 
-  interface ICreateDestroyAction {
-    type: Consts.ROUTE_CREATE | Consts.ROUTE_DESTROY
+  interface ICreateDestroyAction extends App.ActionLow<Consts.ROUTE_CREATE | Consts.ROUTE_DESTROY> {
     routeChanged: boolean
   }
-
-
-  //interface IInitPar {
-  //  startRoute: IState
-  //  rootUrl: string //html stranka s aplikaci
-  //  history: Router.IHistory
-  //}
 
   interface IRoute<TParams extends IRoutePar = IRoutePar> {
     routeName?: string
