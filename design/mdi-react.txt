@@ -1,2 +1,0 @@
-1. run D:\rw\rw4\design\mdi-react.cmd (result in d:\rw\rw4\design\mdi-react-compile\mdi-react\)
-2. replace tsconfig.hson with tsconfig-mdi-react.json, REBUILD. Results in d:\rw\rw4\libs\mdi-react\

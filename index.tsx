@@ -1,9 +1,9 @@
 import 'whatwg-fetch' //kvuli MSIE
 //Animated
 //gsap
-import 'gsap/src/minified/TweenLite.min'
-import 'gsap/src/minified/plugins/CSSPlugin.min'
-import 'gsap/src/minified/easing/EasePack.min'
+//import 'gsap/src/minified/TweenLite.min'
+//import 'gsap/src/minified/plugins/CSSPlugin.min'
+//import 'gsap/src/minified/easing/EasePack.min'
 
 import SvgIcon from 'material-ui/SvgIcon'
 
@@ -52,7 +52,7 @@ import LocTestApp from './app-common/snack/loc-test'
 import ValidateTestApp from './app-web/snack/validate-test'
 import RestAPI from './app-common/snack/test-restAPI'
 import IonicDesigntime from './app-web/design/ionic-designtime'
-import IonicTest from './app-common/snack/gui/icon'
+import IconTest from './app-web/snack/icon'
 import ButtonTest from './app-common/snack/gui/button'
 import { ConnectTest, reducer as connectTestReducer } from './app-web/snack/connect-test'
 import AnimatedTransition from './app-web/snack/animated-transition'
@@ -152,7 +152,7 @@ export const init = async () => {
   //noRouteApp = <DrawerCommon/>
   //noRouteApp = <Page />
   //noRouteApp = <ButtonTest />
-  //noRouteApp = <IonicTest />
+  noRouteApp = <IconTest />
   //noRouteApp = <Header />
 
 
@@ -197,8 +197,8 @@ export const init = async () => {
 
   ReactDOM.render(
     //<AppRouter />
-    <AppAll />
+    //<AppAll />
     //<AppContent />
-    //appNo
+    appNo
     , document.getElementById('content'))
 }

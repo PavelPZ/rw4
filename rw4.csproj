@@ -252,7 +252,6 @@
     <Content Include="app-web\snack\login.html" />
     <Content Include="app-web\snack\react-md-pure.html" />
     <Content Include="design\mdi-react-lm\scripts\generate.js" />
-    <Content Include="design\mdi-react-lm\scripts\lm-generate.js" />
     <Content Include="home.html" />
     <Content Include="json.json" />
     <Content Include="Links.html" />
@@ -260,7 +259,6 @@
     <Content Include="tsconfig-mdi-react.json" />
     <Content Include="design\mdi-react-lm\package.json" />
     <Content Include="design\mdi-react.cmd" />
-    <Content Include="design\mdi-react.txt" />
     <None Include="tsconfig-native.json" />
     <None Include="tsconfig-web.json" />
     <Content Include="web-ionic.html" />

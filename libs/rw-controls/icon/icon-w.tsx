@@ -1,22 +1,25 @@
 import React from 'react'
 import SvgIcon, { SvgIconProps } from 'material-ui/SvgIcon/SvgIcon'
 
-export interface IIconProps {
-  n: 
-  w: SvgIconProps
-  src: IIconSource
+export interface IIconProps extends React.Attributes {
+  style?: RN.TextStyle
+  w?: SvgIconProps
+  src: GUI.mdi_icons
+  color?: string
+  size?: number
 }
-
-export interface IIconSource {
-  name: string
-  path: string
-}
-
 
 const icon: React.SFC<IIconProps> = props => {
-  const { src, w } = props
+  const { src, w = {}, color, size } = props
+  if (!w.style) w.style = {}
+  if (size) {
+    //w.viewBox = `0 0 1 1`
+    //w.viewBox = `0 0 ${size} ${size}`
+    w.style.width = w.style.height = size
+  }
+  if (color) w.style.fill = color
   return <SvgIcon {...w}>
-    <path d={src.path} />
+    <path d={src} />
   </SvgIcon>
 }
 

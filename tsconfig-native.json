@@ -30,6 +30,7 @@
   },
   "include": [ "**/*" ],
   "exclude": [
+    "typings/mdi-react-w.d.ts",
     "design",
     "jspm_packages",
     "node_modules"

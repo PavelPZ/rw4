@@ -14,7 +14,7 @@
   "homepage": "https://github.com/levrik/mdi-react",
   "scripts": {
     "clean": "rimraf build && rimraf publish/*.js",
-    "build": "git submodule update --init && yarn run clean && mkdir build && node scripts/generate.js && node scripts/lm-generate.js"
+    "build": "git submodule update --init && yarn run clean && mkdir build && node scripts/generate.js"
   },
   "devDependencies": {
     "babel-cli": "^6.10.1",

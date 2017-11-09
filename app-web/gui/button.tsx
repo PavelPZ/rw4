@@ -5,7 +5,6 @@ import { getColors2 } from '../../app-common/gui/colors'
 import { getIcon2 } from '../../app-common/gui/ionic'
 import { renderCSS } from '../lib/fela'
 import { navigateUrl, navigatePush } from 'rw-router/index'
-import iconPath from 'mdi-react/access-point'
 
 export const Button: React.SFC<GUI.IButtonProps> = props => {
   const { floating, flat, iconAfter, iconName, outline, children, webStyle, web = {}, onPress, href, disabled, ...rest} = props
@@ -22,7 +21,7 @@ export const Button: React.SFC<GUI.IButtonProps> = props => {
   const hasChildren = React.Children.count(children) > 0
   const iconOnly = !floating && !hasChildren
   //icon
-  let iconClassName = getIcon2(props)
+  let iconClassName = ''//getIcon2(props)
   if (iconClassName) iconClassName = renderCSS({ fontSize: 24 }) + ' ion ion-' + iconClassName
   //pouze ikona
   if (iconOnly && !flat) style = { ...style, minWidth: 50, paddingLeft: 31 }
