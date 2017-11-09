@@ -282,7 +282,7 @@
     </None>
     <TypeScriptCompile Include="index.tsx" />
     <TypeScriptCompile Include="app-common\lib\CSStyles.d.ts" />
-    <TypeScriptCompile Include="app-native\lib\expo.d.ts" />
+    <TypeScriptCompile Include="typings\expo.d.ts" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Web.config">
