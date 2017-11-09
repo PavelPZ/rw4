@@ -30,8 +30,8 @@
   },
   "include": [ "**/*" ],
   "exclude": [
-    "jspm_packages/",
-    "node_modules/"
-
+    "design",
+    "jspm_packages",
+    "node_modules"
   ]
 }

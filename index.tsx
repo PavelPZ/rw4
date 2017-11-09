@@ -5,6 +5,8 @@ import 'gsap/src/minified/TweenLite.min'
 import 'gsap/src/minified/plugins/CSSPlugin.min'
 import 'gsap/src/minified/easing/EasePack.min'
 
+import SvgIcon from 'material-ui/SvgIcon'
+
 //********** LIBRARIES
 import React from 'react'
 import ReactDOM from 'react-dom'

@@ -32,3 +32,4 @@ declare namespace Button {
     webStyle?: CSSProperties
   }
 }
+

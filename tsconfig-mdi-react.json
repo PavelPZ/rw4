@@ -1,0 +1,10 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "module": "system",
+
+    "outDir": "libs/mdi-react"
+
+  },
+  "include": [ "design/mdi-react-compile/mdi-react/*.ts" ]
+}

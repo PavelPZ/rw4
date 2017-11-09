@@ -293,3 +293,5 @@ jspm_packages/
 
 design/mdi-react/
 libs/mdi-react/
+
+!design/mdi-react-lm/scripts/*.js

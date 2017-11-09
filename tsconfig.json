@@ -15,9 +15,6 @@
       "rw-controls/*": [ "libs/rw-controls/*" ]
     },
 
-    //"declaration": true,
-    //"declarationDir": "./types",
-
     "allowSyntheticDefaultImports": true,
     "strictNullChecks": false,
     "downlevelIteration": true,
@@ -36,8 +33,8 @@
   },
   "include": [ "**/*" ],
   "exclude": [
-    "jspm_packages/",
-    "node_modules/",
-    "design/"
+    "design",
+    "jspm_packages",
+    "node_modules"
   ]
 }

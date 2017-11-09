@@ -74,6 +74,7 @@
     <Content Include=".gitignore" />
     <TypeScriptCompile Include="app-common\gui\colors.ts" />
     <TypeScriptCompile Include="app-common\gui\colors-d.d.ts" />
+    <TypeScriptCompile Include="libs\rw-controls\icon\icon-w.tsx" />
     <TypeScriptCompile Include="typings\md-icons.d.ts" />
     <TypeScriptCompile Include="app-common\gui\native-base-d.d.ts" />
     <Content Include="app-common\gui\react-native-elements-getIconType.txt" />
@@ -99,7 +100,8 @@
     <Content Include=".babelrc" />
     <None Include="app-native\gui\drawer - Copy.tsx_" />
     <TypeScriptCompile Include="app-native\gui\drawer.tsx" />
-    <TypeScriptCompile Include="typings\mdi-react.d.ts" />
+    <TypeScriptCompile Include="typings\mdi-react-n.d.ts" />
+    <TypeScriptCompile Include="typings\mdi-react-w.d.ts" />
     <TypeScriptCompile Include="typings\react-native-elements-d.d.ts" />
     <TypeScriptCompile Include="app-native\index.d.ts" />
     <TypeScriptCompile Include="app-native\lib\native-media-query.ts" />
@@ -249,10 +251,16 @@
     <Content Include="app-web\snack\login-msie.html" />
     <Content Include="app-web\snack\login.html" />
     <Content Include="app-web\snack\react-md-pure.html" />
+    <Content Include="design\mdi-react-lm\scripts\generate.js" />
+    <Content Include="design\mdi-react-lm\scripts\lm-generate.js" />
     <Content Include="home.html" />
     <Content Include="json.json" />
     <Content Include="Links.html" />
     <None Include="create-app\copy-dts.cmd" />
+    <Content Include="tsconfig-mdi-react.json" />
+    <Content Include="design\mdi-react-lm\package.json" />
+    <Content Include="design\mdi-react.cmd" />
+    <Content Include="design\mdi-react.txt" />
     <None Include="tsconfig-native.json" />
     <None Include="tsconfig-web.json" />
     <Content Include="web-ionic.html" />
