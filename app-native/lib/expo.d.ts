@@ -1,14 +1,8 @@
-﻿//https://gist.github.com/pierre-H/eef9a9225fb1c5a0f81180a8b0fbb2c2
-declare module 'expo' {
-  import { EventSubscription } from 'fbemitter';
+﻿declare module 'expo' {
   import { Component } from 'react';
-  import { ViewStyle, ViewProperties, ColorPropType } from 'react-native';
+  import { EventSubscription } from 'fbemitter';
+  import { ColorPropType, GestureResponderEvent, PanResponderGestureState, ViewProperties, ViewStyle, ImageURISource } from 'react-native';
 
-  export const AppLoading
-
-  /**
-   * Expo Accelerometer
-   */
   export namespace Accelerometer {
     // TODO: good export type of x, y and z
     export interface AccelerometerObject {
@@ -22,9 +16,6 @@ declare module 'expo' {
     export function setUpdateInterval(intervalMs: number): void
   }
 
-  /**
-   * Expo Amplitude
-   */
   export namespace Amplitude {
     export function initialize(apiKey: string): void;
     export function setUserId(userId: string): void;
@@ -35,213 +26,18 @@ declare module 'expo' {
     export function setGroup(groupType: string, groupNames: object): void;
   }
 
-  /**
-   * Expo Components
-   */
-  export namespace Components {
-    /**
-     * AppLoading
-     */
-    export class AppLoading extends React.Component<void, void> { }
-
-    /**
-     * Expo BarCodeScanner
-     */
-    export interface BarCodeScannerProps {
-      type?: 'front' | 'back';
-      torchMode?: 'on' | 'off';
-      barCodeTypes: Array<string>;     // TODO: add supported formats
-      style: ViewStyle;
-    }
-
-    export class BarCodeScanner extends React.Component<BarCodeScannerProps, void> { }
-
-    /**
-     * Expo BlurView
-     */
-    export interface BlurViewProps {
-      tint: 'light' | 'default' | 'dark';
-      intensity: number;
-      style: ViewStyle;
-    }
-    export class BlurView extends React.Component<BlurViewProps, void> { }
-
-    /**
-     * Expo GLView
-     * TODO: better defs because there is no complete documentation.
-     * I did it from the code.
-     */
-    export interface GLViewProps extends ViewProperties {
-      onContextCreate(): void;
-      msaaSamples: number;
-    }
-    export class GLView extends React.Component<GLViewProps, { msaaSamples: number }> { }
-
-    /**
-     * Expo KeepAwake
-     */
-    export class KeepAwake extends React.Component<void, void> {
-      static activate(): void;
-      static deactivate(): void;
-    }
-
-    /**
-     * Expo LinearGradient
-     */
-    export interface LinearGradientProps {
-      colors: Array<string>;
-      start: [number, number];
-      end: [number, number];
-      locations: Array<number>;
-    }
-
-    export class LinearGradient extends React.Component<LinearGradientProps, void> { }
-
-    /**
-     * Expo MapView
-     */
-    // TODO: MapView
-
-    /**
-     * Expo Svg
-     */
-
-    // TODO: better defs
-
-    type Axis = number;
-
-    export interface SvgCommonProps {
-      fill?: string;
-      fillOpacity?: number;
-      stroke?: string;
-      strokeWidth?: number;
-      strokeOpacity?: number;
-      strokeLinecap?: string;
-      strokeLineJoin?: string;
-      strokeDasharray?: Array<any>;
-      strokeDashoffset?: any;
-      x?: Axis;
-      y?: Axis;
-      rotate?: number;
-      scale?: number;
-      origin?: number | string;
-      originX?: number;
-      originY?: number;
-    }
-
-    export class Svg extends React.Component<{ width: number, heigth: number }, void> { }
-    export class Rect extends React.Component<SvgCommonProps, void> { }
-
-    export interface CircleProps extends SvgCommonProps {
-      cx: Axis;
-      cy: Axis;
-    }
-    export class Circle extends React.Component<CircleProps, void> { }
-
-    export interface EllipseProps extends CircleProps {
-      rx: Axis;
-      ry: Axis;
-    }
-    export class Ellipse extends React.Component<SvgCommonProps, void> { }
-
-    export interface LineProps extends SvgCommonProps {
-      x1: Axis;
-      y1: Axis;
-      x2: Axis;
-      y2: Axis;
-    }
-    export class Line extends React.Component<LineProps, void> { }
-
-    export interface PolyProps extends SvgCommonProps {
-      points: string;
-    }
-    export class Polygon extends React.Component<PolyProps, void> { }
-    export class Polyline extends React.Component<PolyProps, void> { }
-
-    export interface PathLine extends SvgCommonProps {
-      d: string;
-    }
-    export class Path extends React.Component<PolyProps, void> { }
-
-    export interface TextProps extends SvgCommonProps {
-      textAnchor: string
-    }
-    export class Text extends React.Component<TextProps, void> { }
-    export class G extends React.Component<SvgCommonProps, void> { }
-    export class Use extends React.Component<{ href: string, x: number, y: number }, void> { }
-    export class Symbol extends React.Component<{ viewbox: string, widt: number, height: number }, void> { }
-    export class Defs extends React.Component<void, void> { }
-    export class RadialGradient extends React.Component<SvgCommonProps, void> { }
-
-    /**
-     * Expo Video
-     */
-    export interface VideoLoad {
-      duration: number;
-      currentTime: number;
-      canPlayReverse: boolean;
-      canPlayFastForward: boolean;
-      canPlaySlowForward: boolean;
-      canPlaySlowReverse: boolean;
-      canStepBackward: boolean;
-      canStepForward: boolean;
-      naturalSize: {
-        width: number;
-        heigth: number;
-        orientation: 'landscape' | 'portrait'
-      }
-    }
-    export type VideoError = {
-      code: any,
-      domain: any
-    } | {
-        what: any,
-        extra: any
-      }
-
-    export interface VideoProgress {
-      currentTime: number;
-      playableDuration: number;
-    }
-
-    export interface VideoSeek {
-      currentTime: number;
-      seekTime: number;
-    }
-
-    export interface VideoProps {
-      source: any;    // TODO: better def: string|*require(file)*
-      fullscreen?: boolean;
-      resizeMode?: string;    // TODO: resize mode instead of general string
-      repeat?: boolean;
-      paused?: boolean;
-      volume?: number;
-      muted?: boolean;
-      rate?: number;
-      onLoadStart?: (param: { uri: string }) => any;
-      onLoad?: (load: VideoLoad) => any;
-      onError?: (error: { error: VideoError }) => any;
-      onProgress?: (progress: VideoProgress) => any;
-      onSeek?: (seek: VideoSeek) => any;
-      onEnd?: () => any;
-    }
-
-    export class Video extends React.Component<VideoProps, void> {
-      static RESIZE_MODE_CONTAIN: string;
-      static RESIZE_MODE_COVER: string;
-      static RESIZE_MODE_STRETCH: string;
-
-      public seek(time: string): void;
-      public presentFullscreenPlayer(): void;
-      public dismissFullscreenPlayer(): void;
-    }
+  interface AssetOptions {
+    name: string,
+    type: string,
+    hash: string,
+    uri: string,
+    width: number,
+    height: number
   }
 
-  /**
-   * Expo Asset
-   */
   export class Asset {
-    constructor({ name, type, hash, uri, width, height });
+    constructor(options: AssetOptions);
+
     public name: string;
     public type: string;
     public hash: string;
@@ -253,17 +49,13 @@ declare module 'expo' {
     // TODO: make sure that these values should be readonly
     public readonly downloading: boolean;
     public readonly downloaded: boolean;
-    public readonly downloadCallbacks: Array<{ resolve, reject }>   // TODO: def of resolve & reject
+    public readonly downloadCallbacks: Array<{ resolve: () => any, reject: () => any }>   // TODO: def of resolve & reject
 
     public downloadAsync(): void;
 
     static fromModule(moduleId: number): Asset;
-    static loadAsync
   }
 
-  /**
-   * Expo Audio
-   */
   export namespace Audio {
 
     export enum InterruptionModeIOS {
@@ -363,9 +155,6 @@ declare module 'expo' {
     }
   }
 
-  /**
-   * Expo Constants
-   */
   export namespace Constants {
     export const appOwnership: 'expo' | 'standalone' | 'guest';
     export const expoVersion: string;
@@ -482,9 +271,6 @@ declare module 'expo' {
     export const linkingUri: string;
   }
 
-  /**
-   * Expo Contacts
-   */
   export namespace Contacts {
     export type FieldType = 'phoneNumbers' | 'emails' | 'addresses';
 
@@ -545,9 +331,122 @@ declare module 'expo' {
     export function getContactsAsync(options: Options): Promise<Response>;
   }
 
-  /**
-   * Expo DocumentPicker
-   */
+  export namespace Components {
+    /**
+     * AppLoading
+     */
+    export class AppLoading extends React.Component { }
+
+    /**
+     * Expo BarCodeScanner
+     */
+    export interface BarCodeScannerProps {
+      type?: 'front' | 'back';
+      torchMode?: 'on' | 'off';
+      barCodeTypes: Array<string>;     // TODO: add supported formats
+      style: ViewStyle;
+    }
+
+    export class BarCodeScanner extends React.Component<BarCodeScannerProps> { }
+
+    /**
+     * Expo BlurView
+     */
+    export interface BlurViewProps {
+      tint: 'light' | 'default' | 'dark';
+      intensity: number;
+      style: ViewStyle;
+    }
+    export class BlurView extends React.Component<BlurViewProps> { }
+
+    /**
+     * Expo GLView
+     * TODO: better defs because there is no complete documentation.
+     * I did it from the code.
+     */
+    export interface GLViewProps extends ViewProperties {
+      onContextCreate(): void;
+      msaaSamples: number;
+    }
+    export class GLView extends React.Component<GLViewProps, { msaaSamples: number }> { }
+
+    /**
+     * Expo KeepAwake
+     */
+    export class KeepAwake extends React.Component {
+      static activate(): void;
+      static deactivate(): void;
+    }
+
+    /**
+     * Expo MapView
+     */
+    // TODO: MapView
+
+    /**
+     * Expo Video
+     */
+    export interface VideoLoad {
+      duration: number;
+      currentTime: number;
+      canPlayReverse: boolean;
+      canPlayFastForward: boolean;
+      canPlaySlowForward: boolean;
+      canPlaySlowReverse: boolean;
+      canStepBackward: boolean;
+      canStepForward: boolean;
+      naturalSize: {
+        width: number;
+        heigth: number;
+        orientation: 'landscape' | 'portrait'
+      }
+    }
+    export type VideoError = {
+      code: any,
+      domain: any
+    } | {
+        what: any,
+        extra: any
+      }
+
+    export interface VideoProgress {
+      currentTime: number;
+      playableDuration: number;
+    }
+
+    export interface VideoSeek {
+      currentTime: number;
+      seekTime: number;
+    }
+
+    export interface VideoProps {
+      source: any;    // TODO: better def: string|*require(file)*
+      fullscreen?: boolean;
+      resizeMode?: string;    // TODO: resize mode instead of general string
+      repeat?: boolean;
+      paused?: boolean;
+      volume?: number;
+      muted?: boolean;
+      rate?: number;
+      onLoadStart?: (param: { uri: string }) => any;
+      onLoad?: (load: VideoLoad) => any;
+      onError?: (error: { error: VideoError }) => any;
+      onProgress?: (progress: VideoProgress) => any;
+      onSeek?: (seek: VideoSeek) => any;
+      onEnd?: () => any;
+    }
+
+    export class Video extends React.Component<VideoProps, void> {
+      static RESIZE_MODE_CONTAIN: string;
+      static RESIZE_MODE_COVER: string;
+      static RESIZE_MODE_STRETCH: string;
+
+      public seek(time: string): void;
+      public presentFullscreenPlayer(): void;
+      public dismissFullscreenPlayer(): void;
+    }
+  }
+
   export namespace DocumentPicker {
     export interface Options {
       type: string;
@@ -564,16 +463,10 @@ declare module 'expo' {
     export function getDocumentAsync(options: Options): Response;
   }
 
-  /**
-   * Expo ErrorRecovery
-   */
   export namespace ErrorRecovery {
     export function setRecoveryProps(props: object): void;
   }
 
-  /**
-   * Expo Facebook
-   */
   export namespace Facebook {
     export interface Options {
       permissions?: Array<string>;
@@ -589,9 +482,6 @@ declare module 'expo' {
     export function logInWithReadPermissionsAsync(appId: string, options: Options): void;
   }
 
-  /**
-   * Expo Facebook Ads
-   */
   export namespace FacebookAds {
     /**
      * Interstitial Ads
@@ -607,7 +497,7 @@ declare module 'expo' {
     export class NativeAdsManager {
       constructor(placementId: string, numberOfAdsToRequest?: number);
       disableAutoRefresh(): void;
-      setMediaCachePolicy(iOS: MediaCachePolicy);
+      setMediaCachePolicy(iOS: MediaCachePolicy): any;
     }
 
 
@@ -633,7 +523,7 @@ declare module 'expo' {
       onError: () => any;
     }
 
-    export class BannerView extends React.Component<BannerViewProps, void> { }
+    export class BannerView extends React.Component<BannerViewProps> { }
 
     /**
      * Ad Settings
@@ -656,17 +546,10 @@ declare module 'expo' {
     }
   }
 
-  /**
-   * Expo Font
-   */
   export namespace Font {
-    //LM export function loadAsync(nameOrMap: string | object, uriOrModuleOrAsset: any): void;  // TODO: better defs because the doc is not updated I think ...
-    export const loadAsync
+    export function loadAsync(nameOrMap: string | object, uriOrModuleOrAsset: any): void;  // TODO: better defs because the doc is not updated I think ...
   }
 
-  /**
-   * Expo Google
-   */
   export namespace Google {
     export interface LogInConfig {
       androidClientId?: string;
@@ -698,9 +581,6 @@ declare module 'expo' {
     export function logInAsync(config: LogInConfig): Promise<LogInResult>
   }
 
-  /**
-   * Expo Gyroscope
-   */
   export namespace Gyroscope {
     // TODO: good export type of x, y and z
     export interface GyroscopeObject {
@@ -714,9 +594,6 @@ declare module 'expo' {
     export function setUpdateInterval(intervalMs: number): void
   }
 
-  /**
-   * Expo Image Picker
-   */
   export namespace ImagePicker {
     export interface ImageInfo {
       uri: string;
@@ -742,9 +619,16 @@ declare module 'expo' {
     export function launchCameraAsync(options?: CameraOptions): Promise<ImageResult>;
   }
 
-  /**
-   * Expo Location
-   */
+  interface LinearGradientProps extends ViewProperties {
+    colors?: Array<string>;
+    start?: [number, number];
+    end?: [number, number];
+    locations?: Array<number>;
+  }
+
+  /** Linear gradient. See https://github.com/react-native-community/react-native-linear-gradient. */
+  export class LinearGradient extends Component<LinearGradientProps, {}> { }
+
   export namespace Location {
     export interface LocationOptions {
       enableHighAccuracy?: boolean;
@@ -770,9 +654,6 @@ declare module 'expo' {
     export function watchPositionAsync(options: LocationOptions, callback: (data: LocationData) => any): EventSubscription;
   }
 
-  /**
-   * Expo Notifications
-   */
   export namespace Notifications {
     export interface Notification {
       origin: 'selected' | 'received';
@@ -816,9 +697,6 @@ declare module 'expo' {
     export function setBadgeNumberAsync(number: number): Promise<void>;
   }
 
-  /**
-   * Expo Permissions
-   */
   export namespace Permissions {
     export type PermissionType = 'remoteNotifications'
       | 'location'
@@ -852,10 +730,41 @@ declare module 'expo' {
     export const CONTACTS: string;
   }
 
-  /**
-   * Expo Segment
-   * TODO: check that all these functions return void or not
-   */
+  /** Register Root Component. Useful when using function like react-redux connect for example. */
+  // TODO: verify if it's a good idea or not to use generics.
+  export function registerRootComponent<P, S>(component: React.Component<P, S>): React.Component<P, S>;
+
+  export namespace ScreenOrientation {
+    export namespace Orientation {
+      /** All 4 possible orientations */
+      export const ALL: 'ALL'
+
+      /** All but reverse portrait, could be all 4 orientations on certain Android devices. */
+      export const ALL_BUT_UPSIDE_DOWN: 'ALL_BUT_UPSIDE_DOWN';
+
+      /** Portrait orientation, could also be reverse portrait on certain Android devices. */
+      export const PORTRAIT: 'PORTRAIT';
+
+      /** Upside portrait only. */
+      export const PORTRAIT_UP: 'PORTRAIT_UP';
+
+      /** Upside down portrait only. */
+      export const PORTRAIT_DOWN: 'PORTRAIT_DOWN';
+
+      /** Any landscape orientation. */
+      export const LANDSCAPE: 'LANDSCAPE';
+
+      /** Left landscape only. */
+      export const LANDSCAPE_LEFT: 'LANDSCAPE_LEFT';
+
+      /** Right landscape only. */
+      export const LANDSCAPE_RIGHT: 'LANDSCAPE_RIGHT';
+    }
+
+    export function allow(orientation: 'ALL' | 'ALL_BUT_UPSIDE_DOWN' | 'PORTRAIT' | 'PORTRAIT_UP' | 'PORTRAIT_DOWN' | 'LANDSCAPE' | 'LANDSCAPE_LEFT' | 'LANDSCAPE_RIGHT'): void;
+  }
+
+  // TODO: check that all these functions return void or not.
   export namespace Segment {
     export function initializeIOS(writeKey: string): void;
     export function initializeAndroid(writeKey: string): void;
@@ -866,9 +775,6 @@ declare module 'expo' {
     export function flush(): void;
   }
 
-  /**
-   * Expo SQLite
-   */
   export namespace SQLite {
     type Error = any;
 
@@ -886,7 +792,7 @@ declare module 'expo' {
         arguments?: Array<string | number>,
         success?: (transaction: Transaction, resultSet: ResultSet) => any,
         error?: (transaction: Transaction, error: Error) => any
-      )
+      ): any
     }
 
     export interface ResultSet {
@@ -911,19 +817,254 @@ declare module 'expo' {
       description?: string,
       size?: number,
       callback?: () => any
-    )
+    ): any
   }
 
-  /**
-   * Register Root Component
-   * TODO: verify if it's a good idea or not to use Generics
-   * Useful when using function like react-redux connect for example
-   */
-  export function registerRootComponent<P, S>(component: React.Component<P, S>): React.Component<P, S>;
+  export class Svg extends Component<Svg.SvgProps, {}> { }
 
-  /**
-   * Expo Take Snapshop
-   */
+  export namespace Svg {
+    interface CircleProps extends SharedPathProps {
+      cx: number | string;
+      cy: number | string;
+      r: number | string;
+    }
+
+    interface ClipPathProps {
+      id: string;
+    }
+
+    interface ClipProps {
+      clipPath?: string;
+      clipRule?: 'evenodd' | 'nonzero';
+    }
+
+    interface DefinationProps {
+      name?: string;
+    }
+
+    interface EllipseProps extends SharedPathProps {
+      cx: number | string;
+      cy: number | string;
+      rx: number | string;
+      ry: number | string;
+    }
+
+    interface FillProps {
+      fill?: string;
+      fillOpacity?: number | string;
+      fillRule?: 'evenodd' | 'nonzero';
+    }
+
+    interface FontProps {
+      fontFamily?: string;
+      fontSize?: number | string;
+      fontWeight?: number | string;
+      fontStyle?: string;
+      font?: object;
+    }
+
+    interface ImageProps extends ResponderProps, TouchableProps {
+      height: number | string;
+      href?: ImageURISource | Array<ImageURISource>;
+      preserveAspectRatio?: string;
+      width: number | string;
+      x?: number | string;
+      y?: number | string;
+    }
+
+    interface LinearGradientProps {
+      gradientUnits?: 'objectBoundingBox' | 'userSpaceOnUse';
+      id: string
+      x1: number | string;
+      x2: number | string;
+      y1: number | string;
+      y2: number | string;
+    }
+
+    interface LineProps extends SharedPathProps {
+      x1: number | string;
+      x2: number | string;
+      y1: number | string;
+      y2: number | string;
+    }
+
+    interface PathProps extends SharedPathProps {
+      d: string;
+    }
+
+    interface PatternProps {
+      patternContentUnits?: 'userSpaceOnUse' | 'objectBoundingBox';
+      patternTransform?: string;
+      patternUnits?: 'userSpaceOnUse' | 'objectBoundingBox';
+      x1?: number | string;
+      x2?: number | string;
+      y1?: number | string;
+      y2?: number | string;
+    }
+
+    interface PolygonProps extends SharedPathProps {
+      points: string | Array<any>;
+    }
+
+    interface PolylineProps extends SharedPathProps {
+      points: string | Array<any>;
+    }
+
+    interface RadialGradientProps {
+      cx: number | string;
+      cy: number | string;
+      fx: number | string;
+      fy: number | string;
+      gradientUnits?: 'objectBoundingBox' | 'userSpaceOnUse';
+      id: string;
+      r?: number | string;
+      rx?: number | string;
+      ry?: number | string;
+    }
+
+    interface RectProps extends SharedPathProps {
+      height: number | string;
+      rx?: number | string;
+      ry?: number | string;
+      width: number | string;
+      x: number | string;
+      y: number | string;
+    }
+
+    interface ResponderProps {
+      onMoveShouldSetPanResponder?: (e: GestureResponderEvent, gestureState: PanResponderGestureState) => any;
+      onMoveShouldSetPanResponderCapture?: (e: GestureResponderEvent, gestureState: PanResponderGestureState) => any;
+      onPanResponderEnd?: (e: GestureResponderEvent, gestureState: PanResponderGestureState) => any;
+      onPanResponderGrant?: (e: GestureResponderEvent, gestureState: PanResponderGestureState) => any;
+      onPanResponderMove?: (e: GestureResponderEvent, gestureState: PanResponderGestureState) => any;
+      onPanResponderReject?: (e: GestureResponderEvent, gestureState: PanResponderGestureState) => any;
+      onPanResponderRelease?: (e: GestureResponderEvent, gestureState: PanResponderGestureState) => any;
+      onPanResponderStart?: (e: GestureResponderEvent, gestureState: PanResponderGestureState) => any;
+      onPanResponderTerminate?: (e: GestureResponderEvent, gestureState: PanResponderGestureState) => any;
+      onPanResponderTerminationRequest?: (e: GestureResponderEvent, gestureState: PanResponderGestureState) => any;
+      onShouldBlockNativeResponder?: (e: GestureResponderEvent, gestureState: PanResponderGestureState) => any;
+      onStartShouldSetPanResponder?: (e: GestureResponderEvent, gestureState: PanResponderGestureState) => any;
+      onStartShouldSetPanResponderCapture?: (e: GestureResponderEvent, gestureState: PanResponderGestureState) => any;
+    }
+
+    interface SharedPathProps extends
+      ClipProps,
+      DefinationProps,
+      FillProps,
+      ResponderProps,
+      StrokeProps,
+      TouchableProps,
+      TransformProps {
+    }
+
+    interface StopProps {
+      offset: number | string;
+      stopColor: string;
+      stopOpacity?: number | string;
+    }
+
+    interface StrokeProps {
+      stroke?: string;
+      strokeDasharray?: Array<number> | string;
+      strokeDashoffset?: number | string;
+      strokeLinecap?: 'butt' | 'square' | 'round';
+      strokeLinejoin?: 'miter' | 'bevel' | 'round';
+      strokeMiterlimit?: number | string;
+      strokeOpacity?: number | string;
+      strokeWidth?: number | string;
+    }
+
+    interface SvgProps extends ViewProperties {
+      height?: number | string;
+      opacity?: number | string;
+      preserveAspectRatio?: string;
+      viewBox?: string;
+      width?: number | string;
+    }
+
+    interface SymbolProps {
+      id: string;
+      preserveAspectRatio?: string;
+      viewBox?: string;
+    }
+
+    interface TextProps extends FontProps, SharedPathProps {
+      dx?: number | string;
+      dy?: number | string;
+      textAnchor?: 'start' | 'middle' | 'end';
+    }
+
+    interface TextPathProps extends FontProps, SharedPathProps {
+      href: string;
+      startOffset?: number | string;
+    }
+
+    interface TouchableProps {
+      delayLongPress?: number;
+      delayPressIn?: number;
+      delayPressOut?: number;
+      disabled?: boolean;
+      onLongPress?: (...args: Array<any>) => any;
+      onPress?: (...args: Array<any>) => any;
+      onPressIn?: (...args: Array<any>) => any;
+      onPressOut?: (...args: Array<any>) => any;
+    }
+
+    interface TransformProps {
+      origin?: number | string;
+      originX?: number | string;
+      originY?: number | string;
+      rotate?: number | string;
+      rotation?: number | string;
+      scale?: number | string;
+      scaleX?: number | string;
+      scaleY?: number | string;
+      skew?: number | string;
+      skewX?: number | string;
+      skewY?: number | string;
+      transform?: object
+      translate?: number | string;
+      translateX?: number | string;
+      translateY?: number | string;
+      x?: number | string;
+      y?: number | string;
+    }
+
+    interface TSpanProps extends FontProps, SharedPathProps {
+      dx?: number | string;
+      dy?: number | string;
+      textAnchor?: 'start' | 'middle' | 'end';
+    }
+
+    interface UseProps extends SharedPathProps {
+      height?: number | string;
+      href: string;
+      width?: number | string;
+    }
+
+    export class Circle extends Component<CircleProps, {}> { }
+    export class ClipPath extends Component<ClipPathProps, {}> { }
+    export class Defs extends Component<{}, {}> { }
+    export class Ellipse extends Component<EllipseProps, {}> { }
+    export class G extends Component<SharedPathProps, {}> { }
+    export class Image extends Component<ImageProps, {}> { }
+    export class Line extends Component<LineProps, {}> { }
+    export class LinearGradient extends Component<LinearGradientProps, {}> { }
+    export class Path extends Component<PathProps, {}> { }
+    export class Pattern extends Component<PatternProps, {}> { }
+    export class Polygon extends Component<PolygonProps, {}> { }
+    export class Polyline extends Component<PolylineProps, {}> { }
+    export class RadialGradient extends Component<RadialGradientProps, {}> { }
+    export class Rect extends Component<RectProps, {}> { }
+    export class Shape extends Component<{}, {}> { }
+    export class Stop extends Component<StopProps, {}> { }
+    export class Symbol extends Component<SymbolProps, {}> { }
+    export class Text extends Component<TextProps, {}> { }
+    export class TextPath extends Component<TextPathProps, {}> { }
+    export class TSpan extends Component<TSpanProps, {}> { }
+    export class Use extends Component<UseProps, {}> { }
+  }
+
   export function takeSnapshotAsync(
     view?: (number | React.ReactElement<any>),
     options?: {
@@ -935,17 +1076,11 @@ declare module 'expo' {
     }
   ): Promise<string>;
 
-  /**
-   * Expo Util
-   */
   export namespace Util {
     export function getCurrentLocaleAsync(): Promise<string>;
     export function reload(): void;
   }
 
-  /**
-   * Expo Web Browser
-   */
   export namespace WebBrowser {
     export function openBrowserAsync(url: string): Promise<{ type: 'cancelled' | 'dismissed' }>;
     export function dismissBrowser(): Promise<{ type: 'dismissed' }>;
@@ -954,16 +1089,16 @@ declare module 'expo' {
 
 declare module '@expo/vector-icons' {
 
-  import { TextStyle, ViewStyle } from 'react-native';
+  import { ViewStyle, TextStyle } from 'react-native';
 
   export interface IconProps {
     size?: number;
     name: string;
     color?: string;
-    style?: ViewStyle & TextStyle | (ViewStyle & TextStyle)[];
+    style?: ViewStyle & TextStyle;
   }
 
-  export class Entypo extends React.Component<IconProps, void> { }
+  export class Entypo extends React.Component<IconProps> { }
   export class EvilIcons extends React.Component<IconProps> { }
   export class FontAwesome extends React.Component<IconProps> { }
   export class Foundation extends React.Component<IconProps> { }

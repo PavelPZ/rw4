@@ -23,7 +23,7 @@ import { init as initRouter } from 'rw-router/index-n'
 import { Text, Platform, View } from 'react-native';
 import { RecorderButton, LayerProvider, BlockGuiComp, init as initRoot, } from './app-native/gui/lib'
 //import { getAnimator as getRouteAnimator } from './app-native/lib/native-router'
-import { AppLoading, Constants } from 'expo'
+import { Components, Constants } from 'expo'
 import { Icon, H1, H2, H3, H4 } from './app-native/gui/other'
 import { Button } from './app-native/gui/button'
 //import { Content } from './app-native/gui/content'
@@ -148,7 +148,7 @@ export const init = async () => {
     //<Icon name={GUI.IonicIcons.boat} color={GUI.Colors.Cyan} reverse style={{marginTop:30}} />
   ))
 }
-const Root: React.SFC = () => <WaitForRendering finalContent={init()} waitContent={<AppLoading />} />
+const Root: React.SFC = () => <WaitForRendering finalContent={init()} waitContent={<Components.AppLoading />} />
 
 export default Root
 //export default AppComp
