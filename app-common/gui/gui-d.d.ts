@@ -61,9 +61,14 @@
     active?: boolean
   }
 
+  interface IIconPropsLow2 {
+    iconName?: GUI.mdi_icons
+    //iconOS?: RN.PlatformOSType
+    //active?: boolean
+  }
 
   //**** BUTTON
-  interface IButtonProps extends IColorProps, IIconPropsLow {
+  interface IButtonProps extends IColorProps, IIconPropsLow2 {
 
     //icon
     iconAfter?: boolean

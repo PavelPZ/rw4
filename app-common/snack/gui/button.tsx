@@ -11,23 +11,23 @@ const app = () => <View style={{ flex: 1, marginTop: 30 }}>
     </View>
 
     <View style={{ flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'flex-start', alignContent: 'space-around' }}>
-      <Button iconName={GUI.IonicIcons.bookmark} key={2111}>primary</Button>
-      <Button iconName={GUI.IonicIcons.bookmark} outline key={2112}>outline</Button>
-      <Button iconName={GUI.IonicIcons.bookmark} floating key={2113}>floating</Button>
-      <Button iconName={GUI.IonicIcons.bookmark} flat key={2114}>flat</Button>
+      <Button iconName={GUI.mdi_icons.bookmark} key={2111}>primary</Button>
+      <Button iconName={GUI.mdi_icons.bookmark} outline key={2112}>outline</Button>
+      <Button iconName={GUI.mdi_icons.bookmark} floating key={2113}>floating</Button>
+      <Button iconName={GUI.mdi_icons.bookmark} flat key={2114}>flat</Button>
     </View>
 
     <View style={{ flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'flex-start', alignContent: 'space-around' }}>
-      <Button iconName={GUI.IonicIcons.bookmark} key={2111}></Button>
-      <Button iconName={GUI.IonicIcons.bookmark} outline key={2112}></Button>
-      <Button iconName={GUI.IonicIcons.bookmark} flat key={2114}></Button>
-      <Button iconName={GUI.IonicIcons.bookmark} flat disabled key={2115}></Button>
+      <Button iconName={GUI.mdi_icons.bookmark} key={2111}></Button>
+      <Button iconName={GUI.mdi_icons.bookmark} outline key={2112}></Button>
+      <Button iconName={GUI.mdi_icons.bookmark} flat key={2114}></Button>
+      <Button iconName={GUI.mdi_icons.bookmark} flat disabled key={2115}></Button>
     </View>
 
     <View style={{ flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'flex-start', alignContent: 'space-around' }}>
-      <Button iconName={GUI.IonicIcons.bookmark} iconAfter key={3111}>primary</Button>
-      <Button iconName={GUI.IonicIcons.bookmark} iconAfter outline key={3112}>outline</Button>
-      <Button iconName={GUI.IonicIcons.bookmark} iconAfter flat key={3114}>flat</Button>
+      <Button iconName={GUI.mdi_icons.bookmark} iconAfter key={3111}>primary</Button>
+      <Button iconName={GUI.mdi_icons.bookmark} iconAfter outline key={3112}>outline</Button>
+      <Button iconName={GUI.mdi_icons.bookmark} iconAfter flat key={3114}>flat</Button>
     </View>
 
     <View style={{ flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'flex-start', alignContent: 'space-around' }}>
@@ -37,23 +37,23 @@ const app = () => <View style={{ flex: 1, marginTop: 30 }}>
     </View>
 
     <View style={{ flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'flex-start', alignContent: 'space-around' }}>
-      <Button dark iconName={GUI.IonicIcons.bookmark} key={5111}>primary</Button>
-      <Button dark iconName={GUI.IonicIcons.bookmark} outline key={5112}>outline</Button>
-      <Button dark iconName={GUI.IonicIcons.bookmark} floating key={5113}>floating</Button>
-      <Button dark iconName={GUI.IonicIcons.bookmark} flat key={5114}>flat</Button>
+      <Button dark iconName={GUI.mdi_icons.bookmark} key={5111}>primary</Button>
+      <Button dark iconName={GUI.mdi_icons.bookmark} outline key={5112}>outline</Button>
+      <Button dark iconName={GUI.mdi_icons.bookmark} floating key={5113}>floating</Button>
+      <Button dark iconName={GUI.mdi_icons.bookmark} flat key={5114}>flat</Button>
     </View>
 
     <View style={{ flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'flex-start', alignContent: 'space-around' }}>
-      <Button dark disabled iconName={GUI.IonicIcons.bookmark} key={5111}>primary</Button>
-      <Button dark disabled iconName={GUI.IonicIcons.bookmark} outline key={5112}>outline</Button>
-      <Button dark disabled iconName={GUI.IonicIcons.bookmark} floating key={5113}>floating</Button>
-      <Button dark disabled iconName={GUI.IonicIcons.bookmark} flat key={5114}>flat</Button>
+      <Button dark disabled iconName={GUI.mdi_icons.bookmark} key={5111}>primary</Button>
+      <Button dark disabled iconName={GUI.mdi_icons.bookmark} outline key={5112}>outline</Button>
+      <Button dark disabled iconName={GUI.mdi_icons.bookmark} floating key={5113}>floating</Button>
+      <Button dark disabled iconName={GUI.mdi_icons.bookmark} flat key={5114}>flat</Button>
     </View>
 
     <View style={{ flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'flex-start', alignContent: 'space-around' }}>
-      <Button iconName={GUI.IonicIcons.bookmark} danger key={2111}>danger</Button>
-      <Button iconName={GUI.IonicIcons.bookmark} color={GUI.Colors.Cyan} shadow={GUI.Shadows.S200} iconAfter key={2112}>after</Button>
-      <Button iconName={GUI.IonicIcons.bookmark} color={GUI.Colors.Cyan} shadow={GUI.Shadows.S200} floating key={2114}></Button>
+      <Button iconName={GUI.mdi_icons.bookmark} danger key={2111}>danger</Button>
+      <Button iconName={GUI.mdi_icons.bookmark} color={GUI.Colors.Cyan} shadow={GUI.Shadows.S200} iconAfter key={2112}>after</Button>
+      <Button iconName={GUI.mdi_icons.bookmark} color={GUI.Colors.Cyan} shadow={GUI.Shadows.S200} floating key={2114}></Button>
     </View>
 
 
@@ -70,33 +70,33 @@ const app = () => <View style={{ flex: 1, marginTop: 30 }}>
     <Button key={41} raised info>info</Button>
     <Button key={51} raised danger>danger</Button>
     <Button key={61} raised dark>dark</Button>
-    <Button key={11} success disabled iconName={GUI.IonicIcons.bookmark} onPress={() => console.log('pressed')}>success disabled iconName</Button>
+    <Button key={11} success disabled iconName={GUI.mdi_icons.bookmark} onPress={() => console.log('pressed')}>success disabled iconName</Button>
     <Button key={71} reverse warning>warning</Button>
     <Button key={82} reverse color={GUI.Colors.Cyan} shadow={GUI.Shadows.S200}>color shadow</Button>
-    <Button key={111} success iconName={GUI.IonicIcons.arrowUp} onPress={() => console.log('pressed')} />
-    <Button key={25} floating onPress={() => console.log('pressed')} color={GUI.Colors.Cyan} iconName={GUI.IonicIcons.archive}>asdfasd</Button>
-    <Button key={26} floating color={GUI.Colors.Cyan} iconName={GUI.IonicIcons.archive} disabled>asdfasd disabled</Button>
-    <Button key={27} floating danger iconName={GUI.IonicIcons.attach}>asdfasd</Button>
-    <Button key={28} floating light iconName={GUI.IonicIcons.attach}>asdfasd</Button>
-    <Button key={251} reverse floating color={GUI.Colors.Cyan} iconName={GUI.IonicIcons.archive} onPress={() => console.log('pressed')}>asdfasd</Button>
-    <Button key={261} reverse floating color={GUI.Colors.Cyan} iconName={GUI.IonicIcons.archive} disabled>asdfasd disabled</Button>
-    <Button key={271} reverse floating danger iconName={GUI.IonicIcons.attach}>asdfasd</Button>
-    <Button key={281} reverse floating light iconName={GUI.IonicIcons.attach}>asdfasd</Button>
+    <Button key={111} success iconName={GUI.mdi_icons.arrowUp} onPress={() => console.log('pressed')} />
+    <Button key={25} floating onPress={() => console.log('pressed')} color={GUI.Colors.Cyan} iconName={GUI.mdi_icons.archive}>asdfasd</Button>
+    <Button key={26} floating color={GUI.Colors.Cyan} iconName={GUI.mdi_icons.archive} disabled>asdfasd disabled</Button>
+    <Button key={27} floating danger iconName={GUI.mdi_icons.attach}>asdfasd</Button>
+    <Button key={28} floating light iconName={GUI.mdi_icons.attach}>asdfasd</Button>
+    <Button key={251} reverse floating color={GUI.Colors.Cyan} iconName={GUI.mdi_icons.archive} onPress={() => console.log('pressed')}>asdfasd</Button>
+    <Button key={261} reverse floating color={GUI.Colors.Cyan} iconName={GUI.mdi_icons.archive} disabled>asdfasd disabled</Button>
+    <Button key={271} reverse floating danger iconName={GUI.mdi_icons.attach}>asdfasd</Button>
+    <Button key={281} reverse floating light iconName={GUI.mdi_icons.attach}>asdfasd</Button>
     <Button key={19} flat info>flat info</Button>
     <Button key={191} flat light>flat light</Button>
-    <Button key={21} flat danger iconName={GUI.IonicIcons.bookmark}>flat warning iconName</Button>
-    <Button key={22} flat danger iconName={GUI.IonicIcons.bookmark} />
-    <Button key={23} flat danger iconName={GUI.IonicIcons.bookmark} disabled></Button>
+    <Button key={21} flat danger iconName={GUI.mdi_icons.bookmark}>flat warning iconName</Button>
+    <Button key={22} flat danger iconName={GUI.mdi_icons.bookmark} />
+    <Button key={23} flat danger iconName={GUI.mdi_icons.bookmark} disabled></Button>
 */}
     {/*
     <Button key={12} bordered primary>bordered primary</Button>
     <Button key={13} bordered dark>bordered dark</Button>
-    <Button key={14} bordered danger iconName={GUI.IonicIcons.alert}>bordered danger iconName</Button>
-    <Button key={141} bordered danger iconName={GUI.IonicIcons.archive}></Button>
-    <Button key={15} bordered danger iconAfter iconName={GUI.IonicIcons.bookmark}>bordered danger iconAfter iconName</Button>
+    <Button key={14} bordered danger iconName={GUI.mdi_icons.alert}>bordered danger iconName</Button>
+    <Button key={141} bordered danger iconName={GUI.mdi_icons.archive}></Button>
+    <Button key={15} bordered danger iconAfter iconName={GUI.mdi_icons.bookmark}>bordered danger iconAfter iconName</Button>
     <Button key={16} bordered color={GUI.Colors.Cyan} shadow={GUI.Shadows.S200}>bordered color shadow</Button>
-    <Button key={17} bordered color={GUI.Colors.Cyan} shadow={GUI.Shadows.S200} iconName={GUI.IonicIcons.bookmark}>bordered color shadow icon</Button>
-    <Button key={18} bordered color={GUI.Colors.Cyan} shadow={GUI.Shadows.S200} iconName={GUI.IonicIcons.bookmark} disabled>bordered color shadow icon disabled</Button>
+    <Button key={17} bordered color={GUI.Colors.Cyan} shadow={GUI.Shadows.S200} iconName={GUI.mdi_icons.bookmark}>bordered color shadow icon</Button>
+    <Button key={18} bordered color={GUI.Colors.Cyan} shadow={GUI.Shadows.S200} iconName={GUI.mdi_icons.bookmark} disabled>bordered color shadow icon disabled</Button>
 
 
     <Button key={71} mode={GUI.ButtonMode.fixedBL} color={GUI.Colors.DeepOrange} iconName={GUI.IonicNames.alert} />

@@ -57,11 +57,11 @@ const menuContent = (props: Drawer.IMenuContent) => {
 }
 
 const drawerButtonShow: React.SFC<Drawer.IStateDispatch> = ({ drawerVisible, windowSize, showDrawer }) => !drawerVisible && (windowSize == Media.TWindowSize.tablet || windowSize == Media.TWindowSize.mobile) &&
-  Button({ iconName: GUI.IonicIcons.menu, flat: true, light: true, onPress: () => showDrawer(true) })
+  Button({ iconName: GUI.mdi_icons.menu, flat: true, light: true, onPress: () => showDrawer(true) })
 const DrawerButtonShow = providerConnector(drawerButtonShow)
 
 const drawerButtonHide: React.SFC<Drawer.IStateDispatch> = ({ drawerVisible, windowSize, showDrawer }) => drawerVisible && (windowSize == Media.TWindowSize.tablet || windowSize == Media.TWindowSize.mobile) &&
-  Button({ iconName: GUI.IonicIcons.close, flat: true, light: true, onPress: () => showDrawer(false) })
+  Button({ iconName: GUI.mdi_icons.close, flat: true, light: true, onPress: () => showDrawer(false) })
 const DrawerButtonHide = providerConnector(drawerButtonHide)
 
 const getToolbar = (props: Drawer.IHeader & { isContent: boolean }) => {

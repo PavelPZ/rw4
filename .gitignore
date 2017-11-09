@@ -290,3 +290,6 @@ react-md/
 bundle*.*
 jspm_packages/
 !jspm.config.js
+
+design/mdi-react/
+libs/mdi-react/

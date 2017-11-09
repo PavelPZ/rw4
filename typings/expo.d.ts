@@ -1203,6 +1203,7 @@ declare module '@expo/vector-icons' {
     style?: ViewStyle & TextStyle
   }
 
+  export class FAI extends React.Component<IconProps> { }
   export class Entypo extends React.Component<IconProps> { }
   export class EvilIcons extends React.Component<IconProps> { }
   export class FontAwesome extends React.Component<IconProps> { }

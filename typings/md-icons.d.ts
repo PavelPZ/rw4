@@ -1,6 +1,7 @@
 declare namespace GUI {
-  export const enum md_icons {
-    //3d_rotation = "3d_rotation",
+
+  const enum md_icons {
+    i3d_rotation = "3d_rotation",
     ac_unit = "ac_unit",
     access_alarm = "access_alarm",
     access_alarms = "access_alarms",
