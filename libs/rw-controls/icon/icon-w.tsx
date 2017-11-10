@@ -1,12 +1,8 @@
 import React from 'react'
 import SvgIcon, { SvgIconProps } from 'material-ui/SvgIcon/SvgIcon'
 
-export interface IIconProps extends React.Attributes {
-  style?: RN.TextStyle
+export interface IIconProps extends Icon.IIconProps {
   w?: SvgIconProps
-  src: GUI.mdi_icons
-  color?: string
-  size?: number
 }
 
 const icon: React.SFC<IIconProps> = props => {
@@ -24,3 +20,5 @@ const icon: React.SFC<IIconProps> = props => {
 }
 
 export default icon
+
+

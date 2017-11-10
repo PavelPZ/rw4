@@ -33,3 +33,13 @@ declare namespace Button {
   }
 }
 
+declare namespace Icon {
+
+  interface IIconProps extends React.Attributes {
+    style?: RN.TextStyle
+    src: GUI.mdi_icons
+    color?: string
+    size?: number
+  }
+
+}
