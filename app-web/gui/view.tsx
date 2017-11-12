@@ -1,5 +1,5 @@
 ﻿import React from 'react';
-import { renderCSS, renderCSSs } from '../lib/fela'
+import { renderCSS, renderCSSs } from 'rw-fela-w/index'
 //import Animated from 'animated'
 //import { TweensAnimate } from '../gui/lib'
 

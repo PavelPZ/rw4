@@ -5,7 +5,7 @@ import { Text, View, Button } from '../../app-common/gui/gui'
 import { colorToStyle } from '../../app-common/gui/gui'
 import { getColors } from '../../app-common/gui/colors'
 import { getIcon2 } from '../../app-common/gui/ionic'
-import { renderCSS } from '../lib/fela'
+import { renderCSS } from 'rw-fela-w/index'
 import { providerConnector } from '../../app-common/gui/drawer'
 
 

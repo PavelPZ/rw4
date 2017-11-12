@@ -1,5 +1,5 @@
 ﻿import React from 'react'
-import { renderCSSs } from '../lib/fela'
+import { renderCSSs } from 'rw-fela-w/index'
 import { getIcon2 } from '../../app-common/gui/ionic'
 import { getColors2 } from '../../app-common/gui/colors'
 

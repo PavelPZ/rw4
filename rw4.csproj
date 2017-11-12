@@ -74,8 +74,18 @@
     <Content Include=".gitignore" />
     <TypeScriptCompile Include="app-common\gui\colors.ts" />
     <TypeScriptCompile Include="app-common\gui\colors-d.d.ts" />
+    <TypeScriptCompile Include="app-native\snack\mui\index.tsx" />
+    <TypeScriptCompile Include="app-web\snack\material-ui\test.tsx" />
     <TypeScriptCompile Include="libs\rw-controls\icon\icon-n.tsx" />
     <TypeScriptCompile Include="libs\rw-controls\icon\icon-w.tsx" />
+    <TypeScriptCompile Include="libs\rw-mui-n\styles\MuiThemeProvider.ts" />
+    <TypeScriptCompile Include="libs\rw-controls\text\text-w.tsx" />
+    <TypeScriptCompile Include="libs\rw-fela-w\index.tsx" />
+    <TypeScriptCompile Include="libs\rw-mui-n\styles\withStyles.ts" />
+    <TypeScriptCompile Include="libs\rw-utils\fela-like-w - Copy.tsx" />
+    <TypeScriptCompile Include="libs\rw-utils\object-each.ts" />
+    <TypeScriptCompile Include="libs\rw-utils\fela-like-w.tsx" />
+    <TypeScriptCompile Include="typings\css-in-js.d.ts" />
     <TypeScriptCompile Include="typings\md-icons.d.ts" />
     <TypeScriptCompile Include="app-common\gui\native-base-d.d.ts" />
     <Content Include="app-common\gui\react-native-elements-getIconType.txt" />
@@ -196,7 +206,7 @@
     <TypeScriptCompile Include="app-web\gui\react-md.ts" />
     <TypeScriptCompile Include="app-web\snack\drawer.tsx" />
     <TypeScriptCompile Include="app-web\lib\typings.d.ts" />
-    <TypeScriptCompile Include="app-web\lib\fela-d.d.ts" />
+    <TypeScriptCompile Include="libs\rw-fela-w\fela-d.d.ts" />
     <TypeScriptCompile Include="app-web\lib\fela.tsx" />
     <Content Include="app-common\snack\controls.xlsx" />
     <TypeScriptCompile Include="app-web\snack\react-md-test.tsx" />

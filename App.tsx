@@ -61,11 +61,12 @@ import { AppPage } from './app-common/snack/app-router'
 //import AppComp from './app-native/snack/tab-view/main'
 //import AppComp from './app-native/snack/design-dump-colors'
 //import AppComp from './app-common/snack/gui/icon'
-import AppComp from './app-common/snack/gui/button'
+//import AppComp from './app-common/snack/gui/button'
 //import AppComp from './app-native/snack/native-base-button'
 //import AppComp from './app-native/snack/drawer'
 //import AppComp from './app-common/snack/drawer'
 //import AppComp from './app-native/snack/page'
+import AppComp from './app-native/snack/mui/index'
 
 
 //console.log('APP')
@@ -143,8 +144,8 @@ export const init = async () => {
   </ReduxProvider>
 
   return new Promise<JSX.Element>(resolve => resolve(
-    <AppAll />
-    //<AppComp />
+    //<AppAll />
+    <AppComp />
     //<Icon name={GUI.IonicIcons.boat} color={GUI.Colors.Cyan} reverse style={{marginTop:30}} />
   ))
 }

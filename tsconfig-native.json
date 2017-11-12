@@ -8,7 +8,9 @@
       "rw-router/*": [ "libs/rw-router/*" ],
       "rw-login/*": [ "libs/rw-login/*" ],
       "rw-utils/*": [ "libs/rw-utils/*" ],
-      "rw-controls/*": [ "libs/rw-controls/*" ]
+      "rw-controls/*": [ "libs/rw-controls/*" ],
+      "rw-fela-w/*": [ "libs/rw-fela-w/*" ],
+      "rw-mui-n/*": [ "libs/rw-mui-n/*" ]
     },
 
     "allowSyntheticDefaultImports": true,

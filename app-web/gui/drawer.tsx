@@ -1,5 +1,5 @@
 ﻿import React from 'react';
-import { renderCSS, renderCSSs } from '../lib/fela'
+import { renderCSS, renderCSSs } from 'rw-fela-w/index'
 
 import { Divider, BottomNavigation, Toolbar } from 'react-md'
 import { View, Button } from '../../app-common/gui/gui'

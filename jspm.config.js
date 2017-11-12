@@ -16,7 +16,8 @@ SystemJS.config({
     "rw-login": "libs/rw-login",
     "rw-router": "libs/rw-router",
     "rw-utils": "libs/rw-utils",
-    "rw-controls": "libs/rw-controls"
+    "rw-controls": "libs/rw-controls",
+    "rw-fela-w": "libs/rw-fela-w"
   }
 });
 
@@ -26,8 +27,10 @@ SystemJS.config({
     "npm:*.json"
   ],
   map: {
-    "css-in-js-utils": "npm:css-in-js-utils@2.0.0",
     "jss": "npm:jss@8.1.0",
+    "jss-preset-default": "npm:jss-preset-default@4.0.1",
+    "react-jss": "npm:react-jss@7.2.0",
+    "css-in-js-utils": "npm:css-in-js-utils@2.0.0",
     "material-ui": "npm:material-ui@next",
     "animated": "npm:animated@0.2.0",
     "@types/react-dom": "npm:@types/react-dom@16.0.1",
@@ -51,7 +54,7 @@ SystemJS.config({
     "url-pattern": "npm:url-pattern@1.0.3",
     "history": "npm:history@4.7.2",
     "qs": "npm:qs@6.5.1",
-    "react": "npm:react@16.0.0",
+    "react": "npm:react@16.1.0",
     "react-dom": "npm:react-dom@16.0.0",
     "buffer": "npm:jspm-nodelibs-buffer@0.2.3",
     "crypto": "npm:jspm-nodelibs-crypto@0.2.1",
@@ -495,14 +498,6 @@ SystemJS.config({
         "object-assign": "npm:object-assign@4.1.1"
       }
     },
-    "npm:react@16.0.0": {
-      "map": {
-        "loose-envify": "npm:loose-envify@1.3.1",
-        "fbjs": "npm:fbjs@0.8.16",
-        "prop-types": "npm:prop-types@15.6.0",
-        "object-assign": "npm:object-assign@4.1.1"
-      }
-    },
     "npm:react-motion@0.5.2": {
       "map": {
         "prop-types": "npm:prop-types@15.6.0",
@@ -794,6 +789,69 @@ SystemJS.config({
     "npm:fela-utils@7.0.4": {
       "map": {
         "css-in-js-utils": "npm:css-in-js-utils@2.0.0"
+      }
+    },
+    "npm:jss-preset-default@4.0.1": {
+      "map": {
+        "jss-template": "npm:jss-template@1.0.0",
+        "jss-vendor-prefixer": "npm:jss-vendor-prefixer@7.0.0",
+        "jss-extend": "npm:jss-extend@6.0.1",
+        "jss-default-unit": "npm:jss-default-unit@8.0.0",
+        "jss-global": "npm:jss-global@3.0.0",
+        "jss-camel-case": "npm:jss-camel-case@6.0.0",
+        "jss-expand": "npm:jss-expand@5.0.0",
+        "jss-nested": "npm:jss-nested@6.0.1",
+        "jss-props-sort": "npm:jss-props-sort@6.0.0",
+        "jss-compose": "npm:jss-compose@5.0.0"
+      }
+    },
+    "npm:jss-template@1.0.0": {
+      "map": {
+        "warning": "npm:warning@3.0.0"
+      }
+    },
+    "npm:jss-extend@6.0.1": {
+      "map": {
+        "warning": "npm:warning@3.0.0",
+        "is-observable": "npm:is-observable@0.2.0"
+      }
+    },
+    "npm:jss-nested@6.0.1": {
+      "map": {
+        "warning": "npm:warning@3.0.0"
+      }
+    },
+    "npm:jss-default-unit@8.0.0": {
+      "map": {
+        "is-observable": "npm:is-observable@0.2.0"
+      }
+    },
+    "npm:jss-expand@5.0.0": {
+      "map": {
+        "is-observable": "npm:is-observable@0.2.0"
+      }
+    },
+    "npm:react@16.1.0": {
+      "map": {
+        "loose-envify": "npm:loose-envify@1.3.1",
+        "object-assign": "npm:object-assign@4.1.1",
+        "prop-types": "npm:prop-types@15.6.0",
+        "fbjs": "npm:fbjs@0.8.16"
+      }
+    },
+    "npm:jss-vendor-prefixer@7.0.0": {
+      "map": {
+        "css-vendor": "npm:css-vendor@0.3.8"
+      }
+    },
+    "npm:is-observable@0.2.0": {
+      "map": {
+        "symbol-observable": "npm:symbol-observable@0.2.4"
+      }
+    },
+    "npm:jss-compose@5.0.0": {
+      "map": {
+        "warning": "npm:warning@3.0.0"
       }
     }
   }

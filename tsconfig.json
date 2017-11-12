@@ -1,27 +1,26 @@
 {
   "compileOnSave": true,
   "compilerOptions": {
-    "target": "es5",
-    "module": "system",
-    "inlineSourceMap": true,
-    "inlineSources": true,
-    "importHelpers": true,
+    "target": "es6",
 
     "baseUrl": ".",
     "paths": {
       "rw-router/*": [ "libs/rw-router/*" ],
       "rw-login/*": [ "libs/rw-login/*" ],
       "rw-utils/*": [ "libs/rw-utils/*" ],
-      "rw-controls/*": [ "libs/rw-controls/*" ]
+      "rw-controls/*": [ "libs/rw-controls/*" ],
+      "rw-fela-w/*": [ "libs/rw-fela-w/*" ],
+      "rw-mui-n/*": [ "libs/rw-mui-n/*" ]
     },
 
     "allowSyntheticDefaultImports": true,
     "strictNullChecks": false,
     "downlevelIteration": true,
     "moduleResolution": "node",
-    "strict": true,
+    //"strict": true,
     "noImplicitReturns": true,
     "strictFunctionTypes": false,
+
     "experimentalDecorators": true,
     "noImplicitAny": false,
     "jsx": "react",
@@ -33,7 +32,7 @@
   },
   "include": [ "**/*" ],
   "exclude": [
-    "typings/mdi-react-n.d.ts",
+    "typings/mdi-react-w.d.ts",
     "design",
     "jspm_packages",
     "node_modules"

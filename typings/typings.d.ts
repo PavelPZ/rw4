@@ -46,3 +46,6 @@ type Diff<T extends string, U extends string> = ({[P in T]: P } & {[P in U]: nev
 type Omit<T, K extends keyof T> = {[P in Diff<keyof T, K>]: T[P]}
 type Overwrite<T, U> = {[P in Diff<keyof T, keyof U>]: T[P]} & U
 type TakeFrom<T, K extends keyof T> = {[P in K]: T[P]}
+
+
+type Omit2<T, K extends string> = {[P in Diff<keyof T, K>]: T[P]}
