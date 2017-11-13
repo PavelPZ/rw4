@@ -1,5 +1,5 @@
 import React from 'react'
-import { Theme } from 'material-ui/styles/createMuiTheme'
+import { Theme } from './createMuiTheme'
 import PropTypes from 'prop-types'
 import pure from 'recompose/pure'
 

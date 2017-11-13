@@ -1,5 +1,4 @@
 ﻿import React from 'react'
-import Button from 'material-ui/Button/Button'
 import createMuiTheme, { Theme } from 'material-ui/styles/createMuiTheme'
 
 //import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
@@ -32,6 +31,8 @@ const App = withStyles(styles, { withTheme: true })<{}>(app)
 const App2 = withStyles(styles, { withTheme: true, name: 'app-2' })<{}>(app)
 
 const theme = createMuiTheme()
+const json = JSON.stringify(theme, null, 2)
+debugger
 const theme2 = createMuiTheme({
   palette: { primary: theme.palette.secondary, secondary: theme.palette.primary }, overrides: {
     'app-2': {

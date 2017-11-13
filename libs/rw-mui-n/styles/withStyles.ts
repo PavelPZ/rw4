@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import hoistNonReactStatics from 'hoist-non-react-statics'
 //import mui_withStyles, { StyleRules, StyleRulesCallback, WithStyles, WithStylesOptions, StyledComponentProps } from 'material-ui/styles/withStyles'
 import { TMuiThemeContextValue, MuiThemeContextTypes } from './MuiThemeProvider'
-import createMuiTheme, { Theme } from 'material-ui/styles/createMuiTheme'
+import createMuiTheme, { Theme } from './createMuiTheme'
 import warning from 'invariant'
 import pure from 'recompose/pure'
 

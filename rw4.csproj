@@ -79,6 +79,7 @@
     <TypeScriptCompile Include="app-web\snack\material-ui\theming-w.tsx" />
     <TypeScriptCompile Include="libs\rw-controls\icon\icon-n.tsx" />
     <TypeScriptCompile Include="libs\rw-controls\icon\icon-w.tsx" />
+    <TypeScriptCompile Include="libs\rw-mui-n\Button\Button.tsx" />
     <TypeScriptCompile Include="libs\rw-mui-n\styles\MuiThemeProvider.ts" />
     <TypeScriptCompile Include="libs\rw-controls\text\text-w.tsx" />
     <TypeScriptCompile Include="libs\rw-fela-w\index.tsx" />
@@ -270,11 +271,19 @@
     <Content Include="design\mdi-react-lm\scripts\generate.js" />
     <Content Include="home.html" />
     <Content Include="json.json" />
+    <TypeScriptCompile Include="libs\rw-mui-n\styles\createMuiTheme.ts" />
+    <TypeScriptCompile Include="libs\rw-mui-n\styles\shadows.ts" />
+    <TypeScriptCompile Include="libs\rw-mui-n\styles\createTypography.ts" />
+    <Content Include="libs\rw-mui-n\links.html" />
     <Content Include="Links.html" />
     <None Include="create-app\copy-dts.cmd" />
     <Content Include="tsconfig-mdi-react.json" />
     <Content Include="design\mdi-react-lm\package.json" />
     <Content Include="design\mdi-react.cmd" />
+    <Content Include="libs\rw-mui-n\theme.json" />
+    <Content Include="libs\rw-mui-n\fonts\Roboto-Light.ttf" />
+    <Content Include="libs\rw-mui-n\fonts\Roboto-Medium.ttf" />
+    <Content Include="libs\rw-mui-n\fonts\Roboto-Regular.ttf" />
     <None Include="tsconfig-native.json" />
     <None Include="tsconfig-web.json" />
     <Content Include="web-ionic.html" />
