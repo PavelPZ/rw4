@@ -17,7 +17,8 @@ SystemJS.config({
     "rw-router": "libs/rw-router",
     "rw-utils": "libs/rw-utils",
     "rw-controls": "libs/rw-controls",
-    "rw-fela-w": "libs/rw-fela-w"
+    "rw-fela-w": "libs/rw-fela-w",
+    "rw-mui-n": "libs/rw-mui-n"
   }
 });
 
@@ -27,6 +28,8 @@ SystemJS.config({
     "npm:*.json"
   ],
   map: {
+    "recompose": "npm:recompose@0.26.0",
+    "hoist-non-react-statics": "npm:hoist-non-react-statics@2.3.1",
     "jss": "npm:jss@8.1.0",
     "jss-preset-default": "npm:jss-preset-default@4.0.1",
     "react-jss": "npm:react-jss@7.2.0",

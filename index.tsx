@@ -61,7 +61,7 @@ import AnimatedGsapNew from './app-web/snack/animated-gsap-new'
 import Page from './app-web/snack/page'
 //import { App1, /*app3Reducer*/ } from './app-web/snack/router-new'
 import DrawerApp from './app-web/snack/drawer'
-import MuiTest from './app-web/snack/material-ui/test'
+import MuiTest from './app-web/snack/material-ui/theming-n'
 //import DrawerNativeLikeApp from './app-web/snack/drawer-native-like'
 //import Header from './app-web/snack/layout/index'
 

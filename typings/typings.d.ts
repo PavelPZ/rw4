@@ -1,9 +1,18 @@
-﻿declare module 'invariant' {
+﻿declare module 'warning' {
+  const warning: (condition: boolean, msg: string, ...arg: string[]) => void
+  export default warning
+}
+
+declare module 'invariant' {
   const invariant: (condition: boolean, msg: string, ...arg: string[]) => void
   export default invariant
 }
 
 declare module 'prop-types' {
+  export const any
+}
+
+declare module 'hoistNonReactStatics' {
   export const any
 }
 
