@@ -35,4 +35,3 @@ const button: React.SFC<IButtonProps> = props => {
   </Touchable>
 }
 
-

@@ -5,9 +5,7 @@ import deepmerge from 'deepmerge'; // < 1kb payload overhead when lodash/merge i
 import { Dimensions, PixelRatio } from 'react-native'
 import { Palette } from 'material-ui/styles/createPalette'
 
-function round(value) {
-  return Math.round(value * 1e5) / 1e5;
-}
+const round = (value:number) => Math.round(value * 1e5) / 1e5
 
 const defaultFonts = {
   light: {
@@ -35,6 +33,9 @@ export interface TypographyOptions {
   htmlFontSize?: number
 }
 
+export type TextStyle = 'display1' | 'display2' | 'display3' | 'display4' | 'headline' | 'title' | 'subheading' | 'body1' | 'body2' | 'caption'
+export type Style = TextStyle | 'button';
+
 export default function createTypography(palette: Palette, typography: Partial<TypographyOptions> | ((palette: Palette) => TypographyOptions)) {
   const {
     fontAssetPath = 'libs/rw-mui-n/fonts/',
@@ -52,75 +53,77 @@ export default function createTypography(palette: Palette, typography: Partial<T
     //fontWeightLight,
     //fontWeightRegular,
     //fontWeightMedium,
-    display4: {
-      fontSize: normalizeFontSize(112),
-      ...fonts.light,
-      lineHeight: round(128 / 112),
-      marginLeft: -.06 * htmlFontSize,
-      color: palette.text.secondary,
-    } as RN.TextStyle,
-    display3: {
-      fontSize: normalizeFontSize(56),
-      ...fonts.regular,
-      lineHeight: round(73 / 56),
-      marginLeft: -.04 * htmlFontSize,
-      color: palette.text.secondary,
-    } as RN.TextStyle,
-    display2: {
-      fontSize: normalizeFontSize(45),
-      ...fonts.regular,
-      lineHeight: round(48 / 45),
-      marginLeft: -.04 * htmlFontSize,
-      color: palette.text.secondary,
-    } as RN.TextStyle,
-    display1: {
-      fontSize: normalizeFontSize(34),
-      ...fonts.regular,
-      lineHeight: round(41 / 34),
-      marginLeft: -.04 * htmlFontSize,
-      color: palette.text.secondary,
-    } as RN.TextStyle,
-    headline: {
-      fontSize: normalizeFontSize(24),
-      ...fonts.regular,
-      lineHeight: round(32.5 / 24),
-      color: palette.text.primary,
-    } as RN.TextStyle,
-    title: {
-      fontSize: normalizeFontSize(21),
-      ...fonts.medium,
-      lineHeight: round(24.5 / 21),
-      color: palette.text.primary,
-    } as RN.TextStyle,
-    subheading: {
-      fontSize: normalizeFontSize(16),
-      ...fonts.regular,
-      lineHeight: round(24 / 16),
-      color: palette.text.primary,
-    } as RN.TextStyle,
-    body2: {
-      fontSize: normalizeFontSize(14),
-      ...fonts.medium,
-      lineHeight: round(24 / 14),
-      color: palette.text.primary,
-    } as RN.TextStyle,
-    body1: {
-      fontSize: normalizeFontSize(14),
-      ...fonts.regular,
-      lineHeight: round(20.5 / 14),
-      color: palette.text.primary,
-    } as RN.TextStyle,
-    caption: {
-      fontSize: normalizeFontSize(12),
-      ...fonts.regular,
-      lineHeight: round(16.5 / 12),
-      color: palette.text.secondary,
-    } as RN.TextStyle,
-    button: {
-      fontSize: normalizeFontSize(fontSize),
-      textTransform: 'uppercase',
-      ...fonts.medium,
-    } as RN.TextStyle,
+    ...{
+      display4: {
+        fontSize: normalizeFontSize(112),
+        ...fonts.light,
+        lineHeight: round(128 / 112),
+        marginLeft: -.06 * htmlFontSize,
+        color: palette.text.secondary,
+      },
+      display3: {
+        fontSize: normalizeFontSize(56),
+        ...fonts.regular,
+        lineHeight: round(73 / 56),
+        marginLeft: -.04 * htmlFontSize,
+        color: palette.text.secondary,
+      },
+      display2: {
+        fontSize: normalizeFontSize(45),
+        ...fonts.regular,
+        lineHeight: round(48 / 45),
+        marginLeft: -.04 * htmlFontSize,
+        color: palette.text.secondary,
+      },
+      display1: {
+        fontSize: normalizeFontSize(34),
+        ...fonts.regular,
+        lineHeight: round(41 / 34),
+        marginLeft: -.04 * htmlFontSize,
+        color: palette.text.secondary,
+      },
+      headline: {
+        fontSize: normalizeFontSize(24),
+        ...fonts.regular,
+        lineHeight: round(32.5 / 24),
+        color: palette.text.primary,
+      },
+      title: {
+        fontSize: normalizeFontSize(21),
+        ...fonts.medium,
+        lineHeight: round(24.5 / 21),
+        color: palette.text.primary,
+      }, 
+      subheading: {
+        fontSize: normalizeFontSize(16),
+        ...fonts.regular,
+        lineHeight: round(24 / 16),
+        color: palette.text.primary,
+      },
+      body2: {
+        fontSize: normalizeFontSize(14),
+        ...fonts.medium,
+        lineHeight: round(24 / 14),
+        color: palette.text.primary,
+      }, 
+      body1: {
+        fontSize: normalizeFontSize(14),
+        ...fonts.regular,
+        lineHeight: round(20.5 / 14),
+        color: palette.text.primary,
+      },
+      caption: {
+        fontSize: normalizeFontSize(12),
+        ...fonts.regular,
+        lineHeight: round(16.5 / 12),
+        color: palette.text.secondary,
+      },
+      button: {
+        fontSize: normalizeFontSize(fontSize),
+        textTransform: 'uppercase',
+        ...fonts.medium,
+      }, 
+    } as Record<Style, RN.TextStyle>
   }
   return deepmerge(
     typo,
@@ -140,7 +143,7 @@ const pixelRatio = PixelRatio.get();
 const deviceHeight = Dimensions.get('window').height;
 const deviceWidth = Dimensions.get('window').width;
 
-const normalizeFontSize = (size: number) => {
+export const normalizeFontSize = (size: number) => {
   if (pixelRatio >= 2 && pixelRatio < 3) {
     // iphone 5s and older Androids
     if (deviceWidth < 360) {

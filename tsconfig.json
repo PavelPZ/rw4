@@ -1,11 +1,7 @@
 {
   "compileOnSave": true,
   "compilerOptions": {
-    "target": "es5",
-    "module": "system",
-    "inlineSourceMap": true,
-    "inlineSources": true,
-    "importHelpers": true,
+    "target": "es6",
 
     "baseUrl": ".",
     "paths": {
@@ -22,9 +18,10 @@
     "strictNullChecks": false,
     "downlevelIteration": true,
     "moduleResolution": "node",
-    "strict": true,
+    //"strict": true,
     "noImplicitReturns": true,
     "strictFunctionTypes": false,
+
     "experimentalDecorators": true,
     "noImplicitAny": false,
     "jsx": "react",
@@ -34,9 +31,9 @@
       "esnext.asynciterable"
     ]
   },
-  "include": [ "**/*" ],
+  "include": [ "**/*", "App.js" ],
   "exclude": [
-    "typings/mdi-react-n.d.ts",
+    "typings/mdi-react-w.d.ts",
     "design",
     "jspm_packages",
     "node_modules"
