@@ -1,16 +1,16 @@
 import React from 'react'
-import { Icon } from 'react-native-elements'
+//import { Icon } from 'react-native-elements'
+import { MaterialIcons as Icon } from '@expo/vector-icons'
 
 export interface IIconProps extends Icon.IIconProps {
   n?: RNE.IconProps
 }
 
 const icon: React.SFC<IIconProps> = props => {
-  const { src, n = {}, color, size } = props
-  n.type = 'material-community'
-  if (color) n.color = color
-  if (size) n.size = size
-  return <Icon {...n}>{src}</Icon>
+  console.log(props)
+  const { src, color, size } = props
+  console.log(Icon)
+  return <Icon name={src} size={size} color={color}/>
 }
 
 export default icon

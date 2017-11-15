@@ -49,7 +49,7 @@ function createMuiTheme(options: ThemeOptions = {}) {
   const palette = createPalette(paletteInput);
   const breakpoints = createBreakpoints(breakpointsInput);
 
-  const muiTheme = {
+  const muiTheme: Theme = {
     direction: 'ltr',
     palette,
     typography: createTypography(palette, typographyInput as TypographyOptions),

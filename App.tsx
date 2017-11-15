@@ -31,6 +31,8 @@ import { AnimatedDrawer } from './app-native/gui/drawer'
 //import { Theme, colorToStyle } from './app-native/gui/theme'
 import { init as initMediaQuery } from './app-native/lib/native-media-query'
 
+import expoLoadFonts from 'rw-mui-n/styles/expoLoadFonts'
+
 import { Button as RNEButtons } from 'react-native-elements'
 
 import { ToastContainer as Toast } from 'native-base/src/basic/ToastContainer'
@@ -66,7 +68,9 @@ import { AppPage } from './app-common/snack/app-router'
 //import AppComp from './app-native/snack/drawer'
 //import AppComp from './app-common/snack/drawer'
 //import AppComp from './app-native/snack/page'
-import AppComp from './app-native/snack/mui/index'
+//import AppComp from './app-native/snack/mui/typography'
+//import AppComp from './app-native/snack/mui/shadows'
+import AppComp from './app-native/snack/mui/ripple'
 
 
 //console.log('APP')
@@ -96,6 +100,7 @@ export const init = async () => {
 
   const recordingJSON = await require('./App_Data/recording.json')
   await promiseAll([
+    expoLoadFonts(),
     //initRouter(),
     initRecording(recordingJSON),
     initRoot(),

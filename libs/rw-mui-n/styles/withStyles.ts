@@ -51,7 +51,7 @@ const styleCreator = <T extends StyleRules>(styleOrCreator: T | StyleRulesCallba
   return styleOverride(styles, overrides)
 }
 
-const withStyle = <T extends StyleRules>(styleOrCreator: T | StyleRulesCallback<T>, options?: WithStylesOptions) => <P>(Component: React.ComponentType<P & WithStyles<T>>) => {
+const withStyle = <T extends StyleRules>(styleOrCreator: T | StyleRulesCallback<T>, options: WithStylesOptions = {}) => <P>(Component: React.ComponentType<P & WithStyles<T>>) => {
   const Style: React.SFC<P & StyledComponentProps<T>> = (props, context: TMuiThemeContextValue) => {
     const { withTheme = false, flip, name } = options
     const { classes: classesProp, innerRef, ...other } = props as any //without any: does not works in TS

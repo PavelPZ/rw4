@@ -5,7 +5,7 @@ import { Text } from 'react-native'
 
 import withStyles, { WithStyles } from '../styles/withStyles'
 import { Theme } from '../styles/createMuiTheme'
-import { normalizeFontSize, Style } from '../styles/createTypography'
+import { Style } from '../styles/createTypography'
 import { PropTypes } from '../index'
 
 
@@ -16,6 +16,7 @@ export interface ITypographyProps {
   noWrap?: boolean
   paragraph?: boolean
   type?: Style
+  style?: RN.TextStyle
 }
 
 export type TypographyClassKey = Style | 'root' | 'alignLeft' | 'alignCenter' | 'alignRight' | 'gutterBottom' | 'paragraph' | 'colorInherit' | 'colorSecondary' | 'colorAccent'
@@ -23,7 +24,6 @@ export type TypographyClassKey = Style | 'root' | 'alignLeft' | 'alignCenter' | 
 type ITypographyStyle = Record<TypographyClassKey, RN.TextStyle> & { noWrap: RN.TextProperties }
 
 export const styles = (theme: Theme) => ({
-  root: { margin: 0, },
   display4: theme.typography.display4,
   display3: theme.typography.display3,
   display2: theme.typography.display2,
@@ -35,6 +35,8 @@ export const styles = (theme: Theme) => ({
   body1: theme.typography.body1,
   caption: theme.typography.caption,
   button: theme.typography.button,
+
+  root: { margin: 0, },
   alignLeft: { textAlign: 'left', },
   alignCenter: { textAlign: 'center', },
   alignRight: { textAlign: 'right', },
@@ -42,9 +44,9 @@ export const styles = (theme: Theme) => ({
     ellipsizeMode: 'tail',
     numberOfLines: 1
   },
-  gutterBottom: { marginBottom: normalizeFontSize(0.35 * 16) },
+  gutterBottom: { marginBottom: theme.typography.fontSizeNormalizer(0.35 * 16) },
   paragraph: { marginBottom: theme.spacing.unit * 2, },
-  colorInherit: { color: 'inherit', },
+  colorInherit: { color: undefined, },
   colorPrimary: { color: theme.palette.primary[500], },
   colorSecondary: { color: theme.palette.text.secondary, },
   colorAccent: { color: theme.palette.secondary.A400, },
@@ -60,17 +62,20 @@ const typography: React.SFC<ITypographyProps & WithStyles<ITypographyStyle>> = p
     noWrap,
     paragraph,
     type = 'body1',
+    style,
     ...other
   } = props
-  const style = {
-    ...classes.root,
-    ...classes[type],
-    ...(color !== 'default' && classes[`color${capitalizeFirstLetter(color)}`]),
-    ...(gutterBottom && classes.gutterBottom),
-    ...(paragraph && classes.paragraph),
-    ...(align !== 'inherit' && classes[`align${capitalizeFirstLetter(align)}`]),
+  const actStyle = {
+    ...classes.root || null,
+    ...classes[type] || null,
+    ...(color !== 'default' && classes[`color${capitalizeFirstLetter(color)}`]) || null,
+    ...(gutterBottom && classes.gutterBottom) || null,
+    ...(paragraph && classes.paragraph) || null,
+    ...(align !== 'inherit' && classes[`align${capitalizeFirstLetter(align)}`]) || null,
+    ...style || null
   }
-  return <Text style={style} {...(noWrap && classes.noWrap) } {...other} />
+  //console.log(type, classes[type], actStyle)
+  return <Text style={actStyle} {...(noWrap && classes.noWrap) } {...other} />
 }
 
 const Typography = withStyles(styles)<ITypographyProps>(typography)
