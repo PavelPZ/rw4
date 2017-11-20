@@ -11,18 +11,14 @@ export interface IButtonBaseProps {
   style?: RN.ViewStyle
 }
 
-interface IButtonBaseStyle {
-  root: RN.ViewStyle
-  ripple: RN.ViewStyle
-  disabled: RN.ViewStyle
-}
+export type ButtonBaseClassKeyView = 'root' | 'ripple' | 'disabled'
 
-const styles: StyleRulesCallback<IButtonBaseStyle> = theme => ({
+type IButtonBaseStyle = Record<ButtonBaseClassKeyView, RN.ViewStyle>
+
+export const styles: StyleRulesCallback<IButtonBaseStyle> = theme => ({
   root: {
-    margin: 16,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: 'gray',
   },
   ripple: {
     backgroundColor: theme.palette.common.black

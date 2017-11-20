@@ -1,27 +1,29 @@
 ﻿import React from 'react'
-import { Platform, View, TouchableHighlight, TouchableNativeFeedback, Text } from 'react-native'
+import { Platform, View, Text } from 'react-native'
 
-import withStyles, { StyleRulesCallback } from 'rw-mui-n/styles/withStyles'
+import withStyles, { StyleRulesCallback, WithStyles } from 'rw-mui-n/styles/withStyles'
+import ButtonBase, { styles as baseStyles, ButtonBaseClassKeyView, IButtonBaseProps } from '../ButtonBase/ButtonBase'
 
-export interface IButtonProps {
-  disabled?: boolean
+import { PropTypes } from '../index'
+
+export interface IButtonProps extends IButtonBaseProps {
   fab?: boolean
   dense?: boolean
   href?: string
   raised?: boolean
   classes?: IButtonStyle
-  onclick: () => void
   rootRef?: React.Ref<any>
+  color?: PropTypes.Color | 'contrast' | 'default'
 }
 
-interface IButtonStyle {
-  root: RN.ViewStyle
-  label: RN.TextStyle
-}
+export type ButtonClassKeyView = ButtonBaseClassKeyView | 'root' | 'dense' | 'raised' | 'disabled' | 'fab' | 'raisedPrimary' | 'raisedAccent'
+export type ButtonClassKeyText = 'rootLabel' | 'denseLabel' | 'disabledLabel' | 'flatLabelPrimary' | 'flatLabelAccent' | 'flatLabelContrast' | 'raisedLabelAccent' | 'raisedLabelContrast' | 'raisedLabelPrimary'
+
+type IButtonStyle = Record<ButtonClassKeyText, RN.TextStyle> & Record<ButtonClassKeyView, RN.ViewStyle>
 
 const styles: StyleRulesCallback<IButtonStyle> = theme => ({
+  ...baseStyles(theme),
   root: {
-    ...theme.typography.button,
     minWidth: 88,
     minHeight: 36,
     paddingTop: theme.spacing.unit,
@@ -29,40 +31,41 @@ const styles: StyleRulesCallback<IButtonStyle> = theme => ({
     paddingLeft: theme.spacing.unit * 2,
     paddingRight: theme.spacing.unit * 2,
     borderRadius: 2,
+  },
+  rootLabel: {
+    ...theme.typography.button,
     color: theme.palette.text.primary,
   },
   dense: {
-    paddingTop: theme.spacing.unit-1,
-    paddingBottom: theme.spacing.unit-1,
+    paddingTop: theme.spacing.unit - 1,
+    paddingBottom: theme.spacing.unit - 1,
     paddingLeft: theme.spacing.unit,
     paddingRight: theme.spacing.unit,
     minWidth: 64,
     minHeight: 32,
-    fontSize: theme.typography.fontSizeNormalizer(theme.typography.fontSize - 1),
   },
-  flatLabelPrimary: {
-    color: theme.palette.primary[500],
-  },    
-  flatLabelAccent: {
-    color: theme.palette.secondary.A200,
-  },    
-  flatLabelContrast: {
-    color: theme.palette.getContrastText(theme.palette.primary[500]),
-  },    
+
+  denseLabel: { fontSize: theme.typography.fontSizeNormalizer(theme.typography.fontSize - 1), },
+
+  flatLabelPrimary: { color: theme.palette.primary[500], },
+  flatLabelAccent: { color: theme.palette.secondary.A200, },
+  flatLabelContrast: { color: theme.palette.getContrastText(theme.palette.primary[500]), },
 
   raised: {
-    color: theme.palette.getContrastText(theme.palette.grey[300]),
     backgroundColor: theme.palette.grey[300],
     boxShadow: theme.shadows[2],
   },
-  disabled: {
-    color: theme.palette.action.disabled,
-    backgroundColor: theme.palette.text.divider,
-  },
+  raisedPrimary: { backgroundColor: theme.palette.primary[500] },
+  raisedAccent: { backgroundColor: theme.palette.secondary.A200, },
 
-  label: { color: 'blue' },
+  raisedLabelAccent: { color: theme.palette.getContrastText(theme.palette.secondary.A200), },
+  raisedLabelContrast: { color: theme.palette.getContrastText(theme.palette.primary[500]), },
+  raisedLabelPrimary: { color: theme.palette.getContrastText(theme.palette.primary[500]), },
+
+  disabled: { backgroundColor: theme.palette.text.divider, },
+  disabledLabel: { color: theme.palette.action.disabled, },
+
   fab: {
-    borderRadius: '50%',
     padding: 0,
     minWidth: 0,
     width: 56,
@@ -71,12 +74,47 @@ const styles: StyleRulesCallback<IButtonStyle> = theme => ({
   },
 })
 
-const button: React.SFC<IButtonProps> = props => {
-  const Touchable = Platform.OS === 'android' ? TouchableNativeFeedback : TouchableHighlight
-  return <Touchable>
-    <View>
-      <Text></Text>
-    </View>
-  </Touchable>
+const button: React.SFC<IButtonProps & WithStyles<IButtonStyle>> = props => {
+  const {
+    children,
+    classes,
+    color = 'default',
+    dense,
+    disabled,
+    fab,
+    style,
+    raised,
+    ...other
+  } = props;
+
+  const flat = !raised && !fab
+  const viewStyle = {
+    ...classes.root || null,
+    ...((raised || fab) && classes.raised) || null,
+    ...(fab && classes.fab) || null,
+    ...(!flat && color === 'accent' && classes.raisedAccent) || null,
+    ...(!flat && color === 'primary' && classes.raisedPrimary) || null,
+    ...(dense && classes.dense) || null,
+    ...(disabled && classes.disabled) || null,
+    ...style || null,
+  }
+  const textStyle = {
+    ...classes.rootLabel || null,
+    ...(flat && color === 'accent' && classes.flatLabelAccent) || null,
+    ...(flat && color === 'contrast' && classes.flatLabelContrast) || null,
+    ...(flat && color === 'primary' && classes.flatLabelPrimary) || null,
+    ...(!flat && color === 'accent' && classes.raisedLabelAccent) || null,
+    ...(!flat && color === 'contrast' && classes.raisedLabelContrast) || null,
+    ...(!flat && color === 'primary' && classes.raisedLabelPrimary) || null,
+    ...(dense && classes.denseLabel) || null,
+    ...(disabled && classes.disabledLabel) || null,
+  }
+
+  const childs = React.Children.toArray(children).map(ch => {
+    if (typeof ch === 'string' || typeof ch === 'number') return <Text style={textStyle}>{ch}</Text>
+    else return React.cloneElement(ch, { ...ch.props, style: { ...ch.props.style || null, ...textStyle } })
+  })
+
+  return <ButtonBase style={viewStyle} disabled={disabled} {...other}>{childs}</ButtonBase>
 }
 

@@ -74,7 +74,6 @@
     <Content Include=".gitignore" />
     <TypeScriptCompile Include="app-common\gui\colors.ts" />
     <TypeScriptCompile Include="app-common\gui\colors-d.d.ts" />
-    <TypeScriptCompile Include="app-native\snack\mui\ripple - Copy.tsx" />
     <TypeScriptCompile Include="app-native\snack\mui\ripple.tsx" />
     <TypeScriptCompile Include="app-native\snack\mui\shadows.tsx" />
     <TypeScriptCompile Include="app-native\snack\mui\typography.tsx" />
