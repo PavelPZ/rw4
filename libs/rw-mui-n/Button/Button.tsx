@@ -1,8 +1,7 @@
 ﻿import React from 'react'
 import { Platform, View, TouchableHighlight, TouchableNativeFeedback, Text } from 'react-native'
 
-import withStyles, { StyleRules, WithStyles, StyleRulesCallback, StyledComponentProps } from 'rw-mui-n/styles/withStyles'
-import MuiThemeProvider from 'rw-mui-n/styles/MuiThemeProvider'
+import withStyles, { StyleRulesCallback } from 'rw-mui-n/styles/withStyles'
 
 export interface IButtonProps {
   disabled?: boolean

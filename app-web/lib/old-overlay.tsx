@@ -27,7 +27,7 @@ let blockGuiProps: TModalPropsLow;
 
 //root aplikace. Obsahuje aplikaci a VEDLE div jako placeholder pro Overlay backdrops a modal wrappers
 export class Provider extends React.Component {
-  constructor() { super(); provider = this; }
+  constructor(props) { super(props); provider = this; }
   render(): JSX.Element {
     return <OverlaysStack ref={st => overlayStack = st} app={
       <div key='app' className={renderCSS({ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, overflow: 'auto' })}>

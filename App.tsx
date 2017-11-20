@@ -35,8 +35,8 @@ import expoLoadFonts from 'rw-mui-n/styles/expoLoadFonts'
 
 import { Button as RNEButtons } from 'react-native-elements'
 
-import { ToastContainer as Toast } from 'native-base/src/basic/ToastContainer'
-import { ActionSheetContainer as ActionSheet } from 'native-base/src/basic/Actionsheet'
+//import { ToastContainer as Toast } from 'native-base/src/basic/ToastContainer'
+//import { ActionSheetContainer as ActionSheet } from 'native-base/src/basic/Actionsheet'
 
 //************ aplikace k testovani
 
@@ -142,8 +142,9 @@ export const init = async () => {
         <RouterProvider key={1} />
         <BlockGuiComp key={2} />
         <RecorderButton key={3} />
+        {/*
         <Toast ref={c => { if (!Toast.toastInstance) Toast.toastInstance = c }} key={4} />
-        <ActionSheet ref={c => { if (!ActionSheet.actionsheetInstance) ActionSheet.actionsheetInstance = c }} key={5} />
+        <ActionSheet ref={c => { if (!ActionSheet.actionsheetInstance) ActionSheet.actionsheetInstance = c }} key={5} />*/}
       </LayerProvider>
     </LocProvider>
   </ReduxProvider>

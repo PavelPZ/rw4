@@ -15,8 +15,8 @@ interface IAction extends App.ActionLow {
 }
 
 export interface ITestValue {
-  fromUrl: string
-  state: string
+  fromUrl?: string
+  state?: string
 }
 export interface ITestState {
   name?: string
@@ -59,11 +59,11 @@ const connector = connect<ITestProps, ITestDispatchProps, {}>(
   //  areStatesEqual: (s1: IMyState, s2: IMyState) => s1.connectTest.name === s2.connectTest.name && s1.connectTest.value.value === s2.connectTest.value.value
   //}
   undefined,
-  {
-    areStatesEqual: (s1: IMyState, s2: IMyState) => {
-      return s1.connectTest.name === s2.connectTest.name
-    }
-  }
+  //{
+  //  areStatesEqual: (s1: IMyState, s2: IMyState) => {
+  //    return s1.connectTest.name === s2.connectTest.name
+  //  }
+  //}
 )
 
 const reducer2: App.IReducer<ITestValue> = (state, action: IAction) => {
@@ -102,11 +102,11 @@ const connector2 = connect<ITestValue, ITestDispatchProps, IApp2OwnProps>(
     changeState: value => dispatch({ type: Consts.STATE, value } as IAction),
   } as ITestDispatchProps),
   undefined,
-  {
-    areStatesEqual: (s1: IMyState, s2: IMyState) => {
-      return shallowEqual(s1.connectTest.pars, s2.connectTest.pars)
-    }
-  }
+  //{
+  //  areStatesEqual: (s1: IMyState, s2: IMyState) => {
+  //    return shallowEqual(s1.connectTest.pars, s2.connectTest.pars)
+  //  }
+  //}
 )
 const app2: React.SFC<ITestValue & IApp2OwnProps & ITestDispatchProps> = props => {
   return <blockquote>

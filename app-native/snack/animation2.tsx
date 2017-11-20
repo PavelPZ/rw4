@@ -15,8 +15,8 @@ import {
 export default class OpacityBugDemo extends Component {
   state = { items: [] };
 
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
     if (Platform.OS === 'android') {
       UIManager.setLayoutAnimationEnabledExperimental && UIManager.setLayoutAnimationEnabledExperimental(true);

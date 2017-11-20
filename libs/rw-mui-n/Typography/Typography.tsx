@@ -3,8 +3,7 @@ import React from 'react'
 import { capitalizeFirstLetter } from 'material-ui/utils/helpers'
 import { Text } from 'react-native'
 
-import withStyles, { WithStyles } from '../styles/withStyles'
-import { Theme } from '../styles/createMuiTheme'
+import withStyles, { WithStyles, StyleRulesCallback } from '../styles/withStyles'
 import { Style } from '../styles/createTypography'
 import { PropTypes } from '../index'
 
@@ -23,7 +22,7 @@ export type TypographyClassKey = Style | 'root' | 'alignLeft' | 'alignCenter' | 
 
 type ITypographyStyle = Record<TypographyClassKey, RN.TextStyle> & { noWrap: RN.TextProperties }
 
-export const styles = (theme: Theme) => ({
+export const styles: StyleRulesCallback<ITypographyStyle> = theme => ({
   display4: theme.typography.display4,
   display3: theme.typography.display3,
   display2: theme.typography.display2,

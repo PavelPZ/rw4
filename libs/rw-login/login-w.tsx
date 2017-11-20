@@ -35,8 +35,8 @@ let element
 
 export class Provider extends React.PureComponent<WebLogin.IProviderProps> {
 
-  constructor() {
-    super()
+  constructor(props) {
+    super(props)
     invariant(!provider, 'cannot create more web-login.Provider')
     provider = this
   }
