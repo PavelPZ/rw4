@@ -77,6 +77,6 @@ const typography: React.SFC<ITypographyProps & WithStyles<ITypographyStyle>> = p
   return <Text style={actStyle} {...(noWrap && classes.noWrap) } {...other} />
 }
 
-const Typography = withStyles(styles)<ITypographyProps>(typography)
+const Typography = withStyles(styles, { name: 'MuiTypography-n' })<ITypographyProps>(typography)
 
 export default Typography

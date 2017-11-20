@@ -1,3 +1,18 @@
+interface TextStyle extends TextStyle_wn {
+  web: React.CSSProperties
+  rn: RN.TextStyle
+}
+
+interface ViewStyle extends ViewStyle_wn {
+  web: React.CSSProperties
+  rn: RN.TextStyle
+}
+
+interface ImageStyle extends ImageStyle_wn {
+  web: React.CSSProperties
+  rn: RN.TextStyle
+}
+
 type TextStyle_wn = TakeFrom<RN.TextStyle, CSS.w_compatible_with_n & keyof RN.TextStyle>
 type ViewStyle_wn = TakeFrom<RN.ViewStyle, CSS.w_compatible_with_n & keyof RN.ViewStyle>
 type ImageStyle_wn = TakeFrom<RN.ImageStyle, CSS.w_compatible_with_n & keyof RN.ImageStyle>
@@ -34,6 +49,7 @@ declare namespace CSS {
   }
 
   type w_compatible_with_n = Diff<keyof ReactCSSProperties, 'transform'>
+  //type w_compatible_with_n = Diff<keyof CSSProperties, 'transform'>
     
   type CSSWideKeyword = "initial" | "inherit" | "unset";
   type CSSPercentage = string;

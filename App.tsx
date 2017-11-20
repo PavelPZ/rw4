@@ -70,7 +70,8 @@ import { AppPage } from './app-common/snack/app-router'
 //import AppComp from './app-native/snack/page'
 //import AppComp from './app-native/snack/mui/typography'
 //import AppComp from './app-native/snack/mui/shadows'
-import AppComp from './app-native/snack/mui/ripple'
+//import AppComp from './app-native/snack/mui/ripple'
+import AppComp from './app-native/snack/mui/icon'
 
 
 //console.log('APP')

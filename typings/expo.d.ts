@@ -1210,7 +1210,7 @@ declare module '@expo/vector-icons' {
   export class Foundation extends React.Component<IconProps> { }
   export class Ionicons extends React.Component<IconProps> { }
   export class MaterialIcons extends React.Component<IconProps> { }
-  export class MaterialComunityIcons extends React.Component<IconProps> { }
+  export class MaterialCommunityIcons extends React.Component<IconProps> { }
   export class Octicons extends React.Component<IconProps> { }
   export class Zocial extends React.Component<IconProps> { }
   export class SimpleLineIcons extends React.Component<IconProps> { }

@@ -12,7 +12,7 @@ const theme = createMuiTheme({})
 
 const app = () => <MuiThemeProvider theme={theme}>
   <ScrollView style={{ marginTop: 20 }}>
-    {theme.shadows.map((sh, idx) => <View key={idx} style={{ width: 50, height: 50, marginLeft: 50, marginTop: 30, borderWidth: 0, padding:10, borderColor: 'black', borderStyle: 'solid', ...sh }}>
+    {theme.shadows.map((sh:any, idx) => <View key={idx} style={{ width: 50, height: 50, marginLeft: 50, marginTop: 30, borderWidth: 0, padding:10, borderColor: 'black', borderStyle: 'solid', ...sh }}>
       <Text>{idx}</Text>
     </View>)}
   </ScrollView>

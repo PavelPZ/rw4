@@ -74,6 +74,7 @@
     <Content Include=".gitignore" />
     <TypeScriptCompile Include="app-common\gui\colors.ts" />
     <TypeScriptCompile Include="app-common\gui\colors-d.d.ts" />
+    <TypeScriptCompile Include="app-native\snack\mui\icon.tsx" />
     <TypeScriptCompile Include="app-native\snack\mui\ripple.tsx" />
     <TypeScriptCompile Include="app-native\snack\mui\shadows.tsx" />
     <TypeScriptCompile Include="app-native\snack\mui\typography.tsx" />
@@ -81,6 +82,7 @@
     <TypeScriptCompile Include="app-web\snack\material-ui\theming-n.tsx" />
     <TypeScriptCompile Include="app-web\snack\material-ui\theming-w.tsx" />
     <TypeScriptCompile Include="libs\rw-mui-n\ButtonBase\ButtonBase.tsx" />
+    <TypeScriptCompile Include="libs\rw-mui-n\Icon\Icon.tsx" />
     <TypeScriptCompile Include="libs\rw-mui-n\index.ts" />
     <TypeScriptCompile Include="libs\rw-mui-n\styles\expoLoadFonts.ts" />
     <TypeScriptCompile Include="libs\rw-mui-n\Typography\Typography.tsx" />

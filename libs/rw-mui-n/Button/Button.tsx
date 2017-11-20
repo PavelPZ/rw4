@@ -16,7 +16,7 @@ export interface IButtonProps extends IButtonBaseProps {
   color?: PropTypes.Color | 'contrast' | 'default'
 }
 
-export type ButtonClassKeyView = ButtonBaseClassKeyView | 'root' | 'dense' | 'raised' | 'disabled' | 'fab' | 'raisedPrimary' | 'raisedAccent'
+export type ButtonClassKeyView = ButtonBaseClassKeyView | 'root' | 'dense' | 'raised' | 'disabled' | 'fab' | 'raisedPrimary' | 'raisedAccent' 
 export type ButtonClassKeyText = 'rootLabel' | 'denseLabel' | 'disabledLabel' | 'flatLabelPrimary' | 'flatLabelAccent' | 'flatLabelContrast' | 'raisedLabelAccent' | 'raisedLabelContrast' | 'raisedLabelPrimary'
 
 type IButtonStyle = Record<ButtonClassKeyText, RN.TextStyle> & Record<ButtonClassKeyView, RN.ViewStyle>
@@ -33,7 +33,7 @@ const styles: StyleRulesCallback<IButtonStyle> = theme => ({
     borderRadius: 2,
   },
   rootLabel: {
-    ...theme.typography.button,
+    ...theme.typography.button as any,
     color: theme.palette.text.primary,
   },
   dense: {
@@ -45,7 +45,7 @@ const styles: StyleRulesCallback<IButtonStyle> = theme => ({
     minHeight: 32,
   },
 
-  denseLabel: { fontSize: theme.typography.fontSizeNormalizer(theme.typography.fontSize - 1), },
+  denseLabel: { fontSize: theme.typography.fontSizeNormalizer((theme.typography.fontSize as number) - 1), },
 
   flatLabelPrimary: { color: theme.palette.primary[500], },
   flatLabelAccent: { color: theme.palette.secondary.A200, },
@@ -57,15 +57,19 @@ const styles: StyleRulesCallback<IButtonStyle> = theme => ({
   },
   raisedPrimary: { backgroundColor: theme.palette.primary[500] },
   raisedAccent: { backgroundColor: theme.palette.secondary.A200, },
-
+  
   raisedLabelAccent: { color: theme.palette.getContrastText(theme.palette.secondary.A200), },
   raisedLabelContrast: { color: theme.palette.getContrastText(theme.palette.primary[500]), },
   raisedLabelPrimary: { color: theme.palette.getContrastText(theme.palette.primary[500]), },
 
-  disabled: { backgroundColor: theme.palette.text.divider, },
+  disabled: {
+    backgroundColor: theme.palette.text.divider,
+    boxShadow: theme.shadows[0],
+  },
   disabledLabel: { color: theme.palette.action.disabled, },
 
   fab: {
+    borderRadius: 56/2,
     padding: 0,
     minWidth: 0,
     width: 56,
@@ -110,11 +114,16 @@ const button: React.SFC<IButtonProps & WithStyles<IButtonStyle>> = props => {
     ...(disabled && classes.disabledLabel) || null,
   }
 
+  //console.log(viewStyle, textStyle)
+
   const childs = React.Children.toArray(children).map(ch => {
     if (typeof ch === 'string' || typeof ch === 'number') return <Text style={textStyle}>{ch}</Text>
-    else return React.cloneElement(ch, { ...ch.props, style: { ...ch.props.style || null, ...textStyle } })
+    else return React.cloneElement(ch, { ...ch.props, style: { ...textStyle, ...ch.props.style || null } })
   })
 
   return <ButtonBase style={viewStyle} disabled={disabled} {...other}>{childs}</ButtonBase>
 }
 
+const Button = withStyles(styles, { name: 'MuiButton-n' })<IButtonProps>(button)
+
+export default Button

@@ -2,6 +2,7 @@
 import { View, TouchableWithoutFeedback, Animated, Easing, Platform, Text, LayoutRectangle } from 'react-native';
 
 import withStyles, { StyleRulesCallback, WithStyles } from '../styles/withStyles'
+import { Theme } from 'material-ui/styles/createMuiTheme'
 
 export interface IButtonBaseProps {
   disabled?: boolean
@@ -21,13 +22,14 @@ export const styles: StyleRulesCallback<IButtonBaseStyle> = theme => ({
     justifyContent: 'center',
   },
   ripple: {
-    backgroundColor: theme.palette.common.black
+    backgroundColor: theme.palette.common.black,
+    opacity: 0.12,
   },
   disabled: {
   }
 })
 
-const maxOpacity = 0.12
+//const maxOpacity = 0.12
 const buttonBase: React.SFC<IButtonBaseProps & WithStyles<IButtonBaseStyle>> = props => {
   const {
     classes,
@@ -36,6 +38,7 @@ const buttonBase: React.SFC<IButtonBaseProps & WithStyles<IButtonBaseStyle>> = p
     disabled,
     disableRipple,
     onClick,
+    theme,
     ...other
   } = props
 
@@ -49,21 +52,22 @@ const buttonBase: React.SFC<IButtonBaseProps & WithStyles<IButtonBaseStyle>> = p
   let rect: LayoutRectangle
   return <TouchableWithoutFeedback disabled={disabled} onPress={onClick} onPressIn={() => ripple && ripple.onPressedIn(rect)} onPressOut={() => ripple && ripple.onPressedOut()} onLayout={({ nativeEvent: { layout } }) => rect = layout}>
     <View style={actStyle}>
-      {!disabled && !disableRipple && <RippleEffect style={classes.ripple} ref={rv => ripple = rv} />}
+      {!disabled && !disableRipple && <RippleEffect theme={theme} style={classes.ripple} ref={rv => ripple = rv} />}
       {children}
     </View>
   </TouchableWithoutFeedback>
 }
 
-class RippleEffect extends React.PureComponent<{ style: RN.ViewStyle }> {
+class RippleEffect extends React.PureComponent<{ style: RN.ViewStyle, theme: Theme }> {
   state: Partial<LayoutRectangle> = {}
   scaleValue = new Animated.Value(0.01)
-  opacityValue = new Animated.Value(maxOpacity)
+  maxOpacity = this.props.style.opacity || 0.12
+  opacityValue = new Animated.Value(this.maxOpacity)
   scale: Animated.CompositeAnimation
   opacity: Animated.CompositeAnimation
 
   clear() {
-    const { scale, opacity } = this
+    const { scale, opacity, maxOpacity } = this
     if (scale) scale.stop(); delete this.scale
     if (opacity) opacity.stop(); delete this.opacity
     this.scaleValue.setValue(0.01);
@@ -75,7 +79,7 @@ class RippleEffect extends React.PureComponent<{ style: RN.ViewStyle }> {
     this.clear()
     this.scale = Animated.timing(this.scaleValue, {
       toValue: 1,
-      duration: 225,
+      duration: this.props.theme.transitions.duration.short,
       easing: Easing.bezier(0.0, 0.0, 0.2, 1),
       useNativeDriver: Platform.OS === 'android',
     })
@@ -87,7 +91,7 @@ class RippleEffect extends React.PureComponent<{ style: RN.ViewStyle }> {
   onPressedOut() {
     console.log('onPressedOut')
     this.opacity = Animated.timing(this.opacityValue, {
-      duration: 225,
+      duration: this.props.theme.transitions.duration.short,
       toValue: 0,
       useNativeDriver: Platform.OS === 'android',
     })
@@ -116,6 +120,6 @@ class RippleEffect extends React.PureComponent<{ style: RN.ViewStyle }> {
   }
 }
 
-const ButtonBase = withStyles(styles)<IButtonBaseProps>(buttonBase)
+const ButtonBase = withStyles(styles, { name: 'ButtonBase-n' })<IButtonBaseProps>(buttonBase)
 
 export default ButtonBase

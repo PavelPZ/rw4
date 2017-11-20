@@ -1,6 +1,6 @@
 import React from 'react'
 //import { Icon } from 'react-native-elements'
-import { MaterialIcons as Icon } from '@expo/vector-icons'
+import { MaterialCommunityIcons as Icon } from '@expo/vector-icons'
 
 export interface IIconProps extends Icon.IIconProps {
   n?: RNE.IconProps

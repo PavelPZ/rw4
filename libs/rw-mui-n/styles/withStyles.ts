@@ -2,13 +2,15 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import hoistNonReactStatics from 'hoist-non-react-statics'
 //import mui_withStyles, { StyleRules, StyleRulesCallback, WithStyles, WithStylesOptions, StyledComponentProps } from 'material-ui/styles/withStyles'
+import { StyleRules as muiStyleRules} from 'material-ui/styles/withStyles'
 import { TMuiThemeContextValue, MuiThemeContextTypes } from './MuiThemeProvider'
-import createMuiTheme, { Theme } from './createMuiTheme'
+import createMuiTheme from './createMuiTheme'
+import { Theme } from 'material-ui/styles/createMuiTheme'
 import warning from 'invariant'
 import pure from 'recompose/pure'
 
 export type RNStyles = RN.TextStyle | RN.ViewStyle | RN.ImageStyle
-export type StyleRules = {}
+export type StyleRules = {} | muiStyleRules
 export type StyleRulesCallback<T extends StyleRules> = (theme: Theme) => T
 
 export interface WithStylesOptions {
@@ -27,9 +29,9 @@ export interface StyledComponentProps<T extends StyleRules> {
   innerRef?: React.Ref<any>
 }
 
-interface IThemeOverrides extends Theme {
-  overrides?: { [name: string]: StyleRules }
-}
+//interface IThemeOverrides extends Theme {
+//  overrides?: { [name: string]: StyleRules }
+//}
 
 
 let defaultTheme: Theme
@@ -45,7 +47,7 @@ const styleOverride = (styles: StyleRules, overrides: StyleRules, name:string) =
   return stylesWithOverrides
 }
 
-const styleCreator = <T extends StyleRules>(styleOrCreator: T | StyleRulesCallback<T>, theme: IThemeOverrides, name?: string) => {
+const styleCreator = <T extends StyleRules>(styleOrCreator: T | StyleRulesCallback<T>, theme: Theme, name?: string) => {
   const overrides = theme.overrides && name && theme.overrides[name]
   const styles: StyleRules = typeof styleOrCreator === 'function' ? styleOrCreator(theme) : styleOrCreator
   return styleOverride(styles, overrides, name)
@@ -53,9 +55,7 @@ const styleCreator = <T extends StyleRules>(styleOrCreator: T | StyleRulesCallba
 
 const withStyle = <T extends StyleRules>(styleOrCreator: T | StyleRulesCallback<T>, options: WithStylesOptions = {}) => <P>(Component: React.ComponentType<P & WithStyles<T>>) => {
   const Style: React.SFC<P & StyledComponentProps<T>> = (props, context: TMuiThemeContextValue) => {
-    console.log('withStyle 1', options)
     const { withTheme = false, flip, name } = options
-    console.log(name)
     const { classes: classesProp, innerRef, ...other } = props as any //without any: does not works in TS
     const theme = context.theme || getDefaultTheme()
 

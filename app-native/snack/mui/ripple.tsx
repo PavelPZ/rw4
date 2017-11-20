@@ -9,7 +9,7 @@ class TestPage extends PureComponent {
     return (
       <View style={{ margin: 50, width: '50%', height: '20%' }}>
         <Text>START</Text>
-        <ButtonBase classes={{ ripple: { backgroundColor: 'yellow' } }} onClick={() => { }}>
+        <ButtonBase classes={{ ripple: { backgroundColor: 'yellow', opacity:0.9 } }} style={{ backgroundColor: 'gray' }} onClick={() => { }}>
           <Text style={{ color: 'white' }}>ICON START</Text>
           <Ionicons name="md-checkmark-circle" size={32} color="yellow" />
           {/*<Icon src={icon} size={size} color={color} />*/}
