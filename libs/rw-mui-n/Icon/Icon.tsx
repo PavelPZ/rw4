@@ -3,7 +3,8 @@
 import withStyles, { StyleRulesCallback, WithStyles } from 'rw-mui-n/styles/withStyles'
 import { MaterialCommunityIcons as MIcon } from '@expo/vector-icons'
 import { capitalizeFirstLetter } from 'material-ui/utils/helpers'
-         
+
+        
 import warning from 'warning'
 
 import { PropTypes } from '../index'

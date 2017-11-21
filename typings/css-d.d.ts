@@ -1,55 +1,50 @@
-interface TextStyle extends TextStyle_wn {
-  web: React.CSSProperties
-  rn: RN.TextStyle
-}
-
-interface ViewStyle extends ViewStyle_wn {
-  web: React.CSSProperties
-  rn: RN.TextStyle
-}
-
-interface ImageStyle extends ImageStyle_wn {
-  web: React.CSSProperties
-  rn: RN.TextStyle
-}
-
-type TextStyle_wn = TakeFrom<RN.TextStyle, CSS.w_compatible_with_n & keyof RN.TextStyle>
-type ViewStyle_wn = TakeFrom<RN.ViewStyle, CSS.w_compatible_with_n & keyof RN.ViewStyle>
-type ImageStyle_wn = TakeFrom<RN.ImageStyle, CSS.w_compatible_with_n & keyof RN.ImageStyle>
-
-type T_w<T> = Omit<React.AllHTMLAttributes<HTMLElement>, keyof React.AllHTMLAttributes<HTMLElement> & keyof T>
+type TextStyle = CSS.commonStyle<RN.TextStyle, CSS.TextStyle_wn>
+type ViewStyle = CSS.commonStyle<RN.ViewStyle, CSS.ViewStyle_wn>
+type ImageStyle = CSS.commonStyle<RN.ImageStyle, CSS.ImageStyle_wn>
 
 type CSSProperties = React.CSSProperties
 
 declare namespace CSS {
 
+  type commonStyle<T, B> = B & {
+    web?: CSSProperties
+    rn?: T
+    ios?: T
+    android?: T
+    win?: T
+  }
 
-  interface special_w {
-    //Common, different type
-    transform?: CSSWideKeyword | any
-    overflow?: CSSWideKeyword | "auto" | "hidden" | "scroll" | "visible"
-    position?: CSSWideKeyword | "static" | "relative" | "absolute" | "fixed" | "sticky"
-    display?: CSSWideKeyword | any
-    //Web only
-    //cursor?: CSSWideKeyword | any
-    //whiteSpace?: CSSWideKeyword | any
-    //visibility?: CSSWideKeyword | any
-    //fill?: CSSWideKeyword | any
-    //border?: CSSWideKeyword | any
-    //outline?: CSSWideKeyword | any
-    //wordWrap?: CSSWideKeyword | any
-    //textDecoration?: CSSWideKeyword | any
-    //textTransform?: CSSWideKeyword | any
-  }
-  interface special_n {
-    display?: "none" | "flex"
-    overflow?: "visible" | "hidden" | "scroll"
-    position?: "absolute" | "relative"
-    transform?
-  }
+  type TextStyle_wn = TakeFrom<RN.TextStyle, CSS.w_compatible_with_n & keyof RN.TextStyle>
+  type ViewStyle_wn = TakeFrom<RN.ViewStyle, CSS.w_compatible_with_n & keyof RN.ViewStyle>
+  type ImageStyle_wn = TakeFrom<RN.ImageStyle, CSS.w_compatible_with_n & keyof RN.ImageStyle>
+
+  //interface special_w {
+  //  //Common, different type
+  //  transform?: CSSWideKeyword | any
+  //  overflow?: CSSWideKeyword | "auto" | "hidden" | "scroll" | "visible"
+  //  position?: CSSWideKeyword | "static" | "relative" | "absolute" | "fixed" | "sticky"
+  //  display?: CSSWideKeyword | any
+  //  //Web only
+  //  cursor?: CSSWideKeyword | any
+  //  whiteSpace?: CSSWideKeyword | any
+  //  visibility?: CSSWideKeyword | any
+  //  fill?: CSSWideKeyword | any
+  //  border?: CSSWideKeyword | any
+  //  outline?: CSSWideKeyword | any
+  //  wordWrap?: CSSWideKeyword | any
+  //  textDecoration?: CSSWideKeyword | any
+  //  textTransform?: CSSWideKeyword | any
+  //}
+  //interface special_n {
+  //  display?: "none" | "flex"
+  //  overflow?: "visible" | "hidden" | "scroll"
+  //  position?: "absolute" | "relative"
+  //  transform?
+  //}
+
+  //type T_w<T> = Omit<React.AllHTMLAttributes<HTMLElement>, keyof React.AllHTMLAttributes<HTMLElement> & keyof T>
 
   type w_compatible_with_n = Diff<keyof ReactCSSProperties, 'transform'>
-  //type w_compatible_with_n = Diff<keyof CSSProperties, 'transform'>
     
   type CSSWideKeyword = "initial" | "inherit" | "unset";
   type CSSPercentage = string;

@@ -46,6 +46,9 @@ function createMuiTheme(options: ThemeOptions = {}) {
     mixins: mixinsInput = {},
     typography: typographyInput = {},
     shadows: shadowsInput,
+    transitions: transitionsInput,
+    spacing: spacingInput,
+    zIndex: zIndexInput,
     ...other
   } = options;
 
@@ -59,14 +62,18 @@ function createMuiTheme(options: ThemeOptions = {}) {
     mixins: createMixins(breakpoints, spacing, mixinsInput),
     breakpoints,
     shadows: shadowsInput || shadows,
-    transitions: { duration },
     ...deepmerge(
       {
-        //transitions,
+        transitions: { duration },
         spacing,
         zIndex,
       },
-      other,
+      {
+        transitionsInput,
+        spacingInput,
+        zIndexInput,
+        ...other
+      },
     ),
   };
 
