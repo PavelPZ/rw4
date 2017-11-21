@@ -31,7 +31,7 @@ import { AnimatedDrawer } from './app-native/gui/drawer'
 //import { Theme, colorToStyle } from './app-native/gui/theme'
 import { init as initMediaQuery } from './app-native/lib/native-media-query'
 
-import expoLoadFonts from 'rw-mui-n/styles/expoLoadFonts'
+import expoLoadFonts from 'rw-mui/styles/expoLoadFonts'
 
 import { Button as RNEButtons } from 'react-native-elements'
 

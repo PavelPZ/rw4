@@ -74,6 +74,7 @@
     <Content Include=".gitignore" />
     <TypeScriptCompile Include="app-common\gui\colors.ts" />
     <TypeScriptCompile Include="app-common\gui\colors-d.d.ts" />
+    <TypeScriptCompile Include="app-common\snack\mui\typography.tsx" />
     <TypeScriptCompile Include="app-native\snack\mui\icon.tsx" />
     <TypeScriptCompile Include="app-native\snack\mui\ripple.tsx" />
     <TypeScriptCompile Include="app-native\snack\mui\shadows.tsx" />
@@ -81,22 +82,35 @@
     <TypeScriptCompile Include="app-native\snack\mui\index.tsx" />
     <TypeScriptCompile Include="app-web\snack\material-ui\theming-n.tsx" />
     <TypeScriptCompile Include="app-web\snack\material-ui\theming-w.tsx" />
-    <TypeScriptCompile Include="libs\rw-mui-n\ButtonBase\ButtonBase.tsx" />
-    <TypeScriptCompile Include="libs\rw-mui-n\Icon\Icon.tsx" />
-    <TypeScriptCompile Include="libs\rw-mui-n\index.ts" />
+    <TypeScriptCompile Include="libs\rw-mui-w\ButtonBase\ButtonBase.tsx" />
+    <TypeScriptCompile Include="libs\rw-mui-w\Button\Button.tsx" />
+    <TypeScriptCompile Include="libs\rw-mui-w\Icon\Icon.tsx" />
+    <TypeScriptCompile Include="libs\rw-mui-w\index.ts" />
+    <TypeScriptCompile Include="libs\rw-mui-w\styles\createMuiTheme.ts" />
+    <TypeScriptCompile Include="libs\rw-mui-w\styles\createTypography.ts" />
+    <TypeScriptCompile Include="libs\rw-mui-w\styles\expoLoadFonts.ts" />
+    <TypeScriptCompile Include="libs\rw-mui-w\styles\MuiThemeProvider.ts" />
+    <TypeScriptCompile Include="libs\rw-mui-w\styles\shadows.ts" />
+    <TypeScriptCompile Include="libs\rw-mui-w\styles\withStyles.ts" />
+    <TypeScriptCompile Include="libs\rw-mui-w\Typography\Typography.tsx" />
+    <TypeScriptCompile Include="libs\rw-mui\ButtonBase\ButtonBase.tsx" />
+    <TypeScriptCompile Include="libs\rw-mui\Icon\Icon.tsx" />
+    <TypeScriptCompile Include="libs\rw-mui\index.ts" />
     <TypeScriptCompile Include="libs\rw-styler\index.ts" />
-    <TypeScriptCompile Include="libs\rw-mui-n\styles\expoLoadFonts.ts" />
-    <TypeScriptCompile Include="libs\rw-mui-n\Typography\Typography.tsx" />
+    <TypeScriptCompile Include="libs\rw-mui\styles\expoLoadFonts.ts" />
+    <TypeScriptCompile Include="libs\rw-mui\Typography\Typography.tsx" />
     <TypeScriptCompile Include="libs\rw-controls\icon\icon-n.tsx" />
     <TypeScriptCompile Include="libs\rw-controls\icon\icon-w.tsx" />
-    <TypeScriptCompile Include="libs\rw-mui-n\Button\Button.tsx" />
-    <TypeScriptCompile Include="libs\rw-mui-n\styles\MuiThemeProvider.ts" />
+    <TypeScriptCompile Include="libs\rw-mui\Button\Button.tsx" />
+    <TypeScriptCompile Include="libs\rw-mui\styles\MuiThemeProvider.ts" />
     <TypeScriptCompile Include="libs\rw-controls\text\text-w.tsx" />
     <TypeScriptCompile Include="libs\rw-fela-w\index.tsx" />
-    <TypeScriptCompile Include="libs\rw-mui-n\styles\withStyles.ts" />
+    <TypeScriptCompile Include="libs\rw-mui\styles\withStyles.ts" />
     <TypeScriptCompile Include="libs\rw-utils\fela-like-w - Copy.tsx" />
     <TypeScriptCompile Include="libs\rw-utils\object-each.ts" />
     <TypeScriptCompile Include="libs\rw-utils\fela-like-w.tsx" />
+    <TypeScriptCompile Include="typings\mui.d.ts" />
+    <TypeScriptCompile Include="typings\mui-d.d.ts" />
     <TypeScriptCompile Include="typings\recompose.d.ts" />
     <TypeScriptCompile Include="typings\recompose-low.d.ts" />
     <TypeScriptCompile Include="typings\css-in-js.d.ts" />
@@ -281,23 +295,32 @@
     <Content Include="design\mdi-react-lm\scripts\generate.js" />
     <Content Include="home.html" />
     <Content Include="json.json" />
-    <TypeScriptCompile Include="libs\rw-mui-n\styles\createMuiTheme.ts" />
-    <TypeScriptCompile Include="libs\rw-mui-n\styles\shadows.ts" />
-    <TypeScriptCompile Include="libs\rw-mui-n\styles\createTypography.ts" />
-    <Content Include="libs\rw-mui-n\links.html" />
+    <TypeScriptCompile Include="libs\rw-mui\styles\createMuiTheme.ts" />
+    <TypeScriptCompile Include="libs\rw-mui\styles\shadows.ts" />
+    <TypeScriptCompile Include="libs\rw-mui\styles\createTypography.ts" />
+    <Content Include="libs\rw-mui\links.html" />
     <Content Include="Links.html" />
     <None Include="create-app\copy-dts.cmd" />
     <Content Include="tsconfig-mdi-react.json" />
     <Content Include="design\mdi-react-lm\package.json" />
     <Content Include="design\mdi-react.cmd" />
-    <Content Include="libs\rw-mui-n\theme.json" />
-    <Content Include="libs\rw-mui-n\fonts\Roboto-Light.ttf">
+    <Content Include="libs\rw-mui\theme.json" />
+    <Content Include="libs\rw-mui\fonts\Roboto-Light.ttf">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="libs\rw-mui-n\fonts\Roboto-Medium.ttf">
+    <Content Include="libs\rw-mui\fonts\Roboto-Medium.ttf">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="libs\rw-mui-n\fonts\Roboto-Regular.ttf">
+    <Content Include="libs\rw-mui\fonts\Roboto-Regular.ttf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="libs\rw-mui-w\fonts\Roboto-Light.ttf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="libs\rw-mui-w\fonts\Roboto-Medium.ttf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="libs\rw-mui-w\fonts\Roboto-Regular.ttf">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="tsconfig-native.json" />

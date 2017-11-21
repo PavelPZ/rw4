@@ -6,8 +6,8 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import withStyles, { StyleRules, WithStyles, StyleRulesCallback, StyledComponentProps } from 'material-ui/styles/withStyles'
 import { renderCSS } from 'rw-fela-w/index'
 
-//import withStyles, { StyleRules, WithStyles, StyleRulesCallback, StyledComponentProps } from 'rw-mui-n/styles/withStyles'
-//import MuiThemeProvider from 'rw-mui-n/styles/MuiThemeProvider'
+//import withStyles, { StyleRules, WithStyles, StyleRulesCallback, StyledComponentProps } from 'rw-mui/styles/withStyles'
+//import MuiThemeProvider from 'rw-mui/styles/MuiThemeProvider'
 //const renderCSS = <T>(style:T) => style
 
 

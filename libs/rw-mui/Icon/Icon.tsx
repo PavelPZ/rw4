@@ -1,6 +1,6 @@
 ﻿import React from 'react'
 
-import withStyles, { StyleRulesCallback, WithStyles } from 'rw-mui-n/styles/withStyles'
+import withStyles, { StyleRulesCallback, WithStyles } from 'rw-mui/styles/withStyles'
 import { MaterialCommunityIcons as MIcon } from '@expo/vector-icons'
 import { capitalizeFirstLetter } from 'material-ui/utils/helpers'
 

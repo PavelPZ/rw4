@@ -1,17 +1,18 @@
 ﻿import React from 'react'
 import { Platform, View, Text } from 'react-native'
 
-import withStyles, { StyleRulesCallback, WithStyles } from 'rw-mui-n/styles/withStyles'
+import withStyles, { StyleRulesCallback2, WithStyles2, withStyles2 } from 'rw-mui/styles/withStyles'
 import ButtonBase, { styles as baseStyles, ButtonBaseClassKeyView, IButtonBaseProps } from '../ButtonBase/ButtonBase'
 
 import { PropTypes } from '../index'
+import { StandardProps2 } from 'rw-mui/index'
 
-export interface IButtonProps extends IButtonBaseProps {
+export interface IButtonProps extends StandardProps2<IButtonBaseProps,IButtonStyle> {
+//export interface IButtonProps extends IButtonBaseProps {
   fab?: boolean
   dense?: boolean
   href?: string
   raised?: boolean
-  classes?: IButtonStyle
   rootRef?: React.Ref<any>
   color?: PropTypes.Color | 'contrast' | 'default'
 }
@@ -21,7 +22,7 @@ export type ButtonClassKeyText = 'rootLabel' | 'denseLabel' | 'disabledLabel' | 
 
 type IButtonStyle = Record<ButtonClassKeyText, RN.TextStyle> & Record<ButtonClassKeyView, RN.ViewStyle>
 
-const styles: StyleRulesCallback<IButtonStyle> = theme => ({
+const styles: StyleRulesCallback2<IButtonStyle> = theme => ({
   ...baseStyles(theme),
   root: {
     minWidth: 88,
@@ -78,7 +79,10 @@ const styles: StyleRulesCallback<IButtonStyle> = theme => ({
   },
 })
 
-const button: React.SFC<IButtonProps & WithStyles<IButtonStyle>> = props => {
+type t = WithStyles2<IButtonStyle>
+let T: t
+
+const button: React.SFC<IButtonProps & WithStyles2<IButtonStyle>> = props => {
   const {
     children,
     classes,
@@ -124,6 +128,8 @@ const button: React.SFC<IButtonProps & WithStyles<IButtonStyle>> = props => {
   return <ButtonBase style={viewStyle} disabled={disabled} {...other}>{childs}</ButtonBase>
 }
 
-const Button = withStyles(styles, { name: 'MuiButton-n' })<IButtonProps>(button)
+const Button = withStyles2(styles, { name: 'MuiButton-n' })<IButtonProps>(button)
+
+//const btn = <Button classes={{ root: {}, denseLabel: { color: '' } }} onClick={null}/>
 
 export default Button

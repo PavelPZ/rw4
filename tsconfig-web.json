@@ -14,7 +14,7 @@
       "rw-utils/*": [ "libs/rw-utils/*" ],
       "rw-controls/*": [ "libs/rw-controls/*" ],
       "rw-fela-w/*": [ "libs/rw-fela-w/*" ],
-      "rw-mui-n/*": [ "libs/rw-mui-n/*" ],
+      "rw-mui/*": [ "libs/rw-mui-w/*" ],
       "rw-styler/*": [ "libs/rw-styler/*" ],
       "recompose/*": [ "typings/recompose-low" ]
     },

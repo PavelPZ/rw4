@@ -7,8 +7,8 @@
 
 ////type IStyle = 'red' | 'blue'
 
-//import withStyles, { StyleRules, WithStyles, StyleRulesCallback, StyledComponentProps } from 'rw-mui-n/styles/withStyles'
-//import MuiThemeProvider from 'rw-mui-n/styles/MuiThemeProvider'
+//import withStyles, { StyleRules, WithStyles, StyleRulesCallback, StyledComponentProps } from 'rw-mui/styles/withStyles'
+//import MuiThemeProvider from 'rw-mui/styles/MuiThemeProvider'
 
 //const renderCSS = <T extends {}>(style: T) => style
 //interface IStyle { red: CSSProperties; blue: CSSProperties }

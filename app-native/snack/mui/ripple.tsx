@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import { View, TouchableWithoutFeedback, Animated, Easing, Platform, Text, LayoutRectangle } from 'react-native';
-//import withStyles, { WithStyles, StyleRulesCallback } from 'rw-mui-n/styles/withStyles'
-import ButtonBase from 'rw-mui-n/ButtonBase/ButtonBase'
+//import withStyles, { WithStyles, StyleRulesCallback } from 'rw-mui/styles/withStyles'
+import ButtonBase from 'rw-mui/ButtonBase/ButtonBase'
 import { Ionicons, IconProps } from '@expo/vector-icons'
 
 class TestPage extends PureComponent {
