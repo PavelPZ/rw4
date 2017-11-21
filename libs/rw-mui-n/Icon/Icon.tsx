@@ -4,6 +4,7 @@ import withStyles, { StyleRulesCallback, WithStyles } from 'rw-mui-n/styles/with
 import { MaterialCommunityIcons as MIcon } from '@expo/vector-icons'
 import { capitalizeFirstLetter } from 'material-ui/utils/helpers'
 
+import { styleNative } from 'rw-styler/index'
         
 import warning from 'warning'
 
@@ -24,8 +25,7 @@ export interface IIconProps {
 export type IIconStyle = Record<IconClassKey, IconStyle>
 
 const styles: StyleRulesCallback<IIconStyle> = theme => ({
-  root: {
-  },
+  root: { },
   colorAccent: { color: theme.palette.secondary.A200, },
   colorAction: { color: theme.palette.action.active, },
   colorContrast: { color: theme.palette.getContrastText(theme.palette.primary[500]), },
@@ -41,6 +41,7 @@ const icon: React.SFC<IIconProps & WithStyles<IIconStyle>> = props => {
     classes,
     color = 'inherit',
     style,
+    theme,
     ...other
   } = props;
 
@@ -57,7 +58,7 @@ const icon: React.SFC<IIconProps & WithStyles<IIconStyle>> = props => {
 
   console.log(name)
 
-  return <MIcon name={name} style={actStyle} />
+  return <MIcon name={name} style={styleNative(actStyle, theme.OS)} />
 }
 
 export const IconName = 'MuiIcon-n'

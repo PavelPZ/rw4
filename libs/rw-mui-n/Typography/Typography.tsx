@@ -5,6 +5,7 @@ import { Text } from 'react-native'
 
 import withStyles, { WithStyles, StyleRulesCallback } from '../styles/withStyles'
 import { Style } from '../styles/createTypography'
+import { styleNative } from 'rw-styler/index'
 import { PropTypes } from '../index'
 
 
@@ -15,15 +16,15 @@ export interface ITypographyProps {
   noWrap?: boolean
   paragraph?: boolean
   type?: Style
-  style?: RN.TextStyle
+  style?: TextStyle
 }
 
 export type TypographyClassKey = Style | 'root' | 'alignLeft' | 'alignCenter' | 'alignRight' | 'gutterBottom' | 'paragraph' | 'colorInherit' | 'colorSecondary' | 'colorAccent'
 
-type ITypographyStyle = Record<TypographyClassKey, RN.TextStyle> & { noWrap: RN.TextProperties }
+type ITypographyStyle = Record<TypographyClassKey, TextStyle> & { noWrap: RN.TextProperties }
 
 export const styles: StyleRulesCallback<ITypographyStyle> = theme => ({
-  display4: theme.typography.display4,
+  display4: theme.typography.display4, 
   display3: theme.typography.display3,
   display2: theme.typography.display2,
   display1: theme.typography.display1,
@@ -62,6 +63,7 @@ const typography: React.SFC<ITypographyProps & WithStyles<ITypographyStyle>> = p
     paragraph,
     type = 'body1',
     style,
+    theme,
     ...other
   } = props
   const actStyle = {
@@ -74,7 +76,7 @@ const typography: React.SFC<ITypographyProps & WithStyles<ITypographyStyle>> = p
     ...style || null
   }
   //console.log(type, classes[type], actStyle)
-  return <Text style={actStyle} {...(noWrap && classes.noWrap) } {...other} />
+  return <Text style={styleNative(actStyle, theme.OS)} {...(noWrap && classes.noWrap) } {...other} />
 }
 
 const Typography = withStyles(styles, { name: 'MuiTypography-n' })<ITypographyProps>(typography)

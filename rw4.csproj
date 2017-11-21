@@ -84,6 +84,7 @@
     <TypeScriptCompile Include="libs\rw-mui-n\ButtonBase\ButtonBase.tsx" />
     <TypeScriptCompile Include="libs\rw-mui-n\Icon\Icon.tsx" />
     <TypeScriptCompile Include="libs\rw-mui-n\index.ts" />
+    <TypeScriptCompile Include="libs\rw-styler\index.ts" />
     <TypeScriptCompile Include="libs\rw-mui-n\styles\expoLoadFonts.ts" />
     <TypeScriptCompile Include="libs\rw-mui-n\Typography\Typography.tsx" />
     <TypeScriptCompile Include="libs\rw-controls\icon\icon-n.tsx" />
@@ -211,7 +212,7 @@
     <TypeScriptCompile Include="libs\rw-utils\promise\index.ts" />
     <TypeScriptCompile Include="typings\react-native.d.ts" />
     <TypeScriptCompile Include="typings\react-redux.d.ts" />
-    <TypeScriptCompile Include="typings\css-d.d.ts" />
+    <TypeScriptCompile Include="libs\rw-styler\css-d.d.ts" />
     <TypeScriptCompile Include="typings\redux.d.ts" />
     <TypeScriptCompile Include="web-ionic.tsx" />
     <TypeScriptCompile Include="typings\typings.d.ts" />

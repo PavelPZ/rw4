@@ -10,7 +10,8 @@ import warning from 'invariant'
 import pure from 'recompose/pure'
 
 export type RNStyles = RN.TextStyle | RN.ViewStyle | RN.ImageStyle
-export type StyleRules = {} | muiStyleRules
+
+export type StyleRules = muiStyleRules //Record<ClassKey, Partial<TextStyle>>;//  {} | muiStyleRules
 export type StyleRulesCallback<T extends StyleRules> = (theme: Theme) => T
 
 export interface WithStylesOptions {
@@ -41,7 +42,7 @@ const styleOverride = (styles: StyleRules, overrides: StyleRules, name:string) =
   if (!overrides) return styles
   const stylesWithOverrides: StyleRules = { ...styles }
   Object.keys(overrides).forEach(key => {
-    warning(stylesWithOverrides[key], `Material-UI: you are trying to override a style that does not exist.\r\nFix the '${key}' key of 'theme.overrides.${name}'.`)
+    warning(!!stylesWithOverrides[key], `Material-UI: you are trying to override a style that does not exist.\r\nFix the '${key}' key of 'theme.overrides.${name}'.`)
     stylesWithOverrides[key] = { ...stylesWithOverrides[key], ...overrides[key] };
   })
   return stylesWithOverrides

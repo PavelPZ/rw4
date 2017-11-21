@@ -47,11 +47,9 @@ declare namespace Icon {
 declare namespace Text {
 
   interface ITextProps extends React.Attributes {
-    style?: TextStyle_wn
+    style?: TextStyle
     n: RN.TextProperties
     w: React.HTMLAttributes<HTMLSpanElement>
-    style_w?: CSSProperties
-    style_n?: RN.TextStyle
     onPress?: () => void
   }
 

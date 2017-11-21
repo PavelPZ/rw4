@@ -1,22 +1,24 @@
-type TextStyle = CSS.commonStyle<RN.TextStyle, CSS.TextStyle_wn>
-type ViewStyle = CSS.commonStyle<RN.ViewStyle, CSS.ViewStyle_wn>
-type ImageStyle = CSS.commonStyle<RN.ImageStyle, CSS.ImageStyle_wn>
+type TextStyle = CSS.universalStyle<RN.TextStyle>
+type ViewStyle = CSS.universalStyle<RN.ViewStyle>
+type ImageStyle = CSS.universalStyle<RN.ImageStyle>
+type Style = TextStyle | ViewStyle | ImageStyle
+type StyleAll = TextStyle & ViewStyle & ImageStyle
 
 type CSSProperties = React.CSSProperties
 
 declare namespace CSS {
 
-  type commonStyle<T, B> = B & {
+  type universalStyle<TNative> = commonStyle<TNative> & {
     web?: CSSProperties
-    rn?: T
-    ios?: T
-    android?: T
-    win?: T
+    native?: TNative
+    ios?: TNative
+    android?: TNative
+    window?: TNative
   }
 
-  type TextStyle_wn = TakeFrom<RN.TextStyle, CSS.w_compatible_with_n & keyof RN.TextStyle>
-  type ViewStyle_wn = TakeFrom<RN.ViewStyle, CSS.w_compatible_with_n & keyof RN.ViewStyle>
-  type ImageStyle_wn = TakeFrom<RN.ImageStyle, CSS.w_compatible_with_n & keyof RN.ImageStyle>
+  type commonStyle<TNative> = TakeFrom<TNative, webUsableInNative & keyof TNative> //select native props 
+
+  type webUsableInNative = Diff<keyof ReactCSSProperties, 'transform'> //transform is not compatible
 
   //interface special_w {
   //  //Common, different type
@@ -44,7 +46,6 @@ declare namespace CSS {
 
   //type T_w<T> = Omit<React.AllHTMLAttributes<HTMLElement>, keyof React.AllHTMLAttributes<HTMLElement> & keyof T>
 
-  type w_compatible_with_n = Diff<keyof ReactCSSProperties, 'transform'>
     
   type CSSWideKeyword = "initial" | "inherit" | "unset";
   type CSSPercentage = string;

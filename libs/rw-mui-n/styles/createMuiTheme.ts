@@ -1,7 +1,6 @@
-// @flow
-
 import deepmerge from 'deepmerge' // < 1kb payload overhead when lodash/merge is > 3kb.
 import warning from 'warning'
+import { Platform } from 'react-native'
 import createTypography, { Typography } from './createTypography'
 import shadows, { Shadows } from './shadows'
 import createBreakpoints, { BreakpointsOptions, Breakpoints } from 'material-ui/styles/createBreakpoints'
@@ -56,6 +55,7 @@ function createMuiTheme(options: ThemeOptions = {}) {
   const breakpoints = createBreakpoints(breakpointsInput);
 
   const muiTheme: Theme = {
+    OS: Platform.OS,
     direction: 'ltr',
     palette,
     typography: createTypography(palette, typographyInput as TypographyOptions),
