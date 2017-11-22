@@ -1,25 +1,22 @@
 import React from 'react'
-import { Theme } from 'material-ui/styles/createMuiTheme'
 import PropTypes from 'prop-types'
 import pure from 'recompose/pure'
 
-export interface IMuiThemeProps { theme: Theme | ((theme:Theme) => Theme) }
-export type TMuiThemeContextValue = { theme: Theme }
 export const MuiThemeContextTypes = { theme: PropTypes.any }
 
-class MuiThemeProvider extends React.Component<IMuiThemeProps> {
-  constructor(props, context: TMuiThemeContextValue) {
+class MuiThemeProvider extends React.Component<Mui.IMuiThemeProps> {
+  constructor(props, context: Mui.TMuiThemeContextValue) {
     super(props, context)
     this.localTheme = this.mergeOuterLocalTheme(context.theme)
   }
 
-  localTheme: Theme
+  localTheme: Mui.Theme
 
-  getChildContext(): TMuiThemeContextValue {
+  getChildContext(): Mui.TMuiThemeContextValue {
     return { theme: this.localTheme }
   }
 
-  mergeOuterLocalTheme(outerTheme: Theme) {
+  mergeOuterLocalTheme(outerTheme: Mui.Theme) {
     const { props: { theme } } = this
     if (typeof theme === 'function') return theme(outerTheme)
     if (!outerTheme) return theme
@@ -32,4 +29,4 @@ class MuiThemeProvider extends React.Component<IMuiThemeProps> {
   static contextTypes = MuiThemeContextTypes
 }
 
-export default pure<IMuiThemeProps>(MuiThemeProvider)
+export default pure<Mui.IMuiThemeProps>(MuiThemeProvider)

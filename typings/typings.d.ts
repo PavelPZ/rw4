@@ -1,4 +1,13 @@
-﻿declare module 'warning' {
+﻿declare module 'css-in-js' {
+  export const create
+}
+
+declare module 'jss-preset-default' {
+  const def: any
+  export default def
+}
+
+declare module 'warning' {
   const warning: (condition: boolean, msg: string, ...arg: string[]) => void
   export default warning
 }
@@ -55,6 +64,10 @@ type Diff<T extends string, U extends string> = ({[P in T]: P } & {[P in U]: nev
 type Omit<T, K extends keyof T> = {[P in Diff<keyof T, K>]: T[P]}
 type Overwrite<T, U> = {[P in Diff<keyof T, keyof U>]: T[P]} & U
 type TakeFrom<T, K extends keyof T> = {[P in K]: T[P]}
+
+type PartialRecord<K extends string, T> = {
+  [P in K]?: T;
+};
 
 
 type Omit2<T, K extends string> = {[P in Diff<keyof T, K>]: T[P]}

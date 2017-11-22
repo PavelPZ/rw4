@@ -1,11 +1,11 @@
 ﻿import React from 'react'
 
-import withStyles, { StyleRulesCallback, WithStyles } from 'rw-mui/styles/withStyles'
+import withStyles from 'rw-mui/styles/withStyles'
 import { MaterialCommunityIcons as MIcon } from '@expo/vector-icons'
 import { capitalizeFirstLetter } from 'material-ui/utils/helpers'
 
 import { styleNative } from 'rw-styler/index'
-        
+
 import warning from 'warning'
 
 import { PropTypes } from '../index'
@@ -13,19 +13,17 @@ import { PropTypes } from '../index'
 export type Color = 'inherit' | 'accent' | 'action' | 'contrast' | 'disabled' | 'error' | 'primary';
 
 export type IconClassKey = 'root' | 'colorAccent' | 'colorAction' | 'colorContrast' | 'colorDisabled' | 'colorError' | 'colorPrimary' | 'colorInherit'
-export type IconStyle = RN.ViewStyle & RN.TextStyle
-
 
 export interface IIconProps {
   color?: Color
-  style?: IconStyle
   children?: GUI.mdi_icons
+  style?: TextStyle
 }
 
-export type IIconStyle = Record<IconClassKey, IconStyle>
+export type IIconStyle = Record<IconClassKey, TextStyle>
 
-const styles: StyleRulesCallback<IIconStyle> = theme => ({
-  root: { },
+const styles: Mui.StyleRulesCallback<IIconStyle> = theme => ({
+  root: {},
   colorAccent: { color: theme.palette.secondary.A200, },
   colorAction: { color: theme.palette.action.active, },
   colorContrast: { color: theme.palette.getContrastText(theme.palette.primary[500]), },
@@ -35,7 +33,7 @@ const styles: StyleRulesCallback<IIconStyle> = theme => ({
   colorInherit: { color: undefined, },
 })
 
-const icon: React.SFC<IIconProps & WithStyles<IIconStyle>> = props => {
+const icon: React.SFC<IIconProps & Mui.WithStyles<IIconStyle>> = props => {
   const {
     children,
     classes,
@@ -63,7 +61,7 @@ const icon: React.SFC<IIconProps & WithStyles<IIconStyle>> = props => {
 
 export const IconName = 'MuiIcon-n'
 
-const Icon = withStyles(styles, { name: IconName })<IIconProps>(icon)
+const Icon = withStyles(styles, { name: IconName })<IIconProps, TextStyle>(icon)
 
 //const x = <Icon children={GUI.mdi_icons.account} />
 

@@ -91,11 +91,15 @@
     <TypeScriptCompile Include="libs\rw-mui-w\styles\expoLoadFonts.ts" />
     <TypeScriptCompile Include="libs\rw-mui-w\styles\MuiThemeProvider.ts" />
     <TypeScriptCompile Include="libs\rw-mui-w\styles\shadows.ts" />
+    <TypeScriptCompile Include="libs\rw-mui-w\styles\makeCompatible.tsx" />
     <TypeScriptCompile Include="libs\rw-mui-w\styles\withStyles.ts" />
     <TypeScriptCompile Include="libs\rw-mui-w\Typography\Typography.tsx" />
+    <TypeScriptCompile Include="libs\rw-mui\ButtonBase\ButtonBase-d.d.ts" />
     <TypeScriptCompile Include="libs\rw-mui\ButtonBase\ButtonBase.tsx" />
+    <TypeScriptCompile Include="libs\rw-mui\Button\Button-d.d.ts" />
     <TypeScriptCompile Include="libs\rw-mui\Icon\Icon.tsx" />
     <TypeScriptCompile Include="libs\rw-mui\index.ts" />
+    <TypeScriptCompile Include="libs\rw-mui\Typography\Typography-d.d.ts" />
     <TypeScriptCompile Include="libs\rw-styler\index.ts" />
     <TypeScriptCompile Include="libs\rw-mui\styles\expoLoadFonts.ts" />
     <TypeScriptCompile Include="libs\rw-mui\Typography\Typography.tsx" />
@@ -109,11 +113,10 @@
     <TypeScriptCompile Include="libs\rw-utils\fela-like-w - Copy.tsx" />
     <TypeScriptCompile Include="libs\rw-utils\object-each.ts" />
     <TypeScriptCompile Include="libs\rw-utils\fela-like-w.tsx" />
-    <TypeScriptCompile Include="typings\mui.d.ts" />
+    <None Include="typings\mui-d.d.ts_" />
     <TypeScriptCompile Include="typings\mui-d.d.ts" />
     <TypeScriptCompile Include="typings\recompose.d.ts" />
     <TypeScriptCompile Include="typings\recompose-low.d.ts" />
-    <TypeScriptCompile Include="typings\css-in-js.d.ts" />
     <TypeScriptCompile Include="typings\md-icons.d.ts" />
     <TypeScriptCompile Include="app-common\gui\native-base-d.d.ts" />
     <Content Include="app-common\gui\react-native-elements-getIconType.txt" />
@@ -226,7 +229,7 @@
     <TypeScriptCompile Include="libs\rw-utils\promise\index.ts" />
     <TypeScriptCompile Include="typings\react-native.d.ts" />
     <TypeScriptCompile Include="typings\react-redux.d.ts" />
-    <TypeScriptCompile Include="libs\rw-styler\css-d.d.ts" />
+    <TypeScriptCompile Include="typings\css-d.d.ts" />
     <TypeScriptCompile Include="typings\redux.d.ts" />
     <TypeScriptCompile Include="web-ionic.tsx" />
     <TypeScriptCompile Include="typings\typings.d.ts" />

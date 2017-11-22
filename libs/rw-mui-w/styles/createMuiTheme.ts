@@ -1,4 +1,6 @@
-import d from 'material-ui/styles/createMuiTheme'
-export default d
+import createMuiTheme from 'material-ui/styles/createMuiTheme'
 
-export * from 'material-ui/styles/createMuiTheme'
+type TCreateMuiTheme<T = {}> = (options?: Mui.ThemeOptions & T) => Mui.Theme<T>
+const cm = createMuiTheme as TCreateMuiTheme
+
+export default cm

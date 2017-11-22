@@ -1,27 +1,19 @@
 ﻿import React from 'react'
-import Button from 'material-ui/Button/Button'
-import { Theme } from 'material-ui/styles/createMuiTheme'
+import Button from 'rw-mui/Button/Button'
 
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
-import withStyles, { StyleRules, WithStyles, StyleRulesCallback, StyledComponentProps } from 'material-ui/styles/withStyles'
-import { renderCSS } from 'rw-fela-w/index'
-
-//import withStyles, { StyleRules, WithStyles, StyleRulesCallback, StyledComponentProps } from 'rw-mui/styles/withStyles'
-//import MuiThemeProvider from 'rw-mui/styles/MuiThemeProvider'
-//const renderCSS = <T>(style:T) => style
-
-
-//interface IStyle { red: RN.TextStyle blue: RN.TextStyle }
+import MuiThemeProvider from 'rw-mui/styles/MuiThemeProvider'
+import withStyles from 'rw-mui/styles/withStyles'
 
 type IStyle = 'red' | 'blue'
+type IStyles = Record<IStyle, TextStyle>
 
-const styles: StyleRulesCallback<IStyle> = theme => ({
-  red: { color: 'red'},
+const styles: Mui.StyleRulesCallback<IStyles> = theme => ({
+  red: { color: 'red' },
   blue: { color: 'blue' },
 })
 
-const buttonStyles = (theme: Theme) => ({
-  root: renderCSS({
+const buttonStyles: Mui.StyleRulesCallback<Mui.IButtonStyle> = theme => ({
+  root: {
     background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
     borderRadius: 3,
     border: 0,
@@ -29,29 +21,27 @@ const buttonStyles = (theme: Theme) => ({
     height: 48,
     padding: '0 30px',
     boxShadow: theme.shadows[20]
-  }),
-  label: renderCSS({
-    textTransform: 'capitalize',
-  }),
+  },
+  rootLabel: {
+    web: { textTransform: 'capitalize' },
+  },
 })
 
 
-const app: React.SFC<WithStyles<IStyle>> = ({ classes: { red, blue }, theme }) => {
+const app: React.SFC<Mui.WithStyles<IStyles>> = ({ classes: { red, blue }, theme }) => {
   return <div>
-    <Button raised color={'accent'} classes={buttonStyles(theme)}>Button</Button>
-    <div className={red}>RED TEXT: {red}</div>
-    <div className={blue}>BLUE TEXT: {blue}</div>
+    <Button raised color={'accent'} classes={buttonStyles(theme)} onClick={null}>Button</Button>
+    <div style={red}>RED TEXT: {red}</div>
+    <div style={blue}>BLUE TEXT: {blue}</div>
   </div>
 }
 
-const App = withStyles(styles, { withTheme: true })<{}>(app)
+const App = withStyles(styles, { withTheme: true })<{}, TextStyle>(app)
 
-export default () => <MuiThemeProvider theme={{}}>
-  <div>
-    <App classes={{ red: renderCSS({ color: 'maroon' }) }} />
-    <App classes={{ blue: renderCSS({ color: 'green' }) }} />
-  </div>
-</MuiThemeProvider>
+export default () => <div>
+  <App classes={{ red: { color: 'maroon' } }} />
+  <App classes={{ blue: { color: 'green' } }} />
+</div>
 
 
   //<App classes={{ red: renderCSS({ color: 'maroon', fontWeight: 'bold', '&:hover': { background: 'blue' } }) }} />

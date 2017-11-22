@@ -3,27 +3,11 @@ import React from 'react'
 import { capitalizeFirstLetter } from 'material-ui/utils/helpers'
 import { Text } from 'react-native'
 
-import withStyles, { WithStyles, StyleRulesCallback } from '../styles/withStyles'
-import { Style } from '../styles/createTypography'
+import withStyles from '../styles/withStyles'
 import { styleNative } from 'rw-styler/index'
-import { PropTypes } from '../index'
 
 
-export interface ITypographyProps {
-  align?: PropTypes.Alignment
-  color?: PropTypes.Color | 'secondary' | 'error'
-  gutterBottom?: boolean
-  noWrap?: boolean
-  paragraph?: boolean
-  type?: Style
-  style?: TextStyle
-}
-
-export type TypographyClassKey = Style | 'root' | 'alignLeft' | 'alignCenter' | 'alignRight' | 'gutterBottom' | 'paragraph' | 'colorInherit' | 'colorSecondary' | 'colorAccent'
-
-type ITypographyStyle = Record<TypographyClassKey, TextStyle> & { noWrap: RN.TextProperties }
-
-export const styles: StyleRulesCallback<ITypographyStyle> = theme => ({
+export const styles: Mui.StyleRulesCallback<Mui.ITypographyStyle> = theme => ({
   display4: theme.typography.display4, 
   display3: theme.typography.display3,
   display2: theme.typography.display2,
@@ -51,9 +35,9 @@ export const styles: StyleRulesCallback<ITypographyStyle> = theme => ({
   colorSecondary: { color: theme.palette.text.secondary, },
   colorAccent: { color: theme.palette.secondary.A400, },
   colorError: { color: theme.palette.error.A400, },
-} as ITypographyStyle)
+})
 
-const typography: React.SFC<ITypographyProps & WithStyles<ITypographyStyle>> = props => {
+const typography: React.SFC<Mui.ITypographyProps & Mui.WithStyles<Mui.ITypographyStyle>> = props => {
   const {
     align = 'inherit',
     classes,
@@ -79,6 +63,6 @@ const typography: React.SFC<ITypographyProps & WithStyles<ITypographyStyle>> = p
   return <Text style={styleNative(actStyle, theme.OS)} {...(noWrap && classes.noWrap) } {...other} />
 }
 
-const Typography = withStyles(styles, { name: 'MuiTypography-n' })<ITypographyProps>(typography)
+const Typography = withStyles(styles, { name: 'MuiTypography-n' })<Mui.ITypographyProps, TextStyle>(typography)
 
 export default Typography

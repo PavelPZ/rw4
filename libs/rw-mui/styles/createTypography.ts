@@ -3,7 +3,6 @@
 import deepmerge from 'deepmerge'; // < 1kb payload overhead when lodash/merge is > 3kb.
 
 import { Dimensions, PixelRatio } from 'react-native'
-import { Palette } from 'material-ui/styles/createPalette'
 
 //https://github.com/facebook/react-native/issues/7687
 //const round = (value: number) => Math.round(value * 1e5) / 1e5
@@ -14,46 +13,45 @@ const defaultFonts = {
     fontFamily: 'Roboto_Light',
     //fontFile: 'Roboto-Light.ttf',
     fontWeight: '300'
-  } as RN.TextStyle,
+  },
   regular: {
     fontFamily: 'Roboto',
     //fontFile: 'Roboto-Regular.ttf',
     fontWeight: '400'
-  } as RN.TextStyle,
+  },
   medium: {
     fontFamily: 'Roboto_Medium',
     //fontFile: 'Roboto-Medium.ttf',
     fontWeight: '500'
-  } as RN.TextStyle
+  }
 }
 
-export type IFonts = typeof defaultFonts
-export interface TypographyOptions {
-  fontAssetPath?: string,
-  fonts?: IFonts
+export type TypographyClassKey = 'display1' | 'display2' | 'display3' | 'display4' | 'headline' | 'title' | 'subheading' | 'body1' | 'body2' | 'caption'
+export type TypographyClassKeys = TypographyClassKey | 'button';
+
+interface TypographyOptions extends Mui.TypographyOptions {
+  expoFontAssetPath?: string
+  expoFonts?: typeof defaultFonts
   fontSize?: number
   htmlFontSize?: number
 }
 
-export type TextStyle = 'display1' | 'display2' | 'display3' | 'display4' | 'headline' | 'title' | 'subheading' | 'body1' | 'body2' | 'caption'
-export type Style = TextStyle | 'button';
-
-export default function createTypography(palette: Palette, typography: Partial<TypographyOptions> | ((palette: Palette) => TypographyOptions), _fontSizes?: Partial<TFontSizes>) {
+export default function createTypography(palette: Mui.Palette, typography: Partial<TypographyOptions> | ((palette: Mui.Palette) => TypographyOptions), _fontSizes?: Partial<TFontSizes>) {
   const {
-    fontAssetPath = 'libs/rw-mui-n/fonts/',
+    expoFontAssetPath = 'libs/rw-mui-n/fonts/',
     fontSize = 14, // px
-    fonts = defaultFonts,
+    expoFonts = defaultFonts,
     htmlFontSize = 16, // 16px is the default font-size used by browsers on the html element.
     ...other
   } = typeof typography === 'function' ? typography(palette) : typography
 
-  const fontSizes = { ...mobile_fontSizes, ..._fontSizes || null}
+  const fontSizes = { ...mobile_fontSizes, ..._fontSizes || null }
   const fontSizeNormalizer = fontSizes.getFontSizeNormalizer(PixelRatio.get(), Dimensions.get('window').width, Dimensions.get('window').height)
 
   //http://typecast.com/blog/a-more-modern-scale-for-web-typography
   const typo = {
     fontSizeNormalizer,
-    fontAssetPath,
+    expoFontAssetPath,
     fontSize,
     //fontFamily,
     //fontWeightLight,
@@ -62,73 +60,73 @@ export default function createTypography(palette: Palette, typography: Partial<T
     ...{
       display4: {
         fontSize: fontSizeNormalizer(fontSizes.display4),
-        ...fonts.light,
+        ...expoFonts.light,
         //lineHeight: lineHeight(128 / 112),
         marginLeft: -.06 * htmlFontSize,
         color: palette.text.secondary,
       },
       display3: {
         fontSize: fontSizeNormalizer(fontSizes.display3),
-        ...fonts.regular,
+        ...expoFonts.regular,
         //lineHeight: lineHeight(73 / 56),
         marginLeft: -.04 * htmlFontSize,
         color: palette.text.secondary,
       },
       display2: {
         fontSize: fontSizeNormalizer(fontSizes.display2),
-        ...fonts.regular,
+        ...expoFonts.regular,
         //lineHeight: lineHeight(48 / 45),
         marginLeft: -.04 * htmlFontSize,
         color: palette.text.secondary,
       },
       display1: {
         fontSize: fontSizeNormalizer(fontSizes.display1),
-        ...fonts.regular,
+        ...expoFonts.regular,
         //lineHeight: lineHeight(41 / 34),
         marginLeft: -.04 * htmlFontSize,
         color: palette.text.secondary,
       },
       headline: {
         fontSize: fontSizeNormalizer(fontSizes.headline),
-        ...fonts.regular,
+        ...expoFonts.regular,
         //lineHeight: lineHeight(32.5 / 24),
         color: palette.text.primary,
       },
       title: {
         fontSize: fontSizeNormalizer(fontSizes.title),
-        ...fonts.medium,
+        ...expoFonts.medium,
         //lineHeight: lineHeight(24.5 / 21),
         color: palette.text.primary,
       },
       subheading: {
         fontSize: fontSizeNormalizer(fontSizes.subheading),
-        ...fonts.regular,
+        ...expoFonts.regular,
         //lineHeight: lineHeight(24 / 16),
         color: palette.text.primary,
       },
       body2: {
         fontSize: fontSizeNormalizer(fontSizes.body2),
-        ...fonts.medium,
+        ...expoFonts.medium,
         //lineHeight: lineHeight(24 / 14),
         color: palette.text.primary,
       },
       body1: {
         fontSize: fontSizeNormalizer(fontSizes.body1),
-        ...fonts.regular,
+        ...expoFonts.regular,
         //lineHeight: lineHeight(20.5 / 14),
         color: palette.text.primary,
       },
       caption: {
         fontSize: fontSizeNormalizer(fontSizes.caption),
-        ...fonts.regular,
+        ...expoFonts.regular,
         //lineHeight: lineHeight(16.5 / 12),
         color: palette.text.secondary,
       },
       button: {
         fontSize: fontSizeNormalizer(fontSize),
-        ...fonts.medium,
+        ...expoFonts.medium,
       },
-    } as Record<Style, RN.TextStyle>
+    } as Record<TypographyClassKeys, TextStyle>
   }
   return deepmerge(
     typo,
@@ -142,6 +140,7 @@ export default function createTypography(palette: Palette, typography: Partial<T
 //https://stackoverflow.com/questions/36015691/obtaining-the-return-type-of-a-function
 const fnReturnType = (false as true) && createTypography(null, null)
 export type Typography = typeof fnReturnType
+export type TCreateTypography = typeof createTypography
 
 //https://github.com/react-native-training/react-native-elements/blob/master/src/helpers/normalizeText.js
 const pixelRatio = PixelRatio.get()

@@ -1,12 +1,18 @@
-type TextStyle = CSS.universalStyle<RN.TextStyle>
-type ViewStyle = CSS.universalStyle<RN.ViewStyle>
-type ImageStyle = CSS.universalStyle<RN.ImageStyle>
-type Style = TextStyle | ViewStyle | ImageStyle
-type StyleAll = TextStyle & ViewStyle & ImageStyle
+type TextStyle = CSS.TextStyle
+type ViewStyle = CSS.ViewStyle
+type ImageStyle = CSS.ImageStyle
+type Style = CSS.Style
+type StyleAll = CSS.StyleAll
 
 type CSSProperties = React.CSSProperties
 
 declare namespace CSS {
+
+  type TextStyle = CSS.universalStyle<RN.TextStyle>
+  type ViewStyle = CSS.universalStyle<RN.ViewStyle>
+  type ImageStyle = CSS.universalStyle<RN.ImageStyle>
+  type Style = TextStyle | ViewStyle | ImageStyle
+  type StyleAll = TextStyle & ViewStyle & ImageStyle
 
   type universalStyle<TNative> = commonStyle<TNative> & {
     web?: CSSProperties

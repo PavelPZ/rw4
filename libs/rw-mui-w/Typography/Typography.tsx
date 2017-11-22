@@ -1,4 +1,5 @@
-import d from 'material-ui/Typography/Typography'
-export default d
+import muiComponent from 'material-ui/Typography/Typography'
+import makeCompatible from '../styles/makeCompatible'
 
-export * from 'material-ui/Typography/Typography'
+const universal = makeCompatible(muiComponent)
+export default universal

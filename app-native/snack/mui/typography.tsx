@@ -12,7 +12,7 @@ const app = () => <MuiThemeProvider theme={createMuiTheme({})}>
     <Typography type='headline' style={{ textDecorationLine: 'underline' }}>noWrap</Typography>
     <Typography noWrap style={{ width:200 }}>noWrap noWrap noWrap noWrap noWrap noWrap noWrap noWrap noWrap noWrap noWrap noWrap noWrap noWrap </Typography>
     {/**/}
-    <Typography type='headline' style={{ textDecorationLine: 'underline' }}>MARGINS</Typography>
+    <Typography type='headline' style={{ web: { textDecorationLine: 'underline' } }}>MARGINS</Typography>
     <Typography paragraph>paragraph paragraph paragraph paragraph paragraph paragraph paragraph paragraph paragraph paragraph paragraph paragraph paragraph paragraph paragraph paragraph </Typography>
     <Typography paragraph>paragraph paragraph paragraph paragraph paragraph paragraph paragraph paragraph paragraph paragraph paragraph paragraph paragraph paragraph paragraph paragraph </Typography>
     <Typography gutterBottom>gutterBottom gutterBottom gutterBottom gutterBottom gutterBottom gutterBottom gutterBottom gutterBottom gutterBottom gutterBottom gutterBottom </Typography>

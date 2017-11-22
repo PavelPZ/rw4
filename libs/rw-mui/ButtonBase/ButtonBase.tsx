@@ -1,22 +1,9 @@
 ﻿import React from 'react'
 import { View, TouchableWithoutFeedback, Animated, Easing, Platform, Text, LayoutRectangle } from 'react-native';
 
-import withStyles, { StyleRulesCallback, WithStyles } from '../styles/withStyles'
-import { Theme } from 'material-ui/styles/createMuiTheme'
+import withStyles from 'rw-mui/styles/withStyles'
 
-export interface IButtonBaseProps {
-  disabled?: boolean
-  disableRipple?: boolean
-  onClick: () => void
-  rootRef?: React.Ref<any>
-  style?: RN.ViewStyle
-}
-
-export type ButtonBaseClassKeyView = 'root' | 'ripple' | 'disabled'
-
-type IButtonBaseStyle = Record<ButtonBaseClassKeyView, RN.ViewStyle>
-
-export const styles: StyleRulesCallback<IButtonBaseStyle> = theme => ({
+export const styles: Mui.StyleRulesCallback<Mui.IButtonBaseStyle> = theme => ({
   root: {
     alignItems: 'center',
     justifyContent: 'center',
@@ -30,7 +17,7 @@ export const styles: StyleRulesCallback<IButtonBaseStyle> = theme => ({
 })
 
 //const maxOpacity = 0.12
-const buttonBase: React.SFC<IButtonBaseProps & WithStyles<IButtonBaseStyle>> = props => {
+const buttonBase: React.SFC<Mui.IButtonBaseProps & Mui.WithStyles<Mui.IButtonBaseStyle>> = props => {
   const {
     classes,
     style,
@@ -58,7 +45,7 @@ const buttonBase: React.SFC<IButtonBaseProps & WithStyles<IButtonBaseStyle>> = p
   </TouchableWithoutFeedback>
 }
 
-class RippleEffect extends React.PureComponent<{ style: RN.ViewStyle, theme: Theme }> {
+class RippleEffect extends React.PureComponent<{ style: RN.ViewStyle, theme: Mui.Theme }> {
   state: Partial<LayoutRectangle> = {}
   scaleValue = new Animated.Value(0.01)
   maxOpacity = this.props.style.opacity || 0.12
@@ -120,6 +107,6 @@ class RippleEffect extends React.PureComponent<{ style: RN.ViewStyle, theme: The
   }
 }
 
-const ButtonBase = withStyles(styles, { name: 'ButtonBase-n' })<IButtonBaseProps>(buttonBase)
+const ButtonBase = withStyles(styles, { name: 'ButtonBase-n' })<Mui.IButtonBaseProps, ViewStyle>(buttonBase)
 
 export default ButtonBase

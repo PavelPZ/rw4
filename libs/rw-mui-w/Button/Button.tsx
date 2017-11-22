@@ -1,4 +1,5 @@
-﻿import Button from 'material-ui/Button/Button'
-export default Button
+﻿import muiComponent from 'material-ui/Button/Button'
+import makeCompatible from '../styles/makeCompatible'
 
-export * from 'material-ui/Button/Button'
+const universal = makeCompatible(muiComponent)
+export default universal

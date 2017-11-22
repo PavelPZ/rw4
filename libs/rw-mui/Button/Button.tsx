@@ -1,28 +1,10 @@
 ﻿import React from 'react'
 import { Platform, View, Text } from 'react-native'
 
-import withStyles, { StyleRulesCallback2, WithStyles2, withStyles2 } from 'rw-mui/styles/withStyles'
-import ButtonBase, { styles as baseStyles, ButtonBaseClassKeyView, IButtonBaseProps } from '../ButtonBase/ButtonBase'
+import withStyles from 'rw-mui/styles/withStyles'
+import ButtonBase, { styles as baseStyles } from '../ButtonBase/ButtonBase'
 
-import { PropTypes } from '../index'
-import { StandardProps2 } from 'rw-mui/index'
-
-export interface IButtonProps extends StandardProps2<IButtonBaseProps,IButtonStyle> {
-//export interface IButtonProps extends IButtonBaseProps {
-  fab?: boolean
-  dense?: boolean
-  href?: string
-  raised?: boolean
-  rootRef?: React.Ref<any>
-  color?: PropTypes.Color | 'contrast' | 'default'
-}
-
-export type ButtonClassKeyView = ButtonBaseClassKeyView | 'root' | 'dense' | 'raised' | 'disabled' | 'fab' | 'raisedPrimary' | 'raisedAccent' 
-export type ButtonClassKeyText = 'rootLabel' | 'denseLabel' | 'disabledLabel' | 'flatLabelPrimary' | 'flatLabelAccent' | 'flatLabelContrast' | 'raisedLabelAccent' | 'raisedLabelContrast' | 'raisedLabelPrimary'
-
-type IButtonStyle = Record<ButtonClassKeyText, RN.TextStyle> & Record<ButtonClassKeyView, RN.ViewStyle>
-
-const styles: StyleRulesCallback2<IButtonStyle> = theme => ({
+const styles: Mui.StyleRulesCallback<Mui.IButtonStyle> = theme => ({
   ...baseStyles(theme),
   root: {
     minWidth: 88,
@@ -58,7 +40,7 @@ const styles: StyleRulesCallback2<IButtonStyle> = theme => ({
   },
   raisedPrimary: { backgroundColor: theme.palette.primary[500] },
   raisedAccent: { backgroundColor: theme.palette.secondary.A200, },
-  
+
   raisedLabelAccent: { color: theme.palette.getContrastText(theme.palette.secondary.A200), },
   raisedLabelContrast: { color: theme.palette.getContrastText(theme.palette.primary[500]), },
   raisedLabelPrimary: { color: theme.palette.getContrastText(theme.palette.primary[500]), },
@@ -70,7 +52,7 @@ const styles: StyleRulesCallback2<IButtonStyle> = theme => ({
   disabledLabel: { color: theme.palette.action.disabled, },
 
   fab: {
-    borderRadius: 56/2,
+    borderRadius: 56 / 2,
     padding: 0,
     minWidth: 0,
     width: 56,
@@ -79,10 +61,7 @@ const styles: StyleRulesCallback2<IButtonStyle> = theme => ({
   },
 })
 
-type t = WithStyles2<IButtonStyle>
-let T: t
-
-const button: React.SFC<IButtonProps & WithStyles2<IButtonStyle>> = props => {
+const button: Mui.SFC<Mui.IButtonProps, Mui.IButtonStyle, ViewStyle> = props => {
   const {
     children,
     classes,
@@ -128,8 +107,8 @@ const button: React.SFC<IButtonProps & WithStyles2<IButtonStyle>> = props => {
   return <ButtonBase style={viewStyle} disabled={disabled} {...other}>{childs}</ButtonBase>
 }
 
-const Button = withStyles2(styles, { name: 'MuiButton-n' })<IButtonProps>(button)
+const Button = withStyles(styles, { name: 'MuiButton-n' })<Mui.IButtonProps, ViewStyle>(button)
 
-//const btn = <Button classes={{ root: {}, denseLabel: { color: '' } }} onClick={null}/>
+const btn = <Button classes={{ root: {}, denseLabel: { color: '' } }} color='accent' onClick={null} />
 
 export default Button
