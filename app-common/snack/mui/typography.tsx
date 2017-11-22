@@ -2,13 +2,15 @@
 //https://github.com/alekhurst/react-native-elevated-view/blob/master/index.js
 //jspm build ./app-native/snack/mui/index.js ./app-native/snack/mui/bundle.js
 import React from 'react'
-import { View, Text, ScrollView } from 'react-native'
+//import { View, Text, ScrollView } from 'react-native'
 import createMuiTheme from 'rw-mui/styles/createMuiTheme'
 import Typography from 'rw-mui/Typography/Typography'
 import MuiThemeProvider from 'rw-mui/styles/MuiThemeProvider'
+import blueGrey from 'material-ui/colors/blueGrey'
+import indigo from 'material-ui/colors/indigo'
 
-const app = () => <MuiThemeProvider theme={createMuiTheme({})}>
-  <ScrollView style={{ marginTop: 20 }}>
+const app = () => 
+  <div style={{ marginTop: 20 }}>
     <Typography type='headline' style={{ textDecorationLine: 'underline' }}>noWrap</Typography>
     <Typography noWrap style={{ width:200 }}>noWrap noWrap noWrap noWrap noWrap noWrap noWrap noWrap noWrap noWrap noWrap noWrap noWrap noWrap </Typography>
     {/**/}
@@ -45,8 +47,12 @@ const app = () => <MuiThemeProvider theme={createMuiTheme({})}>
     <Typography type='display2'>display2</Typography>
     <Typography type='display3'>display3</Typography>
     <Typography type='display4'>display4</Typography>
-  </ScrollView>
-</MuiThemeProvider>
+    <Typography type='headline' style={{ textDecorationLine: 'underline' }}>THEME</Typography>
+    <MuiThemeProvider theme={createMuiTheme({ palette: { primary: blueGrey, secondary: indigo } })}>
+      <Typography color='secondary'>secondary</Typography>
+      <Typography color='primary'>primary</Typography>
+    </MuiThemeProvider>
+  </div>
 
 export default app
 

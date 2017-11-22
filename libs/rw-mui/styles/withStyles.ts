@@ -52,8 +52,8 @@ const styleCreator = <T extends Mui.StyleRules>(styleOrCreator: T | Mui.StyleRul
   return styleOverride(styles, overrides, name)
 }
 
-const withStyle = <TRules extends Mui.StyleRules>(styleOrCreator: TRules | Mui.StyleRulesCallback<TRules>, options: WithStylesOptions = {}) => <C, TRootStyle extends CSS.Style, Removals extends keyof C = never>(Component: React.ComponentType<C & WithStyles<TRules>>) => {
-  const Style: Mui.SFC<C, TRules, TRootStyle, Removals> = (props, context: Mui.TMuiThemeContextValue) => {
+const withStyle = <TRules extends Mui.StyleRules>(styleOrCreator: TRules | Mui.StyleRulesCallback<TRules>, options: WithStylesOptions = {}) => <C, Removals extends keyof C = never>(Component: React.ComponentType<C & WithStyles<TRules>>) => {
+  const Style: Mui.SFC<C, TRules, Removals> = (props, context: Mui.TMuiThemeContextValue) => {
     const { withTheme = false, flip, name } = options
     const { classes: classesProp, innerRef, ...other } = props as any //without any: does not works in TS
     const theme = context.theme || getDefaultTheme()

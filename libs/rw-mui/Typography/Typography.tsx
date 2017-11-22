@@ -8,6 +8,8 @@ import { styleNative } from 'rw-styler/index'
 
 
 export const styles: Mui.StyleRulesCallback<Mui.ITypographyStyle> = theme => ({
+  root: { margin: 0, },
+
   display4: theme.typography.display4, 
   display3: theme.typography.display3,
   display2: theme.typography.display2,
@@ -20,7 +22,6 @@ export const styles: Mui.StyleRulesCallback<Mui.ITypographyStyle> = theme => ({
   caption: theme.typography.caption,
   button: theme.typography.button,
 
-  root: { margin: 0, },
   alignLeft: { textAlign: 'left', },
   alignCenter: { textAlign: 'center', },
   alignRight: { textAlign: 'right', },
@@ -37,7 +38,7 @@ export const styles: Mui.StyleRulesCallback<Mui.ITypographyStyle> = theme => ({
   colorError: { color: theme.palette.error.A400, },
 })
 
-const typography: React.SFC<Mui.ITypographyProps & Mui.WithStyles<Mui.ITypographyStyle>> = props => {
+const typography: Mui.SFC<Mui.ITypographyProps, Mui.ITypographyStyle> = props => {
   const {
     align = 'inherit',
     classes,
@@ -63,6 +64,6 @@ const typography: React.SFC<Mui.ITypographyProps & Mui.WithStyles<Mui.ITypograph
   return <Text style={styleNative(actStyle, theme.OS)} {...(noWrap && classes.noWrap) } {...other} />
 }
 
-const Typography = withStyles(styles, { name: 'MuiTypography-n' })<Mui.ITypographyProps, TextStyle>(typography)
+const Typography = withStyles(styles, { name: 'MuiTypography-n' })<Mui.ITypographyProps>(typography)
 
 export default Typography

@@ -3,11 +3,11 @@ import Icon from 'rw-controls/icon/icon-w'
 
 const App = () => {
   return <div>
+    {/*
     <Icon key={1} src={GUI.mdi_icons.apps} style={{ paddingLeft: 30 }} size={48} /> 
     <Icon key={2} src={GUI.mdi_icons.apps} color='blue' />
     <Icon key={3} src={GUI.mdi_icons.apps} color='red' style={{ paddingLeft: 30 }} size={12} />
     <Icon key={4} src={GUI.mdi_icons.apps} color='maroon' style={{ paddingLeft: 30 }} size={36} />
-    {/*
     <Icon key={5} src={GUI.mdi_icons.google} color={GUI.Colors.danger} style={{ paddingLeft: 30, fontSize: 24 }} onPress={() => console.log('PRESSED')} />
     <Icon key={6} src={GUI.mdi_icons.apps} reverse iconOS='ios' color={GUI.Colors.secondary} style={{ paddingLeft: 30, fontSize: 24 }} />
     <Icon key={7} src={GUI.mdi_icons.apps} iconOS='ios' color={GUI.Colors.success} active style={{ paddingLeft: 30, fontSize: 24 }} />

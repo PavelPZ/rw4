@@ -8,21 +8,7 @@ import { styleNative } from 'rw-styler/index'
 
 import warning from 'warning'
 
-import { PropTypes } from '../index'
-
-export type Color = 'inherit' | 'accent' | 'action' | 'contrast' | 'disabled' | 'error' | 'primary';
-
-export type IconClassKey = 'root' | 'colorAccent' | 'colorAction' | 'colorContrast' | 'colorDisabled' | 'colorError' | 'colorPrimary' | 'colorInherit'
-
-export interface IIconProps {
-  color?: Color
-  children?: GUI.mdi_icons
-  style?: TextStyle
-}
-
-export type IIconStyle = Record<IconClassKey, TextStyle>
-
-const styles: Mui.StyleRulesCallback<IIconStyle> = theme => ({
+const styles: Mui.StyleRulesCallback<Mui.IIconStyle> = theme => ({
   root: {},
   colorAccent: { color: theme.palette.secondary.A200, },
   colorAction: { color: theme.palette.action.active, },
@@ -33,15 +19,7 @@ const styles: Mui.StyleRulesCallback<IIconStyle> = theme => ({
   colorInherit: { color: undefined, },
 })
 
-const icon: React.SFC<IIconProps & Mui.WithStyles<IIconStyle>> = props => {
-  const {
-    children,
-    classes,
-    color = 'inherit',
-    style,
-    theme,
-    ...other
-  } = props;
+const icon: Mui.SFC<Mui.IIconProps, Mui.IIconStyle> = ({ children, classes, color = 'inherit', style, theme, ...other}) => {
 
   const actStyle = {
     ...classes.root || null,
@@ -54,15 +32,14 @@ const icon: React.SFC<IIconProps & Mui.WithStyles<IIconStyle>> = props => {
   warning(childs.length == 1 && typeof childs[0] === 'string', 'single child as string needed')
   const name = childs[0] as string
 
-  console.log(name)
+  //console.log(name)
 
   return <MIcon name={name} style={styleNative(actStyle, theme.OS)} />
 }
 
-export const IconName = 'MuiIcon-n'
-
-const Icon = withStyles(styles, { name: IconName })<IIconProps, TextStyle>(icon)
-
 //const x = <Icon children={GUI.mdi_icons.account} />
 
+const Icon = withStyles(styles, { name: Mui.Names.Icon })<Mui.IIconProps>(icon)
+
 export default Icon
+

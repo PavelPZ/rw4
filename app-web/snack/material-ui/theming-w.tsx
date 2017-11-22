@@ -36,7 +36,7 @@ const app: React.SFC<Mui.WithStyles<IStyles>> = ({ classes: { red, blue }, theme
   </div>
 }
 
-const App = withStyles(styles, { withTheme: true })<{}, TextStyle>(app)
+const App = withStyles(styles, { withTheme: true })<{}>(app)
 
 export default () => <div>
   <App classes={{ red: { color: 'maroon' } }} />

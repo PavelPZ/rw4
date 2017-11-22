@@ -12,9 +12,9 @@ const styleToClasses = <ClassKey extends string>(styles: Mui.StyleRules) => {
   return res
 }
 
-const makeCompatible = <C, TRules extends Mui.StyleRules, TRootStyle extends CSS.Style, Removals extends keyof C = never>(Web: React.ComponentType<StandardProps<C, keyof TRules, Removals>>) => {
-  const native: Mui.SFC<C, TRules, TRootStyle> = props => {
-    const { style, classes, onClick, ...rest } = props as { style: TRootStyle, classes: Record<string, Partial<CSS.Style>>, [p: string]: any }
+const makeCompatible = <C, TRules extends Mui.StyleRules, Removals extends keyof C = never>(Web: React.ComponentType<StandardProps<C, keyof TRules, Removals>>) => {
+  const native: Mui.SFC<C, TRules> = props => {
+    const { style, classes, onClick, ...rest } = props as { style: TRules[Mui.Names.rootRule], classes: Record<string, Partial<CSS.Style>>, [p: string]: any }
     return <Web style={styleWeb(style)} classes={styleToClasses<keyof TRules>(classes)} { ...rest } />
   }
   hoistNonReactStatics(native, Web)

@@ -17,7 +17,7 @@ export const styles: Mui.StyleRulesCallback<Mui.IButtonBaseStyle> = theme => ({
 })
 
 //const maxOpacity = 0.12
-const buttonBase: React.SFC<Mui.IButtonBaseProps & Mui.WithStyles<Mui.IButtonBaseStyle>> = props => {
+const buttonBase: Mui.SFC<Mui.IButtonBaseProps, Mui.IButtonBaseStyle> = props => {
   const {
     classes,
     style,
@@ -107,6 +107,8 @@ class RippleEffect extends React.PureComponent<{ style: RN.ViewStyle, theme: Mui
   }
 }
 
-const ButtonBase = withStyles(styles, { name: 'ButtonBase-n' })<Mui.IButtonBaseProps, ViewStyle>(buttonBase)
+const ButtonBase = withStyles(styles, { name: 'ButtonBase-n' })<Mui.IButtonBaseProps>(buttonBase)
+
+//const b = <ButtonBase style={{}} onClick={null} />
 
 export default ButtonBase

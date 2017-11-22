@@ -1,6 +1,11 @@
 declare namespace Mui {
 
   //************* CHANGED
+  const enum Names {
+    rootRule = 'root',
+    Icon = 'MuiIcon-n'
+  }
+
   interface IMuiThemeProps { theme: Theme | ((theme: Theme) => Theme) }
   type TMuiThemeContextValue = { theme: Theme }
 
@@ -23,21 +28,22 @@ declare namespace Mui {
     name?: string;
   }
 
-  type StandardProps<C, TRules extends StyleRules, TRootStyle extends CSS.Style, Removals extends keyof C = never> =
+  type StandardProps<C, TRules extends StyleRules, Removals extends keyof C = never> =
     & Omit<C & { classes: any }, 'classes' | Removals>
     & StyledComponentProps<TRules>
     & {
-      className?: string;
-      style?: TRootStyle //StyleAll;
+      className?: string
+      style?: TRules[Names.rootRule] //StyleAll;
+      theme?: Mui.Theme
     }
 
-  type SFC<C, TRules extends StyleRules, TRootStyle extends CSS.Style, Removals extends keyof C = never> = React.SFC<StandardProps<C, TRules, TRootStyle, Removals>>
-  type ComponentType<C, TRules extends StyleRules, TRootStyle extends CSS.Style, Removals extends keyof C = never> = React.ComponentType<StandardProps<C, TRules, TRootStyle, Removals>>
+  type SFC<C, TRules extends StyleRules, Removals extends keyof C = never> = React.SFC<StandardProps<C, TRules, Removals>>
+  type ComponentType<C, TRules extends StyleRules, Removals extends keyof C = never> = React.ComponentType<StandardProps<C, TRules, Removals>>
 
   type withStyles = <TRules extends StyleRules>
   (style: TRules | StyleRulesCallback<TRules>, options?: WithStylesOptions)
-    => <C, TRootStyle extends CSS.Style, Removals extends keyof C = never>(component: React.ComponentType<C & WithStyles<TRules>>)
-      => ComponentType<C, TRules, TRootStyle, Removals>
+    => <C, Removals extends keyof C = never>(component: React.ComponentType<C & WithStyles<TRules>>)
+      => ComponentType<C, TRules, Removals>
 
   interface FontStyle {
     fontFamily: StyleAll['fontFamily'];
@@ -184,7 +190,7 @@ declare namespace Mui {
   //************* mui/styles/createTypography
 
 
-  type TextStyle =
+  type TextStyleKeys =
     | 'display1'
     | 'display2'
     | 'display3'
@@ -197,7 +203,7 @@ declare namespace Mui {
     | 'caption';
 
 
-  type Style = TextStyle | 'button';
+  type Style = TextStyleKeys | 'button';
 
 
   type Typography = {[type in Style]: TypographyStyle } & FontStyle & { fontSizeNormalizer: (size: number) => number };
@@ -414,6 +420,7 @@ declare namespace Mui {
     transitions?: Partial<Transitions>;
     spacing?: Partial<Spacing>;
     zIndex?: Partial<ZIndex>;
+    overrides?: { [name: string]: StyleRules };
   }
 
 

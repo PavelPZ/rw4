@@ -47,23 +47,24 @@ import { LayerProvider, Platform, waitChildren } from './app-web/gui/lib'
 
 //************ aplikace k testovani
 import { AppPage } from './app-common/snack/app-router'
-import ReactMDApp from './app-web/snack/react-md-test'
-import LocTestApp from './app-common/snack/loc-test'
-import ValidateTestApp from './app-web/snack/validate-test'
-import RestAPI from './app-common/snack/test-restAPI'
-import IonicDesigntime from './app-web/design/ionic-designtime'
-import IconTest from './app-web/snack/icon'
-import ButtonTest from './app-common/snack/gui/button'
-import { ConnectTest, reducer as connectTestReducer } from './app-web/snack/connect-test'
-import AnimatedTransition from './app-web/snack/animated-transition'
+//import ReactMDApp from './app-web/snack/react-md-test'
+//import LocTestApp from './app-common/snack/loc-test'
+//import ValidateTestApp from './app-web/snack/validate-test'
+//import RestAPI from './app-common/snack/test-restAPI'
+//import IonicDesigntime from './app-web/design/ionic-designtime'
+//import IconTest from './app-web/snack/icon'
+//import ButtonTest from './app-common/snack/gui/button'
+//import { ConnectTest, reducer as connectTestReducer } from './app-web/snack/connect-test'
+//import AnimatedTransition from './app-web/snack/animated-transition'
 //import AnimatedGsap from './app-web/snack/animated-gsap'
-import AnimatedGsapNew from './app-web/snack/animated-gsap-new'
-import Page from './app-web/snack/page'
+//import AnimatedGsapNew from './app-web/snack/animated-gsap-new'
+//import Page from './app-web/snack/page'
 //import { App1, /*app3Reducer*/ } from './app-web/snack/router-new'
-import DrawerApp from './app-web/snack/drawer'
+//import DrawerApp from './app-web/snack/drawer'
 //import MuiTest from './app-web/snack/material-ui/theming-n'
 //import DrawerNativeLikeApp from './app-web/snack/drawer-native-like'
 //import Header from './app-web/snack/layout/index'
+import Typography from './app-common/snack/mui/typography'
 
 
 //*********** spusteni
@@ -115,7 +116,7 @@ export const init = async () => {
       recording: recordingReducer(state.recording, action),
       blockGui: blockGuiReducer(state.blockGui, action),
       drawer: drawerReducer(state.drawer, action),
-      connectTest: connectTestReducer((state as any).connectTest, action)
+      //connectTest: connectTestReducer((state as any).connectTest, action)
     }
   }
 
@@ -156,6 +157,7 @@ export const init = async () => {
   //noRouteApp = <IconTest />
   //noRouteApp = <Header />
   //noRouteApp = <MuiTest/>
+  noRouteApp = <Typography />
 
 
 

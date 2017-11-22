@@ -1,6 +1,6 @@
 ﻿declare namespace Mui {
 
-  interface IButtonProps extends StandardProps<IButtonBaseProps, IButtonStyle, IButtonStyle['root']> {
+  interface IButtonProps extends StandardProps<IButtonBaseProps, IButtonStyle> {
     fab?: boolean
     dense?: boolean
     href?: string
@@ -14,6 +14,6 @@
 
   type IButtonStyle = PartialRecord<ButtonClassKeyText, CSS.TextStyle> & PartialRecord<ButtonClassKeyView, ViewStyle>
 
-  type ButtonType = React.ComponentType<IButtonProps & WithStyles<IButtonStyle>>
+  type ButtonType = Mui.ComponentType<IButtonProps, IButtonStyle>
 
 }

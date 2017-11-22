@@ -61,7 +61,7 @@ const styles: Mui.StyleRulesCallback<Mui.IButtonStyle> = theme => ({
   },
 })
 
-const button: Mui.SFC<Mui.IButtonProps, Mui.IButtonStyle, ViewStyle> = props => {
+const button: Mui.SFC<Mui.IButtonProps, Mui.IButtonStyle> = props => {
   const {
     children,
     classes,
@@ -107,7 +107,7 @@ const button: Mui.SFC<Mui.IButtonProps, Mui.IButtonStyle, ViewStyle> = props => 
   return <ButtonBase style={viewStyle} disabled={disabled} {...other}>{childs}</ButtonBase>
 }
 
-const Button = withStyles(styles, { name: 'MuiButton-n' })<Mui.IButtonProps, ViewStyle>(button)
+const Button = withStyles(styles, { name: 'MuiButton-n' })<Mui.IButtonProps>(button)
 
 const btn = <Button classes={{ root: {}, denseLabel: { color: '' } }} color='accent' onClick={null} />
 

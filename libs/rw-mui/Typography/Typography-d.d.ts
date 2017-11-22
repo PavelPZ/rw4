@@ -1,5 +1,5 @@
 ﻿declare namespace Mui {
-  interface ITypographyProps extends Mui.StandardProps<{}, ITypographyStyle, ITypographyStyle['root']> {
+  interface ITypographyProps extends Mui.StandardProps<{}, ITypographyStyle> {
     align?: Mui.PropTypes.Alignment
     color?: Mui.PropTypes.Color | 'secondary' | 'error'
     gutterBottom?: boolean
@@ -10,8 +10,8 @@
 
   type TypographyClassKey = Mui.Style | 'root' | 'alignLeft' | 'alignCenter' | 'alignRight' | 'gutterBottom' | 'paragraph' | 'colorInherit' | 'colorSecondary' | 'colorAccent'
 
-  type ITypographyStyle = Record<TypographyClassKey, CSS.TextStyle> & { noWrap: any /*RN.TextProperties*/ }
+  type ITypographyStyle = PartialRecord<TypographyClassKey, CSS.TextStyle> & { noWrap?: any /*RN.TextProperties*/ }
 
-  type TypographyType = React.ComponentType<ITypographyProps & StyledComponentProps<ITypographyStyle>>
+  type TypographyType = Mui.ComponentType<ITypographyProps, ITypographyStyle>
 
 }

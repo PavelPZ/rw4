@@ -1,9 +1,11 @@
 export const styleWeb = (style: Style) => {
+  if (!style) return null
   const { web, native, ios, android, window, ...rest } = style
   return { ...rest || null, ...web || null } as CSSProperties
 }
 
 export const styleNative = <T extends Style = TextStyle>(style: T, OS: RN.PlatformOSType) => {
+  if (!style) return null
   const { web, native, ios, android, window, ...rest } = style as (TextStyle | ViewStyle | ImageStyle)
   let st: Style
   switch (OS) {
