@@ -3,7 +3,7 @@
   interface IButtonBaseProps extends Mui.StandardProps<{}, IButtonBaseStyle, IButtonBaseStyle['root']> {
     disabled?: boolean
     disableRipple?: boolean
-    onClick: () => void
+    onClick: (ev) => void
     rootRef?: React.Ref<any>
   }
 

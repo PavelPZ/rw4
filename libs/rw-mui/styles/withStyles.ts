@@ -68,7 +68,7 @@ const withStyle = <TRules extends Mui.StyleRules>(styleOrCreator: TRules | Mui.S
   }
   Style.contextTypes = MuiThemeContextTypes
   Style['options'] = options
-  hoistNonReactStatics(Style, Component)
+  hoistNonReactStatics(Style, Component as any)
   return pure(Style)
 }
 
