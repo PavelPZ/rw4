@@ -36,12 +36,12 @@ export interface StyledComponentProps<T extends Mui.StyleRules> {
 let defaultTheme: Mui.Theme
 const getDefaultTheme = () => defaultTheme || (defaultTheme = createMuiTheme())
 
-const styleOverride = (styles: Mui.StyleRules, overrides: Mui.StyleRules, name:string) => {
-  if (!overrides) return styles
-  const stylesWithOverrides: Mui.StyleRules = { ...styles }
-  Object.keys(overrides).forEach(key => {
+const styleOverride = (renderedClasses: Mui.StyleRules, classesProp: Mui.StyleRules, name:string) => {
+  if (!classesProp) return renderedClasses
+  const stylesWithOverrides: Mui.StyleRules = { ...renderedClasses }
+  Object.keys(classesProp).forEach(key => {
     warning(!!stylesWithOverrides[key], `Material-UI: you are trying to override a style that does not exist.\r\nFix the '${key}' key of 'theme.overrides.${name}'.`)
-    stylesWithOverrides[key] = { ...stylesWithOverrides[key], ...overrides[key] };
+    stylesWithOverrides[key] = { ...stylesWithOverrides[key], ...classesProp[key] };
   })
   return stylesWithOverrides
 }
@@ -58,7 +58,7 @@ const withStyle = <TRules extends Mui.StyleRules>(styleOrCreator: TRules | Mui.S
     const { classes: classesProp, innerRef, ...other } = props as any //without any: does not works in TS
     const theme = context.theme || getDefaultTheme()
 
-    const classes = styleOverride(styleCreator(styleOrCreator, theme, name), classesProp, name)
+    const classes = /*override with component.props.classes*/styleOverride(/*count STYLES based on theme and override it with theme.overrides[name]. !!! result should be cached !!!*/styleCreator(styleOrCreator, theme, name), classesProp, name)
 
     const newProps: C & WithStyles<TRules> = { ...other, classes, flip: typeof flip === 'boolean' ? flip : theme.direction === 'rtl' }
 

@@ -109,6 +109,6 @@ const button: Mui.SFC<Mui.IButtonProps, Mui.IButtonStyle> = props => {
 
 const Button = withStyles(styles, { name: 'MuiButton-n' })<Mui.IButtonProps>(button)
 
-const btn = <Button classes={{ root: {}, denseLabel: { color: '' } }} color='accent' onClick={null} />
+//const btn = <Button classes={{ root: {}, denseLabel: { color: '' } }} color='accent' onClick={null} />
 
 export default Button

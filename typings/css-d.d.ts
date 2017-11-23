@@ -1,6 +1,7 @@
 type TextStyle = CSS.TextStyle
 type ViewStyle = CSS.ViewStyle
 type ImageStyle = CSS.ImageStyle
+type IconStyle = CSS.IconStyle
 type Style = CSS.Style
 type StyleAll = CSS.StyleAll
 
@@ -11,8 +12,14 @@ declare namespace CSS {
   type TextStyle = CSS.universalStyle<RN.TextStyle>
   type ViewStyle = CSS.universalStyle<RN.ViewStyle>
   type ImageStyle = CSS.universalStyle<RN.ImageStyle>
-  type Style = TextStyle | ViewStyle | ImageStyle
-  type StyleAll = TextStyle & ViewStyle & ImageStyle
+  type IconStyle = CSS.universalStyle<RNIconStyle>
+  type Style = TextStyle | ViewStyle | ImageStyle | IconStyle
+  type StyleAll = TextStyle & ViewStyle & ImageStyle & IconStyle
+
+  interface RNIconStyle {
+    color?: TextStyle['color']
+    fontSize?: TextStyle['fontSize']
+  }
 
   type universalStyle<TNative> = commonStyle<TNative> & {
     web?: CSSProperties
@@ -52,11 +59,11 @@ declare namespace CSS {
 
   //type T_w<T> = Omit<React.AllHTMLAttributes<HTMLElement>, keyof React.AllHTMLAttributes<HTMLElement> & keyof T>
 
-    
   type CSSWideKeyword = "initial" | "inherit" | "unset";
   type CSSPercentage = string;
   type CSSLength = number | string;
 
+  //Fork of React.CSSProperties. WITHOUT "[propertyName: string]: any"
   interface ReactCSSProperties {
     /**
      * Aligns a flex container's lines within the flex container when there is extra space in the cross-axis, similar to how justify-content aligns individual items within the main-axis.
@@ -1675,7 +1682,7 @@ declare namespace CSS {
      */
     zoom?: CSSWideKeyword | "auto" | number | CSSPercentage;
 
-   
+
   }
 
 

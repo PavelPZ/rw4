@@ -1,3 +1,3 @@
 [submodule "mdi"]
-	path = design/mdi
+	path = design/mdi-react/mdi
 	url = https://github.com/Templarian/MaterialDesign-SVG

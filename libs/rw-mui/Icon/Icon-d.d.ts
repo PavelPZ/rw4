@@ -9,7 +9,7 @@
 
   type IconClassKey = 'root' | 'colorAccent' | 'colorAction' | 'colorContrast' | 'colorDisabled' | 'colorError' | 'colorPrimary' | 'colorInherit'
 
-  type IIconStyle = PartialRecord<IconClassKey, TextStyle>
+  type IIconStyle = PartialRecord<IconClassKey, IconStyle>
 
   type IconType = Mui.ComponentType<IIconProps, IIconStyle>
 

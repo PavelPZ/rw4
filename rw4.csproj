@@ -74,6 +74,9 @@
     <Content Include=".gitignore" />
     <TypeScriptCompile Include="app-common\gui\colors.ts" />
     <TypeScriptCompile Include="app-common\gui\colors-d.d.ts" />
+    <TypeScriptCompile Include="app-common\snack\icons\test.tsx" />
+    <TypeScriptCompile Include="app-common\snack\icons\n\AccessPoint.d.ts" />
+    <TypeScriptCompile Include="app-common\snack\icons\w\AccessPoint.d.ts" />
     <TypeScriptCompile Include="app-common\snack\mui\typography.tsx" />
     <TypeScriptCompile Include="app-common\snack\mui\icon.tsx" />
     <TypeScriptCompile Include="app-native\snack\mui\ripple.tsx" />
@@ -81,6 +84,7 @@
     <TypeScriptCompile Include="app-native\snack\mui\index.tsx" />
     <TypeScriptCompile Include="app-web\snack\material-ui\theming-n.tsx" />
     <TypeScriptCompile Include="app-web\snack\material-ui\theming-w.tsx" />
+    <TypeScriptCompile Include="libs\rw-mui-u\Icon\Icon.tsx" />
     <TypeScriptCompile Include="libs\rw-mui-w\ButtonBase\ButtonBase.tsx" />
     <TypeScriptCompile Include="libs\rw-mui-w\Button\Button.tsx" />
     <TypeScriptCompile Include="libs\rw-mui-w\Icon\Icon.tsx" />
@@ -113,6 +117,8 @@
     <TypeScriptCompile Include="libs\rw-utils\object-each.ts" />
     <TypeScriptCompile Include="libs\rw-utils\fela-like-w.tsx" />
     <None Include="typings\mui-d.d.ts_" />
+    <TypeScriptCompile Include="typings\xx.tsx" />
+    <TypeScriptCompile Include="typings\x.tsx" />
     <TypeScriptCompile Include="typings\mui-d.d.ts" />
     <TypeScriptCompile Include="typings\recompose.d.ts" />
     <TypeScriptCompile Include="typings\recompose-low.d.ts" />
@@ -294,6 +300,7 @@
     <Content Include="app-web\snack\login-msie.html" />
     <Content Include="app-web\snack\login.html" />
     <Content Include="app-web\snack\react-md-pure.html" />
+    <None Include="design\mdi-react-lm\scripts\generate.js_" />
     <Content Include="design\mdi-react-lm\scripts\generate.js" />
     <Content Include="home.html" />
     <Content Include="json.json" />

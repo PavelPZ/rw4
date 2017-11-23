@@ -20,6 +20,7 @@ SystemJS.config({
     "rw-fela-w": "libs/rw-fela-w",
     "rw-mui": "libs/rw-mui-w",
     "rw-mui-w": "libs/rw-mui-w",
+    "rw-mui-u": "libs/rw-mui-u"
   }
 });
 
@@ -45,6 +46,7 @@ SystemJS.config({
     "child_process": "npm:jspm-nodelibs-child_process@0.2.1",
     "http": "npm:jspm-nodelibs-http@0.2.0",
     "https": "npm:jspm-nodelibs-https@0.2.2",
+    "warning": "npm:warning@3.0.0",
     "zlib": "npm:jspm-nodelibs-zlib@0.2.3",
     "redux": "npm:redux@3.7.2",
     "react-redux": "npm:react-redux@5.0.6",

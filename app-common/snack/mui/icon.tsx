@@ -1,9 +1,18 @@
 import React from 'react'
-import { View, Text } from 'react-native'
 import Icon from 'rw-mui/Icon/Icon'
 import MuiThemeProvider from 'rw-mui/styles/MuiThemeProvider'
 import createMuiTheme from 'rw-mui/styles/createMuiTheme'
 import color from 'material-ui/colors/orange'
+
+import Cancel from 'material-ui/svg-icons/Cancel'
+
+const app2: React.SFC = props => <div>
+  <h1><span style={{ display: 'inline-block', verticalAlign: 'middle' }}><Cancel style={{ height: '1em', width: '1em', }} /></span>Xxxx</h1>
+  <h2><Cancel style={{ height: '1em', width: '1em', display: 'inline-block', verticalAlign: 'middle' }} />Xxxxx</h2> 
+  <h3><Cancel style={{ height: '1em', width: '1em' }} />Xxxxx</h3>
+  <h4><Cancel style={{ height: '1em', width: '1em' }} />Xxxxx</h4>
+</div>
+
 
 const theme = createMuiTheme({
   overrides: {
@@ -13,14 +22,14 @@ const theme = createMuiTheme({
   }
 })
 
-const app: React.SFC = props => <View style={{ marginTop: 24 }}>
+const app: React.SFC = props => <div style={{ marginTop: 24 }}>
   <Icon children={GUI.mdi_icons.arrowDownBoldBox} />
   <Icon children={GUI.mdi_icons.arrowDownBoldBox} color='inherit' />
   <Icon children={GUI.mdi_icons.arrowDownBoldBox} color='accent' />
   <Icon children={GUI.mdi_icons.arrowDownBoldBox} color='action' />
-  <View style={{ backgroundColor: 'darkgray', padding:5 }}>
+  <div style={{ backgroundColor: 'darkgray', padding:5 }}>
     <Icon children={GUI.mdi_icons.arrowDownBoldBox} color='contrast' />
-  </View>
+  </div>
   <Icon children={GUI.mdi_icons.arrowDownBoldBox} color='disabled' />
   <Icon children={GUI.mdi_icons.arrowDownBoldBox} color='error' />
   <Icon children={GUI.mdi_icons.arrowDownBoldBox} color='primary' />
@@ -30,6 +39,7 @@ const app: React.SFC = props => <View style={{ marginTop: 24 }}>
   <MuiThemeProvider theme={theme}>
     <Icon children={GUI.mdi_icons.arrowDownBoldBox} />
   </MuiThemeProvider>
-</View>
+</div>
 
-export default app
+//export default app
+export default app2

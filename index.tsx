@@ -64,7 +64,8 @@ import { AppPage } from './app-common/snack/app-router'
 //import MuiTest from './app-web/snack/material-ui/theming-n'
 //import DrawerNativeLikeApp from './app-web/snack/drawer-native-like'
 //import Header from './app-web/snack/layout/index'
-import Typography from './app-common/snack/mui/typography'
+//import Test from './app-common/snack/mui/icon'
+import Test from './app-common/snack/icons/test'
 
 
 //*********** spusteni
@@ -157,7 +158,7 @@ export const init = async () => {
   //noRouteApp = <IconTest />
   //noRouteApp = <Header />
   //noRouteApp = <MuiTest/>
-  noRouteApp = <Typography />
+  noRouteApp = <Test />
 
 
 

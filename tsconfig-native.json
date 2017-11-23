@@ -13,6 +13,7 @@
       "rw-mui/*": [ "libs/rw-mui/*" ],
       "rw-mui-n/*": [ "libs/rw-mui/*" ],
       "rw-mui-w/*": [ "libs/rw-mui-w/*" ],
+      "rw-mui-u/*": [ "libs/rw-mui-u/*" ],
       "recompose/*": [ "typings/recompose-low" ]
     },
 
