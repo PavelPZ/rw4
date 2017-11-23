@@ -12,7 +12,7 @@ import { isLogged } from './index'
 import { getIcon } from '../../app-common/gui/ionic'
 import { Button } from '../../app-common/gui/gui'
 
-import { renderCSS } from 'rw-fela-w/index'
+import { renderCSS } from 'rw-mui-w/styles/styler'
 import { Portal, Paper } from '../../app-web/gui/react-md';
 
 export const platform = (par: Login.IPlatformPar) => ({

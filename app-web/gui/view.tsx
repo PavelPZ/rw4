@@ -1,5 +1,5 @@
 ﻿import React from 'react';
-import { renderCSS, renderCSSs } from 'rw-fela-w/index'
+import { renderCSS, renderCSSs } from 'rw-mui-w/styles/styler'
 //import Animated from 'animated'
 //import { TweensAnimate } from '../gui/lib'
 

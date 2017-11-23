@@ -1,6 +1,6 @@
 ﻿import React from 'react';
 import PropTypes from 'prop-types';
-import { renderCSS } from 'rw-fela-w/index'
+import { renderCSS } from 'rw-mui-w/styles/styler'
 import { MouseHandler } from './lib';
 import { TextProperties } from 'react-native';
 

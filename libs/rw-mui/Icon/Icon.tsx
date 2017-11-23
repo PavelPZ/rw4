@@ -4,7 +4,7 @@ import withStyles from 'rw-mui/styles/withStyles'
 import { MaterialCommunityIcons as MIcon } from '@expo/vector-icons'
 import { capitalizeFirstLetter } from 'material-ui/utils/helpers'
 
-import { styleNative } from 'rw-styler/index'
+import { expandStyle } from '../styles/styler'
 
 import warning from 'warning'
 
@@ -34,7 +34,7 @@ const icon: Mui.SFC<Mui.IIconProps, Mui.IIconStyle> = ({ children, classes, colo
 
   //console.log(name)
 
-  return <MIcon name={name} style={styleNative(actStyle, theme.OS)} />
+  return <MIcon name={name} style={expandStyle(actStyle)} />
 }
 
 //const x = <Icon children={GUI.mdi_icons.account} />

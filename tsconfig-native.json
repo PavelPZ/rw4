@@ -12,7 +12,7 @@
       "rw-fela-w/*": [ "libs/rw-fela-w/*" ],
       "rw-mui/*": [ "libs/rw-mui/*" ],
       "rw-mui-n/*": [ "libs/rw-mui/*" ],
-      "rw-styler/*": [ "libs/rw-styler/*" ],
+      "rw-mui-w/*": [ "libs/rw-mui-w/*" ],
       "recompose/*": [ "typings/recompose-low" ]
     },
 

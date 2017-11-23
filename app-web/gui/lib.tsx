@@ -1,6 +1,6 @@
 ﻿import React from 'react'
 import { PlatformStatic } from 'react-native';
-import { renderCSS } from 'rw-fela-w/index'
+import { renderCSS } from 'rw-mui-w/styles/styler'
 import { PromiseExtensible } from '../../app-common/lib/lib';
 
 export const Platform: PlatformStatic = {

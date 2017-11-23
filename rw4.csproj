@@ -90,7 +90,7 @@
     <TypeScriptCompile Include="libs\rw-mui-w\styles\expoLoadFonts.ts" />
     <TypeScriptCompile Include="libs\rw-mui-w\styles\MuiThemeProvider.ts" />
     <TypeScriptCompile Include="libs\rw-mui-w\styles\shadows.ts" />
-    <TypeScriptCompile Include="libs\rw-mui-w\styles\makeCompatible.tsx" />
+    <TypeScriptCompile Include="libs\rw-mui-w\styles\styler.tsx" />
     <TypeScriptCompile Include="libs\rw-mui-w\styles\withStyles.ts" />
     <TypeScriptCompile Include="libs\rw-mui-w\Typography\Typography.tsx" />
     <TypeScriptCompile Include="libs\rw-mui\ButtonBase\ButtonBase-d.d.ts" />
@@ -99,8 +99,8 @@
     <TypeScriptCompile Include="libs\rw-mui\Icon\Icon-d.d.ts" />
     <TypeScriptCompile Include="libs\rw-mui\Icon\Icon.tsx" />
     <TypeScriptCompile Include="libs\rw-mui\index.ts" />
+    <TypeScriptCompile Include="libs\rw-mui\styles\styler.ts" />
     <TypeScriptCompile Include="libs\rw-mui\Typography\Typography-d.d.ts" />
-    <TypeScriptCompile Include="libs\rw-styler\index.ts" />
     <TypeScriptCompile Include="libs\rw-mui\styles\expoLoadFonts.ts" />
     <TypeScriptCompile Include="libs\rw-mui\Typography\Typography.tsx" />
     <TypeScriptCompile Include="libs\rw-controls\icon\icon-n.tsx" />
@@ -108,7 +108,6 @@
     <TypeScriptCompile Include="libs\rw-mui\Button\Button.tsx" />
     <TypeScriptCompile Include="libs\rw-mui\styles\MuiThemeProvider.ts" />
     <TypeScriptCompile Include="libs\rw-controls\text\text-w.tsx" />
-    <TypeScriptCompile Include="libs\rw-fela-w\index.tsx" />
     <TypeScriptCompile Include="libs\rw-mui\styles\withStyles.ts" />
     <TypeScriptCompile Include="libs\rw-utils\fela-like-w - Copy.tsx" />
     <TypeScriptCompile Include="libs\rw-utils\object-each.ts" />
@@ -237,7 +236,7 @@
     <TypeScriptCompile Include="app-web\gui\react-md.ts" />
     <TypeScriptCompile Include="app-web\snack\drawer.tsx" />
     <TypeScriptCompile Include="app-web\lib\typings.d.ts" />
-    <TypeScriptCompile Include="libs\rw-fela-w\fela-d.d.ts" />
+    <TypeScriptCompile Include="typings\fela-d.d.ts" />
     <TypeScriptCompile Include="app-web\lib\fela.tsx" />
     <Content Include="app-common\snack\controls.xlsx" />
     <TypeScriptCompile Include="app-web\snack\react-md-test.tsx" />

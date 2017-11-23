@@ -28,7 +28,6 @@ function createMuiTheme(options: Mui.ThemeOptions = {}) {
   const breakpoints = createBreakpoints(breakpointsInput);
 
   const muiTheme: Mui.Theme = {
-    OS: Platform.OS,
     direction: 'ltr',
     palette,
     typography: createTypography(palette, typographyInput),

@@ -4,7 +4,7 @@ import { capitalizeFirstLetter } from 'material-ui/utils/helpers'
 import { Text } from 'react-native'
 
 import withStyles from '../styles/withStyles'
-import { styleNative } from 'rw-styler/index'
+import { expandStyle } from 'rw-mui/styles/styler'
 
 
 export const styles: Mui.StyleRulesCallback<Mui.ITypographyStyle> = theme => ({
@@ -61,7 +61,7 @@ const typography: Mui.SFC<Mui.ITypographyProps, Mui.ITypographyStyle> = props =>
     ...style || null
   }
   //console.log(type, classes[type], actStyle)
-  return <Text style={styleNative(actStyle, theme.OS)} {...(noWrap && classes.noWrap) } {...other} />
+  return <Text style={expandStyle(actStyle)} {...(noWrap && classes.noWrap) } {...other} />
 }
 
 const Typography = withStyles(styles, { name: 'MuiTypography-n' })<Mui.ITypographyProps>(typography)

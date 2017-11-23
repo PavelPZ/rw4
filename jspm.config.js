@@ -19,7 +19,7 @@ SystemJS.config({
     "rw-controls": "libs/rw-controls",
     "rw-fela-w": "libs/rw-fela-w",
     "rw-mui": "libs/rw-mui-w",
-    "rw-styler": "libs/rw-styler",
+    "rw-mui-w": "libs/rw-mui-w",
   }
 });
 
