@@ -12,60 +12,40 @@ declare namespace Mui {
   type StyleRules = Record<string, Partial<CSS.Style>>
   type StyleRulesCallback<TRules extends StyleRules = StyleRules> = (theme: Theme) => TRules
 
-  interface StyledComponentProps<TRules extends StyleRules> {
-    classes?: Partial<TRules>;
-    innerRef?: React.Ref<any>;
-  }
+  //interface StyledComponentProps<TRules extends StyleRules> {
+  //  classes?: Partial<TRules> | Partial<Record<keyof TRules, string>>
+  //  innerRef?: React.Ref<any>
+  //}
 
-  export interface WithStyles<TRules extends StyleRules> {
-    classes: TRules
-    theme?: Theme
-  }
+  //export interface WithStyles<TRules extends StyleRules> {
+  //  classes: TRules
+  //  theme?: Theme
+  //}
 
   export interface WithStylesOptions {
-    flip?: boolean;
-    withTheme?: boolean;
-    name?: string;
+    flip?: boolean
+    withTheme?: boolean
+    name?: string
   }
 
-  type StandardProps<C, TRules extends StyleRules, Removals extends keyof C = never> =
-    & Omit<C & { classes: any }, 'classes' | Removals>
-    & StyledComponentProps<TRules>
-    & {
-      className?: string
+  type StandardProps<C, TRules extends StyleRules, Removals extends keyof C = never> ={
+      innerRef?: React.Ref<any>
+      classes?: Partial<TRules> | Partial<Record<keyof TRules, string>>
       style?: TRules[Names.rootRule] //StyleAll;
       theme?: Mui.Theme
-    }
+      flip?: boolean
+  } & Omit<C & { classes: any }, 'classes' | Removals>
+  //& StyledComponentProps<TRules> 
 
   type SFC<C, TRules extends StyleRules, Removals extends keyof C = never> = React.SFC<StandardProps<C, TRules, Removals>>
   type ComponentType<C, TRules extends StyleRules, Removals extends keyof C = never> = React.ComponentType<StandardProps<C, TRules, Removals>>
 
   type withStyles = <TRules extends StyleRules>
   (style: TRules | StyleRulesCallback<TRules>, options?: WithStylesOptions)
-    => <C, Removals extends keyof C = never>(component: React.ComponentType<C & WithStyles<TRules>>)
+    => <C, Removals extends keyof C = never>(component: Mui.ComponentType<C, TRules>)
       => ComponentType<C, TRules, Removals>
 
-  interface FontStyle {
-    fontFamily: StyleAll['fontFamily'];
-    fontSize: StyleAll['fontSize'];
-    fontWeightLight: StyleAll['fontWeight'];
-    fontWeightRegular: StyleAll['fontWeight'];
-    fontWeightMedium: StyleAll['fontWeight'];
-    htmlFontSize?: number;
-  }
 
-
-  interface TypographyStyle {
-    color?: StyleAll['color']
-    fontFamily: StyleAll['fontFamily']
-    fontSize: StyleAll['fontSize']
-    fontWeight: StyleAll['fontWeight']
-    letterSpacing?: StyleAll['letterSpacing']
-    lineHeight?: StyleAll['lineHeight']
-    textTransform?: React.CSSProperties['textTransform']
-  }
-
- 
   //************* mui/styles/colorManipulator
   type ColorFormat = 'rgb' | 'rgba' | 'hsl' | 'hsla';
 
@@ -91,8 +71,8 @@ declare namespace Mui {
   interface Breakpoints {
     keys: Breakpoint[];
     values: BreakpointValues;
-    up: (key: Breakpoint  |  number) => string;
-    down: (key: Breakpoint  |  number) => string;
+    up: (key: Breakpoint | number) => string;
+    down: (key: Breakpoint | number) => string;
     between: (start: Breakpoint, end: Breakpoint) => string;
     only: (key: Breakpoint) => string;
     width: (key: Breakpoint) => number;
@@ -190,27 +170,9 @@ declare namespace Mui {
   //************* mui/styles/createTypography
 
 
-  type TextStyleKeys =
-    | 'display1'
-    | 'display2'
-    | 'display3'
-    | 'display4'
-    | 'headline'
-    | 'title'
-    | 'subheading'
-    | 'body1'
-    | 'body2'
-    | 'caption';
+ 
 
 
-  type Style = TextStyleKeys | 'button';
-
-
-  type Typography = {[type in Style]: TypographyStyle } & FontStyle & { fontSizeNormalizer: (size: number) => number };
-
-  type TypographyOptions = Partial<FontStyle> & Partial<Typography>
-
-  
   //************* mui/index
 
 

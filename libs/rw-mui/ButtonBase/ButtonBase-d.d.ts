@@ -11,5 +11,5 @@
 
   type IButtonBaseStyle = PartialRecord<ButtonBaseClassKeyView, ViewStyle>
 
-  type ButtonBaseType = React.ComponentType<IButtonBaseProps & WithStyles<IButtonBaseStyle>>
+  type ButtonBaseType = Mui.ComponentType<IButtonBaseProps, IButtonBaseStyle>
 }

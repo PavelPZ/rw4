@@ -1,5 +1,5 @@
 import React from 'react'
-import Icon from 'rw-mui/Icon/Icon'
+import Icon, { iconColor, iconSize } from 'rw-mui/Icon/Icon'
 import MuiThemeProvider from 'rw-mui/styles/MuiThemeProvider'
 import createMuiTheme from 'rw-mui/styles/createMuiTheme'
 import color from 'material-ui/colors/orange'
@@ -17,12 +17,13 @@ const app2: React.SFC = props => <div>
 const theme = createMuiTheme({
   overrides: {
     [Mui.Names.Icon]: {
-      colorInherit: { color: color[500] }
+      colorInherit: iconColor(color[500])
     }
   }
 })
 
 const app: React.SFC = props => <div style={{ marginTop: 24 }}>
+  {/*
   <Icon children={GUI.mdi_icons.arrowDownBoldBox} />
   <Icon children={GUI.mdi_icons.arrowDownBoldBox} color='inherit' />
   <Icon children={GUI.mdi_icons.arrowDownBoldBox} color='accent' />
@@ -33,13 +34,14 @@ const app: React.SFC = props => <div style={{ marginTop: 24 }}>
   <Icon children={GUI.mdi_icons.arrowDownBoldBox} color='disabled' />
   <Icon children={GUI.mdi_icons.arrowDownBoldBox} color='error' />
   <Icon children={GUI.mdi_icons.arrowDownBoldBox} color='primary' />
-  <Icon children={GUI.mdi_icons.arrowDownBoldBox} classes={{ colorInherit: { color: 'green' } }} />
-  <Icon children={GUI.mdi_icons.arrowDownBoldBox} classes={{ root: { fontSize:24 } }} />
-  <Icon children={GUI.mdi_icons.arrowDownBoldBox} style={{ color: 'brown' }} />
+  <Icon children={GUI.mdi_icons.arrowDownBoldBox} style={iconColor('brown')} />
+  */}
+  <Icon children={GUI.mdi_icons.arrowDownBoldBox} classes={{ colorInherit: iconColor('green') }} />
+  <Icon children={GUI.mdi_icons.arrowDownBoldBox} classes={{ root: iconSize(32) }} />
   <MuiThemeProvider theme={theme}>
     <Icon children={GUI.mdi_icons.arrowDownBoldBox} />
   </MuiThemeProvider>
 </div>
 
-//export default app
-export default app2
+export default app
+//export default app2

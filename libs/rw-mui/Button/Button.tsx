@@ -4,7 +4,10 @@ import { Platform, View, Text } from 'react-native'
 import withStyles from 'rw-mui/styles/withStyles'
 import ButtonBase, { styles as baseStyles } from '../ButtonBase/ButtonBase'
 
-const styles: Mui.StyleRulesCallback<Mui.IButtonStyle> = theme => ({
+import { expandStyles } from 'rw-mui-u/styles/styler'
+import { expandStyle, classNames } from 'rw-mui-n/styles/styler'
+
+const styles: Mui.StyleRulesCallback<Mui.IButtonStyle> = theme => expandStyles({
   ...baseStyles(theme),
   root: {
     minWidth: 88,
@@ -75,27 +78,27 @@ const button: Mui.SFC<Mui.IButtonProps, Mui.IButtonStyle> = props => {
   } = props;
 
   const flat = !raised && !fab
-  const viewStyle = {
-    ...classes.root || null,
-    ...((raised || fab) && classes.raised) || null,
-    ...(fab && classes.fab) || null,
-    ...(!flat && color === 'accent' && classes.raisedAccent) || null,
-    ...(!flat && color === 'primary' && classes.raisedPrimary) || null,
-    ...(dense && classes.dense) || null,
-    ...(disabled && classes.disabled) || null,
-    ...style || null,
-  }
-  const textStyle = {
-    ...classes.rootLabel || null,
-    ...(flat && color === 'accent' && classes.flatLabelAccent) || null,
-    ...(flat && color === 'contrast' && classes.flatLabelContrast) || null,
-    ...(flat && color === 'primary' && classes.flatLabelPrimary) || null,
-    ...(!flat && color === 'accent' && classes.raisedLabelAccent) || null,
-    ...(!flat && color === 'contrast' && classes.raisedLabelContrast) || null,
-    ...(!flat && color === 'primary' && classes.raisedLabelPrimary) || null,
-    ...(dense && classes.denseLabel) || null,
-    ...(disabled && classes.disabledLabel) || null,
-  }
+  const viewStyle = classNames<RN.ViewStyle>(
+    classes.root,
+    (raised || fab) && classes.raised,
+    fab && classes.fab,
+    !flat && color === 'accent' && classes.raisedAccent,
+    !flat && color === 'primary' && classes.raisedPrimary,
+    dense && classes.dense,
+    disabled && classes.disabled,
+    expandStyle(style),
+  )
+  const textStyle = classNames<RN.TextStyle>(
+    classes.rootLabel,
+    flat && color === 'accent' && classes.flatLabelAccent,
+    flat && color === 'contrast' && classes.flatLabelContrast,
+    flat && color === 'primary' && classes.flatLabelPrimary,
+    !flat && color === 'accent' && classes.raisedLabelAccent,
+    !flat && color === 'contrast' && classes.raisedLabelContrast,
+    !flat && color === 'primary' && classes.raisedLabelPrimary,
+    dense && classes.denseLabel,
+    disabled && classes.disabledLabel,
+  )
 
   //console.log(viewStyle, textStyle)
 

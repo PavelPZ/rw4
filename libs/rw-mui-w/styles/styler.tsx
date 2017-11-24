@@ -2,6 +2,7 @@ import React from 'react'
 import { StandardProps } from 'material-ui/index'
 import { ClassNameMap } from 'material-ui/styles/withStyles'
 import hoistNonReactStatics from 'hoist-non-react-statics'
+import _classnames from 'classnames'
 
 import { createRenderer, combineRules } from 'fela'
 import { render } from 'fela-dom'
@@ -35,20 +36,30 @@ export const expandStyle = (style: Style) => {
   return { ...rest || null, ...web || null } as CSSProperties
 }
 
-const styleToClasses = <ClassKey extends string>(styles: Mui.StyleRules) => {
+export const expandStyles = (styles: Mui.StyleRules) => {
   if (!styles) return null
-  const res: Partial<ClassNameMap<ClassKey>> = {}
-  for (const p in styles) res[p] = renderStyle(styles[p])
+  const res: Record<string, CSSProperties> = {}
+  for (const p in styles) res[p] = expandStyle(styles[p])
   return res
 }
 
-const makeCompatible = <C, TRules extends Mui.StyleRules, Removals extends keyof C = never>(Web: React.ComponentType<StandardProps<C, keyof TRules, Removals>>) => {
-  const NativeLike: Mui.SFC<C, TRules> = props => {
-    const { style, classes, ...rest } = props as { style: TRules[Mui.Names.rootRule], classes: Record<string, Partial<CSS.Style>>, [p: string]: any }
-    return <Web style={expandStyle(style)} classes={styleToClasses<keyof TRules>(classes)} { ...rest } />
-  }
-  hoistNonReactStatics(NativeLike, Web)
-  return NativeLike
+const styleToClasses = <TRules extends Mui.StyleRules>(styles: TRules) => {
+  if (!styles) return null
+  const res: { [name: string]: string } = {}
+  for (const p in styles) res[p] = renderStyle(styles[p])
+  return res as Partial<ClassNameMap<keyof TRules>>
 }
+
+const makeCompatible = <C, TRules extends Mui.StyleRules>(MuiLike: React.ComponentType<StandardProps<C, keyof TRules>>) => {
+  const RwLike: Mui.SFC<C, TRules> = props => {
+    const { style, classes, ...rest } = props as Mui.StandardProps<{}, Mui.StyleRules> //{ style: TRules[Mui.Names.rootRule], classes: Record<string, Partial<CSS.Style>>, [p: string]: any }
+    const clss = styleToClasses(classes as TRules)
+    return <MuiLike style={expandStyle(style)} classes={clss} { ...rest } />
+  }
+  hoistNonReactStatics(RwLike, MuiLike)
+  return RwLike
+}
+
+export const classNames = _classnames
 
 export default makeCompatible

@@ -3,138 +3,233 @@
 import deepmerge from 'deepmerge'; // < 1kb payload overhead when lodash/merge is > 3kb.
 
 import { Dimensions, PixelRatio } from 'react-native'
+import { expandStyles } from 'rw-mui-u/styles/styler'
 
 //https://github.com/facebook/react-native/issues/7687
 //const round = (value: number) => Math.round(value * 1e5) / 1e5
 //const lineHeight = (value: number) => round(value * 16)
 
-const defaultFonts = {
+const nativeFonts = {
   light: {
     fontFamily: 'Roboto_Light',
     //fontFile: 'Roboto-Light.ttf',
     fontWeight: '300'
-  },
+  } as RN.TextStyle,
   regular: {
     fontFamily: 'Roboto',
     //fontFile: 'Roboto-Regular.ttf',
     fontWeight: '400'
-  },
+  } as RN.TextStyle,
   medium: {
     fontFamily: 'Roboto_Medium',
     //fontFile: 'Roboto-Medium.ttf',
     fontWeight: '500'
-  }
+  } as RN.TextStyle
 }
 
-export type TypographyClassKey = 'display1' | 'display2' | 'display3' | 'display4' | 'headline' | 'title' | 'subheading' | 'body1' | 'body2' | 'caption'
-export type TypographyClassKeys = TypographyClassKey | 'button';
-
 interface TypographyOptions extends Mui.TypographyOptions {
-  expoFontAssetPath?: string
-  expoFonts?: typeof defaultFonts
-  fontSize?: number
-  htmlFontSize?: number
+   expoFonts?: typeof nativeFonts
 }
 
 export default function createTypography(palette: Mui.Palette, typography: Partial<TypographyOptions> | ((palette: Mui.Palette) => TypographyOptions), _fontSizes?: Partial<TFontSizes>) {
   const {
+    fontFamily = '"Roboto", "Helvetica", "Arial", sans-serif',
     expoFontAssetPath = 'libs/rw-mui-n/fonts/',
     fontSize = 14, // px
-    expoFonts = defaultFonts,
+    expoFonts = nativeFonts,
+    fontWeightLight = 300,
+    fontWeightRegular = 400,
+    fontWeightMedium = 500,
     htmlFontSize = 16, // 16px is the default font-size used by browsers on the html element.
     ...other
   } = typeof typography === 'function' ? typography(palette) : typography
+
+  const pxToRem = (value: number) => `${value / htmlFontSize}rem`
+  const round = (value: number) => Math.round(value * 1e5) / 1e5
 
   const fontSizes = { ...mobile_fontSizes, ..._fontSizes || null }
   const fontSizeNormalizer = fontSizes.getFontSizeNormalizer(PixelRatio.get(), Dimensions.get('window').width, Dimensions.get('window').height)
 
   //http://typecast.com/blog/a-more-modern-scale-for-web-typography
   const typo = {
-    fontSizeNormalizer,
-    expoFontAssetPath,
+    native: {
+      fontSizeNormalizer,
+      expoFontAssetPath,
+    },
+    web: {
+      pxToRem,
+      fontFamily,
+      fontWeightLight,
+      fontWeightRegular,
+      fontWeightMedium,
+    },
     fontSize,
-    //fontFamily,
-    //fontWeightLight,
-    //fontWeightRegular,
-    //fontWeightMedium,
-    ...{
-      display4: {
+  }
+  const classes: Mui.TypographyClasses = {
+    display4: {
+      native: {
         fontSize: fontSizeNormalizer(fontSizes.display4),
         ...expoFonts.light,
-        //lineHeight: lineHeight(128 / 112),
         marginLeft: -.06 * htmlFontSize,
-        color: palette.text.secondary,
       },
-      display3: {
+      web: {
+        fontSize: pxToRem(112),
+        fontWeight: fontWeightLight,
+        fontFamily,
+        letterSpacing: '-.04em',
+        lineHeight: `${round(128 / 112)}em`,
+        marginLeft: '-.06em',
+      },
+      color: palette.text.secondary,
+    },
+    display3: {
+      native: {
         fontSize: fontSizeNormalizer(fontSizes.display3),
         ...expoFonts.regular,
-        //lineHeight: lineHeight(73 / 56),
         marginLeft: -.04 * htmlFontSize,
-        color: palette.text.secondary,
       },
-      display2: {
+      web: {
+        fontSize: pxToRem(56),
+        fontWeight: fontWeightRegular,
+        fontFamily,
+        letterSpacing: '-.02em',
+        lineHeight: `${round(73 / 56)}em`,
+        marginLeft: '-.04em',
+      },
+      color: palette.text.secondary,
+    },
+    display2: {
+      native: {
         fontSize: fontSizeNormalizer(fontSizes.display2),
         ...expoFonts.regular,
-        //lineHeight: lineHeight(48 / 45),
         marginLeft: -.04 * htmlFontSize,
-        color: palette.text.secondary,
       },
-      display1: {
+      web: {
+        fontSize: pxToRem(45),
+        fontWeight: fontWeightRegular,
+        fontFamily,
+        lineHeight: `${round(48 / 45)}em`,
+        marginLeft: '-.04em',
+      },
+      color: palette.text.secondary,
+    },
+    display1: {
+      native: {
         fontSize: fontSizeNormalizer(fontSizes.display1),
         ...expoFonts.regular,
-        //lineHeight: lineHeight(41 / 34),
         marginLeft: -.04 * htmlFontSize,
-        color: palette.text.secondary,
       },
-      headline: {
+      web: {
+        fontSize: pxToRem(34),
+        fontWeight: fontWeightRegular,
+        fontFamily,
+        lineHeight: `${round(41 / 34)}em`,
+        marginLeft: '-.04em',
+      },
+      color: palette.text.secondary,
+    },
+    headline: {
+      native: {
         fontSize: fontSizeNormalizer(fontSizes.headline),
         ...expoFonts.regular,
-        //lineHeight: lineHeight(32.5 / 24),
-        color: palette.text.primary,
       },
-      title: {
+      web: {
+        fontSize: pxToRem(24),
+        fontWeight: fontWeightRegular,
+        fontFamily,
+        lineHeight: `${round(32.5 / 24)}em`,
+      },
+      color: palette.text.primary,
+    },
+    title: {
+      native: {
         fontSize: fontSizeNormalizer(fontSizes.title),
         ...expoFonts.medium,
-        //lineHeight: lineHeight(24.5 / 21),
-        color: palette.text.primary,
       },
-      subheading: {
+      web: {
+        fontSize: pxToRem(21),
+        fontWeight: fontWeightMedium,
+        fontFamily,
+        lineHeight: `${round(24.5 / 21)}em`,
+      },
+      color: palette.text.primary,
+    },
+    subheading: {
+      native: {
         fontSize: fontSizeNormalizer(fontSizes.subheading),
         ...expoFonts.regular,
-        //lineHeight: lineHeight(24 / 16),
-        color: palette.text.primary,
       },
-      body2: {
+      web: {
+        fontSize: pxToRem(16),
+        fontWeight: fontWeightRegular,
+        fontFamily,
+        lineHeight: `${round(24 / 16)}em`,
+      },
+      color: palette.text.primary,
+    },
+    body2: {
+      native: {
         fontSize: fontSizeNormalizer(fontSizes.body2),
         ...expoFonts.medium,
-        //lineHeight: lineHeight(24 / 14),
-        color: palette.text.primary,
       },
-      body1: {
+      web: {
+        fontSize: pxToRem(14),
+        fontWeight: fontWeightMedium,
+        fontFamily,
+        lineHeight: `${round(24 / 14)}em`,
+      },
+      color: palette.text.primary,
+    },
+    body1: {
+      native: {
         fontSize: fontSizeNormalizer(fontSizes.body1),
         ...expoFonts.regular,
-        //lineHeight: lineHeight(20.5 / 14),
-        color: palette.text.primary,
       },
-      caption: {
-        fontSize: fontSizeNormalizer(fontSizes.caption),
+      web: {
+        fontSize: pxToRem(14),
+        fontWeight: fontWeightRegular,
+        fontFamily,
+        lineHeight: `${round(20.5 / 14)}em`,
+      },
+      color: palette.text.primary,
+    },
+    caption: {
+      fontSize: fontSizeNormalizer(fontSizes.caption),
+      native: {
         ...expoFonts.regular,
-        //lineHeight: lineHeight(16.5 / 12),
-        color: palette.text.secondary,
       },
-      button: {
+      web: {
+        fontSize: pxToRem(12),
+        fontWeight: fontWeightRegular,
+        fontFamily,
+        lineHeight: `${round(16.5 / 12)}em`,
+      },
+      color: palette.text.secondary,
+    },
+    button: {
+      native: {
         fontSize: fontSizeNormalizer(fontSize),
         ...expoFonts.medium,
       },
-    } as Record<TypographyClassKeys, TextStyle>
+      web: {
+        fontSize: pxToRem(fontSize),
+        textTransform: 'uppercase',
+        fontWeight: fontWeightMedium,
+        fontFamily,
+      },
+    },
   }
+
+
+
   return deepmerge(
-    typo,
+    expandStyles(typo as any),
+    expandStyles(classes),
     other,
     {
       clone: false, // No need to clone deep
     },
-  ) as typeof typo
+  )
 }
 
 //https://stackoverflow.com/questions/36015691/obtaining-the-return-type-of-a-function

@@ -1,5 +1,5 @@
-﻿declare namespace Mui {
-  interface ITypographyProps extends Mui.StandardProps<{}, ITypographyStyle> {
+﻿declare namespace Typography {
+  interface IProps extends Mui.StandardProps<{}, IStyle> {
     align?: Mui.PropTypes.Alignment
     color?: Mui.PropTypes.Color | 'secondary' | 'error'
     gutterBottom?: boolean
@@ -8,10 +8,10 @@
     type?: TypographyClassKey
   }
 
-  type TypographyClassKey = Mui.Style | 'root' | 'alignLeft' | 'alignCenter' | 'alignRight' | 'gutterBottom' | 'paragraph' | 'colorInherit' | 'colorSecondary' | 'colorAccent'
+  type TypographyClassKey = Mui.TypographyClassKey | 'root' | 'alignLeft' | 'alignCenter' | 'alignRight' | 'gutterBottom' | 'paragraph' | 'colorInherit' | 'colorSecondary' | 'colorAccent'
 
-  type ITypographyStyle = PartialRecord<TypographyClassKey, CSS.TextStyle> & { noWrap?: any /*RN.TextProperties*/ }
+  type IStyle = PartialRecord<TypographyClassKey, CSS.TextStyle> & { noWrap?: any /*RN.TextProperties*/ }
 
-  type TypographyType = Mui.ComponentType<ITypographyProps, ITypographyStyle>
+  type TypographyType = Mui.ComponentType<IProps, IStyle>
 
 }

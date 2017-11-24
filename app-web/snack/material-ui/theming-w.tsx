@@ -28,11 +28,11 @@ const buttonStyles: Mui.StyleRulesCallback<Mui.IButtonStyle> = theme => ({
 })
 
 
-const app: React.SFC<Mui.WithStyles<IStyles>> = ({ classes: { red, blue }, theme }) => {
+const app: Mui.SFC<{},IStyles> = ({ classes: { red, blue }, theme }) => {
   return <div>
     <Button raised color={'accent'} classes={buttonStyles(theme)} onClick={null}>Button</Button>
-    <div style={red}>RED TEXT: {red}</div>
-    <div style={blue}>BLUE TEXT: {blue}</div>
+    <div className={red as string}>RED TEXT: {red}</div>
+    <div className={blue as string}>BLUE TEXT: {blue}</div>
   </div>
 }
 

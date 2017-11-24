@@ -2,17 +2,25 @@ type TextStyle = CSS.TextStyle
 type ViewStyle = CSS.ViewStyle
 type ImageStyle = CSS.ImageStyle
 type IconStyle = CSS.IconStyle
+
+//type IconRule = CSS.StyleRule<CSS.RNIconStyle>
+//type TextRule = CSS.StyleRule<RN.TextStyle>
+//type ViewRule = CSS.StyleRule<RN.ViewStyle>
+//type ImageRule = CSS.StyleRule<RN.ImageStyle>
+
 type Style = CSS.Style
 type StyleAll = CSS.StyleAll
 
 type CSSProperties = React.CSSProperties
+type CSSPropertiesNative = RN.TextStyle | RN.ViewStyle | RN.ImageStyle | CSS.RNIconStyle
 
 declare namespace CSS {
 
-  type TextStyle = CSS.universalStyle<RN.TextStyle>
-  type ViewStyle = CSS.universalStyle<RN.ViewStyle>
-  type ImageStyle = CSS.universalStyle<RN.ImageStyle>
-  type IconStyle = CSS.universalStyle<RNIconStyle>
+  type TextStyle = universalStyle<RN.TextStyle>
+  type ViewStyle = universalStyle<RN.ViewStyle>
+  type ImageStyle = universalStyle<RN.ImageStyle>
+  type IconStyle = universalStyle<RNIconStyle>
+
   type Style = TextStyle | ViewStyle | ImageStyle | IconStyle
   type StyleAll = TextStyle & ViewStyle & ImageStyle & IconStyle
 
@@ -21,7 +29,9 @@ declare namespace CSS {
     fontSize?: TextStyle['fontSize']
   }
 
-  type universalStyle<TNative> = commonStyle<TNative> & {
+  type universalStyle<TNative> = commonStyle<TNative> & StyleRule<TNative>
+
+  interface StyleRule<TNative> {
     web?: CSSProperties
     native?: TNative
     ios?: TNative

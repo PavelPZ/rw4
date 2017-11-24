@@ -4,10 +4,11 @@ import { capitalizeFirstLetter } from 'material-ui/utils/helpers'
 import { Text } from 'react-native'
 
 import withStyles from '../styles/withStyles'
-import { expandStyle } from 'rw-mui/styles/styler'
+import { expandStyles } from 'rw-mui-u/styles/styler'
+import { expandStyle, classNames } from 'rw-mui-n/styles/styler'
 
 
-export const styles: Mui.StyleRulesCallback<Mui.ITypographyStyle> = theme => ({
+export const styles: Mui.StyleRulesCallback<Typography.IStyle> = theme => ({
   root: { margin: 0, },
 
   display4: theme.typography.display4, 
@@ -28,7 +29,7 @@ export const styles: Mui.StyleRulesCallback<Mui.ITypographyStyle> = theme => ({
   noWrap: {
     ellipsizeMode: 'tail',
     numberOfLines: 1
-  },
+  } as any,
   gutterBottom: { marginBottom: theme.typography.fontSizeNormalizer(0.35 * 16) },
   paragraph: { marginBottom: theme.spacing.unit * 2, },
   colorInherit: { color: undefined, },
@@ -38,7 +39,7 @@ export const styles: Mui.StyleRulesCallback<Mui.ITypographyStyle> = theme => ({
   colorError: { color: theme.palette.error.A400, },
 })
 
-const typography: Mui.SFC<Mui.ITypographyProps, Mui.ITypographyStyle> = props => {
+const typography: Mui.SFC<Typography.IProps, Typography.IStyle> = props => {
   const {
     align = 'inherit',
     classes,
@@ -51,19 +52,21 @@ const typography: Mui.SFC<Mui.ITypographyProps, Mui.ITypographyStyle> = props =>
     theme,
     ...other
   } = props
-  const actStyle = {
-    ...classes.root || null,
-    ...classes[type] || null,
-    ...(color !== 'default' && classes[`color${capitalizeFirstLetter(color)}`]) || null,
-    ...(gutterBottom && classes.gutterBottom) || null,
-    ...(paragraph && classes.paragraph) || null,
-    ...(align !== 'inherit' && classes[`align${capitalizeFirstLetter(align)}`]) || null,
-    ...style || null
-  }
+
+  const actStyle = classNames<RN.TextStyle>(
+    classes.root,
+    classes[type],
+    color !== 'default' && classes[`color${capitalizeFirstLetter(color)}`],
+    gutterBottom && classes.gutterBottom,
+    paragraph && classes.paragraph,
+    align !== 'inherit' && classes[`align${capitalizeFirstLetter(align)}`],
+    expandStyle(style)
+  )
+  
   //console.log(type, classes[type], actStyle)
-  return <Text style={expandStyle(actStyle)} {...(noWrap && classes.noWrap) } {...other} />
+  return <Text style={actStyle} {...(noWrap && classes.noWrap) } {...other} />
 }
 
-const Typography = withStyles(styles, { name: 'MuiTypography-n' })<Mui.ITypographyProps>(typography)
+const Typography = withStyles(styles, { name: 'MuiTypography-n' })<Typography.IProps>(typography)
 
 export default Typography

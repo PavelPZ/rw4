@@ -3,7 +3,10 @@ import { View, TouchableWithoutFeedback, Animated, Easing, Platform, Text, Layou
 
 import withStyles from 'rw-mui/styles/withStyles'
 
-export const styles: Mui.StyleRulesCallback<Mui.IButtonBaseStyle> = theme => ({
+import { expandStyles } from 'rw-mui-u/styles/styler'
+import { expandStyle, classNames } from 'rw-mui-n/styles/styler'
+
+export const styles: Mui.StyleRulesCallback<Mui.IButtonBaseStyle> = theme => expandStyles({
   root: {
     alignItems: 'center',
     justifyContent: 'center',
@@ -29,17 +32,17 @@ const buttonBase: Mui.SFC<Mui.IButtonBaseProps, Mui.IButtonBaseStyle> = props =>
     ...other
   } = props
 
-  const actStyle = {
-    ...classes.root || null,
-    ...(disabled && classes.disabled) || null,
-    ...style || null,
-  }
+  const actStyle = classNames<RN.ViewStyle>(
+    classes.root,
+    disabled && classes.disabled,
+    expandStyle(style),
+  )
 
   let ripple: RippleEffect
   let rect: LayoutRectangle
   return <TouchableWithoutFeedback disabled={disabled} onPress={onClick} onPressIn={() => ripple && ripple.onPressedIn(rect)} onPressOut={() => ripple && ripple.onPressedOut()} onLayout={({ nativeEvent: { layout } }) => rect = layout}>
     <View style={actStyle}>
-      {!disabled && !disableRipple && <RippleEffect theme={theme} style={classes.ripple} ref={rv => ripple = rv} />}
+      {!disabled && !disableRipple && <RippleEffect theme={theme} style={expandStyle(classes.ripple)} ref={rv => ripple = rv} />}
       {children}
     </View>
   </TouchableWithoutFeedback>
