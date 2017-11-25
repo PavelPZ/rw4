@@ -52,7 +52,7 @@ const styleToClasses = <TRules extends Mui.StyleRules>(styles: TRules) => {
 
 const makeCompatible = <C, TRules extends Mui.StyleRules>(MuiLike: React.ComponentType<StandardProps<C, keyof TRules>>) => {
   const RwLike: Mui.SFC<C, TRules> = props => {
-    const { style, classes, ...rest } = props as Mui.StandardProps<{}, Mui.StyleRules> //{ style: TRules[Mui.Names.rootRule], classes: Record<string, Partial<CSS.Style>>, [p: string]: any }
+    const { style, classes, ...rest } = props as Mui.Props<{}, Mui.StyleRules> //{ style: TRules[Mui.Names.rootRule], classes: Record<string, Partial<CSS.Style>>, [p: string]: any }
     const clss = styleToClasses(classes as TRules)
     return <MuiLike style={expandStyle(style)} classes={clss} { ...rest } />
   }

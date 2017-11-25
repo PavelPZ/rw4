@@ -1,6 +1,6 @@
 ﻿declare namespace Mui {
 
-  interface IButtonBaseProps extends Mui.StandardProps<{}, IButtonBaseStyle> {
+  interface IButtonBaseProps extends Mui.Props<{}, IButtonBaseStyle> {
     disabled?: boolean
     disableRipple?: boolean
     onClick: (ev) => void

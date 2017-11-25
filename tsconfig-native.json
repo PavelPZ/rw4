@@ -17,6 +17,7 @@
       "recompose/*": [ "typings/recompose-low" ]
     },
 
+    "importHelpers": true,
     "allowSyntheticDefaultImports": true,
     "strictNullChecks": false,
     "downlevelIteration": true,
@@ -27,7 +28,7 @@
 
     "experimentalDecorators": true,
     "noImplicitAny": false,
-    "jsx": "react",
+    "jsx": "react-native",
     "lib": [
       "dom",
       "es2015",
@@ -39,6 +40,8 @@
     "typings/mdi-react-w.d.ts",
     "design",
     "jspm_packages",
-    "node_modules"
+    "node_modules",
+    "libs/rw-mui/svg-icons/all",
+    "libs/rw-mui-w/svg-icons/all"
   ]
 }

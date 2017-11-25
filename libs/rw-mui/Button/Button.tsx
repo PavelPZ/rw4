@@ -1,5 +1,5 @@
-﻿import React from 'react'
-import { Platform, View, Text } from 'react-native'
+﻿import React from 'react' 
+import { Platform, View, Text } from 'react-native' 
 
 import withStyles from 'rw-mui/styles/withStyles'
 import ButtonBase, { styles as baseStyles } from '../ButtonBase/ButtonBase'

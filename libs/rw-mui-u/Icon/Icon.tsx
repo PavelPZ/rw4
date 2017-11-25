@@ -20,7 +20,7 @@ export const styles: Mui.StyleRulesCallback<Mui.IIconStyle> = theme => expandSty
   colorInherit: {},
 })
 
-export const getClasses = <T extends CSSPropertiesNative | string>({ classes, color = 'inherit', children, theme, innerRef, style, ...rest }: Mui.StandardProps<Mui.IIconProps, Mui.IIconStyle>) => {
+export const getClasses = <T extends CSSPropertiesNative | string>({ classes, color = 'inherit', children, theme, innerRef, style, ...rest }: Mui.Props<Mui.IIconProps, Mui.IIconStyle>) => {
   const childs = React.Children.toArray(children)
   warning(childs.length == 1 && typeof childs[0] === 'string', 'single child as string needed')
   return {

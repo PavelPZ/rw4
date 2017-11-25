@@ -1,5 +1,5 @@
 ﻿declare namespace Typography {
-  interface IProps extends Mui.StandardProps<{}, IStyle> {
+  interface IProps extends Mui.Props<{}, IStyle> {
     align?: Mui.PropTypes.Alignment
     color?: Mui.PropTypes.Color | 'secondary' | 'error'
     gutterBottom?: boolean

@@ -1,6 +1,6 @@
 ﻿declare namespace Mui {
 
-  interface IButtonProps extends StandardProps<IButtonBaseProps, IButtonStyle> {
+  interface IButtonProps extends Props<IButtonBaseProps, IButtonStyle> {
     fab?: boolean
     dense?: boolean
     href?: string

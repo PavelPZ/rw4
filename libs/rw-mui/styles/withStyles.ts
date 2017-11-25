@@ -56,18 +56,18 @@ const styleCreator = <T extends Mui.StyleRules>(styleOrCreator: T | Mui.StyleRul
 const withStyle = <TRules extends Mui.StyleRules>(styleOrCreator: TRules | Mui.StyleRulesCallback<TRules>, options: Mui.WithStylesOptions = {}) => <C, Removals extends keyof C = never>(Component: Mui.ComponentType<C, TRules>) => {
   const Style: Mui.SFC<C, TRules, Removals> = (props, context: Mui.TMuiThemeContextValue) => {
     const { withTheme = false, flip, name } = options
-    const { classes: classesProp, innerRef, ...other } = props as Mui.StandardProps<{}, Mui.StyleRules>//as any //without any: does not works in TS
+    const { classes: classesProp, innerRef, ...other } = props as Mui.Props<{}, Mui.StyleRules>//as any //without any: does not works in TS
     const theme = context.theme || getDefaultTheme()
 
     const classes = /*override with component.props.classes*/styleOverride(
       /*count STYLES based on theme and override it with theme.overrides[name]. !!! result should be cached !!!*/styleCreator(styleOrCreator, theme, name),
       expandStyles(classesProp as any) as any, name)
 
-    const newProps: Mui.StandardProps<{}, Mui.StyleRules> = { ...other, classes, flip: typeof flip === 'boolean' ? flip : theme.direction === 'rtl' }
+    const newProps: Mui.Props<{}, Mui.StyleRules> = { ...other, classes, flip: typeof flip === 'boolean' ? flip : theme.direction === 'rtl' }
 
     if (withTheme) newProps.theme = context.theme
 
-    return React.createElement(Component, newProps as Mui.StandardProps<C, TRules, Removals>)
+    return React.createElement(Component, newProps as Mui.Props<C, TRules, Removals>)
   }
   Style.contextTypes = MuiThemeContextTypes
   Style['options'] = options

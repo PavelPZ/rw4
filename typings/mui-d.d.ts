@@ -28,7 +28,7 @@ declare namespace Mui {
     name?: string
   }
 
-  type StandardProps<C, TRules extends StyleRules, Removals extends keyof C = never> ={
+  type Props<C, TRules extends StyleRules, Removals extends keyof C = never> = {
       innerRef?: React.Ref<any>
       classes?: Partial<TRules> | Partial<Record<keyof TRules, string>>
       style?: TRules[Names.rootRule] //StyleAll;
@@ -37,8 +37,8 @@ declare namespace Mui {
   } & Omit<C & { classes: any }, 'classes' | Removals>
   //& StyledComponentProps<TRules> 
 
-  type SFC<C, TRules extends StyleRules, Removals extends keyof C = never> = React.SFC<StandardProps<C, TRules, Removals>>
-  type ComponentType<C, TRules extends StyleRules, Removals extends keyof C = never> = React.ComponentType<StandardProps<C, TRules, Removals>>
+  type SFC<C, TRules extends StyleRules, Removals extends keyof C = never> = React.SFC<Props<C, TRules, Removals>>
+  type ComponentType<C, TRules extends StyleRules, Removals extends keyof C = never> = React.ComponentType<Props<C, TRules, Removals>>
 
   type withStyles = <TRules extends StyleRules>
   (style: TRules | StyleRulesCallback<TRules>, options?: WithStylesOptions)
