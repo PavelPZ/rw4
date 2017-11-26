@@ -1,5 +1,5 @@
 ﻿import React from 'react';
-import { renderCSS, renderCSSs } from 'rw-mui-w/styles/styler'
+import { rulesToClassNames} from 'rw-mui-w/styles/fela'
 
 import { Divider, BottomNavigation, Toolbar } from 'react-md'
 import { View, Button } from '../../app-common/gui/gui'
@@ -120,7 +120,7 @@ export class AnimatedDrawer extends React.PureComponent<GUI.IAnimatedMobileDrawe
     switch (windowSize) {
       case Media.TWindowSize.tablet: return <div
         ref={div => divCreated(0, div, true, () => TweenLite.to(div, duration, { paused: true, reversed: true, left: isVisible ? -drawerWidth : 0 }))}
-        className={renderCSSs(absoluteStretch as CSSProperties, { flexDirection: 'row', display: 'flex', alignContent: 'stretch', left: isVisible ? 0 : -drawerWidth })}
+        className={rulesToClassNames(absoluteStretch as CSSProperties, { flexDirection: 'row', display: 'flex', alignContent: 'stretch', left: isVisible ? 0 : -drawerWidth })}
       >
         {getDrawerMenu(menu, { key: 0, style: { flexBasis: drawerWidth, flexShrink: 0 } })}
         {getDrawerContent(content, { key: 1, style: { flex: 1 } })}
@@ -129,15 +129,15 @@ export class AnimatedDrawer extends React.PureComponent<GUI.IAnimatedMobileDrawe
         {getDrawerContent(content, { key: 1, style: absoluteStretch as RN.ViewProperties })}
         <div key={2}
           ref={div => divCreated(0, div, false, () => TweenLite.to(div, duration, { display: 'block', paused: true, reversed: true, opacity: 0.85 }))}
-          className={renderCSSs(absoluteStretch as CSSProperties, { backgroundColor: 'gray', opacity: 0, display: 'none' })}
+          className={rulesToClassNames(absoluteStretch as CSSProperties, { backgroundColor: 'gray', opacity: 0, display: 'none' })}
           onClick={() => showDrawer(false)} />
         {animation && <div key={3}
           ref={div => divCreated(1, div, false, () => TweenLite.to(div, duration, { paused: true, reversed: true, left: 0 }))}
-          className={renderCSS({ position: 'absolute', top: 0, bottom: 0, width: drawerWidth, display: 'flex', left: -drawerWidth } as CSSProperties)} >
+          className={rulesToClassNames({ position: 'absolute', top: 0, bottom: 0, width: drawerWidth, display: 'flex', left: -drawerWidth } as CSSProperties)} >
           {getDrawerMenu(menu, { key: 0, style: { flex: 1 } })}
         </div>}
       </div>
-      default: return <div className={renderCSSs(absoluteStretch as CSSProperties, { display: 'flex', flexDirection: 'row' })} ref={refForAnimation}>
+      default: return <div className={rulesToClassNames(absoluteStretch as CSSProperties, { display: 'flex', flexDirection: 'row' })} ref={refForAnimation}>
         {getDrawerMenu(menu, { key: 1, style: { flexBasis: drawerWidth, flexShrink: 0 } })}
         {getDrawerContent(content, { key: 2, style: { flex: 1 } })}
       </div>

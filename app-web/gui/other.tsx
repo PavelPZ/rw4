@@ -1,5 +1,5 @@
 ﻿import React from 'react'
-import { renderCSSs } from 'rw-mui-w/styles/styler'
+import { rulesToClassNames as renderCSSs } from 'rw-mui-w/styles/fela'
 import { getIcon2 } from '../../app-common/gui/ionic'
 import { getColors2 } from '../../app-common/gui/colors'
 

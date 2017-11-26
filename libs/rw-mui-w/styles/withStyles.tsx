@@ -46,7 +46,7 @@ const beforeWithStyles = <C, R extends Mui2.TypedSheet>(Component: Mui2.muiCompo
 }
 
 export const withStyles = <R extends Mui2.TypedSheet>(styleOrCreator: Mui2.SheetCreatorWeb<R>, options?: Mui.WithStylesOptions) => <C extends object>(comp: Mui2.muiComponentType<C, keyof R>) =>
-  beforeWithStyles<C, R>(origWithStyles(styleOrCreator, options)(comp as Mui2.muiCodeComponentType<C, keyof R>))
+  beforeWithStyles<C,R>(origWithStyles(styleOrCreator, options)(comp as Mui2.muiCodeComponentType<C, keyof R>))
 
 const beforeWithStyleDistinct = <C, TKey extends string>(Component: Mui2.muiComponentType<C, TKey>) => {
   const res: React.SFC<Mui2.PropsDistinct<C, {}, TKey>> = (props: Mui2.PropsDistinct<{}, Mui2.TypedSheet, string>) => {

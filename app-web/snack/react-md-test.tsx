@@ -10,7 +10,7 @@ import React from 'react';
 
 import { Button, Checkbox, Radio, Switch, SelectField, FontIcon } from '../gui/react-md';
 //import { Text, View } from '../../polyfill/index'
-import { renderCSS } from 'rw-mui-w/styles/styler'
+import { ruleToClassNames as renderCSS } from 'rw-mui-w/styles/fela'
 
 
 window['process'] = { env: { NODE_ENV: 'development' } }

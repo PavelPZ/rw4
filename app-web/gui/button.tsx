@@ -3,7 +3,7 @@ import { Button as MDButton, ButtonProps } from 'react-md'
 import { getColors2 } from '../../app-common/gui/colors'
 //import { colorToStyle } from '../../app-common/gui/gui'
 import { getIcon2 } from '../../app-common/gui/ionic'
-import { renderCSS } from 'rw-mui-w/styles/styler'
+import { ruleToClassNames } from 'rw-mui-w/styles/fela'
 import { navigateUrl, navigatePush } from 'rw-router/index'
 
 export const Button: React.SFC<GUI.IButtonProps> = props => {
@@ -22,7 +22,7 @@ export const Button: React.SFC<GUI.IButtonProps> = props => {
   const iconOnly = !floating && !hasChildren
   //icon
   let iconClassName = ''//getIcon2(props)
-  if (iconClassName) iconClassName = renderCSS({ fontSize: 24 }) + ' ion ion-' + iconClassName
+  if (iconClassName) iconClassName = ruleToClassNames({ fontSize: 24 }) + ' ion ion-' + iconClassName
   //pouze ikona
   if (iconOnly && !flat) style = { ...style, minWidth: 50, paddingLeft: 31 }
   //children
@@ -46,7 +46,7 @@ export const Button: React.SFC<GUI.IButtonProps> = props => {
     floating,
     raised: (!flat && !floating) || outline,
     href: !href ? undefined : navigateUrl(href),
-    className: className + ' ' + renderCSS(style),
+    className: className + ' ' + ruleToClassNames(style),
     onClick: click,
     disabled
   }

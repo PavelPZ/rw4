@@ -2,7 +2,7 @@
 //import { Button, NavigationDrawer, NavigationDrawerProps, DrawerProps, DrawerPositions, MediaTypes, DrawerTypes, MobileDrawerTypes, DrawerTypesType } from '../lib/react-md'
 import { Toolbar, Button, NavigationDrawer, NavigationDrawerProps, MenuButton, Drawer, DrawerPosition } from '../gui/react-md'
 
-import { renderCSS } from 'rw-mui-w/styles/styler'
+import { ruleToClassNames as renderCSS } from 'rw-mui-w/styles/fela'
 
 //const mobile: DrawerProps = {
   //overlay: true,

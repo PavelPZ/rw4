@@ -44,7 +44,6 @@ export const sheet: Mui2.SheetCreator<Typography.ITypographySheet> = theme => to
 })
 
 const typography: Mui2.CodeSFC<Typography.ITypographyProps, Typography.ITypographySheet> = (props => {
-  //const typography: Mui.SFC<Typography.IProps, Typography.IStyle> = props => {
   const {
     align = 'inherit',
     classes,
@@ -73,7 +72,5 @@ const typography: Mui2.CodeSFC<Typography.ITypographyProps, Typography.ITypograp
 })
 
 const Typography = withStyles(sheet as Mui2.SheetCreatorNative<Typography.ITypographySheet>, { name: Mui.Names.Typography })<Typography.ITypographyProps>(typography)
-
-//const Typography = withStyles(styles, { name: 'MuiTypography-n' })<Typography.IProps>(typography)
 
 export default Typography

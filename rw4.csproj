@@ -77,7 +77,7 @@
     <TypeScriptCompile Include="app-common\snack\icons\test.tsx" />
     <None Include="app-common\snack\mui\typography.tsx_" />
     <TypeScriptCompile Include="app-common\snack\mui\icon.tsx" />
-    <TypeScriptCompile Include="app-native\snack\mui\ripple.tsx" />
+    <None Include="app-native\snack\mui\ripple.tsx_" />
     <TypeScriptCompile Include="app-native\snack\mui\shadows.tsx" />
     <TypeScriptCompile Include="app-native\snack\mui\index.tsx" />
     <TypeScriptCompile Include="libs\rw-mui-u\Icon\Icon.tsx" />
@@ -86,8 +86,8 @@
     <TypeScriptCompile Include="libs\rw-mui-u\styles\withStyles.tsx" />
     <TypeScriptCompile Include="libs\rw-mui-u\styles\transformation.d.ts" />
     <TypeScriptCompile Include="libs\rw-mui-u\styles\createTypography-d.d.ts" />
-    <TypeScriptCompile Include="libs\rw-mui-w\ButtonBase\ButtonBase.tsx" />
-    <TypeScriptCompile Include="libs\rw-mui-w\Button\Button.tsx" />
+    <None Include="libs\rw-mui-w\ButtonBase\ButtonBase.tsx_" />
+    <None Include="libs\rw-mui-w\Button\Button.tsx_" />
     <TypeScriptCompile Include="libs\rw-mui-w\Icon\Icon.tsx" />
     <TypeScriptCompile Include="libs\rw-mui-w\index.ts" />
     <TypeScriptCompile Include="libs\rw-mui-w\styles\createMuiTheme.ts" />
@@ -104,7 +104,7 @@
     <TypeScriptCompile Include="libs\rw-mui\Icon\Icon.tsx" />
     <TypeScriptCompile Include="libs\rw-mui\index.ts" />
     <TypeScriptCompile Include="libs\rw-mui\styles\styler.ts" />
-    <TypeScriptCompile Include="libs\rw-mui\styles\withStyles2.ts" />
+    <TypeScriptCompile Include="libs\rw-mui\styles\withStyles.ts" />
     <TypeScriptCompile Include="libs\rw-mui\Typography\Typography-d.d.ts" />
     <TypeScriptCompile Include="libs\rw-mui\styles\expoLoadFonts.ts" />
     <TypeScriptCompile Include="libs\rw-mui\Typography\Typography.tsx" />
@@ -113,7 +113,6 @@
     <None Include="libs\rw-mui\Button\Button.tsx_" />
     <TypeScriptCompile Include="libs\rw-mui\styles\MuiThemeProvider.ts" />
     <TypeScriptCompile Include="libs\rw-controls\text\text-w.tsx" />
-    <None Include="libs\rw-mui\styles\withStyles.ts_" />
     <TypeScriptCompile Include="libs\rw-utils\fela-like-w - Copy.tsx" />
     <TypeScriptCompile Include="libs\rw-utils\object-each.ts" />
     <TypeScriptCompile Include="libs\rw-utils\fela-like-w.tsx" />
@@ -158,7 +157,6 @@
     <TypeScriptCompile Include="app-native\lib\native-router.tsx" />
     <TypeScriptCompile Include="app-native\snack\picker.tsx" />
     <TypeScriptCompile Include="app-web\gui\animated.d.ts" />
-    <TypeScriptCompile Include="app-web\gui\button - Copy.tsx" />
     <TypeScriptCompile Include="app-web\gui\drawer.tsx" />
     <TypeScriptCompile Include="typings\gsap-w.d.ts" />
     <TypeScriptCompile Include="app-web\lib\web-router.tsx" />

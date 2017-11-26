@@ -27,9 +27,10 @@ render(renderer)
 
 //Converts CSS rule-set to blank delimited atomic classes
 export const ruleToClassNames = (rule: CSSProperties) => rule ? renderer.renderRule(() => rule) : ''
-//export const rulesToClassNames = (...rules: CSSProperties[]) => rules ? renderRules(...rules.map(c => () => c)) : ''
 const renderRule = (felaRule: DFela.TRule) => renderer.renderRule(felaRule)
-//const renderRules = (...felaRules: DFela.TRule[]) => renderer.renderRule(combineRules(...felaRules))
+//deprecated:
+export const rulesToClassNames = (...rules: CSSProperties[]) => rules ? renderRules(...rules.map(c => () => c)) : ''
+const renderRules = (...felaRules: DFela.TRule[]) => renderer.renderRule(combineRules(...felaRules))
 
 
 export const sheetToClassSheet = <TKey extends string>(sheet: Partial<Record<TKey, CSSProperties>>) => {

@@ -7,7 +7,6 @@ import { MuiThemeContextTypes } from './MuiThemeProvider'
 import createMuiTheme from './createMuiTheme'
 import warning from 'invariant'
 import pure from 'recompose/pure'
-import { expandStyles } from 'rw-mui-u/styles/styler'
 
 let defaultTheme: Mui.Theme
 const getDefaultTheme = () => defaultTheme || (defaultTheme = createMuiTheme())
@@ -37,7 +36,7 @@ export const withStyles = <R extends Mui2.TypedSheet>(styleOrCreator: Mui2.Sheet
 
     const classes = /*override with component.props.classes*/styleOverride(
       /*count STYLES based on theme and override it with theme.overrides[name]. !!! result should be cached !!!*/styleCreator(styleOrCreator, theme, name),
-      expandStyles(classesProp as any) as any, name)
+      toPlatformSheet(classesProp) as any, name)
 
     const newProps = { ...other, classes, flip: typeof flip === 'boolean' ? flip : theme.direction === 'rtl' } as Mui2.CodeProps<C, R>
 
