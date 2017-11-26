@@ -1,5 +1,5 @@
-import Typography, { TypographyProps } from 'material-ui/Typography/Typography'
-import makeCompatible from 'rw-mui-w/styles/styler'
+import Typography from 'material-ui/Typography/Typography'
+import { withStyles } from 'rw-mui-w/styles/withStyles2'
 
-const universal = makeCompatible<TypographyProps, Typography.IStyle>(Typography)
-export default universal
+const typography = withStyles(null, { name: Mui.Names.Typography })<Typography.ITypographyProps>(Typography)
+export default typography

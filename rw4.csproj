@@ -75,7 +75,7 @@
     <TypeScriptCompile Include="app-common\gui\colors.ts" />
     <TypeScriptCompile Include="app-common\gui\colors-d.d.ts" />
     <TypeScriptCompile Include="app-common\snack\icons\test.tsx" />
-    <TypeScriptCompile Include="app-common\snack\mui\typography.tsx" />
+    <None Include="app-common\snack\mui\typography.tsx_" />
     <TypeScriptCompile Include="app-common\snack\mui\icon.tsx" />
     <TypeScriptCompile Include="app-native\snack\mui\ripple.tsx" />
     <TypeScriptCompile Include="app-native\snack\mui\shadows.tsx" />
@@ -83,6 +83,7 @@
     <TypeScriptCompile Include="app-web\snack\material-ui\theming-n.tsx" />
     <TypeScriptCompile Include="app-web\snack\material-ui\theming-w.tsx" />
     <TypeScriptCompile Include="libs\rw-mui-u\Icon\Icon.tsx" />
+    <TypeScriptCompile Include="libs\rw-mui-u\styles\react.d.ts" />
     <TypeScriptCompile Include="libs\rw-mui-u\styles\withStyles2.tsx" />
     <TypeScriptCompile Include="libs\rw-mui-u\styles\transformation.d.ts" />
     <TypeScriptCompile Include="libs\rw-mui-u\styles\createTypography-d.d.ts" />

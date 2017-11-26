@@ -3,15 +3,19 @@ import React from 'react'
 import { capitalizeFirstLetter } from 'material-ui/utils/helpers'
 import { Text } from 'react-native'
 
-import withStyles from '../styles/withStyles'
-import { expandStyles } from 'rw-mui-u/styles/styler'
-import { expandStyle, classNames } from 'rw-mui-n/styles/styler'
+import { toPlatformSheet, toRule, withStyles, classNames } from 'rw-mui-n/styles/withStyles2'
+//import {  } from 'rw-mui/styles/withStyles2'
 
+//import { withStyles } from 'rw-mui-w/styles/withStyles2'
 
-export const styles: Mui.StyleRulesCallback<Typography.IStyle> = theme => ({
+//import withStyles from '../styles/withStyles'
+//import { expandStyles } from 'rw-mui-u/styles/styler'
+//import { expandStyle, classNames } from 'rw-mui-n/styles/styler'
+
+export const sheet: Mui2.SheetCreator<Typography.ITypographySheet> = theme => toPlatformSheet<Typography.ITypographySheet>({
   root: { margin: 0, },
 
-  display4: theme.typography.display4, 
+  display4: theme.typography.display4,
   display3: theme.typography.display3,
   display2: theme.typography.display2,
   display1: theme.typography.display1,
@@ -39,7 +43,8 @@ export const styles: Mui.StyleRulesCallback<Typography.IStyle> = theme => ({
   colorError: { color: theme.palette.error.A400, },
 })
 
-const typography: Mui.SFC<Typography.IProps, Typography.IStyle> = props => {
+const typography: Mui2.CodeSFC<Typography.ITypographyProps, Typography.ITypographySheet> = (props => {
+  //const typography: Mui.SFC<Typography.IProps, Typography.IStyle> = props => {
   const {
     align = 'inherit',
     classes,
@@ -53,20 +58,22 @@ const typography: Mui.SFC<Typography.IProps, Typography.IStyle> = props => {
     ...other
   } = props
 
-  const actStyle = classNames<RN.TextStyle>(
+  const actStyle = classNames(
     classes.root,
     classes[type],
     color !== 'default' && classes[`color${capitalizeFirstLetter(color)}`],
     gutterBottom && classes.gutterBottom,
     paragraph && classes.paragraph,
     align !== 'inherit' && classes[`align${capitalizeFirstLetter(align)}`],
-    expandStyle(style)
+    toRule(style)
   )
-  
+
   //console.log(type, classes[type], actStyle)
   return <Text style={actStyle} {...(noWrap && classes.noWrap) } {...other} />
-}
+})
 
-const Typography = withStyles(styles, { name: 'MuiTypography-n' })<Typography.IProps>(typography)
+const Typography = withStyles(sheet as Mui2.SheetCreatorNative<Typography.ITypographySheet>, { name: Mui.Names.Typography })<Typography.ITypographyProps>(typography)
+
+//const Typography = withStyles(styles, { name: 'MuiTypography-n' })<Typography.IProps>(typography)
 
 export default Typography

@@ -10,7 +10,7 @@ import pluginFallbackValue from 'fela-plugin-fallback-value'
 import pluginLvha from 'fela-plugin-lvha'
 import pluginUnit from 'fela-plugin-unit'
 
-const renderer = createRenderer({
+const plugins = {
   plugins: [
     pluginUnit('px'),
     pluginExtend(),
@@ -18,7 +18,11 @@ const renderer = createRenderer({
     pluginFallbackValue(),
     pluginLvha(),
   ]
-})
+}
+
+//debugger
+const renderer = createRenderer(plugins)
+//renderer['nodes'].RULE = document.getElementById('fela-rules')
 render(renderer)
 
 //Converts CSS rule-set to blank delimited atomic classes

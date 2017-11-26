@@ -1,4 +1,6 @@
-﻿declare namespace Mui {
+﻿declare namespace Mui2 {
+}
+declare namespace Mui {
 
   type TextStyleKeys = 'display1' | 'display2' | 'display3' | 'display4' | 'headline' | 'title' | 'subheading' | 'body1' | 'body2' | 'caption'
   type TypographyClassKey = TextStyleKeys | 'button'

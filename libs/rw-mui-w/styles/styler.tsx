@@ -21,7 +21,7 @@ const renderer = createRenderer({
     pluginLvha(),
   ]
 })
-render(renderer)
+//render(renderer)
 
 export const renderCSS = (css: CSSProperties) => css ? renderer.renderRule(() => css) : ''
 export const renderCSSs = (...csss: CSSProperties[]) => csss ? renderRules(...csss.map(c => () => c)) : ''

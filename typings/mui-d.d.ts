@@ -3,7 +3,8 @@ declare namespace Mui {
   //************* CHANGED
   const enum Names {
     rootRule = 'root',
-    Icon = 'MuiIcon-n'
+    Icon = 'MuiIcon-n',
+    Typography = 'MuiTypography-n'
   }
 
   interface IMuiThemeProps { theme: Theme | ((theme: Theme) => Theme) }

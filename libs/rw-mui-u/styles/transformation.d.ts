@@ -7,9 +7,10 @@
   }
 
   //*********** RULE typing
-  type WebCSS = CSSProperties
+  type WebCSS = ReactCSS.CSSProperties
   //available native styles
   type NativeCSS = RN.TextStyle | RN.ViewStyle | RN.ImageStyle | CSS.RNIconStyle
+  type AllCSS = WebCSS | NativeCSS
 
   //cross platform style. It contains: 
   //- commonStyle<T>: styles, common to Web and Native
@@ -31,14 +32,17 @@
   //cross platform rules definition
   type Sheet<R extends TypedSheet> = {[P in keyof R]: Rule<R[P]> } //rules definition type
   type SheetUntyped = Sheet<TypedSheet>
-  type SheetCreator<R extends TypedSheet> = Sheet<R> | ((theme: Mui.Theme) => Sheet<R>) //rules definition (rules or function)
+  type SheetCreatorWeb<R extends TypedSheet> = PlatformSheetWeb<R> | ((theme: Mui.Theme) => PlatformSheetWeb<R>) //rules definition (rules or function)
+  type SheetCreatorNative<R extends TypedSheet> = PlatformSheetNative<R> | ((theme: Mui.Theme) => PlatformSheetNative<R>) //rules definition (rules or function)
+  type SheetCreator<R extends TypedSheet> = SheetCreatorWeb<R> | SheetCreatorNative<R>
   //'classes' component attribute:
-  type ClassesProp<R extends TypedSheet> = Partial<Sheet<R>>
+  //type ClassesProp<R extends TypedSheet> = Partial<Sheet<R>>
 
   //expanded cross platform rules to platform specific
   type PlatformSheetWeb<R extends TypedSheet> = {[P in keyof R]: WebCSS} //expanded for web
   type PlatformSheetNative<R extends TypedSheet> = R //expanded for native
-  type PlatformSheet<R extends TypedSheet> = {[P in keyof R]: WebCSS | R[P]} //PlatformSheetWeb<R> | PlatformSheetNative<R>
+  type PlatformSheet<R extends TypedSheet> = PlatformSheetWeb<R> | PlatformSheetNative<R> //{[P in keyof R]: WebCSS | R[P]} //PlatformSheetWeb<R> | PlatformSheetNative<R>
+  type PlatformSheetClasses<R extends TypedSheet> = Partial<PlatformSheetWeb<R>> | Partial<PlatformSheetNative<R>> //{[P in keyof R]: WebCSS | R[P]} //PlatformSheetWeb<R> | PlatformSheetNative<R>
   //type for expanded proc
   //type expanRulesProc = <R extends TypedRules>(source: Rules<R>) => ExpandedRules<R>
 
@@ -51,16 +55,17 @@
   // cross platform COMPONENTs with similar sheet for both web and native
   //*************************************************
 
-  type PropsLow<C, R extends TypedSheet> = { innerRef?: React.Ref<any> } & C
+  type PropsLow<C> = { innerRef?: React.Ref<any> } & C
 
   //cross platform Component, used in web and native application (created by withStyles)
-  type Props<C, R extends TypedSheet> = PropsLow<C, R> & { classes?: ClassesProp<R>; style?: Rule<R[Names.rootRule]> }
+  type Props<C, R extends TypedSheet> = PropsLow<C> & { classes?: Partial<Sheet<R>>; style?: Rule<R[Names.rootRule]> }
   type ComponentType<C, R extends TypedSheet> = React.ComponentType<Props<C, R>>
   type SFC<C, R extends TypedSheet> = React.SFC<Props<C, R>>
 
   //Component's code (passed to withStyles)
-  type CodeProps<C, R extends TypedSheet> = PropsLow<C, R> & { classes: PlatformSheet<R>; style?: PlatformRule<R>; theme: Mui.Theme; flip: boolean }
+  type CodeProps<C, R extends TypedSheet> = PropsLow<C> & { classes: PlatformSheet<R>; style?: PlatformRule<R[Names.rootRule]>; theme: Mui.Theme; flip: boolean }
   type CodeComponentType<C, R extends TypedSheet> = React.ComponentType<CodeProps<C, R>>
+  type CodeSFC<C, R extends TypedSheet> = React.SFC<CodeProps<C, R>>
 
   //for native
   //type withStyleNative = <R extends TypedSheet>(style: PlatformSheetNative<R>, options?: Mui.WithStylesOptions) => <C>(component: CodeComponentType<C, R>) => ComponentType<C, R>
@@ -81,7 +86,7 @@
   type muiClassSheet<ClassKey extends string = string> = Record<ClassKey, string>
   interface muiCodeProps<ClassKey extends string = string> { classes: muiClassSheet<ClassKey>; theme?: Mui.Theme }
   interface muiProps<ClassKey extends string = string> { classes?: Partial<muiClassSheet<ClassKey>>; innerRef?: React.Ref<any>; style?: WebCSS }
-  type muiWithStyles = <ClassKey extends string>(style: muiSheetCreator<ClassKey>, options?: WithStylesOptions) => <P>(component: muiComponentType<P, ClassKey>) => muiCodeComponentType<P, ClassKey>
+  type muiWithStyles = <ClassKey extends string>(style: muiSheetCreator<ClassKey>, options?: WithStylesOptions) => <P>(component: muiCodeComponentType<P, ClassKey>) => muiComponentType<P, ClassKey>
   type muiCodeComponentType<P, ClassKey extends string> = React.ComponentType<P & muiCodeProps<ClassKey>>
   type muiComponentType<P, ClassKey extends string> = React.ComponentType<P & muiProps<ClassKey>>
 
@@ -89,12 +94,12 @@
   type ClassesPropDistinct<R extends TypedSheet, TKey extends string> = { native?: Partial<R>; web?: Partial<Record<TKey, WebCSS>> } //MUI compatible RULES typing
 
   //Component, used in web and native application (after muiWithStyles HOC for Native rewrite or after muiMakeCompatible for original mui component)
-  type PropsDistinct<C, R extends TypedSheet, TKey extends string> = PropsLow<C, R> & { classes?: ClassesPropDistinct<R, TKey>; style?: Rule<RN.TextStyle> }
+  type PropsDistinct<C, R extends TypedSheet, TKey extends string> = PropsLow<C> & { classes?: ClassesPropDistinct<R, TKey>; style?: Rule<RN.TextStyle> }
   type ComponentTypeDistinct<C, R extends TypedSheet, TKey extends string> = React.ComponentType<PropsDistinct<C, R, TKey>>
 
   //Component's code (passed to withStyles)
-  type CodePropsDistinct<C, R extends TypedSheet> = PropsLow<C, R> & { classes?: Partial<R>; style?: WebCSS; theme: Mui.Theme }
-  type CodeComponentTypeDistinct<C, R extends TypedSheet> = React.ComponentType<CodePropsDistinct<C, R>>
+  type CodePropsDistinct<C, R extends TypedSheet, TKey extends string> = PropsLow<C> & { classes?: ClassesPropDistinct<R, TKey>; style?: { web?: WebCSS; native?: NativeCSS }; theme: Mui.Theme }
+  type CodeComponentTypeDistinct<C, R extends TypedSheet, TKey extends string> = React.ComponentType<CodePropsDistinct<C, R, TKey>>
 
   //native withStyle for mui rewrited components
   //type muiNativeWithStyle = <R extends TypedSheet, TKey extends string>(style: R, options?: Mui.WithStylesOptions) => <C>(component: muiToWithStylesComponentType<C, R>) => muiComponentType<C, R, TKey>
