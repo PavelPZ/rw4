@@ -1,33 +1,32 @@
-type TextStyle = CSS.TextStyle
-type ViewStyle = CSS.ViewStyle
-type ImageStyle = CSS.ImageStyle
-type IconStyle = CSS.IconStyle
+//type TextStyle = CSS.TextStyle
+//type ViewStyle = CSS.ViewStyle
+//type ImageStyle = CSS.ImageStyle
+//type IconStyle = CSS.IconStyle
 
 //type IconRule = CSS.StyleRule<CSS.RNIconStyle>
 //type TextRule = CSS.StyleRule<RN.TextStyle>
 //type ViewRule = CSS.StyleRule<RN.ViewStyle>
 //type ImageRule = CSS.StyleRule<RN.ImageStyle>
 
-type Style = CSS.Style
-type StyleAll = CSS.StyleAll
+//type Style = CSS.Style
+//type StyleAll = CSS.StyleAll
 
 type CSSProperties = React.CSSProperties
-type CSSPropertiesNative = RN.TextStyle | RN.ViewStyle | RN.ImageStyle | CSS.RNIconStyle
 
-declare namespace CSS {
+declare namespace CSSx {
 
   type TextStyle = universalStyle<RN.TextStyle>
   type ViewStyle = universalStyle<RN.ViewStyle>
   type ImageStyle = universalStyle<RN.ImageStyle>
-  type IconStyle = universalStyle<RNIconStyle>
+  type IconStyle = universalStyle<Mui.RNIconStyle>
 
   type Style = TextStyle | ViewStyle | ImageStyle | IconStyle
   type StyleAll = TextStyle & ViewStyle & ImageStyle & IconStyle
 
-  interface RNIconStyle {
-    color?: TextStyle['color']
-    fontSize?: TextStyle['fontSize']
-  }
+  //interface RNIconStyle {
+  //  color?: TextStyle['color']
+  //  fontSize?: TextStyle['fontSize']
+  //}
 
   type universalStyle<TNative> = commonStyle<TNative> & StyleRule<TNative>
 

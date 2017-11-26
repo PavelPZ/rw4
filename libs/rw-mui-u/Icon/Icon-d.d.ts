@@ -1,14 +1,14 @@
-﻿declare namespace Mui2 {
+﻿declare namespace MuiIcon {
 
-  type IconColor = 'inherit' | 'accent' | 'action' | 'contrast' | 'disabled' | 'error' | 'primary';
+  type Colors = 'inherit' | 'accent' | 'action' | 'contrast' | 'disabled' | 'error' | 'primary';
 
-  type IIconProps = {
-    color?: IconColor
+  type IProps = {
+    color?: Colors
     children?: GUI.mdi_icons
   }
 
-  type IconClassKey = 'root' | 'colorAccent' | 'colorAction' | 'colorContrast' | 'colorDisabled' | 'colorError' | 'colorPrimary' | 'colorInherit'
+  type ClassKey = 'root' | 'colorAccent' | 'colorAction' | 'colorContrast' | 'colorDisabled' | 'colorError' | 'colorPrimary' | 'colorInherit'
 
-  type IIconSheet = Record<IconClassKey, CSS.RNIconStyle>
+  type ISheet = Record<ClassKey, Mui.RNIconStyle>
 
 }

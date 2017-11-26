@@ -1,4 +1,4 @@
-﻿declare namespace Mui2 {
+﻿declare namespace Mui {
 
   //*********** CONSTS
   const enum Names {
@@ -13,10 +13,16 @@
     name?: string
   }
 
+  interface RNIconStyle {
+    color?: string
+    fontSize?: number
+  }
+
+
   //*********** RULE typing
   type WebCSS = ReactCSS.CSSProperties
   //available native styles
-  type NativeCSS = RN.TextStyle | RN.ViewStyle | RN.ImageStyle | CSS.RNIconStyle
+  type NativeCSS = RN.TextStyle | RN.ViewStyle | RN.ImageStyle | RNIconStyle
   type AllCSS = WebCSS | NativeCSS
 
   //cross platform style. It contains: 

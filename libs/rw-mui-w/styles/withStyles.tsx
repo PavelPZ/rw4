@@ -32,45 +32,45 @@ jss.options.insertionPoint = 'insertion-point-jss'
 
 export const FelaLike: React.SFC<{}> = props => <JssProvider jss={jss}>{props.children}</JssProvider>
 
-const origWithStyles = withStylesMui as Mui2.muiWithStyles
+const origWithStyles = withStylesMui as Mui.muiWithStyles
 
-const beforeWithStyles = <C, R extends Mui2.TypedSheet>(Component: Mui2.muiComponentType<C, keyof R>) => {
+const beforeWithStyles = <C, R extends Mui.TypedSheet>(Component: Mui.muiComponentType<C, keyof R>) => {
   type TKey = keyof R
-  const res: Mui2.SFC<C, R> = props => {
-    const { classes: sheet, style, ...rest } = props as Mui2.Props<{}, Mui2.TypedSheet>
-    const classes = sheetToClassSheet(toPlatformSheet(sheet) as Mui2.PlatformSheetWeb<R>)
-    const webProps = { style: toRule(style), classes, ...rest } as (C & Mui2.muiProps<TKey>)
+  const res: Mui.SFC<C, R> = props => {
+    const { classes: sheet, style, ...rest } = props as Mui.Props<{}, Mui.TypedSheet>
+    const classes = sheetToClassSheet(toPlatformSheet(sheet) as Mui.PlatformSheetWeb<R>)
+    const webProps = { style: toRule(style), classes, ...rest } as (C & Mui.muiProps<TKey>)
     return <Component {...webProps} />
   }
   return hoistNonReactStatics(res, Component)
 }
 
-export const withStyles = <R extends Mui2.TypedSheet>(styleOrCreator: Mui2.SheetCreatorWeb<R>, options?: Mui2.WithStylesOptions) => <C extends object>(comp: Mui2.muiComponentType<C, keyof R>) =>
-  beforeWithStyles<C,R>(origWithStyles(styleOrCreator, options)(comp as Mui2.muiCodeComponentType<C, keyof R>))
+export const withStyles = <R extends Mui.TypedSheet>(styleOrCreator: Mui.SheetCreatorWeb<R>, options?: Mui.WithStylesOptions) => <C extends object>(comp: Mui.muiComponentType<C, keyof R>) =>
+  beforeWithStyles<C,R>(origWithStyles(styleOrCreator, options)(comp as Mui.muiCodeComponentType<C, keyof R>))
 
-const beforeWithStyleDistinct = <C, TKey extends string>(Component: Mui2.muiComponentType<C, TKey>) => {
-  const res: React.SFC<Mui2.PropsDistinct<C, {}, TKey>> = (props: Mui2.PropsDistinct<{}, Mui2.TypedSheet, string>) => {
+const beforeWithStyleDistinct = <C, TKey extends string>(Component: Mui.muiComponentType<C, TKey>) => {
+  const res: React.SFC<Mui.PropsDistinct<C, {}, TKey>> = (props: Mui.PropsDistinct<{}, Mui.TypedSheet, string>) => {
     const { classes: { web: inlineStyles }, style, ...rest } = props
     const classes = sheetToClassSheet(inlineStyles)
-    const webProps = { style: toRule(style), classes, ...rest } as (C & Mui2.muiProps<TKey>)
+    const webProps = { style: toRule(style), classes, ...rest } as (C & Mui.muiProps<TKey>)
     return <Component {...webProps} />
   }
   return hoistNonReactStatics(res, Component)
 }
 
-export const withStyleDistinct = <R extends Mui2.TypedSheet, TKey extends string>(styleOrCreator: Mui2.SheetCreatorWeb<R>, options?: Mui2.WithStylesOptions) => <C extends object>(comp: Mui2.CodeComponentTypeDistinct<C, {}, TKey>) =>
-  beforeWithStyleDistinct<C, TKey>(origWithStyles(styleOrCreator, options)(comp as Mui2.muiCodeComponentType<C, TKey>))
+export const withStyleDistinct = <R extends Mui.TypedSheet, TKey extends string>(styleOrCreator: Mui.SheetCreatorWeb<R>, options?: Mui.WithStylesOptions) => <C extends object>(comp: Mui.CodeComponentTypeDistinct<C, {}, TKey>) =>
+  beforeWithStyleDistinct<C, TKey>(origWithStyles(styleOrCreator, options)(comp as Mui.muiCodeComponentType<C, TKey>))
 
 
-export const toRule = (rule: Mui2.RuleUntyped) => {
+export const toRule = (rule: Mui.RuleUntyped) => {
   if (!rule) return null
   const { web, native, ...rest } = rule
-  return { ...rest, ...web } as Mui2.WebCSS
+  return { ...rest, ...web } as Mui.WebCSS
 }
 
-export const toPlatformSheet = <R extends Mui2.TypedSheet>(rules: Mui2.Sheet<R>) => {
+export const toPlatformSheet = <R extends Mui.TypedSheet>(rules: Mui.Sheet<R>) => {
   if (!rules) return null
-  const res: Mui2.PlatformSheetWeb<R> = {} as any
+  const res: Mui.PlatformSheetWeb<R> = {} as any
   for (const p in rules) res[p] = toRule(rules[p])
   return res
 }

@@ -12,7 +12,7 @@ import { toPlatformSheet, toRule, withStyles, classNames } from 'rw-mui-n/styles
 //import { expandStyles } from 'rw-mui-u/styles/styler'
 //import { expandStyle, classNames } from 'rw-mui-n/styles/styler'
 
-export const sheet: Mui2.SheetCreator<Typography.ITypographySheet> = theme => toPlatformSheet<Typography.ITypographySheet>({
+export const sheet: Mui.SheetCreator<Typography.ITypographySheet> = theme => toPlatformSheet<Typography.ITypographySheet>({
   root: { margin: 0, },
 
   display4: theme.typography.display4,
@@ -43,7 +43,7 @@ export const sheet: Mui2.SheetCreator<Typography.ITypographySheet> = theme => to
   colorError: { color: theme.palette.error.A400, },
 })
 
-const typography: Mui2.CodeSFC<Typography.ITypographyProps, Typography.ITypographySheet> = (props => {
+const typography: Mui.CodeSFC<Typography.ITypographyProps, Typography.ITypographySheet> = (props => {
   const {
     align = 'inherit',
     classes,
@@ -71,6 +71,6 @@ const typography: Mui2.CodeSFC<Typography.ITypographyProps, Typography.ITypograp
   return <Text style={actStyle} {...(noWrap && classes.noWrap) } {...other} />
 })
 
-const Typography = withStyles(sheet as Mui2.SheetCreatorNative<Typography.ITypographySheet>, { name: Mui2.Names.Typography })<Typography.ITypographyProps>(typography)
+const Typography = withStyles(sheet as Mui.SheetCreatorNative<Typography.ITypographySheet>, { name: Mui.Names.Typography })<Typography.ITypographyProps>(typography)
 
 export default Typography

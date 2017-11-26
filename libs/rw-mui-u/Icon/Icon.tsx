@@ -6,10 +6,10 @@ import { toRule } from 'rw-mui/styles/withStyles'
 
 import warning from 'warning'
 
-export const iconColor = (color: string) => ({ native: { color }, web: { fill: color } } as IconStyle)
-export const iconSize = (size: number) => ({ native: { fontSize: size }, web: { width: size, height: size } } as IconStyle)
+export const iconColor = (color: string) => ({ native: { color }, web: { fill: color } } as Mui.RNIconStyle)
+export const iconSize = (size: number) => ({ native: { fontSize: size }, web: { width: size, height: size } } as Mui.RNIconStyle)
 
-export const sheet: Mui2.SheetCreator<Mui2.IIconSheet> = theme => toPlatformSheet<Mui2.IIconSheet>({
+export const sheet: Mui.SheetCreator<MuiIcon.ISheet> = theme => toPlatformSheet<MuiIcon.ISheet>({
   root: iconSize(24),
   colorAccent: iconColor(theme.palette.secondary.A200),
   colorAction: iconColor(theme.palette.action.active),
@@ -20,7 +20,7 @@ export const sheet: Mui2.SheetCreator<Mui2.IIconSheet> = theme => toPlatformShee
   colorInherit: {},
 })
 
-export const getClasses = <T extends Mui2.AllCSS | string>({ classes, color = 'inherit', children, theme, innerRef, style, ...rest }: Mui2.CodeProps<Mui2.IIconProps, Mui2.IIconSheet>) => {
+export const getClasses = <T extends Mui.AllCSS | string>({ classes, color = 'inherit', children, theme, innerRef, style, ...rest }: Mui.CodeProps<MuiIcon.IProps, MuiIcon.ISheet>) => {
   const childs = React.Children.toArray(children)
   warning(childs.length == 1 && typeof childs[0] === 'string', 'single child as string needed')
   return {

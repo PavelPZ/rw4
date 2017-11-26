@@ -33,21 +33,21 @@ declare namespace Button {
   }
 }
 
-declare namespace Icon {
+//declare namespace Icon {
 
-  interface IIconProps extends React.Attributes {
-    style?: RN.TextStyle
-    src: GUI.mdi_icons
-    color?: string
-    size?: number
-  }
+//  interface IIconProps extends React.Attributes {
+//    style?: RN.TextStyle
+//    src: GUI.mdi_icons
+//    color?: string
+//    size?: number
+//  }
 
-}
+//}
 
 declare namespace Text {
 
   interface ITextProps extends React.Attributes {
-    style?: TextStyle
+    style?: RN.TextStyle
     n: RN.TextProperties
     w: React.HTMLAttributes<HTMLSpanElement>
     onPress?: () => void

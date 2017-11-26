@@ -263,7 +263,7 @@ declare namespace Mui {
     transitions?: Partial<Transitions>;
     spacing?: Partial<Spacing>;
     zIndex?: Partial<ZIndex>;
-    overrides?: { [name: string]: Mui2.SheetUntyped };
+    overrides?: { [name: string]: Mui.SheetUntyped };
   }
 
 
@@ -278,7 +278,7 @@ declare namespace Mui {
     transitions: Transitions;
     spacing: Spacing;
     zIndex: ZIndex;
-    overrides?: { [name: string]: Mui2.SheetUntyped }
+    overrides?: { [name: string]: Mui.SheetUntyped }
   } & T;
 
 

@@ -1,7 +1,7 @@
 import React from 'react'
 import SvgIcon, { SvgIconProps } from 'material-ui/SvgIcon/SvgIcon'
 
-const icon: React.SFC<Mui2.IIconProps> = props => {
+const icon: React.SFC<Icon.IIconProps> = props => {
   return null
   //const { src, w = {}, color, size } = props
   //if (!w.style) w.style = {}

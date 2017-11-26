@@ -20,9 +20,9 @@ const app2: React.SFC = props => <div>
 
 const theme = createMuiTheme({
   overrides: {
-    [Mui2.Names.Icon]: {
+    [Mui.Names.Icon]: {
       colorInherit: iconColor(color[500]),
-    } as Mui2.Sheet<Mui2.IIconSheet>
+    } as Mui.Sheet<MuiIcon.ISheet>
   }
 })
 

@@ -1,15 +1,15 @@
-﻿declare namespace Mui {
+﻿declare namespace MuiButtonBase {
 
-  interface IButtonBaseProps {
+  interface IProps {
     disabled?: boolean
     disableRipple?: boolean
     onClick: (ev) => void
     rootRef?: React.Ref<any>
   }
 
-  type ButtonBaseClassKeyView = 'root' | 'ripple' | 'disabled'
+  type ClassKeyView = 'root' | 'ripple' | 'disabled'
 
-  type IButtonBaseSheet = Record<ButtonBaseClassKeyView, ViewStyle>
+  type ISheet = Record<ClassKeyView, RN.ViewStyle>
 
   //type ButtonBaseType = Mui.ComponentType<IButtonBaseProps, IButtonBaseStyle>
 }

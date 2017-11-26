@@ -16,6 +16,6 @@
 
   type ITypographySheet = Record<TypographyClassKey, RN.TextStyle> & { noWrap?: any /*RN.TextProperties*/ }
 
-  type TypographyType = Mui2.ComponentType<ITypographyProps, ITypographySheet>
+  type TypographyType = Mui.ComponentType<ITypographyProps, ITypographySheet>
 
 }
