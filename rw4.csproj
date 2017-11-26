@@ -95,6 +95,7 @@
     <TypeScriptCompile Include="libs\rw-mui-w\styles\expoLoadFonts.ts" />
     <TypeScriptCompile Include="libs\rw-mui-w\styles\MuiThemeProvider.ts" />
     <TypeScriptCompile Include="libs\rw-mui-w\styles\shadows.ts" />
+    <TypeScriptCompile Include="libs\rw-mui-w\styles\fela.tsx" />
     <TypeScriptCompile Include="libs\rw-mui-w\styles\styler.tsx" />
     <TypeScriptCompile Include="libs\rw-mui-w\styles\withStyles2.tsx" />
     <TypeScriptCompile Include="libs\rw-mui-w\styles\withStyles.ts" />

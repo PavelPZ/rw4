@@ -21,16 +21,17 @@ const renderer = createRenderer({
 })
 render(renderer)
 
-export const renderCSS = (css: CSSProperties) => css ? renderer.renderRule(() => css) : ''
-export const renderCSSs = (...csss: CSSProperties[]) => csss ? renderRules(...csss.map(c => () => c)) : ''
-const renderRule = (rule: DFela.TRule) => renderer.renderRule(rule)
-const renderRules = (...rules: DFela.TRule[]) => renderer.renderRule(combineRules(...rules))
+//Converts CSS rule-set to blank delimited atomic classes
+export const ruleToClassNames = (rule: CSSProperties) => rule ? renderer.renderRule(() => rule) : ''
+//export const rulesToClassNames = (...rules: CSSProperties[]) => rules ? renderRules(...rules.map(c => () => c)) : ''
+const renderRule = (felaRule: DFela.TRule) => renderer.renderRule(felaRule)
+//const renderRules = (...felaRules: DFela.TRule[]) => renderer.renderRule(combineRules(...felaRules))
 
 
-export const stylesToClassNames = <TKey extends string>(inlineStyles: Partial<Record<TKey, CSSProperties>>) => {
-  if (!inlineStyles) return null
+export const sheetToClassSheet = <TKey extends string>(sheet: Partial<Record<TKey, CSSProperties>>) => {
+  if (!sheet) return null
   const res: Partial<Record<TKey, string>> = {}
-  for (const p in inlineStyles) res[p] = renderCSS(inlineStyles[p])
+  for (const p in sheet) res[p] = ruleToClassNames(sheet[p])
   return res
 }
 
