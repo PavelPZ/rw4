@@ -1,6 +1,6 @@
 ﻿import React from 'react'
 
-import { classNames, withStyles } from 'rw-mui-w/styles/withStyles2'
+import { classNames, withStyles } from 'rw-mui-w/styles/withStyles'
 import { getClasses, sheet } from 'rw-mui-u/Icon/Icon'
 export * from 'rw-mui-u/Icon/Icon'
 
@@ -13,7 +13,7 @@ const icon: Mui2.CodeSFC<Mui2.IIconProps, Mui2.IIconSheet> = (props => {
   </SvgIcon>
 }) 
 
-const Icon = withStyles(sheet as Mui2.SheetCreatorWeb<Mui2.IIconSheet>, { name: Mui.Names.Icon })<Mui2.IIconProps>(icon)
+const Icon = withStyles<Mui2.IIconSheet>(sheet, { name: Mui.Names.Icon })<Mui2.IIconProps>(icon)
 
 export default Icon
 

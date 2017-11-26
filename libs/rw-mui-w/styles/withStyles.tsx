@@ -16,11 +16,11 @@ Order of FELA x JSS <style>'s tag:
   <!-- insertion-point-jss -->  <-- JSS sheet's
   <style data-fela-type="RULE" type="text/css" id="fela-rules"></style> <-- FELA sheets
 
-2. create jss instance, as in rw-mui-w/styles/withStyles2, doc in https://material-ui-next.com/customization/css-in-js/
+2. create jss instance, as in rw-mui-w/styles/withStyles, doc in https://material-ui-next.com/customization/css-in-js/
 
 3. react app root is JssProvider:
 import JssProvider from 'react-jss/lib/JssProvider'
-import { jss } from 'rw-mui-w/styles/withStyles2'
+import { jss } from 'rw-mui-w/styles/withStyles'
 <JssProvider jss={jss}>
 </JssProvider>
 
@@ -42,8 +42,7 @@ const beforeWithStyles = <C, R extends Mui2.TypedSheet>(Component: Mui2.muiCompo
     const webProps = { style: toRule(style), classes, ...rest } as (C & Mui2.muiProps<TKey>)
     return <Component {...webProps} />
   }
-  const x = hoistNonReactStatics(res, Component)
-  return hoistNonReactStatics(res, Component) as Mui2.ComponentType<C, R>
+  return hoistNonReactStatics(res, Component)
 }
 
 export const withStyles = <R extends Mui2.TypedSheet>(styleOrCreator: Mui2.SheetCreatorWeb<R>, options?: Mui.WithStylesOptions) => <C extends object>(comp: Mui2.muiComponentType<C, keyof R>) =>

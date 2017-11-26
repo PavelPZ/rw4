@@ -3,10 +3,10 @@ import React from 'react'
 import { capitalizeFirstLetter } from 'material-ui/utils/helpers'
 import { Text } from 'react-native'
 
-import { toPlatformSheet, toRule, withStyles, classNames } from 'rw-mui-n/styles/withStyles2'
-//import {  } from 'rw-mui/styles/withStyles2'
+import { toPlatformSheet, toRule, withStyles, classNames } from 'rw-mui-n/styles/withStyles'
+//import {  } from 'rw-mui/styles/withStyles'
 
-//import { withStyles } from 'rw-mui-w/styles/withStyles2'
+//import { withStyles } from 'rw-mui-w/styles/withStyles'
 
 //import withStyles from '../styles/withStyles'
 //import { expandStyles } from 'rw-mui-u/styles/styler'

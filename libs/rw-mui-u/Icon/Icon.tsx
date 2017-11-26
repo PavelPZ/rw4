@@ -1,8 +1,8 @@
 ﻿import React from 'react'
 
 import { capitalizeFirstLetter } from 'material-ui/utils/helpers'
-import { toPlatformSheet } from 'rw-mui/styles/withStyles2'
-import { toRule } from 'rw-mui/styles/withStyles2'
+import { toPlatformSheet } from 'rw-mui/styles/withStyles'
+import { toRule } from 'rw-mui/styles/withStyles'
 
 import warning from 'warning'
 

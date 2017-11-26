@@ -1,6 +1,6 @@
 ﻿import React from 'react'
 
-import { withStyles, classNames } from 'rw-mui-n/styles/withStyles2'
+import { withStyles, classNames } from 'rw-mui-n/styles/withStyles'
 import { MaterialCommunityIcons as MIcon } from '@expo/vector-icons'
 
 //import { expandStyle } from 'rw-mui/styles/styler'

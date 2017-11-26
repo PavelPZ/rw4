@@ -1,6 +1,6 @@
 import createMuiTheme from 'material-ui/styles/createMuiTheme'
+import { platformOverrides } from 'rw-mui-u/styles/createMuiTheme'
 
-type TCreateMuiTheme<T = {}> = (options?: Mui.ThemeOptions & T) => Mui.Theme<T>
-const cm = createMuiTheme as TCreateMuiTheme
+const cm = (options) => platformOverrides(createMuiTheme(options))
 
 export default cm

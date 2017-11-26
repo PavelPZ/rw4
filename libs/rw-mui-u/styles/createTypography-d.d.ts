@@ -1,11 +1,9 @@
-﻿declare namespace Mui2 {
-}
-declare namespace Mui {
+﻿declare namespace Mui {
 
   type TextStyleKeys = 'display1' | 'display2' | 'display3' | 'display4' | 'headline' | 'title' | 'subheading' | 'body1' | 'body2' | 'caption'
   type TypographyClassKey = TextStyleKeys | 'button'
 
-  type TypographyClasses = Record<TypographyClassKey, TextStyle>
+  type TypographySheet = Record<TypographyClassKey, RN.TextStyle>
 
   interface FontStyle {
     fontFamily: string
@@ -27,7 +25,7 @@ declare namespace Mui {
     textTransform?: React.CSSProperties['textTransform']
   }
 
-  type Typography = TypographyClasses & FontStyle & {
+  type Typography = TypographySheet & FontStyle & {
     fontSizeNormalizer: (size: number) => number
     expoFontAssetPath?: string
     fontSize?: number

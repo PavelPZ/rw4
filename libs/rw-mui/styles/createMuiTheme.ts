@@ -9,7 +9,7 @@ import createMixins from 'material-ui/styles/createMixins'
 import { duration } from 'material-ui/styles/transitions'
 import zIndex from 'material-ui/styles/zIndex'
 import spacing from 'material-ui/styles/spacing'
-
+import { platformOverrides } from 'rw-mui-u/styles/createMuiTheme'
 
 function createMuiTheme(options: Mui.ThemeOptions = {}) {
   const {
@@ -22,7 +22,7 @@ function createMuiTheme(options: Mui.ThemeOptions = {}) {
     spacing: spacingInput,
     zIndex: zIndexInput,
     ...other
-  } = options;
+  } = options
 
   const palette = createPalette(paletteInput);
   const breakpoints = createBreakpoints(breakpointsInput);
@@ -52,9 +52,9 @@ function createMuiTheme(options: Mui.ThemeOptions = {}) {
   warning(
     muiTheme.shadows.length === 25,
     'Material-UI: the shadows array provided to createMuiTheme should support 25 elevations.',
-  );
+  )
 
-  return muiTheme;
+  return platformOverrides(muiTheme)
 }
 
-export default createMuiTheme;
+export default createMuiTheme

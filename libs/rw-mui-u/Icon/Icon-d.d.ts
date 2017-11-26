@@ -14,6 +14,6 @@
 
   type IIconSheet = Record<IconClassKey, CSS.RNIconStyle>
 
-  type IconType = ComponentType<IIconProps, IIconSheet>
+  //type IconType = ComponentType<IIconProps, IIconSheet>
 
 }

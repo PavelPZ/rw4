@@ -3,7 +3,9 @@
 import deepmerge from 'deepmerge'; // < 1kb payload overhead when lodash/merge is > 3kb.
 
 import { Dimensions, PixelRatio } from 'react-native'
-import { expandStyles } from 'rw-mui-u/styles/styler'
+//import { expandStyles } from 'rw-mui-u/styles/styler'
+
+import { toPlatformSheet } from 'rw-mui/styles/withStyles'
 
 //https://github.com/facebook/react-native/issues/7687
 //const round = (value: number) => Math.round(value * 1e5) / 1e5
@@ -65,7 +67,7 @@ export default function createTypography(palette: Mui.Palette, typography: Parti
     },
     fontSize,
   }
-  const classes: Mui.TypographyClasses = {
+  const sheet = toPlatformSheet<Mui.TypographySheet>({
     display4: {
       native: {
         fontSize: fontSizeNormalizer(fontSizes.display4),
@@ -218,13 +220,11 @@ export default function createTypography(palette: Mui.Palette, typography: Parti
         fontFamily,
       },
     },
-  }
-
-
+  })
 
   return deepmerge(
-    expandStyles(typo as any),
-    expandStyles(classes),
+    //expandStyles(typo as any),
+    sheet,
     other,
     {
       clone: false, // No need to clone deep
