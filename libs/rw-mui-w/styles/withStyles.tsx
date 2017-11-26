@@ -65,7 +65,7 @@ export const withStyleDistinct = <R extends Mui.TypedSheet, TKey extends string>
 export const toRule = (rule: Mui.RuleUntyped) => {
   if (!rule) return null
   const { web, native, ...rest } = rule
-  return { ...rest, ...web } as Mui.WebCSS
+  return { ...rest, ...web } as React.CSSProperties
 }
 
 export const toPlatformSheet = <R extends Mui.TypedSheet>(rules: Mui.Sheet<R>) => {

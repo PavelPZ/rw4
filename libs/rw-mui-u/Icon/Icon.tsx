@@ -20,7 +20,7 @@ export const sheet: Mui.SheetCreator<MuiIcon.ISheet> = theme => toPlatformSheet<
   colorInherit: {},
 })
 
-export const getClasses = <T extends Mui.AllCSS | string>({ classes, color = 'inherit', children, theme, innerRef, style, ...rest }: Mui.CodeProps<MuiIcon.IProps, MuiIcon.ISheet>) => {
+export const getClasses = <T extends Mui.NativeCSS | string>({ classes, color = 'inherit', children, theme, innerRef, style, ...rest }: Mui.CodeProps<MuiIcon.IProps, MuiIcon.ISheet>) => {
   const childs = React.Children.toArray(children)
   warning(childs.length == 1 && typeof childs[0] === 'string', 'single child as string needed')
   return {

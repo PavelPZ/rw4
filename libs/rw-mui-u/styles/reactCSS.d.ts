@@ -3,7 +3,7 @@
   type CSSPercentage = string;
   type CSSLength = number | string;
 
-  //Fork of React.CSSProperties. WITHOUT "[propertyName: string]: any"
+  //React.CSSProperties without "[propertyName: string]: any", which block "keyof". Try "keyof React.CSSProperties" (returns "string" instead of property names)
   interface CSSProperties {
     /**
      * Aligns a flex container's lines within the flex container when there is extra space in the cross-axis, similar to how justify-content aligns individual items within the main-axis.
