@@ -71,6 +71,6 @@ const typography: Mui2.CodeSFC<Typography.ITypographyProps, Typography.ITypograp
   return <Text style={actStyle} {...(noWrap && classes.noWrap) } {...other} />
 })
 
-const Typography = withStyles(sheet as Mui2.SheetCreatorNative<Typography.ITypographySheet>, { name: Mui.Names.Typography })<Typography.ITypographyProps>(typography)
+const Typography = withStyles(sheet as Mui2.SheetCreatorNative<Typography.ITypographySheet>, { name: Mui2.Names.Typography })<Typography.ITypographyProps>(typography)
 
 export default Typography

@@ -82,9 +82,8 @@
     <TypeScriptCompile Include="app-native\snack\mui\index.tsx" />
     <TypeScriptCompile Include="libs\rw-mui-u\Icon\Icon.tsx" />
     <TypeScriptCompile Include="libs\rw-mui-u\styles\createMuiTheme.ts" />
-    <TypeScriptCompile Include="libs\rw-mui-u\styles\react.d.ts" />
-    <TypeScriptCompile Include="libs\rw-mui-u\styles\withStyles.tsx" />
-    <TypeScriptCompile Include="libs\rw-mui-u\styles\transformation.d.ts" />
+    <TypeScriptCompile Include="libs\rw-mui-u\styles\reactCSS.d.ts" />
+    <TypeScriptCompile Include="libs\rw-mui-u\styles\withStyles-d.d.ts" />
     <TypeScriptCompile Include="libs\rw-mui-u\styles\createTypography-d.d.ts" />
     <None Include="libs\rw-mui-w\ButtonBase\ButtonBase.tsx_" />
     <None Include="libs\rw-mui-w\Button\Button.tsx_" />

@@ -1,6 +1,6 @@
 ﻿declare namespace Mui {
 
-  interface IButtonProps extends Props<IButtonBaseProps, IButtonStyle> {
+  interface IButtonProps {
     fab?: boolean
     dense?: boolean
     href?: string
@@ -12,8 +12,8 @@
   type ButtonClassKeyView = ButtonBaseClassKeyView | 'root' | 'dense' | 'raised' | 'disabled' | 'fab' | 'raisedPrimary' | 'raisedAccent'
   type ButtonClassKeyText = 'rootLabel' | 'denseLabel' | 'disabledLabel' | 'flatLabelPrimary' | 'flatLabelAccent' | 'flatLabelContrast' | 'raisedLabelAccent' | 'raisedLabelContrast' | 'raisedLabelPrimary'
 
-  type IButtonStyle = PartialRecord<ButtonClassKeyText, CSS.TextStyle> & PartialRecord<ButtonClassKeyView, ViewStyle>
+  type IButtonStyle = Record<ButtonClassKeyText, CSS.TextStyle> & PartialRecord<ButtonClassKeyView, ViewStyle>
 
-  type ButtonType = Mui.ComponentType<IButtonProps, IButtonStyle>
+  //type ButtonType = Mui.ComponentType<IButtonProps, IButtonStyle>
 
 }

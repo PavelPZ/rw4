@@ -1,51 +1,7 @@
 declare namespace Mui {
 
-  //************* CHANGED
-  const enum Names {
-    rootRule = 'root',
-    Icon = 'MuiIcon-n',
-    Typography = 'MuiTypography-n'
-  }
-
   interface IMuiThemeProps { theme: Theme | ((theme: Theme) => Theme) }
   type TMuiThemeContextValue = { theme: Theme }
-
-  type StyleRules = Record<string, Partial<CSS.Style>>
-  type StyleRulesCallback<TRules extends StyleRules = StyleRules> = (theme: Theme) => TRules
-
-  //interface StyledComponentProps<TRules extends StyleRules> {
-  //  classes?: Partial<TRules> | Partial<Record<keyof TRules, string>>
-  //  innerRef?: React.Ref<any>
-  //}
-
-  //export interface WithStyles<TRules extends StyleRules> {
-  //  classes: TRules
-  //  theme?: Theme
-  //}
-
-  export interface WithStylesOptions {
-    flip?: boolean
-    withTheme?: boolean
-    name?: string
-  }
-
-  type Props<C, TRules extends StyleRules, Removals extends keyof C = never> = {
-      innerRef?: React.Ref<any>
-      classes?: Partial<TRules> | Partial<Record<keyof TRules, string>>
-      style?: TRules[Names.rootRule] //StyleAll;
-      theme?: Mui.Theme
-      flip?: boolean
-  } & Omit<C & { classes: any }, 'classes' | Removals>
-  //& StyledComponentProps<TRules> 
-
-  type SFC<C, TRules extends StyleRules, Removals extends keyof C = never> = React.SFC<Props<C, TRules, Removals>>
-  type ComponentType<C, TRules extends StyleRules, Removals extends keyof C = never> = React.ComponentType<Props<C, TRules, Removals>>
-
-  type withStyles = <TRules extends StyleRules>
-  (style: TRules | StyleRulesCallback<TRules>, options?: WithStylesOptions)
-    => <C, Removals extends keyof C = never>(component: Mui.ComponentType<C, TRules>)
-      => ComponentType<C, TRules, Removals>
-
 
   //************* mui/styles/colorManipulator
   type ColorFormat = 'rgb' | 'rgba' | 'hsl' | 'hsla';
@@ -107,52 +63,8 @@ declare namespace Mui {
     children: React.ReactNode;
   }
 
-
-  //************* mui/styles/withStyles
-
-
-  /**
-     * This is basically the API of JSS. It defines a Map<string, CSS>,
-     * where
-     *
-     * - the `keys` are the class (names) that will be created
-     * - the `values` are objects that represent CSS rules (`React.CSSProperties`).
-     */
-  //type StyleRules<ClassKey extends string = string> = Record<ClassKey, Partial<React.CSSProperties>>;
-
-
-  //type StyleRulesCallback<ClassKey extends string = string> = (theme: Theme) => StyleRules<ClassKey>;
-
-
-  //interface WithStylesOptions {
-  //  flip?: boolean;
-  //  withTheme?: boolean;
-  //  name?: string;
-  //}
-
-
-  //type ClassNameMap<ClassKey extends string = string> = Record<ClassKey, string>;
-
-
-  //interface WithStyles<ClassKey extends string = string> {
-  //  classes: ClassNameMap<ClassKey>
-  //  theme?: Theme
-  //}
-
-
-  //interface StyledComponentProps<ClassKey extends string = string> {
-  //  classes?: Partial<ClassNameMap<ClassKey>>;
-  //  innerRef?: React.Ref<any>;
-  //}
-
-
-  //************* mui/styles/withTheme
-
-
-  //************* mui/styles/index
-
-
-  //************* mui/colors/common
+  
+    //************* mui/colors/common
   interface CommonColors {
     black: string;
     white: string;
@@ -169,28 +81,7 @@ declare namespace Mui {
 
 
   //************* mui/styles/createTypography
-
-
- 
-
-
-  //************* mui/index
-
-
-  /**
-   * All standard components exposed by `material-ui` are `StyledComponents` with
-   * certain `classes`, on which one can also set a top-level `className` and inline
-   * `style`.
-   */
-  //type StandardProps<C, ClassKey extends string, Removals extends keyof C = never> =
-  //  & Omit<C & { classes: any }, 'classes' | Removals>
-  //  & StyledComponentProps<ClassKey>
-  //  & {
-  //    className?: string;
-  //    style?: Partial<React.CSSProperties>;
-  //  }
-
-
+  
   type Contrast = 'light' | 'dark';
 
   interface Color {
@@ -210,17 +101,6 @@ declare namespace Mui {
     A700: string;
     contrastDefaultColor: Contrast;
   }
-
-
-  /**
-   * Utilies types based on:
-   * https://github.com/Microsoft/TypeScript/issues/12215#issuecomment-307871458
-   */
-  type Diff<T extends string, U extends string> = ({[P in T]: P } &
-    {[P in U]: never } & { [x: string]: never })[T];
-
-  type Omit<T, K extends keyof T> = Pick<T, Diff<keyof T, K>>;
-
 
   namespace PropTypes {
     type Alignment = 'inherit' | 'left' | 'center' | 'right' | 'justify';
@@ -383,7 +263,7 @@ declare namespace Mui {
     transitions?: Partial<Transitions>;
     spacing?: Partial<Spacing>;
     zIndex?: Partial<ZIndex>;
-    overrides?: { [name: string]: StyleRules };
+    overrides?: { [name: string]: Mui2.SheetUntyped };
   }
 
 

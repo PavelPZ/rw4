@@ -45,7 +45,7 @@ const beforeWithStyles = <C, R extends Mui2.TypedSheet>(Component: Mui2.muiCompo
   return hoistNonReactStatics(res, Component)
 }
 
-export const withStyles = <R extends Mui2.TypedSheet>(styleOrCreator: Mui2.SheetCreatorWeb<R>, options?: Mui.WithStylesOptions) => <C extends object>(comp: Mui2.muiComponentType<C, keyof R>) =>
+export const withStyles = <R extends Mui2.TypedSheet>(styleOrCreator: Mui2.SheetCreatorWeb<R>, options?: Mui2.WithStylesOptions) => <C extends object>(comp: Mui2.muiComponentType<C, keyof R>) =>
   beforeWithStyles<C,R>(origWithStyles(styleOrCreator, options)(comp as Mui2.muiCodeComponentType<C, keyof R>))
 
 const beforeWithStyleDistinct = <C, TKey extends string>(Component: Mui2.muiComponentType<C, TKey>) => {
@@ -58,7 +58,7 @@ const beforeWithStyleDistinct = <C, TKey extends string>(Component: Mui2.muiComp
   return hoistNonReactStatics(res, Component)
 }
 
-export const withStyleDistinct = <R extends Mui2.TypedSheet, TKey extends string>(styleOrCreator: Mui2.SheetCreatorWeb<R>, options?: Mui.WithStylesOptions) => <C extends object>(comp: Mui2.CodeComponentTypeDistinct<C, {}, TKey>) =>
+export const withStyleDistinct = <R extends Mui2.TypedSheet, TKey extends string>(styleOrCreator: Mui2.SheetCreatorWeb<R>, options?: Mui2.WithStylesOptions) => <C extends object>(comp: Mui2.CodeComponentTypeDistinct<C, {}, TKey>) =>
   beforeWithStyleDistinct<C, TKey>(origWithStyles(styleOrCreator, options)(comp as Mui2.muiCodeComponentType<C, TKey>))
 
 

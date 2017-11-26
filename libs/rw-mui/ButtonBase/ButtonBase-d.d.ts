@@ -1,6 +1,6 @@
 ﻿declare namespace Mui {
 
-  interface IButtonBaseProps extends Mui.Props<{}, IButtonBaseStyle> {
+  interface IButtonBaseProps {
     disabled?: boolean
     disableRipple?: boolean
     onClick: (ev) => void
@@ -9,7 +9,7 @@
 
   type ButtonBaseClassKeyView = 'root' | 'ripple' | 'disabled'
 
-  type IButtonBaseStyle = PartialRecord<ButtonBaseClassKeyView, ViewStyle>
+  type IButtonBaseSheet = Record<ButtonBaseClassKeyView, ViewStyle>
 
-  type ButtonBaseType = Mui.ComponentType<IButtonBaseProps, IButtonBaseStyle>
+  //type ButtonBaseType = Mui.ComponentType<IButtonBaseProps, IButtonBaseStyle>
 }

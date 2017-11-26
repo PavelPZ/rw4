@@ -28,7 +28,7 @@ const styleCreator = <T extends Mui2.TypedSheet>(styleOrCreator: Mui2.SheetCreat
 }
 
 //<R extends TypedSheet>(style: origStyleRules<keyof R>, options?: Mui.WithStylesOptions) => <C>(component: CodeComponentType<C, R>) => ComponentType<C, R>
-export const withStyles = <R extends Mui2.TypedSheet>(styleOrCreator: Mui2.SheetCreatorNative<R>, options?: Mui.WithStylesOptions) => <C>(Component: Mui2.CodeComponentType<C, R>) => {
+export const withStyles = <R extends Mui2.TypedSheet>(styleOrCreator: Mui2.SheetCreatorNative<R>, options?: Mui2.WithStylesOptions) => <C>(Component: Mui2.CodeComponentType<C, R>) => {
   const Style: Mui2.SFC<C, R> = (props, context: Mui.TMuiThemeContextValue) => {
     const { withTheme = false, flip, name } = options
     const { classes: classesProp, innerRef, ...other } = props as Mui2.Props<Mui2.TypedSheet, Mui2.SheetUntyped>//as any //without any: does not works in TS

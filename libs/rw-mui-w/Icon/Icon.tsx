@@ -13,7 +13,7 @@ const icon: Mui2.CodeSFC<Mui2.IIconProps, Mui2.IIconSheet> = (props => {
   </SvgIcon>
 }) 
 
-const Icon = withStyles<Mui2.IIconSheet>(sheet, { name: Mui.Names.Icon })<Mui2.IIconProps>(icon)
+const Icon = withStyles<Mui2.IIconSheet>(sheet, { name: Mui2.Names.Icon })<Mui2.IIconProps>(icon)
 
 export default Icon
 
