@@ -83,6 +83,7 @@
     <TypeScriptCompile Include="app-web\snack\material-ui\theming-n.tsx" />
     <TypeScriptCompile Include="app-web\snack\material-ui\theming-w.tsx" />
     <TypeScriptCompile Include="libs\rw-mui-u\Icon\Icon.tsx" />
+    <TypeScriptCompile Include="libs\rw-mui-u\styles\withStyles2.tsx" />
     <TypeScriptCompile Include="libs\rw-mui-u\styles\transformation.d.ts" />
     <TypeScriptCompile Include="libs\rw-mui-u\styles\createTypography-d.d.ts" />
     <TypeScriptCompile Include="libs\rw-mui-u\styles\styler.tsx" />
@@ -107,6 +108,7 @@
     <TypeScriptCompile Include="libs\rw-mui\Icon\Icon.tsx" />
     <TypeScriptCompile Include="libs\rw-mui\index.ts" />
     <TypeScriptCompile Include="libs\rw-mui\styles\styler.ts" />
+    <TypeScriptCompile Include="libs\rw-mui\styles\withStyles2.ts" />
     <TypeScriptCompile Include="libs\rw-mui\Typography\Typography-d.d.ts" />
     <TypeScriptCompile Include="libs\rw-mui\styles\expoLoadFonts.ts" />
     <TypeScriptCompile Include="libs\rw-mui\Typography\Typography.tsx" />

@@ -1,16 +1,19 @@
-﻿declare namespace Mui {
+﻿declare namespace Mui2 {
 
   type IconColor = 'inherit' | 'accent' | 'action' | 'contrast' | 'disabled' | 'error' | 'primary';
 
-  interface IIconProps extends Mui.Props<{}, IIconStyle> {
+  type props = {
     color?: IconColor
     children?: GUI.mdi_icons
   }
 
+  type IIconProps = Props<props, IIconSheet>
+  type IIconPropsCode = CodeProps<props, IIconSheet>
+
   type IconClassKey = 'root' | 'colorAccent' | 'colorAction' | 'colorContrast' | 'colorDisabled' | 'colorError' | 'colorPrimary' | 'colorInherit'
 
-  type IIconStyle = PartialRecord<IconClassKey, IconStyle>
+  type IIconSheet = Record<IconClassKey, IconStyle>
 
-  type IconType = Mui.ComponentType<IIconProps, IIconStyle>
+  type IconType = ComponentType<IIconProps, IIconSheet>
 
 }

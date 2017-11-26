@@ -397,7 +397,7 @@ declare namespace Mui {
     transitions: Transitions;
     spacing: Spacing;
     zIndex: ZIndex;
-    overrides?: { [name: string]: StyleRules }
+    overrides?: { [name: string]: Mui2.SheetUntyped }
   } & T;
 
 
