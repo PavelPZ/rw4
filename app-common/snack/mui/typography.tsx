@@ -6,8 +6,9 @@ import React from 'react'
 import createMuiTheme from 'rw-mui/styles/createMuiTheme'
 import Typography from 'rw-mui/Typography/Typography'
 import MuiThemeProvider from 'rw-mui/styles/MuiThemeProvider'
-import blueGrey from 'material-ui/colors/blueGrey'
-import indigo from 'material-ui/colors/indigo'
+import orange from 'material-ui/colors/orange'
+import green from 'material-ui/colors/green'
+import cyan from 'material-ui/colors/cyan'
 
 import { toPlatformTypographyOptions } from 'rw-mui/styles/createTypography'
 
@@ -22,17 +23,21 @@ const theme = createMuiTheme({
     },
     sheet: {
       caption: {
-        color: palette.secondary[50],
-        fontSize: 28
+        color: cyan.A700,
+        fontSize: 28,
+        fontWeight: '500'
       }
     }
   }),
-  palette: { primary: blueGrey, secondary: indigo },
+  palette: {
+    primary: orange,
+    secondary: green
+  },
   overrides: {
     [Mui.Names.Typography]: {
-      colorAccent: { color: indigo.A700 },
-      display4: { color: blueGrey.A700 },
-    } as Mui.Sheet<Typography.ITypographySheet>
+      colorAccent: { color: cyan.A700, fontWeight: '500', fontSize: 18 },
+      display2: { color: cyan.A700 },
+    } as Mui.Sheet<MuiTypography.ISheet>
   }
 })
 
@@ -78,9 +83,10 @@ const app = () =>
     <MuiThemeProvider theme={theme}>
       <Typography color='secondary'>secondary</Typography>
       <Typography color='primary'>primary</Typography>
-      <Typography type='caption' >primary</Typography>
-      <Typography type='display4' >display4</Typography>
+      <Typography type='caption' >caption</Typography>
+      <Typography type='display2' >display2</Typography>
       <Typography color='accent' >accent</Typography>
+      <Typography color='accent' style={{ color: 'red' }} >accent red</Typography>
     </MuiThemeProvider>
   </div>
 
