@@ -3,7 +3,8 @@
   interface IProps {
     disabled?: boolean
     disableRipple?: boolean
-    onClick: (ev) => void
+    disableFocusRipple?: boolean;
+    onClick: (ev?) => void
     rootRef?: React.Ref<any>
   }
 

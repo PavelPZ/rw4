@@ -5,7 +5,7 @@ import { Text } from 'react-native'
 
 import { toPlatformSheet, toRule, withStyles, classNames } from 'rw-mui-n/styles/withStyles'
 
-export const sheet: Mui.SheetCreator<MuiTypography.ISheet> = theme => toPlatformSheet<MuiTypography.ISheet>({
+export const sheet: Mui.SheetCreator<Typography.ISheet> = theme => toPlatformSheet<Typography.ISheet>({
   root: { margin: 0, },
 
   display4: theme.typography.display4,
@@ -36,7 +36,7 @@ export const sheet: Mui.SheetCreator<MuiTypography.ISheet> = theme => toPlatform
   colorError: { color: theme.palette.error.A400, },
 })
 
-const typography: Mui.CodeSFC<MuiTypography.IProps, MuiTypography.ISheet> = (props => {
+const typography: Mui.CodeSFC<Typography.IProps, Typography.ISheet> = (props => {
   const {
     align = 'inherit',
     classes,
@@ -64,6 +64,6 @@ const typography: Mui.CodeSFC<MuiTypography.IProps, MuiTypography.ISheet> = (pro
   return <Text style={actStyle} {...(noWrap && classes.noWrap) } {...other} />
 })
 
-const Typography = withStyles(sheet as Mui.SheetCreatorNative<MuiTypography.ISheet>, { name: Mui.Names.Typography })<MuiTypography.IProps>(typography)
+const Typography = withStyles(sheet as Mui.SheetCreatorNative<Typography.ISheet>, { name: Mui.Names.Typography })<Typography.IProps>(typography)
 
 export default Typography

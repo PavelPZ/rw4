@@ -1,4 +1,4 @@
-﻿declare namespace MuiTypography {
+﻿declare namespace Typography {
 
   type IProps = {
     align?: Mui.PropTypes.Alignment

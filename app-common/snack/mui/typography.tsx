@@ -37,7 +37,7 @@ const theme = createMuiTheme({
     [Mui.Names.Typography]: {
       colorAccent: { color: cyan.A700, fontWeight: '500', fontSize: 18 },
       display2: { color: cyan.A700 },
-    } as Mui.Sheet<MuiTypography.ISheet>
+    } as Mui.Sheet<Typography.ISheet>
   }
 })
 

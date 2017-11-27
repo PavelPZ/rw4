@@ -42,14 +42,15 @@
   type TypedSheet = Record<string, NativeCSS>
 
   //cross platform rules definition
-  type Sheet<R extends TypedSheet> = {[P in keyof R]: Rule<R[P]> } //rules definition type
+  type Sheet<R extends TypedSheet> = {[P in keyof R]: Rule<R[P]>}//rules definition type
   type SheetUntyped = Sheet<TypedSheet>
   type SheetCreatorWeb<R extends TypedSheet> = PlatformSheetWeb<R> | ((theme: Mui.Theme) => PlatformSheetWeb<R>) //rules definition (rules or function)
   type SheetCreatorNative<R extends TypedSheet> = PlatformSheetNative<R> | ((theme: Mui.Theme) => PlatformSheetNative<R>) //rules definition (rules or function)
   type SheetCreator<R extends TypedSheet> = SheetCreatorWeb<R> | SheetCreatorNative<R>
 
   //platform specific rules (expanded from cross platform rules)
-  type PlatformSheetWeb<R extends TypedSheet> = {[P in keyof R]: CSSProperties} //expanded for web
+  type PlatformSheetWeb<R extends TypedSheet> =  {[P in keyof R]: CSSProperties} //expanded for web
+  type PlatformSheetWebKey<TKey extends string> = {[P in TKey]: CSSProperties} //expanded for web
   type PlatformSheetNative<R extends TypedSheet> = R //expanded for native
   type PlatformSheet<R extends TypedSheet> = PlatformSheetWeb<R> | PlatformSheetNative<R> //{[P in keyof R]: CSSProperties | R[P]} //PlatformSheetWeb<R> | PlatformSheetNative<R>
   type PlatformSheetClasses<R extends TypedSheet> = Partial<PlatformSheetWeb<R>> | Partial<PlatformSheetNative<R>> //{[P in keyof R]: CSSProperties | R[P]} //PlatformSheetWeb<R> | PlatformSheetNative<R>
@@ -87,6 +88,12 @@
   type muiWithStyles = <ClassKey extends string>(style: muiSheetCreator<ClassKey>, options?: WithStylesOptions) => <P>(component: muiCodeComponentType<P, ClassKey>) => muiComponentType<P, ClassKey>
   type muiCodeComponentType<P, ClassKey extends string> = React.ComponentType<P & muiCodeProps<ClassKey>>
   type muiComponentType<P, ClassKey extends string> = React.ComponentType<P & muiProps<ClassKey>>
+
+  type SheetDistinct<R extends TypedSheet, W extends string> = { web: PlatformSheetWebKey<W>; native: R}//rules definition type
+  type SheetDistinctCreatorWeb<R extends TypedSheet, W extends string> = PlatformSheetWebKey<W> | ((theme: Mui.Theme) => PlatformSheetWebKey<W>) //rules definition (rules or function)
+  type SheetDistinctCreatorNative<R extends TypedSheet, W extends string> = PlatformSheetNative<R> | ((theme: Mui.Theme) => PlatformSheetNative<R>) //rules definition (rules or function)
+  type SheetCreatorDistinct<R extends TypedSheet, W extends string> = SheetDistinctCreatorWeb<R,W> | SheetDistinctCreatorNative<R,W>
+  
 
   //rules modification via 'classes' attribute
   type ClassesPropDistinct<R extends TypedSheet, TKey extends string> = { native?: Partial<R>; web?: Partial<Record<TKey, CSSProperties>> } //MUI compatible RULES typing
