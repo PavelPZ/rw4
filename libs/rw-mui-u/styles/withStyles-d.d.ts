@@ -49,7 +49,7 @@
   type SheetCreator<R extends TypedSheet> = SheetCreatorWeb<R> | SheetCreatorNative<R>
 
   //platform specific rules (expanded from cross platform rules)
-  type PlatformSheetWeb<R extends TypedSheet> =  {[P in keyof R]: CSSProperties} //expanded for web
+  type PlatformSheetWeb<R extends TypedSheet> =  Record<keyof R,CSSProperties> //expanded for web
   type PlatformSheetWebKey<TKey extends string> = {[P in TKey]: CSSProperties} //expanded for web
   type PlatformSheetNative<R extends TypedSheet> = R //expanded for native
   type PlatformSheet<R extends TypedSheet> = PlatformSheetWeb<R> | PlatformSheetNative<R> //{[P in keyof R]: CSSProperties | R[P]} //PlatformSheetWeb<R> | PlatformSheetNative<R>
@@ -66,7 +66,7 @@
   type PropsLow<C> = { innerRef?: React.Ref<any> } & C
 
   //cross platform Component, used in web and native application (created by withStyles)
-  type Props<C, R extends TypedSheet> = PropsLow<C> & { classes?: Partial<Sheet<R>>; style?: Rule<R[Names.rootRule]> }
+  type Props<C, R extends TypedSheet> = PropsLow<C> & { classes?: Partial<Sheet<R>>; style?: Rule<R[Names.rootRule]> }  
   type ComponentType<C, R extends TypedSheet> = React.ComponentType<Props<C, R>>
   type SFC<C, R extends TypedSheet> = React.SFC<Props<C, R>>
 
@@ -89,7 +89,7 @@
   type muiCodeComponentType<P, ClassKey extends string> = React.ComponentType<P & muiCodeProps<ClassKey>>
   type muiComponentType<P, ClassKey extends string> = React.ComponentType<P & muiProps<ClassKey>>
 
-  type SheetDistinct<R extends TypedSheet, W extends string> = { web: PlatformSheetWebKey<W>; native: R}//rules definition type
+  type SheetDistinct<R extends TypedSheet, W extends string> = {[P in (keyof R & W)]?: Rule<R[P]>} & { web: PlatformSheetWebKey<W>; native: R}//rules definition type
   type SheetDistinctCreatorWeb<R extends TypedSheet, W extends string> = PlatformSheetWebKey<W> | ((theme: Mui.Theme) => PlatformSheetWebKey<W>) //rules definition (rules or function)
   type SheetDistinctCreatorNative<R extends TypedSheet, W extends string> = PlatformSheetNative<R> | ((theme: Mui.Theme) => PlatformSheetNative<R>) //rules definition (rules or function)
   type SheetCreatorDistinct<R extends TypedSheet, W extends string> = SheetDistinctCreatorWeb<R,W> | SheetDistinctCreatorNative<R,W>

@@ -13,4 +13,10 @@
 
   type ISheet = Record<ClassKey, RN.TextStyle> & { noWrap?: any /*RN.TextProperties*/ }
 
+
+  //const x: Mui.Rule<ISheet[Mui.Names.rootRule]>
+  //const x: Mui.Props<IProps, ISheet>
+  //x.style.
+  
+
 }
