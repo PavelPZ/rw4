@@ -1,39 +1,57 @@
 ﻿declare namespace Mui {
 
   type TextStyleKeys = 'display1' | 'display2' | 'display3' | 'display4' | 'headline' | 'title' | 'subheading' | 'body1' | 'body2' | 'caption'
-  type TypographyClassKey = TextStyleKeys | 'button'
+  type TypographyClassKey = TextStyleKeys | 'button' | 'root'
 
   type TypographySheet = Record<TypographyClassKey, RN.TextStyle>
 
-  type FontWeightNative = RN.TextStyle['fontWeight'] //| CSSProperties['fontWeight']
-  type FontWeightWeb = CSSProperties['fontWeight']
+  type FontSizesNative = Record<TextStyleKeys, number>
+  type FontNative = { fontFamily: string; fontWeight: FontWeight }
+  type FontNativeKey = 'light' | 'regular' | 'medium'
 
   interface FontStyle {
-    fontFamily: string
     fontSize: number
-    fontWeightLight: FontWeightWeb
-    fontWeightRegular: FontWeightWeb
-    fontWeightMedium: FontWeightWeb
-    htmlFontSize?: number
+    htmlFontSize: number
+  }
+  type FontStyleNativeLow = FontStyle & {
+    fontSizeNormalizerNative: (size: number) => number
+    fontAssetPathNative: string
+  }
+  type FontStyleNative = FontStyleNativeLow & {
+    fontsNative: Record<FontNativeKey, FontNative>
+    fontSizesNative: FontSizesNative
+  }
+  type FontStyleNativePartial = FontStyleNativeLow & {
+    fontsNative: PartialRecord<FontNativeKey, Partial<FontNative>>
+    fontSizesNative: Partial<FontSizesNative>
   }
 
-
-  interface TypographyStyle {
-    color?: string
+  type FontStyleWeb = FontStyle & {
     fontFamily: string
-    fontSize: number
-    fontWeight: FontWeightWeb
-    letterSpacing?: number
-    lineHeight?: number
-    textTransform?
+    fontWeightLight: FontWeight
+    fontWeightRegular: FontWeight
+    fontWeightMedium: FontWeight
   }
+  type FontWeight = RN.TextStyle['fontWeight']
 
-  type Typography = TypographySheet & FontStyle & {
-    fontSizeNormalizer: (size: number) => number
-    expoFontAssetPath?: string
-    fontSize?: number
-    htmlFontSize?: number
-  };
+  type TypographyWeb = FontStyle & FontStyleNative & PlatformSheetWeb<TypographySheet>
+  type TypographyNative = FontStyle & FontStyleNative & PlatformSheetNative<TypographySheet>
+  type Typography = TypographyWeb | TypographyNative
 
-  type TypographyOptions = Partial<FontStyle> & Partial<Typography>
+  //cross platform typography options
+  type TypographyOptions = {
+    fontStyle?: Partial<FontStyle> & {
+      web?: Partial<FontStyleWeb>
+      native?: Partial<FontStyleNativePartial>
+    } 
+    sheet?: Partial<Sheet<TypographySheet>>
+  }
+  type TypographyOptionsCreator = PlatformTypographyOptions | ((palette: Palette) => PlatformTypographyOptions)
+  type TypographyOptionsCreatorWeb = PlatformTypographyOptionsWeb | ((palette: Mui.Palette) => PlatformTypographyOptionsWeb) 
+  type TypographyOptionsCreatorNative = PlatformTypographyOptionsNative | ((palette: Mui.Palette) => PlatformTypographyOptionsNative) 
+
+  //platform specific typography options
+  type PlatformTypographyOptionsWeb = Partial<FontStyle & FontStyleWeb & PlatformSheetWeb<TypographySheet>>
+  type PlatformTypographyOptionsNative = Partial<FontStyle & FontStyleNative & PlatformSheetNative<TypographySheet>>
+  type PlatformTypographyOptions = PlatformTypographyOptionsWeb | PlatformTypographyOptionsNative
 }

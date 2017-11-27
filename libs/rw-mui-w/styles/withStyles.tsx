@@ -9,6 +9,7 @@ import preset from 'jss-preset-default';
 import JssProvider from 'react-jss/lib/JssProvider'
 
 import { sheetToClassSheet } from './fela'
+import { toPlatformSheetLow, toRuleLow } from 'rw-mui-u/styles/toPlatform'
 
 /*
 Order of FELA x JSS <style>'s tag:
@@ -62,17 +63,20 @@ export const withStyleDistinct = <R extends Mui.TypedSheet, TKey extends string>
   beforeWithStyleDistinct<C, TKey>(origWithStyles(styleOrCreator, options)(comp as Mui.muiCodeComponentType<C, TKey>))
 
 
-export const toRule = (rule: Mui.RuleUntyped) => {
-  if (!rule) return null
-  const { web, native, ...rest } = rule
-  return { ...rest, ...web } as React.CSSProperties
-}
+export const toRule = (style: Mui.RuleUntyped) => toRuleLow(style, false) as Mui.CSSProperties
+export const toPlatformSheet = <R extends Mui.TypedSheet>(rules: Mui.Sheet<R>) => toPlatformSheetLow(rules, false) as Mui.PlatformSheetWeb<R>
 
-export const toPlatformSheet = <R extends Mui.TypedSheet>(rules: Mui.Sheet<R>) => {
-  if (!rules) return null
-  const res: Mui.PlatformSheetWeb<R> = {} as any
-  for (const p in rules) res[p] = toRule(rules[p])
-  return res
-}
+//export const toRule = (rule: Mui.RuleUntyped) => {
+//  if (!rule) return null
+//  const { web, native, ...rest } = rule
+//  return { ...rest, ...web } as Mui.CSSProperties
+//}
+
+//export const toPlatformSheet = <R extends Mui.TypedSheet>(rules: Mui.Sheet<R>) => {
+//  if (!rules) return null
+//  const res: Mui.PlatformSheetWeb<R> = {} as any
+//  for (const p in rules) res[p] = toRule(rules[p])
+//  return res
+//}
 
 export const classNames = _classnames

@@ -7,6 +7,7 @@ import { MuiThemeContextTypes } from './MuiThemeProvider'
 import createMuiTheme from './createMuiTheme'
 import warning from 'invariant'
 import pure from 'recompose/pure'
+import { toPlatformSheetLow, toRuleLow } from 'rw-mui-u/styles/toPlatform'
 
 let defaultTheme: Mui.Theme
 const getDefaultTheme = () => defaultTheme || (defaultTheme = createMuiTheme())
@@ -50,18 +51,8 @@ export const withStyles = <R extends Mui.TypedSheet>(styleOrCreator: Mui.SheetCr
   return pure(Style)
 }
 
-export const toRule = <T extends Mui.NativeCSS>(style: Mui.Rule<T>) => {
-  if (!style) return null
-  const { web, native, ...rest } = style as Mui.RuleUntyped
-  return { ...rest, ...native } as T
-}
-
-export const toPlatformSheet = <R extends Mui.TypedSheet>(rules: Mui.Sheet<R>) => {
-  if (!rules) return null
-  const res: Mui.PlatformSheetNative<R> = {} as any
-  for (const p in rules) res[p] = toRule(rules[p])
-  return res
-}
+export const toRule = <T extends Mui.NativeCSS>(style: Mui.Rule<T>) => toRuleLow(style, true) as T 
+export const toPlatformSheet = <R extends Mui.TypedSheet>(rules: Mui.Sheet<R>) => toPlatformSheetLow(rules, true) as Mui.PlatformSheetNative<R>
 
 export default withStyles
 

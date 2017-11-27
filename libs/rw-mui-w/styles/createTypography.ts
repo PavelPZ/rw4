@@ -1,5 +1,7 @@
 ﻿import createTypography from 'material-ui/styles/createTypography'
-import { TCreateTypography } from 'rw-mui-n/styles/createTypography'
 
-const ct = createTypography as any as TCreateTypography
-export default ct
+import { toPlatformTypographyOptionsLow } from 'rw-mui-u/styles/toPlatform'
+
+export const toPlatformTypographyOptions = (options: Mui.TypographyOptions) => toPlatformTypographyOptionsLow(options, false) as Mui.PlatformTypographyOptions
+
+export default createTypography

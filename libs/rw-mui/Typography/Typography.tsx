@@ -4,13 +4,6 @@ import { capitalizeFirstLetter } from 'material-ui/utils/helpers'
 import { Text } from 'react-native'
 
 import { toPlatformSheet, toRule, withStyles, classNames } from 'rw-mui-n/styles/withStyles'
-//import {  } from 'rw-mui/styles/withStyles'
-
-//import { withStyles } from 'rw-mui-w/styles/withStyles'
-
-//import withStyles from '../styles/withStyles'
-//import { expandStyles } from 'rw-mui-u/styles/styler'
-//import { expandStyle, classNames } from 'rw-mui-n/styles/styler'
 
 export const sheet: Mui.SheetCreator<Typography.ITypographySheet> = theme => toPlatformSheet<Typography.ITypographySheet>({
   root: { margin: 0, },
@@ -34,7 +27,7 @@ export const sheet: Mui.SheetCreator<Typography.ITypographySheet> = theme => toP
     ellipsizeMode: 'tail',
     numberOfLines: 1
   } as any,
-  gutterBottom: { marginBottom: theme.typography.fontSizeNormalizer(0.35 * 16) },
+  gutterBottom: { marginBottom: theme.typography.fontSizeNormalizerNative(0.35 * 16) },
   paragraph: { marginBottom: theme.spacing.unit * 2, },
   colorInherit: { color: undefined, },
   colorPrimary: { color: theme.palette.primary[500], },

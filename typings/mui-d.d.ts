@@ -258,7 +258,7 @@ declare namespace Mui {
     breakpoints?: Partial<BreakpointsOptions> & Partial<Breakpoints>;
     mixins?: Partial<Mixins>;
     palette?: Partial<Palette>;
-    typography?: TypographyOptions | ((palette: Palette) => TypographyOptions);
+    typography?: TypographyOptionsCreator
     shadows?: Shadows;
     transitions?: Partial<Transitions>;
     spacing?: Partial<Spacing>;

@@ -1,229 +1,118 @@
-﻿// @flow
-
-import deepmerge from 'deepmerge'; // < 1kb payload overhead when lodash/merge is > 3kb.
+﻿import deepmerge from 'deepmerge'; // < 1kb payload overhead when lodash/merge is > 3kb.
 
 import { Dimensions, PixelRatio } from 'react-native'
-//import { expandStyles } from 'rw-mui-u/styles/styler'
 
-import { toPlatformSheet } from 'rw-mui/styles/withStyles'
+import { toPlatformTypographyOptionsLow } from 'rw-mui-u/styles/toPlatform'
 
-//https://github.com/facebook/react-native/issues/7687
-//const round = (value: number) => Math.round(value * 1e5) / 1e5
-//const lineHeight = (value: number) => round(value * 16)
 
-const nativeFonts = {
-  light: {
-    fontFamily: 'Roboto_Light',
-    //fontFile: 'Roboto-Light.ttf',
-    fontWeight: '300'
-  } as RN.TextStyle,
-  regular: {
-    fontFamily: 'Roboto',
-    //fontFile: 'Roboto-Regular.ttf',
-    fontWeight: '400'
-  } as RN.TextStyle,
-  medium: {
-    fontFamily: 'Roboto_Medium',
-    //fontFile: 'Roboto-Medium.ttf',
-    fontWeight: '500'
-  } as RN.TextStyle
+const toRule = (style: Mui.RuleUntyped, isNative: boolean) => {
+  if (!style) return null
+  const { web, native, ...rest } = style
+  return { ...rest, ...(isNative ? native : web) } as Mui.PlatformRuleUntyped
 }
 
-interface TypographyOptions extends Mui.TypographyOptions {
-   expoFonts?: typeof nativeFonts
+const toPlatformSheet = <R extends Mui.TypedSheet>(rules: Mui.Sheet<R>, isNative: boolean) => {
+  if (!rules) return null
+  const res: Mui.PlatformSheet<R> = {} as any
+  for (const p in rules) res[p] = toRule(rules[p], isNative)
+  return res
 }
 
-export default function createTypography(palette: Mui.Palette, typography: Partial<TypographyOptions> | ((palette: Mui.Palette) => TypographyOptions), _fontSizes?: Partial<TFontSizes>) {
+export const toPlatformTypographyOptions = (options: Mui.TypographyOptions) => toPlatformTypographyOptionsLow(options, true)
+//  if (!options) return null
+//  const { fontStyle: fontStyleInit, sheet: sheetInit } = options
+//  const sheet = sheetInit ? toPlatformSheet(sheetInit, isNative) : sheetInit
+//  if (fontStyleInit) {
+//    const { web, native, ...rest } = fontStyleInit
+//    return { ...rest, ...(isNative ? native : web), ...sheet } as Mui.PlatformTypographyOptions
+//  }
+//  return { ...sheet } as Mui.PlatformTypographyOptions
+//}
+
+export default function createTypography(palette: Mui.Palette, optionOrCreator: Mui.TypographyOptionsCreator) {
   const {
-    fontFamily = '"Roboto", "Helvetica", "Arial", sans-serif',
-    expoFontAssetPath = 'libs/rw-mui-n/fonts/',
+    fontAssetPathNative = 'libs/rw-mui-n/fonts/',
     fontSize = 14, // px
-    expoFonts = nativeFonts,
-    fontWeightLight = 300,
-    fontWeightRegular = 400,
-    fontWeightMedium = 500,
+    fontsNative: fontsNativeInit,
+    fontSizesNative: fontSizesNativeInit,
+    fontSizeNormalizerNative = fontSizeNormalizerDefault,
     htmlFontSize = 16, // 16px is the default font-size used by browsers on the html element.
     ...other
-  } = typeof typography === 'function' ? typography(palette) : typography
+  } = (typeof optionOrCreator === 'function' ? optionOrCreator(palette) : optionOrCreator) as Mui.PlatformTypographyOptionsNative
 
-  const pxToRem = (value: number) => `${value / htmlFontSize}rem`
-  const round = (value: number) => Math.round(value * 1e5) / 1e5
-
-  const fontSizes = { ...mobile_fontSizes, ..._fontSizes || null }
-  const fontSizeNormalizer = fontSizes.getFontSizeNormalizer(PixelRatio.get(), Dimensions.get('window').width, Dimensions.get('window').height)
+  const fontsNative = fontsNativeInit ? deepmerge(fontsNativeDefault, fontsNativeInit) : fontsNativeDefault
+  const fontSizesNative = fontSizesNativeInit ? { ...fontSizesNativeDefault, ...fontSizesNativeInit } : fontSizesNativeDefault
 
   //http://typecast.com/blog/a-more-modern-scale-for-web-typography
-  const typo = {
-    native: {
-      fontSizeNormalizer,
-      expoFontAssetPath,
-    },
-    web: {
-      pxToRem,
-      fontFamily,
-      fontWeightLight,
-      fontWeightRegular,
-      fontWeightMedium,
-    },
+  const sheet: Mui.TypographyNative = {
+    fontSizeNormalizerNative,
+    fontAssetPathNative,
     fontSize,
-  }
-  const sheet = toPlatformSheet<Mui.TypographySheet>({
+    htmlFontSize,
+    fontsNative,
+    fontSizesNative,
+    root: {},
     display4: {
-      native: {
-        fontSize: fontSizeNormalizer(fontSizes.display4),
-        ...expoFonts.light,
-        marginLeft: -.06 * htmlFontSize,
-      },
-      web: {
-        fontSize: pxToRem(112),
-        fontWeight: fontWeightLight,
-        fontFamily,
-        letterSpacing: '-.04em',
-        lineHeight: `${round(128 / 112)}em`,
-        marginLeft: '-.06em',
-      },
+      fontSize: fontSizeNormalizerNative(fontSizesNative.display4),
+      ...fontsNative.light,
+      marginLeft: -.06 * htmlFontSize,
       color: palette.text.secondary,
     },
     display3: {
-      native: {
-        fontSize: fontSizeNormalizer(fontSizes.display3),
-        ...expoFonts.regular,
-        marginLeft: -.04 * htmlFontSize,
-      },
-      web: {
-        fontSize: pxToRem(56),
-        fontWeight: fontWeightRegular,
-        fontFamily,
-        letterSpacing: '-.02em',
-        lineHeight: `${round(73 / 56)}em`,
-        marginLeft: '-.04em',
-      },
+      fontSize: fontSizeNormalizerNative(fontSizesNative.display3),
+      ...fontsNative.regular,
+      marginLeft: -.04 * htmlFontSize,
       color: palette.text.secondary,
     },
     display2: {
-      native: {
-        fontSize: fontSizeNormalizer(fontSizes.display2),
-        ...expoFonts.regular,
-        marginLeft: -.04 * htmlFontSize,
-      },
-      web: {
-        fontSize: pxToRem(45),
-        fontWeight: fontWeightRegular,
-        fontFamily,
-        lineHeight: `${round(48 / 45)}em`,
-        marginLeft: '-.04em',
-      },
+      fontSize: fontSizeNormalizerNative(fontSizesNative.display2),
+      ...fontsNative.regular,
+      marginLeft: -.04 * htmlFontSize,
       color: palette.text.secondary,
     },
     display1: {
-      native: {
-        fontSize: fontSizeNormalizer(fontSizes.display1),
-        ...expoFonts.regular,
-        marginLeft: -.04 * htmlFontSize,
-      },
-      web: {
-        fontSize: pxToRem(34),
-        fontWeight: fontWeightRegular,
-        fontFamily,
-        lineHeight: `${round(41 / 34)}em`,
-        marginLeft: '-.04em',
-      },
+      fontSize: fontSizeNormalizerNative(fontSizesNative.display1),
+      ...fontsNative.regular,
+      marginLeft: -.04 * htmlFontSize,
       color: palette.text.secondary,
     },
     headline: {
-      native: {
-        fontSize: fontSizeNormalizer(fontSizes.headline),
-        ...expoFonts.regular,
-      },
-      web: {
-        fontSize: pxToRem(24),
-        fontWeight: fontWeightRegular,
-        fontFamily,
-        lineHeight: `${round(32.5 / 24)}em`,
-      },
+      fontSize: fontSizeNormalizerNative(fontSizesNative.headline),
+      ...fontsNative.regular,
       color: palette.text.primary,
     },
     title: {
-      native: {
-        fontSize: fontSizeNormalizer(fontSizes.title),
-        ...expoFonts.medium,
-      },
-      web: {
-        fontSize: pxToRem(21),
-        fontWeight: fontWeightMedium,
-        fontFamily,
-        lineHeight: `${round(24.5 / 21)}em`,
-      },
+      fontSize: fontSizeNormalizerNative(fontSizesNative.title),
+      ...fontsNative.medium,
       color: palette.text.primary,
     },
     subheading: {
-      native: {
-        fontSize: fontSizeNormalizer(fontSizes.subheading),
-        ...expoFonts.regular,
-      },
-      web: {
-        fontSize: pxToRem(16),
-        fontWeight: fontWeightRegular,
-        fontFamily,
-        lineHeight: `${round(24 / 16)}em`,
-      },
+      fontSize: fontSizeNormalizerNative(fontSizesNative.subheading),
+      ...fontsNative.regular,
       color: palette.text.primary,
     },
     body2: {
-      native: {
-        fontSize: fontSizeNormalizer(fontSizes.body2),
-        ...expoFonts.medium,
-      },
-      web: {
-        fontSize: pxToRem(14),
-        fontWeight: fontWeightMedium,
-        fontFamily,
-        lineHeight: `${round(24 / 14)}em`,
-      },
+      fontSize: fontSizeNormalizerNative(fontSizesNative.body2),
+      ...fontsNative.medium,
       color: palette.text.primary,
     },
     body1: {
-      native: {
-        fontSize: fontSizeNormalizer(fontSizes.body1),
-        ...expoFonts.regular,
-      },
-      web: {
-        fontSize: pxToRem(14),
-        fontWeight: fontWeightRegular,
-        fontFamily,
-        lineHeight: `${round(20.5 / 14)}em`,
-      },
+      fontSize: fontSizeNormalizerNative(fontSizesNative.body1),
+      ...fontsNative.regular,
       color: palette.text.primary,
     },
     caption: {
-      fontSize: fontSizeNormalizer(fontSizes.caption),
-      native: {
-        ...expoFonts.regular,
-      },
-      web: {
-        fontSize: pxToRem(12),
-        fontWeight: fontWeightRegular,
-        fontFamily,
-        lineHeight: `${round(16.5 / 12)}em`,
-      },
+      fontSize: fontSizeNormalizerNative(fontSizesNative.caption),
+      ...fontsNative.regular,
       color: palette.text.secondary,
     },
     button: {
-      native: {
-        fontSize: fontSizeNormalizer(fontSize),
-        ...expoFonts.medium,
-      },
-      web: {
-        fontSize: pxToRem(fontSize),
-        textTransform: 'uppercase',
-        fontWeight: fontWeightMedium,
-        fontFamily,
-      },
+      fontSize: fontSizeNormalizerNative(fontSize),
+      ...fontsNative.medium,
     },
-  })
+  }
 
   return deepmerge(
-    //expandStyles(typo as any),
     sheet,
     other,
     {
@@ -232,20 +121,48 @@ export default function createTypography(palette: Mui.Palette, typography: Parti
   )
 }
 
-//https://stackoverflow.com/questions/36015691/obtaining-the-return-type-of-a-function
-const fnReturnType = (false as true) && createTypography(null, null)
-export type Typography = typeof fnReturnType
-export type TCreateTypography = typeof createTypography
+const fontsNativeDefault = {
+  light: {
+    fontFamily: 'Roboto_Light',
+    //fontFile: 'Roboto-Light.ttf',
+    fontWeight: '300'
+  },
+  regular: {
+    fontFamily: 'Roboto',
+    //fontFile: 'Roboto-Regular.ttf',
+    fontWeight: '400'
+  },
+  medium: {
+    fontFamily: 'Roboto_Medium',
+    //fontFile: 'Roboto-Medium.ttf',
+    fontWeight: '500'
+  }
+}
+
+const fontSizesNativeDefault = {
+  display4: 32,
+  display3: 26,
+  display2: 22,
+  display1: 18,
+  headline: 20,
+  title: 18,
+  subheading: 16,
+  body2: 14,
+  body1: 14,
+  caption: 12,
+}
+
+////https://stackoverflow.com/questions/36015691/obtaining-the-return-type-of-a-function
+//const fnReturnType = (false as true) && createTypography(null, null)
+//export type Typography = typeof fnReturnType
+//export type TCreateTypography = typeof createTypography
 
 //https://github.com/react-native-training/react-native-elements/blob/master/src/helpers/normalizeText.js
-const pixelRatio = PixelRatio.get()
 
-//export const normalizeFontSize = (size: number) => size / pixelRatio
-
-const deviceHeight = Dimensions.get('window').height
-const deviceWidth = Dimensions.get('window').width
-
-const getFontSizeNormalizer = (pixelRatio: number, deviceWidth: number, deviceHeight: number) => (size: number) => {
+const fontSizeNormalizerDefault = (size: number) => {
+  const pixelRatio = PixelRatio.get()
+  const deviceHeight = Dimensions.get('window').height
+  const deviceWidth = Dimensions.get('window').width
   if (pixelRatio >= 2 && pixelRatio < 3) {
     // iphone 5s and older Androids
     if (deviceWidth < 360) {
@@ -302,7 +219,7 @@ const getFontSizeNormalizer = (pixelRatio: number, deviceWidth: number, deviceHe
 
 //RN unit are dp: https://stackoverflow.com/questions/34493372/what-is-the-default-unit-of-style-in-react-native
 //http://typecast.com/blog/a-more-modern-scale-for-web-typography
-export const mobile_fontSizes = {
+const fontSizesNative = {
   display4: 32,
   display3: 26,
   display2: 22,
@@ -313,10 +230,10 @@ export const mobile_fontSizes = {
   body2: 14,
   body1: 14,
   caption: 12,
-  getFontSizeNormalizer: getFontSizeNormalizer
+  //getFontSizeNormalizer: getFontSizeNormalizer
 }
 
-export type TFontSizes = typeof mobile_fontSizes
+//export type TFontSizes = typeof fontSizesNative
 
 //const mui_fontSizes = {
 //  display4: 112,

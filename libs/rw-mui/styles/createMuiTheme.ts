@@ -1,7 +1,7 @@
 import deepmerge from 'deepmerge' // < 1kb payload overhead when lodash/merge is > 3kb.
 import warning from 'warning'
 import { Platform } from 'react-native'
-import createTypography from 'rw-mui/styles/createTypography'
+import createTypography, { toPlatformTypographyOptions } from 'rw-mui-n/styles/createTypography'
 import shadows from 'rw-mui/styles/shadows'
 import createBreakpoints from 'material-ui/styles//createBreakpoints'
 import createPalette from 'material-ui/styles/createPalette'

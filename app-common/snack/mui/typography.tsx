@@ -9,10 +9,37 @@ import MuiThemeProvider from 'rw-mui/styles/MuiThemeProvider'
 import blueGrey from 'material-ui/colors/blueGrey'
 import indigo from 'material-ui/colors/indigo'
 
-const app = () => 
+import { toPlatformTypographyOptions } from 'rw-mui/styles/createTypography'
+
+const theme = createMuiTheme({
+  typography: palette => toPlatformTypographyOptions({
+    fontStyle: {
+      native: {
+        fontSizesNative: {
+          caption: 22
+        }
+      }
+    },
+    sheet: {
+      caption: {
+        color: palette.secondary[50],
+        fontSize: 28
+      }
+    }
+  }),
+  palette: { primary: blueGrey, secondary: indigo },
+  overrides: {
+    [Mui.Names.Typography]: {
+      colorAccent: { color: indigo.A700 },
+      display4: { color: blueGrey.A700 },
+    } as Mui.Sheet<Typography.ITypographySheet>
+  }
+})
+
+const app = () =>
   <div style={{ marginTop: 20 }}>
     <Typography type='headline' style={{ textDecorationLine: 'underline' }}>noWrap</Typography>
-    <Typography noWrap style={{ width:200 }}>noWrap noWrap noWrap noWrap noWrap noWrap noWrap noWrap noWrap noWrap noWrap noWrap noWrap noWrap </Typography>
+    <Typography noWrap style={{ width: 200 }}>noWrap noWrap noWrap noWrap noWrap noWrap noWrap noWrap noWrap noWrap noWrap noWrap noWrap noWrap </Typography>
     {/**/}
     <Typography type='headline' style={{ textDecorationLine: 'underline' }}>MARGINS</Typography>
     <Typography paragraph>paragraph paragraph paragraph paragraph paragraph paragraph paragraph paragraph paragraph paragraph paragraph paragraph paragraph paragraph paragraph paragraph </Typography>
@@ -48,9 +75,12 @@ const app = () =>
     <Typography type='display3'>display3</Typography>
     <Typography type='display4'>display4</Typography>
     <Typography type='headline' style={{ textDecorationLine: 'underline' }}>THEME</Typography>
-    <MuiThemeProvider theme={createMuiTheme({ palette: { primary: blueGrey, secondary: indigo } })}>
+    <MuiThemeProvider theme={theme}>
       <Typography color='secondary'>secondary</Typography>
       <Typography color='primary'>primary</Typography>
+      <Typography type='caption' >primary</Typography>
+      <Typography type='display4' >display4</Typography>
+      <Typography color='accent' >accent</Typography>
     </MuiThemeProvider>
   </div>
 

@@ -4,8 +4,6 @@ import MuiThemeProvider from 'rw-mui/styles/MuiThemeProvider'
 import createMuiTheme from 'rw-mui/styles/createMuiTheme'
 import color from 'material-ui/colors/orange'
 
-import { toPlatformSheet } from 'rw-mui/styles/withStyles'
-
 import { FelaLike } from 'rw-mui-w/styles/withStyles'
 
 import Cancel from 'material-ui/svg-icons/Cancel'

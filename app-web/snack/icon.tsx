@@ -1,5 +1,5 @@
 ﻿import React from 'react'
-import Icon from 'rw-controls/icon/icon-w'
+//import Icon from 'rw-controls/icon/icon-w'
 
 const App = () => {
   return <div>

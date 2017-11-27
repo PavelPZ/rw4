@@ -18,6 +18,7 @@
     fontSize?: number
   }
 
+  type CSSProperties = ReactCSS.CSSProperties & { [propertyName: string]: any }
 
   //*********** RULE typing
   //available native styles
@@ -26,11 +27,12 @@
   //cross platform style. It contains: 
   //- commonStyle<T>: styles, common to Web and Native
   //- 'native' and 'web' props for platform specific styles
-  type Rule<T extends NativeCSS> = { native?: T; web?: React.CSSProperties } & commonStyle<T>
+  type Rule<T extends NativeCSS> = { native?: T; web?: CSSProperties } & commonStyle<T>
   type RuleUntyped = Rule<RN.TextStyle>
   //result of transformation cross platform styles to platform specific style
-  type PlatformRule<T extends NativeCSS> = T | React.CSSProperties
-
+  type PlatformRule<T extends NativeCSS> = T | CSSProperties
+  type PlatformRuleUntyped = NativeCSS | CSSProperties
+  
   //select native props from web CSS. E.g. commonStyle<RN.TextStyle> could be used both for native <Text> and web <span>
   type commonStyle<TNative> = TakeFrom<TNative, webUsableInNative & keyof TNative>
   type webUsableInNative = Diff<keyof ReactCSS.CSSProperties, 'transform'> //transform native prop is not compatible with web
@@ -46,11 +48,11 @@
   type SheetCreatorNative<R extends TypedSheet> = PlatformSheetNative<R> | ((theme: Mui.Theme) => PlatformSheetNative<R>) //rules definition (rules or function)
   type SheetCreator<R extends TypedSheet> = SheetCreatorWeb<R> | SheetCreatorNative<R>
 
-  //expanded cross platform rules to platform specific
-  type PlatformSheetWeb<R extends TypedSheet> = {[P in keyof R]: React.CSSProperties} //expanded for web
+  //platform specific rules (expanded from cross platform rules)
+  type PlatformSheetWeb<R extends TypedSheet> = {[P in keyof R]: CSSProperties} //expanded for web
   type PlatformSheetNative<R extends TypedSheet> = R //expanded for native
-  type PlatformSheet<R extends TypedSheet> = PlatformSheetWeb<R> | PlatformSheetNative<R> //{[P in keyof R]: React.CSSProperties | R[P]} //PlatformSheetWeb<R> | PlatformSheetNative<R>
-  type PlatformSheetClasses<R extends TypedSheet> = Partial<PlatformSheetWeb<R>> | Partial<PlatformSheetNative<R>> //{[P in keyof R]: React.CSSProperties | R[P]} //PlatformSheetWeb<R> | PlatformSheetNative<R>
+  type PlatformSheet<R extends TypedSheet> = PlatformSheetWeb<R> | PlatformSheetNative<R> //{[P in keyof R]: CSSProperties | R[P]} //PlatformSheetWeb<R> | PlatformSheetNative<R>
+  type PlatformSheetClasses<R extends TypedSheet> = Partial<PlatformSheetWeb<R>> | Partial<PlatformSheetNative<R>> //{[P in keyof R]: CSSProperties | R[P]} //PlatformSheetWeb<R> | PlatformSheetNative<R>
 
   //For web: rule-set is converted to blank delimited atomic class names (single class for every rule)
   //For native: unchanged PlatformSheet
@@ -77,24 +79,24 @@
   //*************************************************
 
   //original mui typings
-  type muiSheet<ClassKey extends string = string> = Record<ClassKey, React.CSSProperties>
+  type muiSheet<ClassKey extends string = string> = Record<ClassKey, CSSProperties>
   type muiSheetCreator<ClassKey extends string = string> = muiSheet<ClassKey> | ((theme: Mui.Theme) => muiSheet<ClassKey>)
   type muiClassSheet<ClassKey extends string = string> = Record<ClassKey, string>
   interface muiCodeProps<ClassKey extends string = string> { classes: muiClassSheet<ClassKey>; theme?: Mui.Theme }
-  interface muiProps<ClassKey extends string = string> { classes?: Partial<muiClassSheet<ClassKey>>; innerRef?: React.Ref<any>; style?: React.CSSProperties }
+  interface muiProps<ClassKey extends string = string> { classes?: Partial<muiClassSheet<ClassKey>>; innerRef?: React.Ref<any>; style?: CSSProperties }
   type muiWithStyles = <ClassKey extends string>(style: muiSheetCreator<ClassKey>, options?: WithStylesOptions) => <P>(component: muiCodeComponentType<P, ClassKey>) => muiComponentType<P, ClassKey>
   type muiCodeComponentType<P, ClassKey extends string> = React.ComponentType<P & muiCodeProps<ClassKey>>
   type muiComponentType<P, ClassKey extends string> = React.ComponentType<P & muiProps<ClassKey>>
 
   //rules modification via 'classes' attribute
-  type ClassesPropDistinct<R extends TypedSheet, TKey extends string> = { native?: Partial<R>; web?: Partial<Record<TKey, React.CSSProperties>> } //MUI compatible RULES typing
+  type ClassesPropDistinct<R extends TypedSheet, TKey extends string> = { native?: Partial<R>; web?: Partial<Record<TKey, CSSProperties>> } //MUI compatible RULES typing
 
   //Component, used in web and native application (after muiWithStyles HOC for Native rewrite or after muiMakeCompatible for original mui component)
   type PropsDistinct<C, R extends TypedSheet, TKey extends string> = PropsLow<C> & { classes?: ClassesPropDistinct<R, TKey>; style?: Rule<RN.TextStyle> }
   type ComponentTypeDistinct<C, R extends TypedSheet, TKey extends string> = React.ComponentType<PropsDistinct<C, R, TKey>>
 
   //Component's code (passed to withStyles)
-  type CodePropsDistinct<C, R extends TypedSheet, TKey extends string> = PropsLow<C> & { classes?: ClassesPropDistinct<R, TKey>; style?: { web?: React.CSSProperties; native?: NativeCSS }; theme: Mui.Theme }
+  type CodePropsDistinct<C, R extends TypedSheet, TKey extends string> = PropsLow<C> & { classes?: ClassesPropDistinct<R, TKey>; style?: { web?: CSSProperties; native?: NativeCSS }; theme: Mui.Theme }
   type CodeComponentTypeDistinct<C, R extends TypedSheet, TKey extends string> = React.ComponentType<CodePropsDistinct<C, R, TKey>>
 
 }

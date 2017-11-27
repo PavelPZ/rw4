@@ -3,7 +3,9 @@
   type CSSPercentage = string;
   type CSSLength = number | string;
 
-  //React.CSSProperties without "[propertyName: string]: any", which block "keyof". Try "keyof React.CSSProperties" (returns "string" instead of property names)
+  //React.CSSProperties 
+  //- without "[propertyName: string]: any", which block "keyof".Try "keyof React.CSSProperties"(returns "string" instead of property names)
+  //- with modified fontWeight to be compatible with react native
   interface CSSProperties {
     /**
      * Aligns a flex container's lines within the flex container when there is extra space in the cross-axis, similar to how justify-content aligns individual items within the main-axis.
@@ -692,7 +694,7 @@
      * Specifies the weight or boldness of the font.
      * See CSS 3 'font-weight' property https://www.w3.org/TR/css-fonts-3/#propdef-font-weight
      */
-    fontWeight?: CSSWideKeyword | "normal" | "bold" | "bolder" | "lighter" | 100 | 200 | 300 | 400 | 500 | 600 | 700 | 800 | 900;
+    fontWeight?: CSSWideKeyword | "normal" | "bold" | "bolder" | "lighter" | 100 | 200 | 300 | 400 | 500 | 600 | 700 | 800 | 900 | RN.TextStyle['fontWeight'];
 
     /**
      * Lays out one or more grid items bound by 4 grid lines. Shorthand for setting grid-column-start, grid-column-end, grid-row-start, and grid-row-end in a single declaration.
