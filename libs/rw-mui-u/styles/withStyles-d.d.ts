@@ -44,9 +44,13 @@
     web: string
     style: NativeCSS
     props: {}
+    //????:
+    nativeProps?: {}
+    webProps?: {}
   }
 
-  type getProps<R extends Shape> = R['props']
+  type getProps<R extends Shape> = R['props'] 
+  type getWebProps<R extends Shape> = R['props'] & R['webProps']
   type getNative<R extends Shape> = R['native']
   type getCommon<R extends Shape> = R['common']
   type getWeb<R extends Shape> = R['web']
@@ -55,7 +59,7 @@
   type Sheet<R extends Shape> = {
     common: {[P in keyof getCommon<R>]: Rule<getCommon<R>[P]>}
     native: getNative<R> 
-    web: {[P in keyof getWeb<R>]: CSSProperties}
+    web: {[P in getWeb<R>]: CSSProperties}
   }
   type PartialSheet<R extends Shape> = {[P in keyof Sheet<R>]?: Partial<Sheet<R>[P]>}
 
@@ -91,12 +95,17 @@
   type PropsLow<R extends Shape> = { innerRef?: React.Ref<any> } & getProps<R>
 
   //cross platform Component, used in web and native application (created by withStyles)
-  type Props<R extends Shape> = PropsLow<R> & { classes?: PartialSheet<R>; style?: Rule<getStyle<R>> }  
+  type Props<R extends Shape> = PropsLow<R> & { classes?: PartialSheet<R>; style?: Rule<getStyle<R>>; web?: R['webProps'] }  
   type ComponentType<R extends Shape> = React.ComponentType<Props<R>>
   type SFC<R extends Shape> = React.SFC<Props<R>>
 
+  type PropsLowWeb<R extends Shape> = { innerRef?: React.Ref<any> } & getWebProps<R>
+  type PropsWeb<R extends Shape> = PropsLowWeb<R> & { classes?: PartialSheet<R>; style?: Rule<getStyle<R>> }  
+  type SFCWeb<R extends Shape> = React.SFC<PropsWeb<R>>
+
+
   //Component's code (passed to withStyles)
-  type CodeProps<R extends Shape> = PropsLow<R> & { classes: PlatformSheet<R>; style?: PlatformRule<getProps<R>>; theme: Mui.Theme; flip: boolean }
+  type CodeProps<R extends Shape> = PropsLow<R> & { classes: PlatformSheet<R>; style?: PlatformRule<getStyle<R>>; theme: Mui.Theme; flip: boolean }
   type CodeComponentType<R extends Shape> = React.ComponentType<CodeProps<R>>
   type CodeSFC<R extends Shape> = React.SFC<CodeProps<R>>
 

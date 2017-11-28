@@ -4,7 +4,7 @@
     disabled?: boolean
     disableRipple?: boolean
     disableFocusRipple?: boolean;
-    onClick: (ev?) => void
+    //onClick?: (ev?) => void
     rootRef?: React.Ref<any>
   }
 
@@ -19,6 +19,8 @@
     web
     style: RN.ViewStyle
     props: IProps
+    webProps: React.AnchorHTMLAttributes<HTMLAnchorElement> & React.ButtonHTMLAttributes<HTMLButtonElement>
+    nativeProps: {onClick?: (ev?) => void}
   }
   //type ISheet = Record<ClassKeyView, RN.ViewStyle>
 

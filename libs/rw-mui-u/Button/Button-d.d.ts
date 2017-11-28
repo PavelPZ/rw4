@@ -6,6 +6,7 @@
     web: 'label' | 'keyboardFocused'
     style: RN.ViewStyle
     props: IProps
+    webProps: React.AnchorHTMLAttributes<HTMLAnchorElement> //| React.ButtonHTMLAttributes<HTMLButtonElement> nefunguje Intellisence
   }
 
   export type CommonKey =

@@ -11,6 +11,8 @@ import JssProvider from 'react-jss/lib/JssProvider'
 import { sheetToClassSheet } from './fela'
 import { toPlatformSheetLow, toRuleLow } from 'rw-mui-u/styles/toPlatform'
 
+import { ButtonClassKey } from 'material-ui/Button/Button'
+
 /*
 Order of FELA x JSS <style>'s tag:
 1. .html file
@@ -31,25 +33,25 @@ const jss = create(preset())
 jss.options.createGenerateClassName = createGenerateClassName
 jss.options.insertionPoint = 'insertion-point-jss'
 
-export const FelaLike: React.SFC<{}> = props => <JssProvider jss={jss}>{props.children}</JssProvider>
+export const Styler: React.SFC<{}> = props => <JssProvider jss={jss}>{props.children}</JssProvider>
 
 const origWithStyles = withStylesMui as Mui.muiWithStyles
 
-type webKeys<R extends Mui.Shape> = keyof Mui.getWeb<R> | keyof Mui.getCommpn<R>
+type webKeys<R extends Mui.Shape> = Mui.getWeb<R> | keyof Mui.getCommon<R>
 
-const beforeWithStyles = <R extends Mui.Shape>(Component: Mui.muiComponentType<Mui.getProps<R>, webKeys<R>>) => {
+const beforeWithStyles = <R extends Mui.Shape>(Component: Mui.muiComponentType<Mui.getWebProps<R>, webKeys<R>>) => {
   type TKey = webKeys<R>
-  const res: Mui.SFC<R> = props => {
-    const { classes: sheet, style, ...rest } = props as Mui.Props<Mui.Shape>
+  const res: Mui.SFCWeb<R> = props => {
+    const { classes: sheet, style, web,...rest } = props as Mui.Props<Mui.Shape>
     const classes = sheetToClassSheet(toPlatformSheet(sheet) as Mui.PlatformSheetWeb<R>)
     const webProps = { style: toRule(style), classes, ...rest } as (Mui.getProps<R> & Mui.muiProps<TKey>)
-    return <Component {...webProps} />
+    return <Component {...webProps} {...web} />
   }
   return hoistNonReactStatics(res, Component)
 }
 
-export const withStyles = <R extends Mui.Shape>(styleOrCreator: Mui.SheetCreatorWeb<R>, options?: Mui.WithStylesOptions) => (comp: Mui.muiComponentType<Mui.getProps<R>, webKeys<R>>) =>
-  beforeWithStyles<R>(origWithStyles(styleOrCreator, options)(comp as Mui.muiCodeComponentType<Mui.getProps<R>, webKeys<R>>))
+export const withStyles = <R extends Mui.Shape>(styleOrCreator: Mui.SheetCreatorWeb<R>, options?: Mui.WithStylesOptions) => (comp: Mui.muiComponentType<Mui.getWebProps<R>, webKeys<R>>) =>
+  beforeWithStyles<R>(origWithStyles(styleOrCreator, options)(comp as Mui.muiCodeComponentType<Mui.getWebProps<R>, webKeys<R>>))
 
 //const beforeWithStyleDistinct = <C, TKey extends string>(Component: Mui.muiComponentType<C, TKey>) => {
 //  const res: React.SFC<Mui.PropsDistinct<C, {}, TKey>> = (props: Mui.PropsDistinct<{}, Mui.TypedSheet, string>) => {

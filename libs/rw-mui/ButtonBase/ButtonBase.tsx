@@ -1,33 +1,32 @@
 ﻿import React from 'react'
 import { View, TouchableWithoutFeedback, Animated, Easing, Platform, Text, LayoutRectangle } from 'react-native';
 
-import withStyles from 'rw-mui/styles/withStyles'
+import { toPlatformSheet } from 'rw-mui/styles/withStyles'
 
-import { expandStyles } from 'rw-mui-u/styles/styler'
-import { expandStyle, classNames } from 'rw-mui-n/styles/styler'
-
-export const styles: Mui.StyleRulesCallback<Mui.IButtonBaseStyle> = theme => expandStyles({
-  root: {
-    alignItems: 'center',
-    justifyContent: 'center',
+export const styles: Mui.SheetCreator<MuiButton.Shape> = theme => toPlatformSheet<MuiButton.Shape>({//Mui.StyleRulesCallback<Mui.IButtonBaseStyle> = theme => expandStyles({
+  common: {
+    root: {
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
   },
-  ripple: {
-    backgroundColor: theme.palette.common.black,
-    opacity: 0.12,
-  },
-  disabled: {
+  native: {
+    ripple: {
+      backgroundColor: theme.palette.common.black,
+      opacity: 0.12,
+    },
   }
 })
 
 //const maxOpacity = 0.12
-const buttonBase: Mui.SFC<Mui.IButtonBaseProps, Mui.IButtonBaseStyle> = props => {
+const buttonBase: Mui.CodeSFC<MuiButtonBase.Shape> = props => {
   const {
     classes,
     style,
     children,
     disabled,
     disableRipple,
-    onClick,
+    webProps: { onClick },
     theme,
     ...other
   } = props

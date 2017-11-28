@@ -4,7 +4,7 @@ import MuiThemeProvider from 'rw-mui/styles/MuiThemeProvider'
 import createMuiTheme from 'rw-mui/styles/createMuiTheme'
 import color from 'material-ui/colors/orange'
 
-import { FelaLike } from 'rw-mui-w/styles/withStyles'
+import { Styler } from 'rw-mui-w/styles/withStyles'
 
 import Cancel from 'material-ui/svg-icons/Cancel'
 
@@ -27,7 +27,7 @@ const theme = createMuiTheme({
 })
 
 const app: React.SFC = props =>
-  <FelaLike>
+  <Styler>
     <div style={{ marginTop: 24 }}>
       <Icon children={GUI.mdi_icons.arrowDownBoldBox} />
       <Icon children={GUI.mdi_icons.arrowDownBoldBox} color='inherit' />
@@ -46,7 +46,7 @@ const app: React.SFC = props =>
         <Icon children={GUI.mdi_icons.arrowDownBoldBox} />
       </MuiThemeProvider>
     </div>
-  </FelaLike>
+  </Styler>
 
 export default app
 //export default app2
