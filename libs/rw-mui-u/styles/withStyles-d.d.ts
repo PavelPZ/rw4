@@ -3,8 +3,10 @@
   //*********** CONSTS
   const enum Names {
     rootRule = 'root',
-    Icon = 'MuiIcon-n',
-    Typography = 'MuiTypography-n'
+    Icon = 'MuiIcon',
+    Typography = 'MuiTypography',
+    ButtonBase = 'MuiButtonBase',
+    Button = 'MuiButton',
   }
 
   interface WithStylesOptions {
@@ -49,8 +51,8 @@
     webProps?: {}
   }
 
-  type getProps<R extends Shape> = R['props'] 
-  type getWebProps<R extends Shape> = R['props'] & R['webProps']
+  type getProps<R extends Shape> = R['props'] & R['webProps']
+  //type getProps<R extends Shape> = R['props'] & R['webProps']
   type getNative<R extends Shape> = R['native']
   type getCommon<R extends Shape> = R['common']
   type getWeb<R extends Shape> = R['web']
@@ -92,16 +94,16 @@
   // cross platform COMPONENTs with similar sheet for both web and native
   //*************************************************
 
-  type PropsLow<R extends Shape> = { innerRef?: React.Ref<any> } & getProps<R>
+  type PropsLow<R extends Shape> = { innerRef?: React.Ref<any>; onPress?: () => void } & getProps<R>
 
   //cross platform Component, used in web and native application (created by withStyles)
   type Props<R extends Shape> = PropsLow<R> & { classes?: PartialSheet<R>; style?: Rule<getStyle<R>>; web?: R['webProps'] }  
   type ComponentType<R extends Shape> = React.ComponentType<Props<R>>
   type SFC<R extends Shape> = React.SFC<Props<R>>
 
-  type PropsLowWeb<R extends Shape> = { innerRef?: React.Ref<any> } & getWebProps<R>
-  type PropsWeb<R extends Shape> = PropsLowWeb<R> & { classes?: PartialSheet<R>; style?: Rule<getStyle<R>> }  
-  type SFCWeb<R extends Shape> = React.SFC<PropsWeb<R>>
+  //type PropsLowWeb<R extends Shape> = { innerRef?: React.Ref<any> } & getWebProps<R>
+  //type PropsWeb<R extends Shape> = PropsLowWeb<R> & { classes?: PartialSheet<R>; style?: Rule<getStyle<R>> }  
+  //type SFCWeb<R extends Shape> = React.SFC<PropsWeb<R>>
 
 
   //Component's code (passed to withStyles)

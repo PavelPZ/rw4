@@ -1,9 +1,11 @@
 ﻿import React from 'react'
 import { View, TouchableWithoutFeedback, Animated, Easing, Platform, Text, LayoutRectangle } from 'react-native';
 
+import { withStyles, classNames } from 'rw-mui-n/styles/withStyles'
+
 import { toPlatformSheet } from 'rw-mui/styles/withStyles'
 
-export const styles: Mui.SheetCreator<MuiButton.Shape> = theme => toPlatformSheet<MuiButton.Shape>({//Mui.StyleRulesCallback<Mui.IButtonBaseStyle> = theme => expandStyles({
+export const styles: Mui.SheetCreator<MuiButtonBase.Shape> = theme => toPlatformSheet<MuiButtonBase.Shape>({
   common: {
     root: {
       alignItems: 'center',
@@ -26,7 +28,7 @@ const buttonBase: Mui.CodeSFC<MuiButtonBase.Shape> = props => {
     children,
     disabled,
     disableRipple,
-    webProps: { onClick },
+    onPress,
     theme,
     ...other
   } = props
@@ -34,14 +36,14 @@ const buttonBase: Mui.CodeSFC<MuiButtonBase.Shape> = props => {
   const actStyle = classNames<RN.ViewStyle>(
     classes.root,
     disabled && classes.disabled,
-    expandStyle(style),
+    style,
   )
 
   let ripple: RippleEffect
   let rect: LayoutRectangle
-  return <TouchableWithoutFeedback disabled={disabled} onPress={onClick} onPressIn={() => ripple && ripple.onPressedIn(rect)} onPressOut={() => ripple && ripple.onPressedOut()} onLayout={({ nativeEvent: { layout } }) => rect = layout}>
+  return <TouchableWithoutFeedback disabled={disabled} onPress={onPress} onPressIn={() => ripple && ripple.onPressedIn(rect)} onPressOut={() => ripple && ripple.onPressedOut()} onLayout={({ nativeEvent: { layout } }) => rect = layout}>
     <View style={actStyle}>
-      {!disabled && !disableRipple && <RippleEffect theme={theme} style={expandStyle(classes.ripple)} ref={rv => ripple = rv} />}
+      {!disabled && !disableRipple && <RippleEffect theme={theme} style={classes.ripple} ref={rv => ripple = rv} />}
       {children}
     </View>
   </TouchableWithoutFeedback>
@@ -109,7 +111,7 @@ class RippleEffect extends React.PureComponent<{ style: RN.ViewStyle, theme: Mui
   }
 }
 
-const ButtonBase = withStyles(styles, { name: 'ButtonBase-n' })<Mui.IButtonBaseProps>(buttonBase)
+const ButtonBase = withStyles<MuiButtonBase.Shape>(styles, { name: Mui.Names.ButtonBase })(buttonBase)
 
 //const b = <ButtonBase style={{}} onClick={null} />
 

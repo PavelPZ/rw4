@@ -2,11 +2,11 @@
 
   interface Shape {
     common: Record<MuiButtonBase.CommonKey | CommonKey, RN.ViewStyle>
-    native: Record<NativeKeyText, RN.TextStyle> & PartialRecord<MuiButtonBase.NativeKey, RN.ViewStyle>
+    native: Record<NativeKeyText | MuiButtonBase.NativeKeyText, RN.TextStyle>
     web: 'label' | 'keyboardFocused'
     style: RN.ViewStyle
     props: IProps
-    webProps: React.AnchorHTMLAttributes<HTMLAnchorElement> //| React.ButtonHTMLAttributes<HTMLButtonElement> nefunguje Intellisence
+    webProps: React.ButtonHTMLAttributes<HTMLButtonElement> //React.AnchorHTMLAttributes<HTMLAnchorElement> & 
   }
 
   export type CommonKey =

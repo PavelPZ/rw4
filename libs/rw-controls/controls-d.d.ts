@@ -1,4 +1,4 @@
-declare namespace Button {
+declare namespace Ctrl {
 
   const enum ButtonFixed {
     tr = 'tr',

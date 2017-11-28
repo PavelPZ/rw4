@@ -6,14 +6,14 @@ export * from 'rw-mui-u/Icon/Icon'
 
 import SvgIcon, { SvgIconProps } from 'material-ui/SvgIcon/SvgIcon'
 
-const icon: Mui.CodeSFC<MuiIcon.ISheet> = (props => {
+const icon: Mui.CodeSFC<MuiIcon.Shape> = (props => {
   const { classes: { iconClass }, name, style, rest } = getClasses<string>(props)
   return <SvgIcon className={classNames(iconClass)} style={style} {...rest}>
     <path d={name} />
   </SvgIcon>
 }) 
 
-const Icon = withStyles<MuiIcon.ISheet>(sheet, { name: Mui.Names.Icon })(icon)
+const Icon = withStyles<MuiIcon.Shape>(sheet, { name: Mui.Names.Icon })(icon)
 
 export default Icon
 

@@ -1,13 +1,13 @@
 ﻿import React from 'react' 
 import { Platform, View, Text } from 'react-native' 
 
-import withStyles from 'rw-mui/styles/withStyles'
+import { withStyles, classNames } from 'rw-mui-n/styles/withStyles'
+import { toPlatformSheet } from 'rw-mui/styles/withStyles'
+
 import ButtonBase, { styles as baseStyles } from '../ButtonBase/ButtonBase'
 
-import { expandStyles } from 'rw-mui-u/styles/styler'
-import { expandStyle, classNames } from 'rw-mui-n/styles/styler'
 
-const styles: Mui.StyleRulesCallback<Mui.IButtonStyle> = theme => expandStyles({
+const styles: Mui.SheetCreator<MuiButton.Shape> = theme => toPlatformSheet<MuiButton.Shape>({
   ...baseStyles(theme),
   root: {
     minWidth: 88,
@@ -31,7 +31,7 @@ const styles: Mui.StyleRulesCallback<Mui.IButtonStyle> = theme => expandStyles({
     minHeight: 32,
   },
 
-  denseLabel: { fontSize: theme.typography.fontSizeNormalizer((theme.typography.fontSize as number) - 1), },
+  denseLabel: { fontSize: theme.typography.fontSizeNormalizerNative((theme.typography.fontSize as number) - 1), },
 
   flatLabelPrimary: { color: theme.palette.primary[500], },
   flatLabelAccent: { color: theme.palette.secondary.A200, },
@@ -64,10 +64,10 @@ const styles: Mui.StyleRulesCallback<Mui.IButtonStyle> = theme => expandStyles({
   },
 })
 
-const button: Mui.SFC<Mui.IButtonProps, Mui.IButtonStyle> = props => {
+const button: Mui.CodeSFC<MuiButton.Shape> = props => {
   const {
     children,
-    classes,
+    classes: untypedClasses,
     color = 'default',
     dense,
     disabled,
@@ -75,7 +75,9 @@ const button: Mui.SFC<Mui.IButtonProps, Mui.IButtonStyle> = props => {
     style,
     raised,
     ...other
-  } = props;
+  } = props
+
+  const classes = untypedClasses as Mui.PlatformSheetNative<MuiButton.Shape>
 
   const flat = !raised && !fab
   const viewStyle = classNames<RN.ViewStyle>(
@@ -86,7 +88,7 @@ const button: Mui.SFC<Mui.IButtonProps, Mui.IButtonStyle> = props => {
     !flat && color === 'primary' && classes.raisedPrimary,
     dense && classes.dense,
     disabled && classes.disabled,
-    expandStyle(style),
+    style,
   )
   const textStyle = classNames<RN.TextStyle>(
     classes.rootLabel,
@@ -110,7 +112,9 @@ const button: Mui.SFC<Mui.IButtonProps, Mui.IButtonStyle> = props => {
   return <ButtonBase style={viewStyle} disabled={disabled} {...other}>{childs}</ButtonBase>
 }
 
-const Button = withStyles(styles, { name: 'MuiButton-n' })<Mui.IButtonProps>(button)
+
+const Button = withStyles<MuiButton.Shape>(styles, { name: Mui.Names.Button })(button)
+
 
 //const btn = <Button classes={{ root: {}, denseLabel: { color: '' } }} color='accent' onClick={null} />
 

@@ -9,7 +9,7 @@ import warning from 'warning'
 export const iconColor = (color: string) => ({ native: { color }, web: { fill: color } } as Mui.RNIconStyle)
 export const iconSize = (size: number) => ({ native: { fontSize: size }, web: { width: size, height: size } } as Mui.RNIconStyle)
 
-export const sheet: Mui.SheetCreator<MuiIcon.ISheet> = theme => toPlatformSheet<MuiIcon.ISheet>({
+export const sheet: Mui.SheetCreator<MuiIcon.Shape> = theme => toPlatformSheet<MuiIcon.Shape>({
   common: {
     root: iconSize(24),
     colorAccent: iconColor(theme.palette.secondary.A200),
@@ -24,7 +24,7 @@ export const sheet: Mui.SheetCreator<MuiIcon.ISheet> = theme => toPlatformSheet<
   web: null
 })
 
-export const getClasses = <T extends Mui.NativeCSS | string>({ classes, color = 'inherit', children, theme, innerRef, style, ...rest }: Mui.CodeProps<MuiIcon.ISheet>) => {
+export const getClasses = <T extends Mui.NativeCSS | string>({ classes, color = 'inherit', children, theme, innerRef, style, ...rest }: Mui.CodeProps<MuiIcon.Shape>) => {
   const childs = React.Children.toArray(children)
   warning(childs.length == 1 && typeof childs[0] === 'string', 'single child as string needed')
   return {

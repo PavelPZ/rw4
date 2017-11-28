@@ -9,18 +9,17 @@
   }
 
   //type muiKey = CommonKey
-  type NativeKey = 'ripple'
+  type NativeKeyText = 'ripple'
   type CommonKey = 'root' | 'disabled'
 
 
   interface Shape {
     common: Record<CommonKey, RN.ViewStyle>
-    native: Record<NativeKey, RN.ViewStyle>
+    native: Record<NativeKeyText, RN.ViewStyle>
     web
     style: RN.ViewStyle
     props: IProps
-    webProps: React.AnchorHTMLAttributes<HTMLAnchorElement> & React.ButtonHTMLAttributes<HTMLButtonElement>
-    nativeProps: {onClick?: (ev?) => void}
+    webProps: React.ButtonHTMLAttributes<HTMLButtonElement> //React.AnchorHTMLAttributes<HTMLAnchorElement> & 
   }
   //type ISheet = Record<ClassKeyView, RN.ViewStyle>
 

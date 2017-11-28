@@ -22,7 +22,7 @@ const theme = createMuiTheme({
       common: {
         colorInherit: iconColor(color[500]),
       }
-    } as Mui.Sheet<MuiIcon.ISheet>
+    } as Mui.Sheet<MuiIcon.Shape>
   }
 })
 

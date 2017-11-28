@@ -40,11 +40,11 @@ export const withStyles = <R extends Mui.Shape>(styleOrCreator: Mui.SheetCreator
       /*count STYLES based on theme and override it with theme.overrides[name]. !!! result should be cached !!!*/styleCreator(styleOrCreator, theme, name),
       toPlatformSheet(classesProp as Mui.PartialSheet<R>), name)
 
-    const newProps = { ...other, classes, flip: typeof flip === 'boolean' ? flip : theme.direction === 'rtl' } as Mui.CodeProps<R>
+    const newProps = { ...other, classes, flip: typeof flip === 'boolean' ? flip : theme.direction === 'rtl', /*onPress hack*/onPress: props.web['onClick'] } as Mui.CodeProps<R>
 
     if (withTheme) newProps.theme = context.theme
 
-    return React.createElement(Component, newProps)
+    return <Component {...newProps}/>
   }
   Style.contextTypes = MuiThemeContextTypes
   Style['options'] = options
