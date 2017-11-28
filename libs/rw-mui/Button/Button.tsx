@@ -1,8 +1,7 @@
 ﻿import React from 'react'
 import { Platform, View, Text } from 'react-native'
 
-import { withStyles, classNames } from 'rw-mui-n/styles/withStyles'
-import { toPlatformSheet } from 'rw-mui/styles/withStyles'
+import { withStyles, classNames, toPlatformSheet } from 'rw-mui-n/styles/withStyles'
 
 import ButtonBase, { styles as baseStyles } from '../ButtonBase/ButtonBase'
 
@@ -72,10 +71,10 @@ const styles: Mui.SheetCreator<MuiButton.Shape> = theme => toPlatformSheet<MuiBu
   }
 })
 
-const button: Mui.CodeSFC<MuiButton.Shape> = props => {
+const button: Mui.CodeSFCNative<MuiButton.Shape> = props => {
   const {
     children,
-    classes: untypedClasses,
+    classes,
     color = 'default',
     dense,
     disabled,
@@ -84,8 +83,6 @@ const button: Mui.CodeSFC<MuiButton.Shape> = props => {
     raised,
     ...other
   } = props
-
-  const classes = untypedClasses as Mui.PlatformSheetNative<MuiButton.Shape>
 
   const flat = !raised && !fab
   const viewStyle = classNames<RN.ViewStyle>(

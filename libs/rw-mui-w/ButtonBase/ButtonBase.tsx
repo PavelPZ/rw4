@@ -1,7 +1,7 @@
-﻿import MuiButtonBase, { styles} from 'material-ui/ButtonBase/ButtonBase'
-import { withStyles } from 'rw-mui-w/styles/withStyles'
+﻿import MuiButtonBase from 'material-ui/ButtonBase/ButtonBase'
+import { beforeWithStyles } from 'rw-mui-w/styles/withStyles'
 
-const ButtonBase = withStyles<MuiButtonBase.Shape>(styles, { name: Mui.Names.Typography })(MuiButtonBase as any)
+const ButtonBase = beforeWithStyles<MuiButtonBase.Shape>(MuiButtonBase as any)
 
 export default ButtonBase
 

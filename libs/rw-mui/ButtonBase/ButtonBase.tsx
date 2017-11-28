@@ -1,9 +1,7 @@
 ﻿import React from 'react'
 import { View, TouchableWithoutFeedback, Animated, Easing, Platform, Text, LayoutRectangle } from 'react-native';
 
-import { withStyles, classNames } from 'rw-mui-n/styles/withStyles'
-
-import { toPlatformSheet } from 'rw-mui/styles/withStyles'
+import { withStyles, classNames, toPlatformSheet } from 'rw-mui-n/styles/withStyles'
 
 export const styles: Mui.SheetCreator<MuiButtonBase.Shape> = theme => toPlatformSheet<MuiButtonBase.Shape>({
   common: {
@@ -21,7 +19,7 @@ export const styles: Mui.SheetCreator<MuiButtonBase.Shape> = theme => toPlatform
 })
 
 //const maxOpacity = 0.12
-const buttonBase: Mui.CodeSFC<MuiButtonBase.Shape> = props => {
+const buttonBase: Mui.CodeSFCNative<MuiButtonBase.Shape> = props => {
   const {
     classes,
     style,

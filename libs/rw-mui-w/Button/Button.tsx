@@ -1,9 +1,10 @@
-﻿import MuiButton, { styles } from 'material-ui/Button/Button'
-import { withStyles } from 'rw-mui-w/styles/withStyles'
+﻿import MuiButton from 'material-ui/Button/Button'
+import { beforeWithStyles } from 'rw-mui-w/styles/withStyles'
 
 import React from 'react'
 
-const Button = withStyles<MuiButton.Shape>(styles, { name: Mui.Names.Typography })(MuiButton)
+//const Button = withStyles<MuiButton.Shape>(styles, { name: Mui.Names.Typography })(MuiButton)
+const Button = beforeWithStyles<MuiButton.Shape>(MuiButton)
 
 //const x = <Button classes={{ common: {}, native: {} }} onClick={ev => ev && ev.preventDefault()} />
 

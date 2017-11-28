@@ -15,7 +15,7 @@ const getDefaultTheme = () => defaultTheme || (defaultTheme = createMuiTheme())
 
 export const Styler: React.SFC<{}> = props => <View>{props.children}</View>
 
-const styleOverride = <T extends Mui.Shape>(renderedClasses: Mui.PlatformSheetNative<T>, classesProp: Mui.PlatformSheetNative<T>, name: string) => {
+const styleOverride = <T extends Mui.Shape>(renderedClasses: Mui.PlatformSheetNative<T>, classesProp: Mui.PlatformSheetNative<T>, name: string) => {  
   type untyped = Mui.PlatformSheetNative<Mui.Shape>
   if (!classesProp) return renderedClasses
   const stylesWithOverrides = { ...renderedClasses as untyped }  //destructor does not work with generics
@@ -26,13 +26,13 @@ const styleOverride = <T extends Mui.Shape>(renderedClasses: Mui.PlatformSheetNa
   return stylesWithOverrides as Mui.PlatformSheetNative<T>
 }
 
-const styleCreator = <T extends Mui.Shape>(styleOrCreator: Mui.SheetCreatorNative<T>, theme: Mui.Theme, name?: string) => {
+const styleCreator = <T extends Mui.Shape>(styleOrCreator: Mui.SheetCreator<T>, theme: Mui.Theme, name?: string) => {
   const overrides = (theme.overrides && name && theme.overrides[name]) as Mui.PlatformSheetNative<T>
   const styles = typeof styleOrCreator === 'function' ? styleOrCreator(theme) : styleOrCreator
   return styleOverride(styles, overrides, name)
 }
 
-export const withStyles = <R extends Mui.Shape>(styleOrCreator: Mui.SheetCreatorNative<R>, options?: Mui.WithStylesOptions) => (Component: Mui.CodeComponentType<R>) => {
+export const withStyles = <R extends Mui.Shape>(styleOrCreator: Mui.SheetCreator<R>, options?: Mui.WithStylesOptions) => (Component: Mui.CodeComponentType<R>) => {
   const Style: Mui.SFC<R> = (props, context: Mui.TMuiThemeContextValue) => {
     const { withTheme = true, flip, name } = options
     const { classes: classesProp, innerRef, style, ...other } = props as Mui.Props<Mui.Shape>//as any //without any: does not works in TS
@@ -42,7 +42,7 @@ export const withStyles = <R extends Mui.Shape>(styleOrCreator: Mui.SheetCreator
       /*count STYLES based on theme and override it with theme.overrides[name]. !!! result should be cached !!!*/styleCreator(styleOrCreator, theme, name),
       toPlatformSheet(classesProp as Mui.PartialSheet<R>), name)
 
-    const newProps = { ...other, classes, style: toRule(style), flip: typeof flip === 'boolean' ? flip : theme.direction === 'rtl', /*onPress hack*/onPress: props.web && props.web['onClick'] } as Mui.CodeProps<R>
+    const newProps = { ...other, classes, style: toRule(style), flip: typeof flip === 'boolean' ? flip : theme.direction === 'rtl', /*onPress hack*/onPress: props.web && props.web['onClick'] } as Mui.CodePropsNative<R>
 
     if (withTheme) newProps.theme = theme
 
@@ -59,7 +59,6 @@ export const toPlatformSheet = <R extends Mui.Shape>(rules: Mui.PartialSheet<R>)
 
 export default withStyles
 
-//export const classNames = <T extends Mui2.NativeCSS>(...styles: Array<T | T[] | string | string[]>) => {
 export const classNames = <T extends Mui.NativeCSS>(...styles: Array<T | T[]>) => {
   if (!styles) return null
   return Object.assign({}, ...styles.filter(p => !!p).map(p => {

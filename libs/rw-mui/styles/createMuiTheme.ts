@@ -48,9 +48,9 @@ function createMuiTheme(options: Mui.ThemeOptions = {}) {
         zIndexInput,
         ...other
       },
-      {
-        clone: false, // No need to clone deep
-      },
+      //{
+      //  clone: false, // No need to clone deep
+      //},
     ),
   };
 

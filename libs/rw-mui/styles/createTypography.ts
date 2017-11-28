@@ -115,9 +115,9 @@ export default function createTypography(palette: Mui.Palette, optionOrCreator: 
   return deepmerge(
     sheet,
     other,
-    {
-      clone: false, // No need to clone deep
-    },
+    //{
+    //  clone: false, // No need to clone deep
+    //},
   )
 }
 

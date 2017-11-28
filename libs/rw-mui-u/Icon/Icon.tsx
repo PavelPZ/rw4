@@ -4,7 +4,7 @@ import { capitalizeFirstLetter } from 'material-ui/utils/helpers'
 import { toPlatformSheet } from 'rw-mui/styles/withStyles'
 import { toRule } from 'rw-mui/styles/withStyles'
 
-import warning from 'warning'
+import warning from 'warning' 
 
 export const iconColor = (color: string) => ({ native: { color }, web: { fill: color } } as Mui.RNIconStyle)
 export const iconSize = (size: number) => ({ native: { fontSize: size }, web: { width: size, height: size } } as Mui.RNIconStyle)
@@ -14,7 +14,7 @@ export const sheet: Mui.SheetCreator<MuiIcon.Shape> = theme => toPlatformSheet<M
     root: iconSize(24),
     colorAccent: iconColor(theme.palette.secondary.A200),
     colorAction: iconColor(theme.palette.action.active),
-    colorContrast: iconColor(theme.palette.getContrastText(theme.palette.primary[500])),
+    colorContrast: iconColor(theme.palette.getContrastText(theme.palette.primary[500])), 
     colorDisabled: iconColor(theme.palette.action.disabled),
     colorError: iconColor(theme.palette.error[500]),
     colorPrimary: iconColor(theme.palette.primary[500]),

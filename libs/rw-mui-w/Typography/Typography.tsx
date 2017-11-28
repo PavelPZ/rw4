@@ -1,5 +1,5 @@
-import Typography, { styles } from 'material-ui/Typography/Typography'
-import { withStyles } from 'rw-mui-w/styles/withStyles'
+import Typography from 'material-ui/Typography/Typography'
+import { beforeWithStyles } from 'rw-mui-w/styles/withStyles'
 
-const typography = withStyles<Typography.ISheet>(styles, { name: Mui.Names.Typography })(Typography)
+const typography = beforeWithStyles<Typography.ISheet>(Typography)
 export default typography

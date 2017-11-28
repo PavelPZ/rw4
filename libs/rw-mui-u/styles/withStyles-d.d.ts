@@ -7,6 +7,7 @@
     Typography = 'MuiTypography',
     ButtonBase = 'MuiButtonBase',
     Button = 'MuiButton',
+    View = 'MuiView',
   }
 
   interface WithStylesOptions {
@@ -65,9 +66,6 @@
   }
   type PartialSheet<R extends Shape> = {[P in keyof Sheet<R>]?: Partial<Sheet<R>[P]>}
 
-  type PlatformSheetWeb<R extends Shape> = Record<keyof getCommon<R>, CSSProperties> & getWeb<R>
-  type PlatformSheetNative<R extends Shape> = {[P in keyof getCommon<R>]: getCommon<R>[P]} & getNative<R>
-
   //*********** RULES typing
   // for every cross platform component: basic rule definition
   //type TypedSheet = Record<string, NativeCSS>
@@ -75,20 +73,19 @@
   //cross platform rules definition
   //type Sheet<R extends TypedSheet> = {[P in keyof R]: Rule<R[P]>}//rules definition type
   type SheetUntyped = Sheet<Shape>
-  type SheetCreatorWeb<R extends Shape> = PlatformSheetWeb<R> | ((theme: Mui.Theme) => PlatformSheetWeb<R>) //rules definition (rules or function)
-  type SheetCreatorNative<R extends Shape> = PlatformSheetNative<R> | ((theme: Mui.Theme) => PlatformSheetNative<R>) //rules definition (rules or function)
-  type SheetCreator<R extends Shape> = SheetCreatorWeb<R> | SheetCreatorNative<R>
+  //type SheetCreatorWeb<R extends Shape> = PlatformSheetWeb<R> | ((theme: Mui.Theme) => PlatformSheetWeb<R>) //rules definition (rules or function)
+  //type SheetCreatorNative<R extends Shape> = PlatformSheetNative<R> | ((theme: Mui.Theme) => PlatformSheetNative<R>) //rules definition (rules or function)
+  //type SheetCreator<R extends Shape> = SheetCreatorWeb<R> | SheetCreatorNative<R>
+
+  type SheetCreator<R extends Shape> = PlatformSheet<R> | ((theme: Mui.Theme) => PlatformSheet<R>)
 
   //platform specific rules (expanded from cross platform rules)
-  //type PlatformSheetWeb<R extends TypedSheet> =  Record<keyof R,CSSProperties> //expanded for web
-  //type PlatformSheetWebKey<TKey extends string> = {[P in TKey]: CSSProperties} //expanded for web
-  //type PlatformSheetNative<R extends TypedSheet> = R //expanded for native
+  type PlatformSheetWeb<R extends Shape> = Record<keyof getCommon<R>, CSSProperties> & getWeb<R>
+  type PlatformSheetNative<R extends Shape> = {[P in keyof getCommon<R>]: getCommon<R>[P]} & getNative<R>
   type PlatformSheet<R extends Shape> = PlatformSheetWeb<R> | PlatformSheetNative<R> //{[P in keyof R]: CSSProperties | R[P]} //PlatformSheetWeb<R> | PlatformSheetNative<R>
-  //type PlatformSheetClasses<R extends TypedSheet> = Partial<PlatformSheetWeb<R>> | Partial<PlatformSheetNative<R>> //{[P in keyof R]: CSSProperties | R[P]} //PlatformSheetWeb<R> | PlatformSheetNative<R>
 
-  //For web: rule-set is converted to blank delimited atomic class names (single class for every rule)
-  //For native: unchanged PlatformSheet
-  //type ClassSheet<R extends TypedSheet> = {[P in keyof R]: string | NativeCSS}
+  //For web: rule-set is converted to class names (single class for every rule)
+  type ClassSheetWeb<R extends Shape> = {[P in keyof PlatformSheetWeb<R>]: string}
 
   //*************************************************
   // cross platform COMPONENTs with similar sheet for both web and native
@@ -108,8 +105,14 @@
 
   //Component's code (passed to withStyles)
   type CodeProps<R extends Shape> = PropsLow<R> & { classes: PlatformSheet<R>; style?: PlatformRule<getStyle<R>>; theme: Mui.Theme; flip: boolean }
+  type CodePropsWeb<R extends Shape> = PropsLow<R> & { classes: ClassSheetWeb<R>; style?: PlatformRule<getStyle<R>>; theme: Mui.Theme; flip: boolean }
+  type CodePropsNative<R extends Shape> = PropsLow<R> & { classes: PlatformSheetNative<R>; style?: PlatformRule<getStyle<R>>; theme: Mui.Theme; flip: boolean }
+
   type CodeComponentType<R extends Shape> = React.ComponentType<CodeProps<R>>
+
   type CodeSFC<R extends Shape> = React.SFC<CodeProps<R>>
+  type CodeSFCWeb<R extends Shape> = React.SFC<CodePropsWeb<R>>
+  type CodeSFCNative<R extends Shape> = React.SFC<CodePropsNative<R>>
 
   //*************************************************
   // cross platform COMPONENTs with distinct sheet for web and native

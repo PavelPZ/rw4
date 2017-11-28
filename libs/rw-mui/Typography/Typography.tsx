@@ -38,7 +38,7 @@ export const sheet: Mui.SheetCreator<Typography.ISheet> = theme => toPlatformShe
   }
 })
 
-const typography: Mui.CodeSFC<Typography.ISheet> = (props => {
+const typography: Mui.CodeSFCNative<Typography.ISheet> = (props => {
   const {
     align = 'inherit',
     classes,
