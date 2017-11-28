@@ -22,10 +22,12 @@ const theme = createMuiTheme({
       }
     },
     sheet: {
-      caption: {
-        color: cyan.A700,
-        fontSize: 28,
-        fontWeight: '500'
+      common: {
+        caption: {
+          color: cyan.A700,
+          fontSize: 28,
+          fontWeight: '500'
+        }
       }
     }
   }),
@@ -35,8 +37,10 @@ const theme = createMuiTheme({
   },
   overrides: {
     [Mui.Names.Typography]: {
-      colorAccent: { color: cyan.A700, fontWeight: '500', fontSize: 18 },
-      display2: { color: cyan.A700 },
+      common: {
+        colorAccent: { color: cyan.A700, fontWeight: '500', fontSize: 18 },
+        display2: { color: cyan.A700 },
+      }
     } as Mui.Sheet<Typography.ISheet>
   }
 })

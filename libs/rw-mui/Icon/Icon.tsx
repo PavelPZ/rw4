@@ -8,11 +8,11 @@ import { MaterialCommunityIcons as MIcon } from '@expo/vector-icons'
 import { getClasses, sheet } from 'rw-mui-u/Icon/Icon'
 export * from 'rw-mui-u/Icon/Icon'
 
-const icon: Mui.CodeSFC<MuiIcon.IProps, MuiIcon.ISheet> = props => {
+const icon: Mui.CodeSFC<MuiIcon.ISheet> = props => {
   const { classes: { iconClass }, name, style, rest } = getClasses<Mui.RNIconStyle>(props)
   return <MIcon name={name} style={classNames(iconClass, style as Mui.RNIconStyle)} {...rest} />
 }
 
-const Icon = withStyles(sheet as Mui.SheetCreatorNative<MuiIcon.ISheet>, { name: Mui.Names.Icon })<MuiIcon.IProps>(icon)
+const Icon = withStyles<MuiIcon.ISheet>(sheet, { name: Mui.Names.Icon })(icon)
 
 export default Icon

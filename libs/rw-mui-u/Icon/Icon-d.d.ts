@@ -9,6 +9,12 @@
 
   type ClassKey = 'root' | 'colorAccent' | 'colorAction' | 'colorContrast' | 'colorDisabled' | 'colorError' | 'colorPrimary' | 'colorInherit'
 
-  type ISheet = Record<ClassKey, Mui.RNIconStyle>
+  type ISheet = {
+    common: Record<ClassKey, Mui.RNIconStyle>
+    native
+    web
+    style: Mui.RNIconStyle
+    props: IProps
+  }
 
 }

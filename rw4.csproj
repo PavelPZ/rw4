@@ -86,7 +86,7 @@
     <TypeScriptCompile Include="libs\rw-mui-u\styles\reactCSS.d.ts" />
     <TypeScriptCompile Include="libs\rw-mui-u\styles\withStyles-d.d.ts" />
     <TypeScriptCompile Include="libs\rw-mui-u\styles\createTypography-d.d.ts" />
-    <None Include="libs\rw-mui-w\ButtonBase\ButtonBase.tsx_" />
+    <TypeScriptCompile Include="libs\rw-mui-w\ButtonBase\ButtonBase.tsx" />
     <TypeScriptCompile Include="libs\rw-mui-w\Button\Button.tsx" />
     <TypeScriptCompile Include="libs\rw-mui-w\Icon\Icon.tsx" />
     <TypeScriptCompile Include="libs\rw-mui-w\index.ts" />
@@ -382,7 +382,6 @@
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="app-web\snack\mui\" />
     <Folder Include="libs\rw-utils\gui\" />
   </ItemGroup>
   <PropertyGroup>

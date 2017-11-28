@@ -4,10 +4,10 @@
   return { ...rest, ...(isNative ? native : web) } as Mui.PlatformRuleUntyped
 }
 
-export const toPlatformSheetLow = <R extends Mui.TypedSheet>(rules: Mui.Sheet<R>, isNative: boolean) => {
+export const toPlatformSheetLow = (rules: Mui.PartialSheet<Mui.Shape>, isNative: boolean) => {
   if (!rules) return null
-  const res: Mui.PlatformSheet<R> = {} as any
-  for (const p in rules) res[p] = toRuleLow(rules[p], isNative)
+  const res: Mui.PlatformSheet<Mui.Shape> = { ...(isNative ? rules.native : rules.web) }
+  for (const p in rules.common) res[p] = toRuleLow(rules.common[p], isNative)
   return res
 }
 

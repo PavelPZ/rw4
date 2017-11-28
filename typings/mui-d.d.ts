@@ -253,6 +253,8 @@ declare namespace Mui {
 
   //************* mui/styles/createMuiTheme
 
+  type OverridesSource = { [name: string]: Mui.PartialSheet<Mui.Shape> }
+  type Overrides = { [name: string]: Mui.PlatformSheet<Mui.Shape> }
 
   interface ThemeOptions {
     breakpoints?: Partial<BreakpointsOptions> & Partial<Breakpoints>;
@@ -263,7 +265,7 @@ declare namespace Mui {
     transitions?: Partial<Transitions>;
     spacing?: Partial<Spacing>;
     zIndex?: Partial<ZIndex>;
-    overrides?: { [name: string]: Mui.SheetUntyped };
+    overrides?: OverridesSource;
   }
 
 
@@ -278,7 +280,7 @@ declare namespace Mui {
     transitions: Transitions;
     spacing: Spacing;
     zIndex: ZIndex;
-    overrides?: { [name: string]: Mui.SheetUntyped }
+    overrides?: Overrides
   } & T;
 
 

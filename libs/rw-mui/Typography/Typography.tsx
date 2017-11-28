@@ -6,37 +6,39 @@ import { Text } from 'react-native'
 import { toPlatformSheet, toRule, withStyles, classNames } from 'rw-mui-n/styles/withStyles'
 
 export const sheet: Mui.SheetCreator<Typography.ISheet> = theme => toPlatformSheet<Typography.ISheet>({
-  root: { margin: 0, },
+  common: {
+    root: { margin: 0, },
 
-  display4: theme.typography.display4,
-  display3: theme.typography.display3,
-  display2: theme.typography.display2,
-  display1: theme.typography.display1,
-  headline: theme.typography.headline,
-  title: theme.typography.title,
-  subheading: theme.typography.subheading,
-  body2: theme.typography.body2,
-  body1: theme.typography.body1,
-  caption: theme.typography.caption,
-  button: theme.typography.button,
+    display4: theme.typography.display4,
+    display3: theme.typography.display3,
+    display2: theme.typography.display2,
+    display1: theme.typography.display1,
+    headline: theme.typography.headline,
+    title: theme.typography.title,
+    subheading: theme.typography.subheading,
+    body2: theme.typography.body2,
+    body1: theme.typography.body1,
+    caption: theme.typography.caption,
+    button: theme.typography.button,
 
-  alignLeft: { textAlign: 'left', },
-  alignCenter: { textAlign: 'center', },
-  alignRight: { textAlign: 'right', },
-  noWrap: {
-    ellipsizeMode: 'tail',
-    numberOfLines: 1
-  } as any,
-  gutterBottom: { marginBottom: theme.typography.fontSizeNormalizerNative(0.35 * 16) },
-  paragraph: { marginBottom: theme.spacing.unit * 2, },
-  colorInherit: { color: undefined, },
-  colorPrimary: { color: theme.palette.primary[500], },
-  colorSecondary: { color: theme.palette.text.secondary, },
-  colorAccent: { color: theme.palette.secondary.A400, },
-  colorError: { color: theme.palette.error.A400, },
+    alignLeft: { textAlign: 'left', },
+    alignCenter: { textAlign: 'center', },
+    alignRight: { textAlign: 'right', },
+    noWrap: {
+      ellipsizeMode: 'tail',
+      numberOfLines: 1
+    } as any,
+    gutterBottom: { marginBottom: theme.typography.fontSizeNormalizerNative(0.35 * 16) },
+    paragraph: { marginBottom: theme.spacing.unit * 2, },
+    colorInherit: { color: undefined, },
+    colorPrimary: { color: theme.palette.primary[500], },
+    colorSecondary: { color: theme.palette.text.secondary, },
+    colorAccent: { color: theme.palette.secondary.A400, },
+    colorError: { color: theme.palette.error.A400, },
+  }
 })
 
-const typography: Mui.CodeSFC<Typography.IProps, Typography.ISheet> = (props => {
+const typography: Mui.CodeSFC<Typography.ISheet> = (props => {
   const {
     align = 'inherit',
     classes,
@@ -64,6 +66,6 @@ const typography: Mui.CodeSFC<Typography.IProps, Typography.ISheet> = (props => 
   return <Text style={actStyle} {...(noWrap && classes.noWrap) } {...other} />
 })
 
-const Typography = withStyles(sheet as Mui.SheetCreatorNative<Typography.ISheet>, { name: Mui.Names.Typography })<Typography.IProps>(typography)
+const Typography = withStyles<Typography.ISheet>(sheet, { name: Mui.Names.Typography })(typography)
 
 export default Typography

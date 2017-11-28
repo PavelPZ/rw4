@@ -11,7 +11,13 @@
 
   type ClassKey = Mui.TypographyClassKey | 'root' | 'alignLeft' | 'alignCenter' | 'alignRight' | 'gutterBottom' | 'paragraph' | 'colorInherit' | 'colorSecondary' | 'colorAccent' | 'colorPrimary' | 'colorError'
 
-  type ISheet = Record<ClassKey, RN.TextStyle> & { noWrap?: any /*RN.TextProperties*/ }
+  type ISheet = {
+    common: Record<ClassKey, RN.TextStyle> & { noWrap?: any /*RN.TextProperties*/ }
+    native 
+    web
+    style: RN.TextStyle
+    props: IProps
+  } 
 
 
   //const x: Mui.Rule<ISheet[Mui.Names.rootRule]>

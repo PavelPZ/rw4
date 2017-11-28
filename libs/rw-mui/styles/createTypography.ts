@@ -11,7 +11,7 @@ const toRule = (style: Mui.RuleUntyped, isNative: boolean) => {
   return { ...rest, ...(isNative ? native : web) } as Mui.PlatformRuleUntyped
 }
 
-const toPlatformSheet = <R extends Mui.TypedSheet>(rules: Mui.Sheet<R>, isNative: boolean) => {
+const toPlatformSheet = <R extends Mui.Shape>(rules: Mui.Sheet<R>, isNative: boolean) => {
   if (!rules) return null
   const res: Mui.PlatformSheet<R> = {} as any
   for (const p in rules) res[p] = toRule(rules[p], isNative)

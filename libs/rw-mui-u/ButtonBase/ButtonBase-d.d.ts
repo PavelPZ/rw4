@@ -8,9 +8,19 @@
     rootRef?: React.Ref<any>
   }
 
-  type ClassKeyView = 'root' | 'ripple' | 'disabled'
+  //type muiKey = CommonKey
+  type NativeKey = 'ripple'
+  type CommonKey = 'root' | 'disabled'
 
-  type ISheet = Record<ClassKeyView, RN.ViewStyle>
+
+  interface Shape {
+    common: Record<CommonKey, RN.ViewStyle>
+    native: Record<NativeKey, RN.ViewStyle>
+    web
+    style: RN.ViewStyle
+    props: IProps
+  }
+  //type ISheet = Record<ClassKeyView, RN.ViewStyle>
 
   //type ButtonBaseType = Mui.ComponentType<IButtonBaseProps, IButtonBaseStyle>
 }

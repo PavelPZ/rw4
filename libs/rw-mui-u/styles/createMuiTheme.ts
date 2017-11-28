@@ -1,10 +1,8 @@
 import { toPlatformSheet } from 'rw-mui/styles/withStyles'
 
-export const platformOverrides = (theme: Mui.Theme) => {
-  if (theme.overrides) {
-    const newOverrides = {}
-    for (const p in theme.overrides) newOverrides[p] = toPlatformSheet(theme.overrides[p])
-    theme.overrides = newOverrides
-  }
-  return theme
+export const platformOverrides = (source: Mui.OverridesSource) => {
+  if (!source) return null
+  const result: Mui.Overrides = {}
+  for (const p in source) result[p] = toPlatformSheet(source[p])
+  return result
 }

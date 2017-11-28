@@ -21,6 +21,7 @@ function createMuiTheme(options: Mui.ThemeOptions = {}) {
     transitions: transitionsInput,
     spacing: spacingInput,
     zIndex: zIndexInput,
+    overrides,
     ...other
   } = options
 
@@ -34,6 +35,7 @@ function createMuiTheme(options: Mui.ThemeOptions = {}) {
     mixins: createMixins(breakpoints, spacing, mixinsInput),
     breakpoints,
     shadows: shadowsInput || shadows,
+    overrides: platformOverrides(overrides),
     ...deepmerge(
       {
         transitions: { duration },
@@ -54,7 +56,7 @@ function createMuiTheme(options: Mui.ThemeOptions = {}) {
     'Material-UI: the shadows array provided to createMuiTheme should support 25 elevations.',
   )
 
-  return platformOverrides(muiTheme)
+  return muiTheme
 }
 
 export default createMuiTheme

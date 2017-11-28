@@ -3,7 +3,13 @@
   type TextStyleKeys = 'display1' | 'display2' | 'display3' | 'display4' | 'headline' | 'title' | 'subheading' | 'body1' | 'body2' | 'caption'
   type TypographyClassKey = TextStyleKeys | 'button' | 'root'
 
-  type TypographySheet = Record<TypographyClassKey, RN.TextStyle>
+  type TypographySheet = {
+    common: never
+    web: never
+    native: Record<TypographyClassKey, RN.TextStyle>
+    style: never
+    props: never
+  }
 
   type FontSizesNative = Record<TextStyleKeys, number>
   type FontNative = { fontFamily: string; fontWeight: FontWeight }
@@ -43,12 +49,12 @@
     fontStyle?: Partial<FontStyle> & {
       web?: Partial<FontStyleWeb>
       native?: Partial<FontStyleNativePartial>
-    } 
-    sheet?: Partial<Sheet<TypographySheet>>
+    }
+    sheet?: PartialSheet<TypographySheet>
   }
   type TypographyOptionsCreator = PlatformTypographyOptions | ((palette: Palette) => PlatformTypographyOptions)
-  type TypographyOptionsCreatorWeb = PlatformTypographyOptionsWeb | ((palette: Mui.Palette) => PlatformTypographyOptionsWeb) 
-  type TypographyOptionsCreatorNative = PlatformTypographyOptionsNative | ((palette: Mui.Palette) => PlatformTypographyOptionsNative) 
+  type TypographyOptionsCreatorWeb = PlatformTypographyOptionsWeb | ((palette: Mui.Palette) => PlatformTypographyOptionsWeb)
+  type TypographyOptionsCreatorNative = PlatformTypographyOptionsNative | ((palette: Mui.Palette) => PlatformTypographyOptionsNative)
 
   //platform specific typography options
   type PlatformTypographyOptionsWeb = Partial<FontStyle & FontStyleWeb & PlatformSheetWeb<TypographySheet>>

@@ -12,34 +12,35 @@ import { toPlatformSheetLow, toRuleLow } from 'rw-mui-u/styles/toPlatform'
 let defaultTheme: Mui.Theme
 const getDefaultTheme = () => defaultTheme || (defaultTheme = createMuiTheme())
 
-const styleOverride = <T extends Mui.TypedSheet>(renderedClasses: Mui.PlatformSheetNative<T>, classesProp: Mui.PlatformSheetNative<T>, name: string) => {
+
+const styleOverride = <T extends Mui.Shape>(renderedClasses: Mui.PlatformSheetNative<T>, classesProp: Mui.PlatformSheetNative<T>, name: string) => {
+  type untyped = Mui.PlatformSheetNative<Mui.Shape>
   if (!classesProp) return renderedClasses
-  const stylesWithOverrides = { ...renderedClasses as Mui.SheetUntyped } as Mui.PlatformSheetNative<T> //destructor does not work with generics
+  const stylesWithOverrides = { ...renderedClasses as untyped }  //destructor does not work with generics
   Object.keys(classesProp).forEach(key => {
     warning(!!stylesWithOverrides[key], `Material-UI: you are trying to override a style that does not exist.\r\nFix the '${key}' key of 'theme.overrides.${name}'.`)
-    stylesWithOverrides[key] = { ...stylesWithOverrides[key], ...classesProp[key] };
+    stylesWithOverrides[key] = { ...stylesWithOverrides[key], ...(classesProp as untyped)[key] };
   })
-  return stylesWithOverrides
+  return stylesWithOverrides as Mui.PlatformSheetNative<T>
 }
 
-const styleCreator = <T extends Mui.TypedSheet>(styleOrCreator: Mui.SheetCreatorNative<T>, theme: Mui.Theme, name?: string) => {
+const styleCreator = <T extends Mui.Shape>(styleOrCreator: Mui.SheetCreatorNative<T>, theme: Mui.Theme, name?: string) => {
   const overrides = (theme.overrides && name && theme.overrides[name]) as Mui.PlatformSheetNative<T>
   const styles = typeof styleOrCreator === 'function' ? styleOrCreator(theme) : styleOrCreator
   return styleOverride(styles, overrides, name)
 }
 
-//<R extends TypedSheet>(style: origStyleRules<keyof R>, options?: Mui.WithStylesOptions) => <C>(component: CodeComponentType<C, R>) => ComponentType<C, R>
-export const withStyles = <R extends Mui.TypedSheet>(styleOrCreator: Mui.SheetCreatorNative<R>, options?: Mui.WithStylesOptions) => <C>(Component: Mui.CodeComponentType<C, R>) => {
-  const Style: Mui.SFC<C, R> = (props, context: Mui.TMuiThemeContextValue) => {
+export const withStyles = <R extends Mui.Shape>(styleOrCreator: Mui.SheetCreatorNative<R>, options?: Mui.WithStylesOptions) => (Component: Mui.CodeComponentType<R>) => {
+  const Style: Mui.SFC<R> = (props, context: Mui.TMuiThemeContextValue) => {
     const { withTheme = false, flip, name } = options
-    const { classes: classesProp, innerRef, ...other } = props as Mui.Props<Mui.TypedSheet, Mui.SheetUntyped>//as any //without any: does not works in TS
+    const { classes: classesProp, innerRef, ...other } = props as Mui.Props<Mui.Shape>//as any //without any: does not works in TS
     const theme = context.theme || getDefaultTheme()
 
     const classes = /*override with component.props.classes*/styleOverride(
       /*count STYLES based on theme and override it with theme.overrides[name]. !!! result should be cached !!!*/styleCreator(styleOrCreator, theme, name),
-      toPlatformSheet(classesProp) as any, name)
+      toPlatformSheet(classesProp as Mui.PartialSheet<R>), name)
 
-    const newProps = { ...other, classes, flip: typeof flip === 'boolean' ? flip : theme.direction === 'rtl' } as Mui.CodeProps<C, R>
+    const newProps = { ...other, classes, flip: typeof flip === 'boolean' ? flip : theme.direction === 'rtl' } as Mui.CodeProps<R>
 
     if (withTheme) newProps.theme = context.theme
 
@@ -52,7 +53,7 @@ export const withStyles = <R extends Mui.TypedSheet>(styleOrCreator: Mui.SheetCr
 }
 
 export const toRule = <T extends Mui.NativeCSS>(style: Mui.Rule<T>) => toRuleLow(style, true) as T 
-export const toPlatformSheet = <R extends Mui.TypedSheet>(rules: Mui.Sheet<R>) => toPlatformSheetLow(rules, true) as Mui.PlatformSheetNative<R>
+export const toPlatformSheet = <R extends Mui.Shape>(rules: Mui.PartialSheet<R>) => toPlatformSheetLow(rules, true) as Mui.PlatformSheetNative<R>
 
 export default withStyles
 
