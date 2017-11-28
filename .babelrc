@@ -9,7 +9,10 @@
     [
       "module-resolver",
       {
-        "root": [ "./libs" ]
+        "root": [ "./libs" ],
+        "alias": {
+          "rw-mui-n": "rw-mui"
+        }
       }
     ]
   ]

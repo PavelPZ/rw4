@@ -4,7 +4,9 @@ import MuiThemeProvider from 'rw-mui/styles/MuiThemeProvider'
 import createMuiTheme from 'rw-mui/styles/createMuiTheme'
 //import color from 'material-ui/colors/orange'
 
-import { Styler } from 'rw-mui-w/styles/withStyles'
+import { Styler } from 'rw-mui/styles/withStyles'
+
+import { View } from 'react-native'
 
 //import Cancel from 'material-ui/svg-icons/Cancel'
 
@@ -12,7 +14,7 @@ import { Styler } from 'rw-mui-w/styles/withStyles'
 //  overrides: {
 //    [Mui.Names.Icon]: {
 //      common: {
-//        colorInherit: iconColor(color[500]),
+//        colorInherit: iconColor(color[500]), 
 //      }
 //    } as Mui.Sheet<MuiIcon.ISheet>
 //  }
@@ -20,9 +22,9 @@ import { Styler } from 'rw-mui-w/styles/withStyles'
 
 const app: React.SFC = props =>
   <Styler>
-    <div style={{ marginTop: 24 }}>
-      <Button color='primary' raised onClick={ev => ev && ev.preventDefault()}>Hallo Button</Button>
-    </div>
+    <View style={{ marginTop: 24 }}>
+      <Button color='primary' raised onClick={ev => ev && ev.preventDefault()}>Hallo Button</Button> 
+    </View>
   </Styler>
 
 export default app

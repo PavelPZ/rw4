@@ -25,8 +25,8 @@ function createMuiTheme(options: Mui.ThemeOptions = {}) {
     ...other
   } = options
 
-  const palette = createPalette(paletteInput);
-  const breakpoints = createBreakpoints(breakpointsInput);
+  const palette = createPalette(paletteInput)
+  const breakpoints = createBreakpoints(breakpointsInput)
 
   const muiTheme: Mui.Theme = {
     direction: 'ltr',
@@ -47,6 +47,9 @@ function createMuiTheme(options: Mui.ThemeOptions = {}) {
         spacingInput,
         zIndexInput,
         ...other
+      },
+      {
+        clone: false, // No need to clone deep
       },
     ),
   };

@@ -12,6 +12,8 @@ import cyan from 'material-ui/colors/cyan'
 
 import { toPlatformTypographyOptions } from 'rw-mui/styles/createTypography'
 
+import { View, ScrollView } from 'react-native'
+
 const theme = createMuiTheme({
   typography: palette => toPlatformTypographyOptions({
     fontStyle: {
@@ -46,7 +48,7 @@ const theme = createMuiTheme({
 })
 
 const app = () =>
-  <div style={{ marginTop: 20 }}>
+  <ScrollView style={{ marginTop: 20 }}>
     <Typography type='headline' style={{ textDecorationLine: 'underline' }}>noWrap</Typography>
     <Typography noWrap style={{ width: 200 }}>noWrap noWrap noWrap noWrap noWrap noWrap noWrap noWrap noWrap noWrap noWrap noWrap noWrap noWrap </Typography>
     {/**/}
@@ -85,14 +87,16 @@ const app = () =>
     <Typography type='display4'>display4</Typography>
     <Typography type='headline' style={{ textDecorationLine: 'underline' }}>THEME</Typography>
     <MuiThemeProvider theme={theme}>
-      <Typography color='secondary'>secondary</Typography>
-      <Typography color='primary'>primary</Typography>
-      <Typography type='caption' >caption</Typography>
-      <Typography type='display2' >display2</Typography>
-      <Typography color='accent' >accent</Typography>
-      <Typography color='accent' style={{ color: 'red' }} >accent red</Typography>
+      <View>
+        <Typography color='secondary'>secondary</Typography>
+        <Typography color='primary'>primary</Typography>
+        <Typography type='caption' >caption</Typography>
+        <Typography type='display2' >display2</Typography>
+        <Typography color='accent' >accent</Typography>
+        <Typography color='accent' style={{ color: 'red' }} >accent red</Typography>
+      </View>
     </MuiThemeProvider>
-  </div>
+  </ScrollView>
 
 export default app
 

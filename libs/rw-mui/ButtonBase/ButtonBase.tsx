@@ -65,7 +65,6 @@ class RippleEffect extends React.PureComponent<{ style: RN.ViewStyle, theme: Mui
     this.opacityValue.setValue(maxOpacity);
   }
   onPressedIn(layout: LayoutRectangle) {
-    console.log('onPressedIn', layout)
     if (!layout) return
     this.clear()
     this.scale = Animated.timing(this.scaleValue, {

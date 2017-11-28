@@ -7,11 +7,13 @@ import { MuiThemeContextTypes } from './MuiThemeProvider'
 import createMuiTheme from './createMuiTheme'
 import warning from 'invariant'
 import pure from 'recompose/pure'
+import { View } from 'react-native'
 import { toPlatformSheetLow, toRuleLow } from 'rw-mui-u/styles/toPlatform'
 
 let defaultTheme: Mui.Theme
 const getDefaultTheme = () => defaultTheme || (defaultTheme = createMuiTheme())
 
+export const Styler: React.SFC<{}> = props => <View>{props.children}</View>
 
 const styleOverride = <T extends Mui.Shape>(renderedClasses: Mui.PlatformSheetNative<T>, classesProp: Mui.PlatformSheetNative<T>, name: string) => {
   type untyped = Mui.PlatformSheetNative<Mui.Shape>
@@ -32,19 +34,19 @@ const styleCreator = <T extends Mui.Shape>(styleOrCreator: Mui.SheetCreatorNativ
 
 export const withStyles = <R extends Mui.Shape>(styleOrCreator: Mui.SheetCreatorNative<R>, options?: Mui.WithStylesOptions) => (Component: Mui.CodeComponentType<R>) => {
   const Style: Mui.SFC<R> = (props, context: Mui.TMuiThemeContextValue) => {
-    const { withTheme = false, flip, name } = options
-    const { classes: classesProp, innerRef, ...other } = props as Mui.Props<Mui.Shape>//as any //without any: does not works in TS
+    const { withTheme = true, flip, name } = options
+    const { classes: classesProp, innerRef, style, ...other } = props as Mui.Props<Mui.Shape>//as any //without any: does not works in TS
     const theme = context.theme || getDefaultTheme()
 
     const classes = /*override with component.props.classes*/styleOverride(
       /*count STYLES based on theme and override it with theme.overrides[name]. !!! result should be cached !!!*/styleCreator(styleOrCreator, theme, name),
       toPlatformSheet(classesProp as Mui.PartialSheet<R>), name)
 
-    const newProps = { ...other, classes, flip: typeof flip === 'boolean' ? flip : theme.direction === 'rtl', /*onPress hack*/onPress: props.web['onClick'] } as Mui.CodeProps<R>
+    const newProps = { ...other, classes, style: toRule(style), flip: typeof flip === 'boolean' ? flip : theme.direction === 'rtl', /*onPress hack*/onPress: props.web && props.web['onClick'] } as Mui.CodeProps<R>
 
-    if (withTheme) newProps.theme = context.theme
+    if (withTheme) newProps.theme = theme
 
-    return <Component {...newProps}/>
+    return <Component {...newProps }/>
   }
   Style.contextTypes = MuiThemeContextTypes
   Style['options'] = options
@@ -52,7 +54,7 @@ export const withStyles = <R extends Mui.Shape>(styleOrCreator: Mui.SheetCreator
   return pure(Style)
 }
 
-export const toRule = <T extends Mui.NativeCSS>(style: Mui.Rule<T>) => toRuleLow(style, true) as T 
+export const toRule = <T extends Mui.NativeCSS>(style: Mui.Rule<T>) => toRuleLow(style, true) as T
 export const toPlatformSheet = <R extends Mui.Shape>(rules: Mui.PartialSheet<R>) => toPlatformSheetLow(rules, true) as Mui.PlatformSheetNative<R>
 
 export default withStyles
@@ -60,7 +62,7 @@ export default withStyles
 //export const classNames = <T extends Mui2.NativeCSS>(...styles: Array<T | T[] | string | string[]>) => {
 export const classNames = <T extends Mui.NativeCSS>(...styles: Array<T | T[]>) => {
   if (!styles) return null
-  return Object.assign({}, ...styles.map(p => {
+  return Object.assign({}, ...styles.filter(p => !!p).map(p => {
     if (Array.isArray(p)) return Object.assign({}, ...p)
     else return p
   })) as T

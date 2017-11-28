@@ -71,12 +71,14 @@ import { AppPage } from './app-common/snack/app-router'
 //import AppComp from './app-native/snack/mui/typography'
 //import AppComp from './app-native/snack/mui/shadows'
 //import AppComp from './app-native/snack/mui/ripple'
-import AppComp from './app-common/snack/mui/icon'
+import AppComp from './app-common/snack/mui/button'
 
 
+console.log('app 1')
 //console.log('APP')
 
 export const init = async () => {
+  console.log('app.init 1')
   window.rn = true
 
   initRouter(AppPage.getRoute({ title: 'START TITLE | xxx' }), '/web-app.html')
@@ -100,12 +102,15 @@ export const init = async () => {
   initGUI({ Button, Icon, H1, H2, H3, H4, View, Text, AnimatedDrawer })
 
   const recordingJSON = await require('./App_Data/recording.json')
+
+  console.log('app.init 2')
   await promiseAll([
     expoLoadFonts(),
     //initRouter(),
     initRecording(recordingJSON),
     initRoot(),
   ])
+  console.log('app.init 3')
 
   const reducers: App.IReducer = (st, action: any) => {
     const state = globalRouterReducer(recordingGlobalReducer(st, action), action)
@@ -136,6 +141,8 @@ export const init = async () => {
   }
 
   sagaMiddleware.run(rootSaga)
+
+  console.log('app.init 4')
 
   const AppAll: React.SFC<{}> = props => <ReduxProvider store={store}>
     <LocProvider>

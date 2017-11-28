@@ -17,7 +17,7 @@
       "recompose/*": [ "typings/recompose-low" ]
     },
 
-    "importHelpers": true,
+    //"importHelpers": true, https://github.com/facebook/react-native/issues/16858
     "allowSyntheticDefaultImports": true,
     "strictNullChecks": false,
     "downlevelIteration": true,
@@ -28,7 +28,8 @@
 
     "experimentalDecorators": true,
     "noImplicitAny": false,
-    "jsx": "react-native",
+    //"jsx": "react-native", //TypeError: In this environment the sources for assign MUST be an object. This error is a performance
+    "jsx": "react",
     "lib": [
       "dom",
       "es2015",

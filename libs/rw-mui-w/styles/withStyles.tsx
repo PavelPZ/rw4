@@ -39,12 +39,12 @@ const origWithStyles = withStylesMui as Mui.muiWithStyles
 
 type webKeys<R extends Mui.Shape> = Mui.getWeb<R> | keyof Mui.getCommon<R>
 
-const beforeWithStyles = <R extends Mui.Shape>(Component: Mui.muiComponentType<Mui.getProps<R>, webKeys<R>>) => {
+export const beforeWithStyles = <R extends Mui.Shape>(Component: Mui.muiComponentType<Mui.getProps<R>, webKeys<R>>) => {
   type TKey = webKeys<R>
   const res: Mui.SFC<R> = props => {
     const { classes: sheet, style, web,...rest } = props as Mui.Props<Mui.Shape>
     const classes = sheetToClassSheet(toPlatformSheet(sheet) as Mui.PlatformSheetWeb<R>)
-    const webProps = { style: toRule(style), classes, onPress: props.web['onClick'], ...rest } as (Mui.getProps<R> & Mui.muiProps<TKey>)
+    const webProps = { style: toRule(style), classes, onPress: props.web && props.web['onClick'], ...rest } as (Mui.getProps<R> & Mui.muiProps<TKey>)
     return <Component {...webProps} {...web} />
   }
   return hoistNonReactStatics(res, Component)

@@ -1,5 +1,5 @@
-﻿import React from 'react' 
-import { Platform, View, Text } from 'react-native' 
+﻿import React from 'react'
+import { Platform, View, Text } from 'react-native'
 
 import { withStyles, classNames } from 'rw-mui-n/styles/withStyles'
 import { toPlatformSheet } from 'rw-mui/styles/withStyles'
@@ -8,60 +8,68 @@ import ButtonBase, { styles as baseStyles } from '../ButtonBase/ButtonBase'
 
 
 const styles: Mui.SheetCreator<MuiButton.Shape> = theme => toPlatformSheet<MuiButton.Shape>({
-  ...baseStyles(theme),
-  root: {
-    minWidth: 88,
-    minHeight: 36,
-    paddingTop: theme.spacing.unit,
-    paddingBottom: theme.spacing.unit,
-    paddingLeft: theme.spacing.unit * 2,
-    paddingRight: theme.spacing.unit * 2,
-    borderRadius: 2,
-  },
-  rootLabel: {
-    ...theme.typography.button as any,
-    color: theme.palette.text.primary,
-  },
-  dense: {
-    paddingTop: theme.spacing.unit - 1,
-    paddingBottom: theme.spacing.unit - 1,
-    paddingLeft: theme.spacing.unit,
-    paddingRight: theme.spacing.unit,
-    minWidth: 64,
-    minHeight: 32,
-  },
+  //...baseStyles(theme),
+  common: {
+    root: {
+      minWidth: 88,
+      minHeight: 36,
+      paddingTop: theme.spacing.unit,
+      paddingBottom: theme.spacing.unit,
+      paddingLeft: theme.spacing.unit * 2,
+      paddingRight: theme.spacing.unit * 2,
+      borderRadius: 2,
+    },
+    dense: {
+      paddingTop: theme.spacing.unit - 1,
+      paddingBottom: theme.spacing.unit - 1,
+      paddingLeft: theme.spacing.unit,
+      paddingRight: theme.spacing.unit,
+      minWidth: 64,
+      minHeight: 32,
+    },
 
-  denseLabel: { fontSize: theme.typography.fontSizeNormalizerNative((theme.typography.fontSize as number) - 1), },
+    raised: {
+      backgroundColor: theme.palette.grey[300],
+      native: {
+        //boxShadow: theme.shadows[2],
+      }
+    },
+    raisedPrimary: { backgroundColor: theme.palette.primary[500] },
+    raisedAccent: { backgroundColor: theme.palette.secondary.A200, },
 
-  flatLabelPrimary: { color: theme.palette.primary[500], },
-  flatLabelAccent: { color: theme.palette.secondary.A200, },
-  flatLabelContrast: { color: theme.palette.getContrastText(theme.palette.primary[500]), },
+    disabled: {
+      backgroundColor: theme.palette.text.divider,
+      //native: theme.shadows[0]
+      //boxShadow: theme.shadows[0],
+    },
 
-  raised: {
-    backgroundColor: theme.palette.grey[300],
-    boxShadow: theme.shadows[2],
+    fab: {
+      //borderRadius: 56 / 2,
+      padding: 0,
+      minWidth: 0,
+      width: 56,
+      height: 56,
+      borderRadius: 56 / 2,
+      //boxShadow: theme.shadows[6],
+    },
   },
-  raisedPrimary: { backgroundColor: theme.palette.primary[500] },
-  raisedAccent: { backgroundColor: theme.palette.secondary.A200, },
+  native: {
+    rootLabel: {
+      ...theme.typography.button as any,
+      color: theme.palette.text.primary,
+    },
+    denseLabel: { fontSize: theme.typography.fontSizeNormalizerNative((theme.typography.fontSize as number) - 1), },
 
-  raisedLabelAccent: { color: theme.palette.getContrastText(theme.palette.secondary.A200), },
-  raisedLabelContrast: { color: theme.palette.getContrastText(theme.palette.primary[500]), },
-  raisedLabelPrimary: { color: theme.palette.getContrastText(theme.palette.primary[500]), },
+    flatLabelPrimary: { color: theme.palette.primary[500], },
+    flatLabelAccent: { color: theme.palette.secondary.A200, },
+    flatLabelContrast: { color: theme.palette.getContrastText(theme.palette.primary[500]), },
 
-  disabled: {
-    backgroundColor: theme.palette.text.divider,
-    boxShadow: theme.shadows[0],
-  },
-  disabledLabel: { color: theme.palette.action.disabled, },
+    raisedLabelAccent: { color: theme.palette.getContrastText(theme.palette.secondary.A200), },
+    raisedLabelContrast: { color: theme.palette.getContrastText(theme.palette.primary[500]), },
+    raisedLabelPrimary: { color: theme.palette.getContrastText(theme.palette.primary[500]), },
 
-  fab: {
-    borderRadius: 56 / 2,
-    padding: 0,
-    minWidth: 0,
-    width: 56,
-    height: 56,
-    boxShadow: theme.shadows[6],
-  },
+    disabledLabel: { color: theme.palette.action.disabled, },
+  }
 })
 
 const button: Mui.CodeSFC<MuiButton.Shape> = props => {
@@ -104,8 +112,8 @@ const button: Mui.CodeSFC<MuiButton.Shape> = props => {
 
   //console.log(viewStyle, textStyle)
 
-  const childs = React.Children.toArray(children).map(ch => {
-    if (typeof ch === 'string' || typeof ch === 'number') return <Text style={textStyle}>{ch}</Text>
+  const childs = React.Children.toArray(children).map((ch, idx) => {
+    if (typeof ch === 'string' || typeof ch === 'number') return <Text key={idx} style={textStyle}>{ch}</Text>
     else return React.cloneElement(ch, { ...ch.props, style: { ...textStyle, ...ch.props.style || null } })
   })
 
