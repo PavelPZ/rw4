@@ -51,7 +51,7 @@ export default function createTypography(palette: Mui.Palette, optionOrCreator: 
     htmlFontSize,
     fontsNative,
     fontSizesNative,
-    root: {},
+    //root: {},
     display4: {
       fontSize: fontSizeNormalizerNative(fontSizesNative.display4),
       ...fontsNative.light,
@@ -118,7 +118,7 @@ export default function createTypography(palette: Mui.Palette, optionOrCreator: 
     //{
     //  clone: false, // No need to clone deep
     //},
-  )
+  ) as Mui.TypographyNative
 }
 
 const fontsNativeDefault = {

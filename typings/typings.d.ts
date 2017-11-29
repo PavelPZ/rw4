@@ -73,4 +73,4 @@ type PartialRecord<K extends string, T> = {
 };
 
 
-type Omit2<T, K extends string> = {[P in Diff<keyof T, K>]: T[P]}
+type OmitSave<T, K extends string> = {[P in Diff<keyof T, K>]: T[P]}

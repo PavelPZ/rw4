@@ -33,6 +33,7 @@ export const getClasses = <T extends Mui.NativeCSS | string>({ classes, color = 
       iconClass: [classes.root, classes[`color${capitalizeFirstLetter(color)}`]] as T[]
     },
     rest,
-    style
+    style,
+    innerRef
   }
 }

@@ -8,6 +8,8 @@
     ButtonBase = 'MuiButtonBase',
     Button = 'MuiButton',
     View = 'MuiView',
+    Text = 'MuiText',
+    Template = 'MuiTemplate',
   }
 
   interface WithStylesOptions {
@@ -35,33 +37,44 @@
   //result of transformation cross platform styles to platform specific style
   type PlatformRule<T extends NativeCSS> = T | CSSProperties
   type PlatformRuleUntyped = NativeCSS | CSSProperties
-  
+
   //select native props from web CSS. E.g. commonStyle<RN.TextStyle> could be used both for native <Text> and web <span>
   type commonStyle<TNative> = TakeFrom<TNative, webUsableInNative & keyof TNative>
   type webUsableInNative = Diff<keyof ReactCSS.CSSProperties, 'transform'> //transform native prop is not compatible with web
 
   //*********** RULES typing NEW
-  type Shape = {
+  interface Shape {
     common: Record<string, NativeCSS>
     native: Record<string, NativeCSS>
     web: string
     style: NativeCSS
     props: {}
-    //????:
-    nativeProps?: {}
-    webProps?: {}
+    propsNative: { style?: {}, onPress?: (ev?) => void }
+    propsWeb: { style?: {}, onClick?: (ev?) => void } 
+  }
+  interface EmptyShape extends Shape {
+    common: {}
+    native: {}
+    web: ''
+    props: {}
+    style: RN.ViewStyle
+    propsNative: RN.ViewProperties
+    propsWeb: React.HTMLAttributes<HTMLDivElement>
   }
 
-  type getProps<R extends Shape> = R['props'] & R['webProps']
-  //type getProps<R extends Shape> = R['props'] & R['webProps']
+  type getProps<R extends Shape> = R['props']
   type getNative<R extends Shape> = R['native']
   type getCommon<R extends Shape> = R['common']
   type getWeb<R extends Shape> = R['web']
   type getStyle<R extends Shape> = R['style']
+  type getPropsWeb<R extends Shape> = OmitSave<R['propsWeb'], 'style' | 'onClick'>
+  type getPropsNative<R extends Shape> = OmitSave<R['propsNative'], ('style' | 'onPress')>
+  //type getPropsWeb<R extends Shape> = R['propsWeb']
+  //type getPropsNative<R extends Shape> = R['propsNative']
 
   type Sheet<R extends Shape> = {
     common: {[P in keyof getCommon<R>]: Rule<getCommon<R>[P]>}
-    native: getNative<R> 
+    native: getNative<R>
     web: {[P in getWeb<R>]: CSSProperties}
   }
   type PartialSheet<R extends Shape> = {[P in keyof Sheet<R>]?: Partial<Sheet<R>[P]>}
@@ -91,10 +104,10 @@
   // cross platform COMPONENTs with similar sheet for both web and native
   //*************************************************
 
-  type PropsLow<R extends Shape> = { innerRef?: React.Ref<any>; onPress?: () => void } & getProps<R>
+  type PropsLow<R extends Shape> = { innerRef?: (node) => void } & getProps<R>
 
   //cross platform Component, used in web and native application (created by withStyles)
-  type Props<R extends Shape> = PropsLow<R> & { classes?: PartialSheet<R>; style?: Rule<getStyle<R>>; web?: R['webProps'] }  
+  type Props<R extends Shape> = PropsLow<R> & { classes?: PartialSheet<R>; style?: Rule<getStyle<R>>; web?: getPropsWeb<R>; native?: getPropsNative<R>; onPress?: () => void; onClick?: (ev: React.SyntheticEvent<HTMLElement>) => void }
   type ComponentType<R extends Shape> = React.ComponentType<Props<R>>
   type SFC<R extends Shape> = React.SFC<Props<R>>
 
@@ -104,9 +117,9 @@
 
 
   //Component's code (passed to withStyles)
-  type CodeProps<R extends Shape> = PropsLow<R> & { classes: PlatformSheet<R>; style?: PlatformRule<getStyle<R>>; theme: Mui.Theme; flip: boolean }
-  type CodePropsWeb<R extends Shape> = PropsLow<R> & { classes: ClassSheetWeb<R>; style?: PlatformRule<getStyle<R>>; theme: Mui.Theme; flip: boolean }
-  type CodePropsNative<R extends Shape> = PropsLow<R> & { classes: PlatformSheetNative<R>; style?: PlatformRule<getStyle<R>>; theme: Mui.Theme; flip: boolean }
+  type CodeProps<R extends Shape> = PropsLow<R> & { classes: PlatformSheet<R>; style?: CSSProperties | getStyle<R>; theme: Mui.Theme; flip: boolean; } & (getPropsWeb<R> | getPropsNative<R>)
+  type CodePropsWeb<R extends Shape> = PropsLow<R> & { classes: ClassSheetWeb<R>; style?: CSSProperties; theme: Mui.Theme; flip: boolean; onClick?: (ev: React.SyntheticEvent<HTMLElement>) => void } & getPropsWeb<R>
+  type CodePropsNative<R extends Shape> = PropsLow<R> & { classes: PlatformSheetNative<R>; style?: getStyle<R>; theme: Mui.Theme; flip: boolean; onPress?: () => void } & getPropsNative<R>
 
   type CodeComponentType<R extends Shape> = React.ComponentType<CodeProps<R>>
 
@@ -128,21 +141,21 @@
   type muiCodeComponentType<P, ClassKey extends string> = React.ComponentType<P & muiCodeProps<ClassKey>>
   type muiComponentType<P, ClassKey extends string> = React.ComponentType<P & muiProps<ClassKey>>
 
-//  type SheetDistinct<R extends TypedSheet, W extends string> = {[P in (keyof R & W)]?: Rule<R[P]>} & { web: PlatformSheetWebKey<W>; native: R}//rules definition type
-//  type SheetDistinctCreatorWeb<R extends TypedSheet, W extends string> = PlatformSheetWebKey<W> | ((theme: Mui.Theme) => PlatformSheetWebKey<W>) //rules definition (rules or function)
-//  type SheetDistinctCreatorNative<R extends TypedSheet, W extends string> = PlatformSheetNative<R> | ((theme: Mui.Theme) => PlatformSheetNative<R>) //rules definition (rules or function)
-//  type SheetCreatorDistinct<R extends TypedSheet, W extends string> = SheetDistinctCreatorWeb<R,W> | SheetDistinctCreatorNative<R,W>
-  
+  //  type SheetDistinct<R extends TypedSheet, W extends string> = {[P in (keyof R & W)]?: Rule<R[P]>} & { web: PlatformSheetWebKey<W>; native: R}//rules definition type
+  //  type SheetDistinctCreatorWeb<R extends TypedSheet, W extends string> = PlatformSheetWebKey<W> | ((theme: Mui.Theme) => PlatformSheetWebKey<W>) //rules definition (rules or function)
+  //  type SheetDistinctCreatorNative<R extends TypedSheet, W extends string> = PlatformSheetNative<R> | ((theme: Mui.Theme) => PlatformSheetNative<R>) //rules definition (rules or function)
+  //  type SheetCreatorDistinct<R extends TypedSheet, W extends string> = SheetDistinctCreatorWeb<R,W> | SheetDistinctCreatorNative<R,W>
 
-//  //rules modification via 'classes' attribute
-//  type ClassesPropDistinct<R extends TypedSheet, TKey extends string> = { native?: Partial<R>; web?: Partial<Record<TKey, CSSProperties>> } //MUI compatible RULES typing
 
-//  //Component, used in web and native application (after muiWithStyles HOC for Native rewrite or after muiMakeCompatible for original mui component)
-//  type PropsDistinct<C, R extends TypedSheet, TKey extends string> = PropsLow<C> & { classes?: ClassesPropDistinct<R, TKey>; style?: Rule<RN.TextStyle> }
-//  type ComponentTypeDistinct<C, R extends TypedSheet, TKey extends string> = React.ComponentType<PropsDistinct<C, R, TKey>>
+  //  //rules modification via 'classes' attribute
+  //  type ClassesPropDistinct<R extends TypedSheet, TKey extends string> = { native?: Partial<R>; web?: Partial<Record<TKey, CSSProperties>> } //MUI compatible RULES typing
 
-//  //Component's code (passed to withStyles)
-//  type CodePropsDistinct<C, R extends TypedSheet, TKey extends string> = PropsLow<C> & { classes?: ClassesPropDistinct<R, TKey>; style?: { web?: CSSProperties; native?: NativeCSS }; theme: Mui.Theme }
-//  type CodeComponentTypeDistinct<C, R extends TypedSheet, TKey extends string> = React.ComponentType<CodePropsDistinct<C, R, TKey>>
+  //  //Component, used in web and native application (after muiWithStyles HOC for Native rewrite or after muiMakeCompatible for original mui component)
+  //  type PropsDistinct<C, R extends TypedSheet, TKey extends string> = PropsLow<C> & { classes?: ClassesPropDistinct<R, TKey>; style?: Rule<RN.TextStyle> }
+  //  type ComponentTypeDistinct<C, R extends TypedSheet, TKey extends string> = React.ComponentType<PropsDistinct<C, R, TKey>>
+
+  //  //Component's code (passed to withStyles)
+  //  type CodePropsDistinct<C, R extends TypedSheet, TKey extends string> = PropsLow<C> & { classes?: ClassesPropDistinct<R, TKey>; style?: { web?: CSSProperties; native?: NativeCSS }; theme: Mui.Theme }
+  //  type CodeComponentTypeDistinct<C, R extends TypedSheet, TKey extends string> = React.ComponentType<CodePropsDistinct<C, R, TKey>>
 
 }

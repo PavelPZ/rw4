@@ -87,6 +87,10 @@
     <TypeScriptCompile Include="libs\rw-mui-u\styles\reactCSS.d.ts" />
     <TypeScriptCompile Include="libs\rw-mui-u\styles\withStyles-d.d.ts" />
     <TypeScriptCompile Include="libs\rw-mui-u\styles\createTypography-d.d.ts" />
+    <TypeScriptCompile Include="libs\rw-mui-u\Text\Text-d.d.ts" />
+    <TypeScriptCompile Include="libs\rw-mui-u\Text\Text.tsx" />
+    <TypeScriptCompile Include="libs\rw-mui-u\Template\Template-d.d.ts" />
+    <TypeScriptCompile Include="libs\rw-mui-u\Template\Template.tsx" />
     <TypeScriptCompile Include="libs\rw-mui-u\View\View-d.d.ts" />
     <TypeScriptCompile Include="libs\rw-mui-u\View\View.tsx" />
     <TypeScriptCompile Include="libs\rw-mui-w\ButtonBase\ButtonBase.tsx" />
@@ -99,8 +103,10 @@
     <TypeScriptCompile Include="libs\rw-mui-w\styles\shadows.ts" />
     <TypeScriptCompile Include="libs\rw-mui-w\styles\fela.tsx" />
     <TypeScriptCompile Include="libs\rw-mui-w\styles\withStyles.tsx" />
+    <TypeScriptCompile Include="libs\rw-mui-w\Text\Text.tsx" />
     <TypeScriptCompile Include="libs\rw-mui-w\Typography\Typography.tsx" />
     <TypeScriptCompile Include="libs\rw-mui-u\ButtonBase\ButtonBase-d.d.ts" />
+    <TypeScriptCompile Include="libs\rw-mui-w\Template\Template.tsx" />
     <TypeScriptCompile Include="libs\rw-mui-w\View\View.tsx" />
     <TypeScriptCompile Include="libs\rw-mui\ButtonBase\ButtonBase.tsx" />
     <TypeScriptCompile Include="libs\rw-mui-u\Button\Button-d.d.ts" />
@@ -111,12 +117,14 @@
     <TypeScriptCompile Include="libs\rw-mui\styles\withStyles.tsx" />
     <TypeScriptCompile Include="libs\rw-mui-u\Typography\Typography-d.d.ts" />
     <TypeScriptCompile Include="libs\rw-mui\styles\expoLoadFonts.ts" />
+    <TypeScriptCompile Include="libs\rw-mui\Text\Text.tsx" />
     <TypeScriptCompile Include="libs\rw-mui\Typography\Typography.tsx" />
     <None Include="libs\rw-controls\icon\icon-n.tsx_" />
     <None Include="libs\rw-controls\icon\icon-w.tsx_" />
     <TypeScriptCompile Include="libs\rw-mui\Button\Button.tsx" />
     <TypeScriptCompile Include="libs\rw-mui\styles\MuiThemeProvider.ts" />
     <TypeScriptCompile Include="libs\rw-controls\text\text-w.tsx" />
+    <TypeScriptCompile Include="libs\rw-mui\Template\Template.tsx" />
     <TypeScriptCompile Include="libs\rw-mui\View\View.tsx" />
     <TypeScriptCompile Include="libs\rw-utils\fela-like-w - Copy.tsx" />
     <TypeScriptCompile Include="libs\rw-utils\object-each.ts" />

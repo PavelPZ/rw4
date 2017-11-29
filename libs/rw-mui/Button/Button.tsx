@@ -1,12 +1,12 @@
 ﻿import React from 'react'
 import { Platform, View, Text } from 'react-native'
 
-import { withStyles, classNames, toPlatformSheet } from 'rw-mui-n/styles/withStyles'
+import { withStyles, classNames, toPlatformSheet, toRule } from 'rw-mui-n/styles/withStyles'
 
 import ButtonBase, { styles as baseStyles } from '../ButtonBase/ButtonBase'
 
 
-const styles: Mui.SheetCreator<MuiButton.Shape> = theme => toPlatformSheet<MuiButton.Shape>({
+const sheet: Mui.SheetCreator<MuiButton.Shape> = theme => toPlatformSheet<MuiButton.Shape>({
   //...baseStyles(theme),
   common: {
     root: {
@@ -54,7 +54,7 @@ const styles: Mui.SheetCreator<MuiButton.Shape> = theme => toPlatformSheet<MuiBu
   },
   native: {
     rootLabel: {
-      ...theme.typography.button as any,
+      ...toRule(theme.typography.common.button),
       color: theme.palette.text.primary,
     },
     denseLabel: { fontSize: theme.typography.fontSizeNormalizerNative((theme.typography.fontSize as number) - 1), },
@@ -118,7 +118,7 @@ const button: Mui.CodeSFCNative<MuiButton.Shape> = props => {
 }
 
 
-const Button = withStyles<MuiButton.Shape>(styles, { name: Mui.Names.Button })(button)
+const Button = withStyles<MuiButton.Shape>(sheet, { name: Mui.Names.Button })(button)
 
 
 //const btn = <Button classes={{ root: {}, denseLabel: { color: '' } }} color='accent' onClick={null} />

@@ -7,8 +7,8 @@ export * from 'rw-mui-u/Icon/Icon'
 import SvgIcon, { SvgIconProps } from 'material-ui/SvgIcon/SvgIcon'
 
 const icon: Mui.CodeSFCWeb<MuiIcon.Shape> = (props => {
-  const { classes: { iconClass }, name, style, rest } = getClasses<string>(props)
-  return <SvgIcon className={classNames(iconClass)} style={style} {...rest}>
+  const { classes: { iconClass }, name, style, rest, innerRef } = getClasses<string>(props as Mui.CodeProps<MuiIcon.Shape>)
+  return <SvgIcon className={classNames(iconClass)} style={style} ref={div => innerRef && innerRef(div)} {...rest}>
     <path d={name} />
   </SvgIcon>
 }) 

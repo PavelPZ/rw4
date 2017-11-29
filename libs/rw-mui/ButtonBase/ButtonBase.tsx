@@ -28,6 +28,7 @@ const buttonBase: Mui.CodeSFCNative<MuiButtonBase.Shape> = props => {
     disableRipple,
     onPress,
     theme,
+    innerRef,
     ...other
   } = props
 
@@ -39,7 +40,7 @@ const buttonBase: Mui.CodeSFCNative<MuiButtonBase.Shape> = props => {
 
   let ripple: RippleEffect
   let rect: LayoutRectangle
-  return <TouchableWithoutFeedback disabled={disabled} onPress={onPress} onPressIn={() => ripple && ripple.onPressedIn(rect)} onPressOut={() => ripple && ripple.onPressedOut()} onLayout={({ nativeEvent: { layout } }) => rect = layout}>
+  return <TouchableWithoutFeedback disabled={disabled} onPress={onPress} onPressIn={() => ripple && ripple.onPressedIn(rect)} onPressOut={() => ripple && ripple.onPressedOut()} onLayout={({ nativeEvent: { layout } }) => rect = layout} ref={div => innerRef && innerRef(div)} >
     <View style={actStyle}>
       {!disabled && !disableRipple && <RippleEffect theme={theme} style={classes.ripple} ref={rv => ripple = rv} />}
       {children}

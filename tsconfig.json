@@ -1,11 +1,7 @@
 {
   "compileOnSave": true,
   "compilerOptions": {
-    "target": "es5",
-    "module": "system",
-    "inlineSourceMap": true,
-    "inlineSources": true,
-    "importHelpers": true,
+    "target": "es6",
 
     "baseUrl": ".",
     "paths": {
@@ -14,22 +10,25 @@
       "rw-utils/*": [ "libs/rw-utils/*" ],
       "rw-controls/*": [ "libs/rw-controls/*" ],
       "rw-fela-w/*": [ "libs/rw-fela-w/*" ],
-      "rw-mui/*": [ "libs/rw-mui-w/*" ],
+      "rw-mui/*": [ "libs/rw-mui/*" ],
       "rw-mui-n/*": [ "libs/rw-mui/*" ],
       "rw-mui-w/*": [ "libs/rw-mui-w/*" ],
       "rw-mui-u/*": [ "libs/rw-mui-u/*" ],
       "recompose/*": [ "typings/recompose-low" ]
     },
 
+    //"importHelpers": true, https://github.com/facebook/react-native/issues/16858
     "allowSyntheticDefaultImports": true,
     "strictNullChecks": false,
     "downlevelIteration": true,
     "moduleResolution": "node",
-    "strict": true,
+    //"strict": true,
     "noImplicitReturns": true,
     "strictFunctionTypes": false,
+
     "experimentalDecorators": true,
     "noImplicitAny": false,
+    //"jsx": "react-native", //TypeError: In this environment the sources for assign MUST be an object. This error is a performance
     "jsx": "react",
     "lib": [
       "dom",
@@ -39,7 +38,7 @@
   },
   "include": [ "**/*" ],
   "exclude": [
-    "typings/mdi-react-n.d.ts",
+    "typings/mdi-react-w.d.ts",
     "design",
     "jspm_packages",
     "node_modules",

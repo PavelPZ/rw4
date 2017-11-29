@@ -2,10 +2,8 @@
 
   type ClassKey = Mui.TypographyClassKey | 'root' | 'alignLeft' | 'alignCenter' | 'alignRight' | 'gutterBottom' | 'paragraph' | 'colorInherit' | 'colorSecondary' | 'colorAccent' | 'colorPrimary' | 'colorError'
 
-  type ISheet = {
+  type ISheet = Overwrite<Mui.EmptyShape, {
     common: Record<ClassKey, RN.TextStyle> & { noWrap?: any /*RN.TextProperties*/ }
-    native
-    web: ''
     style: RN.TextStyle
     props: {
       align?: Mui.PropTypes.Alignment
@@ -15,5 +13,7 @@
       paragraph?: boolean
       type?: ClassKey
     }
-  }
+    propsWeb: React.HTMLAttributes<HTMLSpanElement>
+    propsNative: RN.TextProperties
+  }>
 }
