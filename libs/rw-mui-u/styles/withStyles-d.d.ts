@@ -93,8 +93,9 @@
   //type Sheet<R extends TypedSheet> = {[P in keyof R]: Rule<R[P]>}//rules definition type
   type SheetUntyped = Sheet<Shape>
 
-  type GetSheet<R extends Shape> = Sheet<R> | ((theme: Mui.Theme) => Sheet<R>)
-  type SheetCreator<R extends Shape> = (getSheet: GetSheet<R>) => PlatformSheet<R>
+  type SheetGetterPar = Theme
+  type SheetGetter<R extends Shape> = (par: SheetGetterPar) => Sheet<R> //Theme//Sheet<R> | ((theme: Mui.Theme) => Sheet<R>)
+  type SheetCreator<R extends Shape> = (sheetGetter: SheetGetter<R>) => (theme: Theme) => PlatformSheet<R>
 
   type PlatformSheetCreator<R extends Shape> = PlatformSheet<R> | ((theme: Mui.Theme) => PlatformSheet<R>)
 

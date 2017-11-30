@@ -3,7 +3,8 @@ import { View, TouchableWithoutFeedback, Animated, Easing, Platform, Text, Layou
 
 import { withStyles, classNames, sheetCreator } from 'rw-mui-n/styles/withStyles'
 
-export const sheet = sheetCreator<MuiButtonBase.Shape>(theme => ({
+export const sheet = sheetCreator<MuiButtonBase.Shape>(({palette}) => ({
+//const sheet = sheetCreator<MuiButtonBase.Shape>(theme => ({
   common: {
     root: {
       alignItems: 'center',
@@ -13,7 +14,7 @@ export const sheet = sheetCreator<MuiButtonBase.Shape>(theme => ({
   },
   native: {
     ripple: {
-      backgroundColor: theme.palette.common.black,
+      backgroundColor: palette.common.black,
       opacity: 0.12,
     },
   },

@@ -52,8 +52,9 @@ export const beforeWithStyles = <R extends Mui.Shape>(Component: Mui.muiComponen
   return hoistNonReactStatics(res, Component)
 }
 
-export const withStyles = <R extends Mui.Shape>(styleOrCreator: Mui.PlatformSheetCreator<R>, options?: Mui.WithStylesOptions) => (comp: Mui.muiComponentType<Mui.getProps<R>, webKeys<R>>) =>
-  beforeWithStyles<R>(origWithStyles(styleOrCreator, options)(comp as Mui.muiCodeComponentType<Mui.getProps<R>, webKeys<R>>))
+export const withStyles = <R extends Mui.Shape>(styleOrCreator: Mui.PlatformSheetCreator<R>, options?: Mui.WithStylesOptions) => (comp: Mui.muiComponentType<Mui.getProps<R>, webKeys<R>>) => {
+  return beforeWithStyles<R>(origWithStyles(styleOrCreator, options)(comp as Mui.muiCodeComponentType<Mui.getProps<R>, webKeys<R>>))
+}
 
 //const beforeWithStyleDistinct = <C, TKey extends string>(Component: Mui.muiComponentType<C, TKey>) => {
 //  const res: React.SFC<Mui.PropsDistinct<C, {}, TKey>> = (props: Mui.PropsDistinct<{}, Mui.TypedSheet, string>) => {
@@ -71,7 +72,14 @@ export const withStyles = <R extends Mui.Shape>(styleOrCreator: Mui.PlatformShee
 
 export const toRule = (style: Mui.RuleUntyped) => toRuleLow(style, false) as Mui.CSSProperties
 export const toPlatformSheet = <R extends Mui.Shape>(rules: Mui.PartialSheet<R>) => toPlatformSheetLow(rules, false) as Mui.PlatformSheetWeb<R>
-export const sheetCreator = <R extends Mui.Shape>(getSheet: Mui.GetSheet<R>) => null as Mui.PlatformSheetWeb<R>
+
+export const sheetCreator = <R extends Mui.Shape>(styleOrCreator: Mui.SheetGetter<R>) => {
+  const styleOrCreatorEx: Mui.PlatformSheetCreator<R> = (theme: Mui.Theme) => {
+    if (typeof styleOrCreator == 'function') return toPlatformSheet(styleOrCreator(theme) as Mui.PartialSheet<R>)
+    else return styleOrCreator
+  }
+  return styleOrCreatorEx
+}
 
 //export const toRule = (rule: Mui.RuleUntyped) => {
 //  if (!rule) return null

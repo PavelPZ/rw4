@@ -32,7 +32,13 @@ const styleCreator = <T extends Mui.Shape>(styleOrCreator: Mui.PlatformSheetCrea
   return styleOverride(styles, overrides, name)
 }
 
-export const sheetCreator = <R extends Mui.Shape>(getSheet: Mui.GetSheet<R>) => null as Mui.PlatformSheetNative<R>
+export const sheetCreator = <R extends Mui.Shape>(styleOrCreator: Mui.SheetGetter<R>) => {
+  const styleOrCreatorEx: Mui.PlatformSheetCreator<R> = (theme: Mui.Theme) => {
+    if (typeof styleOrCreator == 'function') return toPlatformSheet(styleOrCreator(theme) as Mui.PartialSheet<R>)
+    else return styleOrCreator
+  }
+  return styleOrCreatorEx
+}
 
 export const withStyles = <R extends Mui.Shape>(styleOrCreator: Mui.PlatformSheetCreator<R>, options?: Mui.WithStylesOptions) => (Component: Mui.CodeComponentType<R>) => {
   const Style: Mui.SFC<R> = (props, context: Mui.TMuiThemeContextValue) => {

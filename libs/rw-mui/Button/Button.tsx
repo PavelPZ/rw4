@@ -5,23 +5,23 @@ import { withStyles, classNames, sheetCreator, toRule } from 'rw-mui-n/styles/wi
 
 import ButtonBase, { sheet as baseStyles } from '../ButtonBase/ButtonBase'
 
-const sheet = sheetCreator<MuiButton.Shape>(theme => ({
+const sheet = sheetCreator<MuiButton.Shape>(par => ({
   //...baseStyles(theme),
   common: {
     root: {
       minWidth: 88,
       minHeight: 36,
-      paddingTop: theme.spacing.unit,
-      paddingBottom: theme.spacing.unit,
-      paddingLeft: theme.spacing.unit * 2,
-      paddingRight: theme.spacing.unit * 2,
+      paddingTop: par.spacing.unit,
+      paddingBottom: par.spacing.unit,
+      paddingLeft: par.spacing.unit * 2,
+      paddingRight: par.spacing.unit * 2,
       borderRadius: 2,
     },
     dense: {
-      paddingTop: theme.spacing.unit - 1,
-      paddingBottom: theme.spacing.unit - 1,
-      paddingLeft: theme.spacing.unit,
-      paddingRight: theme.spacing.unit,
+      paddingTop: par.spacing.unit - 1,
+      paddingBottom: par.spacing.unit - 1,
+      paddingLeft: par.spacing.unit,
+      paddingRight: par.spacing.unit,
       minWidth: 64,
       minHeight: 32,
     },
@@ -29,16 +29,16 @@ const sheet = sheetCreator<MuiButton.Shape>(theme => ({
     flatPrimary: {}, flatAccent: {}, flatContrast: {}, colorInherit: {}, raisedContrast: {},//TODO
 
     raised: {
-      backgroundColor: theme.palette.grey[300],
+      backgroundColor: par.palette.grey[300],
       native: {
         //boxShadow: theme.shadows[2],
       }
     },
-    raisedPrimary: { backgroundColor: theme.palette.primary[500] },
-    raisedAccent: { backgroundColor: theme.palette.secondary.A200, },
+    raisedPrimary: { backgroundColor: par.palette.primary[500] },
+    raisedAccent: { backgroundColor: par.palette.secondary.A200, },
 
     disabled: {
-      backgroundColor: theme.palette.text.divider,
+      backgroundColor: par.palette.text.divider,
       //native: theme.shadows[0]
       //boxShadow: theme.shadows[0],
     },
@@ -55,20 +55,20 @@ const sheet = sheetCreator<MuiButton.Shape>(theme => ({
   },
   native: {
     rootLabel: {
-      ...toRule(theme.typography.common.button),
-      color: theme.palette.text.primary,
+      ...toRule(par.typography.common.button),
+      color: par.palette.text.primary,
     },
-    denseLabel: { fontSize: theme.typography.fontSizeNormalizerNative((theme.typography.fontSize as number) - 1), },
+    denseLabel: { fontSize: par.typography.fontSizeNormalizerNative((par.typography.fontSize as number) - 1), },
 
-    flatLabelPrimary: { color: theme.palette.primary[500], },
-    flatLabelAccent: { color: theme.palette.secondary.A200, },
-    flatLabelContrast: { color: theme.palette.getContrastText(theme.palette.primary[500]), },
+    flatLabelPrimary: { color: par.palette.primary[500], },
+    flatLabelAccent: { color: par.palette.secondary.A200, },
+    flatLabelContrast: { color: par.palette.getContrastText(par.palette.primary[500]), },
 
-    raisedLabelAccent: { color: theme.palette.getContrastText(theme.palette.secondary.A200), },
-    raisedLabelContrast: { color: theme.palette.getContrastText(theme.palette.primary[500]), },
-    raisedLabelPrimary: { color: theme.palette.getContrastText(theme.palette.primary[500]), },
+    raisedLabelAccent: { color: par.palette.getContrastText(par.palette.secondary.A200), },
+    raisedLabelContrast: { color: par.palette.getContrastText(par.palette.primary[500]), },
+    raisedLabelPrimary: { color: par.palette.getContrastText(par.palette.primary[500]), },
 
-    disabledLabel: { color: theme.palette.action.disabled, },
+    disabledLabel: { color: par.palette.action.disabled, },
 
     ripple: {}, //TODO
   },
