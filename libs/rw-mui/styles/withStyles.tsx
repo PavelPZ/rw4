@@ -26,23 +26,26 @@ const styleOverride = <T extends Mui.Shape>(renderedClasses: Mui.PlatformSheetNa
   return stylesWithOverrides as Mui.PlatformSheetNative<T>
 }
 
-const styleCreator = <T extends Mui.Shape>(styleOrCreator: Mui.SheetCreator<T>, theme: Mui.Theme, name?: string) => {
+const styleCreator = <T extends Mui.Shape>(styleOrCreator: Mui.PlatformSheetCreator<T>, theme: Mui.Theme, name?: string) => {
   const overrides = (theme.overrides && name && theme.overrides[name]) as Mui.PlatformSheetNative<T>
   const styles = typeof styleOrCreator === 'function' ? styleOrCreator(theme) : styleOrCreator
   return styleOverride(styles, overrides, name)
 }
 
-export const withStyles = <R extends Mui.Shape>(styleOrCreator: Mui.SheetCreator<R>, options?: Mui.WithStylesOptions) => (Component: Mui.CodeComponentType<R>) => {
+export const sheetCreator = <R extends Mui.Shape>(getSheet: Mui.GetSheet<R>) => null as Mui.PlatformSheetNative<R>
+
+export const withStyles = <R extends Mui.Shape>(styleOrCreator: Mui.PlatformSheetCreator<R>, options?: Mui.WithStylesOptions) => (Component: Mui.CodeComponentType<R>) => {
   const Style: Mui.SFC<R> = (props, context: Mui.TMuiThemeContextValue) => {
     const { withTheme = true, flip, name } = options
-    const { classes: classesProp, innerRef, style, web, native, onClick: onClickInit, onPress: onPressInit,...other } = props as Mui.Props<Mui.Shape>//as any //without any: does not works in TS
+    const { classes: common, classesNative, classesWeb, innerRef, style, web, native, onClick: onClickInit, onPress: onPressInit, ...other } = props as Mui.Props<Mui.Shape>//as any //without any: does not works in TS
+    const sheet = { common, native: classesNative, web: classesWeb } as Mui.PartialSheet<R>
     const onPress = onClickInit || onPressInit //|| (props.web && props.web['onClick']) || (props.native && props.native['onPress'])
 
     const theme = context.theme || getDefaultTheme()
 
     const classes = /*override with component.props.classes*/styleOverride(
       /*count STYLES based on theme and override it with theme.overrides[name]. !!! result should be cached !!!*/styleCreator(styleOrCreator, theme, name),
-      toPlatformSheet(classesProp as Mui.PartialSheet<R>), name)
+      toPlatformSheet(sheet), name)
 
     const newProps = { ...other, ...native, theme, classes, style: toRule(style), flip: typeof flip === 'boolean' ? flip : theme.direction === 'rtl'} as Mui.CodePropsNative<R>
 

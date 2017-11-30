@@ -42,16 +42,17 @@ type webKeys<R extends Mui.Shape> = Mui.getWeb<R> | keyof Mui.getCommon<R>
 export const beforeWithStyles = <R extends Mui.Shape>(Component: Mui.muiComponentType<Mui.getProps<R>, webKeys<R>>) => {
   type TKey = webKeys<R>
   const res: Mui.SFC<R> = props => {
-    const { classes: sheet, style, web, native, onClick: onClickInit, onPress: onPressInit, ...rest } = props as Mui.Props<Mui.Shape>
+    const { classes: common, classesNative, classesWeb, style, web, native, onClick: onClickInit, onPress: onPressInit, ...rest } = props as Mui.Props<Mui.Shape>
+    const sheet = { common, native: classesNative, web: classesWeb} as Mui.PartialSheet<R>
     const classes = sheetToClassSheet(toPlatformSheet(sheet) as Mui.PlatformSheetWeb<R>)
     const onPress = onPressInit || onClickInit //|| (props.native && props.native['onPress']) || (props.web && props.web['onClick'])
-    const webProps = { ...rest, ...web , style: toRule(style), classes, onPress} as (Mui.getProps<R> & Mui.muiProps<TKey>) 
+    const webProps = { ...rest, ...web, style: toRule(style), classes, onPress} as (Mui.getProps<R> & Mui.muiProps<TKey>) 
     return <Component {...webProps} />
   }
   return hoistNonReactStatics(res, Component)
 }
 
-export const withStyles = <R extends Mui.Shape>(styleOrCreator: Mui.SheetCreator<R>, options?: Mui.WithStylesOptions) => (comp: Mui.muiComponentType<Mui.getProps<R>, webKeys<R>>) =>
+export const withStyles = <R extends Mui.Shape>(styleOrCreator: Mui.PlatformSheetCreator<R>, options?: Mui.WithStylesOptions) => (comp: Mui.muiComponentType<Mui.getProps<R>, webKeys<R>>) =>
   beforeWithStyles<R>(origWithStyles(styleOrCreator, options)(comp as Mui.muiCodeComponentType<Mui.getProps<R>, webKeys<R>>))
 
 //const beforeWithStyleDistinct = <C, TKey extends string>(Component: Mui.muiComponentType<C, TKey>) => {
@@ -70,6 +71,7 @@ export const withStyles = <R extends Mui.Shape>(styleOrCreator: Mui.SheetCreator
 
 export const toRule = (style: Mui.RuleUntyped) => toRuleLow(style, false) as Mui.CSSProperties
 export const toPlatformSheet = <R extends Mui.Shape>(rules: Mui.PartialSheet<R>) => toPlatformSheetLow(rules, false) as Mui.PlatformSheetWeb<R>
+export const sheetCreator = <R extends Mui.Shape>(getSheet: Mui.GetSheet<R>) => null as Mui.PlatformSheetWeb<R>
 
 //export const toRule = (rule: Mui.RuleUntyped) => {
 //  if (!rule) return null

@@ -1,12 +1,11 @@
 ﻿import React from 'react'
 import { Platform, View, Text } from 'react-native'
 
-import { withStyles, classNames, toPlatformSheet, toRule } from 'rw-mui-n/styles/withStyles'
+import { withStyles, classNames, sheetCreator, toRule } from 'rw-mui-n/styles/withStyles'
 
-import ButtonBase, { styles as baseStyles } from '../ButtonBase/ButtonBase'
+import ButtonBase, { sheet as baseStyles } from '../ButtonBase/ButtonBase'
 
-
-const sheet: Mui.SheetCreator<MuiButton.Shape> = theme => toPlatformSheet<MuiButton.Shape>({
+const sheet = sheetCreator<MuiButton.Shape>(theme => ({
   //...baseStyles(theme),
   common: {
     root: {
@@ -26,6 +25,8 @@ const sheet: Mui.SheetCreator<MuiButton.Shape> = theme => toPlatformSheet<MuiBut
       minWidth: 64,
       minHeight: 32,
     },
+
+    flatPrimary: {}, flatAccent: {}, flatContrast: {}, colorInherit: {}, raisedContrast: {},//TODO
 
     raised: {
       backgroundColor: theme.palette.grey[300],
@@ -68,8 +69,11 @@ const sheet: Mui.SheetCreator<MuiButton.Shape> = theme => toPlatformSheet<MuiBut
     raisedLabelPrimary: { color: theme.palette.getContrastText(theme.palette.primary[500]), },
 
     disabledLabel: { color: theme.palette.action.disabled, },
-  }
-})
+
+    ripple: {}, //TODO
+  },
+  web: {} as any
+}))
 
 const button: Mui.CodeSFCNative<MuiButton.Shape> = props => {
   const {

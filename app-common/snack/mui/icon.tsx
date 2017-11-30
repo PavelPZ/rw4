@@ -42,8 +42,8 @@ const app: React.SFC = props =>
       <Icon children={GUI.mdi_icons.arrowDownBoldBox} color='error' />
       <Icon children={GUI.mdi_icons.arrowDownBoldBox} color='primary' />
       <Icon children={GUI.mdi_icons.arrowDownBoldBox} style={iconColor('brown')} />
-      <Icon children={GUI.mdi_icons.arrowDownBoldBox} classes={{ common: { colorInherit: iconColor('green') } }} />
-      <Icon children={GUI.mdi_icons.arrowDownBoldBox} classes={{ common: { root: iconSize(32) } }} />
+      <Icon children={GUI.mdi_icons.arrowDownBoldBox} classes={{ colorInherit: iconColor('green') }} />
+      <Icon children={GUI.mdi_icons.arrowDownBoldBox} classes={{ root: iconSize(32) }} />
       <MuiThemeProvider theme={theme}>
         <Icon children={GUI.mdi_icons.arrowDownBoldBox} />
       </MuiThemeProvider>

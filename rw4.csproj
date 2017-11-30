@@ -76,6 +76,7 @@
     <TypeScriptCompile Include="app-common\gui\colors-d.d.ts" />
     <TypeScriptCompile Include="app-common\snack\icons\test.tsx" />
     <TypeScriptCompile Include="app-common\snack\mui\button.tsx" />
+    <TypeScriptCompile Include="app-common\snack\mui\text-view.tsx" />
     <TypeScriptCompile Include="app-common\snack\mui\typography.tsx" />
     <TypeScriptCompile Include="app-common\snack\mui\icon.tsx" />
     <None Include="app-native\snack\mui\ripple.tsx_" />

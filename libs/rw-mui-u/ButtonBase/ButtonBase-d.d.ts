@@ -1,11 +1,11 @@
 ﻿declare namespace MuiButtonBase {
 
-  type NativeKeyText = 'ripple'
+  type NativeKey = 'ripple'
   type CommonKey = 'root' | 'disabled'
 
   type Shape = Overwrite<Mui.EmptyShape, {
     common: Record<CommonKey, RN.ViewStyle>
-    native: Record<NativeKeyText, RN.ViewStyle>
+    native: Record<NativeKey, RN.ViewStyle>
     props: {
       disabled?: boolean
       disableRipple?: boolean

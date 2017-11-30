@@ -9,7 +9,7 @@ import warning from 'warning'
 export const iconColor = (color: string) => ({ native: { color }, web: { fill: color } } as Mui.RNIconStyle)
 export const iconSize = (size: number) => ({ native: { fontSize: size }, web: { width: size, height: size } } as Mui.RNIconStyle)
 
-export const sheet: Mui.SheetCreator<MuiIcon.Shape> = theme => toPlatformSheet<MuiIcon.Shape>({
+export const sheet: Mui.PlatformSheetCreator<MuiIcon.Shape> = theme => toPlatformSheet<MuiIcon.Shape>({
   common: {
     root: iconSize(24),
     colorAccent: iconColor(theme.palette.secondary.A200),

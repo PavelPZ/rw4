@@ -1,22 +1,24 @@
 ﻿import React from 'react'
 import { View, TouchableWithoutFeedback, Animated, Easing, Platform, Text, LayoutRectangle } from 'react-native';
 
-import { withStyles, classNames, toPlatformSheet } from 'rw-mui-n/styles/withStyles'
+import { withStyles, classNames, sheetCreator } from 'rw-mui-n/styles/withStyles'
 
-export const styles: Mui.SheetCreator<MuiButtonBase.Shape> = theme => toPlatformSheet<MuiButtonBase.Shape>({
+export const sheet = sheetCreator<MuiButtonBase.Shape>(theme => ({
   common: {
     root: {
       alignItems: 'center',
       justifyContent: 'center',
     },
+    disabled: {}, //TODO
   },
   native: {
     ripple: {
       backgroundColor: theme.palette.common.black,
       opacity: 0.12,
     },
-  }
-})
+  },
+  web: {}
+}))
 
 //const maxOpacity = 0.12
 const buttonBase: Mui.CodeSFCNative<MuiButtonBase.Shape> = props => {
@@ -109,7 +111,7 @@ class RippleEffect extends React.PureComponent<{ style: RN.ViewStyle, theme: Mui
   }
 }
 
-const ButtonBase = withStyles<MuiButtonBase.Shape>(styles, { name: Mui.Names.ButtonBase })(buttonBase)
+const ButtonBase = withStyles<MuiButtonBase.Shape>(sheet, { name: Mui.Names.ButtonBase })(buttonBase)
 
 //const b = <ButtonBase style={{}} onClick={null} />
 

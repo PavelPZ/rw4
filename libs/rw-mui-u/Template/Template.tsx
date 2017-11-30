@@ -2,7 +2,7 @@
 
 import { toPlatformSheet } from 'rw-mui/styles/withStyles'
 
-export const sheet: Mui.SheetCreator<MuiTemplate.Shape> = theme => toPlatformSheet<MuiTemplate.Shape>({
+export const sheet: Mui.PlatformSheetCreator<MuiTemplate.Shape> = theme => toPlatformSheet<MuiTemplate.Shape>({
   common: {
     root: {
       web: {

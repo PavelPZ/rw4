@@ -46,7 +46,7 @@
   interface Shape {
     common: Record<string, NativeCSS>
     native: Record<string, NativeCSS>
-    web: string
+    web: string | null
     style: NativeCSS
     props: {}
     propsNative: { style?: {}, onPress?: (ev?) => void }
@@ -55,7 +55,7 @@
   interface EmptyShape extends Shape {
     common: {}
     native: {}
-    web: ''
+    web: null
     props: {}
     style: RN.ViewStyle
     propsNative: RN.ViewProperties
@@ -79,6 +79,12 @@
   }
   type PartialSheet<R extends Shape> = {[P in keyof Sheet<R>]?: Partial<Sheet<R>[P]>}
 
+  type SheetProps<R extends Shape> = {
+    classes?: {[P in keyof getCommon<R>]?: Rule<getCommon<R>[P]>}
+    classesNative?: Partial<getNative<R>>
+    classesWeb?: {[P in getWeb<R>]?: CSSProperties}
+  }
+
   //*********** RULES typing
   // for every cross platform component: basic rule definition
   //type TypedSheet = Record<string, NativeCSS>
@@ -86,11 +92,11 @@
   //cross platform rules definition
   //type Sheet<R extends TypedSheet> = {[P in keyof R]: Rule<R[P]>}//rules definition type
   type SheetUntyped = Sheet<Shape>
-  //type SheetCreatorWeb<R extends Shape> = PlatformSheetWeb<R> | ((theme: Mui.Theme) => PlatformSheetWeb<R>) //rules definition (rules or function)
-  //type SheetCreatorNative<R extends Shape> = PlatformSheetNative<R> | ((theme: Mui.Theme) => PlatformSheetNative<R>) //rules definition (rules or function)
-  //type SheetCreator<R extends Shape> = SheetCreatorWeb<R> | SheetCreatorNative<R>
 
-  type SheetCreator<R extends Shape> = PlatformSheet<R> | ((theme: Mui.Theme) => PlatformSheet<R>)
+  type GetSheet<R extends Shape> = Sheet<R> | ((theme: Mui.Theme) => Sheet<R>)
+  type SheetCreator<R extends Shape> = (getSheet: GetSheet<R>) => PlatformSheet<R>
+
+  type PlatformSheetCreator<R extends Shape> = PlatformSheet<R> | ((theme: Mui.Theme) => PlatformSheet<R>)
 
   //platform specific rules (expanded from cross platform rules)
   type PlatformSheetWeb<R extends Shape> = Record<keyof getCommon<R>, CSSProperties> & getWeb<R>
@@ -107,7 +113,7 @@
   type PropsLow<R extends Shape> = { innerRef?: (node) => void } & getProps<R>
 
   //cross platform Component, used in web and native application (created by withStyles)
-  type Props<R extends Shape> = PropsLow<R> & { classes?: PartialSheet<R>; style?: Rule<getStyle<R>>; web?: getPropsWeb<R>; native?: getPropsNative<R>; onPress?: () => void; onClick?: (ev: React.SyntheticEvent<HTMLElement>) => void }
+  type Props<R extends Shape> = PropsLow<R> & SheetProps<R> & { /*classes?: PartialSheet<R>;*/ style?: Rule<getStyle<R>>; web?: getPropsWeb<R>; native?: getPropsNative<R>; onPress?: () => void; onClick?: (ev: React.SyntheticEvent<HTMLElement>) => void }
   type ComponentType<R extends Shape> = React.ComponentType<Props<R>>
   type SFC<R extends Shape> = React.SFC<Props<R>>
 

@@ -1,11 +1,11 @@
 import React from 'react'
 
 import { capitalizeFirstLetter } from 'material-ui/utils/helpers'
-import { Text } from 'react-native'
+import { Text as TextRN } from 'react-native'
 
 import { toPlatformSheet, toRule, withStyles, classNames } from 'rw-mui-n/styles/withStyles'
 
-export const sheet: Mui.SheetCreator<Typography.ISheet> = theme => {
+export const sheet: Mui.PlatformSheetCreator<Typography.ISheet> = theme => {
   const typo = theme.typography.common //as Mui.TypographyNative
   return toPlatformSheet<Typography.ISheet>({
     common: {
@@ -66,9 +66,10 @@ const typography: Mui.CodeSFCNative<Typography.ISheet> = (props => {
   )
 
   //console.log(type, classes[type], actStyle)
-  return <Text style={actStyle} {...(noWrap && classes.noWrap) } {...other} />
+  return <TextRN style={actStyle} {...(noWrap && classes.noWrap) } {...other} />
 })
 
-const Typography = withStyles<Typography.ISheet>(sheet, { name: Mui.Names.Typography })(typography)
+export const Typography = withStyles<Typography.ISheet>(sheet, { name: Mui.Names.Typography })(typography)
+export const Text = withStyles<Typography.ISheet>(sheet, { name: Mui.Names.Text })(typography)
 
-export default Typography
+//export default Typography

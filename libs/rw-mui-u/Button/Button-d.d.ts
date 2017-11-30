@@ -5,7 +5,7 @@
 
   type Shape = Overwrite<Mui.EmptyShape, {
     common: Record<MuiButtonBase.CommonKey | CommonKey, RN.ViewStyle>
-    native: Record<NativeKeyText | MuiButtonBase.NativeKeyText, RN.TextStyle>
+    native: Record<NativeKeyText | MuiButtonBase.NativeKey, RN.TextStyle>
     web: 'label' | 'keyboardFocused'
     props: {
       color?: Mui.PropTypes.Color | 'contrast' | 'default'
