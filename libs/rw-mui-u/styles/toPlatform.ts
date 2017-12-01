@@ -13,11 +13,12 @@ export const toPlatformSheetLow = (rules: Mui.PartialSheet<Mui.Shape>, isNative:
 
 export const toPlatformTypographyOptionsLow = (options: Mui.TypographyOptions, isNative: boolean) => {
   if (!options) return null
-  const { fontStyle: fontStyleInit, sheet: sheetInit } = options
-  const sheet = sheetInit ? toPlatformSheetLow(sheetInit, isNative) : sheetInit
-  if (fontStyleInit) {
-    const { web, native, ...rest } = fontStyleInit
-    return { ...rest, ...(isNative ? native : web), ...sheet } as Mui.PlatformTypographyOptions
-  }
-  return { ...sheet } as Mui.PlatformTypographyOptions
+  //const { fontStyle: fontStyleInit, sheet: sheetInit } = options
+  //const sheet = sheetInit ? toPlatformSheetLow(sheetInit, isNative) : sheetInit
+  //if (fontStyleInit) {
+  //  const { web, native, ...rest } = fontStyleInit
+  //  return { ...rest, ...(isNative ? native : web), ...sheet } as Mui.PlatformTypographyOptions
+  //}
+  //return { ...sheet } as Mui.PlatformTypographyOptions
+  return {}
 }

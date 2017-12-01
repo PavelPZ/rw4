@@ -1,9 +1,10 @@
 import deepmerge from 'deepmerge' // < 1kb payload overhead when lodash/merge is > 3kb.
 import warning from 'warning'
-import { Platform } from 'react-native'
-import createTypography, { toPlatformTypographyOptions } from 'rw-mui-n/styles/createTypography'
-import shadows from 'rw-mui/styles/shadows'
-import createBreakpoints from 'material-ui/styles//createBreakpoints'
+import createTypography from 'material-ui/styles/createTypography'
+import createTypographyNative from 'rw-mui-n/styles/createTypography'
+import shadows from 'material-ui/styles/shadows'
+import shadowsNative from 'rw-mui-n/styles/shadows'
+import createBreakpoints from 'material-ui/styles/createBreakpoints'
 import createPalette from 'material-ui/styles/createPalette'
 import createMixins from 'material-ui/styles/createMixins'
 import { duration } from 'material-ui/styles/transitions'
@@ -16,8 +17,10 @@ function createMuiTheme(options: Mui.ThemeOptions = {}) {
     palette: paletteInput = {},
     breakpoints: breakpointsInput = {},
     mixins: mixinsInput = {},
-    typography: typographyInput = {},
+    typography: typographyInput,
+    typographyNative: typographyNativeInput,
     shadows: shadowsInput,
+    shadowsNative: shadowsNativeInput,
     transitions: transitionsInput,
     spacing: spacingInput,
     zIndex: zIndexInput,
@@ -31,10 +34,12 @@ function createMuiTheme(options: Mui.ThemeOptions = {}) {
   const muiTheme: Mui.Theme = {
     direction: 'ltr',
     palette,
-    typography: createTypography(palette, typographyInput),
+    typography: createTypography(palette, typographyInput as any),
+    typographyNative: createTypographyNative(palette, typographyNativeInput),
     mixins: createMixins(breakpoints, spacing, mixinsInput),
     breakpoints,
     shadows: shadowsInput || shadows,
+    shadowsNative: shadowsNativeInput || shadowsNative,
     overrides: platformOverrides(overrides),
     ...deepmerge(
       {

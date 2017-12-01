@@ -175,33 +175,8 @@ declare namespace Mui {
 
 
   //************* mui/styles/shadows
-  type Shadows = [
-    'none',
-    string,
-    string,
-    string,
-    string,
-    string,
-    string,
-    string,
-    string,
-    string,
-    string,
-    string,
-    string,
-    string,
-    string,
-    string,
-    string,
-    string,
-    string,
-    string,
-    string,
-    string,
-    string,
-    string,
-    string
-  ];
+  type Shadows = string[]
+  type ShadowsMative = string[]
 
 
   //************* mui/styles/transitions
@@ -260,8 +235,10 @@ declare namespace Mui {
     breakpoints?: Partial<BreakpointsOptions> & Partial<Breakpoints>;
     mixins?: Partial<Mixins>;
     palette?: Partial<Palette>;
-    typography?: TypographyOptionsCreator
+    typography?: web.TypographyOptionsCreator
+    typographyNative?: native.TypographyOptionsCreator
     shadows?: Shadows;
+    shadowsNative?: ShadowsMative;
     transitions?: Partial<Transitions>;
     spacing?: Partial<Spacing>;
     zIndex?: Partial<ZIndex>;
@@ -273,10 +250,12 @@ declare namespace Mui {
     OS: RN.PlatformOSType
     direction: 'ltr' | 'rtl';
     palette: Palette;
-    typography: Typography;
+    typography: web.Typography
+    typographyNative: native.Typography
     mixins: Mixins;
     breakpoints: Breakpoints;
     shadows: Shadows;
+    shadowsNative: Shadows;
     transitions: Transitions;
     spacing: Spacing;
     zIndex: ZIndex;

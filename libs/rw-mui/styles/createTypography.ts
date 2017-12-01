@@ -29,28 +29,26 @@ export const toPlatformTypographyOptions = (options: Mui.TypographyOptions) => t
 //  return { ...sheet } as Mui.PlatformTypographyOptions
 //}
 
-export default function createTypography(palette: Mui.Palette, optionOrCreator: Mui.TypographyOptionsCreator) {
+export default function createTypography(palette: Mui.Palette, optionOrCreator: Mui.native.TypographyOptionsCreator) {
   const {
     fontAssetPathNative = 'libs/rw-mui-n/fonts/',
     fontSize = 14, // px
     fontsNative: fontsNativeInit,
-    fontSizesNative: fontSizesNativeInit,
     fontSizeNormalizerNative = fontSizeNormalizerDefault,
     htmlFontSize = 16, // 16px is the default font-size used by browsers on the html element.
     ...other
-  } = (typeof optionOrCreator === 'function' ? optionOrCreator(palette) : optionOrCreator) as Mui.PlatformTypographyOptionsNative
+  } = (typeof optionOrCreator === 'function' ? optionOrCreator(palette) : optionOrCreator) as Mui.native.TypographyOptions
 
   const fontsNative = fontsNativeInit ? deepmerge(fontsNativeDefault, fontsNativeInit) : fontsNativeDefault
-  const fontSizesNative = fontSizesNativeInit ? { ...fontSizesNativeDefault, ...fontSizesNativeInit } : fontSizesNativeDefault
+  //const fontSizesNative = fontSizesNativeInit ? { ...fontSizesNativeDefault, ...fontSizesNativeInit } : fontSizesNativeDefault
 
   //http://typecast.com/blog/a-more-modern-scale-for-web-typography
-  const sheet: Mui.TypographyNative = {
+  const sheet: Mui.native.Typography = {
     fontSizeNormalizerNative,
     fontAssetPathNative,
     fontSize,
     htmlFontSize,
     fontsNative,
-    fontSizesNative,
     //root: {},
     display4: {
       fontSize: fontSizeNormalizerNative(fontSizesNative.display4),
@@ -118,7 +116,7 @@ export default function createTypography(palette: Mui.Palette, optionOrCreator: 
     //{
     //  clone: false, // No need to clone deep
     //},
-  ) as Mui.TypographyNative
+  ) as Mui.native.Typography
 }
 
 const fontsNativeDefault = {
@@ -139,17 +137,17 @@ const fontsNativeDefault = {
   }
 }
 
-const fontSizesNativeDefault = {
-  display4: 32,
-  display3: 26,
-  display2: 22,
-  display1: 18,
-  headline: 20,
-  title: 18,
-  subheading: 16,
-  body2: 14,
-  body1: 14,
-  caption: 12,
+const enum fontSizesNative {
+  display4 = 32,
+  display3 = 26,
+  display2 = 22,
+  display1 = 18,
+  headline = 20,
+  title = 18,
+  subheading = 16,
+  body2 = 14,
+  body1 = 14,
+  caption = 12,
 }
 
 ////https://stackoverflow.com/questions/36015691/obtaining-the-return-type-of-a-function
@@ -219,19 +217,19 @@ const fontSizeNormalizerDefault = (size: number) => {
 
 //RN unit are dp: https://stackoverflow.com/questions/34493372/what-is-the-default-unit-of-style-in-react-native
 //http://typecast.com/blog/a-more-modern-scale-for-web-typography
-const fontSizesNative = {
-  display4: 32,
-  display3: 26,
-  display2: 22,
-  display1: 18,
-  headline: 20,
-  title: 18,
-  subheading: 16,
-  body2: 14,
-  body1: 14,
-  caption: 12,
-  //getFontSizeNormalizer: getFontSizeNormalizer
-}
+//const fontSizesNative = {
+//  display4: 32,
+//  display3: 26,
+//  display2: 22,
+//  display1: 18,
+//  headline: 20,
+//  title: 18,
+//  subheading: 16,
+//  body2: 14,
+//  body1: 14,
+//  caption: 12,
+//  //getFontSizeNormalizer: getFontSizeNormalizer
+//}
 
 //export type TFontSizes = typeof fontSizesNative
 

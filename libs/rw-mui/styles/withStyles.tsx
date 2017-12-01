@@ -15,7 +15,7 @@ const getDefaultTheme = () => defaultTheme || (defaultTheme = createMuiTheme())
 
 export const Styler: React.SFC<{}> = props => <View>{props.children}</View>
 
-const styleOverride = <T extends Mui.Shape>(renderedClasses: Mui.PlatformSheetNative<T>, classesProp: Mui.PlatformSheetNative<T>, name: string) => {  
+const styleOverride = <R extends Mui.Shape>(renderedClasses: Mui.PlatformSheetNative<R>, classesProp: Mui.PlatformSheetNative<R>, name: string) => {  
   type untyped = Mui.PlatformSheetNative<Mui.Shape>
   if (!classesProp) return renderedClasses
   const stylesWithOverrides = { ...renderedClasses as untyped }  //destructor does not work with generics
@@ -23,11 +23,11 @@ const styleOverride = <T extends Mui.Shape>(renderedClasses: Mui.PlatformSheetNa
     warning(!!stylesWithOverrides[key], `Material-UI: you are trying to override a style that does not exist.\r\nFix the '${key}' key of 'theme.overrides.${name}'.`)
     stylesWithOverrides[key] = { ...stylesWithOverrides[key], ...(classesProp as untyped)[key] };
   })
-  return stylesWithOverrides as Mui.PlatformSheetNative<T>
+  return stylesWithOverrides as Mui.PlatformSheetNative<R>
 }
 
-const styleCreator = <T extends Mui.Shape>(styleOrCreator: Mui.PlatformSheetCreator<T>, theme: Mui.Theme, name?: string) => {
-  const overrides = (theme.overrides && name && theme.overrides[name]) as Mui.PlatformSheetNative<T>
+const styleCreator = <R extends Mui.Shape>(styleOrCreator: Mui.PlatformSheetCreator<R>, theme: Mui.Theme, name?: string) => {
+  const overrides = (theme.overrides && name && theme.overrides[name]) as Mui.PlatformSheetNative<R>
   const styles = typeof styleOrCreator === 'function' ? styleOrCreator(theme) : styleOrCreator
   return styleOverride(styles, overrides, name)
 }
@@ -42,20 +42,17 @@ export const sheetCreator = <R extends Mui.Shape>(styleOrCreator: Mui.SheetGette
 
 export const withStyles = <R extends Mui.Shape>(styleOrCreator: Mui.PlatformSheetCreator<R>, options?: Mui.WithStylesOptions) => (Component: Mui.CodeComponentType<R>) => {
   const Style: Mui.SFC<R> = (props, context: Mui.TMuiThemeContextValue) => {
-    const { withTheme = true, flip, name } = options
-    const { classes: common, classesNative, classesWeb, innerRef, style, web, native, onClick: onClickInit, onPress: onPressInit, ...other } = props as Mui.Props<Mui.Shape>//as any //without any: does not works in TS
-    const sheet = { common, native: classesNative, web: classesWeb } as Mui.PartialSheet<R>
-    const onPress = onClickInit || onPressInit //|| (props.web && props.web['onClick']) || (props.native && props.native['onPress'])
+    const { flip, name } = options
+    const { classes: common, classesNative, classesWeb, style, web, native, onClick, onPress, ...other } = props as Mui.Props<Mui.Shape>//as any //without any: does not works in TS
 
     const theme = context.theme || getDefaultTheme()
 
-    const classes = /*override with component.props.classes*/styleOverride(
-      /*count STYLES based on theme and override it with theme.overrides[name]. !!! result should be cached !!!*/styleCreator(styleOrCreator, theme, name),
-      toPlatformSheet(sheet), name)
+    const classes = styleOverride(
+      styleCreator(styleOrCreator, theme, name),
+      toPlatformSheet({ common, native: classesNative, web: classesWeb } as Mui.PartialSheet<R>),
+      name)
 
-    const newProps = { ...other, ...native, theme, classes, style: toRule(style), flip: typeof flip === 'boolean' ? flip : theme.direction === 'rtl'} as Mui.CodePropsNative<R>
-
-    if (withTheme) newProps.theme = theme
+    const newProps = { ...other, ...native, onPress: onPress || onClick , theme, classes, style: toRule(style), flip: typeof flip === 'boolean' ? flip : theme.direction === 'rtl' } as Mui.CodePropsNative<R>
 
     return <Component {...newProps } />
   }
@@ -67,7 +64,6 @@ export const withStyles = <R extends Mui.Shape>(styleOrCreator: Mui.PlatformShee
 
 export const toRule = <T extends Mui.NativeCSS>(style: Mui.Rule<T>) => toRuleLow(style, true) as T
 export const toPlatformSheet = <R extends Mui.Shape>(rules: Mui.PartialSheet<R>) => toPlatformSheetLow(rules, true) as Mui.PlatformSheetNative<R>
-//export const toPlatformSheet = <R extends Mui.Shape>(rules: Mui.PartialSheet<R>) => toPlatformSheetLow(rules, true) as Mui.PlatformSheetNative<R>
 
 export default withStyles
 

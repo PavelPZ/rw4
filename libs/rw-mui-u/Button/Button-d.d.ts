@@ -4,9 +4,7 @@
   type NativeKeyText = 'rootLabel' | 'denseLabel' | 'disabledLabel' | 'flatLabelPrimary' | 'flatLabelAccent' | 'flatLabelContrast' | 'raisedLabelAccent' | 'raisedLabelContrast' | 'raisedLabelPrimary'
 
   type Shape = Overwrite<Mui.EmptyShape, {
-    common: Record<MuiButtonBase.CommonKey | CommonKey, RN.ViewStyle>
-    native: Record<NativeKeyText | MuiButtonBase.NativeKey, RN.TextStyle>
-    web: 'label' | 'keyboardFocused'
+    native: Record<NativeKeyText | MuiButtonBase.NativeKey, RN.TextStyle> & Record < MuiButtonBase.CommonKey | CommonKey, RN.ViewStyle >
     props: {
       color?: Mui.PropTypes.Color | 'contrast' | 'default'
       dense?: boolean
@@ -15,7 +13,6 @@
       raised?: boolean
       rootRef?: React.Ref<any>
     }
-    propsWeb: React.ButtonHTMLAttributes<HTMLButtonElement> //& React.AnchorHTMLAttributes<HTMLAnchorElement>
     propsNative: RN.TouchableOpacityProperties
   }>
 

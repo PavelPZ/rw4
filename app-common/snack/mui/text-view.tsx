@@ -15,35 +15,46 @@ import { toPlatformTypographyOptions } from 'rw-mui/styles/createTypography'
 import { View, ScrollView } from 'react-native'
 
 const theme = createMuiTheme({
-  typography: palette => toPlatformTypographyOptions({
-    fontStyle: {
-      native: {
-        fontSizesNative: {
-          caption: 22
-        }
-      }
-    },
-    sheet: {
-      common: {
-        caption: {
-          color: cyan.A700,
-          fontSize: 28,
-          fontWeight: '500'
-        }
-      }
-    }
-  }),
+  //typography: palette => toPlatformTypographyOptions({
+  //  //fontStyle: {
+  //  //  native: {
+  //  //    fontSizesNative: {
+  //  //      caption: 22
+  //  //    }
+  //  //  }
+  //  //},
+  //  sheet: {
+  //    native: {
+  //      caption: {
+  //        color: cyan.A700,
+  //        fontSize: 28,
+  //        fontWeight: '500'
+  //      }
+  //    },
+  //    //web: {
+  //    //  caption: {
+  //    //    color: cyan.A700,
+  //    //    fontSize: 28,
+  //    //    fontWeight: '500'
+  //    //  }
+  //    //}
+  //  }
+  //}),
   palette: {
     primary: orange,
     secondary: green
   },
   overrides: {
     [Mui.Names.Typography]: {
-      common: {
+      native: {
+        colorAccent: { color: cyan.A700, fontWeight: '500', fontSize: 18 },
+        display2: { color: cyan.A700 },
+      },
+      web: {
         colorAccent: { color: cyan.A700, fontWeight: '500', fontSize: 18 },
         display2: { color: cyan.A700 },
       }
-    } as Mui.Sheet<Typography.ISheet>
+    }
   }
 })
 

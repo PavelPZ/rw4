@@ -5,23 +5,23 @@ import { withStyles, classNames, sheetCreator, toRule } from 'rw-mui-n/styles/wi
 
 import ButtonBase, { sheet as baseStyles } from '../ButtonBase/ButtonBase'
 
-const sheet = sheetCreator<MuiButton.Shape>(par => ({
+const sheet = sheetCreator<MuiButton.Shape>(({ typographyNative: typo, palette, spacing }) => ({
   //...baseStyles(theme),
-  common: {
+  native: {
     root: {
       minWidth: 88,
       minHeight: 36,
-      paddingTop: par.spacing.unit,
-      paddingBottom: par.spacing.unit,
-      paddingLeft: par.spacing.unit * 2,
-      paddingRight: par.spacing.unit * 2,
+      paddingTop: spacing.unit,
+      paddingBottom: spacing.unit,
+      paddingLeft: spacing.unit * 2,
+      paddingRight: spacing.unit * 2,
       borderRadius: 2,
     },
     dense: {
-      paddingTop: par.spacing.unit - 1,
-      paddingBottom: par.spacing.unit - 1,
-      paddingLeft: par.spacing.unit,
-      paddingRight: par.spacing.unit,
+      paddingTop: spacing.unit - 1,
+      paddingBottom: spacing.unit - 1,
+      paddingLeft: spacing.unit,
+      paddingRight: spacing.unit,
       minWidth: 64,
       minHeight: 32,
     },
@@ -29,16 +29,16 @@ const sheet = sheetCreator<MuiButton.Shape>(par => ({
     flatPrimary: {}, flatAccent: {}, flatContrast: {}, colorInherit: {}, raisedContrast: {},//TODO
 
     raised: {
-      backgroundColor: par.palette.grey[300],
+      backgroundColor: palette.grey[300],
       native: {
         //boxShadow: theme.shadows[2],
       }
     },
-    raisedPrimary: { backgroundColor: par.palette.primary[500] },
-    raisedAccent: { backgroundColor: par.palette.secondary.A200, },
+    raisedPrimary: { backgroundColor: palette.primary[500] },
+    raisedAccent: { backgroundColor: palette.secondary.A200, },
 
     disabled: {
-      backgroundColor: par.palette.text.divider,
+      backgroundColor: palette.text.divider,
       //native: theme.shadows[0]
       //boxShadow: theme.shadows[0],
     },
@@ -52,27 +52,26 @@ const sheet = sheetCreator<MuiButton.Shape>(par => ({
       borderRadius: 56 / 2,
       //boxShadow: theme.shadows[6],
     },
-  },
-  native: {
     rootLabel: {
-      ...toRule(par.typography.common.button),
-      color: par.palette.text.primary,
+      ...typo.button,
+      color: palette.text.primary,
     },
-    denseLabel: { fontSize: par.typography.fontSizeNormalizerNative((par.typography.fontSize as number) - 1), },
+    denseLabel: { fontSize: typo.fontSizeNormalizerNative(typo.fontSize - 1), },
 
-    flatLabelPrimary: { color: par.palette.primary[500], },
-    flatLabelAccent: { color: par.palette.secondary.A200, },
-    flatLabelContrast: { color: par.palette.getContrastText(par.palette.primary[500]), },
+    flatLabelPrimary: { color: palette.primary[500], },
+    flatLabelAccent: { color: palette.secondary.A200, },
+    flatLabelContrast: { color: palette.getContrastText(palette.primary[500]), },
 
-    raisedLabelAccent: { color: par.palette.getContrastText(par.palette.secondary.A200), },
-    raisedLabelContrast: { color: par.palette.getContrastText(par.palette.primary[500]), },
-    raisedLabelPrimary: { color: par.palette.getContrastText(par.palette.primary[500]), },
+    raisedLabelAccent: { color: palette.getContrastText(palette.secondary.A200), },
+    raisedLabelContrast: { color: palette.getContrastText(palette.primary[500]), },
+    raisedLabelPrimary: { color: palette.getContrastText(palette.primary[500]), },
 
-    disabledLabel: { color: par.palette.action.disabled, },
+    disabledLabel: { color: palette.action.disabled, },
 
     ripple: {}, //TODO
   },
-  web: {} as any
+  common: {},
+  web: {},
 }))
 
 const button: Mui.CodeSFCNative<MuiButton.Shape> = props => {

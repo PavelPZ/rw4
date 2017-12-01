@@ -50,7 +50,7 @@
     style: NativeCSS
     props: {}
     propsNative: { style?: {}, onPress?: (ev?) => void }
-    propsWeb: { style?: {}, onClick?: (ev?) => void } 
+    propsWeb: { style?: {}, onClick?: (ev?) => void }
   }
   interface EmptyShape extends Shape {
     common: {}

@@ -3,21 +3,19 @@ import { View, TouchableWithoutFeedback, Animated, Easing, Platform, Text, Layou
 
 import { withStyles, classNames, sheetCreator } from 'rw-mui-n/styles/withStyles'
 
-export const sheet = sheetCreator<MuiButtonBase.Shape>(({palette}) => ({
-//const sheet = sheetCreator<MuiButtonBase.Shape>(theme => ({
-  common: {
+export const sheet = sheetCreator<MuiButtonBase.Shape>(({ palette }) => ({
+  native: {
+    ripple: {
+      backgroundColor: palette.common.black,
+      opacity: 0.12,
+    },
     root: {
       alignItems: 'center',
       justifyContent: 'center',
     },
     disabled: {}, //TODO
   },
-  native: {
-    ripple: {
-      backgroundColor: palette.common.black,
-      opacity: 0.12,
-    },
-  },
+  common: {},
   web: {}
 }))
 
