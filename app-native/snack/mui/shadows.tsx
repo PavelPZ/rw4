@@ -3,7 +3,7 @@
 //jspm build ./app-native/snack/mui/index.js ./app-native/snack/mui/bundle.js
 import React from 'react'
 import { View, Text, ScrollView, ViewStyle } from 'react-native'
-import createMuiTheme from 'rw-mui/styles/createMuiTheme'
+import createMuiTheme from 'rw-mui-u/styles/createMuiTheme'
 import Typography from 'rw-mui/Typography/Typography'
 import MuiThemeProvider from 'rw-mui/styles/MuiThemeProvider'
 

@@ -3,56 +3,51 @@
 //jspm build ./app-native/snack/mui/index.js ./app-native/snack/mui/bundle.js
 import React from 'react'
 //import { View, Text, ScrollView } from 'react-native'
-import createMuiTheme from 'rw-mui/styles/createMuiTheme'
-import { Typography } from 'rw-mui/Typography/Typography'
+import createMuiTheme from 'rw-mui-u/styles/createMuiTheme'
+import Typography from 'rw-mui/Typography/Typography'
 import MuiThemeProvider from 'rw-mui/styles/MuiThemeProvider'
 import orange from 'material-ui/colors/orange'
 import green from 'material-ui/colors/green'
 import cyan from 'material-ui/colors/cyan'
 
-import { toPlatformTypographyOptions } from 'rw-mui/styles/createTypography'
+//import { toPlatformTypographyOptions } from 'rw-mui/styles/createTypography'
 
-import { View, ScrollView } from 'react-native'
+//import { View, ScrollView } from 'react-native'
+
+const ScrollView: React.SFC<{ style?:CSSProperties }> = ({ style, children }) => <div style={style}>{children}</div>
+const View = ScrollView
 
 const theme = createMuiTheme({
-  //typography: palette => toPlatformTypographyOptions({
-  //  fontStyle: {
-  //    native: {
-  //      fontSizesNative: {
-  //        caption: 22
-  //      }
-  //    }
-  //  },
-  //  sheet: {
-  //    common: {
-  //      caption: {
-  //        color: cyan.A700,
-  //        fontSize: 28,
-  //        fontWeight: '500'
-  //      }
-  //    }
-  //  }
-  //}),
+  typography: palette => ({
+    caption: {
+      color: cyan.A700,
+      fontSize: 28,
+      fontWeight: '500',
+      native: {
+        fontSize: 22,
+      }
+    }
+  }),
   palette: {
     primary: orange,
     secondary: green
   },
-  overrides: {
-    [Mui.Names.Typography]: {
-      native: {
-        colorAccent: { color: cyan.A700, fontWeight: '500', fontSize: 18 },
-        display2: { color: cyan.A700 },
-      },
-      web: {
-        colorAccent: { color: cyan.A700, fontWeight: '500', fontSize: 18 },
-        display2: { color: cyan.A700 },
-      }
-    }
-  }
+  //overrides: {
+  //  [Mui.Names.Typography]: {
+  //    native: {
+  //      colorAccent: { color: cyan.A700, fontWeight: '500', fontSize: 18 },
+  //      display2: { color: cyan.A700 },
+  //    },
+  //    web: {
+  //      colorAccent: { color: cyan.A700, fontWeight: '500', fontSize: 18 },
+  //      display2: { color: cyan.A700 },
+  //    }
+  //  }
+  //}
 })
 
 const app = () =>
-  <ScrollView style={{ marginTop: 20 }}>
+  <ScrollView style={{ overflow: 'auto', height: '100%' }}>
     <Typography type='headline' style={{ textDecorationLine: 'underline' }}>noWrap</Typography>
     <Typography noWrap style={{ width: 200 }}>noWrap noWrap noWrap noWrap noWrap noWrap noWrap noWrap noWrap noWrap noWrap noWrap noWrap noWrap </Typography>
     {/**/}

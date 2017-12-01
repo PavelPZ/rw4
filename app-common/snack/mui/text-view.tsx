@@ -3,14 +3,14 @@
 //jspm build ./app-native/snack/mui/index.js ./app-native/snack/mui/bundle.js
 import React from 'react'
 //import { View, Text, ScrollView } from 'react-native'
-import createMuiTheme from 'rw-mui/styles/createMuiTheme'
-import { Typography } from 'rw-mui/Typography/Typography'
+import createMuiTheme from 'rw-mui-u/styles/createMuiTheme'
+import Typography from 'rw-mui/Typography/Typography'
 import MuiThemeProvider from 'rw-mui/styles/MuiThemeProvider'
 import orange from 'material-ui/colors/orange'
 import green from 'material-ui/colors/green'
 import cyan from 'material-ui/colors/cyan'
 
-import { toPlatformTypographyOptions } from 'rw-mui/styles/createTypography'
+//import { toPlatformTypographyOptions } from 'rw-mui/styles/createTypography'
 
 import { View, ScrollView } from 'react-native'
 
@@ -44,18 +44,18 @@ const theme = createMuiTheme({
     primary: orange,
     secondary: green
   },
-  overrides: {
-    [Mui.Names.Typography]: {
-      native: {
-        colorAccent: { color: cyan.A700, fontWeight: '500', fontSize: 18 },
-        display2: { color: cyan.A700 },
-      },
-      web: {
-        colorAccent: { color: cyan.A700, fontWeight: '500', fontSize: 18 },
-        display2: { color: cyan.A700 },
-      }
-    }
-  }
+  //overrides: {
+  //  [Mui.Names.Typography]: {
+  //    native: {
+  //      colorAccent: { color: cyan.A700, fontWeight: '500', fontSize: 18 },
+  //      display2: { color: cyan.A700 },
+  //    },
+  //    web: {
+  //      colorAccent: { color: cyan.A700, fontWeight: '500', fontSize: 18 },
+  //      display2: { color: cyan.A700 },
+  //    }
+  //  }
+  //}
 })
 
 const app = () =>

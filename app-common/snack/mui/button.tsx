@@ -1,7 +1,7 @@
 import React from 'react'
 import Button from 'rw-mui/Button/Button'
 import MuiThemeProvider from 'rw-mui/styles/MuiThemeProvider'
-import createMuiTheme from 'rw-mui/styles/createMuiTheme'
+import createMuiTheme from 'rw-mui-u/styles/createMuiTheme'
 //import color from 'material-ui/colors/orange'
 
 import { Styler } from 'rw-mui/styles/withStyles'

@@ -83,6 +83,7 @@
     <TypeScriptCompile Include="app-native\snack\mui\shadows.tsx" />
     <TypeScriptCompile Include="app-native\snack\mui\index.tsx" />
     <TypeScriptCompile Include="libs\rw-mui-u\Icon\Icon.tsx" />
+    <TypeScriptCompile Include="libs\rw-mui-u\styles\empties.ts" />
     <TypeScriptCompile Include="libs\rw-mui-u\styles\createMuiTheme.ts" />
     <TypeScriptCompile Include="libs\rw-mui-u\styles\toPlatform.ts" />
     <TypeScriptCompile Include="libs\rw-mui-u\styles\reactCSS.d.ts" />
@@ -98,8 +99,9 @@
     <TypeScriptCompile Include="libs\rw-mui-w\Button\Button.tsx" />
     <TypeScriptCompile Include="libs\rw-mui-w\Icon\Icon.tsx" />
     <TypeScriptCompile Include="libs\rw-mui-w\index.ts" />
-    <TypeScriptCompile Include="libs\rw-mui-w\styles\createMuiTheme.ts" />
+    <None Include="libs\rw-mui-w\styles\createMuiTheme.ts_" />
     <TypeScriptCompile Include="libs\rw-mui-w\styles\createTypography.ts" />
+    <TypeScriptCompile Include="libs\rw-mui-w\styles\createMuiTheme.ts" />
     <TypeScriptCompile Include="libs\rw-mui-w\styles\MuiThemeProvider.ts" />
     <TypeScriptCompile Include="libs\rw-mui-w\styles\shadows.ts" />
     <TypeScriptCompile Include="libs\rw-mui-w\styles\fela.tsx" />
@@ -115,6 +117,7 @@
     <TypeScriptCompile Include="libs\rw-mui\Icon\Icon.tsx" />
     <TypeScriptCompile Include="libs\rw-mui\index.ts" />
     <None Include="libs\rw-mui\styles\styler.ts_" />
+    <TypeScriptCompile Include="libs\rw-mui\styles\createMuiTheme.ts" />
     <TypeScriptCompile Include="libs\rw-mui\styles\withStyles.tsx" />
     <TypeScriptCompile Include="libs\rw-mui-u\Typography\Typography-d.d.ts" />
     <TypeScriptCompile Include="libs\rw-mui\styles\expoLoadFonts.ts" />
@@ -317,7 +320,6 @@
     <Content Include="design\mdi-react-lm\scripts\generate.js" />
     <Content Include="home.html" />
     <Content Include="json.json" />
-    <TypeScriptCompile Include="libs\rw-mui\styles\createMuiTheme.ts" />
     <TypeScriptCompile Include="libs\rw-mui\styles\shadows.ts" />
     <TypeScriptCompile Include="libs\rw-mui\styles\createTypography.ts" />
     <Content Include="libs\rw-mui\links.html" />

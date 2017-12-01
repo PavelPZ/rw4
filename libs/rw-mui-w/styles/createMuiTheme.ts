@@ -1,9 +1,8 @@
-import createMuiTheme from 'material-ui/styles/createMuiTheme'
-import { platformOverrides } from 'rw-mui-u/styles/createMuiTheme'
+import ctNative from 'material-ui/styles/createTypography'
+import shadows_w from 'material-ui/styles/shadows'
+import { emptyTypography, emptyShadowsNative } from 'rw-mui-u/styles/empties'
 
-const cm = options => {
-  options.overrides = platformOverrides(options.overrides)
-  return createMuiTheme(options)
-}
-
-export default cm
+export const createTypographyWeb = ctNative
+export const createTypographyNative = (palette, options) => emptyTypography //as Mui.native.TypographyOptionsCreator
+export const shadowsNative = emptyShadowsNative
+export const shadowsWeb = shadows_w

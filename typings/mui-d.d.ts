@@ -235,8 +235,8 @@ declare namespace Mui {
     breakpoints?: Partial<BreakpointsOptions> & Partial<Breakpoints>;
     mixins?: Partial<Mixins>;
     palette?: Partial<Palette>;
-    typography?: web.TypographyOptionsCreator
-    typographyNative?: native.TypographyOptionsCreator
+    typography?: TypographyOptionsCreator
+    //typographyNative?: native.TypographyOptionsCreator
     shadows?: Shadows;
     shadowsNative?: ShadowsMative;
     transitions?: Partial<Transitions>;

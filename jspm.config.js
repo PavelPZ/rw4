@@ -30,6 +30,7 @@ SystemJS.config({
     "npm:*.json"
   ],
   map: {
+    "deepmerge": "npm:deepmerge@2.0.1",
     "recompose": "npm:recompose@0.26.0",
     "hoist-non-react-statics": "npm:hoist-non-react-statics@2.3.1",
     "jss": "npm:jss@8.1.0",

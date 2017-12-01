@@ -65,7 +65,7 @@ import { AppPage } from './app-common/snack/app-router'
 //import DrawerNativeLikeApp from './app-web/snack/drawer-native-like'
 //import Header from './app-web/snack/layout/index'
 //import Test from './app-common/snack/mui/icon'
-import Test from './app-common/snack/mui/Button'
+import Test from './app-common/snack/mui/typography'
 
 
 //*********** spusteni

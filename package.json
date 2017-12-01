@@ -47,6 +47,7 @@
       "classnames": "npm:classnames@^2.2.5",
       "core-js": "npm:core-js@^2.5.0",
       "css-in-js-utils": "npm:css-in-js-utils@^2.0.0",
+      "deepmerge": "npm:deepmerge@^2.0.1",
       "es6-promise": "npm:es6-promise@^4.1.1",
       "fela-dom": "npm:fela-dom@^6.0.5",
       "fela-plugin-extend": "npm:fela-plugin-extend@^6.0.0",

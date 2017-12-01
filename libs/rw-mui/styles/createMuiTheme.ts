@@ -1,70 +1,9 @@
-import deepmerge from 'deepmerge' // < 1kb payload overhead when lodash/merge is > 3kb.
-import warning from 'warning'
-import createTypography from 'material-ui/styles/createTypography'
-import createTypographyNative from 'rw-mui-n/styles/createTypography'
-import shadows from 'material-ui/styles/shadows'
-import shadowsNative from 'rw-mui-n/styles/shadows'
-import createBreakpoints from 'material-ui/styles/createBreakpoints'
-import createPalette from 'material-ui/styles/createPalette'
-import createMixins from 'material-ui/styles/createMixins'
-import { duration } from 'material-ui/styles/transitions'
-import zIndex from 'material-ui/styles/zIndex'
-import spacing from 'material-ui/styles/spacing'
-import { platformOverrides } from 'rw-mui-u/styles/createMuiTheme'
+import ctNative from 'rw-mui-n/styles/createTypography'
+import shadows_n from 'rw-mui-n/styles/shadows'
+import { emptyTypography, emptyShadowsWeb } from 'rw-mui-u/styles/empties'
 
-function createMuiTheme(options: Mui.ThemeOptions = {}) {
-  const {
-    palette: paletteInput = {},
-    breakpoints: breakpointsInput = {},
-    mixins: mixinsInput = {},
-    typography: typographyInput,
-    typographyNative: typographyNativeInput,
-    shadows: shadowsInput,
-    shadowsNative: shadowsNativeInput,
-    transitions: transitionsInput,
-    spacing: spacingInput,
-    zIndex: zIndexInput,
-    overrides,
-    ...other
-  } = options
+export const createTypographyWeb = (palette, options) => emptyTypography
+export const createTypographyNative = ctNative
 
-  const palette = createPalette(paletteInput)
-  const breakpoints = createBreakpoints(breakpointsInput)
-
-  const muiTheme: Mui.Theme = {
-    direction: 'ltr',
-    palette,
-    typography: createTypography(palette, typographyInput as any),
-    typographyNative: createTypographyNative(palette, typographyNativeInput),
-    mixins: createMixins(breakpoints, spacing, mixinsInput),
-    breakpoints,
-    shadows: shadowsInput || shadows,
-    shadowsNative: shadowsNativeInput || shadowsNative,
-    overrides: platformOverrides(overrides),
-    ...deepmerge(
-      {
-        transitions: { duration },
-        spacing,
-        zIndex,
-      },
-      {
-        transitionsInput,
-        spacingInput,
-        zIndexInput,
-        ...other
-      },
-      //{
-      //  clone: false, // No need to clone deep
-      //},
-    ),
-  };
-
-  warning(
-    muiTheme.shadows.length === 25,
-    'Material-UI: the shadows array provided to createMuiTheme should support 25 elevations.',
-  )
-
-  return muiTheme
-}
-
-export default createMuiTheme
+export const shadowsNative = shadows_n
+export const shadowsWeb = emptyShadowsWeb
