@@ -10,6 +10,7 @@
     View = 'MuiView',
     Text = 'MuiText',
     Template = 'MuiTemplate',
+    ScrollView = 'MuiScrollView',
   }
 
   interface WithStylesOptions {

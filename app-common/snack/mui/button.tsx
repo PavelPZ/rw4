@@ -1,10 +1,10 @@
 import React from 'react'
-import Button from 'xmui/Button/Button'
-import MuiThemeProvider from 'xmui/styles/MuiThemeProvider'
+import Button from 'xmui/current/Button/Button'
+import MuiThemeProvider from 'xmui/current/styles/MuiThemeProvider'
 import createMuiTheme from 'xmui/common/styles/createMuiTheme'
 //import color from 'material-ui/colors/orange'
 
-import { Styler } from 'xmui/styles/withStyles'
+import { Styler } from 'xmui/current/styles/withStyles'
 
 import { View } from 'react-native'
 

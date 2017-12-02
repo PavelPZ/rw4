@@ -10,10 +10,10 @@
       "rw-utils/*": [ "libs/rw-utils/*" ],
       "rw-controls/*": [ "libs/rw-controls/*" ],
       "rw-fela-w/*": [ "libs/rw-fela-w/*" ],
-      "rw-mui/*": [ "libs/rw-mui/*" ],
-      "rw-mui-n/*": [ "libs/rw-mui/*" ],
-      "rw-mui-w/*": [ "libs/rw-mui-w/*" ],
-      "rw-mui-u/*": [ "libs/rw-mui-u/*" ],
+      "xmui/current/*": [ "libs/xmui/native/*" ],
+      "xmui/native/*": [ "libs/xmui/native/*" ],
+      "xmui/web/*": [ "libs/xmui/web/*" ],
+      "xmui/common/*": [ "libs/xmui/common/*" ],
       "recompose/*": [ "typings/recompose-low" ]
     },
 
@@ -28,8 +28,8 @@
 
     "experimentalDecorators": true,
     "noImplicitAny": false,
-    //"jsx": "react-native", //TypeError: In this environment the sources for assign MUST be an object. This error is a performance
-    "jsx": "react",
+    "jsx": "react-native", //TypeError: In this environment the sources for assign MUST be an object. This error is a performance
+    //"jsx": "react",
     "lib": [
       "dom",
       "es2015",
@@ -42,7 +42,7 @@
     "design",
     "jspm_packages",
     "node_modules",
-    "libs/rw-mui/svg-icons/all",
-    "libs/rw-mui-w/svg-icons/all"
+    "libs/xmui/native/svg-icons/all",
+    "libs/xmui/web/svg-icons/all"
   ]
 }

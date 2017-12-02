@@ -11,7 +11,9 @@
       {
         "root": [ "./libs" ],
         "alias": {
-          "rw-mui-n": "rw-mui"
+          "xmui": "libs/xmui/native",
+          "xmui/common": "libs/xmui/common",
+          "xmui/native": "libs/xmui/native"
         }
       }
     ]

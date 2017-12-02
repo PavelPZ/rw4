@@ -14,10 +14,10 @@
       "rw-utils/*": [ "libs/rw-utils/*" ],
       "rw-controls/*": [ "libs/rw-controls/*" ],
       "rw-fela-w/*": [ "libs/rw-fela-w/*" ],
-      "rw-mui/*": [ "libs/rw-mui-w/*" ],
-      "rw-mui-n/*": [ "libs/rw-mui/*" ],
-      "rw-mui-w/*": [ "libs/rw-mui-w/*" ],
-      "rw-mui-u/*": [ "libs/rw-mui-u/*" ],
+      "xmui/current/*": [ "libs/xmui/web/*" ],
+      "xmui/native/*": [ "libs/xmui/native/*" ],
+      "xmui/web/*": [ "libs/xmui/web/*" ],
+      "xmui/common/*": [ "libs/xmui/common/*" ],
       "recompose/*": [ "typings/recompose-low" ]
     },
 
@@ -43,7 +43,7 @@
     "design",
     "jspm_packages",
     "node_modules",
-    "libs/rw-mui/svg-icons/all",
-    "libs/rw-mui-w/svg-icons/all"
+    "libs/xmui/native/svg-icons/all",
+    "libs/xmui/web/svg-icons/all"
   ]
 }

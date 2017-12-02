@@ -4,7 +4,7 @@
 import React from 'react'
 import { View, Text, ScrollView } from 'react-native'
 import createMuiTheme from 'xmui/common/styles/createMuiTheme'
-import MuiThemeProvider from 'xmui/styles/MuiThemeProvider'
+import MuiThemeProvider from 'xmui/current/styles/MuiThemeProvider'
 
 const app = () => <MuiThemeProvider theme={createMuiTheme({})}><ScrollView><Text>{JSON.stringify(createMuiTheme({}), null, 2)}</Text></ScrollView></MuiThemeProvider>
 

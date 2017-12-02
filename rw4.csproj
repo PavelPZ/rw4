@@ -89,6 +89,8 @@
     <TypeScriptCompile Include="libs\xmui\common\styles\reactCSS.d.ts" />
     <TypeScriptCompile Include="libs\xmui\common\styles\withStyles-d.d.ts" />
     <TypeScriptCompile Include="libs\xmui\common\styles\createTypography-d.d.ts" />
+    <TypeScriptCompile Include="libs\xmui\common\ScrollView\ScrollView-d.d.ts" />
+    <TypeScriptCompile Include="libs\xmui\common\ScrollView\ScrollView.tsx" />
     <TypeScriptCompile Include="libs\xmui\common\Text\Text-d.d.ts" />
     <TypeScriptCompile Include="libs\xmui\common\Text\Text.tsx" />
     <TypeScriptCompile Include="libs\xmui\common\Template\Template-d.d.ts" />
@@ -96,6 +98,7 @@
     <TypeScriptCompile Include="libs\xmui\common\View\View-d.d.ts" />
     <TypeScriptCompile Include="libs\xmui\common\View\View.tsx" />
     <TypeScriptCompile Include="libs\xmui\common\styles\withStyles.tsx" />
+    <TypeScriptCompile Include="libs\xmui\native\ScrollView\ScrollView.tsx" />
     <TypeScriptCompile Include="libs\xmui\web\ButtonBase\ButtonBase.tsx" />
     <TypeScriptCompile Include="libs\xmui\web\Button\Button.tsx" />
     <TypeScriptCompile Include="libs\xmui\web\Icon\Icon.tsx" />
@@ -107,6 +110,7 @@
     <None Include="libs\xmui\web\styles\shadows.ts_" />
     <TypeScriptCompile Include="libs\xmui\web\styles\fela.tsx" />
     <TypeScriptCompile Include="libs\xmui\web\styles\withStyles.tsx" />
+    <TypeScriptCompile Include="libs\xmui\web\ScrollView\ScrollView.tsx" />
     <TypeScriptCompile Include="libs\xmui\web\Text\Text.tsx" />
     <TypeScriptCompile Include="libs\xmui\web\Typography\Typography.tsx" />
     <TypeScriptCompile Include="libs\xmui\common\ButtonBase\ButtonBase-d.d.ts" />

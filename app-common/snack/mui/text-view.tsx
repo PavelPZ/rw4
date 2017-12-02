@@ -4,15 +4,16 @@
 import React from 'react'
 //import { View, Text, ScrollView } from 'react-native'
 import createMuiTheme from 'xmui/common/styles/createMuiTheme'
-import Typography from 'xmui/Typography/Typography'
-import MuiThemeProvider from 'xmui/styles/MuiThemeProvider'
+import Typography from 'xmui/current/Typography/Typography'
+import MuiThemeProvider from 'xmui/current/styles/MuiThemeProvider'
 import orange from 'material-ui/colors/orange'
 import green from 'material-ui/colors/green'
 import cyan from 'material-ui/colors/cyan'
 
 //import { toPlatformTypographyOptions } from 'xmui/styles/createTypography'
 
-import { View, ScrollView } from 'react-native'
+import View from 'xmui/current/View/View'
+import ScrollView from 'xmui/current/ScrollView/ScrollView'
 
 const theme = createMuiTheme({
   //typography: palette => toPlatformTypographyOptions({
@@ -59,7 +60,7 @@ const theme = createMuiTheme({
 })
 
 const app = () =>
-  <ScrollView style={{ marginTop: 20 }}>
+  <ScrollView>
     <Typography type='headline' style={{ textDecorationLine: 'underline' }}>noWrap</Typography>
     <Typography noWrap style={{ width: 200 }}>noWrap noWrap noWrap noWrap noWrap noWrap noWrap noWrap noWrap noWrap noWrap noWrap noWrap noWrap </Typography>
     {/**/}

@@ -17,10 +17,9 @@ SystemJS.config({
     "rw-router": "libs/rw-router",
     "rw-utils": "libs/rw-utils",
     "rw-controls": "libs/rw-controls",
-    "rw-fela-w": "libs/rw-fela-w",
-    "rw-mui": "libs/rw-mui-w",
-    "rw-mui-w": "libs/rw-mui-w",
-    "rw-mui-u": "libs/rw-mui-u"
+    "xmui": "libs/xmui/web",
+    "xmui/common": "libs/xmui/common",
+    "xmui/web": "libs/xmui/web",
   }
 });
 

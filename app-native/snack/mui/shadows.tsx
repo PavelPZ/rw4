@@ -4,8 +4,8 @@
 import React from 'react'
 import { View, Text, ScrollView, ViewStyle } from 'react-native'
 import createMuiTheme from 'xmui/common/styles/createMuiTheme'
-import Typography from 'xmui/Typography/Typography'
-import MuiThemeProvider from 'xmui/styles/MuiThemeProvider'
+import Typography from 'xmui/current/Typography/Typography'
+import MuiThemeProvider from 'xmui/current/styles/MuiThemeProvider'
 
 
 const theme = createMuiTheme({})
