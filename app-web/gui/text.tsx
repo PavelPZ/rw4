@@ -1,6 +1,6 @@
 ﻿import React from 'react';
 import PropTypes from 'prop-types';
-import { ruleToClassNames as renderCSS } from 'rw-mui-w/styles/fela'
+import { ruleToClassNames as renderCSS } from 'xmui/web/styles/fela'
 import { MouseHandler } from './lib';
 import { TextProperties } from 'react-native';
 

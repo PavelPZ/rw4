@@ -295,4 +295,4 @@ design/mdi-react/
 libs/mdi-react/
 
 !design/mdi-react-lm/scripts/*.js
-!libs/rw-mui-w/svg-icons/*.js
+!libs/xmui/web/svg-icons/*.js
