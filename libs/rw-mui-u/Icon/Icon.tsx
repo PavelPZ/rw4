@@ -1,7 +1,7 @@
 ﻿import React from 'react'
 
 import { capitalizeFirstLetter } from 'material-ui/utils/helpers'
-import { sheetCreator, toRule } from 'rw-mui/styles/withStyles'
+import { sheetCreator } from 'rw-mui-u/styles/withStyles'
 
 import warning from 'warning' 
 

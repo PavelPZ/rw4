@@ -1,19 +1,15 @@
 import deepmerge from 'deepmerge' // < 1kb payload overhead when lodash/merge is > 3kb.
 import warning from 'warning'
 
-import { createTypographyNative, createTypographyWeb, shadowsNative, shadowsWeb } from 'rw-mui/styles/createMuiTheme'
-
-//import createTypography from 'material-ui/styles/createTypography'
-//import createTypographyNative from 'rw-mui-n/styles/createTypography'
-//import shadows from 'material-ui/styles/shadows'
-//import shadowsNative from 'rw-mui-n/styles/shadows'
 import createBreakpoints from 'material-ui/styles/createBreakpoints'
 import createPalette from 'material-ui/styles/createPalette'
 import createMixins from 'material-ui/styles/createMixins'
 import transitions from 'material-ui/styles/transitions'
 import zIndex from 'material-ui/styles/zIndex'
 import spacing from 'material-ui/styles/spacing'
-import { toPlatformSheetLow } from 'rw-mui-u/styles/toPlatform'
+
+import { toPlatformSheetLow } from './toPlatform'
+import { createTypographyNative, createTypographyWeb, shadowsNative, shadowsWeb } from 'rw-mui/styles/createMuiTheme'
 
 export const platformOverrides = (source: Mui.OverridesSource) => {
   if (!source) return null
@@ -21,7 +17,6 @@ export const platformOverrides = (source: Mui.OverridesSource) => {
   for (const p in source) result[p] = toPlatformSheetLow(source[p], false)
   return result
 }
-
 
 const getTypographyOptions = (optionsOrCreator: Mui.TypographyOptionsCreator) => {
 
@@ -47,9 +42,6 @@ function createMuiTheme(options: Mui.ThemeOptions = {}) {
     typography: typographyInput,
     shadows: shadowsInput,
     shadowsNative: shadowsNativeInput,
-    transitions: transitionsInput,
-    spacing: spacingInput,
-    zIndex: zIndexInput,
     overrides,
     ...other
   } = options
@@ -69,26 +61,22 @@ function createMuiTheme(options: Mui.ThemeOptions = {}) {
     shadows: shadowsInput || shadowsWeb,
     shadowsNative: shadowsNativeInput || shadowsNative,
     overrides: platformOverrides(overrides),
+    nativeSheetCache:[],
     ...deepmerge(
       {
         transitions,
         spacing,
         zIndex,
       },
+      other,
       {
-        transitionsInput,
-        spacingInput,
-        zIndexInput,
-        ...other
+        clone: false, // No need to clone deep
       },
-      //{
-      //  clone: false, // No need to clone deep
-      //},
     ),
   };
 
   warning(
-    muiTheme.shadows.length === 25,
+    muiTheme.shadows.length === 25 && muiTheme.shadowsNative.length === 25,
     'Material-UI: the shadows array provided to createMuiTheme should support 25 elevations.',
   )
 

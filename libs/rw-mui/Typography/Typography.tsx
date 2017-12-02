@@ -3,10 +3,11 @@ import React from 'react'
 import { capitalizeFirstLetter } from 'material-ui/utils/helpers'
 import { Text as TextRN } from 'react-native'
 
-import { sheetCreator, toRule, withStyles, classNames } from 'rw-mui-n/styles/withStyles'
+import { toRule, withStyles, classNames } from 'rw-mui-n/styles/withStyles'
+import { sheetCreator } from 'rw-mui-u/styles/withStyles'
 
 export const sheet = sheetCreator<Typography.Shape>(({ typographyNative: typo, palette, spacing }) => ({
-  native: {
+  common: {
     root: { margin: 0, },
     display4: typo.display4,
     display3: typo.display3,
@@ -34,7 +35,7 @@ export const sheet = sheetCreator<Typography.Shape>(({ typographyNative: typo, p
     colorAccent: { color: palette.secondary.A400, },
     colorError: { color: palette.error.A400, },
   },
-  common: {},
+  native: {},
   web: {},
 }))
 
@@ -66,7 +67,7 @@ const typography: Mui.CodeSFCNative<Typography.Shape> = (props => {
   return <TextRN style={actStyle} {...(noWrap && classes.noWrap) } {...other} />
 })
 
-export const Typography = withStyles<Typography.Shape>(sheet, { name: Mui.Names.Typography })(typography)
-export const Text = withStyles<Typography.Shape>(sheet, { name: Mui.Names.Text })(typography)
+const Typography = withStyles<Typography.Shape>(sheet, { name: Mui.Names.Typography })(typography)
+//export const Text = withStyles<Typography.Shape>(sheet, { name: Mui.Names.Text })(typography)
 
-//export default Typography
+export default Typography

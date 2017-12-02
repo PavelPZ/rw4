@@ -20,7 +20,7 @@ let elev = 0.25
 
 const shadows: Array<RN.ViewStyle> = [
   //{ elevation: 1, shadowOpacity: 0, shadowOffset: { width: 0, height: 1 }, shadowColor: 'rgba(0, 0, 0, 0.2)', shadowRadius: 3 },
-  undefined,
+  {},
   ...range(1, 25).map(idx => shadow(idx))
 ]
 

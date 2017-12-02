@@ -1,14 +1,15 @@
 ﻿import React from 'react'
 
-import { toPlatformSheet } from 'rw-mui/styles/withStyles'
+import { sheetCreator } from 'rw-mui-u/styles/withStyles'
 
-export const sheet: Mui.PlatformSheetCreator<MuiTemplate.Shape> = theme => toPlatformSheet<MuiTemplate.Shape>({
+export const sheet = sheetCreator<MuiTemplate.Shape>(({ palette }) => ({
   common: {
     root: {
-      web: {
-        display: 'flex',
-        flexDirection: 'column'
-      }
-    }
-  }
-})
+      display: 'flex',
+      flexDirection: 'column'
+    },
+    text: {}
+  },
+  native: null,
+  web: null
+}))

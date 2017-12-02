@@ -1,14 +1,16 @@
 ﻿import React from 'react'
 import { Platform, View, Text } from 'react-native'
 
-import { withStyles, classNames, sheetCreator, toRule } from 'rw-mui-n/styles/withStyles'
+import { withStyles, classNames, toRule } from 'rw-mui-n/styles/withStyles'
+import { sheetCreator } from 'rw-mui-u/styles/withStyles'
 
-import ButtonBase, { sheet as baseStyles } from '../ButtonBase/ButtonBase'
+import ButtonBase from '../ButtonBase/ButtonBase'
 
-const sheet = sheetCreator<MuiButton.Shape>(({ typographyNative: typo, palette, spacing }) => ({
-  //...baseStyles(theme),
+const sheet = sheetCreator<MuiButton.Shape>(({ typographyNative: typo, palette, spacing, shadowsNative }) => ({
   native: {
     root: {
+      alignItems: 'center',
+      justifyContent: 'center',
       minWidth: 88,
       minHeight: 36,
       paddingTop: spacing.unit,
@@ -26,32 +28,35 @@ const sheet = sheetCreator<MuiButton.Shape>(({ typographyNative: typo, palette, 
       minHeight: 32,
     },
 
-    flatPrimary: {}, flatAccent: {}, flatContrast: {}, colorInherit: {}, raisedContrast: {},//TODO
+    flatPrimary: {}, flatAccent: {}, flatContrast: {}, colorInherit: {}, raisedContrast: {},
 
     raised: {
       backgroundColor: palette.grey[300],
-      native: {
-        //boxShadow: theme.shadows[2],
-      }
+      ...shadowsNative[2],
     },
+    raisedActive: shadowsNative[8],
     raisedPrimary: { backgroundColor: palette.primary[500] },
     raisedAccent: { backgroundColor: palette.secondary.A200, },
 
-    disabled: {
+    raisedDisable: {
+      ...shadowsNative[0],
       backgroundColor: palette.text.divider,
-      //native: theme.shadows[0]
-      //boxShadow: theme.shadows[0],
     },
 
+    ripple: {
+      backgroundColor: palette.common.black,
+      opacity: 0.12,
+    }, 
+
     fab: {
-      //borderRadius: 56 / 2,
       padding: 0,
       minWidth: 0,
       width: 56,
       height: 56,
       borderRadius: 56 / 2,
-      //boxShadow: theme.shadows[6],
+      ...shadowsNative[6],
     },
+    fabActive: shadowsNative[12],
     rootLabel: {
       ...typo.button,
       color: palette.text.primary,
@@ -68,7 +73,6 @@ const sheet = sheetCreator<MuiButton.Shape>(({ typographyNative: typo, palette, 
 
     disabledLabel: { color: palette.action.disabled, },
 
-    ripple: {}, //TODO
   },
   common: {},
   web: {},
@@ -95,7 +99,7 @@ const button: Mui.CodeSFCNative<MuiButton.Shape> = props => {
     !flat && color === 'accent' && classes.raisedAccent,
     !flat && color === 'primary' && classes.raisedPrimary,
     dense && classes.dense,
-    disabled && classes.disabled,
+    raised && disabled && classes.raisedDisable,
     style,
   )
   const textStyle = classNames<RN.TextStyle>(

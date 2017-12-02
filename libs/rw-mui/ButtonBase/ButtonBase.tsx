@@ -1,9 +1,11 @@
 ﻿import React from 'react'
 import { View, TouchableWithoutFeedback, Animated, Easing, Platform, Text, LayoutRectangle } from 'react-native';
 
-import { withStyles, classNames, sheetCreator } from 'rw-mui-n/styles/withStyles'
+import { withStyles, classNames } from 'rw-mui-n/styles/withStyles'
 
-export const sheet = sheetCreator<MuiButtonBase.Shape>(({ palette }) => ({
+import { sheetCreator } from 'rw-mui-u/styles/withStyles'
+
+const sheet = sheetCreator<MuiButtonBase.Shape>(({ palette }) => ({
   native: {
     ripple: {
       backgroundColor: palette.common.black,
@@ -13,7 +15,6 @@ export const sheet = sheetCreator<MuiButtonBase.Shape>(({ palette }) => ({
       alignItems: 'center',
       justifyContent: 'center',
     },
-    disabled: {}, //TODO
   },
   common: {},
   web: {}
@@ -35,7 +36,6 @@ const buttonBase: Mui.CodeSFCNative<MuiButtonBase.Shape> = props => {
 
   const actStyle = classNames<RN.ViewStyle>(
     classes.root,
-    disabled && classes.disabled,
     style,
   )
 
@@ -79,7 +79,7 @@ class RippleEffect extends React.PureComponent<{ style: RN.ViewStyle, theme: Mui
     if (width !== stWidth || height != stHeight) this.setState(layout)
   }
   onPressedOut() {
-    console.log('onPressedOut')
+    //console.log('onPressedOut')
     this.opacity = Animated.timing(this.opacityValue, {
       duration: this.props.theme.transitions.duration.short,
       toValue: 0,

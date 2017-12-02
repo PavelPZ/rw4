@@ -32,13 +32,7 @@ const styleCreator = <R extends Mui.Shape>(styleOrCreator: Mui.PlatformSheetCrea
   return styleOverride(styles, overrides, name)
 }
 
-export const sheetCreator = <R extends Mui.Shape>(styleOrCreator: Mui.SheetGetter<R>) => {
-  const styleOrCreatorEx: Mui.PlatformSheetCreator<R> = (theme: Mui.Theme) => {
-    if (typeof styleOrCreator == 'function') return toPlatformSheet(styleOrCreator(theme) as Mui.PartialSheet<R>)
-    else return styleOrCreator
-  }
-  return styleOrCreatorEx
-}
+//export const sheetCreator = <R extends Mui.Shape>(sheetGetter: Mui.SheetGetter<R>) => (theme: Mui.Theme) => toPlatformSheet(sheetGetter(theme) as Mui.PartialSheet<R>)
 
 export const withStyles = <R extends Mui.Shape>(styleOrCreator: Mui.PlatformSheetCreator<R>, options?: Mui.WithStylesOptions) => (Component: Mui.CodeComponentType<R>) => {
   const Style: Mui.SFC<R> = (props, context: Mui.TMuiThemeContextValue) => {
@@ -47,12 +41,16 @@ export const withStyles = <R extends Mui.Shape>(styleOrCreator: Mui.PlatformShee
 
     const theme = context.theme || getDefaultTheme()
 
+    let cacheItem = theme.nativeSheetCache.find(it => it.key === styleOrCreator)
+    if (!cacheItem) theme.nativeSheetCache.push(cacheItem = { key: styleOrCreator, value: styleCreator(styleOrCreator, theme, name) })
+
     const classes = styleOverride(
-      styleCreator(styleOrCreator, theme, name),
+      cacheItem.value, //styleCreator(styleOrCreator, theme, name),
       toPlatformSheet({ common, native: classesNative, web: classesWeb } as Mui.PartialSheet<R>),
       name)
 
-    const newProps = { ...other, ...native, onPress: onPress || onClick , theme, classes, style: toRule(style), flip: typeof flip === 'boolean' ? flip : theme.direction === 'rtl' } as Mui.CodePropsNative<R>
+    const newProps = { ...other, ...native, theme, classes, style: toRule(style), flip: typeof flip === 'boolean' ? flip : theme.direction === 'rtl' } as Mui.CodePropsNative<R>
+    if (onPress || onClick) newProps.onPress = onPress || onClick
 
     return <Component {...newProps } />
   }

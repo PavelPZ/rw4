@@ -176,7 +176,7 @@ declare namespace Mui {
 
   //************* mui/styles/shadows
   type Shadows = string[]
-  type ShadowsMative = string[]
+  type ShadowsNative = RN.ViewStyle[]
 
 
   //************* mui/styles/transitions
@@ -238,7 +238,7 @@ declare namespace Mui {
     typography?: TypographyOptionsCreator
     //typographyNative?: native.TypographyOptionsCreator
     shadows?: Shadows;
-    shadowsNative?: ShadowsMative;
+    shadowsNative?: ShadowsNative;
     transitions?: Partial<Transitions>;
     spacing?: Partial<Spacing>;
     zIndex?: Partial<ZIndex>;
@@ -255,12 +255,15 @@ declare namespace Mui {
     mixins: Mixins;
     breakpoints: Breakpoints;
     shadows: Shadows;
-    shadowsNative: Shadows;
+    shadowsNative: ShadowsNative;
     transitions: Transitions;
     spacing: Spacing;
     zIndex: ZIndex;
     overrides?: Overrides
+    nativeSheetCache?: Array<NativeSheetCacheItem>
   } & T;
+
+  type NativeSheetCacheItem = { key: Mui.PlatformSheetCreator<Mui.Shape>; value: Mui.PlatformSheetNative<Mui.Shape>}
 
 
   //************* mui/styles/themeListener

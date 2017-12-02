@@ -93,8 +93,7 @@
   //type Sheet<R extends TypedSheet> = {[P in keyof R]: Rule<R[P]>}//rules definition type
   type SheetUntyped = Sheet<Shape>
 
-  type SheetGetterPar = Theme
-  type SheetGetter<R extends Shape> = (par: SheetGetterPar) => Sheet<R> //Theme//Sheet<R> | ((theme: Mui.Theme) => Sheet<R>)
+  type SheetGetter<R extends Shape> = (par: Theme) => Sheet<R>
   type SheetCreator<R extends Shape> = (sheetGetter: SheetGetter<R>) => (theme: Theme) => PlatformSheet<R>
 
   type PlatformSheetCreator<R extends Shape> = PlatformSheet<R> | ((theme: Mui.Theme) => PlatformSheet<R>)
@@ -126,7 +125,7 @@
   //Component's code (passed to withStyles)
   type CodeProps<R extends Shape> = PropsLow<R> & { classes: PlatformSheet<R>; style?: CSSProperties | getStyle<R>; theme: Mui.Theme; flip: boolean; } & (getPropsWeb<R> | getPropsNative<R>)
   type CodePropsWeb<R extends Shape> = PropsLow<R> & { classes: ClassSheetWeb<R>; style?: CSSProperties; theme: Mui.Theme; flip: boolean; onClick?: (ev: React.SyntheticEvent<HTMLElement>) => void } & getPropsWeb<R>
-  type CodePropsNative<R extends Shape> = PropsLow<R> & { classes: PlatformSheetNative<R>; style?: getStyle<R>; theme: Mui.Theme; flip: boolean; onPress?: () => void } & getPropsNative<R>
+  type CodePropsNative<R extends Shape> = PropsLow<R> & { classes: PlatformSheetNative<R>; style?: getStyle<R>; theme: Mui.Theme; flip: boolean } & getPropsNative<R>
 
   type CodeComponentType<R extends Shape> = React.ComponentType<CodeProps<R>>
 

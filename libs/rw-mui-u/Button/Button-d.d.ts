@@ -1,10 +1,10 @@
 ﻿declare namespace MuiButton {
 
-  type CommonKey = 'dense' | 'flatPrimary' | 'flatAccent' | 'flatContrast' | 'colorInherit' | 'raised' | 'raisedPrimary' | 'raisedAccent' | 'raisedContrast' | 'fab'
-  type NativeKeyText = 'rootLabel' | 'denseLabel' | 'disabledLabel' | 'flatLabelPrimary' | 'flatLabelAccent' | 'flatLabelContrast' | 'raisedLabelAccent' | 'raisedLabelContrast' | 'raisedLabelPrimary'
+  type KeyView = MuiButtonBase.KeyView | 'dense' | /*'flatPrimary' | 'flatAccent' | 'flatContrast' | 'colorInherit' | 'raisedContrast' |*/ 'raised' | 'raisedPrimary' | 'raisedAccent' | 'fab' | 'fabActive' | 'raisedActive' | 'raisedDisable'
+  type KeyText = MuiButtonBase.KeyText | 'rootLabel' | 'denseLabel' | 'disabledLabel' | 'flatLabelPrimary' | 'flatLabelAccent' | 'flatLabelContrast' | 'raisedLabelAccent' | 'raisedLabelContrast' | 'raisedLabelPrimary'
 
   type Shape = Overwrite<Mui.EmptyShape, {
-    native: Record<NativeKeyText | MuiButtonBase.NativeKey, RN.TextStyle> & Record < MuiButtonBase.CommonKey | CommonKey, RN.ViewStyle >
+    native: Record<KeyText, RN.TextStyle> & Record<KeyView, RN.ViewStyle>
     props: {
       color?: Mui.PropTypes.Color | 'contrast' | 'default'
       dense?: boolean

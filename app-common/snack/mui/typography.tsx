@@ -14,7 +14,7 @@ import cyan from 'material-ui/colors/cyan'
 
 //import { View, ScrollView } from 'react-native'
 
-const ScrollView: React.SFC<{ style?:CSSProperties }> = ({ style, children }) => <div style={style}>{children}</div>
+const ScrollView: React.SFC<{ style?: CSSProperties }> = ({ style, children }) => <div style={style}>{children}</div>
 const View = ScrollView
 
 const theme = createMuiTheme({
@@ -32,18 +32,14 @@ const theme = createMuiTheme({
     primary: orange,
     secondary: green
   },
-  //overrides: {
-  //  [Mui.Names.Typography]: {
-  //    native: {
-  //      colorAccent: { color: cyan.A700, fontWeight: '500', fontSize: 18 },
-  //      display2: { color: cyan.A700 },
-  //    },
-  //    web: {
-  //      colorAccent: { color: cyan.A700, fontWeight: '500', fontSize: 18 },
-  //      display2: { color: cyan.A700 },
-  //    }
-  //  }
-  //}
+  overrides: {
+    [Mui.Names.Typography]: {
+      common: {
+        colorAccent: { color: cyan.A700, fontWeight: '500', fontSize: 18 },
+        display2: { color: cyan.A700 },
+      }
+    } as Mui.PartialSheet<Typography.Shape>
+  }
 })
 
 const app = () =>
