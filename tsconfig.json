@@ -28,8 +28,8 @@
 
     "experimentalDecorators": true,
     "noImplicitAny": false,
-    "jsx": "react-native", //TypeError: In this environment the sources for assign MUST be an object. This error is a performance
-    //"jsx": "react",
+    //"jsx": "react-native", //TypeError: In this environment the sources for assign MUST be an object. This error is a performance
+    "jsx": "react",
     "lib": [
       "dom",
       "es2015",

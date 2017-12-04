@@ -71,7 +71,7 @@ import { AppPage } from './app-common/snack/app-router'
 //import AppComp from './app-native/snack/mui/typography'
 //import AppComp from './app-native/snack/mui/shadows'
 //import AppComp from './app-native/snack/mui/ripple'
-import AppComp from './app-common/snack/mui/button'
+import AppComp from './app-common/snack/mui/text-view'
 
 
 console.log('app 1')

@@ -322,6 +322,8 @@
     <Content Include="app-web\snack\login.html" />
     <Content Include="app-web\snack\react-md-pure.html" />
     <None Include="design\mdi-react-lm\scripts\generate.js_" />
+    <Content Include="assets\icons\app-icon.png" />
+    <Content Include="assets\icons\loading-icon.png" />
     <Content Include="design\mdi-react-lm\scripts\generate.js" />
     <Content Include="home.html" />
     <Content Include="json.json" />

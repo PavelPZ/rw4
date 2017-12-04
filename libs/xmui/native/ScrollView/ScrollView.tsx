@@ -6,7 +6,8 @@ import { ScrollView as ScrollViewRN } from 'react-native'
 
 const scrollView: Mui.CodeSFCNative<MuiScrollView.Shape> = props => {
   const { classes, style, ...rest } = props
-  return <ScrollViewRN style={classNames(classes.root, style)} />
+  console.log('scrollView: ', React.Children.count(rest.children))
+  return <ScrollViewRN style={classNames(classes.root, style)} {...rest}/>
 }
 
 const ScrollView = withStyles<MuiScrollView.Shape>(sheet, { name: Mui.Names.ScrollView })(scrollView)

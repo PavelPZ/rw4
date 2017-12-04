@@ -6,7 +6,7 @@ import { View } from 'react-native'
 
 const template: Mui.CodeSFCNative<MuiTemplate.Shape> = props => {
   const { classes, style, ...rest } = props
-  return <View style={classNames(classes.root, style)} />
+  return <View style={classNames(classes.root, style)}  {...rest}/>
 }
 
 const Template = withStyles<MuiTemplate.Shape>(sheet, { name: Mui.Names.Template })(template)

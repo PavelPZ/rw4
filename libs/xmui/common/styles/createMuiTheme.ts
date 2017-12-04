@@ -21,6 +21,7 @@ export const platformOverrides = (source: Mui.OverridesSource) => {
 const getTypographyOptions = (optionsOrCreator: Mui.TypographyOptionsCreator) => {
 
   const getOptions = (options, isNative: boolean) => {
+    if (!options) return {}
     const { fontFamily, fontSize, fontWeightLight, fontWeightRegular, fontWeightMedium, htmlFontSize, fontSizeNormalizerNative, fontAssetPathNative, ...rest } = options
     return {
       ...(isNative ? { htmlFontSize, fontSize, fontSizeNormalizerNative, fontAssetPathNative } : { htmlFontSize, fontSize, fontFamily, fontWeightLight, fontWeightRegular, fontWeightMedium }),
@@ -34,7 +35,7 @@ const getTypographyOptions = (optionsOrCreator: Mui.TypographyOptionsCreator) =>
     return { optionsWeb: getOptions(optionsOrCreator, false) as Mui.web.TypographyOptionsCreator, optionsNative: getOptions(optionsOrCreator, true) as Mui.native.TypographyOptionsCreator }
 }
 
-function createMuiTheme(options: Mui.ThemeOptions = {}) {
+function createMuiTheme(options: Mui.ThemeOptions = {}) { 
   const {
     palette: paletteInput = {},
     breakpoints: breakpointsInput = {},
@@ -73,7 +74,7 @@ function createMuiTheme(options: Mui.ThemeOptions = {}) {
         clone: false, // No need to clone deep
       },
     ),
-  };
+  }
 
   warning(
     muiTheme.shadows.length === 25 && muiTheme.shadowsNative.length === 25,

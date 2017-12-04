@@ -10,12 +10,16 @@ import orange from 'material-ui/colors/orange'
 import green from 'material-ui/colors/green'
 import cyan from 'material-ui/colors/cyan'
 
+import View from 'xmui/current/View/View'
+import ScrollView from 'xmui/current/ScrollView/ScrollView'
+
+
 //import { toPlatformTypographyOptions } from 'xmui/styles/createTypography'
 
 //import { View, ScrollView } from 'react-native'
 
-const ScrollView: React.SFC<{ style?: CSSProperties }> = ({ style, children }) => <div style={style}>{children}</div>
-const View = ScrollView
+//const ScrollView: React.SFC<{ style?: CSSProperties }> = ({ style, children }) => <div style={style}>{children}</div>
+//const View = ScrollView
 
 const theme = createMuiTheme({
   typography: palette => ({
@@ -43,7 +47,7 @@ const theme = createMuiTheme({
 })
 
 const app = () =>
-  <ScrollView style={{ overflow: 'auto', height: '100%' }}>
+  <ScrollView>
     <Typography type='headline' style={{ textDecorationLine: 'underline' }}>noWrap</Typography>
     <Typography noWrap style={{ width: 200 }}>noWrap noWrap noWrap noWrap noWrap noWrap noWrap noWrap noWrap noWrap noWrap noWrap noWrap noWrap </Typography>
     {/**/}

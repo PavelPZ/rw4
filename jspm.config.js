@@ -17,7 +17,7 @@ SystemJS.config({
     "rw-router": "libs/rw-router",
     "rw-utils": "libs/rw-utils",
     "rw-controls": "libs/rw-controls",
-    "xmui": "libs/xmui/web",
+    "xmui/current": "libs/xmui/web",
     "xmui/common": "libs/xmui/common",
     "xmui/web": "libs/xmui/web",
   }
