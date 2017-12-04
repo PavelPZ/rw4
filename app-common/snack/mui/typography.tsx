@@ -3,18 +3,18 @@
 //jspm build ./app-native/snack/mui/index.js ./app-native/snack/mui/bundle.js
 import React from 'react'
 //import { View, Text, ScrollView } from 'react-native'
-import createMuiTheme from 'xmui/common/styles/createMuiTheme'
-import Typography from 'xmui/current/Typography/Typography'
-import MuiThemeProvider from 'xmui/current/styles/MuiThemeProvider'
+import createMuiTheme from 'reactx-mui/common/styles/createMuiTheme'
+import Typography from 'reactx-mui/current/Typography/Typography'
+import MuiThemeProvider from 'reactx-mui/current/styles/MuiThemeProvider'
 import orange from 'material-ui/colors/orange'
 import green from 'material-ui/colors/green'
 import cyan from 'material-ui/colors/cyan'
 
-import View from 'xmui/current/View/View'
-import ScrollView from 'xmui/current/ScrollView/ScrollView'
+import View from 'reactx-mui/current/View/View'
+import ScrollView from 'reactx-mui/current/ScrollView/ScrollView'
 
 
-//import { toPlatformTypographyOptions } from 'xmui/styles/createTypography'
+//import { toPlatformTypographyOptions } from 'reactx-mui/styles/createTypography'
 
 //import { View, ScrollView } from 'react-native'
 

@@ -5,7 +5,7 @@ import { Text, View, Button } from '../../app-common/gui/gui'
 import { colorToStyle } from '../../app-common/gui/gui'
 import { getColors } from '../../app-common/gui/colors'
 import { getIcon2 } from '../../app-common/gui/ionic'
-import { ruleToClassNames as renderCSS } from 'xmui/web/styles/fela'
+import { ruleToClassNames as renderCSS } from 'reactx-mui/web/styles/fela'
 import { providerConnector } from '../../app-common/gui/drawer'
 
 

@@ -3,7 +3,7 @@ import { Button as MDButton, ButtonProps } from 'react-md'
 import { getColors2 } from '../../app-common/gui/colors'
 //import { colorToStyle } from '../../app-common/gui/gui'
 import { getIcon2 } from '../../app-common/gui/ionic'
-import { ruleToClassNames } from 'xmui/web/styles/fela'
+import { ruleToClassNames } from 'reactx-mui/web/styles/fela'
 import { navigateUrl, navigatePush } from 'rw-router/index'
 
 export const Button: React.SFC<GUI.IButtonProps> = props => {

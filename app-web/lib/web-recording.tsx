@@ -1,6 +1,6 @@
 ﻿import React from 'react'
 import { providerConnector, blockGuiConnector } from '../../app-common/lib/recording'
-import { ruleToClassNames as renderCSS } from 'xmui/web/styles/fela'
+import { ruleToClassNames as renderCSS } from 'reactx-mui/web/styles/fela'
 import { Button, List, ListItemControl, Checkbox, Portal } from '../gui/react-md';
 import { Icon } from '../../app-common/gui/gui'
 

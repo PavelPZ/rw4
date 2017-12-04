@@ -17,9 +17,9 @@ SystemJS.config({
     "rw-router": "libs/rw-router",
     "rw-utils": "libs/rw-utils",
     "rw-controls": "libs/rw-controls",
-    "xmui/current": "libs/xmui/web",
-    "xmui/common": "libs/xmui/common",
-    "xmui/web": "libs/xmui/web",
+    "reactx-mui/current": "libs/reactx-mui/web",
+    "reactx-mui/common": "libs/reactx-mui/common",
+    "reactx-mui/web": "libs/reactx-mui/web",
   }
 });
 

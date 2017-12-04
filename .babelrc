@@ -11,7 +11,7 @@
       {
         "root": [ "./libs" ],
         "alias": {
-          "xmui/current": "xmui/native"
+          "reactx-mui/current": "reactx-mui/native"
         }
       }
     ]

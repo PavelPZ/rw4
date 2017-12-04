@@ -1,12 +1,12 @@
 import React from 'react'
-import Icon, { iconColor, iconSize } from 'xmui/current/Icon/Icon'
-import MuiThemeProvider from 'xmui/current/styles/MuiThemeProvider'
-import createMuiTheme from 'xmui/common/styles/createMuiTheme'
+import Icon, { iconColor, iconSize } from 'reactx-mui/current/Icon/Icon'
+import MuiThemeProvider from 'reactx-mui/current/styles/MuiThemeProvider'
+import createMuiTheme from 'reactx-mui/common/styles/createMuiTheme'
 import color from 'material-ui/colors/orange'
 
 import { View, Text } from 'react-native'
 
-import { Styler } from 'xmui/current/styles/withStyles'
+import { Styler } from 'reactx-mui/current/styles/withStyles'
 
 //import Cancel from 'material-ui/svg-icons/Cancel'
 

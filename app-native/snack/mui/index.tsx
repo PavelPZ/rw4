@@ -3,8 +3,8 @@
 //jspm build ./app-native/snack/mui/index.js ./app-native/snack/mui/bundle.js
 import React from 'react'
 import { View, Text, ScrollView } from 'react-native'
-import createMuiTheme from 'xmui/common/styles/createMuiTheme'
-import MuiThemeProvider from 'xmui/current/styles/MuiThemeProvider'
+import createMuiTheme from 'reactx-mui/common/styles/createMuiTheme'
+import MuiThemeProvider from 'reactx-mui/current/styles/MuiThemeProvider'
 
 const app = () => <MuiThemeProvider theme={createMuiTheme({})}><ScrollView><Text>{JSON.stringify(createMuiTheme({}), null, 2)}</Text></ScrollView></MuiThemeProvider>
 

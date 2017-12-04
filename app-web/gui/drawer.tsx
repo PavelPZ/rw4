@@ -1,5 +1,5 @@
 ﻿import React from 'react';
-import { rulesToClassNames} from 'xmui/web/styles/fela'
+import { rulesToClassNames} from 'reactx-mui/web/styles/fela'
 
 import { Divider, BottomNavigation, Toolbar } from 'react-md'
 import { View, Button } from '../../app-common/gui/gui'

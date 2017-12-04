@@ -4,17 +4,17 @@
 //jspm build ./app-native/snack/mui/index.js ./app-native/snack/mui/bundle.js
 import React from 'react'
 //import { View, Text, ScrollView } from 'react-native'
-import createMuiTheme from 'xmui/common/styles/createMuiTheme'
+import createMuiTheme from 'reactx-mui/common/styles/createMuiTheme'
 import orange from 'material-ui/colors/orange'
 import green from 'material-ui/colors/green'
 import cyan from 'material-ui/colors/cyan'
 
-//import { toPlatformTypographyOptions } from 'xmui/styles/createTypography'
+//import { toPlatformTypographyOptions } from 'reactx-mui/styles/createTypography'
 
-import MuiThemeProvider from 'xmui/current/styles/MuiThemeProvider'
-import Text from 'xmui/current/Typography/Typography'
-import View from 'xmui/current/View/View'
-import ScrollView from 'xmui/current/ScrollView/ScrollView'
+import MuiThemeProvider from 'reactx-mui/current/styles/MuiThemeProvider'
+import Text from 'reactx-mui/current/Typography/Typography'
+import View from 'reactx-mui/current/View/View'
+import ScrollView from 'reactx-mui/current/ScrollView/ScrollView'
 
 const H2: React.SFC = (() => '\n') as any as React.SFC
 const P: React.SFC = props => {

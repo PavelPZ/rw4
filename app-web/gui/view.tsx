@@ -1,5 +1,5 @@
 ﻿import React from 'react';
-import { ruleToClassNames as renderCSS, rulesToClassNames as renderCSSs  } from 'xmui/web/styles/fela'
+import { ruleToClassNames as renderCSS, rulesToClassNames as renderCSSs  } from 'reactx-mui/web/styles/fela'
 //import Animated from 'animated'
 //import { TweensAnimate } from '../gui/lib'
 

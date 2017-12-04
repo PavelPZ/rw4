@@ -5,7 +5,7 @@ import { Toolbar, Button } from '../gui/react-md'
 import { PromiseExtensible, promiseAll } from '../../app-common/lib/lib'
 import { TweensAnimate } from 'rw-utils/promise/animate-w'
 
-import { ruleToClassNames as renderCSS } from 'xmui/web/styles/fela'
+import { ruleToClassNames as renderCSS } from 'reactx-mui/web/styles/fela'
 
 const drawerWidth = 250
 const fixedStyle: CSSProperties = { position: 'fixed', top: 0, left: 0, right: 0, bottom: 0 }

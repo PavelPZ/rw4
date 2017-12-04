@@ -3,9 +3,9 @@
 //jspm build ./app-native/snack/mui/index.js ./app-native/snack/mui/bundle.js
 import React from 'react'
 import { View, Text, ScrollView, ViewStyle } from 'react-native'
-import createMuiTheme from 'xmui/common/styles/createMuiTheme'
-import Typography from 'xmui/current/Typography/Typography'
-import MuiThemeProvider from 'xmui/current/styles/MuiThemeProvider'
+import createMuiTheme from 'reactx-mui/common/styles/createMuiTheme'
+import Typography from 'reactx-mui/current/Typography/Typography'
+import MuiThemeProvider from 'reactx-mui/current/styles/MuiThemeProvider'
 
 
 const theme = createMuiTheme({})
